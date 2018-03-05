@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<?php
+<!--<?php
 //database_connection.php
-$connect = new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
-session_start();
-?>
+$connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
+//session_start();
+?>-->
 
 <!DOCTYPE html>
 <html>
@@ -61,7 +61,7 @@ session_start();
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="../../index2.html" class="logo">
+    <a href="<?php echo 'dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -225,7 +225,7 @@ session_start();
               <li class="user-footer">
          
                 <div class="pull-right">
-                  <a href="../../../logout.php" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -264,14 +264,14 @@ session_start();
         <li class="header">Inventory System</li>
     <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
-          <a href="../../dashboard.php">
+          <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
          
         <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li class="active">
-          <a href="useraccounts.php">
+          <a href="<?php echo 'userAccounts' ?>">
             <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
         </li>
@@ -284,30 +284,30 @@ session_start();
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="../tables/data.html"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-            <li><a href="../tables/data2.html"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+            <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+            <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!--------------------------------------------------- PURCHASES -------------------------------------------------->
           <li>
-              <a href="../tables/purchases.php">
+              <a href="<?php echo 'purchases' ?>">
                   <i class="fa fa-tags"></i><span>Purchases</span>  
               </a>
           </li>
         <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
-            <li><a href="../tables/data6.html">
+            <li><a href="<?php echo 'issuedSupplies' ?>">
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
         <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
-          <a href="../tables/data3.html">
+          <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
             </a>
         </li>
         <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
-          <a href="../tables/data4.html">
+          <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
@@ -323,13 +323,13 @@ session_start();
         </li>
         <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
-          <a href="../examples/invoice.php">
+          <a href="<?php echo 'logs' ?>">
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
           <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="../examples/lockscreen.html">
+          <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>

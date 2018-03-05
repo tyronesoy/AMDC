@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="../../dashboard.php" class="logo">
+    <a href="<?php echo 'dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -233,7 +233,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="user-footer">
             
                 <div class="pull-right">
-                  <a href="../../../logout.php" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -272,13 +272,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory System</li>
 	<!-- DASHBOARD MENU -->
          <li>
-          <a href="../../dashboard.php">
+          <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
 		<!-- MANAGE ACCOUNTS MENU -->
         <li>
-          <a href="../forms/manageAccounts.php">
+          <a href="<?php echo 'userAccounts' ?>">
             <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
         </li>
@@ -291,30 +291,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-			<li class ="active"><a href="medicalSupplies.php"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="officeSupplies.php"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+			<li class ="active"><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!-- PURCHASES -->
           <li>
-              <a href="purchases.php">
+              <a href="<?php echo 'purchases' ?>">
                   <i class="fa fa-tags"></i><span>Purchases</span>  
               </a>
           </li>
         <!-- ISSUED SUPPLIES -->
-            <li><a href="issuedSupplies.php">
+            <li><a href="<?php echo 'issuedSupplies' ?>">
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
 		<!-- SUPPLIERS MENU -->
         <li>
-          <a href="suppliers.php">
+          <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
 		<!-- DEPARTMENTS MENU -->
         <li>
-          <a href="departments.php">
+          <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
@@ -330,13 +330,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 <!-- INVOICE MENU -->
         <li>
-          <a href="../examples/invoice.html">
+          <a href="<?php echo 'logs' ?>">
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
 <!-- LOCKSCREEN MENU -->
         <li>
-          <a href="../examples/lockscreen.html">
+          <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
