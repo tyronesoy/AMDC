@@ -2,23 +2,23 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Db_model extends CI_Model {
-	public function getLoginData($usr, $pwd){
-		$user = mysql_real_escape_string($usr);
-		$pass = md5(mysql_real_escape_string($pwd));
-		$check_login = $this->db->get_where('users', array('username' => $user, 'password' => $pass));
-		if($check_login->num_rows() > 0){
-			$query_data = $check_login->row();
-			if($user == $query_data->username && $pass == $query_data->password){
-				
+	public function logindata($username,$password){
+		$this->db->where('username', $username);
+		$this->db->where('password', $password);
 
-				if($query_data->status == 'BusinessManager'){
-					header('Location: BusinessManager/dashboard');
-				}else if($query_data->status == 'Assistant'){
-					header('Location: Assistant/dashboard');
-				}else if($query_data->status == 'Supervisor'){
-					header('Location: Supervisor/dashboard');
-				}
+		$query = $this->db->get('users');
+		if ($query->num_rows() >0){
+			foreach ($query->result() as $row){
+				$sess = array(
+					'username' => $row->username,
+					'password' => $row->password
+					);
 			}
+		$this->session->get_userdata($sess);
+		redirect('/BusinessManager/dashboard');
+		} else {
+			$this->session->set_flashdata('info', 'The username or password is incorrect!');
+			redirect('login');
 		}
 	}
 }
