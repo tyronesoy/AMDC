@@ -1,7 +1,6 @@
 <?php
 $con=mysqli_connect('localhost','root','','itproject')
     or die("connection failed".mysqli_errno());
-
 $request=$_REQUEST;
 $col = array(
     0   =>  'department_id',

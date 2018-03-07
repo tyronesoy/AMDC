@@ -27,14 +27,17 @@ class Login extends CI_Controller {
 		if(empty($checklogin)){
 			$this->load->view('login_view');
 		}else{
+			$ty = $this->session->userdata('type');
 			$st = $this->session->userdata('stts');
 
-			if($st == 'BusinessManager'){
+			if($ty == 'BusinessManager' && $st == 'Active'){
 			redirect('/BusinessManager/dashboard');
-			}else if($st == 'Assistant'){
+			}else if($ty == 'Assistant' && $st == 'Active'){
 			redirect('/Assistant/dashboard');
-			}else if($st == 'Supervisor'){
+			}else if($ty == 'Supervisor' && $st == 'Active'){
 			redirect('/Supervisor/dashboard');
+			}else{
+				$this->load->view('login_view');
 			}
 		}
 		 

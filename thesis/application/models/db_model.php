@@ -14,16 +14,20 @@ class Db_model extends CI_Model {
 					$sess = array(
 					'username' => $row->username,
 					'password' => $row->password,
-					'stts'	   => $row->user_type
+					'type'	   => $row->user_type,
+					'stts'	   => $row->user_status
 					);
 
 					$this->session->set_userdata($sess);
-						if($row->user_type == 'BusinessManager'){
+						if($row->user_type == 'BusinessManager' && $row->user_status == 'Active'){
 							redirect('/BusinessManager/dashboard');
-						}else if($row->user_type == 'Assistant'){
+						}else if($row->user_type == 'Assistant' && $row->user_status == 'Active'){
 							redirect('/Assistant/dashboard');
-						}else if($row->user_type == 'Supervisor'){
+						}else if($row->user_type == 'Supervisor' && $row->user_status == 'Active'){
 							redirect('/Supervisor/dashboard');
+						}else{
+							$this->session->set_flashdata('info', 'The account is inactive!');
+							redirect('login');
 						}
 				}
 					

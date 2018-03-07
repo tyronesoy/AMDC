@@ -590,7 +590,8 @@ input:checked + .slider:before {
 </html>
 
 <?php
-$con=mysqli_connect('localhost','root','','itproject');
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_depName=mysqli_real_escape_string($con,$_POST['txtdepartmentname']);
