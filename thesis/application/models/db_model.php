@@ -26,7 +26,7 @@ class Db_model extends CI_Model {
 						}else if($row->user_type == 'Supervisor' && $row->user_status == 'Active'){
 							redirect('/Supervisor/dashboard');
 						}else{
-							$this->session->set_flashdata('info', 'The account is inactive!');
+							$this->session->set_flashdata('info', 'This account is inactive!');
 							redirect('login');
 						}
 				}
