@@ -18,9 +18,26 @@ class Login extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function _construct(){
+		session_start();
+	}
 
 	public function index(){
-		$this->load->view('login_view');
+		$checklogin = $this->session->userdata('username');
+		if(empty($checklogin)){
+			$this->load->view('login_view');
+		}else{
+			$st = $this->session->userdata('stts');
+
+			if($st == 'BusinessManager'){
+			redirect('/BusinessManager/dashboard');
+			}else if($st == 'Assistant'){
+			redirect('/Assistant/dashboard');
+			}else if($st == 'Supervisor'){
+			redirect('/Supervisor/dashboard');
+			}
+		}
+		 
 	}
 
 	public function checklogin(){

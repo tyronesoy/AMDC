@@ -9,13 +9,29 @@ class Db_model extends CI_Model {
 		$query = $this->db->get('users');
 		if ($query->num_rows() >0){
 			foreach ($query->result() as $row){
-				$sess = array(
+				if($username == $row->username && $password == $row->password){
+
+					$sess = array(
 					'username' => $row->username,
-					'password' => $row->password
+					'password' => $row->password,
+					'stts'	   => $row->user_type
 					);
+
+					$this->session->set_userdata($sess);
+						if($row->user_type == 'BusinessManager'){
+							redirect('/BusinessManager/dashboard');
+						}else if($row->user_type == 'Assistant'){
+							redirect('/Assistant/dashboard');
+						}else if($row->user_type == 'Supervisor'){
+							redirect('/Supervisor/dashboard');
+						}
+				}
+					
+
+
 			}
-		$this->session->get_userdata($sess);
-		redirect('/BusinessManager/dashboard');
+				
+		
 		} else {
 			$this->session->set_flashdata('info', 'The username or password is incorrect!');
 			redirect('login');
