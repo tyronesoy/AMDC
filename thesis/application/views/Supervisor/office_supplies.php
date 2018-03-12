@@ -216,69 +216,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- /.box-header -->
               <div class="box-body">
 
-             <table id="example1" class="table table-bordered table-striped">
-          <?php
-            require_once("../../../db.php");
-            $sql = "SELECT supplydesc, unitInStock, unit, unitPrice, reorderLevel FROM supplies WHERE supplyType='Medical' ";
-            $result = $conn->query($sql);    
-          ?>
+		 <table id="example1" class="table table-bordered table-striped">
+		 <?php // RETRIEVE or Display Office Supplies
+		 include("../../../db.php");
+		  $sql = "SELECT supply_id, supply_description, quantity_in_stock, expiration_date, unit, CONCAT(reorder_level,' ', unit) AS 'Reorder Level', unit_price, good_condition, damaged FROM supplies WHERE supply_type='Office' ORDER BY supply_description ASC";
+		  $result = $conn->query($sql);  ?>
           <thead>
             <tr>
-             <!--     <th>Date Received</th>
-                  <th>Time Received</th>
-                  <th>Expiration Date</th> -->
-                  <th>Description</th>
-             <!--     <th>Supplier</th> -->
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th>
-             <!--    <th>Total Amount</th> -->
-                  <th>Reorder Level</th>
-                  <th></th>
+				<th>Description</th>
+			  	<th>Expiration Date</th> 
+				<th>Quantity in Stock</th>
+				<th>Unit</th>
+				<th>Unit Price</th>
+				<th>Reorder Level</th>
+				<th>Good Condition</th>
+				<th>Damaged</th>
             </tr>
         </thead>
         <tbody>
-        <?php if ($result->num_rows > 0) {
+        <?php
           while($row = $result->fetch_assoc()) { ?>
             <tr>
-            <td><?php echo $row["supplydesc"]; ?></td>
-            <td><?php echo $row["unitInStock"]; ?></td>
-            <td><?php echo $row["unit"]; ?></td>
-            <td><?php echo $row["unitPrice"]; ?></td>
-            <td><?php echo $row["reorderLevel"]; ?></td>
-            <td>
-<!--
-				<form action="php/medicalDelete.php" method="get">
-                <button type="submit" class="btn btn-xs btn-danger">
-                <i class="fa fa-fw fa-trash"></i></button>
-            </form>
--->
-				</td>
-           <!--  <td><?php // echo $row[""]; ?></td>
-            <td><?php // echo $row[""]; ?></td>
-            <td><?php // echo $row[""]; ?></td>
-            <td><?php // echo $row[""]; ?></td>
-            <td><center><input type="checkbox"></center></td> -->
+				<td>                      <?php echo $row["supply_description"]; ?></td>
+				<td>                      <?php echo $row["expiration_date"]; ?>   </td>
+				<td align="right">        <?php echo $row["quantity_in_stock"]; ?> </td>
+				<td>                      <?php echo $row["unit"]; ?>              </td>
+				<td align="right">&#8369; <?php echo $row["unit_price"]; ?>        </td>
+				<td align="center">       <?php echo $row["Reorder Level"]; ?>     </td>
+				<td>                      <?php echo $row["good_condition"]; ?>    </td>
+				<td>                      <?php echo $row["damaged"]; ?>           </td>          
             </tr>
           <?php 
               }
-            }
           ?>
         </tbody>
         <tfoot>
            <tr>
-            <!--     <th>Date Received</th>
-            <th>Time Received</th>
-            <th>Expiration Date</th> -->
-            <th>Description</th>
-       <!--     <th>Supplier</th> -->
-            <th>Quantity in Stock</th>
-            <th>Unit</th>
-            <th>Unit Price</th>
-       <!--    <th>Total Amount</th> -->
-            <th>Reorder Level</th>
-            <th></th>
-        </tr> 
+				<th>Description</th>
+			  	<th>Expiration Date</th> 
+				<th>Quantity in Stock</th>
+				<th>Unit</th>
+				<th>Unit Price</th>
+				<th>Reorder Level</th>
+				<th>Good Condition</th>
+				<th>Damaged</th>
+            </tr>
         </tfoot>
       </table>              
             </div>
