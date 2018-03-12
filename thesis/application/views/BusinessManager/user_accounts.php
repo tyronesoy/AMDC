@@ -27,7 +27,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-    <script src="js/jquery-1.12.4.js"></script>
+    <script src="../assets/jquery/jquery-1.12.4.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
     <!-- datatable lib -->
@@ -385,11 +385,11 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">First Name</label>
-                                                  <input type="text" class="form-control" name="fname" id="fname" required />
+                                                  <input type="name" class="form-control" name="fname" id="fname" required />
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Last Name</label>
-                                                  <input type="text" class="form-control" name="lname" id="lname" required />
+                                                  <input type="name" class="form-control" name="lname" id="lname" required />
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Contact Number</label>
@@ -398,6 +398,18 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Password</label>
                                                   <input type="password" class="form-control" name="password" id="password" required />
+                                                  <input type="checkbox" onclick="myFunction()">Show Password
+
+                                                <script>
+                                                function myFunction() {
+                                                    var x = document.getElementById("password");
+                                                    if (x.type === "password") {
+                                                        x.type = "text";
+                                                    } else {
+                                                        x.type = "password";
+                                                    }
+                                                }
+                                                </script>
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Email</label>
@@ -593,11 +605,11 @@ if(isset($_POST['btnEdit'])){
     $new_fname=mysqli_real_escape_string($con,$_POST['txtfname']);
     $new_usercontact=mysqli_real_escape_string($con,$_POST['txtuser_contact']);
     $new_email=mysqli_real_escape_string($con,$_POST['txtemail']);
-      $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
+    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
 
 
     $sqlupdate="UPDATE users SET username='$new_username',
-                password='$new_password', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', user_status='$new_status' WHERE user_id='$new_id' ";
+                 password=MD5('$new_password'), lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', user_status='$new_status' WHERE user_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){

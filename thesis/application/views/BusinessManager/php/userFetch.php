@@ -1,4 +1,5 @@
 <?php
+
 $con=mysqli_connect('localhost','root','','itproject')
     or die("connection failed".mysqli_errno());
 
@@ -15,12 +16,14 @@ $col = array(
     8   =>  'user_status',
 );  //create column like table in database
 
+
 $sql ="SELECT * FROM users";
 $query=mysqli_query($con,$sql);
 
 $totalData=mysqli_num_rows($query);
 
 $totalFilter=$totalData;
+
 
 //Search
 $sql ="SELECT * FROM users WHERE 1=1";
@@ -34,8 +37,10 @@ if(!empty($request['search']['value'])){
     $sql.=" OR user_email Like '".$request['search']['value']."%' ";
     $sql.=" OR user_status Like '".$request['search']['value']."%' ";
 }
+
 $query=mysqli_query($con,$sql);
 $totalData=mysqli_num_rows($query);
+
 
 //Order
 $sql.=" ORDER BY ".$col[$request['order'][0]['column']]."   ".$request['order'][0]['dir']."  LIMIT ".
@@ -52,14 +57,13 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[4]; 
     $subdata[]=$row[6];  
     $subdata[]=$row[7];
-    $subdata[]=$row[8];  
-
-
-           //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
+    $subdata[]=$row[8]; 
+    //create event on click in button edit in cell datatable for display modal dialog $row[0] is id in table on database
     $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
              <a href="userAccounts?delete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Remove</a>';
     $data[]=$subdata;
 }
+
 
 $json_data=array(
     "draw"              =>  intval($request['draw']),
@@ -67,6 +71,7 @@ $json_data=array(
     "recordsFiltered"   =>  intval($totalFilter),
     "data"              =>  $data
 );
+
 
 echo json_encode($json_data);
 
