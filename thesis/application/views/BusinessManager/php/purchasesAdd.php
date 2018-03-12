@@ -2,21 +2,18 @@
 $connection =mysqli_connect("localhost","root","");
 mysqli_select_db($connection, "itproject");
 
-  if (isset($_POST['addPurch'])) {
-  $sql = $connection->prepare("INSERT INTO purchaseorder (orderDate, orderTime,   description, quantity, unit, deliveryDate,  unitPrice, totalAmount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");  
+  if (isset($_POST['addPurchases'])) {
+  $sql = $connection->prepare("INSERT INTO purchase_orders (order_date, order_quantity, order_unit, po_unitprice, total, grand_total, po_remarks) VALUES (?, ?, ?, ?, ?, ?, ?)");  
  
-  $orDate = $_POST['orDate'];
-  $orTime = $_POST['orTime'];
-  $desc = $_POST['desc'];
-  $quan = $_POST['quan'];
-  $unt = $_POST['unt'];
-  $deDate = $_POST['deDate'];
-  $unPrice = $_POST['unPrice'];
-  $toAmount = $_POST['toAmount'];
- // $supp = $_POST['supp'];
- // $suppType = $_POST['suppType'];
+  $orDate      = $_POST['orDate'];
+  $quan        = $_POST['quan'];
+  $unt         = $_POST['unt'];
+  $unPrice     = $_POST['unPrice'];
+  $toAmount    = $_POST['toAmount'];
+  $granTotal   = $_POST['granTotal'];
+  $rem         = $_POST['rem'];
 
-  $sql->bind_param("ssssssss", $orDate, $orTime, $desc, $quan, $unt,  $deDate,  $unPrice, $toAmount); 
+  $sql->bind_param("sssssss", $orDate, $quan, $unt, $unPrice, $toAmount, $granTotal, $rem); 
   
   if($sql->execute()) {
   $success_message = "Added Successfully";
@@ -26,5 +23,5 @@ mysqli_select_db($connection, "itproject");
   $sql->close();   
   $connection->close();
   } 
-  header("Location: ../purchases.php");
+  header("Location: ../purchases");
 ?>

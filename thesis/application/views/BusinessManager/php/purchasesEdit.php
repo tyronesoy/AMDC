@@ -6,18 +6,17 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql=" SELECT * FROM purchaseorder WHERE purchaseOrder_id='$id'";
+    $sql=" SELECT * FROM purchase_orders WHERE po_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
 		$per_id=$row[0];
         $per_purchasesOrderDate=$row[1];
-        $per_purchasesOrderTime=$row[2];
-		$per_purchasesDescription=$row[3];
-        $per_purchasesQuantity=$row[4];
-        $per_purchasesUnit=$row[5];
-        $per_purchasesDeliveryDate=$row[6];
-        $per_purchasesUnitPrice=$row[7];
-		$per_purchasesTotalAmount=$row[8];
+        $per_purchasesQuantity=$row[2];
+        $per_purchasesUnit=$row[3];
+        $per_purchasesUnitPrice=$row[4];
+		$per_purchasesTotalAmount=$row[5];
+		$per_purchasesGrandTotal=$row[6];
+		$per_purchasesRemarks=$row[7];
 
     }//end while
 ?>
@@ -30,30 +29,22 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
+                        <div class="form-group">
+                            <label hidden="true" class="col-sm-4 control-label" for="txtid">Po id</label>
+                            <div class="col-sm-6">
+                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                            </div>
+                        </div>
 						<div class="form-group">
                             <label class="col-sm-4 control-label" for="txtorderdate">Order Date</label>
                             <div class="col-sm-6">
                                 <input type="date" class="form-control" id="txtorderdate" name="txtorderdate" value="<?php echo $per_purchasesOrderDate;?>">
                             </div>
-						</div>
-						<div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtordertime">Order Time</label>
-                            <div class="col-sm-6">
-                                <input type="time" class="form-control" id="txtordertime" name="txtordertime" value="<?php echo $per_purchasesOrderTime;?>">
-                            </div>
                         </div>
-
-						<div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtdescription">Description</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtdescription" name="txtdescription" value="<?php echo $per_purchasesDescription;?>">
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtquantity">Quantity</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $per_purchasesQuantity;?>">
+                                <input type="number" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $per_purchasesQuantity;?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -63,21 +54,27 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtdeliverydate">Delivery Date</label>
-                            <div class="col-sm-6">
-                                <input type="date" class="form-control" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_purchasesDeliveryDate;?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtunitprice">Unit Price</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtunitprice" name="txtunitprice" value="<?php echo $per_purchasesUnitPrice;?>">
+                                <input type="number" class="form-control" id="txtunitprice" name="txtunitprice" value="<?php echo $per_purchasesUnitPrice;?>">
                             </div>
                         </div>
 						<div class="form-group">
                             <label class="col-sm-4 control-label" for="txttotalamount">Total Amount</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txttotalamount" name="txttotalamount" value="<?php echo $per_purchasesTotalAmount;?>">
+                                <input type="number" class="form-control" id="txttotalamount" name="txttotalamount" value="<?php echo $per_purchasesTotalAmount;?>">
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label class="col-sm-4 control-label" for="txtgrandtotal">Grand Total</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" id="txtgrandtotal" name="txtgrandtotal" value="<?php echo $per_purchasesGrandTotal;?>">
+                            </div>
+                        </div>
+							<div class="form-group">
+                            <label class="col-sm-4 control-label" for="txtremarks">Remarks</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="tstremarks" name="txtremarks" value="<?php echo $per_purchasesRemarks;?>">
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,48 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Purchases extends CI_Controller {
+
+	/**
+	 * Index Page for this controller.
+	 *
+	 * Maps to the following URL
+	 * 		http://example.com/index.php/welcome
+	 *	- or -
+	 * 		http://example.com/index.php/welcome/index
+	 *	- or -
+	 * Since this controller is set as the default controller in
+	 * config/routes.php, it's displayed at http://example.com/
+	 *
+	 * So any other public methods not prefixed with an underscore will
+	 * map to /index.php/welcome/<method_name>
+	 * @see https://codeigniter.com/user_guide/general/urls.html
+	 */
+	public function index(){
+		$this->load->model('db_model');
+		$data['purchases']=$this->db_model->getPurchases();
+		$this->load->view('BusinessManager/purchases', $data);
+		//$check = $this->session->userdata('stts');
+		//if($check == 'BusinessManager'){
+		//	$this->load->view('BusinessManager/suppliers');
+		//}
+		//else if($check == 'Assistant'){
+		//	$this->load->view('Assistant/suppliers');
+		//}else if($check == 'Supervisor'){
+		//	$this->load->view('Supervisor/suppliets');
+		//}else{
+		//	header('Location: ../login');
+		//}
+	}
+	public function getPurchases(){
+		$this->load->view('BusinessManager/php/purchasesFetch');
+	}
+	public function addPurchases(){
+		$this->load->view('BusinessManager/php/purchasesAdd');
+	}
+	
+	public function editPurchases(){
+		$this->load->view('BusinessManager/php/purchasesEdit');
+	}
+
+}

@@ -4,17 +4,18 @@ $con=mysqli_connect('localhost','root','','itproject')
 
 $request=$_REQUEST;
 $col = array(
-    0   =>  'orderDate',
-    2   =>  'orderTime',
-	3   =>  'description',
-    4   =>  'quantity',
-    5   =>  'unit',
-    6   =>  'deliveryDate',
-    7   =>  'unitPrice',
-	8   =>  'totalAmount'
+	0   =>  'po_id',
+    1   =>  'order_date',
+    2   =>  'order_quantity',
+    3   =>  'order_unit',
+    4   =>  'po_unitprice',
+	5   =>  'total',
+	6   =>  'grand_total',
+	7   =>  'po_remarks',
+	
 );  //create column like table in database
 
-$sql ="SELECT * FROM purchaseorder";
+$sql ="SELECT * FROM purchase_orders";
 $query=mysqli_query($con,$sql);
 
 $totalData=mysqli_num_rows($query);
@@ -22,18 +23,16 @@ $totalData=mysqli_num_rows($query);
 $totalFilter=$totalData;
 
 //Search
-$sql ="SELECT * FROM purchaseorder WHERE 1=1";
-		
+$sql ="SELECT * FROM purchase_orders WHERE 1=1";	
 if(!empty($request['search']['value'])){
-	$sql.=" OR (purchaseOrder_id Like '".$request['search']['value']."%' ";
-	$sql.=" OR orderDate Like '".$request['search']['value']."%' ";
-    $sql.=" OR orderTime Like '".$request['search']['value']."%' ";
-    $sql.=" OR description Like '".$request['search']['value']."%' ";
-    $sql.=" OR quantity Like '".$request['search']['value']."%' ";
-    $sql.=" OR unit Like '".$request['search']['value']."%' ";
-    $sql.=" OR deliveryDate Like '".$request['search']['value']."%' ";
-    $sql.=" OR unitPrice Like '".$request['search']['value']."%' ";
-	$sql.=" OR totalAmount Like '".$request['search']['value']."%' ";
+	$sql.=" OR po_id Like '".$request['search']['value']."%' ";
+	$sql.=" OR order_date Like '".$request['search']['value']."%' ";
+    $sql.=" OR order_quantity Like '".$request['search']['value']."%' ";
+    $sql.=" OR order_unit Like '".$request['search']['value']."%' ";
+    $sql.=" OR po_unitprice Like '".$request['search']['value']."%' ";
+	$sql.=" OR total Like '".$request['search']['value']."%' ";
+	$sql.=" OR grand_total Like '".$request['search']['value']."%' ";
+	$sql.=" OR remarks Like '".$request['search']['value']."%' ";
 }
 $query=mysqli_query($con,$sql);
 $totalData=mysqli_num_rows($query);
@@ -48,18 +47,17 @@ $data=array();
 
 while($row=mysqli_fetch_array($query)){
     $subdata=array();
-	$subdata[]=$row[0]; 
+	$subdata[]=$row[1]; 
     $subdata[]=$row[2]; 	 	
     $subdata[]=$row[3];
 	$subdata[]=$row[4];	
 	$subdata[]=$row[5];
-	$subdata[]=$row[6];
+	$subdata[]=$row[6];	
 	$subdata[]=$row[7];
-	$subdata[]=$row[8];
-    
+	
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
     $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
-             <a href="purchases.php?delete='.$row[0].'" onclick="return confirm(\'Are You Sure to delete the items?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Delete</a>';
+             <a href="purchases?delete='.$row[0].'" onclick="return confirm(\'Are You Sure to delete the item?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Remove</a>';
     $data[]=$subdata;
 }
 
