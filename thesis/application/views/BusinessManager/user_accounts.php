@@ -354,7 +354,110 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
     </section>
 
      <!-- Main content -->
+     
+<section class="content">
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
+              <!-- <h3 class="box-title">Office Supplies</h3> -->
+                <table style="float:right;">
+                    <tr>
+                      <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
+                        
+                        <form name="form1" id="user_form" method="post" action="userAccounts/addUser">
+                        <div class="modal fade" id="modal-info">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span></button>
+                                        <div class="margin">
+                                            <h3>Add User Account</h3>
+                                          </div>
+                                      </div>
+                                        <!-- end of modal header -->
+                                      <div class="modal-body">
+                                        <div class="box-body">
+                                               <div class="form-group">
+                                                  <label for="exampleInputEmail1">Username</label>
+                                                  <input type="text" class="form-control" name="username" id="username" required />
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">First Name</label>
+                                                  <input type="text" class="form-control" name="fname" id="fname" required />
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Last Name</label>
+                                                  <input type="text" class="form-control" name="lname" id="lname" required />
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Contact Number</label>
+                                                  <input type="number" class="form-control" name="user_contact" id="user_contact" required />
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Password</label>
+                                                  <input type="password" class="form-control" name="password" id="password" required />
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Email</label>
+                                                  <input type="email" class="form-control" name="user_email" id="user_email" required />
+                                                </div>
+                     
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" name="addUser">Save User Account</button>
+                                      </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                    
+                                  </div>
+                                  <!-- /.modal-dialog -->
+                                </div>
+                                </form>
+                            </th> 
+                    </tr>
+                </table> 
+            </div>
+            <!-- /.box-header -->
+              <div class="box-body">
+              <table id="example" class="display" cellspacing="0" width="100%">
+                <thead>
+            <tr>
+                <th>Userame</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
 
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>Userame</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+
+            </tr>
+            </tfoot>
+              </table>
+
+            </div>
+
+            <!-- /.box-body -->
+          </div>
+              
+          </div>
+        </div>
+</section>
      
 
 <style>
@@ -434,70 +537,26 @@ input:checked + .slider:before {
 <!-- AdminLTE for demo purposes -->
 <script src="../assets/dist/js/demo.js"></script>
 
-  
-   <div class="panel panel-default">
-    <div class="panel-body">
-     <span id="message"></span>
-     <div class="table-responsive" id="user_data">
-      
-     </div>
-     <script>
-     $(document).ready(function(){
-      
-      load_user_data();
-      
-      function load_user_data()
-      {
-       var action = 'fetch';
-       $.ajax({
-        url:'php/action.php',
-        method:'POST',
-        data:{action:action},
-        success:function(data)
-        {
-         $('#user_data').html(data);
-        }
-       });
-      }
-      
-      $(document).on('click', '.action', function(){
-       var user_id = $(this).data('user_id');
-       var user_status = $(this).data('user_status');
-       var action = 'change_status';
-       $('#message').html('');
-       if(confirm("Are you Sure you want to change status of this User?"))
-       {
-        $.ajax({
-         url:'php/action.php',
-         method:'POST',
-         data:{user_id:user_id, user_status:user_status, action:action},
-         success:function(data)
-         {
-          if(data != '')
-          {
-           load_user_data();
-           $('#message').html(data);
-          }
-         }
-        });
-       }
-       else
-       {
-        return false;
-       }
-      });
-      
-     });
-     </script>
-
         <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
                 <div id="content-data"></div>
             </div>
         </div>
-    </div>
 
+
+    <script>
+        $(document).ready(function(){
+            var dataTable=$('#example').DataTable({
+                "processing": true,
+                "serverSide":true,
+                "ajax":{
+                    url:"userAccounts/getUser",
+                    type:"post"
+                }
+            });
+        });
+    </script>
 
      <!--script js for get edit data-->
     <script>
@@ -507,7 +566,7 @@ input:checked + .slider:before {
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'php/action.php',
+                url:'userAccounts/editUser',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -520,11 +579,7 @@ input:checked + .slider:before {
         });
     </script>
 
-
-    </div>
-   </div>
-
-</div>
+    
  </body>
 </html>
 
@@ -538,13 +593,15 @@ if(isset($_POST['btnEdit'])){
     $new_fname=mysqli_real_escape_string($con,$_POST['txtfname']);
     $new_usercontact=mysqli_real_escape_string($con,$_POST['txtuser_contact']);
     $new_email=mysqli_real_escape_string($con,$_POST['txtemail']);
+      $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
+
 
     $sqlupdate="UPDATE users SET username='$new_username',
-                password='$new_password', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email' WHERE user_id='$new_id' ";
+                password='$new_password', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', user_status='$new_status' WHERE user_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="useraccounts.php"</script>';
+        echo '<script>window.location.href="userAccounts"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
@@ -556,7 +613,7 @@ if(isset($_GET['delete'])){
     $sqldelete="DELETE FROM users WHERE user_id='$id'";
     $result_delete=mysqli_query($con,$sqldelete);
     if($result_delete){
-        echo'<script>window.location.href="useraccounts.php"</script>';
+        echo'<script>window.location.href="userAccounts"</script>';
     }
     else{
         echo'<script>alert("Delete Failed")</script>';

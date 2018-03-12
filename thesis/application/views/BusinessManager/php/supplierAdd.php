@@ -17,5 +17,7 @@ mysqli_select_db($connection, "itproject");
     $sql->close();   
     $connection->close();
   }
-  header("Location: ../suppliers.php");
+  //$this->load->view('../../BusinessManager/suppliers');
+  header("Location: ../suppliers");
+  //redirect('/BusinessManager/suppliers');
 ?>

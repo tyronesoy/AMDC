@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class IssuedSupplies extends CI_Controller {
+class Dashboard extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,13 +22,13 @@ class IssuedSupplies extends CI_Controller {
 	{
 		$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){
-			$this->load->view('BusinessManager/issued_supplies');
+			$this->load->view('BusinessManager/dashboard');
 		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/issued_supplies');
+			$this->load->view('Assistant/dashboard');
 		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/issued_supplies');
+			$this->load->view('Supervisor/dashboard');
 		}else{
-			header('Location: ../login');
+			header('Location: login');
 		}
 		
 	}

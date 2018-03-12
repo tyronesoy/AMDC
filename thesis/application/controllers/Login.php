@@ -31,11 +31,11 @@ class Login extends CI_Controller {
 			$st = $this->session->userdata('stts');
 
 			if($ty == 'BusinessManager' && $st == 'Active'){
-			redirect('/BusinessManager/dashboard');
+			$this->load->view('BusinessManager/dashboard');
 			}else if($ty == 'Assistant' && $st == 'Active'){
-			redirect('/Assistant/dashboard');
+			$this->load->view('Assistant/dashboard');
 			}else if($ty == 'Supervisor' && $st == 'Active'){
-			redirect('/Supervisor/dashboard');
+			$this->load->view('Supervisor/dashboard');
 			}else{
 				$this->load->view('login_view');
 			}

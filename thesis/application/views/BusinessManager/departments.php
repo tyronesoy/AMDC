@@ -322,7 +322,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table style="float:right;">
                     <tr>                    
                         <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
-                        <form name="form1" method="post" action="php/departmentsAdd.php" >
+                        <form name="form1" method="post" action="departments/addDepartment" >
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -559,7 +559,7 @@ input:checked + .slider:before {
                 "processing": true,
                 "serverSide":true,
                 "ajax":{
-                    url:"php/departmentsFetch.php",
+                    url:"departments/getDepartment",
                     type:"post"
                 }
             });
@@ -574,7 +574,7 @@ input:checked + .slider:before {
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'php/departmentsEdit.php',
+                url:'departments/editDepartment',
                 type:'POST',
                 data:'id='+per_depId,
                 dataType:'html'
@@ -601,7 +601,7 @@ if(isset($_POST['btnEdit'])){
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="departments.php"</script>';
+        echo '<script>window.location.href="departments"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
@@ -613,7 +613,7 @@ if(isset($_GET['delete'])){
     $sqldelete="DELETE FROM departments WHERE department_id='$id'";
     $result_delete=mysqli_query($con,$sqldelete);
     if($result_delete){
-        echo'<script>window.location.href="departments.php"</script>';
+        echo'<script>window.location.href="departments"</script>';
     }
     else{
         echo'<script>alert("Delete Failed")</script>';

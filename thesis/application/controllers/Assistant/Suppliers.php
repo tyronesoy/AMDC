@@ -20,6 +20,16 @@ class Suppliers extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('BusinessManager/suppliers');
+		$check = $this->session->userdata('stts');
+		if($check == 'BusinessManager'){
+			$this->load->view('BusinessManager/suppliers');
+		}else if($check == 'Assistant'){
+			$this->load->view('Assistant/suppliers');
+		}else if($check == 'Supervisor'){
+			$this->load->view('Supervisor/suppliets');
+		}else{
+			header('Location: ../login');
+		}
+		
 	}
 }

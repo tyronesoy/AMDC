@@ -20,6 +20,16 @@ class OfficeSupplies extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('BusinessManager/office_supplies');
+		$check = $this->session->userdata('stts');
+		if($check == 'BusinessManager'){
+			$this->load->view('BusinessManager/office_supplies');
+		}else if($check == 'Assistant'){
+			$this->load->view('Assistant/office_supplies');
+		}else if($check == 'Supervisor'){
+			$this->load->view('Supervisor/office_supplies');
+		}else{
+			header('Location: ../login');
+		}
+		
 	}
 }

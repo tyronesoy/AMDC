@@ -19,26 +19,40 @@ class Db_model extends CI_Model {
 					);
 
 					$this->session->set_userdata($sess);
-						if($row->user_type == 'BusinessManager' && $row->user_status == 'Active'){
-							redirect('/BusinessManager/dashboard');
-						}else if($row->user_type == 'Assistant' && $row->user_status == 'Active'){
-							redirect('/Assistant/dashboard');
-						}else if($row->user_type == 'Supervisor' && $row->user_status == 'Active'){
-							redirect('/Supervisor/dashboard');
-						}else{
-							$this->session->set_flashdata('info', 'This account is inactive!');
-							redirect('login');
-						}
+					if($row->user_type == 'BusinessManager' && $row->user_status == 'Active'){
+						redirect('dashboard');
+					}else if($row->user_type == 'Assistant' && $row->user_status == 'Active'){
+						redirect('dashboard');
+					}else if($row->user_type == 'Supervisor' && $row->user_status == 'Active'){
+						redirect('dashboard');
+					}else{
+						$this->session->set_flashdata('info', 'This account is inactive!');
+						redirect('/thesis/login');
+					}
 				}
-					
-
-
 			}
-				
-		
 		} else {
 			$this->session->set_flashdata('info', 'The username or password is incorrect!');
 			redirect('login');
 		}
+	}
+
+	public function getSuppliers(){
+		$query=$this->db->query("SELECT * FROM suppliers");
+		return $query->result();
+	}
+	public function getDepartments(){
+		$query=$this->db->query("SELECT * FROM departments");
+		return $query->result();
+	}
+	public function getUsers(){
+		$query=$this->db->query("SELECT * FROM users");
+		return $query->result();
+	}
+	
+	public function deleteSupplier($supplier_id){
+		$this->db->where("id", $supplier_id);
+		$this->db->delete("suppliers");
+
 	}
 }

@@ -20,6 +20,16 @@ class Departments extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('BusinessManager/departments');
+		$check = $this->session->userdata('stts');
+		if($check == 'BusinessManager'){
+			$this->load->view('BusinessManager/departments');
+		}else if($check == 'Assistant'){
+			$this->load->view('Assistant/departments');
+		}else if($check == 'Supervisor'){
+			$this->load->view('Supervisor/departments');
+		}else{
+			header('Location: ../login');
+		}
+		
 	}
 }

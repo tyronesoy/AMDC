@@ -10,29 +10,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css">
   <!-- Morris chart -->
-  <link rel="stylesheet" href="../assets/bower_components/chart.js/chart.css">
+  <link rel="stylesheet" href="assets/bower_components/chart.js/chart.css">
   <!-- jvectormap -->
-  <link rel="stylesheet" href="../assets/bower_components/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="assets/bower_components/jvectormap/jquery-jvectormap.css">
   <!-- Date Picker -->
-  <link rel="stylesheet" href="../assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
    <!-- DataTables -->
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
-  <link rel="stylesheet" href="../assets/dist/css/w3css.css">
+  <link rel="stylesheet" href="assets/dist/css/w3css.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -201,13 +201,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
+              <img src="assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Business Manager</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
                  Business Manager
@@ -290,7 +290,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Business Manager</p>
@@ -320,7 +320,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           
 		<!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'userAccounts' ?>">
+          <a href="<?php echo 'BusinessManager/userAccounts' ?>">
               <i class="fa fa-group"></i> <span>Manage Accounts</span> </a>
         </li>
 		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
@@ -332,30 +332,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-			<li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+			<li><a href="<?php echo 'BusinessManager/medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+			<li><a href="<?php echo 'BusinessManager/officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!--------------------------------------------------- PURCHASES -------------------------------------------------->
           <li>
-              <a href="<?php echo 'purchases' ?>">
+              <a href="<?php echo 'BusinessManager/purchases' ?>">
                   <i class="fa fa-tags"></i><span>Purchases</span>  
               </a>
           </li>
         <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
-            <li><a href="<?php echo 'issuedSupplies' ?>">
+            <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>">
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
 		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'suppliers' ?>">
+          <a href="<?php echo 'BusinessManager/suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
 		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'departments' ?>">
+          <a href="<?php echo 'BusinessManager/departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
@@ -372,13 +372,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		
 		<!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'logs' ?>">
+          <a href="<?php echo 'BusinessManager/logs' ?>">
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
           <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'lockscreen' ?>">
+          <a href="<?php echo 'BusinessManager/lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -927,59 +927,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- jQuery 3 -->
 <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="../assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
-<script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     
 <!-- Morris.js charts -->
-<script src="../assets/bower_components/raphael/raphael.min.js"></script>
-<script src="../assets/bower_components/chart.js/chart.min.js"></script>
+<script src="assets/bower_components/raphael/raphael.min.js"></script>
+<script src="assets/bower_components/chart.js/chart.min.js"></script>
 <!-- Sparkline -->
-<script src="../assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<script src="assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->
-<script src="../assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="../assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<script src="assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 <!-- jQuery Knob Chart -->
-<script src="../assets/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+<script src="assets/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
-<script src="../assets/bower_components/moment/min/moment.min.js"></script>
-<script src="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="assets/bower_components/moment/min/moment.min.js"></script>
+<script src="assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
-<script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
-<script src="../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<script src="assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Slimscroll -->
-<script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="../assets/bower_components/fastclick/lib/fastclick.js"></script>
+<script src="assets/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="../assets/dist/js/adminlte.min.js"></script>
+<script src="assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="../assets/dist/js/pages/dashboard.js"></script>
+<script src="assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../assets/dist/js/demo.js"></script>
+<script src="assets/dist/js/demo.js"></script>
     
 <!-- ITO ANG LEGIT NA JAVASCRIPT NG CHARTS -->
 <!-- jQuery 3 -->
-<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- ChartJS -->
-<script src="../assets/bower_components/Chart.js/Chart.js"></script>
+<script src="assets/bower_components/Chart.js/Chart.js"></script>
 <!-- FastClick -->
-<script src="../assets/bower_components/fastclick/lib/fastclick.js"></script>
+<script src="assets/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="../assets/dist/js/adminlte.min.js"></script>
+<script src="assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../assets/dist/js/demo.js"></script>
+<script src="assets/dist/js/demo.js"></script>
 <!-- page script -->
 <!-- DataTables -->
-<script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!--- CHARTS -->
 <script>
   $(function () {

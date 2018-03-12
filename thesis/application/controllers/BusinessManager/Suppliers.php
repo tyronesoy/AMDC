@@ -18,8 +18,31 @@ class Suppliers extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
-		$this->load->view('BusinessManager/suppliers');
+	public function index(){
+		$this->load->model('db_model');
+		$data['suppliers']=$this->db_model->getSuppliers();
+		$this->load->view('BusinessManager/suppliers', $data);
+		//$check = $this->session->userdata('stts');
+		//if($check == 'BusinessManager'){
+		//	$this->load->view('BusinessManager/suppliers');
+		//}
+		//else if($check == 'Assistant'){
+		//	$this->load->view('Assistant/suppliers');
+		//}else if($check == 'Supervisor'){
+		//	$this->load->view('Supervisor/suppliets');
+		//}else{
+		//	header('Location: ../login');
+		//}
 	}
+	public function getSupplier(){
+		$this->load->view('BusinessManager/php/supplierFetch');
+	}
+	public function addSupplier(){
+		$this->load->view('BusinessManager/php/supplierAdd');
+	}
+	
+	public function editSupplier(){
+		$this->load->view('BusinessManager/php/supplierEdit');
+	}
+
 }

@@ -311,7 +311,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
                         
-                        <form name="form1" method="post" action="php/supplierAdd.php" >
+                        <form name="form1" method="post" action="suppliers/addSupplier" >
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -372,6 +372,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Action</th>
                     </tr>
                 </thead>
+
+                
                 
                 <tfoot>
                   <tr>
@@ -550,7 +552,7 @@ input:checked + .slider:before {
                 "processing": true,
                 "serverSide":true,
                 "ajax":{
-                    url:"php/supplierFetch.php",
+                    url:"suppliers/getSupplier",
                     type:"post"
                 }
             });
@@ -565,7 +567,7 @@ input:checked + .slider:before {
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'php/supplierEdit.php',
+                url:'suppliers/editSupplier',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -595,7 +597,7 @@ if(isset($_POST['btnEdit'])){
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="suppliers.php"</script>';
+        echo '<script>window.location.href="suppliers"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
@@ -607,7 +609,7 @@ if(isset($_GET['delete'])){
     $sqldelete="DELETE FROM suppliers WHERE suppliers_id='$id'";
     $result_delete=mysqli_query($con,$sqldelete);
     if($result_delete){
-        echo'<script>window.location.href="suppliers.php"</script>';
+        echo'<script>window.location.href="suppliers"</script>';
     }
     else{
         echo'<script>alert("Delete Failed")</script>';

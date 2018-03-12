@@ -18,8 +18,30 @@ class Departments extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
-		$this->load->view('BusinessManager/departments');
+	public function index(){
+		$this->load->model('db_model');
+		$data['departments']=$this->db_model->getDepartments();
+		$this->load->view('BusinessManager/departments', $data);
+		//$check = $this->session->userdata('stts');
+		//if($check == 'BusinessManager'){
+		//	$this->load->view('BusinessManager/departments');
+		//}else if($check == 'Assistant'){
+		//	$this->load->view('Assistant/departments');
+		//}else if($check == 'Supervisor'){
+		//	$this->load->view('Supervisor/departments');
+		//}else{
+	//		header('Location: ../login');
+	//	}
+		
+	}
+	public function getDepartment(){
+		$this->load->view('BusinessManager/php/departmentsFetch');
+	}
+	public function addDepartment(){
+		$this->load->view('BusinessManager/php/departmentsAdd');
+	}
+	
+	public function editDepartment(){
+		$this->load->view('BusinessManager/php/departmentsEdit');
 	}
 }

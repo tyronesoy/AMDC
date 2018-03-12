@@ -20,6 +20,16 @@ class MedicalSupplies extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('BusinessManager/medical_supplies');
+		$check = $this->session->userdata('stts');
+		if($check == 'BusinessManager'){
+			$this->load->view('BusinessManager/medical_supplies');
+		}else if($check == 'Assistant'){
+			$this->load->view('Assistant/medical_supplies');
+		}else if($check == 'Supervisor'){
+			$this->load->view('Supervisor/medical_supplies');
+		}else{
+			header('Location: ../login');
+		}
+		
 	}
 }

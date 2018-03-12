@@ -23,7 +23,7 @@ $totalFilter=$totalData;
 //Search
 $sql ="SELECT * FROM suppliers WHERE 1=1";
 if(!empty($request['search']['value'])){
-    $sql.=" OR (suppliers_id Like '".$request['search']['value']."%' ";
+    $sql.=" OR suppliers_id Like '".$request['search']['value']."%' ";
     $sql.=" OR company_name Like '".$request['search']['value']."%' ";
     $sql.=" OR supplier_contact Like '".$request['search']['value']."%' ";
     $sql.=" OR address Like '".$request['search']['value']."%' ";
@@ -54,7 +54,7 @@ while($row=mysqli_fetch_array($query)){
 
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
     $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
-             <a href="suppliers.php?delete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Delete</a>';
+             <a href="suppliers?delete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Delete</a>';
     $data[]=$subdata;
 }
 

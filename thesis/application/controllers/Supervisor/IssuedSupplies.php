@@ -20,6 +20,16 @@ class IssuedSupplies extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('BusinessManager/issued_supplies');
+		$check = $this->session->userdata('stts');
+		if($check == 'BusinessManager'){
+			$this->load->view('BusinessManager/issued_supplies');
+		}else if($check == 'Assistant'){
+			$this->load->view('Assistant/issued_supplies');
+		}else if($check == 'Supervisor'){
+			$this->load->view('Supervisor/issued_supplies');
+		}else{
+			header('Location: ../login');
+		}
+		
 	}
 }

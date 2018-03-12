@@ -9,5 +9,5 @@
 	$sql->execute();
 	$sql->close(); 
 	$conn->close();
-	header('location:../data4.php');		
+	//header('location:../data4.php');		
 ?>
