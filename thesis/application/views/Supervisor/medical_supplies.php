@@ -377,7 +377,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <span class="caret"></span>
                         </button>
                           <option><b>All Supplies</b></option>
-                          <option value="php/medTotalQty.php">Total Quantity</option>
+                          <option value="php/medTotalQty.php">Total Quantity</optiom>
                         </select>
                       </div></th>
                     </tr>
@@ -392,28 +392,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           $result = $conn->query($sql);  ?>
           <thead>
             <tr>
-				<th>Description</th>
-			  	<th>Expiration Date</th> 
-				<th>Quantity in Stock</th>
-				<th>Unit</th>
-				<th>Unit Price</th>
-				<th>Reorder Level</th>
-				<th>Good Condition</th>
-				<th>Damaged</th>
+             <!-- <th>Date Received</th>
+                  <th>Time Received</th> -->
+                  <th>Expiration Date</th> 
+                  <th>Description</th>
+                  <th>Quantity in Stock</th>
+                  <th>Unit</th>
+                  <th>Unit Price</th>
+             <!-- <th>Total Amount</th> -->
+                  <th>Reorder Level</th>
+                  <th>Good Condition</th>
+                  <th>Damaged</th>
+                  <th> Action</th> 
             </tr>
         </thead>
         <tbody>
         <?php
           while($row = $result->fetch_assoc()) { ?>
             <tr>
-				<td>                      <?php echo $row["supply_description"]; ?></td>
-				<td>                      <?php echo $row["expiration_date"]; ?>   </td>
-				<td align="right">        <?php echo $row["quantity_in_stock"]; ?> </td>
-				<td>                      <?php echo $row["unit"]; ?>              </td>
-				<td align="right">&#8369; <?php echo $row["unit_price"]; ?>        </td>
-				<td align="center">       <?php echo $row["Reorder Level"]; ?>     </td>
-				<td>                      <?php echo $row["good_condition"]; ?>    </td>
-				<td>                      <?php echo $row["damaged"]; ?>           </td>          
+              <td>                      <?php echo $row["expiration_date"]; ?>   </td>
+              <td>                      <?php echo $row["supply_description"]; ?></td>
+              <td align="right">        <?php echo $row["quantity_in_stock"]; ?> </td>
+              <td>                      <?php echo $row["unit"]; ?>              </td>
+              <td align="right">&#8369; <?php echo $row["unit_price"]; ?>        </td>
+              <td align="center">       <?php echo $row["Reorder Level"]; ?>     </td>
+              <td>                      <?php echo $row["good_condition"]; ?>    </td>
+              <td>                      <?php echo $row["damaged"]; ?>           </td>
+              <td>
+              </td>           
             </tr>
           <?php 
               }
@@ -421,15 +427,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </tbody>
         <tfoot>
            <tr>
-				<th>Description</th>
-			  	<th>Expiration Date</th> 
-				<th>Quantity in Stock</th>
-				<th>Unit</th>
-				<th>Unit Price</th>
-				<th>Reorder Level</th>
-				<th>Good Condition</th>
-				<th>Damaged</th>
-            </tr>
+             <!-- <th>Date Received</th>
+                  <th>Time Received</th> -->
+                  <th>Expiration Date</th> 
+                  <th>Description</th>
+                  <th>Quantity in Stock</th>
+                  <th>Unit</th>
+                  <th>Unit Price</th>
+             <!-- <th>Total Amount</th> -->
+                  <th>Reorder Level</th>
+                  <th>Good Condition</th>
+                  <th>Damaged</th>
+                  <th> Action</th> 
+            </tr> 
         </tfoot>
       </table>              
             </div>

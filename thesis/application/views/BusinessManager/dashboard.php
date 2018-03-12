@@ -439,8 +439,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="inner">
               <?php
                   	$conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT COUNT(*) AS total FROM returns JOIN supplies JOIN suppliers WHERE status ='Pending'";
+ 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                  $sql = "SELECT COUNT(*) AS total FROM returns JOIN supplies JOIN suppliers WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -813,8 +813,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                    $sql = "SELECT * FROM itproject.issuedsupplies WHERE supply_type='Medical' LIMIT 10 ";
+ 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                    $sql = "SELECT * FROM reqandsupp WHERE supply_type='Medical' LIMIT 10 ";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -865,8 +865,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                    $sql = "SELECT * FROM itproject.issuedsupplies WHERE supply_type='Office' LIMIT 10 ";
+ 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                    $sql = "SELECT * FROM reqandsupp WHERE supply_type='Office' LIMIT 10 ";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>

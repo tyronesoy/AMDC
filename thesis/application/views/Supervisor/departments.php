@@ -229,29 +229,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
-				   <?php
-					require_once("../../../db.php");
-					$sql = "SELECT departmentName, branchLocation FROM departments";
-					$result = $conn->query($sql);    
-				  ?>
                 <thead>
                 <tr>
                   <th>Department Name</th>
                   <th>Branch Location</th>
                 </tr>
                 </thead>
-               <tbody>
-				<?php if ($result->num_rows > 0) {
-				  while($row = $result->fetch_assoc()) { ?>
-					<tr>
-					<td><?php echo $row["departmentName"]; ?></td>
-					<td><?php echo $row["branchLocation"]; ?></td>
-					<td></td>
-					</tr>
-				  <?php 
-					  }
-					}
-				  ?>
+                <tbody>
+                <tr>
+                  <td>Clinical Laboratory Department</td>
+                  <td>Baguio City</td>
+                </tr>
+                <tr>
+                  <td>Imaging Department</td>
+                  <td>Baguio City</td>
+                </tr>
+                <tr>
+                  <td>Cardiac Department</td>
+                  <td>Baguio City</td>
+                </tr>
+                <tr>
+                  <td>Endoscopy Department</td>
+                  <td>Baguio City</td>
+                </tr>
+                <tr>
+                  <td>Management Department</td>
+                  <td>Baguio City</td>
+                </tr>
+                <tr>
+                  <td>Clinical Laboratory Department</td>
+                  <td>La Trinidad</td>
+                </tr>
+                <tr>
+                  <td>Imaging Department</td>
+                  <td>La Trinidad</td>
+                </tr>
+                <tr>
+                  <td>Endoscopy Unit</td>
+                  <td>SLU Hospital, Baguio City</td>
+                </tr>
+                <tr>
+                  <td>Imaging Department</td>
+                  <td>Baguio City</td>
+                </tr>
                 </tbody>
               </table>
             </div>
