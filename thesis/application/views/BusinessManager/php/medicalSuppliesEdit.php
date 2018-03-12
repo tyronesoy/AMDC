@@ -20,11 +20,11 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-    <form class="form-horizontal" method="post" action ="php/suppliesFunctions.php">
+    <form class="form-horizontal" method="post" action ="">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Supply</h4>
+                <center><h3 class="modal-title"><b>Edit Supply Details</b></h3></center>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
@@ -86,7 +86,7 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="../medicalSupplies.php"><button type="button" class="btn btn-danger">Cancel</button> </a>
+                <a href="medicalSupplies"><button type="button" class="btn btn-danger">Cancel</button> </a>
                 <button type="submit" class="btn btn-primary" name="medEdit">Save</button>
             </div>
         </div>

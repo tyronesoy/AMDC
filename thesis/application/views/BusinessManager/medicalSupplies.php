@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="../assets/dashboard.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -233,7 +233,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="user-footer">
             
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="../assets/../logout.php" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -272,13 +272,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory System</li>
 	<!-- DASHBOARD MENU -->
          <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="../assets/dashboard.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
 		<!-- MANAGE ACCOUNTS MENU -->
         <li>
-          <a href="<?php echo 'userAccounts' ?>">
+          <a href="../forms/useraccounts.php">
             <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
         </li>
@@ -291,30 +291,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-			<li class ="active"><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+			<li class ="active"><a href="medicalSupplies.php"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+			<li><a href="officeSupplies.php"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!-- PURCHASES -->
           <li>
-              <a href="<?php echo 'purchases' ?>">
+              <a href="purchases.php">
                   <i class="fa fa-tags"></i><span>Purchases</span>  
               </a>
           </li>
         <!-- ISSUED SUPPLIES -->
-            <li><a href="<?php echo 'issuedSupplies' ?>">
+            <li><a href="issuedSupplies.php">
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
 		<!-- SUPPLIERS MENU -->
         <li>
-          <a href="<?php echo 'suppliers' ?>">
+          <a href="suppliers.php">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
 		<!-- DEPARTMENTS MENU -->
         <li>
-          <a href="<?php echo 'departments' ?>">
+          <a href="departments.php">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
@@ -330,13 +330,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 <!-- INVOICE MENU -->
         <li>
-          <a href="<?php echo 'logs' ?>">
+          <a href="../examples/invoice.html">
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
 <!-- LOCKSCREEN MENU -->
         <li>
-          <a href="<?php echo 'lockscreen' ?>">
+          <a href="../examples/lockscreen.html">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -376,7 +376,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <span class="caret"></span>
                         </button>
                           <option><b>All Supplies</b></option>
-                          <option value="php/medTotalQty.php">Total Quantity</optiom>
+                          <option value="php/medTotalQty">Total Quantity</optiom>
                         </select>
                       </div></th>
                     </tr>
@@ -385,7 +385,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
                         
-                        <form name="addSupply" method="post" action="php/suppliesFunctions.php">
+                        <form name="addSupply" method="post" action="php/medicalSuppliesAdd">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -393,7 +393,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add Supply</h3>
+                                            <center><h3 class="modal-title"><b>Add Supply</b></h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -442,10 +442,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
                                                   <input type="number" class="form-control" id="Quantity" name="Quantity" required />
-                                                </div>
+                                                
+                                              </div>
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
-                                                  <input type="text" class="form-control" id="Unit" name="Unit" required />
+                                                  <input type="text" class="form-control" id="Unit" name="Unit" />
                                                 </div>
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit Price</label>
@@ -502,10 +503,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               
                             <!--- END OF ADD -->
                         <!---  ISSUE BUTTON -->
-                        <th><button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
+                         <th>&nbsp;&nbsp;<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
                                         Issue To
                                       </button>
-                                <form name ="form2" method="post" action="suppliesFunctions.php">
+                                <form name ="form2" method="post" action="php/suppliesFunctions.php">
                                 <div class="modal fade" id="modal-default">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -513,72 +514,79 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Issue Supplies</h3>
+                                            <center><h3 class="modal-title"><b>Issue Supplies</b></h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
+
                                       <div class="modal-body">
+                                                  <div class="departmentDrop">
+                                                <select name = "department">
+                                                <option value="">Select a Department</option>
+                                                <?php
+                                                 $conn =mysqli_connect("localhost","root","");
+                                                mysqli_select_db($conn, "itproject");
+                                                  $sql = "SELECT * FROM departments";
+                                                  $results = mysqli_query($conn, $sql);
+
+                                                  foreach($results as $department) { 
+                                                ?>
+                                                <option value="<?php echo $department["department_name"]; ?>" name="dep"><?php echo $department["department_name"]; ?></option>
+                                                <?php 
+                                                  }
+                                                ?>
+                                              </select>
+                                          </div>
+                                          <br/>
                                               <!-- Date and Time -->
+                                                  <div class="form-group">
+                                                    <label>Request Date</label>
+                                                    <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
+                                                      <input type="text" class="form-control pull-right" id="datepicker3" name="reqDate">
+                                                    </div>
+                                                    <!-- /.input group -->
+                                                  </div>
+                                          <!-- /.form group -->
                                                  <div class="form-group">
                                                     <label>Issue Date</label>
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker3" name="date">
+                                                      <input type="text" class="form-control pull-right" id="datepicker4" name="issueDate">
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
+                                          <!-- /.form group -->
+                                                <!--TIME --> 
+                                           <!--     <div class="bootstrap-timepicker">
+                                                <div class="form-group">
+                                                  <label>Issue Time</label>
+
+                                                  <div class="input-group">
+                                                    <input type="text" class="form-control timepicker" id="timepicker" name ="time" required />
+
+                                                    <div class="input-group-addon">
+                                                      <i class="fa fa-clock-o"></i>
+                                                    </div>
+                                                  </div>
+                                                      
+                                                </div>
+                                                      
+                                              </div> -->
                                           <!-- /.form group -->
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <input type="text" class="form-control" name="description">
                                                 </div>
+
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" name="quantity">
-                                                </div>
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Unit</label>
-                                                  <input type="text" class="form-control" name="unit">
-                                            </div>
-                                            <div class="form-group">
-                                                  <label for="exampleInputEmail1">Price</label>
-                                                  <input type="number" class="form-control" name="price">
-                                            </div>
-                                            <div class="department">
-                                                <select name = "department">
-                                                <option value="">Select a Department</option>
-                                                <?php
-                                                  	$conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 													$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                                                  $sql = "SELECT * FROM departments";
-                                                  $results = mysqli_query($conn, $sql);
-
-                                                  foreach($results as $department) { 
-                                                ?>
-                                                <option value="<?php echo $department["department_id"]; ?>" name="dep"><?php echo $department["department_name"]; ?></option>
-                                                <?php 
-                                                  }
-                                                ?>
-                                              </select>
-
-                                              <select name = "department">
-                                                <option value="">Select a branch</option>
-                                                <?php
-                                                  	$conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 													$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                                                  $sql = "SELECT * FROM departments";
-                                                  $results = mysqli_query($conn, $sql);
-
-                                                  foreach($results as $branch) { 
-                                                ?>
-                                                <option value="<?php echo $branch["department_id"]; ?>" name="brn"><?php echo $branch["branch_location"]; ?></option>
-                                                <?php 
-                                                  }
-                                                ?>
-                                              </select>
-                                          </div>
+                                                  <input type="number" class="form-control" name="quantity" required />
+                                                </div>  
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
@@ -590,7 +598,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   <!-- /.modal-dialog -->
                                 </div>
                               </form>
-                                <!-- /.modal --></th>
+                             <!-- /.modal --></th>
                     </tr>
                 </table>      
             </div>
@@ -615,7 +623,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </tr>
         </thead>
         
-
         <tfoot>
            <tr>
              <!-- <th>Date Received</th>
@@ -721,11 +728,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       format : 'yyyy-mm-dd'
     })
       
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
+    $('#datepicker4').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd'
     })
-  })
+    //Timepicker
+   /* $('.timepicker').timepicker({
+      showInputs: false,
+      format    : '%h:%i:%s %p'
+    }) */
+  }) 
 </script>
 
 <!--create modal dialog for display detail info for edit on button cell click-->
@@ -742,7 +754,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
-                    url:"php/medicalSuppliesFetch.php",
+                    url:"medicalsupplies/getMedicalSupplies",
                     type:"post"
                 }
             });
@@ -757,7 +769,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'php/medicalSuppliesEdit.php',
+                url:'medicalsupplies/editMedicalSupplies',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
+    <!--script js for get reconcile data-->
+    <script>
+        $(document).on('click','#getRecon',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'medicalSupplies/reconcileMedicalSupplies',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -771,3 +804,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 </body>
 </html>
+
+<?php 
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+
+//EDIT FOR MEDICAL SUPPLIES
+if(isset($_POST['medEdit'])){
+    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
+    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
+    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtQuantityInStock']);
+    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
+    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+    $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
+    $new_supplyGoodCondition=mysqli_real_escape_string($conn,$_POST['txtGoodCondition']);
+    $new_supplyDamaged=mysqli_real_escape_string($conn,$_POST['txtDamaged']);
+
+    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate', good_condition='$new_supplyGoodCondition', damaged='$new_supplyDamaged' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="medicalSupplies"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+} // END OF MEDICAL EDIT
+
+//DELETE MEDICAL SUPPLIES
+  if(isset($_GET['medDelete'])){
+    $id=$_GET['medDelete'];
+    $sqldelete="DELETE FROM supplies WHERE supply_id='$id'";
+    $result_delete=mysqli_query($con,$sqldelete);
+    if($result_delete){
+        echo'<script>window.location.href="medicalSupplies"</script>';
+    }
+    else{
+        echo'<script>alert("Delete Failed")</script>';
+    }
+}// END OF DELETE MEDICAL SUPPLIES
+
+//RECONCILE FOR MEDICAL SUPPLIES
+if(isset($_POST['medRecon'])){
+    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $sqlupdate="UPDATE supplies SET quantity_in_stock='$new_supplyQuantityInStock' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="medicalSupplies"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+} // END OF MEDICAL RECONCILE
+?>

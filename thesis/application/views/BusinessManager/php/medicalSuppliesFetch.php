@@ -31,15 +31,15 @@ $totalFilter=$totalData;
 //Search
 $sql ="SELECT * FROM supplies WHERE 1=1 AND supply_type LIKE 'Medical' ";
 if(!empty($request['search']['value'])){
-    $sql.=" (OR supply_id Like '".$request['search']['value']."%' ";
-    $sql.=" OR supply_description Like '".$request['search']['value']."%' ";
-    $sql.=" OR unit Like '".$request['search']['value']."%' ";
-    $sql.=" OR quantity_in_stock Like '".$request['search']['value']."%' ";
-    $sql.=" OR unit_price Like '".$request['search']['value']."%' ";
-    $sql.=" OR reorder_level Like '".$request['search']['value']."%' ";
-    $sql.=" OR expiration_date Like '".$request['search']['value']."%' ";
-    $sql.=" OR good_condition Like '".$request['search']['value']."%' ";
-    $sql.=" OR damaged Like '".$request['search']['value']."%' ";
+    $sql.=" 0R supply_id            Like '%".$request['search']['value']."%' ";
+    $sql.=" OR supply_description   Like '%".$request['search']['value']."%' ";
+    $sql.=" OR unit                 Like '%".$request['search']['value']."%' ";
+    $sql.=" OR quantity_in_stock    Like '%".$request['search']['value']."%' ";
+    $sql.=" OR unit_price           Like '%".$request['search']['value']."%' ";
+    $sql.=" OR reorder_level        Like '%".$request['search']['value']."%' ";
+    $sql.=" OR expiration_date      Like '%".$request['search']['value']."%' ";
+    $sql.=" OR good_condition       Like '%".$request['search']['value']."%' ";
+    $sql.=" OR damaged              Like '%".$request['search']['value']."%' ";
 }
 $query=mysqli_query($con,$sql);
 $totalData=mysqli_num_rows($query);
@@ -64,8 +64,9 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[11];
 
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
-    $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>    
-             <a href="php/suppliesFunctions.php?medDelete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Delete</a>';
+    $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil"></i>Edit</button>&nbsp;
+                <button type="button" id="getRecon" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil"></i>Reconcile</button>&nbsp; 
+             <a href="medicalSupplies?medDelete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>Remove</a>';
     $data[]=$subdata;
 }
 
