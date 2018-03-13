@@ -49,10 +49,22 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM users");
 		return $query->result();
 	}
-	
-	public function deleteSupplier($supplier_id){
+	public function getPurchases(){
+		$query=$this->db->query("SELECT * FROM purchase_orders");
+		return $query->result();
+	}
+	/* public function deleteSupplier($supplier_id){
 		$this->db->where("id", $supplier_id);
 		$this->db->delete("suppliers");
 
+	} */
+
+	public function getMedicalSupplies(){
+		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Medical'");
+		return $query->result();
+	}
+	public function getMedicalSuppliesTotaQuantity(){
+		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Medical'");
+		return $query->result();
 	}
 }
