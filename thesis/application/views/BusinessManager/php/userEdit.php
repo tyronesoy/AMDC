@@ -99,7 +99,7 @@ if(isset($_REQUEST['id'])){
                             <div class="form-group">
                                     <label class="col-sm-4 control-label" for="txtstatus">Status</label>
                                 <div class="col-sm-6">
-                                    <input type="radio" name="txtstatus" id="txtstatus" value="Active"> Active <br>
+                                    <input type="radio" name="txtstatus" id="txtstatus" value="Active" > Active <br>
                                     <input type="radio" name="txtstatus" id="txtstatus" value="Inactive"> Inactive <br>
                                 </div> 
                             </div>

@@ -381,7 +381,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                             <div class="form-group">
                                                      <div class="usertypeDrop">
                                                        <select name = "usertype">
-                                                       <option value="">Select A User Type</option>
+                                                       <option value="">Select a User Type</option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
