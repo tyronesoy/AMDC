@@ -26,9 +26,10 @@ $totalFilter=$totalData;
 
 
 //Search
-$sql ="SELECT * FROM users WHERE 1=1";
+$sql ="SELECT * FROM users";
 if(!empty($request['search']['value'])){
     $sql.=" OR user_id Like '".$request['search']['value']."%' ";
+    $sql.=" OR user_type Like '".$request['search']['value']."%' ";
     $sql.=" OR username Like '".$request['search']['value']."%' ";
     $sql.=" OR password Like '".$request['search']['value']."%' ";
     $sql.=" OR lname Like '".$request['search']['value']."%' ";
@@ -52,6 +53,7 @@ $data=array();
 
 while($row=mysqli_fetch_array($query)){
     $subdata=array();
+    $subdata[]=$row[1]; 
     $subdata[]=$row[2];  
     $subdata[]=$row[5];  
     $subdata[]=$row[4]; 

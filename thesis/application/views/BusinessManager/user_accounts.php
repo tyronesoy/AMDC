@@ -347,8 +347,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
         User Accounts
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
+        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">User Accounts</li>
       </ol>
     </section>
@@ -379,6 +378,25 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                         <!-- end of modal header -->
                                       <div class="modal-body">
                                         <div class="box-body">
+                                            <div class="form-group">
+                                                     <div class="usertypeDrop">
+                                                       <select name = "usertype">
+                                                       <option value="">Select A User Type</option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT * FROM users WHERE user_type = 'Assistant' OR user_type='Supervisor' GROUP BY user_type" ;
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $user) { 
+                                                        ?>
+                                                        <option value="<?php echo $user["user_type"]; ?>" name="user"><?php echo $user["user_type"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>
                                                <div class="form-group">
                                                   <label for="exampleInputEmail1">Username</label>
                                                   <input type="text" class="form-control" name="username" id="username" required />
@@ -438,7 +456,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
               <table id="example" class="display" cellspacing="0" width="100%">
                 <thead>
             <tr>
-                <th>Userame</th>
+                <th>User Type</th>
+                <th>User Name</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Contact Number</th>
@@ -450,7 +469,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
             </thead>
             <tfoot>
             <tr>
-                <th>Userame</th>
+                <th>User Type</th>
+                <th>User Name</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Contact Number</th>
