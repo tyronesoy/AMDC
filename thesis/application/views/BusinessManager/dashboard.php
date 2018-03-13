@@ -468,7 +468,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT DISTINCT COUNT(*) AS total FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'In Transit'";
+                  $sql = "SELECT DISTINCT COUNT(*) AS total FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'Requested'";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -573,7 +573,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns JOIN supplies JOIN suppliers WHERE status ='Pending'";
+                  $sql = "SELECT supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns JOIN supplies JOIN suppliers WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -634,8 +634,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example5" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT DISTINCT supply_description, brand_name, delivery_date, company_name, grand_total, unit, unit_price, purchase_orders.total_amount, delivery_status FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'In Transit'";
+ 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                  $sql = "SELECT DISTINCT supply_description, brand_name, delivery_date, company_name, grand_total, unit, unit_price, total, delivery_status, good_condition, damaged FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'Requested'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -665,8 +665,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["grand_total"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["unit_price"]; ?></td>
-                      <td><?php echo $row["total_amount"]; ?></td>
-                      
+                      <td><?php echo $row["total"]; ?></td>
                       <td><?php echo $row["good_condition"]; ?></td>
                       <td><?php echo $row["damaged"]; ?></td>
 
@@ -828,6 +827,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
+                        
                        <!--  <td><?php // echo $row[""]; ?></td>
                         <td><?php // echo $row[""]; ?></td>
                         <td><?php // echo $row[""]; ?></td>
