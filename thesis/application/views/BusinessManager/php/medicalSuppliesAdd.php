@@ -6,13 +6,12 @@
 
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 
-  $conn =mysqli_connect($host, $user, $password, $database) or die('Error connecting to MySQL server.'); // connection to the database
-   
+
    $connection =mysqli_connect("localhost","root","");
    mysqli_select_db($connection, "itproject");
                                 // MEDICAL SUPPLY
   //CREATE or ADD MEDICAL SUPPLY
-  if (isset($_POST['addMedSupply'])) {
+  if (isset($_POST['addMedicalSupply'])) {
       $sql = $connection->prepare("INSERT INTO supplies (supply_description, quantity_in_stock, unit, unit_price, supply_type, expiration_date) VALUES (?, ?, ?, ?, 'Medical', ?)");  
       $description=$_POST['Description'];
       $quantity = $_POST['Quantity'];
@@ -28,5 +27,9 @@
         }
         $sql->close();   
         $connection->close();
-        header("Location: ../medicalSupplies.php");
+       
   }
+
+   //header("Location: ../medicalSupplies");
+
+   ?>
