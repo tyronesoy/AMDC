@@ -354,7 +354,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
         <li><a href="#">Medical Supplies</a></li>
         <li class="active">Supplies</li>
       </ol>
@@ -376,7 +376,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <span class="caret"></span>
                         </button>
                           <option><b>All Supplies</b></option>
-                          <option value="php/medicalSuppliesTotalQuantity">Total Quantity</optiom>
+                          <option value="medicalSuppliesTotalQuantity">Total Quantity</optiom>
                         </select>
                       </div></th>
                     </tr>

@@ -21,7 +21,7 @@ class MedicalSuppliesTotalQuantity extends CI_Controller {
 	public function index()
 	{
 		$this->load->model('db_model');
-		$data['medicalSupplies']=$this->db_model->getMedicalSuppliesTotalQuantity();
+		$data['medicalSuppliesTotalQuantity']=$this->db_model->getMedicalSuppliesTotalQuantity();
 		$this->load->view('BusinessManager/php/medicalSuppliesTotalQuantity', $data);
 		/*
 		$check = $this->session->userdata('stts');
@@ -39,17 +39,8 @@ class MedicalSuppliesTotalQuantity extends CI_Controller {
 	public function getMedicalSupplies(){
 		$this->load->view('BusinessManager/php/medicalSuppliesFetch');
 	}
-	public function addMedicalSupplies(){
-		$this->load->view('BusinessManager/php/medicalSuppliesAdd');
-	}
-	public function deleteMedicalSupplies(){
-		$this->load->view('BusinessManager/php/medicalSuppliesDelete');
-	}
 	public function editMedicalSupplies(){
 		$this->load->view('BusinessManager/php/medicalSuppliesEdit');
 	}
-	public function reconcileMedicalSupplies(){
-		$this->load->view('BusinessManager/php/medicalSuppliesReconcile');
-	}
-
+	
 }

@@ -228,7 +228,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="user-footer">
             
                 <div class="pull-right">
-                  <a href="../../examples/index.php" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -265,19 +265,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-	<!-- DASHBOARD MENU -->
+  <!-- DASHBOARD MENU -->
          <li>
-          <a href="../assets/dashboard.php">
+          <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-		<!-- MANAGE ACCOUNTS MENU -->
+    <!-- MANAGE ACCOUNTS MENU -->
         <li>
-          <a href="../../forms/general.php">
+          <a href="<?php echo 'useraccounts' ?>">
             <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
         </li>
-		<!-- SUPPLIES MENU -->
+    <!-- SUPPLIES MENU -->
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
@@ -286,36 +286,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-			<li class ="active"><a href="../medicalSupplies.php"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="../officeSupplies.php"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+      <li class ="active"><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!-- PURCHASES -->
           <li>
-              <a href="../purchases.php">
+              <a href="<?php echo 'purchases' ?>">
                   <i class="fa fa-tags"></i><span>Purchases</span>  
               </a>
           </li>
         <!-- ISSUED SUPPLIES -->
-            <li><a href="../issuedSupplies.php">
+            <li><a href="<?php echo 'issuedSupplies' ?>">
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
-		<!-- SUPPLIERS MENU -->
+    <!-- SUPPLIERS MENU -->
         <li>
-          <a href="../suppliers.php">
+          <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		<!-- DEPARTMENTS MENU -->
+    <!-- DEPARTMENTS MENU -->
         <li>
-          <a href="../departments.php">
+          <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!-- CALENDAR MENU -->
+    <!-- CALENDAR MENU -->
         <li>
-          <a href="../../calendar.html">
+          <a href="../calendar.html">
             <i class="fa fa-calendar"></i> <span>Calendar</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
@@ -325,13 +325,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 <!-- INVOICE MENU -->
         <li>
-          <a href="../../examples/invoice.html">
+          <a href="../examples/invoice.html">
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
-<!--- LOCKSCREEN MENU -->
+<!-- LOCKSCREEN MENU -->
         <li>
-          <a href="../../examples/lockscreen.php">
+          <a href="../examples/lockscreen.html">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -349,7 +349,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
         <li><a href="#">Medical Supplies</a></li>
         <li class="active">Data tables</li>
       </ol>
@@ -368,7 +368,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th> <div class="btn-group">
                         <select name="dropdown" onchange="location =this.value;">
                           <option><b>Total Quantity</b></optiom>
-                          <option value="../medicalSupplies.php">All Supplies</option>
+                          <option value="medicalSupplies">All Supplies</option>
                         </select>
                       </div></th>
                     </tr>
