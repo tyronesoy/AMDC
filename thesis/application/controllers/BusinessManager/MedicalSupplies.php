@@ -51,5 +51,8 @@ class MedicalSupplies extends CI_Controller {
 	public function reconcileMedicalSupplies(){
 		$this->load->view('BusinessManager/php/medicalSuppliesReconcile');
 	}
+	public function addMedicalSuppliesIssueTo(){
+		$this->load->view('BusinessManager/php/medicalSuppliesIssueTo');
+	}
 
 }

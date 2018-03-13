@@ -22,7 +22,7 @@ class MedicalSuppliesTotalQuantity extends CI_Controller {
 	{
 		$this->load->model('db_model');
 		$data['medicalSupplies']=$this->db_model->getMedicalSuppliesTotalQuantity();
-		$this->load->view('BusinessManager/php/medTotalQty', $data);
+		$this->load->view('BusinessManager/php/medicalSuppliesTotalQuantity', $data);
 		/*
 		$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){

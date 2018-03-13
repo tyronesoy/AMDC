@@ -1,17 +1,9 @@
 <?php
-  $host = "localhost";
-  $user = "root";
-  $password = "";
-  $database = "itproject";
-
-  $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-
-
    $connection =mysqli_connect("localhost","root","");
    mysqli_select_db($connection, "itproject");
                                 // MEDICAL SUPPLY
   //CREATE or ADD MEDICAL SUPPLY
-  if (isset($_POST['addMedicalSupply'])) {
+  if (isset($_POST['addMedSupply'])) {
       $sql = $connection->prepare("INSERT INTO supplies (supply_description, quantity_in_stock, unit, unit_price, supply_type, expiration_date) VALUES (?, ?, ?, ?, 'Medical', ?)");  
       $description=$_POST['Description'];
       $quantity = $_POST['Quantity'];
@@ -30,6 +22,6 @@
        
   }
 
-   //header("Location: ../medicalSupplies");
+   header("Location: ../medicalSupplies");
 
    ?>

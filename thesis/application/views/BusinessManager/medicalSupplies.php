@@ -233,7 +233,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="user-footer">
             
                 <div class="pull-right">
-                  <a href="../assets/../logout.php" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -376,7 +376,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <span class="caret"></span>
                         </button>
                           <option><b>All Supplies</b></option>
-                          <option value="php/medTotalQty">Total Quantity</optiom>
+                          <option value="php/medicalSuppliesTotalQuantity">Total Quantity</optiom>
                         </select>
                       </div></th>
                     </tr>
@@ -385,7 +385,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
                         
-                        <form name="addSupply" method="post" action="php/medicalSuppliesAdd">
+                        <form name="addSupply" method="post" action="medicalsupplies/addMedicalSupplies">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -506,7 +506,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                          <th>&nbsp;&nbsp;<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
                                         Issue To
                                       </button>
-                                <form name ="form2" method="post" action="php/suppliesFunctions.php">
+                                <form name ="form2" method="post" action="medicalSupplies/addMedicalSuppliesIssueTo">
                                 <div class="modal fade" id="modal-default">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -526,7 +526,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
                                                 mysqli_select_db($conn, "itproject");
-                                                  $sql = "SELECT * FROM departments";
+                                                  $sql = "SELECT * FROM departments GROUP BY department_name";
                                                   $results = mysqli_query($conn, $sql);
 
                                                   foreach($results as $department) { 

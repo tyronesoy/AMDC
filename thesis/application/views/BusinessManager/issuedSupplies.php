@@ -484,49 +484,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- /.box-header -->
               
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <?php
-                    $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                    $sql = "SELECT * from issuedsupplies";
-                    $result = $conn->query($sql);
-                  ?>
+              <table id="example" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                       <th>Request Date</th>
                       <th>Issue Date</th>
-                      <th>Description</th>
-                      <th>Quantity In Stock</th>
-                      <th>Unit</th>
-                      <th>Total Price</th>
+                      <th>Quantity</th>
                       <th>Department</th>
+                      <th>Description</th>
                     </tr>
                     </thead>
-                  <?php 
-                    if ($result->num_rows > 0) {
-                      while($row = $result->fetch_assoc()) { ?>
-                        <tr>
-                        <td><?php echo $row["request_date"]; ?></td>
-                        <td><?php echo $row["issued_date"]; ?></td>
-                        <td><?php echo $row["supply_description"]; ?></td>
-                        <td><?php echo $row["quantity_in_stock"]; ?></td>
-                        <td><?php echo $row["unit"]; ?></td>
-                        <td>&#8369;<?php echo $row["unit_price"]; ?></td>
-                        <td><?php echo $row["department_name"]; ?></td>
-                        </tr>
-                  <?php
-                    }
-                  }
-                  ?>
+                  
                 <tfoot>
                 <tr>
-                  <th>Issue Date</th>
-                  <th>Issue Time</th>
-                  <th>Description</th>
-                  <th>Quantity In Stock</th>
-                  <th>Unit</th>
-                  <th>Total Price</th>
-                  <th>Department</th>
+                  <th>Request Date</th>
+                      <th>Issue Date</th>
+                      <th>Quantity</th>
+                      <th>Department</th>
+                      <th>Description</th>
                 </tr>
                 </tfoot>
               </table>
@@ -595,19 +570,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
-<script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
+
     <script>
 <!-- date and time -->
   $(function () {
@@ -630,5 +593,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     })
   })
 </script>
+
+<script>
+        $(document).ready(function(){
+            var dataTable=$('#example').DataTable({
+                'autoWidth' : false,
+                "processing": true,
+                "serverSide": true,
+                "ajax":{
+                    url:"issuedsupplies/getIssuedSupplies",
+                    type:"post"
+                }
+            });
+        });
+    </script>
 </body>
 </html>

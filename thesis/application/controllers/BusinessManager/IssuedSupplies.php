@@ -19,8 +19,11 @@ class IssuedSupplies extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
-		$check = $this->session->userdata('stts');
+	{	
+		$this->load->model('db_model');
+		$data['issuedSupplies']=$this->db_model->getIssuedSupplies();
+		$this->load->view('BusinessManager/issuedSupplies', $data);
+		/*$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){
 			$this->load->view('BusinessManager/issued_supplies');
 		}else if($check == 'Assistant'){
@@ -29,7 +32,10 @@ class IssuedSupplies extends CI_Controller {
 			$this->load->view('Supervisor/issued_supplies');
 		}else{
 			header('Location: ../login');
-		}
+		} */
 		
+	}
+	public function getIssuedSupplies(){
+		$this->load->view('BusinessManager/php/issuedSuppliesFetch');
 	}
 }

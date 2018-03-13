@@ -67,4 +67,8 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Medical'");
 		return $query->result();
 	}
+	public function getIssuedSupplies(){
+		$query=$this->db->query("SELECT * FROM request_supplies");
+		return $query->result();
+	}
 }
