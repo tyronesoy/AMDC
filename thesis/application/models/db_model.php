@@ -71,4 +71,9 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM request_supplies");
 		return $query->result();
 	}
+	public function getMemo(){
+		$query=$this->db->query("SELECT * FROM memo");
+		return $query->result();
+	}
+
 }

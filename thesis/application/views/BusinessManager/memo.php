@@ -1,18 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<!--<?php
-//database_connection.php
-$connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
-//session_start();
-?>-->
 
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Business Manager | User Accounts</title>
+  <title>Business Manager | Memo</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -344,11 +339,11 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        User Accounts
+        Memo
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">User Accounts</li>
+        <li class="active">Memo</li>
       </ol>
     </section>
 
@@ -364,7 +359,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                     <tr>
                       <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
                         
-                        <form name="form1" id="user_form" method="post" action="userAccounts/addUser">
+                        <form name="form1" id="user_form" method="post" action="memo/addMemo">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -372,73 +367,25 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add User Account</h3>
+                                            <h3>Add Memo</h3>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
                                       <div class="modal-body">
                                         <div class="box-body">
-                                            <div class="form-group">
-                                                     <div class="usertypeDrop">
-                                                       <select name = "usertype">
-                                                       <option value="">Select a User Type</option>
-                                                        <?php
-                                                          $conn =mysqli_connect("localhost","root","");
-                                                           mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT * FROM users WHERE user_type = 'Assistant' OR user_type='Supervisor' GROUP BY user_type" ;
-                                                            $results = mysqli_query($conn, $sql);
-
-                                                            foreach($results as $user) { 
-                                                        ?>
-                                                        <option value="<?php echo $user["user_type"]; ?>" name="user"><?php echo $user["user_type"]; ?></option>
-                                                         <?php 
-                                                            }
-                                                          ?>
-                                                      </select>
-                                                     </div>
-                                                   </div>
                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Username</label>
-                                                  <input type="text" class="form-control" name="username" id="username" required />
+                                                  <label for="exampleInputEmail1">Memo Date</label>
+                                                  <input type="date" class="form-control" name="memo_date" id="memo_date" required />
                                                 </div>
                                                 <div class="form-group">
-                                                  <label for="exampleInputEmail1">First Name</label>
-                                                  <input type="name" class="form-control" name="fname" id="fname" required />
+                                                  <label for="exampleInputEmail1">Description</label>
+                                                  <input type="name" class="form-control" name="memo_description" id="memo_description" required />
                                                 </div>
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Last Name</label>
-                                                  <input type="name" class="form-control" name="lname" id="lname" required />
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Contact Number</label>
-                                                  <input type="number" class="form-control" name="user_contact" id="user_contact" required />
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Password</label>
-                                                  <input type="password" class="form-control" name="password" id="password" required />
-                                                  <input type="checkbox" onclick="myFunction()">Show Password
-
-                                                <script>
-                                                function myFunction() {
-                                                    var x = document.getElementById("password");
-                                                    if (x.type === "password") {
-                                                        x.type = "text";
-                                                    } else {
-                                                        x.type = "password";
-                                                    }
-                                                }
-                                                </script>
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Email</label>
-                                                  <input type="email" class="form-control" name="user_email" id="user_email" required />
-                                                </div>
-                     
                                         </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addUser">Save User Account</button>
+                                        <button type="submit" class="btn btn-primary" name="addMemo">Save Memo</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -456,32 +403,18 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
               <table id="example" class="display" cellspacing="0" width="100%">
                 <thead>
             <tr>
-                <th>User Type</th>
-                <th>User Name</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Contact Number</th>
-                <th>Email</th>
+                <th>Memo Date</th>
+                <th>Description</th>
                 <th>Status</th>
-               <!-- <th>Reset Password</th> -->
                 <th>Action</th>
-                
-
             </tr>
             </thead>
             <tfoot>
             <tr>
-                <th>User Type</th>
-                <th>User Name</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Contact Number</th>
-                <th>Email</th>
+                <th>Memo Date</th>
+                <th>Description</th>
                 <th>Status</th>
-               <!-- <th>Reset Password</th> -->
                 <th>Action</th>
-                
-
             </tr>
             </tfoot>
               </table>
@@ -587,7 +520,7 @@ input:checked + .slider:before {
                 "processing": true,
                 "serverSide":true,
                 "ajax":{
-                    url:"userAccounts/getUser",
+                    url:"memo/getMemo",
                     type:"post"
                 }
             });
@@ -602,7 +535,7 @@ input:checked + .slider:before {
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'userAccounts/editUser',
+                url:'memo/editMemo',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -623,21 +556,16 @@ input:checked + .slider:before {
 $con=mysqli_connect('localhost','root','','itproject');
 if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_username=mysqli_real_escape_string($con,$_POST['txtusername']);
-    $new_password=mysqli_real_escape_string($con,$_POST['txtpassword']);
-    $new_lname=mysqli_real_escape_string($con,$_POST['txtlname']);
-    $new_fname=mysqli_real_escape_string($con,$_POST['txtfname']);
-    $new_usercontact=mysqli_real_escape_string($con,$_POST['txtuser_contact']);
-    $new_email=mysqli_real_escape_string($con,$_POST['txtemail']);
-    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
+    $new_memodate=mysqli_real_escape_string($con,$_POST['txtmemodate']);
+    $new_memodescription=mysqli_real_escape_string($con,$_POST['txtmemodescription']);
+    $new_memostatus=mysqli_real_escape_string($con,$_POST['txtmemostatus']);
 
 
-    $sqlupdate="UPDATE users SET username='$new_username',
-                 password=MD5('$new_password'), lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', user_status='$new_status' WHERE user_id='$new_id' ";
+    $sqlupdate="UPDATE memo SET memo_date ='$new_memodate',memo_description='$new_memodescription', memo_status='$new_memostatus'WHERE memo_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="userAccounts"</script>';
+        echo '<script>window.location.href="memo"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
@@ -646,41 +574,14 @@ if(isset($_POST['btnEdit'])){
 
 if(isset($_GET['delete'])){
     $id=$_GET['delete'];
-    $sqldelete="DELETE FROM users WHERE user_id='$id'";
+    $sqldelete="DELETE FROM memo WHERE memo_id='$id'";
     $result_delete=mysqli_query($con,$sqldelete);
     if($result_delete){
-        echo'<script>window.location.href="userAccounts"</script>';
+        echo'<script>window.location.href="memo"</script>';
     }
     else{
         echo'<script>alert("Delete Failed")</script>';
     }
 }
-
-if(isset($_GET['reset'])){
-    $id=$_GET['reset'];
-    $sqlreset="UPDATE users SET password='amdc123' WHERE user_id='$id'";
-    $result_reset=mysqli_query($con,$sqlreset);
-    if($result_reset){
-        echo'<script>window.location.href="userAccounts"</script>';
-    }
-    else{
-        echo'<script>alert("Password Reset Failed")</script>';
-    }
-}
-// if(isset($_GET['status'])){
-//     $status='Inactive';
-//     $status2='Active';
-//     $id=$_GET['status'];
-      
-//       $sqlstatus="UPDATE users SET user_status='Active' WHERE user_id='$id'";
-//       $result_status=mysqli_query($con,$sqlstatus);
-//       if($result_status){
-//           echo'<script>window.location.href="userAccounts"</script>';
-//       }
-//       else{
-//           echo'<script>alert("Password Reset Failed")</script>';
-//       }
-    
-// } 
 
 ?>
