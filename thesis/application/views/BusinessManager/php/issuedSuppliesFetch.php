@@ -10,7 +10,8 @@ $col = array(
     2   =>  'quantity_ordered',
     3   =>  'issued_date',
     4   =>  'department_name',
-    5   =>  'description'
+    5   =>  'description',
+    6   =>  'supply_type'
 );  //create column like table in database
 
 $sql ="SELECT * FROM request_supplies";
@@ -45,10 +46,11 @@ $data=array();
 while($row=mysqli_fetch_array($query)){
     $subdata=array();
     $subdata[]=$row[1];
-    $subdata[]=$row[3]; 
-    $subdata[]=$row[2];  
-    $subdata[]=$row[4]; 
+    $subdata[]=$row[3];
+    $subdata[]=$row[6];
     $subdata[]=$row[5];
+    $subdata[]=$row[2];  
+    $subdata[]=$row[4];
     $data[]=$subdata;
 }
 

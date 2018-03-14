@@ -489,9 +489,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                       <th>Request Date</th>
                       <th>Issue Date</th>
+                      <th>Supply Type</th>
+                      <th>Description</th>
                       <th>Quantity</th>
                       <th>Department</th>
-                      <th>Description</th>
                     </tr>
                     </thead>
                   
@@ -499,9 +500,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tr>
                   <th>Request Date</th>
                       <th>Issue Date</th>
+                      <th>Supply Type</th>
+                      <th>Description</th>
                       <th>Quantity</th>
                       <th>Department</th>
-                      <th>Description</th>
                 </tr>
                 </tfoot>
               </table>

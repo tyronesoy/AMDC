@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MedicalSuppliesTotalQuantity extends CI_Controller {
+class OfficeSuppliesTotalQuantity extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -21,8 +21,8 @@ class MedicalSuppliesTotalQuantity extends CI_Controller {
 	public function index()
 	{
 		$this->load->model('db_model');
-		$data['medicalSuppliesTotalQuantity']=$this->db_model->getMedicalSuppliesTotalQuantity();
-		$this->load->view('BusinessManager/php/medicalSuppliesTotalQuantity', $data);
+		$data['officeSuppliesTotalQuantity']=$this->db_model->getOfficeSuppliesTotalQuantity();
+		$this->load->view('BusinessManager/php/officeSuppliesTotalQuantity', $data);
 		/*
 		$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){
@@ -36,8 +36,8 @@ class MedicalSuppliesTotalQuantity extends CI_Controller {
 		} */
 		
 	}
-	public function editMedicalSuppliesTotalQuantity(){
-		$this->load->view('BusinessManager/php/medicalSuppliesTotalQuantityEdit');
+	public function editOfficeSuppliesTotalQuantity(){
+		$this->load->view('BusinessManager/php/officeSuppliesTotalQuantityEdit');
 	}
 	
 }

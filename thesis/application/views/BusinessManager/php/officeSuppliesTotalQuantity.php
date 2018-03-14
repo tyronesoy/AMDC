@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Business Manager | Medical Supplies Total</title>
+   <title>Business Manager | Office Supplies Total</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -286,8 +286,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-      <li class ="active"><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+      <li class ="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!-- PURCHASES -->
@@ -345,12 +345,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Medical Supplies</b>
+          <b>Office Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li><a href="#">Medical Supplies</a></li>
+        <li><a href="#">Office Supplies</a></li>
         <li class="active">Data tables</li>
       </ol>
     </section>
@@ -368,7 +368,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th> <div class="btn-group">
                         <select name="dropdown" onchange="location =this.value;">
                           <option><b>Total Quantity</b></optiom>
-                          <option value="medicalSupplies">All Supplies</option>
+                          <option value="officeSupplies">All Supplies</option>
                         </select>
                       </div></th>
                     </tr>
@@ -378,7 +378,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
                         
-                        <form name="addSupply" method="post" action="medicalsupplies/addMedicalSupplies">
+                        <form name="addSupply" method="post" action="officesupplies/addOfficeSupplies">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -499,7 +499,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                          <th>&nbsp;&nbsp;<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
                                         Issue To
                                       </button>
-                                <form name ="form2" method="post" action="medicalSupplies/addMedicalSuppliesIssueTo">
+                                <form name ="form2" method="post" action="officeSupplies/addOfficeSuppliesIssueTo">
                                 <div class="modal fade" id="modal-default">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -507,7 +507,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <center><h3 class="modal-title"><b>Issue Supplies</b></h3></center>
+                                            <center><h3 class="modal-title"><b>Issue Supply</b></h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -598,11 +598,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               
             <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
-         <?php // RETRIEVE or Display Medical Supplies
+         <?php // RETRIEVE or Display Office Supplies
          $conn =mysqli_connect("localhost","root","");
    mysqli_select_db($conn, "itproject");
           $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
-            FROM supplies WHERE supply_type='Medical' AND quantity_in_stock IS NOT NULL
+            FROM supplies WHERE supply_type='Office' AND quantity_in_stock IS NOT NULL
             GROUP BY supply_description;";
           $result = $conn->query($sql);  ?>
           <thead>
@@ -661,7 +661,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="row no-print">
         <div class="col-xs-12">
           <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;">
-          <a href="../../examples/medicalSuppliesTotalQtyPrint.php"><i class="fa fa-print"></i> Print</a>
+          <a href="../../examples/officeSuppliesTotalQtyPrint.php"><i class="fa fa-print"></i> Print</a>
           </button>
         </div>
       </div>
@@ -759,7 +759,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'medicalSuppliesTotalQuantity/editMedicalSuppliesTotalQuantity',
+                url:'officeSuppliesTotalQuantity/editOfficeSuppliesTotalQuantity',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'

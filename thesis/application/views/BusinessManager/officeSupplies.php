@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Business Manager | Medical Supplies Total</title>
+   <title>Business Manager</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -27,7 +27,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
     <!-- Select2 -->
-      <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+
+   <!-- datatable lib -->
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -265,19 +270,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-  <!-- DASHBOARD MENU -->
+	<!-- DASHBOARD MENU -->
          <li>
           <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-    <!-- MANAGE ACCOUNTS MENU -->
+		<!-- MANAGE ACCOUNTS MENU -->
         <li>
           <a href="<?php echo 'useraccounts' ?>">
             <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
         </li>
-    <!-- SUPPLIES MENU -->
+		<!-- SUPPLIES MENU -->
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
@@ -286,8 +291,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-      <li class ="active"><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+			<li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+			<li class ="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!-- PURCHASES -->
@@ -301,19 +306,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
-    <!-- SUPPLIERS MENU -->
+		<!-- SUPPLIERS MENU -->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-    <!-- DEPARTMENTS MENU -->
+		<!-- DEPARTMENTS MENU -->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-    <!-- CALENDAR MENU -->
+		<!-- CALENDAR MENU -->
         <li>
           <a href="../calendar.html">
             <i class="fa fa-calendar"></i> <span>Calendar</span>
@@ -345,13 +350,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Medical Supplies</b>
+          <b>Office Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li><a href="#">Medical Supplies</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="#">Office Supplies</a></li>
+        <li class="active">Supplies</li>
       </ol>
     </section>
 
@@ -365,20 +370,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                 <table style="float: left;">
                     <tr>
-                        <th> <div class="btn-group">
+                        <th> <div class="dropdownButton">
                         <select name="dropdown" onchange="location =this.value;">
-                          <option><b>Total Quantity</b></optiom>
-                          <option value="medicalSupplies">All Supplies</option>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
+                          <span class="caret"></span>
+                        </button>
+                          <option><b>All Supplies</b></option>
+                          <option value="officeSuppliesTotalQuantity">Total Quantity</optiom>
                         </select>
                       </div></th>
                     </tr>
                 </table> 
-                
                 <table style="float:right;">
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
                         
-                        <form name="addSupply" method="post" action="medicalsupplies/addMedicalSupplies">
+                        <form name="addSupply" method="post" action="officesupplies/addOfficeSupplies">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -499,7 +506,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                          <th>&nbsp;&nbsp;<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
                                         Issue To
                                       </button>
-                                <form name ="form2" method="post" action="medicalSupplies/addMedicalSuppliesIssueTo">
+                                <form name ="form2" method="post" action="officeSupplies/addOfficeSuppliesIssueTo">
                                 <div class="modal fade" id="modal-default">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -507,7 +514,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <center><h3 class="modal-title"><b>Issue Supplies</b></h3></center>
+                                            <center><h3 class="modal-title"><b>Issue Supply</b></h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -596,59 +603,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table>      
             </div>
               
-            <div class="box-body">
-        <table id="example1" class="table table-bordered table-striped">
-         <?php // RETRIEVE or Display Medical Supplies
-         $conn =mysqli_connect("localhost","root","");
-   mysqli_select_db($conn, "itproject");
-          $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
-            FROM supplies WHERE supply_type='Medical' AND quantity_in_stock IS NOT NULL
-            GROUP BY supply_description;";
-          $result = $conn->query($sql);  ?>
+      <div class="box-body">
+        <table id="example" class="table table-bordered table-striped">
+         
           <thead>
             <tr>
-             <!--     <th>Date Received</th>
-                  <th>Time Received</th>
-                  <th>Expiration Date</th> --> 
+             <!-- <th>Date Received</th>
+                  <th>Time Received</th> -->
+                  <th>Expiration Date</th> 
                   <th>Description</th>
-                  <th>Total Quantity in Stock</th>
+                  <th>Quantity in Stock</th>
                   <th>Unit</th>
-                  <th>Total Amount </th>
+                  <th>Unit Price</th>
+             <!-- <th>Total Amount</th> -->
                   <th>Reorder Level</th>
-                  <th>Action</th>
+                  <th>Good Condition</th>
+                  <th>Damaged</th>
+                  <th> Action</th> 
             </tr>
         </thead>
-        <tbody>
-        <?php
-          while($row = $result->fetch_assoc()) { ?>
-            <tr>
-            <!-- <td><?php // echo $row["expirationDate"]; ?></td> -->
-
-            <td><?php echo $row["supply_description"]; ?></td>
-            <td align="right"><?php echo $row["Total Quantity"]; ?></td>
-            <td><?php echo $row["unit"]; ?></td>
-            <td align="right"><?php echo $row["Total Amount"]; ?></td>
-            <td><?php echo $row["reorder_level"]; ?></td>
-            <td align="center"><button type="button" id="edit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-pencil"></i>Edit</button></td>
-            </tr>
-          <?php 
-              }
-          ?>
-        </tbody>
+        
         <tfoot>
            <tr>
-            <!--     <th>Date Received</th>
-                  <th>Time Received</th>
-                  <th>Expiration Date</th> --> 
+             <!-- <th>Date Received</th>
+                  <th>Time Received</th> -->
+                  <th>Expiration Date</th> 
                   <th>Description</th>
-                  <th> Total Quantity in Stock</th>
+                  <th>Quantity in Stock</th>
                   <th>Unit</th>
-                  <th>Total Amount</th>
+                  <th>Unit Price</th>
+             <!-- <th>Total Amount</th> -->
                   <th>Reorder Level</th>
-                  <th>Action</th>
-        </tr> 
+                  <th>Good Condition</th>
+                  <th>Damaged</th>
+                  <th> Action</th> 
+            </tr> 
         </tfoot>
-      </table>             
+      </table>              
             </div>
             <!-- /.box-body -->
           </div>
@@ -657,11 +648,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-            <!-- PRINT AND PDF -->
+            <!--- PRINT AND PDF -->
               <div class="row no-print">
         <div class="col-xs-12">
-          <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;">
-          <a href="../../examples/medicalSuppliesTotalQtyPrint.php"><i class="fa fa-print"></i> Print</a>
+          <button type="button" class="btn btn-default pull-right" style="margin-right: 1px;"><i class="fa fa-print"></i>
+            <a href="../examples/officeSuppliesPrint.php"> Print</a>
           </button>
         </div>
       </div>
@@ -713,53 +704,94 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- page script -->
+ 
+
 <script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-    </script>
-<script>
-<!-- date and time -->
+ // date and time 
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
 
     //Date picker
     $('#datepicker').datepicker({
-      autoclose: true
+      autoclose: true,
+      format : 'yyyy-mm-dd'
     })
     //Date picker
     $('#datepicker2').datepicker({
-      autoclose: true
+      autoclose: true,
+      format : 'yyyy-mm-dd'
     })
     //Date picker
     $('#datepicker3').datepicker({
-      autoclose: true
+      autoclose: true,
+      format : 'yyyy-mm-dd'
     })
       
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
+    $('#datepicker4').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd'
     })
-  })
+    //Timepicker
+   /* $('.timepicker').timepicker({
+      showInputs: false,
+      format    : '%h:%i:%s %p'
+    }) */
+  }) 
 </script>
-<script>
-        $(document).on('click','#edit',function(e){
+
+<!--create modal dialog for display detail info for edit on button cell click-->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="content-data"></div>
+            </div>
+        </div>
+   
+    <script>
+        $(document).ready(function(){
+            var dataTable=$('#example').DataTable({
+                'autoWidth' : false,
+                "processing": true,
+                "serverSide": true,
+                "ajax":{
+                    url:"officesupplies/getOfficeSupplies",
+                    type:"post"
+                }
+            });
+        });
+    </script>
+
+    <!--script js for get edit data-->
+    <script>
+        $(document).on('click','#getEdit',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'medicalSuppliesTotalQuantity/editMedicalSuppliesTotalQuantity',
+                url:'officesupplies/editOfficeSupplies',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
+    
+    <!--script js for get reconcile data-->
+    <script>
+        $(document).on('click','#getRecon',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'officeSupplies/reconcileOfficeSupplies',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -773,3 +805,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 </body>
 </html>
+
+<?php 
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+
+//EDIT FOR OFFICE SUPPLIES
+if(isset($_POST['offEdit'])){
+    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
+    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
+    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtQuantityInStock']);
+    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
+    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+    $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
+    $new_supplyGoodCondition=mysqli_real_escape_string($conn,$_POST['txtGoodCondition']);
+    $new_supplyDamaged=mysqli_real_escape_string($conn,$_POST['txtDamaged']);
+
+    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate', good_condition='$new_supplyGoodCondition', damaged='$new_supplyDamaged' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="officeSupplies"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+} // END OF OFFICE EDIT
+
+//DELETE OFFICE SUPPLIES
+  if(isset($_GET['offDelete'])){
+    $id=$_GET['offDelete'];
+    $sqldelete="DELETE FROM supplies WHERE supply_id='$id'";
+    $result_delete=mysqli_query($con,$sqldelete);
+    if($result_delete){
+        echo'<script>window.location.href="officeSupplies"</script>';
+    }
+    else{
+        echo'<script>alert("Delete Failed")</script>';
+    }
+}// END OF DELETE OFFICE SUPPLIES
+
+//RECONCILE FOR OFFICE SUPPLIES
+if(isset($_POST['offRecon'])){
+    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $sqlupdate="UPDATE supplies SET quantity_in_stock='$new_supplyQuantityInStock' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="officeSupplies"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+} // END OF OFFICE RECONCILE
+?>

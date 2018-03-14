@@ -58,7 +58,7 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[2]; 
     $subdata[]=$row[5];  
     $subdata[]=$row[4]; 
-    $subdata[]='&#8369 '.$row[6];
+    $subdata[]='<td align="right">&#8369 '.$row[6].'</td>';
     $subdata[]=$row[8];  
     $subdata[]=$row[10];
     $subdata[]=$row[11];

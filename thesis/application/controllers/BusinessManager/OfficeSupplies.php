@@ -20,16 +20,41 @@ class OfficeSupplies extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->load->model('db_model');
+		$data['officeSupplies']=$this->db_model->getOfficeSupplies();
+		$this->load->view('BusinessManager/officeSupplies', $data);
+		/*
 		$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){
-			$this->load->view('BusinessManager/office_supplies');
+			$this->load->view('BusinessManager/Office_supplies');
 		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/office_supplies');
+			$this->load->view('Assistant/Office_supplies');
 		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/office_supplies');
+			$this->load->view('Supervisor/Office_supplies');
 		}else{
 			header('Location: ../login');
-		}
+		} */
 		
+	}
+	public function getOfficeSupplies(){
+		$this->load->view('BusinessManager/php/OfficeSuppliesFetch');
+	}
+	public function addOfficeSupplies(){
+		$this->load->view('BusinessManager/php/OfficeSuppliesAdd');
+	}
+	public function deleteOfficeSupplies(){
+		$this->load->view('BusinessManager/php/OfficeSuppliesDelete');
+	}
+	public function editOfficeSupplies(){
+		$this->load->view('BusinessManager/php/OfficeSuppliesEdit');
+	}
+	public function reconcileOfficeSupplies(){
+		$this->load->view('BusinessManager/php/OfficeSuppliesReconcile');
+	}
+	public function addOfficeSuppliesIssueTo(){
+		$this->load->view('BusinessManager/php/OfficeSuppliesIssueTo');
+	}
+	public function totalOfficeSupplies(){
+		$this->load->view('BusinessManager/php/OfficeSuppliesTotalQuantity');
 	}
 }

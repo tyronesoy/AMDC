@@ -514,7 +514,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <center><h3 class="modal-title"><b>Issue Supplies</b></h3></center>
+                                            <center><h3 class="modal-title"><b>Issue Supply</b></h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
