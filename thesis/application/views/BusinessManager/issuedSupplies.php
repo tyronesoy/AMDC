@@ -131,11 +131,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
+              <span class="label label-danger">!</span>
             </a>
             <ul class="dropdown-menu">
                <?php
-                    require_once("../../../db.php");
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
                     $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)";
                     $result2 = $conn->query($sql2);
                   ?>
@@ -187,7 +188,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <!-- end task item expiration notification-->
                     <h5>Items nearing expiration</h5>
                     <?php
-                        require_once("../../../db.php");
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
                         $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
                         $result3 = $conn->query($sql3);
                         $strdatetoday = strtotime(date("Y/m/d"));
@@ -248,7 +250,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </table>
                     <h5>Expired Items</h5>
                     <?php
-                        require_once("../../../db.php");
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
                         $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0";
                         $result4 = $conn->query($sql4);
                         $strdatetoday = strtotime(date("Y/m/d"));
