@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
    <title>Business Manager | Purchases</title>
    <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -16,13 +16,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
           <!-- Bootstrap time Picker -->
@@ -34,8 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	
-	
+
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?> class="logo">
+    <a href="<?php echo 'dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -83,8 +83,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <span class="hidden-xs" id="demo"></span>
                         <script>
                            var d = new Date().toString();
-                          d=d.split(' ').slice(0, 6).join(' ');
-                          document.getElementById("demo").innerHTML = d
+						   d=d.split(' ').slice(0, 6).join(' ');
+                           document.getElementById("demo").innerHTML = d
                         </script>
                     </a>
                 </li>
@@ -253,20 +253,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form 
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>-->
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
 	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'dashboard' ?>">
@@ -317,12 +305,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 		<!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
-          <a href="../calendar.php">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
+          <a href="<?php echo 'memo' ?>">
+            <i class="fa fa-calendar"></i> <span>Memo</span>
           </a>
         </li>
 		<!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
@@ -352,8 +336,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="<?php echo 'purchases' ?>">Purchases</a></li>
-      </ol>
+       <li class="active">Purchases</li>
     </section>
 
     <!-- Main content -->
@@ -367,7 +350,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
 						
-						 <form name="form1" method="post" action="purchases/addPurchases" >
+						 <form name="addPurchases" method="post" action="purchases/addPurchases" >
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -375,7 +358,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add Purchases</h3>
+                                            <center><h3>Add New Purchases</h3> </center>
                                         </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -421,15 +404,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   <!-- /.modal-dialog -->
                                 </div>
 							</form>
-							</th>
-							
-							
+							</th>			
                     </tr>
                 </table>      
             </div>
             <!-- /.box-header -->
               <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+				<table id="example" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Order Date</th>
@@ -459,7 +440,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </table>
 
             </div>
-
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -469,7 +449,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- /.row -->
           <div class="row no-print">
         <div class="col-xs-12">
-          <a href="../examples/printPurchases.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
+          <a href="../examples/printPurchases" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
         </div>
       </div>
     
@@ -479,9 +459,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed
@@ -556,7 +536,7 @@ input:checked + .slider:before {
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -567,7 +547,6 @@ input:checked + .slider:before {
 <script src="../assets/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- bootstrap color picker -->

@@ -5,12 +5,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Business Manager | Memo</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Business Manager | Memo</title>
+  
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -33,7 +33,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-  
    <style>
     .example-modal .modal {
       position: relative;
@@ -78,8 +77,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
                         <script>
-                            var d = new Date();
-                            document.getElementById("demo").innerHTML = d.toUTCString();
+                             var d = new Date().toString();
+							d=d.split(' ').slice(0, 6).join(' ');
+							document.getElementById("demo").innerHTML = d;
                         </script>
                     </a>
                 </li>
@@ -243,20 +243,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
     <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'dashboard' ?>">
@@ -265,7 +253,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
          
         <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
-        <li class="active">
+        <li>
           <a href="<?php echo 'userAccounts' ?>">
             <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
@@ -307,13 +295,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
         <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-        <li>
-          <a href="../calendar.php">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
+        <li class="active">
+          <a href="<?php echo 'memo' ?>">
+            <i class="fa fa-calendar"></i> <span>Memo</span>
           </a>
         </li>
         <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
@@ -367,7 +351,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add Memo</h3>
+                                            <center><h3>Add New Memo</h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -399,8 +383,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table> 
             </div>
             <!-- /.box-header -->
-              <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+               <div class="box-body">
+				<table id="example" class="table table-bordered table-striped">
                 <thead>
             <tr>
                 <th>Memo Date</th>
@@ -426,8 +410,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               
           </div>
         </div>
-</section>
-     
+  <div class="row no-print">
+        <div class="col-xs-12">
+          <a href="../examples/printPurchases" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
+        </div>
+      </div>
+    
+    </section>
+</div>
+    <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM</strong> All rights
+    reserved.
+  </footer> 
 
 <style>
 

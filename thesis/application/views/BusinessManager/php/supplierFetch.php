@@ -4,7 +4,7 @@ $con=mysqli_connect('localhost','root','','itproject')
 
 $request=$_REQUEST;
 $col = array(
-    0   =>  'suppliers_id',
+    0   =>  'supplier_id',
     1   =>  'company_name',
     2   =>  'supplier_contact',
     3   =>  'address',
@@ -23,7 +23,7 @@ $totalFilter=$totalData;
 //Search
 $sql ="SELECT * FROM suppliers WHERE 1=1";
 if(!empty($request['search']['value'])){
-    $sql.=" OR suppliers_id Like '".$request['search']['value']."%' ";
+    $sql.=" OR supplier_id Like '".$request['search']['value']."%' ";
     $sql.=" OR company_name Like '".$request['search']['value']."%' ";
     $sql.=" OR supplier_contact Like '".$request['search']['value']."%' ";
     $sql.=" OR address Like '".$request['search']['value']."%' ";

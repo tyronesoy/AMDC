@@ -8,31 +8,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
-  <!-- Tell the browser to be responsive to screen width -->
+   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-
+  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <!-- daterange picker -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+          <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+      <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+	  
    <!-- datatable lib -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-
   <!-- Google Font -->
   <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -191,20 +197,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
           <a href="<?php echo 'dashboard' ?>">
@@ -255,13 +249,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-        <li>
-          <a href="../calendar.php">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
+         <li>
+          <a href="<?php echo 'memo' ?>">
+            <i class="fa fa-calendar"></i> <span>Memo</span>
           </a>
         </li>
     <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
@@ -292,9 +282,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
         
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Office Supplies</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li class="active">Departments</li>
       </ol>
     </section>
 
@@ -308,13 +297,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table style="float: left;">
                     <tr>
                         <th> <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Branch
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Branch
                           <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                           <li><a href="#">All Branches</a></li>
-                          <li><a href="php/branchBaguio.php">Baguio City</a></li>
-                          <li><a href="php/branchLA.php">La Trinidad</a></li>
+                          <li><a href="php/branchBaguio">Baguio City</a></li>
+                          <li><a href="php/branchLA">La Trinidad</a></li>
                         </ul>
                       </div></th>
                     </tr>
@@ -330,7 +319,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add Department</h3>
+                                            <center><h3>Add New Department</h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -344,9 +333,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <input type="text" class="form-control" name="depName" required />
                                                 </div></td>
                                             </tr>
-                                               
-                                                             <th> 
-                                                             <div class="form-group">
+                                                <th> 
+                                                  <div class="form-group">
                                                   <label for="exampleInputEmail1">Branch Location</label>
                                                   <br>
                                                   <input type="radio" name="branch" value="Baguio City"> Baguio City <br>
@@ -372,8 +360,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table>
             </div>
             <!-- /.box-header -->
-              <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+            <div class="box-body">
+				<table id="example" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Department Name</th>
@@ -402,12 +390,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-          <div class="row no-print">
+              <div class="row no-print">
         <div class="col-xs-12">
-          <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          <button type="button" class="btn btn-primary pull-right" style=s"margin-right: 5px;">
-            <i class="fa fa-download"></i> Generate PDF
-          </button>
+          <a href="../examples/printPurchases.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
         </div>
       </div>
     
@@ -415,11 +400,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM</strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed
@@ -494,7 +479,7 @@ input:checked + .slider:before {
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -505,7 +490,6 @@ input:checked + .slider:before {
 <script src="../assets/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- bootstrap color picker -->
@@ -597,7 +581,7 @@ if(isset($_POST['btnEdit'])){
     $new_depName=mysqli_real_escape_string($con,$_POST['txtdepartmentname']);
     $new_branchLoc=mysqli_real_escape_string($con,$_POST['txtlocation']);
 
-    $sqlupdate="UPDATE departments SET department_name='$new_depName', branch_location='$new_branchLoc' WHERE department_id='$new_id' ";
+    $sqlupdate="UPDATE departments SET department_name='$new_depName', location='$new_branchLoc' WHERE department_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){

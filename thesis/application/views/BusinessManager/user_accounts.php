@@ -10,34 +10,41 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Business Manager | User Accounts</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Business Manager | User Accounts</title>
+  
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-    <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-  <!-- Select2 -->
-  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
-    <!-- datatable lib -->
+    <!-- daterange picker -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+          <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+      <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+	  
+   <!-- datatable lib -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
   <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
   
    <style>
@@ -77,15 +84,15 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
          <li class= "user user-menu">
                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
                         <script>
-                            var d = new Date();
-                            document.getElementById("demo").innerHTML = d.toUTCString();
+                           var d = new Date().toString();
+						   d=d.split(' ').slice(0, 6).join(' ');
+                           document.getElementById("demo").innerHTML = d
                         </script>
                     </a>
                 </li>
@@ -249,20 +256,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
     <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'dashboard' ?>">
@@ -459,8 +454,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 </table> 
             </div>
             <!-- /.box-header -->
-              <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+               <div class="box-body">
+					<table id="example" class="table table-bordered table-striped">
                 <thead>
             <tr>
                 <th>Role</th>
@@ -501,7 +496,17 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
               
           </div>
         </div>
+		
 </section>
+
+</div>
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
+    reserved.
+  </footer>
      
 
 <style>

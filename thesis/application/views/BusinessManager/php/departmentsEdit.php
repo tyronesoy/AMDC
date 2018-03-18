@@ -15,7 +15,7 @@ if(isset($_REQUEST['id'])){
         //$per_reqId=$row[3];
         //$per_userId=$row[5];
         //$per_suppId=$row[4];
-        $per_suppId=$row[3];
+        //$per_suppId=$row[3];
 
     }//end while
 ?>
