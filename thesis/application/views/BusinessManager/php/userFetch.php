@@ -13,7 +13,7 @@ $col = array(
     5   =>  'fname',
     6   =>  'user_contact',
     7   =>  'user_email',
-    8   =>  'user_status',
+    8   =>  'user_status'
 );  //create column like table in database
 
 
@@ -63,8 +63,8 @@ while($row=mysqli_fetch_array($query)){
     //create event on click in button edit in cell datatable for display modal dialog $row[0] is id in table on database
     // $subdata[]='';
     $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
-             <a href="userAccounts?delete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Remove</a>
-             <a href="userAccounts?reset='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-info btn-xs"></i> Reset  <i class="glyphicon glyphicon-lock"></i></a>';
+             <a href="userAccounts?delete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Remove</a>            
+             <a href="userAccounts?reset='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-info btn-xs"></i> Reset Password</i></a>';
              /*<a href="userAccounts?status='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-info btn-xs"></i> Status  <i class="glyphicon glyphicon-lock"></i></a>*/
     $data[]=$subdata; 
 }

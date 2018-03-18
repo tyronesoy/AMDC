@@ -48,7 +48,7 @@ if(isset($_REQUEST['id'])){
                              <div class="form-group">
                                     <label class="col-sm-4 control-label" for="txtmemodescription">Description</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="txtmemodescription" name="txtmemodescription" value="<?php echo $per_memodescription;?>">
+                                    <textarea type="text" class="form-control" id="txtmemodescription" name="txtmemodescription" value="<?php echo $per_memodescription;?>"/>
                                 </div>
                             </div>
 

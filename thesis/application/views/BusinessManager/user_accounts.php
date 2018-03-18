@@ -29,7 +29,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
     <script src="../assets/jquery/jquery-1.12.4.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
     <!-- datatable lib -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -362,7 +363,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
               <!-- <h3 class="box-title">Office Supplies</h3> -->
                 <table style="float:right;">
                     <tr>
-                      <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
+                      <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="fa fa-plus"></i> Create New User</button>
                         
                         <form name="form1" id="user_form" method="post" action="userAccounts/addUser">
                         <div class="modal fade" id="modal-info">
@@ -372,16 +373,23 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add User Account</h3>
+                                            <center><h3><b>Create New User Account</b></h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
                                       <div class="modal-body">
                                         <div class="box-body">
-                                            <div class="form-group">
-                                                     <div class="usertypeDrop">
-                                                       <select name = "usertype">
-                                                       <option value="">Select a User Type</option>
+
+                                               <div class="form-group">
+                                                  <label for="exampleInputEmail1">Username</label>
+                                                  <input type="text" class="form-control" name="username" id="username" required />
+                                                </div>
+
+                                            
+                                                     <div class="form-group">
+                                                      <label for="exampleInputEmail1">Role</label>
+                                                       <select name = "usertype" class="form-control">
+                                                       <option value="">Select a role</option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
@@ -396,11 +404,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                           ?>
                                                       </select>
                                                      </div>
-                                                   </div>
-                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Username</label>
-                                                  <input type="text" class="form-control" name="username" id="username" required />
-                                                </div>
+                            
+
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">First Name</label>
                                                   <input type="name" class="form-control" name="fname" id="fname" required />
@@ -409,6 +414,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                   <label for="exampleInputEmail1">Last Name</label>
                                                   <input type="name" class="form-control" name="lname" id="lname" required />
                                                 </div>
+
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Contact Number</label>
                                                   <input type="number" class="form-control" name="user_contact" id="user_contact" required />
@@ -433,12 +439,13 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                   <label for="exampleInputEmail1">Email</label>
                                                   <input type="email" class="form-control" name="user_email" id="user_email" required />
                                                 </div>
-                     
+                                            
+
                                         </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addUser">Save User Account</button>
+                                        <button type="submit" class="btn btn-primary" name="addUser">Save New User Account</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -456,7 +463,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
               <table id="example" class="display" cellspacing="0" width="100%">
                 <thead>
             <tr>
-                <th>User Type</th>
+                <th>Role</th>
                 <th>User Name</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -464,14 +471,15 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th>Email</th>
                 <th>Status</th>
                <!-- <th>Reset Password</th> -->
-                <th>Action</th>
+                <th width="30%">Action</th>
                 
 
             </tr>
             </thead>
+
             <tfoot>
             <tr>
-                <th>User Type</th>
+                <th>Role</th>
                 <th>User Name</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -479,7 +487,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th>Email</th>
                 <th>Status</th>
                <!-- <th>Reset Password</th> -->
-                <th>Action</th>
+                <th width="30%">Action</th>
                 
 
             </tr>
@@ -615,6 +623,11 @@ input:checked + .slider:before {
         });
     </script>
 
+    <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="../plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="../plugins/input-mask/jquery.inputmask.phone.extensions.js"></script>
+    <script src="../plugins/input-mask/jquery.inputmask.extensions.js"></script>
     
  </body>
 </html>
