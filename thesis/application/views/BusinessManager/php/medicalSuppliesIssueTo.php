@@ -3,8 +3,8 @@
    mysqli_select_db($connection, "itproject");
  if (isset($_POST['medIssueTo'])) {
       $sql = $connection->prepare("
-        INSERT INTO request_supplies (request_date, issued_date, quantity_ordered, department_name, description) VALUES (?, ?, ?, ?, ?)"; 
-
+        INSERT INTO request_supplies (request_date, issued_date, supply_type, quantity_ordered, department_name, description) VALUES (?, ?, 'Medical', ?, ?, ?)"); 
+      /*$sqlupdate="UPDATE supplies SET supplies.quantity_in_stock=(supplies.quantity_in_stock-request_supplies.quantity_ordered) FROM supplies JOIN request_supplies ON supplies.request_id=request_supplies.requisition_id";
      /* $sql2= $connection->prepare("UPDATE supplies SET quantity_in_stock = (supplies.quantity_in_stock - request_supplies.quantity_ordered) FROM  WHERE supplies.supply_id =  request_supplies.supply_id  ") ; */
 
       $reqDate = $_POST['reqDate'];
@@ -14,6 +14,7 @@
       $department = $_POST['department'];
       $description = $_POST['description'];
       $sql->bind_param('sssss', $reqDate, $issueDate, $description, $quantity, $department);
+     // $result_update=mysqli_query($connection,$sqlupdate);
 
       if($sql->execute()) {
         $success_message = "Added Successfully";

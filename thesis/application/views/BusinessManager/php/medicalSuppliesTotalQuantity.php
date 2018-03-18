@@ -16,7 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> 
+  <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> -->
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -27,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
     <!-- Select2 -->
-      <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -315,8 +316,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
     <!-- CALENDAR MENU -->
         <li>
-          <a href="../calendar.html">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
+          <a href="<?php echo 'memo'?>">
+            <i class="fa fa-calendar"></i> <span>Memo</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
@@ -367,7 +368,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <th> <div class="btn-group">
                         <select name="dropdown" onchange="location =this.value;">
-                          <option><b>Total Quantity</b></optiom>
+                          <option><b>Total Quantity</b></option >
                           <option value="medicalSupplies">All Supplies</option>
                         </select>
                       </div></th>
@@ -434,7 +435,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </div> -->
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" id="Quantity" name="Quantity" required />
+                                                  <input type="number" min="0" class="form-control" id="Quantity" name="Quantity" required />
                                                 
                                               </div>
                                               <div class="form-group">
@@ -602,7 +603,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          $conn =mysqli_connect("localhost","root","");
    mysqli_select_db($conn, "itproject");
           $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
-            FROM supplies WHERE supply_type='Medical' AND quantity_in_stock IS NOT NULL
+            FROM supplies WHERE supply_type='Medical' AND quantity_in_stock IS NOT NULL AND soft_deleted != 'Y'
             GROUP BY supply_description;";
           $result = $conn->query($sql);  ?>
           <thead>
@@ -629,7 +630,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td><?php echo $row["unit"]; ?></td>
             <td align="right"><?php echo $row["Total Amount"]; ?></td>
             <td><?php echo $row["reorder_level"]; ?></td>
-            <td align="center"><button type="button" id="edit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-pencil"></i>Edit</button></td>
+            <td align="center"><button type="button" id="edit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-pencil"></i>Edit</button></td>
             </tr>
           <?php 
               }
@@ -658,7 +659,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
       <!-- /.row -->
             <!-- PRINT AND PDF -->
-              <div class="row no-print">
+      <div class="row no-print">
         <div class="col-xs-12">
           <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;">
           <a href="../../examples/medicalSuppliesTotalQtyPrint.php"><i class="fa fa-print"></i> Print</a>
@@ -666,6 +667,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
       </div>
         <!-- END OF PRINT AND PDF -->
+      <div class="row no-print">
+        <div class="col-xs-12">
+          <button type="button" class="btn btn-default pull-right" style="margin-left: 5px;">
+          <a href="../../examples/medicalSuppliesTotalQtyPrint.php"><i class="fa fa-print"></i> Print</a>
+          </button>
+        </div>
+      </div>
     </section>
     <!-- /.content -->
   </div>
@@ -700,6 +708,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="../assets/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<script src="../assets/jquery/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
@@ -728,7 +738,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   })
     </script>
 <script>
-<!-- date and time -->
+  // date and time
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
@@ -747,29 +757,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     })
       
     //Timepicker
-    $('.timepicker').timepicker({
+    $('.timepicker').timepicer({
       showInputs: false
     })
   })
 </script>
-<script>
-        $(document).on('click','#edit',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'medicalSuppliesTotalQuantity/editMedicalSuppliesTotalQuantity',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
+
 </body>
 </html>

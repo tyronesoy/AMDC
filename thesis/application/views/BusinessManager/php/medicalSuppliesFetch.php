@@ -18,7 +18,10 @@ $col = array(
     10  =>  'good_condition',
     11  =>  'damaged',
     12  =>  'total_quantity',
-    13  =>  'total_amount'
+    13  =>  'total_amount',
+    14  =>  'delivery_id',
+    15  =>  'supplier_id',
+    16  =>  'soft_deleted'
 );  //create column like table in database
 
 $sql ="SELECT * FROM supplies";
@@ -29,7 +32,7 @@ $totalData=mysqli_num_rows($query);
 $totalFilter=$totalData;
 
 //Search
-$sql ="SELECT * FROM supplies WHERE 1=1 AND supply_type LIKE 'Medical' ";
+$sql ="SELECT * FROM supplies WHERE 1=1 AND supply_type LIKE 'Medical' AND soft_deleted!='Y' ";
 if(!empty($request['search']['value'])){
     $sql.=" 0R supply_id            Like '%".$request['search']['value']."%' ";
     $sql.=" OR supply_description   Like '%".$request['search']['value']."%' ";
@@ -64,9 +67,13 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[11];
 
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
-    $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil"></i>  Edit</button>&nbsp;
-                <button type="button" id="getRecon" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-adjust"></i>  Reconcile</button>&nbsp; 
-             <a href="medicalSupplies?medDelete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>  Remove</a>';
+    $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp;
+
+        <button type="button" id="getRecon" class="btn btn-info btn-xs" data-toggle="modal"
+        data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-adjust"></i></button>&nbsp; 
+        <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal"
+        data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-trash"></i></button>&nbsp;
+             ';
     $data[]=$subdata;
 }
 
