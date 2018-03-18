@@ -137,7 +137,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)";
+                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
                     $result2 = $conn->query($sql2);
                   ?>
               <li>
@@ -145,6 +145,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <ul class="menu">
                   <!-- Task item reorder levels-->
                     <h5>Items below reorder level</h5>
+                    <hr>
                     <li>
                     <?php 
                       if ($result2->num_rows > 0) {
@@ -187,6 +188,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </li>
                   <!-- end task item expiration notification-->
                     <h5>Items nearing expiration</h5>
+                    <hr>
                     <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -249,12 +251,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </small>
                     </table>
                     <h5>Expired Items</h5>
+                    <hr>
                     <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
                         $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0";
                         $result4 = $conn->query($sql4);
                         $strdatetoday = strtotime(date("Y/m/d"));
+                        $strdatelimit = $strdatetoday - 2588400;//today -30 days
                     ?>
                     <table id="expdue" class="table table-bordered table-striped">
                     <small>
@@ -262,7 +266,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               if ($result4->num_rows > 0) {
                                 while($row = $result4->fetch_assoc()) {
                                     $expdate = strtotime($row["expiration_date"]);
-                                if($expdate < $strdatetoday){
+                                if(($expdate < $strdatetoday) && ($expdate > $strdatelimit)){
                             ?>
                                   <tr class="danger">
                                   <td><?php echo $row["supply_description"]; ?></td>
