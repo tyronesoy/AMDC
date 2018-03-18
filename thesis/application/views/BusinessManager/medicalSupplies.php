@@ -429,7 +429,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       /.form group
                                               </div> -->
                                           <!-- /.form group -->
-                                            <div class="form-group" style="width:50%;">
+                                            <div class="form-group" style="width:100%;">
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
@@ -691,6 +691,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <button type="button" class="btn btn-default pull-right" style="margin-right: 1px;"><i class="fa fa-print"></i>
             <a href="../examples/medicalSuppliesPrint.php"> Print</a>
           </button>
+
+          <button type="button" class="btn btn-default pull-left" style="margin-right: 1px;"><i class="fa fa-reload"></i>
+            <a href="medicalSuppliesRecover"> Recover</a>
+          </button>
         </div>
       </div>
         <!-- END OF PRINT AND PDF -->
@@ -840,6 +844,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
     </script>
+
+    <script>
+        $(document).on('click','#getDelete',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'medicalSupplies/deleteMedicalSupplies',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+    </script>
 </body>
 </html>
 
@@ -872,10 +896,10 @@ if(isset($_POST['medEdit'])){
 
 //DELETE MEDICAL SUPPLIES
   if(isset($_GET['medDelete'])){
-    $id=$_GET['medDelete'];
-    $sqldelete="DELETE FROM supplies WHERE supply_id='$id'";
-    $result_delete=mysqli_query($con,$sqldelete);
-    if($result_delete){
+    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    $sqlupdate="UPDATE supplies SET soft_deleted='Y' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+    if($result_update){
         echo'<script>window.location.href="medicalSupplies"</script>';
     }
     else{

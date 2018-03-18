@@ -29,7 +29,7 @@ $totalData=mysqli_num_rows($query);
 $totalFilter=$totalData;
 
 //Search
-$sql ="SELECT * FROM supplies WHERE 1=1 AND supply_type LIKE 'Medical' ";
+$sql ="SELECT * FROM supplies WHERE 1=1 AND supply_type LIKE 'Medical' AND soft_deleted='N' ";
 if(!empty($request['search']['value'])){
     $sql.=" 0R supply_id            Like '%".$request['search']['value']."%' ";
     $sql.=" OR supply_description   Like '%".$request['search']['value']."%' ";
@@ -66,7 +66,7 @@ while($row=mysqli_fetch_array($query)){
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
     $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp;
                 <button type="button" id="getRecon" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-adjust"></i></button>&nbsp; 
-             <a href="medicalSupplies?medDelete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></a>';
+             <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-trash"></i></button>';
     $data[]=$subdata;
 }
 
