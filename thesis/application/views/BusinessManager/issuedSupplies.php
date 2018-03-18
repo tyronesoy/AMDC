@@ -206,7 +206,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
                                 if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
                             ?>
-                                  <tr>
+                                  <tr class="warning">
                                   <td><?php echo $row["supply_description"]; ?></td>
                                   <td><?php echo $row["expiration_date"]; ?></td>
                                   </tr>
@@ -214,7 +214,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php
                                       if($expvalue < 25){
                                     ?>
-                                    <tr>
+                                    <tr class="warning">
                                     <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
                                     <td><div class="progress xs">
                                       <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
@@ -224,7 +224,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>
                                     <?php
                                       }else if($expvalue < 50){?>
-                                    <tr>
+                                    <tr class="warning">
                                     <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
                                     <td><div class="progress xs">
                                       <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
@@ -234,7 +234,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>  
                                     <?php
                                       }else if($expvalue < 100){?>
-                                    <tr>
+                                    <tr class="warning">
                                     <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
                                     <td><div class="progress xs">
                                       <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
