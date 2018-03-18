@@ -53,40 +53,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       left: auto;
       display: block;
       z-index: 1;
-      border-radius: 25;
     }
 
     .example-modal .modal {
       background: transparent !important;
     }
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-    visibility: visible;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -60px;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-}
-
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -301,7 +272,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory System</li>
 	<!-- DASHBOARD MENU -->
          <li>
-          <a href="<?php echo '../dashboard' ?>">
+          <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
@@ -349,8 +320,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 		<!-- CALENDAR MENU -->
         <li>
-          <a href="<?php echo 'memo'?>">
-            <i class="fa fa-calendar"></i> <span>Memo</span>
+          <a href="../calendar.html">
+            <i class="fa fa-calendar"></i> <span>Calendar</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
@@ -408,12 +379,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <option value="medicalSuppliesTotalQuantity">Total Quantity</optiom>
                         </select>
                       </div></th>
-
                     </tr>
-                </table>  
+                </table> 
                 <table style="float:right;">
                     <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="fa fa-plus"></i> New Item</button>
+                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
                         
                         <form name="addSupply" method="post" action="medicalsupplies/addMedicalSupplies">
                         <div class="modal fade" id="modal-info">
@@ -423,7 +393,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <center><h3 class="modal-title"><b>Add New Supply</b></h3></center>
+                                            <center><h3 class="modal-title"><b>Add Supply</b></h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -469,34 +439,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <input type="text" class="form-control" name=Supplier""
                                                   required />
                                                 </div> -->
-                                              
-                                              <div class="row">
-                                              <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
                                                   <input type="number" class="form-control" id="Quantity" name="Quantity" required />
                                                 
                                               </div>
-                                              </div>
-
-                                              <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
                                                   <input type="text" class="form-control" id="Unit" name="Unit" />
                                                 </div>
-                                              </div>
-                                            </div>
-
-                                              <div class="row">
-                                              <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit Price</label>
                                                   <input type="number" class="form-control" id="priceUnit" name="priceUnit" required />
                                                 </div>
-                                              </div>
-
                                               <!-- Date and Time -->
-                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Expiration Date</label>
 
@@ -507,14 +463,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <input type="text" class="form-control pull-right" id="datepicker2" name="expirationDate">
                                                     </div>
                                                           <!-- /.input group --> 
-                                                  </div>
-                                              </div>
-                                              </div>                                
+                                                  </div>                                
                                         </div>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-warning" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-save"></i>  Save Supply</button>
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary" class="btn btn-success" data-toggle="modal" data-target="#modal-success">Save Supply</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -549,7 +503,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               
                             <!--- END OF ADD -->
                         <!---  ISSUE BUTTON -->
-                         <th>&nbsp;&nbsp;<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default">Issue To <i class="fa fa-arrow-right"></i></button>
+                         <th>&nbsp;&nbsp;<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
+                                        Issue To
+                                      </button>
                                 <form name ="form2" method="post" action="medicalSupplies/addMedicalSuppliesIssueTo">
                                 <div class="modal fade" id="modal-default">
                                   <div class="modal-dialog">
@@ -564,9 +520,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <!-- end of modal header -->
 
                                       <div class="modal-body">
-                                                <div class="form-group">
-                                                <label>Department</label><br/>
-                                                <select class="form-control" style="width: 40%;">
+                                                  <div class="departmentDrop">
+                                                <select name = "department">
                                                 <option value="">Select a Department</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
@@ -582,34 +537,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 ?>
                                               </select>
                                           </div>
+                                          <br/>
                                               <!-- Date and Time -->
-                                              <div class="row">
-                                              <div class="col-md-6">
                                                   <div class="form-group">
                                                     <label>Request Date</label>
-                                                    <div class="input-group" style="width: 100%;">
+                                                    <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                       <input type="text" class="form-control pull-right" id="datepicker3" name="reqDate">
                                                     </div>
-                                                  </div>
-                                              </div>
                                                     <!-- /.input group -->
-                                              <div class="col-md-6">
-                                                    <div class="form-group">
+                                                  </div>
+                                          <!-- /.form group -->
+                                                 <div class="form-group">
                                                     <label>Issue Date</label>
-                                                    <div class="input-group" style="width: 100%;">
+                                                    <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                       <input type="text" class="form-control pull-right" id="datepicker4" name="issueDate">
                                                     </div>
+                                                    <!-- /.input group -->
                                                   </div>
-                                          </div>
-                                        </div>
                                           <!-- /.form group -->
-                                                    
                                                 <!--TIME --> 
                                            <!--     <div class="bootstrap-timepicker">
                                                 <div class="form-group">
@@ -626,39 +577,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </div>
                                                       
                                               </div> -->
-                                              <div class="row">
-                                              <div class="col-md-6" style="width: 70%;">
+                                          <!-- /.form group -->
                                               <div class="form-group">
-                                                <label>Description</label>
-                                                <select class="form-control select2" style="width: 100%;">
-                                                  <option selected="selected"> </option>
-                                                  <?php
-                                                    $conn =mysqli_connect("localhost","root","");
-                                                    mysqli_select_db($conn, "itproject");
-                                                    $sql = "SELECT * FROM supplies WHERE supply_type = 'Medical' ";
-                                                    $results = mysqli_query($conn, $sql);
+                                                  <label for="exampleInputEmail1">Description</label>
+                                                  <input type="text" class="form-control" name="description">
+                                                </div>
 
-                                                    foreach($results as $description) { 
-                                                  ?>
-                                                  <option value="<?php echo $description["supply_description"]; ?>" name="desc"><?php echo $description["supply_description"]; ?></option>
-                                                <?php 
-                                                  }
-                                                ?>
-                                                </select>
-                                              </div>
-                                              </div>
-                                              
-                                              <div class="col-md-6" style="width: 30%;">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
                                                   <input type="number" class="form-control" name="quantity" required />
-                                                </div> 
-                                              </div> 
-                                              </div>
+                                                </div>  
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-warning" name="medIssueTo">Issue Supplies <i class="fa fa-arrow-right"></i></button>
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" name="medIssueTo">Issue Supplies</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -707,7 +639,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th> Action</th> 
             </tr> 
         </tfoot>
-      </table>             
+      </table>              
             </div>
             <!-- /.box-body -->
           </div>
@@ -716,22 +648,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-      
-        <!--- PRINT AND PDF -->
-        <div class="row no-print">
+            <!--- PRINT AND PDF -->
+              <div class="row no-print">
         <div class="col-xs-12">
           <button type="button" class="btn btn-default pull-right" style="margin-right: 1px;"><i class="fa fa-print"></i>
             <a href="../examples/medicalSuppliesPrint.php"> Print</a>
           </button>
-        <!-- END OF PRINT AND PDF -->
-
-        <!--- RECOVER -->
-          <button type="button" class="btn btn-default pull-left" style="margin-left: 1px;"><i class="fa fa-reload"></i>
-            <a href="medicalSuppliesRecover"> Recover</a>
-          </button>
         </div>
       </div>
-        <!-- END OF RECOVER -->
+        <!-- END OF PRINT AND PDF -->
     </section>
     <!-- /.content -->
   </div>
@@ -748,7 +673,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
 
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
@@ -879,26 +803,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
     </script>
-    <!--script js for get soft delete data-->
-    <script>
-        $(document).on('click','#getDelete',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'medicalSupplies/deleteMedicalSupplies',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
 </body>
 </html>
 
@@ -930,18 +834,17 @@ if(isset($_POST['medEdit'])){
 } // END OF MEDICAL EDIT
 
 //DELETE MEDICAL SUPPLIES
-if(isset($_POST['medDelete'])){
-    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $sqlupdate="UPDATE supplies SET soft_deleted='Y' WHERE supply_id='$new_id' ";
-    $result_update=mysqli_query($conn,$sqlupdate);
-
-    if($result_update){
-        echo '<script>window.location.href="medicalSupplies"</script>';
+  if(isset($_GET['medDelete'])){
+    $id=$_GET['medDelete'];
+    $sqldelete="DELETE FROM supplies WHERE supply_id='$id'";
+    $result_delete=mysqli_query($con,$sqldelete);
+    if($result_delete){
+        echo'<script>window.location.href="medicalSupplies"</script>';
     }
     else{
-        echo '<script>alert("Update Failed")</script>';
+        echo'<script>alert("Delete Failed")</script>';
     }
-} // END OF DELETE MEDICAL SUPPLIES
+}// END OF DELETE MEDICAL SUPPLIES
 
 //RECONCILE FOR MEDICAL SUPPLIES
 if(isset($_POST['medRecon'])){

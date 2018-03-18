@@ -43,7 +43,7 @@ class MedicalSupplies extends CI_Controller {
 		$this->load->view('BusinessManager/php/medicalSuppliesAdd');
 	}
 	public function deleteMedicalSupplies(){
-		$this->load->view('BusinessManager/php/medicalSuppliesRecoverDelete');
+		$this->load->view('BusinessManager/php/medicalSuppliesDelete');
 	}
 	public function editMedicalSupplies(){
 		$this->load->view('BusinessManager/php/medicalSuppliesEdit');

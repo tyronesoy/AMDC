@@ -39,7 +39,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <a href="officeSuppliesTotalQuantityEdit"><button type="button" class="btn btn-danger">Cancel</button> </a>
-                <button type="submit" class="btn btn-primary" name="medEdit">Save</button>
+                <button type="submit" class="btn btn-primary" name="medTQEdit">Save</button>
             </div>
         </div>
     </form>

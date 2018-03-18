@@ -482,7 +482,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                                          <button type="submit" class="btn btn-outline" name="addOffSupply">Save changes</button>
+                                          <button type="submit" class="btn btn-outline" name="addMedSupply">Save changes</button>
 
                                         </div>
                                       </div>
@@ -583,7 +583,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="offIssueTo">Issue Supplies</button>
+                                        <button type="submit" class="btn btn-primary" name="medIssueTo">Issue Supplies</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->

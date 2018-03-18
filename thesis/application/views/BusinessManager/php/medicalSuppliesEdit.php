@@ -50,7 +50,7 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtQuantityInStock">Quantity In Stock</label>
                             <div class="col-sm-6">
-                                <input type="number" min="1" class="form-control" id="txtQuantityInStock" name="txtQuantityInStock" value="<?php echo $per_supplyQuantityInStock;?>">
+                                <input type="number" class="form-control" id="txtQuantityInStock" name="txtQuantityInStock" value="<?php echo $per_supplyQuantityInStock;?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -62,7 +62,7 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtReorderLevel">Reorder Level</label>
                             <div class="col-sm-6">
-                                <input type="number" min="1" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>">
+                                <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -74,13 +74,13 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtGoodCondition">Good Condition</label>
                             <div class="col-sm-6">
-                                <input type="number" min="1" class="form-control" id="txtGoodCondition" name="txtGoodCondition" value="<?php echo $per_supplyGoodCondition;?>">
+                                <input type="number" class="form-control" id="txtGoodCondition" name="txtGoodCondition" value="<?php echo $per_supplyGoodCondition;?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtDamaged">Damaged</label>
                             <div class="col-sm-6">
-                                <input type="number" min="1" class="form-control" id="txtDamaged" name="txtDamaged" value="<?php echo $per_supplyDamaged;?>">
+                                <input type="number" class="form-control" id="txtDamaged" name="txtDamaged" value="<?php echo $per_supplyDamaged;?>">
                             </div>
                         </div>
                 </form>
