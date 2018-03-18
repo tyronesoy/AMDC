@@ -63,7 +63,7 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Medical'");
 		return $query->result();
 	}
-	public function getMedicalSuppliesTotaQuantity(){
+	public function getMedicalSuppliesTotalQuantity(){
 		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Medical'");
 		return $query->result();
 	}
@@ -71,4 +71,21 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM request_supplies");
 		return $query->result();
 	}
+	public function getMemo(){
+		$query=$this->db->query("SELECT * FROM memo");
+		return $query->result();
+	}
+	public function getOfficeSupplies(){
+		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type= 'Office' ");
+		return $query->result();
+	}
+	public function getOfficeSuppliesTotalQuantity(){
+		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Office'");
+		return $query->result();
+	}
+	public function getMedicalSuppliesRecover(){
+		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Medical'");
+		return $query->result();
+	}
+
 }
