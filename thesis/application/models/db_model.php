@@ -22,9 +22,9 @@ class Db_model extends CI_Model {
 					if($row->user_type == 'BusinessManager' && $row->user_status == 'Active'){
 						redirect('dashboard');
 					}else if($row->user_type == 'Assistant' && $row->user_status == 'Active'){
-						redirect('dashboard');
+						redirect('login');
 					}else if($row->user_type == 'Supervisor' && $row->user_status == 'Active'){
-						redirect('dashboard');
+						redirect('login');
 					}else{
 						$this->session->set_flashdata('info', 'This account is inactive!');
 						redirect('/thesis/login');
@@ -63,7 +63,7 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Medical'");
 		return $query->result();
 	}
-	public function getMedicalSuppliesTotalQuantity(){
+	public function getMedicalSuppliesTotaQuantity(){
 		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Medical'");
 		return $query->result();
 	}
@@ -71,21 +71,4 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM request_supplies");
 		return $query->result();
 	}
-	public function getMemo(){
-		$query=$this->db->query("SELECT * FROM memo");
-		return $query->result();
-	}
-	public function getOfficeSupplies(){
-		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type= 'Office' ");
-		return $query->result();
-	}
-	public function getOfficeSuppliesTotalQuantity(){
-		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Office'");
-		return $query->result();
-	}
-	public function getMedicalSuppliesRecover(){
-		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Medical'");
-		return $query->result();
-	}
-
 }

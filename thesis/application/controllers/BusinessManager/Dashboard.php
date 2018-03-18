@@ -21,7 +21,6 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		$check = $this->session->userdata('type');
-		var_dump($check);
 		if($check == 'BusinessManager'){
 			$this->load->view('BusinessManager/dashboard');
 		}else if($check == 'Assistant'){

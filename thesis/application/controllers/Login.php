@@ -19,7 +19,8 @@ class Login extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function _construct(){
-		session_start();
+		parent::_construct();
+		$this->load->library('session');
 	}
 
 	public function index(){
@@ -31,7 +32,14 @@ class Login extends CI_Controller {
 			$st = $this->session->userdata('stts');
 
 			if($ty == 'BusinessManager' && $st == 'Active'){
+				echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
+				$exit = $this->session->mark_as_temp(array('username', 'password'), 300);
+					//$this->session->sess_destroy();
+
 			$this->load->view('BusinessManager/dashboard');
+			
 			}else if($ty == 'Assistant' && $st == 'Active'){
 			$this->load->view('Assistant/dashboard');
 			}else if($ty == 'Supervisor' && $st == 'Active'){

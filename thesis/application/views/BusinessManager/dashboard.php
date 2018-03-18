@@ -440,7 +440,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <?php
                   	$conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT COUNT(*) AS total FROM returns JOIN supplies JOIN suppliers WHERE status ='Pending'";
+                  $sql = "SELECT COUNT(*) AS total FROM returns JOIN supplies JOIN suppliers WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -468,7 +468,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT DISTINCT COUNT(*) AS total FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'In Transit'";
+                  $sql = "SELECT DISTINCT COUNT(*) AS total FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'Requested'";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -496,7 +496,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date >= $date";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date <= $date";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -523,7 +523,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock >= reorder_level+10";
+                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
                 ?>
                 <thead> 
@@ -573,7 +573,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns JOIN supplies JOIN suppliers WHERE status ='Pending'";
+                  $sql = "SELECT supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns JOIN supplies JOIN suppliers WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -635,7 +635,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT DISTINCT supply_description, brand_name, delivery_date, company_name, grand_total, unit, unit_price, purchase_orders.total_amount, delivery_status, good_condition, damaged FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'In Transit'";
+                  $sql = "SELECT DISTINCT supply_description, brand_name, delivery_date, company_name, grand_total, unit, unit_price, total, delivery_status, good_condition, damaged FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'Requested'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -718,7 +718,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $date = date("Y/m/d");
-                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit FROM supplies JOIN suppliers WHERE expiration_date >= $date";
+                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit FROM supplies JOIN suppliers WHERE expiration_date <= $date";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -746,7 +746,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td>
                          
                         <form action="dispose.php" method="get">
-                          <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
+                          <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_ID"]; ?>">
                           <button type="submit" class="btn btn-danger">Disposed </button>
                         </form> 
                       </td>

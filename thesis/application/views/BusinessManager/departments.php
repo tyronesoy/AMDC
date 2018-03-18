@@ -313,15 +313,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </button>
                         <ul class="dropdown-menu">
                           <li><a href="#">All Branches</a></li>
-                          <li><a href="php/branchBaguio.php">Baguio City</a></li>
-                          <li><a href="php/branchLA.php">La Trinidad</a></li>
+                          <li><a href="<?php echo 'departments/getBagdep'?>">Baguio City</a></li>
+                          <li><a href="departments/getLadep">La Trinidad</a></li>
                         </ul>
                       </div></th>
                     </tr>
                 </table>
                 <table style="float:right;">
                     <tr>                    
-                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
+                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add New Department</button>
                         <form name="form1" method="post" action="departments/addDepartment" >
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
@@ -330,7 +330,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add Department</h3>
+                                            <h3>Add New Department</h3>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -338,6 +338,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="box-body">
                                           <table class="table table-bordered table-striped">
                                             <tbody>
+                                            <th> 
+                                                  <div class="form-group">
+                                                  <label for="exampleInputEmail1">Branch Location</label>
+                                                  <br>
+                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City &nbsp; &nbsp;
+                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad  <br>
+                                                </div> 
                                             <tr>
                                               <td><div class="form-group">
                                                   <label for="exampleInputEmail1">Department Name</label>
@@ -345,13 +352,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </div></td>
                                             </tr>
                                                
-                                                             <th> 
-                                                             <div class="form-group">
-                                                  <label for="exampleInputEmail1">Branch Location</label>
-                                                  <br>
-                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City <br>
-                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad <br>
-                                                </div> 
+                                                             
                                              </th>
                                             </tbody>
                                           </table>
@@ -404,10 +405,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- /.row -->
           <div class="row no-print">
         <div class="col-xs-12">
-          <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          <button type="button" class="btn btn-primary pull-right" style=s"margin-right: 5px;">
-            <i class="fa fa-download"></i> Generate PDF
-          </button>
+          <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
+          
         </div>
       </div>
     
@@ -520,6 +519,7 @@ input:checked + .slider:before {
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 
+
 <script>
 <!-- date and time -->
   $(function () {
@@ -586,6 +586,8 @@ input:checked + .slider:before {
             });
         });
     </script>
+
+
 </body>
 </html>
 
@@ -597,7 +599,7 @@ if(isset($_POST['btnEdit'])){
     $new_depName=mysqli_real_escape_string($con,$_POST['txtdepartmentname']);
     $new_branchLoc=mysqli_real_escape_string($con,$_POST['txtlocation']);
 
-    $sqlupdate="UPDATE departments SET department_name='$new_depName', branch_location='$new_branchLoc' WHERE department_id='$new_id' ";
+    $sqlupdate="UPDATE departments SET department_name='$new_depName', location='$new_branchLoc' WHERE department_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -606,7 +608,7 @@ if(isset($_POST['btnEdit'])){
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-}
+} 
 
 if(isset($_GET['delete'])){
     $id=$_GET['delete'];
