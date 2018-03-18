@@ -7,12 +7,11 @@ $request=$_REQUEST;
 $col = array(
     0   =>  'request_date',
     1   =>  'issue_date',
-    2   =>  'supply_description',
-    3   =>  'quantity_in_stock',
-    4   =>  'unit',
-    5   =>  'unit_price',
-    6   =>  'department_name',
-    7   =>  'location',
+    2   =>  'supply_type',
+    3   =>  'supply_description',
+    4   =>  'quantity_in_stock',
+    5   =>  'department_name',
+    6   =>  'location',
 );  //create column like table in database
 
 $sql ="SELECT * FROM request_supplies";
@@ -27,12 +26,11 @@ $sql ="SELECT * FROM issuedSupplies";
 if(!empty($request['search']['value'])){
     $sql.=" 0R request_date            Like '%".$request['search']['value']."%' ";
     $sql.=" OR issue_date              Like '%".$request['search']['value']."%' ";
-    $sql.=" OR supply_description      Like '%".$request['search']['value']."%' ";
-    $sql.=" OR quantity_in_stock       Like '%".$request['search']['value']."%' ";
-    $sql.=" OR unit                    Like '%".$request['search']['value']."%' ";
-    $sql.=" OR unit_price              Like '%".$request['search']['value']."%' ";
-    $sql.=" OR department_name              Like '%".$request['search']['value']."%' ";
-    $sql.=" OR location              Like '%".$request['search']['value']."%' ";
+    $sql.=" OR 'supply_type'           Like '%".$request['search']['value']."%' ";
+    $sql.=" OR 'supply_description'    Like '%".$request['search']['value']."%' ";
+    $sql.=" OR 'quantity_in_stock'     Like '%".$request['search']['value']."%' ";
+    $sql.=" OR department_name         Like '%".$request['search']['value']."%' ";
+    $sql.=" OR location                Like '%".$request['search']['value']."%' ";
     
 }
 $query=mysqli_query($con,$sql);
@@ -48,13 +46,12 @@ $data=array();
 
 while($row=mysqli_fetch_array($query)){
     $subdata=array();
+    $subdata[]=$row[0];
     $subdata[]=$row[1];
     $subdata[]=$row[2];
     $subdata[]=$row[3];
-    $subdata[]=$row[4];
-    $subdata[]=$row[5];  
-    $subdata[]=$row[6];
-    $subdata[]=$row[7];
+    $subdata[]=$row[4];  
+    $subdata[]=$row[5];
     $data[]=$subdata;
 }
 
