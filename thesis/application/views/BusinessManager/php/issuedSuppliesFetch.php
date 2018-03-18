@@ -5,13 +5,14 @@ $con=mysqli_connect('localhost','root','','itproject')
 
 $request=$_REQUEST;
 $col = array(
-    0   =>  'requisition_id',
-    1   =>  'request_date',
-    2   =>  'quantity_ordered',
-    3   =>  'issued_date',
-    4   =>  'department_name',
-    5   =>  'description',
-    6   =>  'supply_type'
+    0   =>  'request_date',
+    1   =>  'issue_date',
+    2   =>  'supply_description',
+    3   =>  'quantity_in_stock',
+    4   =>  'unit',
+    5   =>  'unit_price',
+    6   =>  'department_name',
+    7   =>  'location',
 );  //create column like table in database
 
 $sql ="SELECT * FROM request_supplies";
@@ -22,14 +23,16 @@ $totalData=mysqli_num_rows($query);
 $totalFilter=$totalData;
 
 //Search
-$sql ="SELECT * FROM request_supplies WHERE 1=1";
+$sql ="SELECT * FROM issuedSupplies";
 if(!empty($request['search']['value'])){
-    $sql.=" 0R requisition_id            Like '%".$request['search']['value']."%' ";
-    $sql.=" OR request_date   Like '%".$request['search']['value']."%' ";
-    $sql.=" OR quantity_ordered                 Like '%".$request['search']['value']."%' ";
-    $sql.=" OR issued_date    Like '%".$request['search']['value']."%' ";
-    $sql.=" OR department_name          Like '%".$request['search']['value']."%' ";
-    $sql.=" OR description      Like '%".$request['search']['value']."%' ";
+    $sql.=" 0R request_date            Like '%".$request['search']['value']."%' ";
+    $sql.=" OR issue_date              Like '%".$request['search']['value']."%' ";
+    $sql.=" OR supply_description      Like '%".$request['search']['value']."%' ";
+    $sql.=" OR quantity_in_stock       Like '%".$request['search']['value']."%' ";
+    $sql.=" OR unit                    Like '%".$request['search']['value']."%' ";
+    $sql.=" OR unit_price              Like '%".$request['search']['value']."%' ";
+    $sql.=" OR department_name              Like '%".$request['search']['value']."%' ";
+    $sql.=" OR location              Like '%".$request['search']['value']."%' ";
     
 }
 $query=mysqli_query($con,$sql);
@@ -46,11 +49,12 @@ $data=array();
 while($row=mysqli_fetch_array($query)){
     $subdata=array();
     $subdata[]=$row[1];
+    $subdata[]=$row[2];
     $subdata[]=$row[3];
-    $subdata[]=$row[6];
-    $subdata[]=$row[5];
-    $subdata[]=$row[2];  
     $subdata[]=$row[4];
+    $subdata[]=$row[5];  
+    $subdata[]=$row[6];
+    $subdata[]=$row[7];
     $data[]=$subdata;
 }
 
