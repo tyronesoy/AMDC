@@ -383,7 +383,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table> 
                 <table style="float:right;">
                     <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
+                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus"></i> New Item</button>
                         
                         <form name="addSupply" method="post" action="medicalsupplies/addMedicalSupplies">
                         <div class="modal fade" id="modal-info">
@@ -393,7 +393,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <center><h3 class="modal-title"><b>Add Supply</b></h3></center>
+                                            <center><h3 class="modal-title"><b>Add New Item</b></h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -429,7 +429,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       /.form group
                                               </div> -->
                                           <!-- /.form group -->
-                                            <div class="form-group">
+                                            <div class="form-group" style="width:50%;">
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
@@ -439,20 +439,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <input type="text" class="form-control" name=Supplier""
                                                   required />
                                                 </div> -->
+                                              <div class="row">
+                                              <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
                                                   <input type="number" class="form-control" id="Quantity" name="Quantity" required />
                                                 
                                               </div>
+                                              </div>
+
+                                              <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
                                                   <input type="text" class="form-control" id="Unit" name="Unit" />
-                                                </div>
+                                              </div>
+                                              </div>
+                                              </div>
+
+                                              <div class="row">
+                                              <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit Price</label>
                                                   <input type="number" class="form-control" id="priceUnit" name="priceUnit" required />
                                                 </div>
+                                              </div>
                                               <!-- Date and Time -->
+                                              <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Expiration Date</label>
 
@@ -463,7 +475,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <input type="text" class="form-control pull-right" id="datepicker2" name="expirationDate">
                                                     </div>
                                                           <!-- /.input group --> 
-                                                  </div>                                
+                                                  </div>
+                                                  </div>
+                                                  </div>
+
                                         </div>
                                       </div>
                                       <div class="modal-footer">
@@ -503,9 +518,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               
                             <!--- END OF ADD -->
                         <!---  ISSUE BUTTON -->
-                         <th>&nbsp;&nbsp;<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-                                        Issue To
-                                      </button>
+                         <th>&nbsp;&nbsp;<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default">Issue To <i class="glyphicon glyphicon-arrow-right"></i></button>
                                 <form name ="form2" method="post" action="medicalSupplies/addMedicalSuppliesIssueTo">
                                 <div class="modal fade" id="modal-default">
                                   <div class="modal-dialog">
@@ -520,8 +533,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <!-- end of modal header -->
 
                                       <div class="modal-body">
-                                                  <div class="departmentDrop">
-                                                <select name = "department">
+                                                <div class="form-group">
+                                                <select class="form-group select2" name = "department" style="width:40%">
                                                 <option value="">Select a Department</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
@@ -537,7 +550,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 ?>
                                               </select>
                                           </div>
-                                          <br/>
+                                                  <div class="row">
+                                                  <div class="col-md-6">
                                               <!-- Date and Time -->
                                                   <div class="form-group">
                                                     <label>Request Date</label>
@@ -549,7 +563,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
+                                                </div>
+
                                           <!-- /.form group -->
+                                                 <div class="col-md-6">
                                                  <div class="form-group">
                                                     <label>Issue Date</label>
                                                     <div class="input-group">
@@ -561,6 +578,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <!-- /.input group -->
                                                   </div>
                                           <!-- /.form group -->
+                                        </div>
+                                          </div>
                                                 <!--TIME --> 
                                            <!--     <div class="bootstrap-timepicker">
                                                 <div class="form-group">
@@ -578,19 +597,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       
                                               </div> -->
                                           <!-- /.form group -->
+                                              <div class="row">
+                                              <div class="col-md-6" style="width:60%;">
+                                              <label for="exampleInputEmail1">Supply Description</label>
                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Description</label>
-                                                  <input type="text" class="form-control" name="description">
-                                                </div>
+                                                <select class="form-group select2" name = "description" style="width:100%">
+                                                <option value=""></option>
+                                                <?php
+                                                 $conn =mysqli_connect("localhost","root","");
+                                                mysqli_select_db($conn, "itproject");
+                                                  $sql = "SELECT * FROM supplies WHERE supply_type='Medical' ";
+                                                  $results = mysqli_query($conn, $sql);
 
+                                                  foreach($results as $description) { 
+                                                ?>
+                                                <option value="<?php echo $description["supply_description"]; ?>" name="desc"><?php echo $description["supply_description"]; ?></option>
+                                                <?php 
+                                                  }
+                                                ?>
+                                              </select>
+                                          </div>
+                                              </div>
+                                              <div class="col-md-6" style="width:40%;">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
                                                   <input type="number" class="form-control" name="quantity" required />
-                                                </div>  
+                                                </div>
+                                              </div>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="medIssueTo">Issue Supplies</button>
+                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-warning" name="medIssueTo">Issue Supplies <i class="glyphicon glyphicon-arrow-right"></i></button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
