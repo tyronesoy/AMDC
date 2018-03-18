@@ -64,9 +64,15 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[11];
 
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
+<<<<<<< HEAD
     $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp;
                 <button type="button" id="getRecon" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-adjust"></i></button>&nbsp; 
              <a href="medicalSupplies?medDelete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></a>';
+=======
+    $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil"></i>  Edit</button>&nbsp;
+                <button type="button" id="getRecon" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-adjust"></i>  Reconcile</button>&nbsp; 
+             <a href="medicalSupplies?medDelete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>  Remove</a>';
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
     $data[]=$subdata;
 }
 

@@ -383,7 +383,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table> 
                 <table style="float:right;">
                     <tr>
+<<<<<<< HEAD
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus"></i> New Item</button>
+=======
+                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                         
                         <form name="addSupply" method="post" action="medicalsupplies/addMedicalSupplies">
                         <div class="modal fade" id="modal-info">
@@ -393,7 +397,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
+<<<<<<< HEAD
                                             <center><h3 class="modal-title"><b>Add New Item</b></h3></center>
+=======
+                                            <center><h3 class="modal-title"><b>Add Supply</b></h3></center>
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -439,32 +447,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <input type="text" class="form-control" name=Supplier""
                                                   required />
                                                 </div> -->
+<<<<<<< HEAD
                                               <div class="row">
                                               <div class="col-md-6">
+=======
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
                                                   <input type="number" class="form-control" id="Quantity" name="Quantity" required />
                                                 
                                               </div>
-                                              </div>
-
-                                              <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
                                                   <input type="text" class="form-control" id="Unit" name="Unit" />
+<<<<<<< HEAD
                                               </div>
                                               </div>
                                               </div>
 
                                               <div class="row">
                                               <div class="col-md-6">
+=======
+                                                </div>
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit Price</label>
                                                   <input type="number" class="form-control" id="priceUnit" name="priceUnit" required />
                                                 </div>
+<<<<<<< HEAD
                                               </div>
                                               <!-- Date and Time -->
                                               <div class="col-md-6">
+=======
+                                              <!-- Date and Time -->
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                                 <div class="form-group">
                                                     <label>Expiration Date</label>
 
@@ -475,10 +491,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <input type="text" class="form-control pull-right" id="datepicker2" name="expirationDate">
                                                     </div>
                                                           <!-- /.input group --> 
+<<<<<<< HEAD
                                                   </div>
                                                   </div>
                                                   </div>
 
+=======
+                                                  </div>                                
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                         </div>
                                       </div>
                                       <div class="modal-footer">
@@ -518,7 +538,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               
                             <!--- END OF ADD -->
                         <!---  ISSUE BUTTON -->
+<<<<<<< HEAD
                          <th>&nbsp;&nbsp;<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default">Issue To <i class="glyphicon glyphicon-arrow-right"></i></button>
+=======
+                         <th>&nbsp;&nbsp;<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
+                                        Issue To
+                                      </button>
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                 <form name ="form2" method="post" action="medicalSupplies/addMedicalSuppliesIssueTo">
                                 <div class="modal fade" id="modal-default">
                                   <div class="modal-dialog">
@@ -533,8 +559,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <!-- end of modal header -->
 
                                       <div class="modal-body">
+<<<<<<< HEAD
                                                 <div class="form-group">
                                                 <select class="form-group select2" name = "department" style="width:40%">
+=======
+                                                  <div class="departmentDrop">
+                                                <select name = "department">
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                                 <option value="">Select a Department</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
@@ -550,8 +581,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 ?>
                                               </select>
                                           </div>
+<<<<<<< HEAD
                                                   <div class="row">
                                                   <div class="col-md-6">
+=======
+                                          <br/>
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                               <!-- Date and Time -->
                                                   <div class="form-group">
                                                     <label>Request Date</label>
@@ -563,10 +598,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
+<<<<<<< HEAD
                                                 </div>
 
                                           <!-- /.form group -->
                                                  <div class="col-md-6">
+=======
+                                          <!-- /.form group -->
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                                  <div class="form-group">
                                                     <label>Issue Date</label>
                                                     <div class="input-group">
@@ -578,8 +617,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <!-- /.input group -->
                                                   </div>
                                           <!-- /.form group -->
+<<<<<<< HEAD
                                         </div>
                                           </div>
+=======
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                                 <!--TIME --> 
                                            <!--     <div class="bootstrap-timepicker">
                                                 <div class="form-group">
@@ -597,6 +639,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       
                                               </div> -->
                                           <!-- /.form group -->
+<<<<<<< HEAD
                                               <div class="row">
                                               <div class="col-md-6" style="width:60%;">
                                               <label for="exampleInputEmail1">Supply Description</label>
@@ -628,6 +671,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-warning" name="medIssueTo">Issue Supplies <i class="glyphicon glyphicon-arrow-right"></i></button>
+=======
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Description</label>
+                                                  <input type="text" class="form-control" name="description">
+                                                </div>
+
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Quantity</label>
+                                                  <input type="number" class="form-control" name="quantity" required />
+                                                </div>  
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" name="medIssueTo">Issue Supplies</button>
+>>>>>>> parent of 3225e16... edited medical and office supplies related files
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
