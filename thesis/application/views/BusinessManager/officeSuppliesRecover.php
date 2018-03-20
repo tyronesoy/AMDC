@@ -320,8 +320,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-			<li class ="active"><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+			<li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+			<li class ="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!-- PURCHASES -->
@@ -379,12 +379,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Deleted Medical Supplies</b>
+          <b>Deleted Office Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li><a href="#">Deleted Medical Supplies</a></li>
+        <li><a href="#">Deleted Office Supplies</a></li>
         <li class="active">Supplies</li>
       </ol>
     </section>
@@ -396,7 +396,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
           <div class="box">
             <div class="box-header">
-              <a href="medicalSupplies" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
+              <a href="officeSupplies" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
               </button></a>
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                       
@@ -507,7 +507,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
-                    url:"medicalsuppliesRecover/getMedicalSuppliesRecover",
+                    url:"officesuppliesRecover/getOfficeSuppliesRecover",
                     type:"post"
                 }
             });
@@ -522,7 +522,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'medicalsuppliesRecover/recoverMedicalSupplies',
+                url:'officesuppliesRecover/recoverOfficeSupplies',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -541,18 +541,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 
-//SOFT DELETED MEDICAL SUPPLIES
-if(isset($_POST['medRestore'])){
+//SOFT DELETED Office SUPPLIES
+if(isset($_POST['offRestore'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $sqlupdate="UPDATE supplies SET soft_deleted='N' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="medicalSupplies"</script>';
+        echo '<script>window.location.href="officeSupplies"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-} // END OF SOFT DELETE MEDICAL SUPPLIES
+} // END OF SOFT DELETE OFFICE SUPPLIES
 
 ?>

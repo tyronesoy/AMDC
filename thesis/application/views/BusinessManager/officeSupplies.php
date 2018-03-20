@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Business Manager</title>
+   <title>Business Manager | Data</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -139,77 +139,151 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
+              <span class="label label-danger">!</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
+               <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)";
+                    $result2 = $conn->query($sql2);
+                  ?>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
+                  <!-- Task item reorder levels-->
+                    <h5>Items below reorder level</h5>
+                    <li>
+                    <?php 
+                      if ($result2->num_rows > 0) {
+                        while($row = $result2->fetch_assoc()) { ?>
+                          <?php echo $row["supply_description"]; 
+                                $newvalue = $row["totalstock"] * 100;
+                                $percentage = $newvalue / $row["maximumreorder"];
+                          ?>
+                        <!--Reorder level meter-->
+                      <?php
+                      if($percentage < 25){
+                      ?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                        <div class="progress-bar progress-bar-red" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
                         </div>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
-                      </h3>
+                      <?php
+                      }else if($percentage < 50){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                        <div class="progress-bar progress-bar-yellow" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
                         </div>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
-                      </h3>
+                      <?php
+                      }else if($percentage < 100){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                        <div class="progress-bar progress-bar-green" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
                         </div>
                       </div>
-                    </a>
+                    <?php
+                      }
+                    }
+                    }
+                    ?>
                   </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
+                  <!-- end task item expiration notification-->
+                    <h5>Items nearing expiration</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
+                        $result3 = $conn->query($sql3);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
+                    ?>
+                    <table id="exp" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result3->num_rows > 0) {
+                                while($row = $result3->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
+                                if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
+                            ?>
+                                  <tr>
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                                    <!--Expiration meter-->
+                                    <?php
+                                      if($expvalue < 25){
+                                    ?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                      }else if($expvalue < 50){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>  
+                                    <?php
+                                      }else if($expvalue < 100){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                    }
+                                    }
+                                }
+                              }
+                            ?>
+                    </small>
+                    </table>
+                    <h5>Expired Items</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0";
+                        $result4 = $conn->query($sql4);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                    ?>
+                    <table id="expdue" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result4->num_rows > 0) {
+                                while($row = $result4->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                if($expdate < $strdatetoday){
+                            ?>
+                                  <tr class="danger">
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                            <?php
+                                }
+                              }
+                            }
+                            ?>
+                    </small>
+                    </table>
                 </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
               </li>
             </ul>
           </li>
@@ -371,7 +445,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table style="float: left;">
                     <tr>
                         <th> <div class="dropdownButton">
-                        <select name="dropdown" onchange="location =this.value;">
+                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
                           <span class="caret"></span>
                         </button>
@@ -383,7 +457,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table> 
                 <table style="float:right;">
                     <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
+                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus"></i> New Item</button>
                         
                         <form name="addSupply" method="post" action="officesupplies/addOfficeSupplies">
                         <div class="modal fade" id="modal-info">
@@ -393,7 +467,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <center><h3 class="modal-title"><b>Add Supply</b></h3></center>
+                                            <center><h3 class="modal-title"><b>Add New Item</b></h3></center>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -429,7 +503,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       /.form group
                                               </div> -->
                                           <!-- /.form group -->
-                                            <div class="form-group">
+                                            <div class="form-group" style="width:100%;">
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
@@ -439,20 +513,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <input type="text" class="form-control" name=Supplier""
                                                   required />
                                                 </div> -->
+                                              <div class="row">
+                                              <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
                                                   <input type="number" class="form-control" id="Quantity" name="Quantity" required />
                                                 
                                               </div>
+                                              </div>
+
+                                              <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
                                                   <input type="text" class="form-control" id="Unit" name="Unit" />
-                                                </div>
+                                              </div>
+                                              </div>
+                                              </div>
+
+                                              <div class="row">
+                                              <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit Price</label>
                                                   <input type="number" class="form-control" id="priceUnit" name="priceUnit" required />
                                                 </div>
+                                              </div>
                                               <!-- Date and Time -->
+                                              <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Expiration Date</label>
 
@@ -463,7 +549,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <input type="text" class="form-control pull-right" id="datepicker2" name="expirationDate">
                                                     </div>
                                                           <!-- /.input group --> 
-                                                  </div>                                
+                                                  </div>
+                                                  </div>
+                                                  </div>
+
                                         </div>
                                       </div>
                                       <div class="modal-footer">
@@ -489,7 +578,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                                          <button type="submit" class="btn btn-outline" name="addMedSupply">Save changes</button>
+                                          <button type="submit" class="btn btn-outline" name="addOffSupply">Save changes</button>
 
                                         </div>
                                       </div>
@@ -503,9 +592,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               
                             <!--- END OF ADD -->
                         <!---  ISSUE BUTTON -->
-                         <th>&nbsp;&nbsp;<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-                                        Issue To
-                                      </button>
+                         <th>&nbsp;&nbsp;<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default">Issue To <i class="glyphicon glyphicon-arrow-right"></i></button>
                                 <form name ="form2" method="post" action="officeSupplies/addOfficeSuppliesIssueTo">
                                 <div class="modal fade" id="modal-default">
                                   <div class="modal-dialog">
@@ -520,8 +607,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <!-- end of modal header -->
 
                                       <div class="modal-body">
-                                                  <div class="departmentDrop">
-                                                <select name = "department">
+                                                <div class="form-group">
+                                                <select class="form-group select2" name = "department" style="width:40%">
                                                 <option value="">Select a Department</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
@@ -537,7 +624,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 ?>
                                               </select>
                                           </div>
-                                          <br/>
+                                                  <div class="row">
+                                                  <div class="col-md-6">
                                               <!-- Date and Time -->
                                                   <div class="form-group">
                                                     <label>Request Date</label>
@@ -549,7 +637,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
+                                                </div>
+
                                           <!-- /.form group -->
+                                                 <div class="col-md-6">
                                                  <div class="form-group">
                                                     <label>Issue Date</label>
                                                     <div class="input-group">
@@ -561,6 +652,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <!-- /.input group -->
                                                   </div>
                                           <!-- /.form group -->
+                                        </div>
+                                          </div>
                                                 <!--TIME --> 
                                            <!--     <div class="bootstrap-timepicker">
                                                 <div class="form-group">
@@ -578,19 +671,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       
                                               </div> -->
                                           <!-- /.form group -->
+                                              <div class="row">
+                                              <div class="col-md-6" style="width:60%;">
+                                              <label for="exampleInputEmail1">Supply Description</label>
                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Description</label>
-                                                  <input type="text" class="form-control" name="description">
-                                                </div>
+                                                <select class="form-group select2" name = "description" style="width:100%">
+                                                <option value=""></option>
+                                                <?php
+                                                 $conn =mysqli_connect("localhost","root","");
+                                                mysqli_select_db($conn, "itproject");
+                                                  $sql = "SELECT * FROM supplies WHERE supply_type='Office' ";
+                                                  $results = mysqli_query($conn, $sql);
 
+                                                  foreach($results as $description) { 
+                                                ?>
+                                                <option value="<?php echo $description["supply_description"]; ?>" name="desc"><?php echo $description["supply_description"]; ?></option>
+                                                <?php 
+                                                  }
+                                                ?>
+                                              </select>
+                                          </div>
+                                              </div>
+                                              <div class="col-md-6" style="width:40%;">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
                                                   <input type="number" class="form-control" name="quantity" required />
-                                                </div>  
+                                                </div>
+                                              </div>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="medIssueTo">Issue Supplies</button>
+                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-warning" name="offIssueTo">Issue Supplies <i class="glyphicon glyphicon-arrow-right"></i></button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -619,7 +730,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th>Reorder Level</th>
                   <th>Good Condition</th>
                   <th>Damaged</th>
-                  <th> Action</th> 
+                  <th style="width:12.5%;"> Action</th> 
             </tr>
         </thead>
         
@@ -653,6 +764,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-xs-12">
           <button type="button" class="btn btn-default pull-right" style="margin-right: 1px;"><i class="fa fa-print"></i>
             <a href="../examples/officeSuppliesPrint.php"> Print</a>
+          </button>
+
+          <a href="officeSuppliesRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
+          </a>
           </button>
         </div>
       </div>
@@ -782,6 +897,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     </script>
 
+    <script>
+        $(document).on('click','#getAdd',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'officesupplies/OfficeSuppliesadd',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+    </script>
     
     <!--script js for get reconcile data-->
     <script>
@@ -803,12 +937,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
     </script>
+
+    <!--script js for release data-->
+    <script>
+        $(document).on('click','#getDelete',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'officesupplies/deleteOfficeSupplies',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+    </script>
 </body>
 </html>
 
 <?php 
-$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+
+//ADD on table FOR Office SUPPLIES
+if(isset($_POST['offAdd'])){
+
+    $sqladd= $conn->prepare("INSERT INTO supplies (quantity_in_stock, good_condition, damaged) VALUES (?, ?, ?)");
+    $addQty = $_POST['addQty'];
+    $addGC  = $_POST['addGC'];
+    $addDam = $_POST['addDam'];
+    $sqladd->bind_param("sss", $addQty, $addGC, $addDam);
+
+    if($sql->execute()) {
+        echo '<script>window.location.href="officeSupplies"</script>';
+        } else {
+        echo '<script>alert("Update Failed")</script>';
+        }
+        $sql->close();   
+        $connection->close();
+} // END OF OFFICE Add on table
 
 //EDIT FOR OFFICE SUPPLIES
 if(isset($_POST['offEdit'])){
@@ -833,18 +1006,6 @@ if(isset($_POST['offEdit'])){
     }
 } // END OF OFFICE EDIT
 
-//DELETE OFFICE SUPPLIES
-  if(isset($_GET['offDelete'])){
-    $id=$_GET['offDelete'];
-    $sqldelete="DELETE FROM supplies WHERE supply_id='$id'";
-    $result_delete=mysqli_query($con,$sqldelete);
-    if($result_delete){
-        echo'<script>window.location.href="officeSupplies"</script>';
-    }
-    else{
-        echo'<script>alert("Delete Failed")</script>';
-    }
-}// END OF DELETE OFFICE SUPPLIES
 
 //RECONCILE FOR OFFICE SUPPLIES
 if(isset($_POST['offRecon'])){
@@ -860,4 +1021,24 @@ if(isset($_POST['offRecon'])){
         echo '<script>alert("Update Failed")</script>';
     }
 } // END OF OFFICE RECONCILE
+?>
+
+<?php 
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+
+//SOFT DELETED OFFICE SUPPLIES
+if(isset($_POST['offDelete'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $sqlupdate="UPDATE supplies SET soft_deleted='Y' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($con,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="officeSupplies"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+} // END OF SOFT DELETE OFFICE SUPPLIES
+
 ?>

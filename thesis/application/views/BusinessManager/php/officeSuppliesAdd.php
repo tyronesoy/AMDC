@@ -4,7 +4,7 @@
                                 // OFFICE SUPPLY
   //CREATE or ADD OFFICE SUPPLY
   if (isset($_POST['addOffSupply'])) {
-      $sql = $connection->prepare("INSERT INTO supplies (supply_description, quantity_in_stock, unit, unit_price, supply_type, expiration_date) VALUES (?, ?, ?, ?, 'Office', ?)");  
+      $sql = $connection->prepare("INSERT INTO supplies (supply_description, quantity_in_stock, unit, unit_price, supply_type, expiration_date, soft_deleted) VALUES (?, ?, ?, ?, 'Office', ?, 'N')");  
       $description=$_POST['Description'];
       $quantity = $_POST['Quantity'];
       $unit= $_POST['Unit'];

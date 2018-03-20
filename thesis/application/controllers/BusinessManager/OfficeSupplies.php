@@ -42,6 +42,9 @@ class OfficeSupplies extends CI_Controller {
 	public function addOfficeSupplies(){
 		$this->load->view('BusinessManager/php/OfficeSuppliesAdd');
 	}
+	public function OfficeSuppliesadd(){
+		$this->load->view('BusinessManager/php/OfficeSuppliesAddQuantity');
+	}
 	public function deleteOfficeSupplies(){
 		$this->load->view('BusinessManager/php/OfficeSuppliesDelete');
 	}
