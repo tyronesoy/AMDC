@@ -45,6 +45,10 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM departments");
 		return $query->result();
 	}
+	public function getRecoverDepartments(){
+		$query=$this->db->query("SELECT * FROM departments");
+		return $query->result();
+	}
 	public function getBaguioDepartments(){
 		$query=$this->db->query("SELECT * FROM departments WHERE location = 'Baguio City'");
 		return $query->result();
@@ -99,5 +103,6 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM supplies WHERE supply_Type = 'Office'");
 		return $query->result();
 	}
+
 
 }

@@ -256,7 +256,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'memo' ?>">
+          <a href="<?php echo 'memo'?>">
             <i class="fa fa-calendar"></i> <span>Memo</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
@@ -293,8 +293,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Office Supplies</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="#">Departments</a></li>
       </ol>
     </section>
 
@@ -305,71 +304,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Office Supplies</h3> -->
-              <table style="float: left;">
-                    <tr>
-                        <th> <div class="dropdownButton">
-                        <select name="dropdown" onchange="location =this.value;">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Departments
-                          <span class="caret"></span>
-                        </button>
-                          <option><b>All Departments</b></option>
-                          <option value="branchBaguio">Baguio</option>
-                        </select>
-                      </div></th>
-                    </tr>
-                </table>
-                <table style="float:right;">
-                    <tr>                    
-                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add New Department</button>
-                        <form name="form1" method="post" action="departments/addDepartment" >
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <h3>Add New Department</h3>
-                                          </div>
-                                      </div>
-                                        <!-- end of modal header -->
-                                      <div class="modal-body">
-                                        <div class="box-body">
-                                          <table class="table table-bordered table-striped">
-                                            <tbody>
-                                            <th> 
-                                                  <div class="form-group">
-                                                  <label for="exampleInputEmail1">Branch Location</label>
-                                                  <br>
-                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City &nbsp; &nbsp;
-                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad  <br>
-                                                </div> 
-                                            <tr>
-                                              <td><div class="form-group">
-                                                  <label for="exampleInputEmail1">Department Name</label>
-                                                  <input type="text" class="form-control" name="depName" required />
-                                                </div></td>
-                                            </tr>
-                                               
-                                                             
-                                             </th>
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addDep">Save Department</button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                                </form>
-                                </th>
-                    </tr>
-                </table>
+              <h3> Deleted Departments </h3>
             </div>
             <!-- /.box-header -->
               <div class="box-body">
@@ -405,9 +340,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row no-print">
         <div class="col-xs-12">
           <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
-        
-        <a href="departmentsRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
-          </a>
+          
         </div>
       </div>
     
@@ -560,42 +493,21 @@ input:checked + .slider:before {
                 "processing": true,
                 "serverSide":true,
                 "ajax":{
-                    url:"departments/getDepartment",
+                    url:"departmentsRecover/getDepartmentsRecover",
                     type:"post"
                 }
             });
         });
     </script>
 
-    <!--script js for get edit data-->
     <script>
-        $(document).on('click','#getEdit',function(e){
-            e.preventDefault();
-            var per_depId=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'departments/editDepartment',
-                type:'POST',
-                data:'id='+per_depId,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
-
-    <script>
-        $(document).on('click','#getDelete',function(e){
+        $(document).on('click','#getRestore',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'departments/deleteDepartments',
+                url:'departmentsRecover/deleteDepartmentsRecover',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -615,12 +527,11 @@ input:checked + .slider:before {
 <?php
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-if(isset($_POST['btnEdit'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_depName=mysqli_real_escape_string($con,$_POST['txtdepartmentname']);
-    $new_branchLoc=mysqli_real_escape_string($con,$_POST['txtlocation']);
 
-    $sqlupdate="UPDATE departments SET department_name='$new_depName', location='$new_branchLoc' WHERE department_id='$new_id' ";
+//SOFT DELETED DEPARTMENTS
+if(isset($_POST['depRestore'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $sqlupdate="UPDATE departments SET soft_deleted='N' WHERE department_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -629,19 +540,5 @@ if(isset($_POST['btnEdit'])){
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-} 
-
-//SOFT DELETED DEPARTMENT
-if(isset($_POST['depDelete'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $sqlupdate="UPDATE departments SET soft_deleted='Y' WHERE department_id='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
-
-    if($result_update){
-        echo '<script>window.location.href="departments"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
-} // END OF SOFT DELETE MEDICAL SUPPLIES
+} // END OF SOFT DELETE DEPARTMENTS
 ?>

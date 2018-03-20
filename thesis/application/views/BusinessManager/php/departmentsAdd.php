@@ -3,7 +3,7 @@ $connection =mysqli_connect("localhost","root","");
 mysqli_select_db($connection, "itproject");
 
   if (isset($_POST['addDep'])) {
-  $sql = $connection->prepare("INSERT INTO departments (department_name, location) VALUES (?, ?)");  
+  $sql = $connection->prepare("INSERT INTO departments (department_name, location, soft_deleted) VALUES (?, ?, 'N')");  
   $depName=$_POST['depName'];
   $branch = $_POST['branch'];
   $sql->bind_param("ss", $depName, $branch); 

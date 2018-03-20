@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Departments extends CI_Controller {
+class DepartmentsRecover extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,8 +20,8 @@ class Departments extends CI_Controller {
 	 */
 	public function index(){
 		$this->load->model('db_model');
-		$data['departments']=$this->db_model->getDepartments();
-		$this->load->view('BusinessManager/departments', $data);
+		$data['departmentsRecover']=$this->db_model->getRecoverDepartments();
+		$this->load->view('BusinessManager/departmentsRecover', $data);
 		//$check = $this->session->userdata('stts');
 		//if($check == 'BusinessManager'){
 		//	$this->load->view('BusinessManager/departments');
@@ -34,17 +34,11 @@ class Departments extends CI_Controller {
 	//	}
 		
 	}
-	public function getDepartment(){
-		$this->load->view('BusinessManager/php/departmentsFetch');
+	public function getDepartmentsRecover(){
+		$this->load->view('BusinessManager/php/departmentsRecoverFetch');
 	}
-	public function addDepartment(){
-		$this->load->view('BusinessManager/php/departmentsAdd');
-	}
-	public function editDepartment(){
-		$this->load->view('BusinessManager/php/departmentsEdit');
-	}
-	public function deleteDepartments(){
-		$this->load->view('BusinessManager/php/departmentsDelete');
+	public function deleteDepartmentsRecover(){
+		$this->load->view('BusinessManager/php/departmentsRecoverDelete');
 	}
 
 }

@@ -16,7 +16,7 @@ $totalData=mysqli_num_rows($query);
 $totalFilter=$totalData;
 
 //Search
-$sql ="SELECT * FROM departments WHERE 1=1 AND soft_deleted = 'N' ";
+$sql ="SELECT * FROM departments WHERE 1=1 AND soft_deleted='Y'";
 if(!empty($request['search']['value'])){
     $sql.=" OR department_id Like '".$request['search']['value']."%' ";
     $sql.=" OR department_name Like '".$request['search']['value']."%' ";
@@ -41,9 +41,9 @@ while($row=mysqli_fetch_array($query)){
 
 
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
-    $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
-            <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal"
-        data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-trash"></i></button>';
+    $subdata[]='
+             <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal"
+        data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-repeat"></i> Restore</button>';
     $data[]=$subdata;
 }
 
