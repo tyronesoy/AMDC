@@ -1008,7 +1008,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           pointStrokeColor    : '#c1c7d1',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 10, 46, 89, 54]
+          data                : [320000, 360000, 110000, 510000, 440000, 480000, 290000, 680000]
         },
         {
           label               : 'Office Supplies',
@@ -1018,7 +1018,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           pointStrokeColor    : 'rgba(60,141,188,1)',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [28, 48, 40, 19, 15, 34, 67, 68]
+          data                : [280000, 480000, 470000, 190000, 150000, 340000, 670000, 600000]
         }
       ]
       
