@@ -4,13 +4,13 @@ $con=mysqli_connect('localhost','root','','itproject')
 
 $request=$_REQUEST;
 $col = array(
-    0   =>  'suppliers_id',
+    0   =>  'supplier_id',
     1   =>  'company_name',
     2   =>  'supplier_contact',
     3   =>  'address',
     4   =>  'supplier_status',
-    5   =>  'supplier_product',
-    6   =>  'supplier_remarks',
+    5   =>  'product',
+    6   =>  'remarks',
 );  //create column like table in database
 
 $sql ="SELECT * FROM suppliers";
@@ -28,8 +28,8 @@ if(!empty($request['search']['value'])){
     $sql.=" OR supplier_contact Like '".$request['search']['value']."%' ";
     $sql.=" OR address Like '".$request['search']['value']."%' ";
     $sql.=" OR supplier_status Like '".$request['search']['value']."%' ";
-    $sql.=" OR supplier_product Like '".$request['search']['value']."%' ";
-    $sql.=" OR supplier_remarks Like '".$request['search']['value']."%' ";
+    $sql.=" OR product Like '".$request['search']['value']."%' ";
+    $sql.=" OR remarks Like '".$request['search']['value']."%' ";
 }
 $query=mysqli_query($con,$sql);
 $totalData=mysqli_num_rows($query);

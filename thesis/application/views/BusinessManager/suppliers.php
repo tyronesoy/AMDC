@@ -298,8 +298,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 		<!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
-          <a href="../calendar.php">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
+          <a href="<?php echo 'memo' ?>">
+            <i class="fa fa-calendar"></i> <span>Memo</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
@@ -351,7 +351,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- <h3 class="box-title">Office Supplies</h3> -->
                 <table style="float:right;">
                     <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
+                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus">&nbsp;</i>Create New</button>
                         
                         <form name="form1" method="post" action="suppliers/addSupplier" >
                         <div class="modal fade" id="modal-info">
@@ -385,12 +385,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <select class="form-control" name="suppProduct">
                                                     <?php
                                                       $conn=mysqli_connect("localhost", "root", "", "itproject");
-                                                      $sql = "SELECT supplier_product FROM suppliers GROUP BY supplier_product";
+                                                      $sql = "SELECT product FROM suppliers GROUP BY product";
                                                       $result = mysqli_query($conn, $sql);
 
                                                       foreach($result as $row){
                                                         ?>
-                                                        <option value="<?php echo $row["supplier_product"]; ?>" name="suppProduct"><?php echo $row["supplier_product"]; ?></option>
+                                                        <option value="<?php echo $row["product"]; ?>" name="suppProduct"><?php echo $row["product"]; ?></option>
                                                       <?php
                                                       }
                                                       ?>
@@ -429,9 +429,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Action</th>
                     </tr>
                 </thead>
-
-                
-                
                 <tfoot>
                   <tr>
                     <th>Supplier Name</th>
@@ -661,7 +658,7 @@ if(isset($_POST['btnEdit'])){
     $new_supplierStatus=mysqli_real_escape_string($con,$_POST['txtstatus']);
     $new_supplierRemarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
 
-    $sqlupdate="UPDATE suppliers SET company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', supplier_product='$new_supplierProduct', supplier_status='$new_supplierStatus', supplier_remarks='$new_supplierRemarks' WHERE suppliers_id='$new_id' ";
+    $sqlupdate="UPDATE suppliers SET company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', supplier_status='$new_supplierStatus', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -674,13 +671,13 @@ if(isset($_POST['btnEdit'])){
 
 if(isset($_GET['update'])){
     $id=$_GET['update'];
-    $sqlupdate="UPDATE suppliers SET supplier_status = IF(supplier_status='Active','Inactive', IF(supplier_status='Inactive','Active', supplier_status)) WHERE suppliers_id='$id'";
+    $sqlupdate="UPDATE suppliers SET supplier_status = IF(supplier_status='Active','Inactive', IF(supplier_status='Inactive','Active', supplier_status)) WHERE supplier_id='$id'";
     $result_update=mysqli_query($con,$sqlupdate);
     if($result_update){
-        //echo'<script>window.location.href="suppliers"</script>';
+        echo'<script>window.location.href="suppliers"</script>';
     }
     else{
-        //echo'<script>alert("Delete Failed")</script>';
+        echo'<script>alert("Delete Failed")</script>';
     }
 }
 ?>
