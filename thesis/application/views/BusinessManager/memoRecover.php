@@ -265,7 +265,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
          
         <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
+        <li class="active">
           <a href="<?php echo 'userAccounts' ?>">
             <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
@@ -307,9 +307,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
         <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-        <li class="active">
-          <a href="<?php echo 'memo'?>">
-            <i class="fa fa-calendar"></i> <span>Memo</span>
+        <li>
+          <a href="../calendar.php">
+            <i class="fa fa-calendar"></i> <span>Calendar</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
@@ -343,7 +343,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Memo</li>
+        <li class="active">Deleted Memo</li>
       </ol>
     </section>
 
@@ -355,49 +355,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Office Supplies</h3> -->
-                <table style="float:right;">
-                    <tr>
-                      <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
-                        
-                        <form name="form1" id="user_form" method="post" action="memo/addMemo">
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <h3>Add Memo</h3>
-                                          </div>
-                                      </div>
-                                        <!-- end of modal header -->
-                                      <div class="modal-body">
-                                        <div class="box-body">
-                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Memo Date</label>
-                                                  <input type="date" class="form-control" name="memo_date" id="memo_date" required />
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Description</label>
-                                                  <textarea type="name" class="form-control" name="memo_description" id="memo_description" required /> </textarea>
-
-                                                </div>
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addMemo">Save Memo</button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                    
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                                </form>
-                            </th> 
-                    </tr>
-                </table> 
+                <a href="memo" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
+              </button></a>
             </div>
             <!-- /.box-header -->
               <div class="box-body">
@@ -427,21 +386,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               
           </div>
         </div>
-
-         <!--- PRINT AND PDF -->
-              <div class="row no-print">
-        <div class="col-xs-12">
-          <button type="button" class="btn btn-default pull-right" style="margin-right: 1px;"><i class="fa fa-print"></i>
-            <a href=""> Print</a>
-          </button>
-
-          <a href="memoRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
-          </a>
-          </button>
-        </div>
-      </div>
 </section>
-</div>     
+     
 
 <style>
 
@@ -534,42 +480,21 @@ input:checked + .slider:before {
                 "processing": true,
                 "serverSide":true,
                 "ajax":{
-                    url:"memo/getMemo",
+                    url:"memoRecover/getMemoRecover",
                     type:"post"
                 }
             });
         });
     </script>
 
-     <!--script js for get edit data-->
     <script>
-        $(document).on('click','#getEdit',function(e){
+        $(document).on('click','#getRestore',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'memo/editMemo',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
-
-    <script>
-        $(document).on('click','#getDelete',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'memo/deleteMemo',
+                url:'memoRecover/deleteMemoRecover',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -588,36 +513,19 @@ input:checked + .slider:before {
 
 <?php
 $con=mysqli_connect('localhost','root','','itproject');
-if(isset($_POST['btnEdit'])){
+
+//SOFT DELETED MEDICAL SUPPLIES
+if(isset($_POST['memRestore'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_memodate=mysqli_real_escape_string($con,$_POST['txtmemodate']);
-    $new_memodescription=mysqli_real_escape_string($con,$_POST['txtmemodescription']);
-    $new_memostatus=mysqli_real_escape_string($con,$_POST['txtmemostatus']);
-
-
-    $sqlupdate="UPDATE memo SET memo_date ='$new_memodate',memo_description='$new_memodescription', memo_status='$new_memostatus'WHERE memo_id='$new_id' ";
+    $sqlupdate="UPDATE memo SET soft_deleted='N' WHERE memo_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="memo"</script>';
+        echo '<script>window.location.href="memoRecover"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-}
-
-//SOFT DELETED MEMO
-if(isset($_POST['memDelete'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $sqlupdate="UPDATE memo SET soft_deleted='Y' WHERE memo_id='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
-
-    if($result_update){
-        echo '<script>window.location.href="memo"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
-} // END OF SOFT DELETE MEMO
+} // END OF SOFT DELETE MEDICAL SUPPLIES
 
 ?>

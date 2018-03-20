@@ -265,7 +265,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
         <li class="header">Inventory System</li>
     <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
@@ -312,10 +312,10 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-        <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+        <!---------------------------------------------------- MEMO MENU -------------------------------------------------------------->
         <li>
-          <a href="../calendar.php">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
+          <a href="<?php echo 'memo'?>">
+            <i class="fa fa-calendar"></i> <span>Memo</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Memo extends CI_Controller {
+class MemoRecover extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,8 +20,8 @@ class Memo extends CI_Controller {
 	 */
 	public function index(){
 		$this->load->model('db_model');
-		$data['memo']=$this->db_model->getMemo();
-		$this->load->view('BusinessManager/memo', $data);
+		$data['memoRecover']=$this->db_model->getMemoRecover();
+		$this->load->view('BusinessManager/memoRecover', $data);
 		//$check = $this->session->userdata('stts');
 		//if($check == 'BusinessManager'){
 		//	$this->load->view('BusinessManager/user_accounts');
@@ -34,17 +34,10 @@ class Memo extends CI_Controller {
 		//}
 		
 	}
-	public function getMemo(){
-		$this->load->view('BusinessManager/php/memoFetch');
+	public function getMemoRecover(){
+		$this->load->view('BusinessManager/php/memoFetchRecover');
 	}
-	public function addMemo(){
-		$this->load->view('BusinessManager/php/memoAdd');
-	}
-	public function deleteMemo(){
-		$this->load->view('BusinessManager/php/memoDelete');
-	}
-	
-	public function editMemo(){
-		$this->load->view('BusinessManager/php/memoEdit');
+	public function deleteMemoRecover(){
+		$this->load->view('BusinessManager/php/memoRecoverDelete');
 	}
 }
