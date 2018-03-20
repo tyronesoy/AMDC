@@ -325,13 +325,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="treeview">
-          <a href="#">
+          <a href="#supplies" >
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
+          <ul class="treeview-menu" id="supplies">
 			<li><a href="<?php echo 'BusinessManager/medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
 			<li><a href="<?php echo 'BusinessManager/officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
@@ -635,7 +635,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT DISTINCT supply_description, brand_name, delivery_date, company_name, grand_total, unit, unit_price, total, delivery_status, good_condition, damaged FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'Requested'";
+                  $sql = "SELECT DISTINCT supply_description, brand_name, deliveries.delivery_date, company_name, total_quantity, unit, unit_price, total_amount, delivery_status, good_condition, damaged FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'Requested'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -662,10 +662,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
                       <td><?php echo $row["company_name"]; ?></td>
-                      <td><?php echo $row["grand_total"]; ?></td>
+                      <td><?php echo $row["total_quantity"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["unit_price"]; ?></td>
-                      <td><?php echo $row["total"]; ?></td>
+                      <td><?php echo $row["total_amount"]; ?></td>
                       <td><?php echo $row["good_condition"]; ?></td>
                       <td><?php echo $row["damaged"]; ?></td>
 
@@ -718,7 +718,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $date = date("Y/m/d");
-                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit FROM supplies JOIN suppliers WHERE expiration_date <= $date";
+                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit, soft_deleted FROM supplies JOIN suppliers WHERE expiration_date <= '$date' && soft_deleted='N' GROUP BY expiration_date";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -745,9 +745,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["unit"]; ?></td>
                       <td>
                          
-                        <form action="dispose.php" method="get">
-                          <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_ID"]; ?>">
-                          <button type="submit" class="btn btn-danger">Disposed </button>
+                        <form action="BusinessManager/dispose" method="get">
+                          <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
+                          <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Disposed </button>
                         </form> 
                       </td>
                     </tr>

@@ -16,9 +16,9 @@
 	//}
 	$del_id = $_GET['disposeSupp'];
 	
-	$sql = $conn->prepare("UPDATE supplies SET supply_ewan  WHERE supply_id='$del_id'");
+	$sql = $conn->prepare("UPDATE supplies SET soft_deleted='Y'  WHERE supply_id='$del_id'");
 	$sql->execute();
 	$sql->close();
 	$conn->close();
-	header("Location: dashboard.php");
+	header("Location: ../dashboard");
 ?>
