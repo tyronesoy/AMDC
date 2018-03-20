@@ -54,7 +54,7 @@ if(isset($_REQUEST['id'])){
                                     <label class="col-sm-4 control-label" for="txtpassword">Password</label>
                                 <div class="col-sm-6">
                                     <input type="password" class="form-control" id="txtpassword" name="txtpassword">
-                                    <input type="checkbox" onclick="myFunction()">Show Password
+                                    <input type="checkbox" onclick="myFunction()"> Show Password
                                         <script>
                                              function myFunction() {
                                               var x = document.getElementById("txtpassword");
