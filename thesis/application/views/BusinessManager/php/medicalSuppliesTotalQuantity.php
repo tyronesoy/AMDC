@@ -313,10 +313,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-    <!-- CALENDAR MENU -->
+    <!--MEMO   MENU -->
         <li>
-          <a href="../calendar.html">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
+          <a href="<?php echo 'memo'?> ">
+            <i class="fa fa-calendar"></i> <span>Memo</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
