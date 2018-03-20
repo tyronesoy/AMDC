@@ -11,7 +11,7 @@ $col = array(
     3   =>  'supply_description',
     4   =>  'quantity_in_stock',
     5   =>  'department_name',
-    6   =>  'location',
+    6   =>  'location'  
 );  //create column like table in database
 
 $sql ="SELECT * FROM request_supplies";

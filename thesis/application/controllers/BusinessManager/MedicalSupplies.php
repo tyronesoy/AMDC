@@ -23,17 +23,6 @@ class MedicalSupplies extends CI_Controller {
 		$this->load->model('db_model');
 		$data['medicalSupplies']=$this->db_model->getMedicalSupplies();
 		$this->load->view('BusinessManager/medicalSupplies', $data);
-		/*
-		$check = $this->session->userdata('stts');
-		if($check == 'BusinessManager'){
-			$this->load->view('BusinessManager/medical_supplies');
-		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/medical_supplies');
-		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/medical_supplies');
-		}else{
-			header('Location: ../login');
-		} */
 		
 	}
 	public function getMedicalSupplies(){
@@ -41,6 +30,9 @@ class MedicalSupplies extends CI_Controller {
 	}
 	public function addMedicalSupplies(){
 		$this->load->view('BusinessManager/php/medicalSuppliesAdd');
+	}
+	public function MedicalSuppliesadd(){
+		$this->load->view('BusinessManager/php/medicalSuppliesAddQuantity');
 	}
 	public function deleteMedicalSupplies(){
 		$this->load->view('BusinessManager/php/medicalSuppliesDelete');
@@ -54,7 +46,5 @@ class MedicalSupplies extends CI_Controller {
 	public function addMedicalSuppliesIssueTo(){
 		$this->load->view('BusinessManager/php/medicalSuppliesIssueTo');
 	}
-	public function totalMedicalSupplies(){
-		$this->load->view('BusinessManager/php/medicalSuppliesTotalQuantity');
-	}
+	
 }
