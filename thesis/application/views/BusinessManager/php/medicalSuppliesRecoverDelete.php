@@ -16,7 +16,7 @@ if(isset($_REQUEST['id'])){
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                 <center><h3 class="modal-title"><b>Do you want to delete this item?</b></h3></center>
+                 <center><h3 class="modal-title"><b>Do you want to restore this item?</b></h3></center>
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <div class="form-group">
@@ -29,7 +29,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <a href="medicalSuppliesRecover"><button type="button" class="btn btn-danger">Cancel</button> </a>
-                <button type="submit" class="btn btn-danger" name="medDelete">Delete</button>
+                <button type="submit" class="btn btn-success" name="medRestore">Restore</button>
             </div>
         </div>
     </form>

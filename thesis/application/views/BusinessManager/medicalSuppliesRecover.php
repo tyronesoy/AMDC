@@ -4,10 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Business Manager | Departments</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
- 
+   <title>Business Manager | Data</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -23,23 +22,79 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+    <!-- daterange picker -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+      <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
 
    <!-- datatable lib -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+ <style>
+    .example-modal .modal {
+      position: relative;
+      top: auto;
+      bottom: auto;
+      right: auto;
+      left: auto;
+      display: block;
+      z-index: 1;
+      border-radius: 25;
+    }
+
+    .example-modal .modal {
+      background: transparent !important;
+    }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: visible;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo '../dashboard' ?>" class="logo">
+    <a href="../assets/dashboard.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -57,17 +112,58 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <li class= "user user-menu">
+         <li class= "user user-menu">
                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
                         <script>
-                          var d = new Date().toString();
-                          d=d.split(' ').slice(0, 6).join(' ');
-                          document.getElementById("demo").innerHTML = d;
+                            var d = new Date();
+                            document.getElementById("demo").innerHTML = d.toUTCString();
                         </script>
                     </a>
                 </li>
-         
+          <!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">10</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 10 notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                      page and may cause design problems
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-red"></i> 5 new members joined
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-user text-red"></i> You changed your username
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -159,9 +255,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <p>
                  Business Manager
-                  <small>Member since </small>
+                  <small>Member since Oct. 2017</small>
                 </p>
-                </li>
+              </li>
               <!-- Menu Footer-->
               <li class="user-footer">
             
@@ -170,9 +266,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
               </li>
             </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-
+          </li>    
         </ul>
       </div>
     </nav>
@@ -205,21 +299,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-  <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+	<!-- DASHBOARD MENU -->
          <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
+		<!-- MANAGE ACCOUNTS MENU -->
         <li>
-              <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-tags"></i><span>Manage Accounts</span>  
-              </a>
-          </li>
-  
-    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class ="treeview">
+          <a href="<?php echo 'useraccounts' ?>">
+            <i class="fa fa-group"></i> <span>Manage Accounts</span>
+          </a>
+        </li>
+		<!-- SUPPLIES MENU -->
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
             <span class="pull-right-container">
@@ -227,56 +320,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+			<li class ="active"><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
-        <!--------------------------------------------------- PURCHASES -------------------------------------------------->
+        <!-- PURCHASES -->
           <li>
               <a href="<?php echo 'purchases' ?>">
                   <i class="fa fa-tags"></i><span>Purchases</span>  
               </a>
           </li>
-        <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
+        <!-- ISSUED SUPPLIES -->
             <li><a href="<?php echo 'issuedSupplies' ?>">
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
-    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+		<!-- SUPPLIERS MENU -->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li class="active">
-          <a href="#">
+		<!-- DEPARTMENTS MENU -->
+        <li>
+          <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+		<!-- CALENDAR MENU -->
         <li>
-          <a href="../calendar.php">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
+          <a href="<?php echo 'memo'?>">
+            <i class="fa fa-calendar"></i> <span>Memo</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
             </span>
           </a>
         </li>
-    <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+<!-- INVOICE MENU -->
         <li>
-          <a href="<?php echo 'logs' ?>">
+          <a href="../examples/invoice.html">
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
-<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
+<!-- LOCKSCREEN MENU -->
         <li>
-          <a href="<?php echo 'lockscreen' ?>">
+          <a href="../examples/lockscreen.html">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
-        
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -287,114 +379,61 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Departments</b>
-        <!-- <small>advanced tables</small> -->
+          <b>Deleted Medical Supplies</b>
+        <!-- <small>Supplies</small> -->
       </h1>
-        
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Office Supplies</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><a href="#">Deleted Medical Supplies</a></li>
+        <li class="active">Supplies</li>
       </ol>
     </section>
 
     <!-- Main content -->
-      <section class="content">
-          <div class="row">
+    <section class="content">
+      <div class="row">
         <div class="col-xs-12">
+
           <div class="box">
             <div class="box-header">
-              <!-- <h3 class="box-title">Office Supplies</h3> -->
-              <table style="float: left;">
-                    <tr>
-                        <th> <div class="dropdownButton">
-                        <select name="dropdown" onchange="location =this.value;">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Departments
-                          <span class="caret"></span>
-                        </button>
-                          <option><b>All Departments</b></option>
-                          <option value="branchBaguio">Baguio</option>
-                        </select>
-                      </div></th>
-                    </tr>
-                </table>
-                <table style="float:right;">
-                    <tr>                    
-                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add New Department</button>
-                        <form name="form1" method="post" action="departments/addDepartment" >
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <h3>Add New Department</h3>
-                                          </div>
-                                      </div>
-                                        <!-- end of modal header -->
-                                      <div class="modal-body">
-                                        <div class="box-body">
-                                          <table class="table table-bordered table-striped">
-                                            <tbody>
-                                            <th> 
-                                                  <div class="form-group">
-                                                  <label for="exampleInputEmail1">Branch Location</label>
-                                                  <br>
-                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City &nbsp; &nbsp;
-                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad  <br>
-                                                </div> 
-                                            <tr>
-                                              <td><div class="form-group">
-                                                  <label for="exampleInputEmail1">Department Name</label>
-                                                  <input type="text" class="form-control" name="depName" required />
-                                                </div></td>
-                                            </tr>
-                                               
-                                                             
-                                             </th>
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addDep">Save Department</button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                                </form>
-                                </th>
-                    </tr>
-                </table>
+              <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
+                      
             </div>
-            <!-- /.box-header -->
-              <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>Department Name</th>
-                        <th>Branch Location</th>
-                        <th>Action</th>
-
-                    </tr>
-                </thead>
-                
-                <tfoot>
-                  <tr>
-                    <th>Department Name</th>
-                        <th>Branch Location</th>
-                        <th>Action</th>
-                    
-                  </tr>
-                </tfoot>
-            </table>
-
+              
+      <div class="box-body">
+        <table id="example" class="table table-bordered table-striped">
+         
+          <thead>
+            <tr>
+             <!-- <th>Date Received</th>
+                  <th>Time Received</th> -->
+                  <th>Expiration Date</th> 
+                  <th>Description</th>
+                  <th>Quantity in Stock</th>
+                  <th>Unit</th>
+                  <th>Unit Price</th>
+             <!-- <th>Total Amount</th> -->
+                  <th>Reorder Level</th>
+                  <th> Action</th> 
+            </tr>
+        </thead>
+        
+        <tfoot>
+           <tr>
+             <!-- <th>Date Received</th>
+                  <th>Time Received</th> -->
+                  <th>Expiration Date</th> 
+                  <th>Description</th>
+                  <th>Quantity in Stock</th>
+                  <th>Unit</th>
+                  <th>Unit Price</th>
+             <!-- <th>Total Amount</th> -->
+                  <th>Reorder Level</th>
+                  <th> Action</th> 
+            </tr> 
+        </tfoot>
+      </table>             
             </div>
-
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -402,13 +441,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-          <div class="row no-print">
-        <div class="col-xs-12">
-          <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
-          
-        </div>
-      </div>
-    
     </section>
     <!-- /.content -->
   </div>
@@ -426,66 +458,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 <!-- ./wrapper -->
 
-<style>
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
-}
 
-/* Hide default HTML checkbox */
-.switch input {display:none;}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 24px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}    
-</style>
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -516,34 +489,7 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- page script -->
-
-
-<script>
-<!-- date and time -->
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
-    //Date picker
-    $('#datepicker2').datepicker({
-      autoclose: true
-    })
-    //Date picker
-    $('#datepicker3').datepicker({
-      autoclose: true
-    })
-      
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
-    })
-  })
-</script>
+ 
 
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
@@ -555,27 +501,28 @@ input:checked + .slider:before {
     <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
+                'autoWidth' : false,
                 "processing": true,
-                "serverSide":true,
+                "serverSide": true,
                 "ajax":{
-                    url:"departments/getDepartment",
+                    url:"medicalsuppliesRecover/getMedicalSuppliesRecover",
                     type:"post"
                 }
             });
         });
     </script>
 
-    <!--script js for get edit data-->
+    <!--script js for release data-->
     <script>
-        $(document).on('click','#getEdit',function(e){
+        $(document).on('click','#getRestore',function(e){
             e.preventDefault();
-            var per_depId=$(this).data('id');
+            var per_id=$(this).data('id');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'departments/editDepartment',
+                url:'medicalsuppliesRecover/recoverMedicalSupplies',
                 type:'POST',
-                data:'id='+per_depId,
+                data:'id='+per_id,
                 dataType:'html'
             }).done(function(data){
                 $('#content-data').html('');
@@ -585,39 +532,25 @@ input:checked + .slider:before {
             });
         });
     </script>
-
-
 </body>
 </html>
 
-<?php
+<?php 
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-if(isset($_POST['btnEdit'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_depName=mysqli_real_escape_string($con,$_POST['txtdepartmentname']);
-    $new_branchLoc=mysqli_real_escape_string($con,$_POST['txtlocation']);
 
-    $sqlupdate="UPDATE departments SET department_name='$new_depName', location='$new_branchLoc' WHERE department_id='$new_id' ";
+//SOFT DELETED MEDICAL SUPPLIES
+if(isset($_POST['medRestore'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $sqlupdate="UPDATE supplies SET soft_deleted='N' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="departments"</script>';
+        echo '<script>window.location.href="medicalSupplies"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-} 
+} // END OF SOFT DELETE MEDICAL SUPPLIES
 
-if(isset($_GET['delete'])){
-    $id=$_GET['delete'];
-    $sqldelete="DELETE FROM departments WHERE department_id='$id'";
-    $result_delete=mysqli_query($con,$sqldelete);
-    if($result_delete){
-        echo'<script>window.location.href="departments"</script>';
-    }
-    else{
-        echo'<script>alert("Delete Failed")</script>';
-    }
-}
 ?>

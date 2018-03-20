@@ -139,77 +139,151 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
+              <span class="label label-danger">!</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
+               <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)";
+                    $result2 = $conn->query($sql2);
+                  ?>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
+                  <!-- Task item reorder levels-->
+                    <h5>Items below reorder level</h5>
+                    <li>
+                    <?php 
+                      if ($result2->num_rows > 0) {
+                        while($row = $result2->fetch_assoc()) { ?>
+                          <?php echo $row["supply_description"]; 
+                                $newvalue = $row["totalstock"] * 100;
+                                $percentage = $newvalue / $row["maximumreorder"];
+                          ?>
+                        <!--Reorder level meter-->
+                      <?php
+                      if($percentage < 25){
+                      ?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                        <div class="progress-bar progress-bar-red" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
                         </div>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
-                      </h3>
+                      <?php
+                      }else if($percentage < 50){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                        <div class="progress-bar progress-bar-yellow" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
                         </div>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
-                      </h3>
+                      <?php
+                      }else if($percentage < 100){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                        <div class="progress-bar progress-bar-green" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
                         </div>
                       </div>
-                    </a>
+                    <?php
+                      }
+                    }
+                    }
+                    ?>
                   </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
+                  <!-- end task item expiration notification-->
+                    <h5>Items nearing expiration</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
+                        $result3 = $conn->query($sql3);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
+                    ?>
+                    <table id="exp" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result3->num_rows > 0) {
+                                while($row = $result3->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
+                                if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
+                            ?>
+                                  <tr>
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                                    <!--Expiration meter-->
+                                    <?php
+                                      if($expvalue < 25){
+                                    ?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                      }else if($expvalue < 50){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>  
+                                    <?php
+                                      }else if($expvalue < 100){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                    }
+                                    }
+                                }
+                              }
+                            ?>
+                    </small>
+                    </table>
+                    <h5>Expired Items</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0";
+                        $result4 = $conn->query($sql4);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                    ?>
+                    <table id="expdue" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result4->num_rows > 0) {
+                                while($row = $result4->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                if($expdate < $strdatetoday){
+                            ?>
+                                  <tr class="danger">
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                            <?php
+                                }
+                              }
+                            }
+                            ?>
+                    </small>
+                    </table>
                 </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
               </li>
             </ul>
           </li>
@@ -371,7 +445,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table style="float: left;">
                     <tr>
                         <th> <div class="dropdownButton">
-                        <select name="dropdown" onchange="location =this.value;">
+                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
                           <span class="caret"></span>
                         </button>
@@ -656,7 +730,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th>Reorder Level</th>
                   <th>Good Condition</th>
                   <th>Damaged</th>
-                  <th> Action</th> 
+                  <th style="width:12.5%;"> Action</th> 
             </tr>
         </thead>
         
@@ -692,8 +766,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <a href="../examples/medicalSuppliesPrint.php"> Print</a>
           </button>
 
-          <button type="button" class="btn btn-default pull-left" style="margin-right: 1px;"><i class="fa fa-reload"></i>
-            <a href="medicalSuppliesRecover"> Recover</a>
+          <a href="medicalSuppliesRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
+          </a>
           </button>
         </div>
       </div>
@@ -823,6 +897,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     </script>
 
+    <script>
+        $(document).on('click','#getAdd',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'medicalsupplies/MedicalSuppliesadd',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+    </script>
     
     <!--script js for get reconcile data-->
     <script>
@@ -845,6 +938,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     </script>
 
+    <!--script js for release data-->
     <script>
         $(document).on('click','#getDelete',function(e){
             e.preventDefault();
@@ -852,7 +946,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'medicalSupplies/deleteMedicalSupplies',
+                url:'medicalsupplies/deleteMedicalSupplies',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -868,8 +962,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </html>
 
 <?php 
-$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+
+//ADD on table FOR MEDICAL SUPPLIES
+if(isset($_POST['medAdd'])){
+
+    $sqladd= $conn->prepare("INSERT INTO supplies (quantity_in_stock, good_condition, damaged) VALUES (?, ?, ?)");
+    $addQty = $_POST['addQty'];
+    $addGC  = $_POST['addGC'];
+    $addDam = $_POST['addDam'];
+    $sqladd->bind_param("sss", $addQty, $addGC, $addDam);
+
+    if($sql->execute()) {
+        echo '<script>window.location.href="medicalSupplies"</script>';
+        } else {
+        echo '<script>alert("Update Failed")</script>';
+        }
+        $sql->close();   
+        $connection->close();
+} // END OF MEDICAL Add on table
 
 //EDIT FOR MEDICAL SUPPLIES
 if(isset($_POST['medEdit'])){
@@ -894,18 +1006,6 @@ if(isset($_POST['medEdit'])){
     }
 } // END OF MEDICAL EDIT
 
-//DELETE MEDICAL SUPPLIES
-  if(isset($_GET['medDelete'])){
-    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $sqlupdate="UPDATE supplies SET soft_deleted='Y' WHERE supply_id='$new_id' ";
-    $result_update=mysqli_query($conn,$sqlupdate);
-    if($result_update){
-        echo'<script>window.location.href="medicalSupplies"</script>';
-    }
-    else{
-        echo'<script>alert("Delete Failed")</script>';
-    }
-}// END OF DELETE MEDICAL SUPPLIES
 
 //RECONCILE FOR MEDICAL SUPPLIES
 if(isset($_POST['medRecon'])){
@@ -921,4 +1021,24 @@ if(isset($_POST['medRecon'])){
         echo '<script>alert("Update Failed")</script>';
     }
 } // END OF MEDICAL RECONCILE
+?>
+
+<?php 
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+
+//SOFT DELETED MEDICAL SUPPLIES
+if(isset($_POST['medDelete'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $sqlupdate="UPDATE supplies SET soft_deleted='Y' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($con,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="medicalSupplies"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+} // END OF SOFT DELETE MEDICAL SUPPLIES
+
 ?>

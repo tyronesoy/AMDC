@@ -32,7 +32,7 @@ $totalData=mysqli_num_rows($query);
 $totalFilter=$totalData;
 
 //Search
-$sql ="SELECT * FROM supplies WHERE 1=1 AND supply_type LIKE 'Medical' AND soft_deleted='N' ";
+$sql ="SELECT * FROM supplies WHERE 1=1 AND supply_type LIKE 'Medical' AND soft_deleted!='N' ";
 if(!empty($request['search']['value'])){
     $sql.=" 0R supply_id            Like '%".$request['search']['value']."%' ";
     $sql.=" OR supply_description   Like '%".$request['search']['value']."%' ";
@@ -61,18 +61,14 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[2]; 
     $subdata[]=$row[5];  
     $subdata[]=$row[4]; 
-    $subdata[]='<td align="right">&#8369; '.$row[6].'</td>';
-    $subdata[]=$row[8];  
-    $subdata[]=$row[10];
-    $subdata[]=$row[11];
+    $subdata[]='<td align="right">&#8369 '.$row[6].'</td>';
+    $subdata[]=$row[8];
 
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
-    $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs"
-                    data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil"></i></button>
-                <button type="button" id="getRecon" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-adjust"></i></button>
-                <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal"
-        data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-trash"></i></button>
-        <button type="button" id="getAdd" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-plus"></i></button>';
+    $subdata[]='
+            <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal"
+        data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-repeat"></i> Restore</button>&nbsp;
+             ';
     $data[]=$subdata;
 }
 

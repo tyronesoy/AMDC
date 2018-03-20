@@ -4,7 +4,7 @@
                                 // MEDICAL SUPPLY
   //CREATE or ADD MEDICAL SUPPLY
   if (isset($_POST['addMedSupply'])) {
-      $sql = $connection->prepare("INSERT INTO supplies (supply_description, quantity_in_stock, unit, unit_price, supply_type, expiration_date) VALUES (?, ?, ?, ?, 'Medical', ?)");  
+      $sql = $connection->prepare("INSERT INTO supplies (supply_description, quantity_in_stock, unit, unit_price, supply_type, expiration_date, soft_deleted) VALUES (?, ?, ?, ?, 'Medical', ?, 'N')");  
       $description=$_POST['Description'];
       $quantity = $_POST['Quantity'];
       $unit= $_POST['Unit'];
