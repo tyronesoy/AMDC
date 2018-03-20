@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -207,7 +207,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory System</li>
   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
@@ -250,7 +250,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li class="active">
-          <a href="<?php echo 'departments' ?>">
+          <a href="#">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
@@ -307,15 +307,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- <h3 class="box-title">Office Supplies</h3> -->
               <table style="float: left;">
                     <tr>
-                        <th> <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Branch
+                        <th> <div class="dropdownButton">
+                        <select name="dropdown" onchange="location =this.value;">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Departments
                           <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">All Branches</a></li>
-                          <li><a href="<?php echo 'departments/getBagdep'?>">Baguio City</a></li>
-                          <li><a href="departments/getLadep">La Trinidad</a></li>
-                        </ul>
+                          <option><b>All Departments</b></option>
+                          <option value="branchBaguio">Baguio</option>
+                        </select>
                       </div></th>
                     </tr>
                 </table>
