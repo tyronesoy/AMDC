@@ -45,6 +45,14 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM departments");
 		return $query->result();
 	}
+	public function getBaguioDepartments(){
+		$query=$this->db->query("SELECT * FROM departments WHERE location = 'Baguio City'");
+		return $query->result();
+	}
+	public function getLADepartments(){
+		$query=$this->db->query("SELECT * FROM departments WHERE location = 'La Trinidad'");
+		return $query->result();
+	}
 	public function getUsers(){
 		$query=$this->db->query("SELECT * FROM users");
 		return $query->result();

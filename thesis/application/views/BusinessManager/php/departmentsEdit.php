@@ -15,7 +15,7 @@ if(isset($_REQUEST['id'])){
         //$per_reqId=$row[3];
         //$per_userId=$row[5];
         //$per_suppId=$row[4];
-        $per_suppId=$row[3];
+        //$per_suppId=$row[3];
 
     }//end while
 ?>
@@ -41,17 +41,17 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtcontactno">Location</label>
+                            <label class="col-sm-4 control-label" for="txtlocation">Location</label>
                             <div class="col-sm-6">
-                                <input type="radio" id="txtlocation" name="txtlocation" value="Baguio City"> Baguio City <br>
-                                                  <input type="radio" id="txtlocation" name="txtlocation" value="La Trinidad"> La Trinidad <br>
+                                 <input type="radio" id="txtlocation" name="branch" value="Baguio City" <?php echo ($per_branchLocation =='Baguio City')?'checked':'' ?> > Baguio City &nbsp; &nbsp;
+                                <input type="radio" id="txtlocation" name="branch" value="La Trinidad" <?php echo ($per_branchLocation =='La Trinidad')?'checked':'' ?>> La Trinidad  <br>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="departments.php"><button type="button" class="btn btn-danger">Cancel</button> </a>
+                <a href="departments"><button type="button" class="btn btn-danger">Cancel</button> </a>
                 <button type="submit" class="btn btn-primary" name="btnEdit">Save</button>
             </div>
         </div>
