@@ -26,7 +26,7 @@ if(isset($_REQUEST['id'])){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <center><h3 class="modal-title"><b>Edit Supply Details</b></h3></center>
+                <center><h3 class="modal-title"><b>Add Ordered Item</b></h3></center>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
