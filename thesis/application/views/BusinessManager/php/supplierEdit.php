@@ -14,7 +14,6 @@ if(isset($_REQUEST['id'])){
         $per_supplierContact=$row[2];
         $per_supplierAddress=$row[3];
         $per_supplierProduct=$row[5];
-        $per_supplierStatus=$row[4];
         $per_supplierRemarks=$row[6];
 
     }//end while
@@ -59,12 +58,6 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtstatus">Supplier Status</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_supplierStatus;?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtremarks">Remarks</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="txtremarks" name="txtremarks" value="<?php echo $per_supplierRemarks;?>">
@@ -74,7 +67,7 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="suppliers.php"><button type="button" class="btn btn-danger">Cancel</button> </a>
+                <a href="suppliers"><button type="button" class="btn btn-danger">Cancel</button> </a>
                 <button type="submit" class="btn btn-primary" name="btnEdit">Save</button>
             </div>
         </div>

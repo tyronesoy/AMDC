@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -67,7 +67,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                     </a>
                 </li>
-         
+         <!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">10</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 10 notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                      page and may cause design problems
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-red"></i> 5 new members joined
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-user text-red"></i> You changed your username
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>    
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -207,7 +249,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory System</li>
 	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
@@ -339,7 +381,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Product Type : </label>
-                                              <input type="text" class="form-control" name="suppProduct" required />
+                                                <div class="form-group">
+                                                  <select class="form-control" name="suppProduct">
+                                                    <?php
+                                                      $conn=mysqli_connect("localhost", "root", "", "itproject");
+                                                      $sql = "SELECT supplier_product FROM suppliers GROUP BY supplier_product";
+                                                      $result = mysqli_query($conn, $sql);
+
+                                                      foreach($result as $row){
+                                                        ?>
+                                                        <option value="<?php echo $row["supplier_product"]; ?>" name="suppProduct"><?php echo $row["supplier_product"]; ?></option>
+                                                      <?php
+                                                      }
+                                                      ?>
+                                                    ?>
+                                                  </select>
+                                                </div>
                                             </div>   
                                         </div>
                                       </div>
@@ -397,12 +454,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-          <div class="row no-print">
-        <div class="col-xs-12">
-          <a href="../examples/suppliersPrint.php" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          
+      <div class="row no-print">
+        <div class="col-xs-1" style="float:right">
+          <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
+          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       </div>
+      <script>
+        $('#print').click(function(){
+          var printme = document.getElementById('example');
+          var wme = window.open("","","width=900,height=700");
+          wme.document.write(printme.outerHTML);
+          wme.document.close();
+          wme.focus();
+          wme.print();
+          wme.close();
+        })
+      </script>
     
     </section>
     <!-- /.content -->
@@ -604,15 +672,15 @@ if(isset($_POST['btnEdit'])){
     }
 }
 
-if(isset($_GET['delete'])){
-    $id=$_GET['delete'];
-    $sqldelete="DELETE FROM suppliers WHERE suppliers_id='$id'";
-    $result_delete=mysqli_query($con,$sqldelete);
-    if($result_delete){
-        echo'<script>window.location.href="suppliers"</script>';
+if(isset($_GET['update'])){
+    $id=$_GET['update'];
+    $sqlupdate="UPDATE suppliers SET supplier_status = IF(supplier_status='Active','Inactive', IF(supplier_status='Inactive','Active', supplier_status)) WHERE suppliers_id='$id'";
+    $result_update=mysqli_query($con,$sqlupdate);
+    if($result_update){
+        //echo'<script>window.location.href="suppliers"</script>';
     }
     else{
-        echo'<script>alert("Delete Failed")</script>';
+        //echo'<script>alert("Delete Failed")</script>';
     }
 }
 ?>

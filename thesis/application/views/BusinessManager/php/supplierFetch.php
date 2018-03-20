@@ -43,18 +43,27 @@ $query=mysqli_query($con,$sql);
 $data=array();
 
 while($row=mysqli_fetch_array($query)){
+    $status = '';
+    if($row["supplier_status"] == 'Active')
+    {
+        $status = '<span class="label label-success">Active</span>';
+    }
+    else
+    {
+        $status = '<span class="label label-danger">Inactive</span>';
+    }
     $subdata=array();
     $subdata[]=$row[1]; 
     $subdata[]=$row[2]; 
     $subdata[]=$row[3];  
     $subdata[]=$row[5]; 
-    $subdata[]=$row[4];  
+    $subdata[]=$status;  
     $subdata[]=$row[6];  
 
 
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
     $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
-             <a href="suppliers?delete='.$row[0].'" onclick="return confirm(\'Are You Sure ?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Remove</a>';
+             <a href="suppliers?update='.$row[0].'" onclick="return confirm(\'Are you sure to change the Status of '.$row[1].'\')" class="btn btn-info btn-xs">Change Status</a>';
     $data[]=$subdata;
 }
 
