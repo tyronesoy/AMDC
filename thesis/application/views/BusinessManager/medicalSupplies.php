@@ -968,19 +968,20 @@ $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 //ADD on table FOR MEDICAL SUPPLIES
 if(isset($_POST['medAdd'])){
 
-    $sqladd= $conn->prepare("INSERT INTO supplies (quantity_in_stock, good_condition, damaged) VALUES (?, ?, ?)");
-    $addQty = $_POST['addQty'];
-    $addGC  = $_POST['addGC'];
-    $addDam = $_POST['addDam'];
-    $sqladd->bind_param("sss", $addQty, $addGC, $addDam);
+    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['addQty']);
+    $new_supplyGoodCondition=mysqli_real_escape_string($conn,$_POST['addGC']);
+    $new_supplyDamaged=mysqli_real_escape_string($conn,$_POST['addDam']);
 
-    if($sql->execute()) {
+    $sqlupdate="UPDATE supplies SET quantity_in_stock=quantity_in_stock+'$new_supplyQuantityInStock', good_condition =good_condition+'$new_supplyGoodCondition', damaged=damaged+'$new_supplyDamaged'  WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+
+    if($result_update){
         echo '<script>window.location.href="medicalSupplies"</script>';
-        } else {
+    }
+    else{
         echo '<script>alert("Update Failed")</script>';
-        }
-        $sql->close();   
-        $connection->close();
+    }
 } // END OF MEDICAL Add on table
 
 //EDIT FOR MEDICAL SUPPLIES

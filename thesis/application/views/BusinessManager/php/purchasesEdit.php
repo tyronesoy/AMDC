@@ -20,8 +20,6 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
- <table style="float:right;">
-    <tr>
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
@@ -32,6 +30,8 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
+                     <table style="float:right;">
+                     <tr>
                     <div class="box-body">
                         <div class="form-group" style="width:100%">
                             <label for="txtid">Purchase ID</label>
@@ -103,7 +103,10 @@ if(isset($_REQUEST['id'])){
                             </div>
 							</div>
 							</div>
-							
+                            </tr>
+                            </table>
+					</form>
+                </div>
 				<div class="modal-footer">
                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
                    <button type="submit" class="btn btn-success" name="btnEdit">Save</button>
@@ -112,8 +115,6 @@ if(isset($_REQUEST['id'])){
 		</div>
 		</div>
     </form>
-	</tr>
-	</table>
 <?php
 }//end if
 ?>
