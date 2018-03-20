@@ -659,13 +659,13 @@ if(isset($_POST['btnEdit'])){
 
 if(isset($_GET['delete'])){
     $id=$_GET['delete'];
-    $sqldelete="DELETE FROM users WHERE user_id='$id'";
+    $sqldelete="UPDATE users SET user_status= IF(user_status='Active','Inactive', IF(user_status='Inactive','Active', user_status)) WHERE user_id='$id'";
     $result_delete=mysqli_query($con,$sqldelete);
     if($result_delete){
         echo'<script>window.location.href="userAccounts"</script>';
     }
     else{
-        echo'<script>alert("Delete Failed")</script>';
+        echo'<script>alert("Update Status Failed")</script>';
     }
 }
 

@@ -5,10 +5,7 @@ $request=$_REQUEST;
 $col = array(
     0   =>  'department_id',
     1   =>  'department_name',
-    2   =>  'branch_location',
-    3   =>  'requisition_id',
-    4   =>  'supply_id',
-    5   =>  'user_id',
+    2   =>  'location'
 );  //create column like table in database
 
 $sql ="SELECT * FROM departments";
@@ -23,10 +20,7 @@ $sql ="SELECT * FROM departments WHERE 1=1";
 if(!empty($request['search']['value'])){
     $sql.=" OR department_id Like '".$request['search']['value']."%' ";
     $sql.=" OR department_name Like '".$request['search']['value']."%' ";
-    $sql.=" OR branch_location Like '".$request['search']['value']."%' ";
-    $sql.=" OR requisition_id Like '".$request['search']['value']."%' ";
-    $sql.=" OR supply_id Like '".$request['search']['value']."%' ";
-    $sql.=" OR user_id Like '".$request['search']['value']."%' ";
+    $sql.=" OR location Like '".$request['search']['value']."%' ";
 }
 $query=mysqli_query($con,$sql);
 $totalData=mysqli_num_rows($query);

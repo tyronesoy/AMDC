@@ -40,8 +40,8 @@ class Departments extends CI_Controller {
 	public function addDepartment(){
 		$this->load->view('BusinessManager/php/departmentsAdd');
 	}
-	
 	public function editDepartment(){
 		$this->load->view('BusinessManager/php/departmentsEdit');
 	}
+
 }

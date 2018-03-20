@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,18 +11,24 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="../../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../../bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../../../bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="../../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../../dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="../../../dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+    <!-- daterange picker -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+      <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+      <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
 
    <!-- datatable lib -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
@@ -36,7 +45,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="../../../dashboard.php" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -146,13 +155,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../../../dist/img/user2-128x128.png" class="user-image" alt="User Image">
+              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Business Manager</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../../../dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
                  Business Manager
@@ -163,7 +172,7 @@
               <li class="user-footer">
             
                 <div class="pull-right">
-                  <a href="../../../../logout.php" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -181,7 +190,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../../../dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Business Manager</p>
@@ -202,7 +211,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+  <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
           <a href="../../../dashboard.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -214,8 +223,8 @@
                   <i class="fa fa-tags"></i><span>Manage Accounts</span>  
               </a>
           </li>
-	
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+  
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class ="treeview">
           <a href="#">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
@@ -224,8 +233,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-			<li><a href="../medicalSupplies.php"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="../officeSupplies.php"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+      <li><a href="../medicalSupplies.php"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+      <li><a href="../officeSupplies.php"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!--------------------------------------------------- PURCHASES -------------------------------------------------->
@@ -239,19 +248,19 @@
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="../suppliers.php">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li class="active">
           <a href="../departments.php">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
           <a href="../../calendar.php">
             <i class="fa fa-calendar"></i> <span>Calendar</span>
@@ -305,22 +314,22 @@
               <!-- <h3 class="box-title">Office Supplies</h3> -->
               <table style="float: left;">
                     <tr>
-                        <th> <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Branch
+                        <th> <div class="dropdownButton">
+                        <select name="dropdown" onchange="location =this.value;">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Departments
                           <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu">
-                          <li><a href="../departments.php">All Branches</a></li>
-                          <li><a href="branchBaguio.php">Baguio City</a></li>
-                          <li><a href="#">La Trinidad</a></li>
-                        </ul>
+                          <option value="branchLA"><b>La Trinidad</b></option>
+                          <option value="branchBaguio">Baguio</option>
+                          <option value="departments">All Departments</option>
+                        </select>
                       </div></th>
                     </tr>
                 </table>
                 <table style="float:right;">
                     <tr>                    
-                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
-                        <form name="form1" method="post" action="departmentsAdd.php" >
+                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add New Department</button>
+                        <form name="form1" method="post" action="departments/addDepartment" >
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -328,7 +337,7 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add Department</h3>
+                                            <h3>Add New Department</h3>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -336,6 +345,13 @@
                                         <div class="box-body">
                                           <table class="table table-bordered table-striped">
                                             <tbody>
+                                            <th>
+                                            <div class="form-group">
+                                                  <label for="exampleInputEmail1">Branch Location</label>
+                                                  <br>
+                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City &nbsp; &nbsp;
+                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad  <br>
+                                                </div> 
                                             <tr>
                                               <td><div class="form-group">
                                                   <label for="exampleInputEmail1">Department Name</label>
@@ -343,13 +359,7 @@
                                                 </div></td>
                                             </tr>
                                                
-                                                             <th> 
-                                                             <div class="form-group">
-                                                  <label for="exampleInputEmail1">Branch Location</label>
-                                                  <br>
-                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City <br>
-                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad <br>
-                                                </div> 
+                                                                 
                                              </th>
                                             </tbody>
                                           </table>
@@ -487,35 +497,35 @@ input:checked + .slider:before {
 }    
 </style>
 <!-- jQuery 3 -->
-<script src="../../../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="../../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
-<script src="../../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
-<script src="../../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="../../../bower_components/fastclick/lib/fastclick.js"></script>
+<script src="../assets/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- Select2 -->
-<script src="../../../bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="../assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- InputMask -->
-<script src="../../../plugins/input-mask/jquery.inputmask.js"></script>
-<script src="../../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="../../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<script src="../assets/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="../assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
 <!-- bootstrap datepicker -->
-<script src="../../../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="../assets./bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- bootstrap color picker -->
-<script src="../../../bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="../assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 <!-- bootstrap time picker -->
-<script src="../../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../../../dist/js/adminlte.min.js"></script>
+<script src="../assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../../../dist/js/demo.js"></script>
+<script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
-<script src="../../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 
 <script>
@@ -557,7 +567,7 @@ input:checked + .slider:before {
                 "processing": true,
                 "serverSide":true,
                 "ajax":{
-                    url:"departmentsLAFetch.php",
+                    url:"branchLA/getLADepartment",
                     type:"post"
                 }
             });
@@ -572,7 +582,7 @@ input:checked + .slider:before {
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'departmentsEdit.php',
+                url:'branchLA/editLADepartment',
                 type:'POST',
                 data:'id='+per_depId,
                 dataType:'html'
@@ -592,13 +602,13 @@ $con=mysqli_connect('localhost','root','','itproject');
 if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_depName=mysqli_real_escape_string($con,$_POST['txtdepartmentname']);
-    $new_branchLoc=mysqli_real_escape_string($con,$_POST['txtlocation']);
+    $new_branchLoc=mysqli_real_escape_string($con,$_POST['branch']);
 
-    $sqlupdate="UPDATE departments SET department_name='$new_depName', branch_location='$new_branchLoc' WHERE department_id='$new_id' ";
+    $sqlupdate="UPDATE departments SET department_name='$new_depName', location='$new_branchLoc' WHERE department_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="branchLA.php"</script>';
+        echo '<script>window.location.href="branchLA"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
@@ -610,7 +620,7 @@ if(isset($_GET['delete'])){
     $sqldelete="DELETE FROM departments WHERE department_id='$id'";
     $result_delete=mysqli_query($con,$sqldelete);
     if($result_delete){
-        echo'<script>window.location.href="branchLA.php"</script>';
+        echo'<script>window.location.href="branchLA"</script>';
     }
     else{
         echo'<script>alert("Delete Failed")</script>';
