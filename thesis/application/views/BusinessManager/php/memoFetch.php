@@ -50,7 +50,7 @@ while($row=mysqli_fetch_array($query)){
     }
     else if ($row["memo_status"] == 'On the process')
     {
-        $status = '<span class="label label-danger">On the process</span>';
+        $status = '<span class="label label-warning">On the process</span>';
     }
     else
     {
@@ -63,7 +63,7 @@ while($row=mysqli_fetch_array($query)){
     //create event on click in button edit in cell datatable for display modal dialog $row[0] is id in table on database
     $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
              <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal"
-        data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-trash"></i>Delete</button>';
+        data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-trash"></i> Archive Memo</button>';
     $data[]=$subdata; 
 }
 

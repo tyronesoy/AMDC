@@ -55,7 +55,8 @@ if(isset($_REQUEST['id'])){
                             <div class="form-group">
                                     <label class="col-sm-4 control-label" for="txtmemostatus">Status</label>
                                 <div class="col-sm-6">
-                                    <input type="radio" name="txtmemostatus" id="txtmemostatus" value="On Process" > On Process <br>
+                                     <input type="radio" name="txtmemostatus" id="txtmemostatus" value="Not yet finished" >Not yet finished <br>
+                                    <input type="radio" name="txtmemostatus" id="txtmemostatus" value="On the process" > On Process <br>
                                     <input type="radio" name="txtmemostatus" id="txtmemostatus" value="Finished"> Finished <br>
                                 </div> 
                             </div>
