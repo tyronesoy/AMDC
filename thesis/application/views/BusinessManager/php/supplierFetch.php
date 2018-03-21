@@ -23,7 +23,7 @@ $totalFilter=$totalData;
 //Search
 $sql ="SELECT * FROM suppliers WHERE 1=1";
 if(!empty($request['search']['value'])){
-    $sql.=" OR suppliers_id Like '".$request['search']['value']."%' ";
+    $sql.=" OR supplier_id Like '".$request['search']['value']."%' ";
     $sql.=" OR company_name Like '".$request['search']['value']."%' ";
     $sql.=" OR supplier_contact Like '".$request['search']['value']."%' ";
     $sql.=" OR address Like '".$request['search']['value']."%' ";
@@ -57,13 +57,14 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[2]; 
     $subdata[]=$row[3];  
     $subdata[]=$row[5]; 
-    $subdata[]=$status;  
+    $subdata[]=$status;
     $subdata[]=$row[6];  
 
 
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
     $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
-             <a href="suppliers?update='.$row[0].'" onclick="return confirm(\'Are you sure to change the Status of '.$row[1].'\')" class="btn btn-info btn-xs">Change Status</a>';
+                <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="'.$row[0].'">Change Status</button>
+    ';
     $data[]=$subdata;
 }
 

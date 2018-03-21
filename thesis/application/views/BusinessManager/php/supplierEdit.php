@@ -14,6 +14,7 @@ if(isset($_REQUEST['id'])){
         $per_supplierContact=$row[2];
         $per_supplierAddress=$row[3];
         $per_supplierProduct=$row[5];
+        $per_supplierStatus=$row[4];
         $per_supplierRemarks=$row[6];
 
     }//end while
@@ -21,8 +22,11 @@ if(isset($_REQUEST['id'])){
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Supplier</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <div class="margin">
+                    <h3>Edit Suppliers</h3>
+                </div>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
@@ -67,11 +71,12 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="suppliers"><button type="button" class="btn btn-danger">Cancel</button> </a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-primary" name="btnEdit">Save</button>
             </div>
         </div>
     </form>
+
 <?php
 }//end if
 ?>

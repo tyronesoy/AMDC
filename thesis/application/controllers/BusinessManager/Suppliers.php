@@ -37,6 +37,9 @@ class Suppliers extends CI_Controller {
 	public function getSupplier(){
 		$this->load->view('BusinessManager/php/supplierFetch');
 	}
+	public function getChange(){
+		$this->load->view('BusinessManager/php/supplierChange');
+	}
 	public function addSupplier(){
 		$this->load->view('BusinessManager/php/supplierAdd');
 	}

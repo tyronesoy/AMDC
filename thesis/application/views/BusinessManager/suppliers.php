@@ -16,30 +16,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-
-   <!-- datatable lib -->
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+    <!-- datatable lib -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-
   <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo '../dashboard' ?>" class="logo">
+    <a href="<?php echo 'dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -67,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                     </a>
                 </li>
-         <!-- Notifications: style can be found in dropdown.less -->
+          <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
@@ -109,7 +108,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
               <li class="footer"><a href="#">View all</a></li>
             </ul>
-          </li>    
+          </li>      
+         
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -247,9 +247,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+  <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
-          <a href="<?php echo '../dashboard' ?>">
+          <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
@@ -259,8 +259,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <i class="fa fa-tags"></i><span>Manage Accounts</span>  
               </a>
           </li>
-	
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+  
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class ="treeview">
           <a href="#">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
@@ -269,8 +269,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-			<li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!--------------------------------------------------- PURCHASES -------------------------------------------------->
@@ -284,22 +284,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li class="active">
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'memo' ?>">
-            <i class="fa fa-calendar"></i> <span>Memo</span>
+          <a href="../calendar.php">
+            <i class="fa fa-calendar"></i> <span>Calendar</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
@@ -348,6 +348,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
+              
               <!-- <h3 class="box-title">Office Supplies</h3> -->
                 <table style="float:right;">
                     <tr>
@@ -361,13 +362,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add Suppliers</h3>
+                                            <h3>Add New Suppliers</h3>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
                                       <div class="modal-body">
                                         <div class="box-body">
-                                          <div class="form-group">
+                                            <div class="form-group">
                                               <label for="exampleInputEmail1">Supplier Name : </label>
                                               <input type="text" class="form-control" name="suppName" required />
                                             </div>
@@ -381,22 +382,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Product Type : </label>
-                                                <div class="form-group">
-                                                  <select class="form-control" name="suppProduct">
-                                                    <?php
-                                                      $conn=mysqli_connect("localhost", "root", "", "itproject");
-                                                      $sql = "SELECT product FROM suppliers GROUP BY product";
-                                                      $result = mysqli_query($conn, $sql);
+                                              <div class="form-group">
+                                                <select class="form-control" name="suppProduct">
+                                                  <?php
+                                                    $conn=mysqli_connect("localhost", "root", "", "itproject");
+                                                    $sql = "SELECT supplier_product FROM suppliers GROUP BY supplier_product";
+                                                    $result = mysqli_query($conn, $sql);
 
-                                                      foreach($result as $row){
-                                                        ?>
-                                                        <option value="<?php echo $row["product"]; ?>" name="suppProduct"><?php echo $row["product"]; ?></option>
-                                                      <?php
-                                                      }
+                                                    foreach($result as $row){
                                                       ?>
+                                                      <option value="<?php echo $row["supplier_product"]; ?>" name="suppProduct"><?php echo $row["supplier_product"]; ?></option>
+                                                    <?php
+                                                    }
                                                     ?>
-                                                  </select>
-                                                </div>
+                                                  ?>
+                                                </select>
+                                              </div>
                                             </div>   
                                         </div>
                                       </div>
@@ -416,8 +417,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table> 
             </div>
             <!-- /.box-header -->
+            <span id="alert_action"></span>
               <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+              <table id="example"  class="table table-bordered table-striped" >
                 <thead>
                     <tr>
                         <th>Supplier Name</th>
@@ -429,6 +431,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Action</th>
                     </tr>
                 </thead>
+
+                
+                
                 <tfoot>
                   <tr>
                     <th>Supplier Name</th>
@@ -451,7 +456,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-      <div class="row no-print">
+          <div class="row no-print">
         <div class="col-xs-1" style="float:right">
           <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
@@ -552,7 +557,7 @@ input:checked + .slider:before {
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -610,7 +615,13 @@ input:checked + .slider:before {
                 <div id="content-data"></div>
             </div>
         </div>
-   
+
+        <div class="modal fade" id="modalUpdate" role="dialog">
+            <div class="modal-dialog">
+                <div id="data-content"></div>
+            </div>
+        </div>
+
     <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
@@ -644,6 +655,28 @@ input:checked + .slider:before {
             });
         });
     </script>
+    <script>
+        $(document).on('click','#getUpdate',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#data-content').html('');
+            
+              $.ajax({
+                  url:'suppliers/getChange',
+                  type:'POST',
+                  data:'id='+per_id,
+                  dataType:'html'
+              }).done(function(data){
+                  $('#data-content').html('');
+                  $('#data-content').html(data);
+              }).final(function(){
+                  $('#data-content').html('<p>Error</p>');
+              });
+            
+        });
+    </script>
+
 </body>
 </html>
 
@@ -655,10 +688,9 @@ if(isset($_POST['btnEdit'])){
     $new_supplierContact=mysqli_real_escape_string($con,$_POST['txtcontactno']);
     $new_supplierAddress=mysqli_real_escape_string($con,$_POST['txtaddress']);
     $new_supplierProduct=mysqli_real_escape_string($con,$_POST['txtprodtype']);
-    $new_supplierStatus=mysqli_real_escape_string($con,$_POST['txtstatus']);
     $new_supplierRemarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
 
-    $sqlupdate="UPDATE suppliers SET company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', supplier_status='$new_supplierStatus', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
+    $sqlupdate="UPDATE suppliers SET company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -669,15 +701,25 @@ if(isset($_POST['btnEdit'])){
     }
 }
 
-if(isset($_GET['update'])){
-    $id=$_GET['update'];
-    $sqlupdate="UPDATE suppliers SET supplier_status = IF(supplier_status='Active','Inactive', IF(supplier_status='Inactive','Active', supplier_status)) WHERE supplier_id='$id'";
+if(isset($_POST['btnUpdate'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $new_supplierStatus=mysqli_real_escape_string($con,$_POST['txtsupplierstatus']);
+
+    if($new_supplierStatus == 'Active'){
+      $new_supplierStatus = 'Inactive';
+    }else{
+      $new_supplierStatus = 'Active';
+    }
+
+    $sqlupdate="UPDATE suppliers SET supplier_status='$new_supplierStatus' WHERE supplier_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
+
     if($result_update){
-        echo'<script>window.location.href="suppliers"</script>';
+        //echo '<script>window.location.href="suppliers"</script>';
     }
     else{
-        echo'<script>alert("Delete Failed")</script>';
+        //echo '<script>alert("Update Failed")</script>';
     }
 }
+
 ?>
