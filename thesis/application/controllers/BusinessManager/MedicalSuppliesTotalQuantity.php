@@ -20,9 +20,15 @@ class MedicalSuppliesTotalQuantity extends CI_Controller {
 	 */
 	public function index()
 	{
+		$check = $this->session->userdata('type');
+		if($check == 'BusinessManager'){
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['medicalSuppliesTotalQuantity']=$this->db_model->getMedicalSuppliesTotalQuantity();
 		$this->load->view('BusinessManager/php/medicalSuppliesTotalQuantity', $data);
+	}
 		/*
 		$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){

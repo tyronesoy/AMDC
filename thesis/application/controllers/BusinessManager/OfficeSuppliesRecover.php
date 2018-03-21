@@ -20,9 +20,15 @@ class OfficeSuppliesRecover extends CI_Controller {
 	 */
 	public function index()
 	{
+		$check = $this->session->userdata('type');
+		if($check == 'BusinessManager'){
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['officeSuppliesRecover']=$this->db_model->getOfficeSuppliesRecover();
 		$this->load->view('BusinessManager/officeSuppliesRecover', $data);
+	}
 				
 	}
 	public function getOfficeSuppliesRecover(){

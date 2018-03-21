@@ -20,9 +20,15 @@ class MedicalSupplies extends CI_Controller {
 	 */
 	public function index()
 	{
+		$check = $this->session->userdata('type');
+		if($check == 'BusinessManager'){
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['medicalSupplies']=$this->db_model->getMedicalSupplies();
 		$this->load->view('BusinessManager/medicalSupplies', $data);
+		}
 		
 	}
 	public function getMedicalSupplies(){

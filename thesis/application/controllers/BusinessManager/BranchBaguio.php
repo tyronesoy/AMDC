@@ -20,9 +20,17 @@ class BranchBaguio extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->model('db_model');
-		$data['branchBaguio']=$this->db_model->getBaguioDepartments();
-		$this->load->view('BusinessManager/php/branchBaguio', $data);
+		$check = $this->session->userdata('type');
+		if($check == 'BusinessManager'){
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
+			$this->load->model('db_model');
+			$data['branchBaguio']=$this->db_model->getBaguioDepartments();
+			$this->load->view('BusinessManager/php/branchBaguio', $data);
+
+		}
+		
 		/*
 		$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){

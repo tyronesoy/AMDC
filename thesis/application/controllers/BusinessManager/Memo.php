@@ -19,9 +19,15 @@ class Memo extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index(){
+		$check = $this->session->userdata('type');
+		if($check == 'BusinessManager'){
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['memo']=$this->db_model->getMemo();
 		$this->load->view('BusinessManager/memo', $data);
+	}
 		//$check = $this->session->userdata('stts');
 		//if($check == 'BusinessManager'){
 		//	$this->load->view('BusinessManager/user_accounts');

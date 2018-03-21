@@ -19,8 +19,14 @@ class Dispose extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index(){
+		$check = $this->session->userdata('type');
+		if($check == 'BusinessManager'){
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$this->load->view('BusinessManager/php/dispose');
+		}
 		//$data['users']=$this->db_model->getUsers();
 		//$this->load->view('BusinessManager/user_accounts', $data);
 		//$check = $this->session->userdata('stts');

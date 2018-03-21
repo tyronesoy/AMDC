@@ -20,9 +20,15 @@ class IssuedSupplies extends CI_Controller {
 	 */
 	public function index()
 	{	
+		$check = $this->session->userdata('type');
+		if($check == 'BusinessManager'){
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['issuedSupplies']=$this->db_model->getIssuedSupplies();
 		$this->load->view('BusinessManager/issuedSupplies', $data);
+	}
 		/*$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){
 			$this->load->view('BusinessManager/issued_supplies');

@@ -20,9 +20,15 @@ class OfficeSuppliesTotalQuantity extends CI_Controller {
 	 */
 	public function index()
 	{
+		$check = $this->session->userdata('type');
+		if($check == 'BusinessManager'){
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['officeSuppliesTotalQuantity']=$this->db_model->getOfficeSuppliesTotalQuantity();
 		$this->load->view('BusinessManager/php/officeSuppliesTotalQuantity', $data);
+	}
 		/*
 		$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){
