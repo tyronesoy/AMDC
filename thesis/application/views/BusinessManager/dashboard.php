@@ -202,7 +202,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Business Manager</span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -210,26 +210,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
-                 Business Manager
-                  <small>Member since Oct. 2017</small>
+                 <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
+                  <small> Business Manager </small>
                 </p>
-              </li>
-              <!-- Menu Body -->
-        
+                </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-        
+            
                 <div class="pull-right">
                   <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
-                <div class="pull-left">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-                            Change Password</button>
-                  </div>
               </li>
             </ul>
           </li>
-        </ul>
+          </ul>
       </div>
     </nav>
   </header>
@@ -985,19 +979,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- <script type="text/javascript">
 setTimeout(onUserInactivity, 1000 * 120)
 function onUserInactivity() {
-   window.location.href = "<?php echo 'BusinessManager/lockscreen'?>"
+   window.location.href = "<?php //echo 'BusinessManager/lockscreen'?>"
 }
 </script> -->
-<?php
-$time = $_SESSION['Time'];
-$time_check=$time-120;
-if($time<$time_check) {
-  $_SESSION['login'] = 'False';
-  if($_SESSION['login'] == 'False'){
-    echo '<script>window.location.href="<?php echo "BusinessManager/lockscreen" ?>"</script>';
+<!-- <?php
+//$time = $_SESSION['Time'];
+//$time_check=$time-120;
+//if($time<$time_check) {
+//  $_SESSION['login'] = 'False';
+//  if($_SESSION['login'] == 'False'){
+//    echo '<script>window.location.href="<?php echo "BusinessManager/lockscreen" ?>"</script>';
   }
 }
-  ?>
+  ?> -->
 <!-- <script type="text/javascript">
 inactivityTimeout = False
 resetTimeout()
