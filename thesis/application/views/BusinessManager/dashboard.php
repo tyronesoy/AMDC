@@ -293,7 +293,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Business Manager</p>
+          <p><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i>Active</a>
         </div>
       </div>
@@ -813,7 +813,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                    $sql = "SELECT * FROM reqandsupp WHERE supply_type='Medical' LIMIT 10 ";
+                    $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Medical' ORDER BY quantity_ordered DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -827,7 +827,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
-                        
+                        <td><?php echo $row["quantity_ordered"]; ?></td>
                        <!--  <td><?php // echo $row[""]; ?></td>
                         <td><?php // echo $row[""]; ?></td>
                         <td><?php // echo $row[""]; ?></td>
@@ -866,7 +866,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
  					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                    $sql = "SELECT * FROM reqandsupp WHERE supply_type='Office' LIMIT 10 ";
+                    $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Office' ORDER BY quantity_ordered DESC LIMIT 10 ";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -880,6 +880,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
+                        <td><?php echo $row["quantity_ordered"]; ?></td>
                        <!--  <td><?php // echo $row[""]; ?></td>
                         <td><?php // echo $row[""]; ?></td>
                         <td><?php // echo $row[""]; ?></td>
@@ -980,6 +981,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- DataTables -->
 <script src="assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<!-- <script type="text/javascript">
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+   window.location.href = "<?php echo 'BusinessManager/lockscreen'?>"
+}
+</script> -->
+<?php
+$time = $_SESSION['Time'];
+$time_check=$time-120;
+if($time<$time_check) {
+  $_SESSION['login'] = 'False';
+  if($_SESSION['login'] == 'False'){
+    echo '<script>window.location.href="<?php echo "BusinessManager/lockscreen" ?>"</script>';
+  }
+}
+  ?>
+<!-- <script type="text/javascript">
+inactivityTimeout = False
+resetTimeout()
+function onUserInactivity() {
+   window.location.href = "lockscreen"
+}
+function resetTimeout() {
+   clearTimeout(inactivityTimeout)
+   inactivityTimeout = setTimeout(onUserInactivity, 1000 * 120)
+}
+window.onmousemove = resetTimeout
+</script> -->
 <!--- CHARTS -->
 <script>
   $(function () {
