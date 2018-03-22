@@ -12,10 +12,12 @@ class Db_model extends CI_Model {
 				if($username == $row->username && $password == $row->password){
 
 					$sess = array(
+					'fname' => $row->fname,
+					'lname' => $row->lname,
 					'username' => $row->username,
 					'password' => $row->password,
 					'type'	   => $row->user_type,
-					'stts'	   => $row->user_status
+					'stts'	   => $row->user_status,
 					);
 
 					$this->session->set_userdata($sess);
