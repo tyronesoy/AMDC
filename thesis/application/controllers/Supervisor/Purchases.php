@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Suppliers extends CI_Controller {
+class Purchases extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -25,23 +25,30 @@ class Suppliers extends CI_Controller {
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
-		$data['suppliers']=$this->db_model->getSuppliers();
-		$this->load->view('Supervisor/suppliers', $data);
+		$data['purchases']=$this->db_model->getPurchases();
+		$this->load->view('Supervisor/purchases', $data);
 	}
-		
+		//$check = $this->session->userdata('stts');
+		//if($check == 'Supervisor'){
+		//	$this->load->view('Supervisor/suppliers');
+		//}
+		//else if($check == 'Assistant'){
+		//	$this->load->view('Assistant/suppliers');
+		//}else if($check == 'Supervisor'){
+		//	$this->load->view('Supervisor/suppliets');
+		//}else{
+		//	header('Location: ../login');
+		//}
 	}
-	public function getSupplier(){
-		$this->load->view('Supervisor/php/supplierFetch');
+	public function getPurchases(){
+		$this->load->view('Supervisor/php/purchasesFetch');
 	}
-	public function getChange(){
-		$this->load->view('Supervisor/php/supplierChange');
-	}
-	public function addSupplier(){
-		$this->load->view('Supervisor/php/supplierAdd');
+	public function addPurchases(){
+		$this->load->view('Supervisor/php/purchasesAdd');
 	}
 	
-	public function editSupplier(){
-		$this->load->view('Supervisor/php/supplierEdit');
+	public function editPurchases(){
+		$this->load->view('Supervisor/php/purchasesEdit');
 	}
 
 }
