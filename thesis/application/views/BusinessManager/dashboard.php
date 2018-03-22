@@ -305,29 +305,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+  <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li class= "active">
           <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
           
-		<!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'BusinessManager/userAccounts' ?>">
               <i class="fa fa-group"></i> <span>Manage Accounts</span> </a>
         </li>
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="treeview">
-          <a href="#supplies" >
+          <a href="#" >
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu" id="supplies">
-			<li><a href="<?php echo 'BusinessManager/medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="<?php echo 'BusinessManager/officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+          <ul class="treeview-menu">
+      <li><a href="<?php echo 'BusinessManager/medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+      <li><a href="<?php echo 'BusinessManager/officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!--------------------------------------------------- PURCHASES -------------------------------------------------->
@@ -336,24 +336,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <i class="fa fa-tags"></i><span>Purchases</span>  
               </a>
           </li>
+          <!--------------------------------------------------- DELIVERIES -------------------------------------------------->
+          <li>
+              <a href="<?php echo 'BusinessManager/deliveries' ?>">
+                  <i class="fa fa-truck"></i><span>Pending Deliveries</span>
+              </a>
+          </li>
         <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
             <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>">
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'BusinessManager/suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'BusinessManager/departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
           <a href="pages/calendar.php">
             <i class="fa fa-calendar"></i> <span>Calendar</span>
@@ -363,8 +369,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
         </li>
-		
-		<!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+    
+    <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'BusinessManager/logs' ?>">
             <i class="fa fa-print"></i> <span>Logs</span>
@@ -399,13 +405,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
               <?php
-                  	$conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                    $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
               ?>
@@ -427,14 +433,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <!-- ./col -->
           
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
               <?php
-                  	$conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT COUNT(*) AS total FROM returns JOIN supplies JOIN suppliers WHERE return_status ='Pending'";
+                    $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+          //$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                  $sql = "SELECT COUNT(*) as total FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -454,43 +460,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              
-              <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT DISTINCT COUNT(*) AS total FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'Requested'";
-                  $result = $conn->query($sql);    
-              ?>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
-                    <h3><?php echo $row["total"]; ?></h3>
-                  <?php 
-                      }
-                    }
-                  ?>
 
-              <p>Delivery</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-ios-pie"></i>
-            </div>
-            <button onclick="myFunction3('Demo3')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date <= $date";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date <= '$date' && soft_deleted='N'";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -506,7 +485,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="icon">
               <i class="ion ion-alert-circled"></i>
             </div>
-            <button onclick="myFunction4('Demo4')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
+            <button onclick="myFunction3('Demo3')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
         <!-- ./col -->
@@ -516,7 +495,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table id="example1" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
                 ?>
@@ -566,8 +545,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example3" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns JOIN supplies JOIN suppliers WHERE return_status ='Pending'";
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                  $sql = "SELECT supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -623,94 +602,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tfoot>
               </table>
           </div>
-          <!-- TABLE FOR HIDDEN DELIVERY TABLE -->
-          <div id="Demo3" class="box-body w3-hide">
-              <table id="example5" class="table table-bordered table-striped">
-                <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT DISTINCT supply_description, brand_name, deliveries.delivery_date, company_name, total_quantity, unit, unit_price, total_amount, delivery_status, good_condition, damaged FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'Requested'";
-                  $result = $conn->query($sql);    
-                ?>
-                <thead>
-                <tr>
-                  <th>Delivered Date</th>
-                  <th>Description</th>
-                  <th>Brandname</th>
-                  <th>Supplier</th>
-                  <th>Total Quantity</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th>
-                  <th>Total Amount</th>
-                  
-                  <th>Good Condition</th>
-                  <th>Damaged</th>
-                  <th>Delivery Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
-                    <tr>
-                      <td><?php echo $row["delivery_date"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["brand_name"]; ?></td>
-                      <td><?php echo $row["company_name"]; ?></td>
-                      <td><?php echo $row["total_quantity"]; ?></td>
-                      <td><?php echo $row["unit"]; ?></td>
-                      <td><?php echo $row["unit_price"]; ?></td>
-                      <td><?php echo $row["total_amount"]; ?></td>
-                      <td><?php echo $row["good_condition"]; ?></td>
-                      <td><?php echo $row["damaged"]; ?></td>
-
-                      <td>
-                        <div class="btn-group">
-                          
-
-                          <form action="delivery.php" method="get">
-                            <input type="text" name="fullDelivery" hidden value="Full">
-                            <button type="submit" class="btn btn-success">Full </button>
-                          </form> 
-
-                          <form action="delivery.php" method="get">
-                            <input type="text" name="partialDelivery" hidden value="Partial">
-                            <button type="submit" class="btn btn-warning">Partial </button>
-                          </form> 
-
-                        </div>
-
-
-                      </td>
-                    </tr>
-                  <?php 
-                      }
-                    }
-                  ?>
-                </tbody>
-                <tfoot>
-                   <tr>
-                  <th>Delivered Date</th>
-                  <th>Description</th>
-                  <th>Brandname</th>
-                  <th>Supplier</th>
-                  <th>Quantity</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th>
-                  <th>Total Amount</th>
-                  
-                  <th>Good Condition</th>
-                  <th>Damaged</th>
-                  <th>Delivery Status</th>
-                </tr> 
-                </tfoot>
-              </table>
-          </div>
           <!-- TABLE FOR HIDDEN EXPIRED SUPPLIES TABLE ------>
-          <div id="Demo4" class="box-body w3-hide">
+          <div id="Demo3" class="box-body w3-hide">
               <table id="example7" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $date = date("Y/m/d");
                   $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit, soft_deleted FROM supplies JOIN suppliers WHERE expiration_date <= '$date' && soft_deleted='N' GROUP BY expiration_date";
                   $result = $conn->query($sql);    
@@ -806,7 +703,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+          //$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                     $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Medical' ORDER BY quantity_ordered DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
@@ -859,7 +756,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+          //$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                     $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Office' ORDER BY quantity_ordered DESC LIMIT 10 ";
                     $result = $conn->query($sql);    
                   ?>
@@ -1388,16 +1285,6 @@ function myFunction3(id) {
     }
 }
 </script>
-<script>
-function myFunction4(id) {
-    var x = document.getElementById(id);
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-</script>
     
 <!-- DATA TABLES -->
 <script>
@@ -1414,15 +1301,6 @@ function myFunction4(id) {
 
     $('#example3').DataTable()
     $('#example4').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-    $('#example5').DataTable()
-    $('#example6').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
