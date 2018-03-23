@@ -29,6 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -386,12 +387,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <select class="form-control" name="suppProduct">
                                                   <?php
                                                     $conn=mysqli_connect("localhost", "root", "", "itproject");
-                                                    $sql = "SELECT supplier_product FROM suppliers GROUP BY supplier_product";
+                                                    $sql = "SELECT product FROM suppliers GROUP BY product";
                                                     $result = mysqli_query($conn, $sql);
 
                                                     foreach($result as $row){
                                                       ?>
-                                                      <option value="<?php echo $row["supplier_product"]; ?>" name="suppProduct"><?php echo $row["supplier_product"]; ?></option>
+                                                      <option value="<?php echo $row["product"]; ?>" name="suppProduct"><?php echo $row["product"]; ?></option>
                                                     <?php
                                                     }
                                                     ?>
@@ -420,6 +421,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <span id="alert_action"></span>
               <div class="box-body">
               <table id="example"  class="table table-bordered table-striped" >
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM suppliers";
+                  $result = $conn->query($sql);    
+                ?>
                 <thead>
                     <tr>
                         <th>Supplier Name</th>
@@ -431,9 +437,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Action</th>
                     </tr>
                 </thead>
-
-                
-                
+                <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <?php
+                        $status = '';
+                          if($row["supplier_status"] == 'Active')
+                          {
+                              $status = '<span class="label label-success">Active</span>';
+                          }
+                          else
+                          {
+                              $status = '<span class="label label-danger">Inactive</span>';
+                          }
+                      ?>
+                      <td><?php echo $row["company_name"]; ?></td>
+                      <td><?php echo $row["supplier_contact"]; ?></td>
+                      <td><?php echo $row["address"]; ?></td>
+                      <td><?php echo $row["product"]; ?></td>
+                      <td><?php echo $status; ?></td>
+                      <td><?php echo $row["remarks"]; ?></td>
+                      <td>
+                        <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supplier_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["supplier_id"]; ?>">Change Status</button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
                 <tfoot>
                   <tr>
                     <th>Supplier Name</th>
@@ -584,6 +622,22 @@ input:checked + .slider:before {
 <!-- page script -->
 
 <script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
+      })
+    </script>
+
+<script>
 <!-- date and time -->
   $(function () {
     //Initialize Select2 Elements
@@ -622,7 +676,7 @@ input:checked + .slider:before {
             </div>
         </div>
 
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 "processing": true,
@@ -633,7 +687,7 @@ input:checked + .slider:before {
                 }
             });
         });
-    </script>
+    </script> -->
 
     <!--script js for get edit data-->
     <script>
@@ -715,10 +769,10 @@ if(isset($_POST['btnUpdate'])){
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        //echo '<script>window.location.href="suppliers"</script>';
+        echo '<script>window.location.href="suppliers"</script>';
     }
     else{
-        //echo '<script>alert("Update Failed")</script>';
+        echo '<script>alert("Update Failed")</script>';
     }
 }
 
