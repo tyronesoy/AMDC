@@ -4,18 +4,16 @@ $con=mysqli_connect('localhost','root','','itproject')
 
 $request=$_REQUEST;
 $col = array(
-	0   =>  'po_id',
-    1   =>  'order_date',
-    2   =>  'order_quantity',
-    3   =>  'order_unit',
-    4   =>  'po_unitprice',
-	5   =>  'total',
-	6   =>  'grand_total',
-	7   =>  'po_remarks',
+	0   =>  'inventory_order_id',
+    1   =>  'inventory_order_created_date',
+    2   =>  'inventory_order_name',
+    3   =>  'intentory_order_dept',
+    4   =>  'inventory_order_quantity',
+    5   =>  'inventory_order_description'
 	
 );  //create column like table in database
 
-$sql ="SELECT * FROM purchase_orders";
+$sql ="SELECT * FROM inventory_order";
 $query=mysqli_query($con,$sql);
 
 $totalData=mysqli_num_rows($query);
@@ -23,7 +21,7 @@ $totalData=mysqli_num_rows($query);
 $totalFilter=$totalData;
 
 //Search
-$sql ="SELECT * FROM purchase_orders WHERE 1=1";	
+$sql ="SELECT * FROM inventory_order WHERE 1=1";	
 if(!empty($request['search']['value'])){
 	$sql.=" OR po_id Like '".$request['search']['value']."%' ";
 	$sql.=" OR order_date Like '".$request['search']['value']."%' ";
@@ -47,17 +45,14 @@ $data=array();
 
 while($row=mysqli_fetch_array($query)){
     $subdata=array();
+    $subdata[]=$row[0]; 
 	$subdata[]=$row[1]; 
     $subdata[]=$row[2]; 	 	
-    $subdata[]=$row[3];
-	$subdata[]=$row[4];	
-	$subdata[]=$row[5];
-	$subdata[]=$row[6];	
-	$subdata[]=$row[7];
+    $subdata[]=$row[3];	
 	
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
-    $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
-             <a href="purchases?delete='.$row[0].'" onclick="return confirm(\'Are You Sure to delete the item?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Remove</a>';
+    /*$subdata[]='
+             <a href="purchases?delete='.$row[0].'" onclick="return confirm(\'Are You Sure to delete the item?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Remove</a>'; */
     $data[]=$subdata;
 }
 

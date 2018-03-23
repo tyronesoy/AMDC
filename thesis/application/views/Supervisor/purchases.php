@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
@@ -25,17 +25,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
     <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-          <!-- Bootstrap time Picker -->
+      <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
     <!-- Select2 -->
-      <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
-	  
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+
    <!-- datatable lib -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	
-	
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -337,61 +343,102 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </ol>
     </section>
 
-    <!-- Main content -->
+       <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
- 
+              <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
+                <table style="float:right;">
+                    <tr>
+                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
+            
+             <form name="form1" method="post" action="purchases/addPurchases" >
+                        <div class="modal fade" id="modal-info">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span></button>
+                                        <div class="margin">
+                                            <h3>Add Purchases</h3>
+                                        </div>
+                                      </div>
+                                        <!-- end of modal header -->
+                                      <div class="modal-body">
+                                        <div class="box-body">
+                        <div class="form-group">
+                                                  <label for="exampleInputEmail1">Order Date</label>
+                                                  <input type="date" class="form-control" name="orDate" required />
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Quantity</label>
+                                                  <input type="number" class="form-control" name="quan" required />
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Unit</label>
+                                                  <input type="text" class="form-control" name="unt" required />
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Unit Price</label>
+                                                  <input type="number" class="form-control" name="unPrice" required />
+                                              </div>
+                       <div class="form-group">
+                                                  <label for="exampleInputEmail1">Total Amount</label>
+                                                  <input type="number" class="form-control" name="toAmount" required />
+                                             </div>
+                      <div class="form-group">
+                                                  <label for="exampleInputEmail1">Grand Total</label>
+                                                  <input type="number" class="form-control" name="granTotal" required />
+                                            </div>
+                      <div class="form-group">
+                                                  <label for="exampleInputEmail1">Remarks</label>
+                                                  <input type="text" class="form-control" name="rem" required /> 
+                                            </div> -->
+                                        </div>
+                  <div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" name="addPurchases">Add Purchases</button>
+                                      </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                  </div>
+                                  <!-- /.modal-dialog -->
+                                </div>
+              </form>
+              </th>
+              
+              
+                    </tr>
+                </table>      
             </div>
+            <!-- /.box-header -->
+                   <div class="box-body">
+                   <table id="example" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Order Date</th>
+                        <th>Customer Name</th>
+                        <th>Department</th>
+                        <!-- <th>Action</th> -->
+                    </tr>
+                </thead>
+                
+                <tfoot>
+                  <tr>
+                        <th>Order ID</th>
+                        <th>Order Date</th>
+                        <th>Customer Name</th>
+                        <th>Department</th>
+                       <!-- <th>Action</th> -->
+                    </tr>
+                </tfoot>
+            </table>
 
-
-
-        <form method="post" id="order_form">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Enter Receiver Name</label>
-                  <input type="text" name="inventory_order_name" id="inventory_order_name" class="form-control" required />
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Date</label>
-                  <input type="text" name="inventory_order_date" id="inventory_order_date" class="form-control" required />
-                </div>
-              </div>
             </div>
-            <div class="form-group">
-              <label>Enter Receiver Address</label>
-              <textarea name="inventory_order_address" id="inventory_order_address" class="form-control" required></textarea>
-            </div>
-            <div class="form-group">
-              <label>Enter Product Details</label>
-              <hr />
-              <span id="span_product_details"></span>
-              <hr />
-            </div>
-            <div class="form-group">
-              <label>Select Payment Status</label>
-              <select name="payment_status" id="payment_status" class="form-control">
-                <option value="cash">Cash</option>
-                <option value="credit">Credit</option>
-              </select>
-            </div>
-            </div>
-            <div class="modal-footer">
-              <input type="hidden" name="inventory_order_id" id="inventory_order_id" />
-              <input type="hidden" name="btn_action" id="btn_action" />
-              <input type="submit" name="action" id="action" class="btn btn-info" value="Add" />
-            </div>
-          </div>
-        </form>
- 
-      
 
             <!-- /.box-body -->
           </div>
@@ -400,7 +447,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-
     
     </section>
     <!-- /.content -->
@@ -509,7 +555,6 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- page script -->
 
 <script>
 <!-- date and time -->
@@ -548,6 +593,7 @@ input:checked + .slider:before {
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 "processing": true,
+                "autoWidth" : false,
                 "serverSide":true,
                 "ajax":{
                     url:"purchases/getPurchases",
@@ -556,66 +602,5 @@ input:checked + .slider:before {
             });
         });
     </script>
-
-    <!--script js for get edit data-->
-    <script>
-        $(document).on('click','#getEdit',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'purchases/editPurchases',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).fial(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
 </body>
 </html>
-
-<?php
-$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
-$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-if(isset($_POST['btnEdit'])){
-	$new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['txtorderdate']);
-    $new_purchasesQuantity=mysqli_real_escape_string($con,$_POST['txtquantity']);
-    $new_purchasesUnit=mysqli_real_escape_string($con,$_POST['txtunit']);
-    $new_purchasesUnitPrice=mysqli_real_escape_string($con,$_POST['txtunitprice']);
-	$new_purchasesTotalAmount=mysqli_real_escape_string($con,$_POST['txttotalamount']);
-	$new_purchasesGrandTotal=mysqli_real_escape_string($con,$_POST['txtgrandtotal']);
-	$new_purchasesRemarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
-
-    
-	$sqlupdate="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity', order_unit='$new_purchasesUnit', po_unitprice='$new_purchasesUnitPrice', total='$new_purchasesTotalAmount', grand_total='$new_purchasesGrandTotal', po_remarks='$new_purchasesRemarks' WHERE po_id='$new_id' ";
-	$result_update=mysqli_query($con,$sqlupdate);
-
-    if($result_update){
-        echo '<script>window.location.href="purchases"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
-}
-
-if(isset($_GET['delete'])){
-    $id=$_GET['delete'];
-    $sqldelete="DELETE FROM purchase_orders WHERE po_id='$id' ";
-    $result_delete=mysqli_query($con,$sqldelete);
-   
-   if($result_delete){
-        echo'<script>window.location.href="purchases"</script>';
-    }
-    else{
-        echo'<script>alert("Delete Failed")</script>';
-    }
-}
-
-?>
