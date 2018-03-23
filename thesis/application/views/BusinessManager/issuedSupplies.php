@@ -89,39 +89,58 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."')";
+                $result6 = $conn->query($sql6);    
+                ?>
+                <?php if ($result6->num_rows > 0) {
+                while($row = $result6->fetch_assoc()) { ?>
+                <span class="label label-warning"><?php echo $row["total"]; 
+                    $counted = $row["total"];
+                    ?></span>
+                <?php 
+                      }
+                    }
+                ?>
             </a>
             <ul class="dropdown-menu">
-              <li class="header"><i class="fa fa-warning text-yellow"></i> You have 10 notifications</li>
+              <li class="header"><i class="fa fa-warning text-yellow"></i> You have <?php echo $counted; ?> notifications</li>
               <li>
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                        Assistant 1 logged in the system.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                       Assistant 1 edited the the unit price of the ink supply in the office supplies.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                       Assistant 1 logged out.
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#">
-                       You logged in.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      You issued 31 pieces of tissue from the medical supplies to Cardiac Department.
-                    </a>
-                  </li>
+                <ul class="menu">  
+                <table id="notify" class="table table-bordered table-striped">
+                    <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql7 = "select log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') order by log_date DESC";
+                    $result7 = $conn->query($sql7);
+                    ?>
+                    <?php 
+                      if ($result7->num_rows > 0) {
+                       while($row = $result7->fetch_assoc()) { 
+                    ?>
+                      <tr>
+                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <td class="notif-delete">
+                        <form action='delete?log_description="<?php echo $row['log_description']; ?>"' method="post">
+                        <input type="hidden" name="log_description" value="">
+                        <input type="submit" name="submit" value="x" style="background-color: #f44336;border-radius: 8px;">
+                        </form>
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>-->
+                        <?php
+                            
+                        ?>
+                        </td>
+                      </tr>
+                    <?php 
+                      }
+                    }
+                    ?>
+                </table>
                 </ul>
               </li>
               <li class="footer"><a href="../examples/invoice.php">View all Logs</a></li>
