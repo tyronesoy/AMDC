@@ -9,7 +9,9 @@ $col = array(
     2   =>  'inventory_order_name',
     3   =>  'intentory_order_dept',
     4   =>  'inventory_order_quantity',
-    5   =>  'inventory_order_description'
+    5   =>  'inventory_order_description',
+    6   =>  'inventory_order_status',
+    7   =>  'inventory_order_remarks'
 	
 );  //create column like table in database
 
@@ -48,7 +50,9 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[0]; 
 	$subdata[]=$row[1]; 
     $subdata[]=$row[2]; 	 	
-    $subdata[]=$row[3];	
+    $subdata[]=$row[3];
+    $subdata[]=$row[6];
+    $subdata[]=$row[7];
 	
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
     /*$subdata[]='

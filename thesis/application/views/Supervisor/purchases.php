@@ -463,6 +463,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Order Date</th>
                         <th>Customer Name</th>
                         <th>Department</th>
+                        <th>Status</th>
                         <!-- <th>Action</th> -->
                     </tr>
                 </thead>
@@ -473,6 +474,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Order Date</th>
                         <th>Customer Name</th>
                         <th>Department</th>
+                        <th>Status</th>
                        <!-- <th>Action</th> -->
                     </tr>
                 </tfoot>
