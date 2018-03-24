@@ -354,10 +354,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'BusinessManager/departments' ?>">
+        <li class ="treeview">
+          <a href="#">
             <i class="fa fa-building"></i> <span>Departments</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+      <li><a href="<?php echo 'BusinessManager/departments' ?>"><i class= "fa fa-medkit"></i> Departments List</a></li>
+      <li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-pencil-square-o"></i> Departments Order</a></li>
+          </ul>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
