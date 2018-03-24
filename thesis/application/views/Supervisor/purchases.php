@@ -352,7 +352,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                 <table style="float:right;">
                     <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
+                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Order</i></button>
             
              <form name="form1" method="post" action="purchases/addPurchases" >
                         <div class="modal fade" id="modal-info">
@@ -362,45 +362,85 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add Purchases</h3>
+                                            <h3>Add Orders</h3>
                                         </div>
                                       </div>
                                         <!-- end of modal header -->
                                       <div class="modal-body">
                                         <div class="box-body">
-                        <div class="form-group">
+                                              <div class="row">
+                                              <div class="col-md-6">
+                                              <div class="form-group">
                                                   <label for="exampleInputEmail1">Order Date</label>
                                                   <input type="date" class="form-control" name="orDate" required />
                                               </div>
+                                              </div>
+
+                                              <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Customer Name</label>
+                                                  <input type="text" class="form-control" name="name" required />
+                                              </div>
+                                              </div>
+                                              </div>
+
+                                              <div class="row">
+                                              <div class="col-md-6" style="width:100%">
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">Department</label>
+                                                <select class="form-group select2" name = "department" style="width:100%">
+                                                <option value=""></option>
+                                                <?php
+                                                 $conn =mysqli_connect("localhost","root","");
+                                                mysqli_select_db($conn, "itproject");
+                                                  $sql = "SELECT * FROM departments GROUP BY department_name";
+                                                  $results = mysqli_query($conn, $sql);
+
+                                                  foreach($results as $department) { 
+                                                ?>
+                                                <option value="<?php echo $department["department_name"]; ?>" name="desc"><?php echo $department["department_name"]; ?></option>
+                                                <?php 
+                                                  }
+                                                ?>
+                                              </select>
+                                          </div>
+                                              </div>
+                                            </div>
+
+                                              <div class="row">
+                                              <div class="col-md-6" style="width:80%">
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">Item</label>
+                                                <select class="form-group select2" name = "description" style="width:100%">
+                                                <option value=""></option>
+                                                <?php
+                                                 $conn =mysqli_connect("localhost","root","");
+                                                mysqli_select_db($conn, "itproject");
+                                                  $sql = "SELECT * FROM supplies";
+                                                  $results = mysqli_query($conn, $sql);
+
+                                                  foreach($results as $department) { 
+                                                ?>
+                                                <option value="<?php echo $department["supply_description"]; ?>" name="desc"><?php echo $department["supply_description"]; ?></option>
+                                                <?php 
+                                                  }
+                                                ?>
+                                              </select>
+                                          </div>
+                                              </div>
+
+                                              <div class="col-md-6" style="width:20%">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" name="quan" required />
+                                                  <input type="text" class="form-control" name="quantity" required />
                                               </div>
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Unit</label>
-                                                  <input type="text" class="form-control" name="unt" required />
                                               </div>
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Unit Price</label>
-                                                  <input type="number" class="form-control" name="unPrice" required />
                                               </div>
-                       <div class="form-group">
-                                                  <label for="exampleInputEmail1">Total Amount</label>
-                                                  <input type="number" class="form-control" name="toAmount" required />
-                                             </div>
-                      <div class="form-group">
-                                                  <label for="exampleInputEmail1">Grand Total</label>
-                                                  <input type="number" class="form-control" name="granTotal" required />
-                                            </div>
-                      <div class="form-group">
-                                                  <label for="exampleInputEmail1">Remarks</label>
-                                                  <input type="text" class="form-control" name="rem" required /> 
-                                            </div> -->
                                         </div>
                   <div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addPurchases">Add Purchases</button>
+                                        <button type="submit" class="btn btn-primary" name="addOrder">Add Orders</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -557,7 +597,7 @@ input:checked + .slider:before {
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
 <script>
-<!-- date and time -->
+//date and time
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
