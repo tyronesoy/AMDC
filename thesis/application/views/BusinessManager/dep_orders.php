@@ -220,15 +220,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class ="treeview">
-          <a href="#">
+          <a href="#" id="menu1" type="button" data-toggle="dropdown">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+          <!-- <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Dropdown Example
+          <span class="caret"></span></button> -->
+          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+            <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+            <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!--------------------------------------------------- PURCHASES -------------------------------------------------->

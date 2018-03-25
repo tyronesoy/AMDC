@@ -13,7 +13,9 @@ if(isset($_REQUEST['id'])){
         $per_date=$row[1];
         $per_name=$row[2];
         $per_department=$row[3];
-        $per_status=$row[4];
+        $per_quantity=$row[4];
+        $per_description=$row[5];
+        $per_status=$row[6];
         $per_remarks=$row[7];
 
     }//end while
@@ -21,49 +23,138 @@ if(isset($_REQUEST['id'])){
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-                <div class="margin">
-                    <h3>Orders</h3>
+                <div class="col-md-2">
+                    <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                </div>
+                <div class="col-md-8">
+                    
+                    <div class="margin">
+                        <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                        <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                        <center><h6>Philippines</h6></center>
+                    </div>
                 </div>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
+                    <div class="box-header">
+                        <div class="margin">
+                            <center><h4>Order Form</h4></center>
+                        </div>
+                    </div>
                     <div class="box-body">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtid">Order ID</label>
-                            <div class="col-sm-6">
-                                <input type="number" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="txtid">Purchase Order ID</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" class="form-control" id="txtpoid" name="txtpoid" hidden value="" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtsuppliername">Order Date</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtsuppliername" name="txtsuppliername" value="<?php echo $per_date;?>" readonly>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-6 control-label" for="txtid">Order ID</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-sm-6 control-label" for="txtdate">Order Date</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtcontactno">Supplier Name</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_name;?>" readonly>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="txtdesc">Description</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="txtquantity">Quantity</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="txtunit">Unit</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtaddress">Department</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtaddress" name="txtaddress" value="<?php echo $per_department;?>" readonly>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $per_description;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $per_quantity;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" id="txtunit" name="txtunit" value="" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtprodtype">Status</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtprodtype" name="txtprodtype" value="<?php echo $per_status;?>" readonly>
+                                    
+                                    
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="txtname">Supplier Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="txtname" name="txtname" value="<?php echo $per_name;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="txtdep">Department</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="txtdep" name="txtdep" value="<?php echo $per_department;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtremarks">Remarks</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtremarks" name="txtremarks" value="<?php echo $per_remarks;?>" readonly>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="txtstatus">Status</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
