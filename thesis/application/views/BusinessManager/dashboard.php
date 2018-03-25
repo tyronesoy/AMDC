@@ -28,6 +28,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+    <!-- datatable lib -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
    <!-- DataTables -->
   <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
@@ -218,7 +227,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="user-footer">
             
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo 'logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -260,7 +269,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <!-- /.modal -->
                             <!-- MODAL -->
-                                    <div class="modal fade" id="modal-warning">
+                            <div class="modal fade" id="modal-warning">
                               <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">
@@ -318,8 +327,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <i class="fa fa-group"></i> <span>Manage Accounts</span> </a>
         </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
-          <a href="#" >
+        <li class ="treeview">
+          <a href="#">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -442,7 +451,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           
         <div class="col-lg-4 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-green">
+          <div class="small-box bg-yellow">
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
@@ -833,7 +842,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    
 <!-- Morris.js charts -->
 <script src="assets/bower_components/raphael/raphael.min.js"></script>
 <script src="assets/bower_components/chart.js/chart.min.js"></script>
@@ -861,24 +869,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="assets/dist/js/demo.js"></script>
-    
-<!-- ITO ANG LEGIT NA JAVASCRIPT NG CHARTS -->
-<!-- jQuery 3 -->
-<script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- ChartJS -->
-<script src="assets/bower_components/Chart.js/Chart.js"></script>
-<!-- FastClick -->
-<script src="assets/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="assets/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="assets/dist/js/demo.js"></script>
-<!-- page script -->
 <!-- DataTables -->
 <script src="assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    
+<!-- ITO ANG LEGIT NA JAVASCRIPT NG CHARTS -->
+<!-- ChartJS -->
+<script src="assets/bower_components/Chart.js/Chart.js"></script>
+
+<!-- page script -->
+
 
 <!-- <script type="text/javascript">
 setTimeout(onUserInactivity, 1000 * 120)

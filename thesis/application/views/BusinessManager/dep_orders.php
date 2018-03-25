@@ -349,7 +349,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getView" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search">&nbsp;</i>View</button>
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search">&nbsp;</i>View</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-ok"></i></button>
