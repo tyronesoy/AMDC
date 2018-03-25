@@ -116,7 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') order by log_date DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') order by log_date DESC";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -126,14 +126,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <tr>
                         <td><small><?php echo $row["log_description"];?></small></td>
                         <td class="notif-delete">
-                        <form action='delete?log_description="<?php echo $row['log_description']; ?>"' method="post">
-                        <input type="hidden" name="log_description" value="">
+                        <form action="delete" method="post">
+                        <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <input type="submit" name="submit" value="x" style="background-color: #f44336;border-radius: 8px;">
                         </form>
-                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>-->
-                        <?php
-                            
-                        ?>
                         </td>
                       </tr>
                     <?php 
@@ -144,6 +140,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </ul>
               </li>
               <li class="footer"><a href="../examples/invoice.php">View all Logs</a></li>
+              <li>
+              <center>
+              
+                        <button style="background-color:#f44336;" href="deleteall">Delete all Logs</button>
+              
+              </center>
+              </li>
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
