@@ -110,5 +110,9 @@ class Db_model extends CI_Model {
 		return $query->result();
 	}
 
+	public function getLogs(){
+		$query=$this->db->query("SELECT * FROM logs");
+		return $query->result();
+	}
 
 }
