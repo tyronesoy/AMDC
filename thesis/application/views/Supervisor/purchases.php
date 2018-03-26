@@ -18,6 +18,19 @@ function supply_dropdown($connect)
  return $output;
 }
 
+function unit_measure($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM unit_of_measure ORDER BY unit_name ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $output .= '<option value="'.$row["unit_name"].'">'.$row["unit_name"].'</option>';
+ }
+ return $output;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -237,7 +250,8 @@ function supply_dropdown($connect)
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-                <span class="hidden-xs">Supervisor</span>
+              <span><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
+                
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -245,8 +259,7 @@ function supply_dropdown($connect)
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
-                 Supervisor
-                  <small>Member since Oct. 2017</small>
+                 <span><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -394,6 +407,28 @@ function supply_dropdown($connect)
                                         <!-- end of modal header -->
                                       <div class="modal-body">
                                         <div class="box-body">
+                                          <div class="row">
+                                              <div class="col-md-6" style="width:100%">
+                                              <div class="form-group">
+                                                <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-institution"></i>
+                                                      </div>
+                                                <label for="exampleInputEmail1">Department</label>
+                                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo ( $this->session->userdata('department_name')); ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <?php
+                                                 $conn =mysqli_connect("localhost","root","");
+                                                mysqli_select_db($conn, "itproject");
+                                                $fname= $this->session->userdata('fname');
+                                                $lname= $this->session->userdata('lname');
+                                                  $sql = "SELECT department_name FROM departments JOIN users ON users.dept_ID=departments.department_id WHERE users.fname='$fname' AND users.lname='$lname' ";
+                                                  $results = mysqli_query($conn, $sql);
+                                                ?>
+                                          </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
                                               <div class="row">
                                               <div class="col-md-5">
                                               <div class="form-group">
@@ -421,28 +456,6 @@ function supply_dropdown($connect)
                                                 </div>
                                               </div>
 
-                                              <div class="row">
-                                              <div class="col-md-6" style="width:100%">
-                                              <div class="form-group">
-                                                <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-institution"></i>
-                                                      </div>
-                                                <label for="exampleInputEmail1">Department</label>
-                                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo ( $this->session->userdata('department_name')); ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                                <?php
-                                                 $conn =mysqli_connect("localhost","root","");
-                                                mysqli_select_db($conn, "itproject");
-                                                $fname= $this->session->userdata('fname');
-                                                $lname= $this->session->userdata('lname');
-                                                  $sql = "SELECT department_name FROM departments JOIN users ON users.dept_ID=departments.department_id WHERE users.fname='$fname' AND users.lname='$lname' ";
-                                                  $results = mysqli_query($conn, $sql);
-                                                ?>
-                                          </div>
-                                              </div>
-                                            </div>
-                                          </div>
-
                                            <form name="add_name" id="add_name">
                                         <div class="table-responsive">
                                           <table class="table table-bordered" id="dynamic_field">
@@ -450,6 +463,7 @@ function supply_dropdown($connect)
                                               <th> Total Quantity </th>
                                               <th> Quantity </th>
                                               <th> Item </th>
+                                              <th> Unit of Measure</th>
                                               <th></th>
                                             </tr>
                                             <tr>
@@ -460,6 +474,12 @@ function supply_dropdown($connect)
                                               <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
 
@@ -682,9 +702,11 @@ table#addItem, tr.no_border td {
 $(document).ready(function(){
   var i=1;
   var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
+  var unit = <?php echo(json_encode(unit_measure($connect))); ?>;
+  var select2 = $('.select2').select2();
   $('#add').click(function(){
     i++;
-    $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /></td> <td><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td> <td><select class="form-group select2" name="name[]" style="width: 100%;"><option value=""></option> '+supplyDrop+' </select></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">-</button></td></tr>');
+    $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /></td> <td><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td> <td><select class="form-group select2" name="name[]" style="width: 100%;"><option value=""></option> '+supplyDrop+' </select></td> <td width="100"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+unit+'</select></td>  <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">-</button></td></tr>');
   });
   
   $(document).on('click', '.btn_remove', function(){
