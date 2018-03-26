@@ -429,7 +429,7 @@ function supply_dropdown($connect)
                                                         <i class="fa fa-institution"></i>
                                                       </div>
                                                 <label for="exampleInputEmail1">Department</label>
-                                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?echo ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
                                                 mysqli_select_db($conn, "itproject");
