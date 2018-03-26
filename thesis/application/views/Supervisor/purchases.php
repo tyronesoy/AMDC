@@ -4,7 +4,7 @@
 $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 
 
-function fill_unit_select_box($connect)
+function supply_dropdown($connect)
 { 
  $output = '';
  $query = "SELECT * FROM supplies ORDER BY supply_description ASC";
@@ -291,14 +291,14 @@ function fill_unit_select_box($connect)
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+	<!-- DASHBOARD MENU -->
         <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
 
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+		<!-- SUPPLIES MENU -->
         <li class = "treeview">
           <a href="#">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
@@ -312,31 +312,31 @@ function fill_unit_select_box($connect)
           </ul>
         </li>
       
-        <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
+        <!--- ISSUED SUPPLIES -->
             <li><a href="<?php echo 'issuedsupplies' ?>">
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+		<!-- SUPPLIERS MENU -->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		    <!--------------------------------------------------- PURCHASES -------------------------------------------------->
+		    <!-- PURCHASES -->
           <li class="active">
               <a href="<?php echo 'purchases' ?>">
                   <i class="fa fa-shopping-cart"></i><span>Orders</span>  
               </a>
           </li>
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
+		<!-- DEPARTMENTS MENU -->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
 
-<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
+<!-- LOCKSCREEN MENU -->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
@@ -379,18 +379,18 @@ function fill_unit_select_box($connect)
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
-                <div class="col-md-2">
-                    <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                </div>
-                <div class="col-md-8">
-                    
-                    <div class="margin">
-                        <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
-                        <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                        <center><h6>Philippines</h6></center>
-                    </div>
-                </div>
-            </div>
+                                            <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- end of modal header -->
                                       <div class="modal-body">
                                         <div class="box-body">
@@ -443,29 +443,39 @@ function fill_unit_select_box($connect)
                                             </div>
                                           </div>
 
-                                           <form method="post" id="insert_form">
-                                            <div class="table-repsonsive">
-                                             <span id="error"></span>
-                                             <table class="table table-bordered" id="item_table">
-                                              <tr>
-                                               <th>Select Supply</th>
-                                               <th>Enter Quantity</th>
-                                               <th>Select Unit</th>
-                                               <th><button type="button" name="add" class="btn btn-success btn-sm add"><span class="glyphicon glyphicon-plus"></span></button></th>
-                                              </tr>
-                                             </table>
-                                             <div align="center">
-                                              <input type="submit" name="submit" class="btn btn-info" value="Insert" />
-                                             </div>
-                                            </div>
-                                           </form>
+                                           <form name="add_name" id="add_name">
+                                        <div class="table-responsive">
+                                          <table class="table table-bordered" id="dynamic_field">
+                                            <tr>
+                                              <th> Total Quantity </th>
+                                              <th> Quantity </th>
+                                              <th> Item </th>
+                                              <th></th>
+                                            </tr>
+                                            <tr>
+
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td>
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="20"><button type="button" name="add" id="add" class="btn btn-success">+</button></td>
+                                            </tr>
+                                          </table>
+                                          <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />
+                                        </div>
+                                      </form>
 
 
                                         </div> <!-- BOX-BODY -->
                                       <div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addOrder">+</button>
+                                        <button type="submit" class="btn btn-primary" name="addOrder">Add Order</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -668,80 +678,34 @@ table#addItem, tr.no_border td {
 }, 2000) /* time in milliseconds (ie 2 seconds)*/
     </script>
 
-    
-</body>
-</html>
-
 <script>
 $(document).ready(function(){
- 
- $(document).on('click', '.add', function(){
-  var html = '';
-  html += '<tr>';
-    html += '<td><select name="inventory_unit[]" class="form-control inventory_unit"><option value="">Select Unit</option><?php echo fill_unit_select_box($connect); ?></select></td>';
-  html += '<td><input type="text" name="quantity[]" class="form-control quantity" /></td>';
-  html += '<td><input type="text" name="supply_name[]" class="form-control supply_name" /></td>';
-  html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
-  $('#item_table').append(html);
- });
- 
- $(document).on('click', '.remove', function(){
-  $(this).closest('tr').remove();
- });
- 
- $('#insert_form').on('submit', function(event){
-  event.preventDefault();
-  var error = '';
- $('.supply_name').each(function(){
-   var count = 1;
-   if($(this).val() == '')
-   {
-    error += "<p>Enter Item Name at "+count+" Row</p>";
-    return false;
-   }
-   count = count + 1;
-  });
-  $('.quantity').each(function(){
-   var count = 1;
-   if($(this).val() == '')
-   {
-    error += "<p>Enter Item Quantity at "+count+" Row</p>";
-    return false;
-   }
-   count = count + 1;
+  var i=1;
+  var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
+  $('#add').click(function(){
+    i++;
+    $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /></td> <td><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td> <td><select class="form-group select2" name="name[]" style="width: 100%;"><option value=""></option> '+supplyDrop+' </select></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">-</button></td></tr>');
   });
   
-  $('.inventory_unit').each(function(){
-   var count = 1;
-   if($(this).val() == '')
-   {
-    error += "<p>Select Unit at "+count+" Row</p>";
-    return false;
-   }
-   count = count + 1;
+  $(document).on('click', '.btn_remove', function(){
+    var button_id = $(this).attr("id"); 
+    $('#row'+button_id+'').remove();
   });
-  var form_data = $(this).serialize();
-  if(error == '')
-  {
-   $.ajax({
-    url:"insert.php",
-    method:"POST",
-    data:form_data,
-    success:function(data)
-    {
-     if(data == 'ok')
-     {
-      $('#item_table').find("tr:gt(0)").remove();
-      $('#error').html('<div class="alert alert-success">Item Details Saved</div>');
-     }
-    }
-   });
-  }
-  else
-  {
-   $('#error').html('<div class="alert alert-danger">'+error+'</div>');
-  }
- });
- 
+  
+  $('#submit').click(function(){    
+    $.ajax({
+      url:"name.php",
+      method:"POST",
+      data:$('#add_name').serialize(),
+      success:function(data)
+      {
+        alert(data);
+        $('#add_name')[0].reset();
+      }
+    });
+  });
+  
 });
 </script>
+</body>
+</html>

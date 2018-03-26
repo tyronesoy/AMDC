@@ -1,14 +1,14 @@
 <?php
 //insert.php;
 
-if(isset($_POST["supply_name"]))
+if(isset($_POST["supply_name]"]))
 {
  $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
  $inventory_order_id = uniqid();
  for($count = 0; $count < count($_POST["supply_name"]); $count++)
  {  
   $query = "INSERT INTO inventory_order_supplies
-  (inventory_order_id, supply_name, quantity, inventory_unit) 
+  (supply_name, quantity, inventory_unit) 
   VALUES (:inventory_order_id, :supply_name, :quantity, :inventory_unit)
   ";
   $statement = $connect->prepare($query);
