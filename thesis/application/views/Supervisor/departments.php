@@ -23,16 +23,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+    <!-- daterange picker -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+      <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
 
    <!-- datatable lib -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -149,13 +162,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
+              <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Supervisor</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
                  Supervisor
@@ -184,7 +197,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Supervisor</p>
@@ -207,7 +220,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory System</li>
   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
-          <a href="<?php echo '../dashboard' ?>">
+          <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
@@ -244,7 +257,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	  </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li class="active">
-          <a href="#">
+          <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
@@ -270,9 +283,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
         
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Office Supplies</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active"><a href="<?php echo 'departments' ?>">Departments</a></li>
       </ol>
     </section>
 
@@ -292,71 +304,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </button>
                           <option><b>All Departments</b></option>
                           <option value="branchBaguio">Baguio</option>
+						  <option value="branchLA">La Trinidad</option>
                         </select>
                       </div></th>
                     </tr>
                 </table>
-                <table style="float:right;">
-                    <tr>                    
-                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add New Department</button>
-                        <form name="form1" method="post" action="departments/addDepartment" >
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <h3>Add New Department</h3>
-                                          </div>
-                                      </div>
-                                        <!-- end of modal header -->
-                                      <div class="modal-body">
-                                        <div class="box-body">
-                                          <table class="table table-bordered table-striped">
-                                            <tbody>
-                                            <th> 
-                                                  <div class="form-group">
-                                                  <label for="exampleInputEmail1">Branch Location</label>
-                                                  <br>
-                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City &nbsp; &nbsp;
-                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad  <br>
-                                                </div> 
-                                            <tr>
-                                              <td><div class="form-group">
-                                                  <label for="exampleInputEmail1">Department Name</label>
-                                                  <input type="text" class="form-control" name="depName" required />
-                                                </div></td>
-                                            </tr>
-                                               
-                                                             
-                                             </th>
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addDep">Save Department</button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                                </form>
-                                </th>
-                    </tr>
-                </table>
+                
             </div>
             <!-- /.box-header -->
               <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+        <table id="example" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Department Name</th>
                         <th>Branch Location</th>
-                        <th>Action</th>
+<!--                        <th>Action</th>-->
 
                     </tr>
                 </thead>
@@ -365,7 +327,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <tr>
                     <th>Department Name</th>
                         <th>Branch Location</th>
-                        <th>Action</th>
+<!--                        <th>Action</th>-->
                     
                   </tr>
                 </tfoot>
@@ -468,6 +430,8 @@ input:checked + .slider:before {
   border-radius: 50%;
 }    
 </style>
+<!-- ./wrapper -->
+
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -498,8 +462,6 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- page script -->
-
 
 <script>
 <!-- date and time -->
@@ -528,11 +490,13 @@ input:checked + .slider:before {
 </script>
 
 <!--create modal dialog for display detail info for edit on button cell click-->
+<!--
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
                 <div id="content-data"></div>
             </div>
         </div>
+-->
    
     <script>
         $(document).ready(function(){

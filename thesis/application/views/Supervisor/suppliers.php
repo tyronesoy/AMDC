@@ -23,16 +23,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+    <!-- daterange picker -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+      <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Select2 -->
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
 
    <!-- datatable lib -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -191,13 +204,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
+              <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Supervisor</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
                  Supervisor
@@ -226,7 +239,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Supervisor</p>
@@ -312,9 +325,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
         
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Suppliers</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo 'dashboard'?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><a href="<?php echo 'suppliers'?>">Suppliers</a></li>
+<!--        <li class="active">Data tables</li>-->
       </ol>
     </section>
 
@@ -323,77 +336,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <!-- <h3 class="box-title">Office Supplies</h3> -->
-                <table style="float:right;">
-                    <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus">&nbsp;</i>Create New</button>
-                        
-                        <form name="form1" method="post" action="suppliers/addSupplier" >
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <h3>Add Suppliers</h3>
-                                          </div>
-                                      </div>
-                                        <!-- end of modal header -->
-                                      <div class="modal-body">
-                                        <div class="box-body">
-                                          <div class="form-group">
-                                              <label for="exampleInputEmail1">Supplier Name : </label>
-                                              <input type="text" class="form-control" name="suppName" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Contact No. : </label>
-                                              <input type="number" class="form-control" name="suppContact" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Address : </label>
-                                              <input type="text" class="form-control" name="suppAddress" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Product Type : </label>
-                                                <div class="form-group">
-                                                  <select class="form-control" name="suppProduct">
-                                                    <?php
-                                                      $conn=mysqli_connect("localhost", "root", "", "itproject");
-                                                      $sql = "SELECT product FROM suppliers GROUP BY product";
-                                                      $result = mysqli_query($conn, $sql);
-
-                                                      foreach($result as $row){
-                                                        ?>
-                                                        <option value="<?php echo $row["product"]; ?>" name="suppProduct"><?php echo $row["product"]; ?></option>
-                                                      <?php
-                                                      }
-                                                      ?>
-                                                    ?>
-                                                  </select>
-                                                </div>
-                                            </div>   
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" name="addSuppliers" class="btn btn-primary">Add Suppliers</button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                              </form>
-                              </th>
-                        
-                    </tr>
-                </table> 
-            </div>
+          
             <!-- /.box-header -->
               <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+        <table id="example" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Supplier Name</th>
@@ -402,7 +348,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Supplier Type</th>
                         <th>Status</th>
                         <th>Remarks</th>
-                        <th>Action</th>
+<!--                        <th>Action</th>-->
                     </tr>
                 </thead>
                 <tfoot>
@@ -413,7 +359,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>Supplier Type</th>
                     <th>Status</th>
                     <th>Remarks</th>
-                    <th>Action</th>
+<!--                    <th>Action</th>-->
                   </tr>
                 </tfoot>
             </table>
@@ -522,13 +468,15 @@ input:checked + .slider:before {
   border-radius: 50%;
 }    
 </style>
+<!-- ./wrapper -->
+
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -552,8 +500,7 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- page script -->
-
+	
 <script>
 <!-- date and time -->
   $(function () {
@@ -601,6 +548,7 @@ input:checked + .slider:before {
     </script>
 
     <!--script js for get edit data-->
+<!--
     <script>
         $(document).on('click','#getEdit',function(e){
             e.preventDefault();
@@ -620,30 +568,31 @@ input:checked + .slider:before {
             });
         });
     </script>
+-->
 </body>
 </html>
 
 <?php
 $con=mysqli_connect('localhost','root','','itproject');
-if(isset($_POST['btnEdit'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_supplierName=mysqli_real_escape_string($con,$_POST['txtsuppliername']);
-    $new_supplierContact=mysqli_real_escape_string($con,$_POST['txtcontactno']);
-    $new_supplierAddress=mysqli_real_escape_string($con,$_POST['txtaddress']);
-    $new_supplierProduct=mysqli_real_escape_string($con,$_POST['txtprodtype']);
-    $new_supplierStatus=mysqli_real_escape_string($con,$_POST['txtstatus']);
-    $new_supplierRemarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
-
-    $sqlupdate="UPDATE suppliers SET company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', supplier_status='$new_supplierStatus', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
-
-    if($result_update){
-        echo '<script>window.location.href="suppliers"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
-}
+//if(isset($_POST['btnEdit'])){
+//    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+//    $new_supplierName=mysqli_real_escape_string($con,$_POST['txtsuppliername']);
+//    $new_supplierContact=mysqli_real_escape_string($con,$_POST['txtcontactno']);
+//    $new_supplierAddress=mysqli_real_escape_string($con,$_POST['txtaddress']);
+//    $new_supplierProduct=mysqli_real_escape_string($con,$_POST['txtprodtype']);
+//    $new_supplierStatus=mysqli_real_escape_string($con,$_POST['txtstatus']);
+//    $new_supplierRemarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
+//
+//    $sqlupdate="UPDATE suppliers SET company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', supplier_status='$new_supplierStatus', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
+//    $result_update=mysqli_query($con,$sqlupdate);
+//
+//    if($result_update){
+//        echo '<script>window.location.href="suppliers"</script>';
+//    }
+//    else{
+//        echo '<script>alert("Update Failed")</script>';
+//    }
+//}
 
 if(isset($_GET['update'])){
     $id=$_GET['update'];

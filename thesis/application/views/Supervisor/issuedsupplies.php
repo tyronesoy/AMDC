@@ -289,13 +289,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
+              <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Supervisor</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
                  Supervisor
@@ -322,7 +322,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Supervisor</p>
@@ -411,9 +411,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Distributed Supplies</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		  <li class="active"><a href="<?php echo 'issuedSupplies' ?>">Issued Supplies</a></li>
       </ol>
     </section>
 

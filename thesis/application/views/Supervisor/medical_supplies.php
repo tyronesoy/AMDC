@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="../assets/dashboard.php" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -290,13 +290,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
+              <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Supervisor</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
                  Supervisor
@@ -323,13 +323,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Supervisor</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
+		
       <!-- search form -->
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
@@ -377,7 +378,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 		<!--------------------------------------------------- PURCHASES -------------------------------------------------->
           <li >
-              <a href="<?php echo 'Supervisor/purchases' ?>">
+              <a href="<?php echo 'purchases' ?>">
                   <i class="fa fa-tags"></i><span>Orders</span>  
               </a>
           </li>
@@ -407,9 +408,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li><a href="#">Medical Supplies</a></li>
-        <li class="active">Supplies</li>
+        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		<li class="#">Supplies</li>
+        <li><a href="<?php echo 'medicalSupplies' ?>">Medical Supplies</a></li>
+        
       </ol>
     </section>
 
@@ -429,268 +431,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <span class="caret"></span>
                         </button>
                           <option><b>All Supplies</b></option>
-                          <option value="medicalSuppliesTotalQuantity">Total Quantity</optiom>
+                          <option value="medicalSuppliesTotalQuantity">Total Quantity</option>
                         </select>
                       </div></th>
                     </tr>
                 </table> 
-                <table style="float:right;">
-                    <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus"></i> New Item</button>
-                        
-                        <form name="addSupply" method="post" action="medicalsupplies/addMedicalSupplies">
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <center><h3 class="modal-title"><b>Add New Item</b></h3></center>
-                                          </div>
-                                      </div>
-                                        <!-- end of modal header -->
-                                      <div class="modal-body">
-                                        <div class="box-body">
-
-                                                  <!-- DATE -->
-                                                <!-- <div class="form-group">
-                                                    <label>Date Received</label>
-                                                <div class="input-group date"/>
-                                                  <div class="input-group-addon">
-                                                    <i class="fa fa-calendar"></i>
-                                                  </div>
-                                                  <input type="date" class="form-control pull-right" id="datepicker" required />
-                                                </div>
-                                                     /.input group
-                                              </div> -->
-                                            
-                                            <!-- TIME 
-                                                <div class="bootstrap-timepicker">
-                                                <div class="form-group">
-                                                  <label>Time Received</label>
-
-                                                  <div class="input-group">
-                                                    <input type="time" class="form-control timepicker" required />
-
-                                                    <div class="input-group-addon">
-                                                      <i class="fa fa-clock-o"></i>
-                                                    </div>
-                                                  </div>
-                                                       /.input group
-                                                </div>
-                                                      /.form group
-                                              </div> -->
-                                          <!-- /.form group -->
-                                            <div class="form-group" style="width:100%;">
-                                                  <label for="exampleInputEmail1">Description</label>
-                                                  <input type="text" class="form-control" id="Description" name="Description" required />
-                                                </div>
-                                              
-                                              <!-- <div class="form-group">
-                                                  <label for="exampleInputEmail1">Supplier</label>
-                                                  <input type="text" class="form-control" name=Supplier""
-                                                  required />
-                                                </div> -->
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" id="Quantity" name="Quantity" required />
-                                                
-                                              </div>
-                                              </div>
-
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Unit</label>
-                                                  <input type="text" class="form-control" id="Unit" name="Unit" />
-                                              </div>
-                                              </div>
-                                              </div>
-
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Unit Price</label>
-                                                  <input type="number" class="form-control" id="priceUnit" name="priceUnit" required />
-                                                </div>
-                                              </div>
-                                              <!-- Date and Time -->
-                                              <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Expiration Date</label>
-
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker2" name="expirationDate">
-                                                    </div>
-                                                          <!-- /.input group --> 
-                                                  </div>
-                                                  </div>
-                                                  </div>
-
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary" class="btn btn-success" data-toggle="modal" data-target="#modal-success">Save Supply</button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                    
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-
-                                <div class="modal modal-success fade" id="modal-success">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <h3>Are you sure to add this item?&hellip;</h3>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                                          <button type="submit" class="btn btn-outline" name="addMedSupply">Save changes</button>
-
-                                        </div>
-                                      </div>
-                                      <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                  </div>
-                                  <!-- /.modal -->
-                                </form>
-                            </th> 
-                              
-                            <!--- END OF ADD -->
+               
                         <!---  ISSUE BUTTON -->
-                         <th>&nbsp;&nbsp;<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default">Issue To <i class="glyphicon glyphicon-arrow-right"></i></button>
-                                <form name ="form2" method="post" action="medicalSupplies/addMedicalSuppliesIssueTo">
-                                <div class="modal fade" id="modal-default">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <center><h3 class="modal-title"><b>Issue Supply</b></h3></center>
-                                          </div>
-                                      </div>
-                                        <!-- end of modal header -->
-
-                                      <div class="modal-body">
-                                                <div class="form-group">
-                                                <select class="form-group select2" name = "department" style="width:40%">
-                                                <option value="">Select a Department</option>
-                                                <?php
-                                                 $conn =mysqli_connect("localhost","root","");
-                                                mysqli_select_db($conn, "itproject");
-                                                  $sql = "SELECT * FROM departments GROUP BY department_name";
-                                                  $results = mysqli_query($conn, $sql);
-
-                                                  foreach($results as $department) { 
-                                                ?>
-                                                <option value="<?php echo $department["department_name"]; ?>" name="dep"><?php echo $department["department_name"]; ?></option>
-                                                <?php 
-                                                  }
-                                                ?>
-                                              </select>
-                                          </div>
-                                                  <div class="row">
-                                                  <div class="col-md-6">
-                                              <!-- Date and Time -->
-                                                  <div class="form-group">
-                                                    <label>Request Date</label>
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker3" name="reqDate">
-                                                    </div>
-                                                    <!-- /.input group -->
-                                                  </div>
-                                                </div>
-
-                                          <!-- /.form group -->
-                                                 <div class="col-md-6">
-                                                 <div class="form-group">
-                                                    <label>Issue Date</label>
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker4" name="issueDate">
-                                                    </div>
-                                                    <!-- /.input group -->
-                                                  </div>
-                                          <!-- /.form group -->
-                                        </div>
-                                          </div>
-                                                <!--TIME --> 
-                                           <!--     <div class="bootstrap-timepicker">
-                                                <div class="form-group">
-                                                  <label>Issue Time</label>
-
-                                                  <div class="input-group">
-                                                    <input type="text" class="form-control timepicker" id="timepicker" name ="time" required />
-
-                                                    <div class="input-group-addon">
-                                                      <i class="fa fa-clock-o"></i>
-                                                    </div>
-                                                  </div>
-                                                      
-                                                </div>
-                                                      
-                                              </div> -->
-                                          <!-- /.form group -->
-                                              <div class="row">
-                                              <div class="col-md-6" style="width:60%;">
-                                              <label for="exampleInputEmail1">Supply Description</label>
-                                              <div class="form-group">
-                                                <select class="form-group select2" name = "description" style="width:100%">
-                                                <option value=""></option>
-                                                <?php
-                                                 $conn =mysqli_connect("localhost","root","");
-                                                mysqli_select_db($conn, "itproject");
-                                                  $sql = "SELECT * FROM supplies WHERE supply_type='Medical' ";
-                                                  $results = mysqli_query($conn, $sql);
-
-                                                  foreach($results as $description) { 
-                                                ?>
-                                                <option value="<?php echo $description["supply_description"]; ?>" name="desc"><?php echo $description["supply_description"]; ?></option>
-                                                <?php 
-                                                  }
-                                                ?>
-                                              </select>
-                                          </div>
-                                              </div>
-                                              <div class="col-md-6" style="width:40%;">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" name="quantity" required />
-                                                </div>
-                                              </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-warning" name="medIssueTo">Issue Supplies <i class="glyphicon glyphicon-arrow-right"></i></button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                              </form>
-                             <!-- /.modal --></th>
-                    </tr>
-                </table>      
+               
             </div>
               
       <div class="box-body">
@@ -706,10 +454,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th>Unit</th>
                   <th>Unit Price</th>
              <!-- <th>Total Amount</th> -->
+<!--
                   <th>Reorder Level</th>
                   <th>Good Condition</th>
                   <th>Damaged</th>
-                  <th style="width:12.5%;"> Action</th> 
+-->
+<!--                  <th style="width:12.5%;"> Action</th> -->
             </tr>
         </thead>
         
@@ -723,10 +473,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th>Unit</th>
                   <th>Unit Price</th>
              <!-- <th>Total Amount</th> -->
+<!--
                   <th>Reorder Level</th>
                   <th>Good Condition</th>
                   <th>Damaged</th>
-                  <th> Action</th> 
+-->
+<!--                  <th> Action</th> -->
             </tr> 
         </tfoot>
       </table>              
@@ -745,9 +497,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <a href="../examples/medicalSuppliesPrint.php"> Print</a>
           </button>
 
+<!--
           <a href="medicalSuppliesRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
           </a>
           </button>
+-->
         </div>
       </div>
         <!-- END OF PRINT AND PDF -->
@@ -835,11 +589,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </script>
 
 <!--create modal dialog for display detail info for edit on button cell click-->
+<!--
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
                 <div id="content-data"></div>
             </div>
         </div>
+-->
    
     <script>
         $(document).ready(function(){
@@ -856,6 +612,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 
     <!--script js for get edit data-->
+<!--
     <script>
         $(document).on('click','#getEdit',function(e){
             e.preventDefault();
@@ -875,7 +632,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
     </script>
+-->
 
+<!--
     <script>
         $(document).on('click','#getAdd',function(e){
             e.preventDefault();
@@ -895,8 +654,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
     </script>
+-->
     
     <!--script js for get reconcile data-->
+<!--
     <script>
         $(document).on('click','#getRecon',function(e){
             e.preventDefault();
@@ -916,8 +677,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
     </script>
+-->
 
     <!--script js for release data-->
+<!--
     <script>
         $(document).on('click','#getDelete',function(e){
             e.preventDefault();
@@ -937,6 +700,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
     </script>
+-->
 </body>
 </html>
 

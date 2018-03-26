@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Supervisor | Office Supplies Total</title>
+   <title>Supervisor | Medical Supplies Total</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -271,7 +271,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-
     <!-- SUPPLIES MENU -->
         <li class="active treeview">
           <a href="#">
@@ -281,8 +280,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-      <li class ="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+      <li class ="active"><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!-- PURCHASES -->
@@ -308,6 +307,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
+
 <!-- LOCKSCREEN MENU -->
         <li>
           <a href="../examples/lockscreen.html">
@@ -324,13 +324,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Office Supplies</b>
+          <b>Medical Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li><a href="<?php echo 'officeSupplies' ?>">Office Supplies</a></li>
-		  <li class="active"><a href="<?php echo 'officeSuppliesTotalQuantity' ?>">Office Supplies Total Quantity</a></li>
+        <li><a href="<?php echo 'medicalSupplies' ?>">Medical Supplies</a></li>
+		  <li class="active"><a href="<?php echo 'medicalSuppliesTotalQuantity' ?>">Medical Supplies Total Quantity</a></li>
       </ol>
     </section>
 
@@ -346,23 +346,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <th> <div class="btn-group">
                         <select name="dropdown" onchange="location =this.value;">
-							<option><b>Total Quantity</b></option>
-                          <option value="officeSupplies">All Supplies</option>
+                          <option><b>Total Quantity</b></option>
+                          <option value="medicalSupplies">All Supplies</option>
                         </select>
                       </div></th>
                     </tr>
                 </table> 
                 
-               
+                 
             </div>
               
             <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
-         <?php // RETRIEVE or Display Office Supplies
+         <?php // RETRIEVE or Display Medical Supplies
          $conn =mysqli_connect("localhost","root","");
    mysqli_select_db($conn, "itproject");
           $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount'
-            FROM supplies WHERE supply_type='Office' AND quantity_in_stock IS NOT NULL
+            FROM supplies WHERE supply_type='Medical' AND quantity_in_stock IS NOT NULL
             GROUP BY supply_description;";
           $result = $conn->query($sql);  ?>
           <thead>
@@ -374,10 +374,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th>Total Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Total Amount </th>
-<!--
-                  <th>Reorder Level</th>
-                  <th>Action</th>
--->
+<!--                  <th>Reorder Level</th>-->
+<!--                  <th>Action</th>-->
             </tr>
         </thead>
         <tbody>
@@ -390,10 +388,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td align="right"><?php echo $row["Total Quantity"]; ?></td>
             <td><?php echo $row["unit"]; ?></td>
             <td align="right"><?php echo $row["Total Amount"]; ?></td>
-<!--
-            
-            <td align="center"><button type="button" id="edit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-pencil"></i>Edit</button></td>
--->
+
+<!--            <td align="center"><button type="button" id="edit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-pencil"></i>Edit</button></td>-->
             </tr>
           <?php 
               }
@@ -408,10 +404,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th> Total Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Total Amount</th>
-<!--
-                  <th>Reorder Level</th>
-                  <th>Action</th>
--->
+<!--                  <th>Reorder Level</th>-->
+<!--                  <th>Action</th>-->
         </tr> 
         </tfoot>
       </table>             
@@ -427,7 +421,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="row no-print">
         <div class="col-xs-12">
           <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;">
-          <a href="../../examples/officeSuppliesTotalQtyPrint.php"><i class="fa fa-print"></i> Print</a>
+          <a href="../../examples/medicalSuppliesTotalQtyPrint.php"><i class="fa fa-print"></i> Print</a>
           </button>
         </div>
       </div>
@@ -526,7 +520,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'officeSuppliesTotalQuantity/editOfficeSuppliesTotalQuantity',
+                url:'medicalSuppliesTotalQuantity/editMedicalSuppliesTotalQuantity',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
