@@ -429,7 +429,7 @@ function supply_dropdown($connect)
                                                         <i class="fa fa-institution"></i>
                                                       </div>
                                                 <label for="exampleInputEmail1">Department</label>
-                                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo ( $this->session->userdata('department_name')); ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
                                                 mysqli_select_db($conn, "itproject");
@@ -466,7 +466,7 @@ function supply_dropdown($connect)
                                               <td width="20"><button type="button" name="add" id="add" class="btn btn-success">+</button></td>
                                             </tr>
                                           </table>
-                                          <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />
+                                         
                                         </div>
                                       </form>
 
@@ -692,7 +692,7 @@ $(document).ready(function(){
     $('#row'+button_id+'').remove();
   });
   
-  $('#submit').click(function(){    
+  $('#addOrder').click(function(){    
     $.ajax({
       url:"name.php",
       method:"POST",
