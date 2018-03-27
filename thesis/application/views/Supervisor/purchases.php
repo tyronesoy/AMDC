@@ -415,7 +415,7 @@ function unit_measure($connect)
                                                         <i class="fa fa-institution"></i>
                                                       </div>
                                                 <label for="exampleInputEmail1">Department</label>
-                                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo ( $this->session->userdata('department_name')); ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input type="text" class="form-control" id="department" name="department" value="Cardiac" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
                                                 mysqli_select_db($conn, "itproject");
@@ -437,7 +437,7 @@ function unit_measure($connect)
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-user"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </div>
                                               </div>
                                               </div>
@@ -456,11 +456,11 @@ function unit_measure($connect)
                                                 </div>
                                               </div>
 
-                                           <form name="add_name" id="add_name">
+                                           <form name="add_order" id="add_order" method="POST">
                                         <div class="table-responsive">
                                           <table class="table table-bordered" id="dynamic_field">
                                             <tr>
-                                              <th> Total Quantity </th>
+                                              <!-- <th> Total Quantity </th> -->
                                               <th> Quantity </th>
                                               <th> Item </th>
                                               <th> Unit of Measure</th>
@@ -468,16 +468,16 @@ function unit_measure($connect)
                                             </tr>
                                             <tr>
 
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                              <!-- <td width="50"><input type="text" name="currentQTY" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td> -->
+                                              <td width="50"><input type="text" name="QTY" class="form-control QTY" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="250"><select class="form-control select2 item" name="item" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
-                                              <td width="100"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2 unit" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
@@ -486,15 +486,16 @@ function unit_measure($connect)
                                               <td width="20"><button type="button" name="add" id="add" class="btn btn-success">+</button></td>
                                             </tr>
                                           </table>
-                                         
+                                         <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />
                                         </div>
-                                      </form>
+                                      
 
 
                                         </div> <!-- BOX-BODY -->
                                       <div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" name="addOrder" style="display: none;">Add Order</button>
                                         <button type="submit" class="btn btn-primary" name="addOrder">Add Order</button>
                                       </div>
                                     </div>
@@ -502,6 +503,7 @@ function unit_measure($connect)
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
+              </form> <!-- end of Items FORM -->
               </form>
               </th>
               
@@ -667,7 +669,8 @@ table#addItem, tr.no_border td {
 
     //Date picker
     $('#datepicker').datepicker({
-      autoclose: true
+      autoclose: true,
+      format : 'yyyy-mm-dd'
     })
 
   })
@@ -703,10 +706,9 @@ $(document).ready(function(){
   var i=1;
   var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
   var unit = <?php echo(json_encode(unit_measure($connect))); ?>;
-  var select2 = $('.select2').select2();
   $('#add').click(function(){
     i++;
-    $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /></td> <td><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td> <td><select class="form-group select2" name="name[]" style="width: 100%;"><option value=""></option> '+supplyDrop+' </select></td> <td width="100"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+unit+'</select></td>  <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">-</button></td></tr>');
+    $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="QTY" class="form-control QTY" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td> <td><select class="form-control item" name="item" style="width: 100%;"><option value=""></option> '+supplyDrop+' </select></td> <td width="100"><select class="form-control unit" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+unit+'</select></td>  <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">-</button></td></tr>');
   });
   
   $(document).on('click', '.btn_remove', function(){
@@ -714,18 +716,32 @@ $(document).ready(function(){
     $('#row'+button_id+'').remove();
   });
   
-  $('#addOrder').click(function(){    
-    $.ajax({
-      url:"name.php",
-      method:"POST",
-      data:$('#add_name').serialize(),
-      success:function(data)
-      {
-        alert(data);
-        $('#add_name')[0].reset();
-      }
-    });
-  });
+   $('#add_order').on('submit', function(event){
+  event.preventDefault();
+  var error = '';
+  var form_data = $(this).serialize();
+  if(error == '')
+  {
+   $.ajax({
+    url:"orderitem/orderitems",
+    method:"POST",
+    data:form_data,
+    success:function(data)
+    {
+     if(data == 'ok')
+     {
+      $('#dynamic_field').find("tr:gt(0)").remove();
+      $('#error').html('<div class="alert alert-success">Item Details Saved</div>');
+     }
+    }
+   });
+  }
+  else
+  {
+   $('#error').html('<div class="alert alert-danger">'+error+'</div>');
+  }
+ });
+ 
   
 });
 </script>

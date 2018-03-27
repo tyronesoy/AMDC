@@ -47,8 +47,8 @@ class Purchases extends CI_Controller {
 		$this->load->view('Supervisor/php/purchasesAdd');
 	}
 	
-	public function editPurchases(){
-		$this->load->view('Supervisor/php/purchasesEdit');
+	public function orderItem(){
+		$this->load->view('Supervisor/php/orderItems');
 	}
 
 }
