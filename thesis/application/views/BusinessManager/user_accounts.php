@@ -16,29 +16,35 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
+<!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-    <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
   <!-- Select2 -->
-  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
-    <!-- datatable lib -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+  <!-- datatable lib -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
    <style>
     .example-modal .modal {
@@ -438,13 +444,11 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Email</label>
                                                   <input type="email" class="form-control" name="user_email" id="user_email" required />
-                                                </div>
-                                            
-
+                                                </div>    
                                         </div>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal"> Cancel</button>
                                         <button type="submit" class="btn btn-primary" name="addUser">Save New User Account</button>
                                       </div>
                                     </div>
@@ -459,10 +463,16 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 </table> 
             </div>
             <!-- /.box-header -->
+              <span id="alert_action"></span>
               <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+              <table id="example"  class="table table-bordered table-striped" >
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM users";
+                  $result = $conn->query($sql);    
+                ?>
                 <thead>
-            <tr>
+                  <tr>
                 <th>Role</th>
                 <th>User Name</th>
                 <th>First Name</th>
@@ -470,13 +480,45 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th>Contact Number</th>
                 <th>Email</th>
                 <th>Status</th>
-               <!-- <th>Reset Password</th> -->
-                <th width="30%">Action</th>
-                
-
+                <th>Action</th>
             </tr>
             </thead>
-
+             <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <?php
+                        $status = '';
+                          if($row["user_status"] == 'Pending')
+                          {
+                              $status = '<span class="label label-danger">Pending</span>';
+                          }
+                          else
+                          {
+                              $status = '<span class="label label-success">Delivered</span>';
+                          }
+                      ?>
+                      <td><?php echo $row["user_type"]; ?></td>
+                      <td><?php echo $row["username"]; ?></td>
+                      <td><?php echo $row["fname"]; ?></td>
+                      <td><?php echo $row["lname"]; ?></td>
+                      <td><?php echo $row["user_contact"]; ?></td>
+                      <td><?php echo $row["user_email"]; ?></td>
+                      <td><?php echo $status; ?></td>
+                      <td>
+                        <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-edit"></i> Edit</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
             <tfoot>
             <tr>
                 <th>Role</th>
@@ -486,8 +528,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th>Contact Number</th>
                 <th>Email</th>
                 <th>Status</th>
-               <!-- <th>Reset Password</th> -->
-                <th width="30%">Action</th>
+                <th>Action</th>
                 
 
             </tr>
@@ -502,7 +543,15 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
           </div>
         </div>
 </section>
-     
+</div>
+
+ <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
+    reserved.
+  </footer>
 
 <style>
 
@@ -568,18 +617,36 @@ input:checked + .slider:before {
         
 
 
-<!-- ./wrapper -->
-
-<!-- jQuery 3 -->
-
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="../assets/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- Select2 -->
+<script src="../assets/bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="../assets/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="../assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+<!-- bootstrap datepicker -->
+<script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- bootstrap color picker -->
+<script src="../assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../assets/dist/js/demo.js"></script>
+    <!-- bootstrap time picker -->
+<script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- page script -->
 
         <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
@@ -588,8 +655,14 @@ input:checked + .slider:before {
             </div>
         </div>
 
+        <div class="modal fade" id="modalUpdate" role="dialog">
+            <div class="modal-dialog">
+                <div id="data-content"></div>
+            </div>
+        </div>
 
-    <script>
+
+   <!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 "processing": true,
@@ -600,6 +673,21 @@ input:checked + .slider:before {
                 }
             });
         });
+    </script> -->
+    <script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
+
+
+      })
     </script>
 
      <!--script js for get edit data-->
@@ -623,6 +711,28 @@ input:checked + .slider:before {
         });
     </script>
 
+    <script>
+        $(document).on('click','#getUpdate',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#data-content').html('');
+            
+              $.ajax({
+                  url:'userAccounts/getChange',
+                  type:'POST',
+                  data:'id='+per_id,
+                  dataType:'html'
+              }).done(function(data){
+                  $('#data-content').html('');
+                  $('#data-content').html(data);
+              }).final(function(){
+                  $('#data-content').html('<p>Error</p>');
+              });
+            
+        });
+    </script>
+
     <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- InputMask -->
     <script src="../plugins/input-mask/jquery.inputmask.js"></script>
@@ -642,11 +752,31 @@ if(isset($_POST['btnEdit'])){
     $new_fname=mysqli_real_escape_string($con,$_POST['txtfname']);
     $new_usercontact=mysqli_real_escape_string($con,$_POST['txtuser_contact']);
     $new_email=mysqli_real_escape_string($con,$_POST['txtemail']);
-    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
 
 
     $sqlupdate="UPDATE users SET username='$new_username',
-                 password=MD5('$new_password'), lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', user_status='$new_status' WHERE user_id='$new_id' ";
+                 password=MD5('$new_password'), lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email' WHERE user_id='$new_id' ";
+    $result_update=mysqli_query($con,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="userAccounts"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+}
+
+if(isset($_POST['btnUpdate'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $new_userStatus=mysqli_real_escape_string($con,$_POST['txtstatus']);
+
+    if($new_userStatus == 'Pending'){
+      $new_userStatus = 'Delivered';
+    }else{
+      $new_userStatus = 'Pending';
+    }
+
+    $sqlupdate="UPDATE users SET user_status='$new_userStatus' WHERE user_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){

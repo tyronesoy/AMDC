@@ -6,7 +6,7 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="select * from suppliers WHERE supplier_id=$id";
+    $sql="SELECT * from suppliers WHERE supplier_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
@@ -25,7 +25,7 @@ if(isset($_REQUEST['id'])){
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
                 <div class="margin">
-                    <h3>Edit Suppliers</h3>
+                    <center><h3>Edit Supplier</h3></center>
                 </div>
             </div>
             <div class="modal-body">
@@ -71,8 +71,8 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" name="btnEdit">Save</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>

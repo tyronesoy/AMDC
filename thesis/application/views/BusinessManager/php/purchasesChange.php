@@ -6,16 +6,18 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="select * from suppliers WHERE supplier_id=$id";
+    $sql="select * from purchase_orders WHERE po_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
-        $per_supplierName=$row[1];
-        $per_supplierContact=$row[2];
-        $per_supplierAddress=$row[3];
-        $per_supplierProduct=$row[5];
-        $per_supplierStatus=$row[4];
-        $per_supplierRemarks=$row[6];
+        $per_purchasesOrderDate=$row[1];
+        $per_purchasesQuantity=$row[2];
+        $per_purchasesUnit=$row[3];
+        $per_purchasesUnitPrice=$row[8];
+        $per_purchasesSupplier=$row[7];
+        $per_purchasesDeliveryDate=$row[6];
+        $per_purchasesStatus=$row[4];
+        
 
     }//end while
 ?>
@@ -29,17 +31,17 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <center><h3 class="modal-title"><b>Are you sure to change the status of </h3><h2><b><u><?php echo $per_supplierName;?></u>?</b></h2></b></center>
+                        <center><h3 class="modal-title"><b>Are you sure to change the status of purchase order</h3><h2><b><u><?php echo $per_id;?></u>?</b></h2></b></center>
                         <div class="form-group">
-                            <label hidden="true" class="col-sm-4 control-label" for="txtid">Suppliers ID</label>
+                            <label hidden="true" class="col-sm-4 control-label" for="txtid">Purchase ID</label>
                             <div class="col-sm-6">
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-8 control-label" for="txtsupplierstatus"></label>
+                            <label class="col-sm-8 control-label" for="txtstatus"></label>
                             <div class="col-sm-1">
-                                <input type="hidden" class="form-control" id="txtsupplierstatus" name="txtsupplierstatus" hidden value="<?php echo $per_supplierStatus;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $per_purchasesStatus;?>" readonly>
                             </div>
                         </div>
                     </div>

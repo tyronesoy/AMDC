@@ -49,7 +49,9 @@ class Memo extends CI_Controller {
 	public function deleteMemo(){
 		$this->load->view('BusinessManager/php/memoDelete');
 	}
-	
+	public function getChange(){
+		$this->load->view('BusinessManager/php/memoChange');
+	}
 	public function editMemo(){
 		$this->load->view('BusinessManager/php/memoEdit');
 	}

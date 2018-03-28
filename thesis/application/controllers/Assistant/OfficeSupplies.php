@@ -20,50 +20,16 @@ class OfficeSupplies extends CI_Controller {
 	 */
 	public function index()
 	{
-		$check = $this->session->userdata('type');
-		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
-		$this->load->model('db_model');
-		$data['officeSupplies']=$this->db_model->getOfficeSupplies();
-		$this->load->view('Assistant/officeSupplies', $data);
-	}
-		/*
 		$check = $this->session->userdata('stts');
-		if($check == 'Assistant'){
-			$this->load->view('Assistant/Office_supplies');
+		if($check == 'BusinessManager'){
+			$this->load->view('BusinessManager/office_supplies');
 		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/Office_supplies');
+			$this->load->view('Assistant/office_supplies');
 		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/Office_supplies');
+			$this->load->view('Supervisor/office_supplies');
 		}else{
 			header('Location: ../login');
-		} */
+		}
 		
-	}
-	public function getOfficeSupplies(){
-		$this->load->view('Assistant/php/OfficeSuppliesFetch');
-	}
-	public function addOfficeSupplies(){
-		$this->load->view('Assistant/php/OfficeSuppliesAdd');
-	}
-	public function OfficeSuppliesadd(){
-		$this->load->view('Assistant/php/OfficeSuppliesAddQuantity');
-	}
-	public function deleteOfficeSupplies(){
-		$this->load->view('Assistant/php/OfficeSuppliesDelete');
-	}
-	public function editOfficeSupplies(){
-		$this->load->view('Assistant/php/OfficeSuppliesEdit');
-	}
-	public function reconcileOfficeSupplies(){
-		$this->load->view('Assistant/php/OfficeSuppliesReconcile');
-	}
-	public function addOfficeSuppliesIssueTo(){
-		$this->load->view('Assistant/php/OfficeSuppliesIssueTo');
-	}
-	public function totalOfficeSupplies(){
-		$this->load->view('Assistant/php/OfficeSuppliesTotalQuantity');
 	}
 }

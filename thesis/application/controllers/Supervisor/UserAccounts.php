@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class UserAccounts extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,11 +22,11 @@ class Dashboard extends CI_Controller {
 	{
 		$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){
-			$this->load->view('BusinessManager/dashboard');
+			$this->load->view('BusinessManager/user_accounts');
 		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/dashboard');
+			$this->load->view('Assistant/user_accounts');
 		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/dashboard');
+			$this->load->view('Supervisor/user_accounts');
 		}else{
 			header('Location: ../login');
 		}

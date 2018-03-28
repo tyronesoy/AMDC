@@ -13,10 +13,7 @@ if(isset($_REQUEST['id'])){
         $per_supplyUnit=$row[4];
         $per_supplyQuantityInStock=$row[5];
         $per_supplyUnitPrice=$row[6];
-        $per_supplyReorderLevel=$row[8];
         $per_supplyExpirationDate=$row[9];
-        $per_supplyGoodCondition=$row[10];
-        $per_supplyDamaged=$row[11];
 
     }//end while
 ?>
@@ -71,33 +68,10 @@ if(isset($_REQUEST['id'])){
 
                         <div class="row">
                         <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <label for="txtReorderLevel">Reorder Level</label>
-                                <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>">
-                        </div>
-                        </div>
-
-                            <div class="col-md-6">
                             <div class="form-group" style="width:100%">
                             <label for="txtExpirationDate">Expiration Date</label>
                                 <input type="date" class="form-control" id="txtExpirationDate" name="txtExpirationDate" placeholder="yyyy-mm-dd" value="<?php echo $per_supplyExpirationDate;?>">
                         </div>
-                        </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtGoodCondition">Good Condition</label>
-                                <input type="number" class="form-control" id="txtGoodCondition" name="txtGoodCondition" value="<?php echo $per_supplyGoodCondition;?>">
-                        </div>
-                        </div>
-
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtDamaged">Damaged</label>
-                                <input type="number" class="form-control" id="txtDamaged" name="txtDamaged" value="<?php echo $per_supplyDamaged;?>">
-                            </div>
                         </div>
                         </div>
                         </tr>

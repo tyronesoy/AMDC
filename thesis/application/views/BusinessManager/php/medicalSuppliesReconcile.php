@@ -11,6 +11,7 @@ if(isset($_REQUEST['id'])){
       //  $per_supplierName=$row[1];
         $per_supplyDescription=$row[2];
         $per_supplyQuantityInStock=$row[5];
+		$per_supplyRemarks=$row[11];
 
     }//end while
 ?>
@@ -45,6 +46,12 @@ if(isset($_REQUEST['id'])){
                             <label class="col-sm-4 control-label" for="txtQuantityInStock">Physical Count</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" id="txtPhysicalCount" name="txtPhysicalCount">
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label class="col-sm-4 control-label" for="txtsupplyRemarks">Remarks</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="txtsupplyRemarks" name="txtsupplyRemarks">
                             </div>
                         </div>
                         

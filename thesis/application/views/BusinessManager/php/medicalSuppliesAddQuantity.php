@@ -93,38 +93,6 @@ if(isset($_REQUEST['id'])){
                         </div>
                         </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtGoodCondition">Good Condition</label>
-                                <input type="number" class="form-control" id="txtGoodCondition" name="txtGoodCondition" value="<?php echo $per_supplyGoodCondition;?>" readonly>
-                        </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtGoodCondition">New Good Condition</label>
-                                <input type="number" min="0" class="form-control" id="addGC" name="addGC">
-                        </div>
-                        </div>
-                        </div>
-
-                            <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtDamaged">Damaged</label>
-                                <input type="number" class="form-control" id="txtDamaged" name="txtDamaged" value="<?php echo $per_supplyDamaged;?>" readonly>
-                            </div>
-                        </div>
-
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtDamaged">New Damaged</label>
-                                <input type="number" min="0" class="form-control" id="addDam" name="addDam">
-                            </div>
-                        </div>
-                        </div>
                         </tr>
                         </table>
                 </form>

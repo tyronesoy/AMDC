@@ -12,42 +12,33 @@ if(isset($_REQUEST['id'])){
         $per_id=$row[0];
         $per_departmentName=$row[1];
         $per_departmentLocation=$row[2];
-        //$per_reqId=$row[3];
-        //$per_userId=$row[5];
-        //$per_suppId=$row[4];
-        //$per_suppId=$row[3];
+        $per_departmentStatus=$row[3];
+
 
     }//end while
 ?>
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-                <div class="margin">
-                    <center><h3>Edit Supplier's Information</h3></center>
-                </div>
+                
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
+                        <center><h3 class="modal-title"><b>Are you sure to change the status of </h3><h2><b><u><?php echo $per_departmentName;?></u>?</b></h2></b></h3></center>
                         <div class="form-group">
-                             <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Department ID</label>
                             <div class="col-sm-6">
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
-                            </div>
-                            <label class="col-sm-4 control-label" for="txtdepartmentname">Department Name</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtdepartmentname" name="txtdepartmentname" value="<?php echo $per_departmentName;?>">
-                            </div>
                         </div>
+
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtlocation">Location</label>
-                            <div class="col-sm-6">
-                                 <input type="radio" id="txtlocation" name="txtlocation" value="Baguio City" <?php echo ($per_departmentLocation =='Baguio City')?'checked':'' ?>> Baguio City &nbsp; &nbsp;
-                                <input type="radio" id="txtlocation" name="txtlocation" value="La Trinidad" <?php echo ($per_departmentLocation =='La Trinidad')?'checked':'' ?>> La Trinidad  <br>
+                            <label class="col-sm-8 control-label" for="txtdepartmentstatus"></label>
+                            <div class="col-sm-1">
+                                <input type="hidden" class="form-control" id="txtdepartmentStatus" name="txtdepartmentStatus" hidden value="<?php echo $per_departmentStatus;?>" readonly>
                             </div>
                         </div>
                     </div>
@@ -55,19 +46,11 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" name="btnUpdate"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>
+
 <?php
 }//end if
 ?>
-
-
-
-
-
-
-
-
-

@@ -45,6 +45,9 @@ class Departments extends CI_Controller {
 	public function getDepartment(){
 		$this->load->view('BusinessManager/php/departmentsFetch');
 	}
+	public function getChange(){
+		$this->load->view('BusinessManager/php/departmentsChange');
+	}
 	public function addDepartment(){
 		$this->load->view('BusinessManager/php/departmentsAdd');
 	}

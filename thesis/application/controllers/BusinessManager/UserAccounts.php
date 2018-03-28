@@ -46,7 +46,9 @@ class UserAccounts extends CI_Controller {
 	public function addUser(){
 		$this->load->view('BusinessManager/php/userAdd');
 	}
-	
+	public function getChange(){
+		$this->load->view('BusinessManager/php/userChange');
+	}
 	public function editUser(){
 		$this->load->view('BusinessManager/php/userEdit');
 	}

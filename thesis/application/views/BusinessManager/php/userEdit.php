@@ -16,8 +16,6 @@ if(isset($_REQUEST['id'])){
         $per_fname=$row[5];
         $per_usercontact=$row[6];
         $per_email=$row[7];
-         $per_status=$row[8];
-
     }//end while
 ?>
 
@@ -27,7 +25,7 @@ if(isset($_REQUEST['id'])){
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <div class="margin">
-                        <h3>Edit User's Information</h3>
+                        <center><h3>Edit User's Information</h3></center>
                     </div>
             </div>
             
@@ -37,7 +35,7 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
 
                             <div class="form-group">
-                                    <label hidden="true" class="col-sm-4 control-label" for="txtid">UserID</label>
+                                    <label hidden="true" class="col-sm-4 control-label" for="txtid">User ID</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                                 </div>
@@ -101,8 +99,8 @@ if(isset($_REQUEST['id'])){
 
             <div class="modal-footer">
                 <a href="userAccounts">
-                    <button type="button" class="btn btn-danger">Cancel</button> </a>
-                    <button type="submit" class="btn btn-primary" name="btnEdit">Save</button>
+                    <button type="button" class="btn btn-danger"><i class="fa fa-times-circle"></i>"Cancel</button> </a>
+                    <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-save"></i>Save</button>
             </div>
         </div>
     </form>

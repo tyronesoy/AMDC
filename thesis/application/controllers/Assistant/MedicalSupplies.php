@@ -20,37 +20,16 @@ class MedicalSupplies extends CI_Controller {
 	 */
 	public function index()
 	{
-		$check = $this->session->userdata('type');
-		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
-		$this->load->model('db_model');
-		$data['medicalSupplies']=$this->db_model->getMedicalSupplies();
-		$this->load->view('Assistant/medicalSupplies', $data);
+		$check = $this->session->userdata('stts');
+		if($check == 'BusinessManager'){
+			$this->load->view('BusinessManager/medical_supplies');
+		}else if($check == 'Assistant'){
+			$this->load->view('Assistant/medical_supplies');
+		}else if($check == 'Supervisor'){
+			$this->load->view('Supervisor/medical_supplies');
+		}else{
+			header('Location: ../login');
 		}
 		
 	}
-	public function getMedicalSupplies(){
-		$this->load->view('Assistant/php/medicalSuppliesFetch');
-	}
-	public function addMedicalSupplies(){
-		$this->load->view('Assistant/php/medicalSuppliesAdd');
-	}
-	public function MedicalSuppliesadd(){
-		$this->load->view('Assistant/php/medicalSuppliesAddQuantity');
-	}
-	public function deleteMedicalSupplies(){
-		$this->load->view('Assistant/php/medicalSuppliesDelete');
-	}
-	public function editMedicalSupplies(){
-		$this->load->view('Assistant/php/medicalSuppliesEdit');
-	}
-	public function reconcileMedicalSupplies(){
-		$this->load->view('Assistant/php/medicalSuppliesReconcile');
-	}
-	public function addMedicalSuppliesIssueTo(){
-		$this->load->view('Assistant/php/medicalSuppliesIssueTo');
-	}
-	
 }
