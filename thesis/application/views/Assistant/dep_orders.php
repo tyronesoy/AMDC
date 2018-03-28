@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Assistant | Suppliers</title>
+  <title>Assistant | Departments</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
@@ -80,14 +80,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <p>
                  <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
-                  <small>Assistant </small>
+                  <small> Assistant </small>
                 </p>
-                </li>
               <!-- Menu Footer-->
               <li class="user-footer">
             
                 <div class="pull-right">
-                 <a href="<?php echo '../logout' ?>"  class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -132,17 +131,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
+        <li>
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-tags"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
+  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class ="treeview">
-          <a href="#">
+          <a href="#" id="menu1" type="button" data-toggle="dropdown">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+          <!-- <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Dropdown Example
+          <span class="caret"></span></button> -->
+          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+            <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+            <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!--------------------------------------------------- PURCHASES -------------------------------------------------->
@@ -157,16 +165,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>
           </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
-        <li class="active">
+        <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'departments' ?>">
+        <li class ="treeview">
+          <a href="#">
             <i class="fa fa-building"></i> <span>Departments</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+      <li><a href="<?php echo 'departments' ?>"><i class= "fa fa-medkit"></i> Departments List</a></li>
+      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-pencil-square-o"></i> Departments Order</a></li>
+          </ul>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
@@ -176,6 +191,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
             </span>
+          </a>
+        </li>
+    <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'logs' ?>">
+            <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
@@ -195,13 +216,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Suppliers</b>
+        <b>Departments Order</b>
         <!-- <small>advanced tables</small> -->
       </h1>
         
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Suppliers</a></li>
+        <li><a href="#">Office Supplies</a></li>
         <li class="active">Data tables</li>
       </ol>
     </section>
@@ -212,121 +233,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              
-              <!-- <h3 class="box-title">Office Supplies</h3> -->
-                <table style="float:right;">
-                    <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus">&nbsp;</i>Create New</button>
-                        
-                        <form name="form1" method="post" action="suppliers/addSupplier" >
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <h3>Add New Suppliers</h3>
-                                          </div>
-                                      </div>
-                                        <!-- end of modal header -->
-                                      <div class="modal-body">
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Supplier Name : </label>
-                                              <input type="text" class="form-control" name="suppName" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Contact No. : </label>
-                                              <input type="number" class="form-control" name="suppContact" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Address : </label>
-                                              <input type="text" class="form-control" name="suppAddress" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Product Type : </label>
-                                              <div class="form-group">
-                                                <select class="form-control" name="suppProduct">
-                                                  <?php
-                                                    $conn=mysqli_connect("localhost", "root", "", "itproject");
-                                                    $sql = "SELECT product FROM suppliers GROUP BY product";
-                                                    $result = mysqli_query($conn, $sql);
-
-                                                    foreach($result as $row){
-                                                      ?>
-                                                      <option value="<?php echo $row["product"]; ?>" name="suppProduct"><?php echo $row["product"]; ?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                  ?>
-                                                </select>
-                                              </div>
-                                            </div>   
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" name="addSuppliers" class="btn btn-primary">Add Suppliers</button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                              </form>
-                              </th>
-                        
-                    </tr>
-                </table> 
+              <!-- <h3 class="box-title">Office Supplies</h3> -->              
             </div>
             <!-- /.box-header -->
-            <span id="alert_action"></span>
-              <div class="box-body">
-              <table id="example"  class="table table-bordered table-striped" >
+            <div class="box-body">
+              <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM suppliers";
+                  $sql = "SELECT * FROM inventory_order";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
-                    <tr>
-                        <th>Supplier Name</th>
-                        <th>Contact</th>
-                        <th>Address</th>
-                        <th>Supplier Type</th>
-                        <th>Status</th>
-                        <th>Remarks</th>
-                        <th>Action</th>
-                    </tr>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Customer Name</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Remarks</th>
+                    <th>Action</th>
+                  </tr>
                 </thead>
                 <tbody>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <?php
-                        $status = '';
-                          if($row["supplier_status"] == 'Active')
-                          {
-                              $status = '<span class="label label-success">Active</span>';
-                          }
-                          else
-                          {
-                              $status = '<span class="label label-danger">Inactive</span>';
-                          }
-                      ?>
-                      <td><?php echo $row["company_name"]; ?></td>
-                      <td><?php echo $row["supplier_contact"]; ?></td>
-                      <td><?php echo $row["address"]; ?></td>
-                      <td><?php echo $row["product"]; ?></td>
-                      <td><?php echo $status; ?></td>
-                      <td><?php echo $row["remarks"]; ?></td>
+                      <td><?php echo $row["inventory_order_id"]; ?></td>
+                      <td><?php echo $row["inventory_order_created_date"]; ?></td>
+                      <td><?php echo $row["inventory_order_name"]; ?></td>
+                      <td><?php echo $row["inventory_order_dept"]; ?></td>
+                      <td><?php echo $row["inventory_order_status"]; ?></td>
+                      <td><?php echo $row["inventory_order_remarks"]; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supplier_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["supplier_id"]; ?>">Change Status</button>
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search">&nbsp;</i>View</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-ok"></i></button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" id="decline" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#declineModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-remove"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -337,16 +286,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Supplier Name</th>
-                    <th>Contact</th>
-                    <th>Address</th>
-                    <th>Supplier Type</th>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Customer Name</th>
+                    <th>Department</th>
                     <th>Status</th>
                     <th>Remarks</th>
                     <th>Action</th>
                   </tr>
                 </tfoot>
-            </table>
+              </table>
 
             </div>
 
@@ -358,22 +307,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
       <!-- /.row -->
           <div class="row no-print">
-        <div class="col-xs-1" style="float:right">
-          <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
-          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
+        <div class="col-xs-12">
+          <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
         </div>
       </div>
-      <script>
-        $('#print').click(function(){
-          var printme = document.getElementById('example');
-          var wme = window.open("","","width=900,height=700");
-          wme.document.write(printme.outerHTML);
-          wme.document.close();
-          wme.focus();
-          wme.print();
-          wme.close();
-        })
-      </script>
     
     </section>
     <!-- /.content -->
@@ -483,7 +420,6 @@ input:checked + .slider:before {
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
-
 <script>
       $(function () {
         $('#example').DataTable()
@@ -527,25 +463,34 @@ input:checked + .slider:before {
 </script>
 
 <!--create modal dialog for display detail info for edit on button cell click-->
-        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="editModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="edit-data"></div>
+            </div>
+        </div>
+        <div class="modal fade" id="viewModal" role="dialog">
             <div class="modal-dialog">
                 <div id="content-data"></div>
             </div>
         </div>
-
-        <div class="modal fade" id="modalUpdate" role="dialog">
+        <div class="modal fade" id="acceptModal" role="dialog">
             <div class="modal-dialog">
-                <div id="data-content"></div>
+                <div id="accept-data"></div>
             </div>
         </div>
-
+        <div class="modal fade" id="declineModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="decline-data"></div>
+            </div>
+        </div>
+   
     <!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 "processing": true,
                 "serverSide":true,
                 "ajax":{
-                    url:"suppliers/getSupplier",
+                    url:"departments/getDepartment",
                     type:"post"
                 }
             });
@@ -553,16 +498,37 @@ input:checked + .slider:before {
     </script> -->
 
     <!--script js for get edit data-->
+
     <script>
         $(document).on('click','#getEdit',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
-            $('#content-data').html('');
+            $('#edit-data').html('');
             $.ajax({
-                url:'suppliers/editSupplier',
+                url:'departmentsOrder/editOrder',
                 type:'POST',
                 data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#edit-data').html('');
+                $('#edit-data').html(data);
+            }).final(function(){
+                $('#edit-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).on('click','#getView',function(e){
+            e.preventDefault();
+            var per_depId=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'departmentsOrder/viewOrder',
+                type:'POST',
+                data:'id='+per_depId,
                 dataType:'html'
             }).done(function(data){
                 $('#content-data').html('');
@@ -572,67 +538,92 @@ input:checked + .slider:before {
             });
         });
     </script>
+
     <script>
-        $(document).on('click','#getUpdate',function(e){
+        $(document).on('click','#accept',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
-            $('#data-content').html('');
-            
-              $.ajax({
-                  url:'suppliers/getChange',
-                  type:'POST',
-                  data:'id='+per_id,
-                  dataType:'html'
-              }).done(function(data){
-                  $('#data-content').html('');
-                  $('#data-content').html(data);
-              }).final(function(){
-                  $('#data-content').html('<p>Error</p>');
-              });
-            
+            $('#accept-data').html('');
+            $.ajax({
+                url:'departmentsOrder/acceptOrder',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#accept-data').html('');
+                $('#accept-data').html(data);
+            }).final(function(){
+                $('#accept-data').html('<p>Error</p>');
+            });
         });
     </script>
+
+    <script>
+        $(document).on('click','#decline',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#decline-data').html('');
+            $.ajax({
+                url:'departmentsOrder/declineOrder',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#decline-data').html('');
+                $('#decline-data').html(data);
+            }).final(function(){
+                $('#decline-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
 
 </body>
 </html>
 
 <?php
-$con=mysqli_connect('localhost','root','','itproject');
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_supplierName=mysqli_real_escape_string($con,$_POST['txtsuppliername']);
-    $new_supplierContact=mysqli_real_escape_string($con,$_POST['txtcontactno']);
-    $new_supplierAddress=mysqli_real_escape_string($con,$_POST['txtaddress']);
-    $new_supplierProduct=mysqli_real_escape_string($con,$_POST['txtprodtype']);
-    $new_supplierRemarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
+    $new_remarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
+    
 
-    $sqlupdate="UPDATE suppliers SET company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
+    $sqlupdate="UPDATE inventory_order SET inventory_order_remarks='$new_remarks' WHERE inventory_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="suppliers"</script>';
+        echo '<script>window.location.href="departmentsOrder"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
     }
 }
-
-if(isset($_POST['btnUpdate'])){
+if(isset($_POST['btnAccept'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_supplierStatus=mysqli_real_escape_string($con,$_POST['txtsupplierstatus']);
+    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
 
-    if($new_supplierStatus == 'Active'){
-      $new_supplierStatus = 'Inactive';
-    }else{
-      $new_supplierStatus = 'Active';
-    }
-
-    $sqlupdate="UPDATE suppliers SET supplier_status='$new_supplierStatus' WHERE supplier_id='$new_id' ";
+    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Accepted' WHERE inventory_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="suppliers"</script>';
+        echo '<script>window.location.href="departmentsOrder"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+}
+if(isset($_POST['btnDecline'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
+
+    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Declined' WHERE inventory_order_id='$new_id' ";
+    $result_update=mysqli_query($con,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="departmentsOrder"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Suppliers extends CI_Controller {
+class Deliveries extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,15 +19,10 @@ class Suppliers extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index(){
-		$check = $this->session->userdata('type');
-		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
-		$this->load->model('db_model');
-		$data['suppliers']=$this->db_model->getSuppliers();
-		$this->load->view('Assistant/suppliers', $data);
-	}
+		// $this->load->model('db_model');
+		// $data['deliveries']=$this->db_model->getDeliveries();
+		// $this->load->view('Assistant/deliveries', $data);
+		$this->load->view('Assistant/deliveries');
 		//$check = $this->session->userdata('stts');
 		//if($check == 'Assistant'){
 		//	$this->load->view('Assistant/suppliers');
@@ -40,18 +35,18 @@ class Suppliers extends CI_Controller {
 		//	header('Location: ../login');
 		//}
 	}
-	public function getSupplier(){
-		$this->load->view('Assistant/php/supplierFetch');
+	public function getDelivery(){
+		$this->load->view('Assistant/php/deliveryFetch');
 	}
-	public function getChange(){
-		$this->load->view('Assistant/php/supplierChange');
-	}
-	public function addSupplier(){
-		$this->load->view('Assistant/php/supplierAdd');
+	// public function getChange(){
+	// 	$this->load->view('Assistant/php/supplierChange');
+	// }
+	public function getFullDelivery(){
+		$this->load->view('Assistant/php/deliveryFull');
 	}
 	
-	public function editSupplier(){
-		$this->load->view('Assistant/php/supplierEdit');
+	public function getPartialDelivery(){
+		$this->load->view('Assistant/php/deliveryPartial');
 	}
 
 }

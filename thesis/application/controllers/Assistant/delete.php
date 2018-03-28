@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class delete extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,17 +19,26 @@ class Dashboard extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
+	{	
 		$check = $this->session->userdata('type');
-		if($check == 'BusinessManager'){
-			$this->load->view('BusinessManager/dashboard1');
+		if($check == 'Assistant'){
+			// echo "<pre>";
+			// 	print_r ( $this->session->all_userdata());
+			// 	echo "</pre>";
+		$this->load->model('db_model');
+		$data['delete']=$this->db_model->getIssuedSupplies();
+		$this->load->view('Assistant/delete', $data);
+	}
+		/*$check = $this->session->userdata('stts');
+		if($check == 'Assistant'){
+			$this->load->view('Assistant/issued_supplies');
 		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/dashboard');
+			$this->load->view('Assistant/issued_supplies');
 		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/dashboard');
+			$this->load->view('Supervisor/issued_supplies');
 		}else{
 			header('Location: ../login');
-		}
+		} */
 		
 	}
 }

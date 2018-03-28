@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Departments extends CI_Controller {
+class Memo extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -24,35 +24,33 @@ class Departments extends CI_Controller {
 			// echo "<pre>";
 			// 	print_r ( $this->session->all_userdata());
 			// 	echo "</pre>";
-			$this->load->model('db_model');
-			$data['departments']=$this->db_model->getDepartments();
-			$this->load->view('Assistant/departments', $data);
-
-		}
-		
+		$this->load->model('db_model');
+		$data['memo']=$this->db_model->getMemo();
+		$this->load->view('Assistant/memo', $data);
+	}
 		//$check = $this->session->userdata('stts');
 		//if($check == 'Assistant'){
-		//	$this->load->view('Assistant/departments');
+		//	$this->load->view('Assistant/user_accounts');
 		//}else if($check == 'Assistant'){
-		//	$this->load->view('Assistant/departments');
+		//	$this->load->view('Assistant/user_accounts');
 		//}else if($check == 'Supervisor'){
-		//	$this->load->view('Supervisor/departments');
+		//	$this->load->view('Supervisor/user_accounts');
 		//}else{
-	//		header('Location: ../login');
-	//	}
+		//	header('Location: ../login');
+		//}
 		
 	}
-	public function getDepartment(){
-		$this->load->view('Assistant/php/departmentsFetch');
+	public function getMemo(){
+		$this->load->view('Assistant/php/memoFetch');
 	}
-	public function addDepartment(){
-		$this->load->view('Assistant/php/departmentsAdd');
+	public function addMemo(){
+		$this->load->view('Assistant/php/memoAdd');
 	}
-	public function editDepartment(){
-		$this->load->view('Assistant/php/departmentsEdit');
+	public function deleteMemo(){
+		$this->load->view('Assistant/php/memoDelete');
 	}
-	public function deleteDepartments(){
-		$this->load->view('Assistant/php/departmentsDelete');
+	
+	public function editMemo(){
+		$this->load->view('Assistant/php/memoEdit');
 	}
-
 }

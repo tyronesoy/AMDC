@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -68,98 +67,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                     </a>
                 </li>
-         
-          <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Assistant</span>
+              <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
 
                 <p>
-                 Assistant
+                 <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
                   <small>Member since </small>
                 </p>
                 </li>
@@ -185,10 +105,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Assistant</p>
+          <p><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
@@ -206,13 +126,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+  <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class ="treeview">
           <a href="#">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
@@ -221,8 +141,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-			<li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!--------------------------------------------------- PURCHASES -------------------------------------------------->
@@ -236,29 +156,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li class="active">
-          <a href="<?php echo 'departments' ?>">
+          <a href="#">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
-          <a href="../calendar.php">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
+          <a href="<?php echo 'memo' ?>">
+            <i class="fa fa-calendar"></i> <span>Memo</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
             </span>
           </a>
         </li>
-
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
@@ -282,7 +201,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Departments</a></li>
+        <li><a href="#">Office Supplies</a></li>
         <li class="active">Data tables</li>
       </ol>
     </section>
@@ -296,22 +215,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- <h3 class="box-title">Office Supplies</h3> -->
               <table style="float: left;">
                     <tr>
-                        <th> <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Branch
+                        <th> <div class="dropdownButton">
+                        <select name="dropdown" onchange="location =this.value;">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Departments
                           <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">All Branches</a></li>
-                          <li><a href="php/branchBaguio.php">Baguio City</a></li>
-                          <li><a href="php/branchLA.php">La Trinidad</a></li>
-                        </ul>
+                          <option><b>All Departments</b></option>
+                          <option value="branchBaguio">Baguio</option>
+                        </select>
                       </div></th>
                     </tr>
                 </table>
                 <table style="float:right;">
                     <tr>                    
-                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add</button>
-                        <form name="form1" method="post" action="php/departmentsAdd.php" >
+                        <th><button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#modal-info">Add New Department</button>
+                        <form name="form1" method="post" action="departments/addDepartment" >
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -319,7 +237,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
                                         <div class="margin">
-                                            <h3>Add Department</h3>
+                                            <h3>Add New Department</h3>
                                           </div>
                                       </div>
                                         <!-- end of modal header -->
@@ -327,6 +245,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="box-body">
                                           <table class="table table-bordered table-striped">
                                             <tbody>
+                                            <th> 
+                                                  <div class="form-group">
+                                                  <label for="exampleInputEmail1">Branch Location</label>
+                                                  <br>
+                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City &nbsp; &nbsp;
+                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad  <br>
+                                                </div> 
                                             <tr>
                                               <td><div class="form-group">
                                                   <label for="exampleInputEmail1">Department Name</label>
@@ -334,13 +259,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </div></td>
                                             </tr>
                                                
-                                                             <th> 
-                                                             <div class="form-group">
-                                                  <label for="exampleInputEmail1">Branch Location</label>
-                                                  <br>
-                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City <br>
-                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad <br>
-                                                </div> 
+                                                             
                                              </th>
                                             </tbody>
                                           </table>
@@ -362,7 +281,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <!-- /.box-header -->
               <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+              <table id="example" class="table table-bordered table-striped">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM departments where soft_deleted='N'";
+                  $result = $conn->query($sql);    
+                ?>
                 <thead>
                     <tr>
                         <th>Department Name</th>
@@ -371,7 +295,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     </tr>
                 </thead>
-                
+                <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?php echo $row["department_name"]; ?></td>
+                      <td><?php echo $row["location"]; ?></td>
+                      <td>
+                        <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["department_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" id="getUpdate" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["department_id"]; ?>"><i class="glyphicon glyphicon-trash">&nbsp;</i>Delete</button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
                 <tfoot>
                   <tr>
                     <th>Department Name</th>
@@ -393,10 +336,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- /.row -->
           <div class="row no-print">
         <div class="col-xs-12">
-          <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          <button type="button" class="btn btn-primary pull-right" style=s"margin-right: 5px;">
-            <i class="fa fa-download"></i> Generate PDF
-          </button>
+          <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
+        
+        <a href="departmentsRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
+          </a>
         </div>
       </div>
     
@@ -500,7 +443,7 @@ input:checked + .slider:before {
 <!-- bootstrap color picker -->
 <script src="../assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 <!-- bootstrap time picker -->
-<script src="../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -508,6 +451,22 @@ input:checked + .slider:before {
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
+
+<script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
+      })
+    </script>
 
 <script>
 <!-- date and time -->
@@ -541,19 +500,24 @@ input:checked + .slider:before {
                 <div id="content-data"></div>
             </div>
         </div>
+        <div class="modal fade" id="modalUpdate" role="dialog">
+            <div class="modal-dialog">
+                <div id="data-content"></div>
+            </div>
+        </div>
    
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 "processing": true,
                 "serverSide":true,
                 "ajax":{
-                    url:"php/departmentsFetch.php",
+                    url:"departments/getDepartment",
                     type:"post"
                 }
             });
         });
-    </script>
+    </script> -->
 
     <!--script js for get edit data-->
     <script>
@@ -563,7 +527,7 @@ input:checked + .slider:before {
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'php/departmentsEdit.php',
+                url:'departments/editDepartment',
                 type:'POST',
                 data:'id='+per_depId,
                 dataType:'html'
@@ -575,36 +539,62 @@ input:checked + .slider:before {
             });
         });
     </script>
+
+    <script>
+        $(document).on('click','#getUpdate',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#data-content').html('');
+            $.ajax({
+                url:'departments/deleteDepartments',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#data-content').html('');
+                $('#data-content').html(data);
+            }).final(function(){
+                $('#data-content').html('<p>Error</p>');
+            });
+        });
+    </script>
+
+
 </body>
 </html>
 
 <?php
-$con=mysqli_connect('localhost','root','','itproject');
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_depName=mysqli_real_escape_string($con,$_POST['txtdepartmentname']);
     $new_branchLoc=mysqli_real_escape_string($con,$_POST['txtlocation']);
 
-    $sqlupdate="UPDATE departments SET department_name='$new_depName', branch_location='$new_branchLoc' WHERE department_id='$new_id' ";
+    $sqlupdate="UPDATE departments SET department_name='$new_depName', location='$new_branchLoc' WHERE department_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="departments.php"</script>';
+        echo '<script>window.location.href="departments"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-}
+} 
 
-if(isset($_GET['delete'])){
-    $id=$_GET['delete'];
-    $sqldelete="DELETE FROM departments WHERE department_id='$id'";
-    $result_delete=mysqli_query($con,$sqldelete);
-    if($result_delete){
-        echo'<script>window.location.href="departments.php"</script>';
+//SOFT DELETED DEPARTMENT
+if(isset($_POST['btnDelete'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $new_delete=mysqli_real_escape_string($con,$_POST['txtdelete']);
+    $sqlupdate="UPDATE departments SET soft_deleted='Y' WHERE department_id='$new_id' ";
+    $result_update=mysqli_query($con,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="departments"</script>';
     }
     else{
-        echo'<script>alert("Delete Failed")</script>';
+        echo '<script>alert("Update Failed")</script>';
     }
-}
+} // END OF SOFT DELETE MEDICAL SUPPLIES
 ?>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Departments extends CI_Controller {
+class DepartmentsOrder extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,16 +19,17 @@ class Departments extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index(){
-		$check = $this->session->userdata('type');
-		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
-			$this->load->model('db_model');
-			$data['departments']=$this->db_model->getDepartments();
-			$this->load->view('Assistant/departments', $data);
+		// $check = $this->session->userdata('type');
+		// if($check == 'Assistant'){
+		// 	echo "<pre>";
+		// 		print_r ( $this->session->all_userdata());
+		// 		echo "</pre>";
+		// 	$this->load->model('db_model');
+		// 	$data['departments']=$this->db_model->getDepartments();
+		// 	$this->load->view('Assistant/departments', $data);
 
-		}
+		// }
+		$this->load->view('Assistant/dep_orders');
 		
 		//$check = $this->session->userdata('stts');
 		//if($check == 'Assistant'){
@@ -42,17 +43,20 @@ class Departments extends CI_Controller {
 	//	}
 		
 	}
-	public function getDepartment(){
-		$this->load->view('Assistant/php/departmentsFetch');
+	// public function getDepartment(){
+	// 	$this->load->view('Assistant/php/departmentsFetch');
+	// }
+	public function editOrder(){
+		$this->load->view('Assistant/php/edit_order');
 	}
-	public function addDepartment(){
-		$this->load->view('Assistant/php/departmentsAdd');
+	public function viewOrder(){
+		$this->load->view('Assistant/php/order_view');
 	}
-	public function editDepartment(){
-		$this->load->view('Assistant/php/departmentsEdit');
+	public function acceptOrder(){
+		$this->load->view('Assistant/php/accept_order');
 	}
-	public function deleteDepartments(){
-		$this->load->view('Assistant/php/departmentsDelete');
+	public function declineOrder(){
+		$this->load->view('Assistant/php/decline_order');
 	}
 
 }

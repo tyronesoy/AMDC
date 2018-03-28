@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class IssuedSupplies extends CI_Controller {
+class BranchBaguio extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,29 +19,35 @@ class IssuedSupplies extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{	
+	{
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
 			// echo "<pre>";
 			// 	print_r ( $this->session->all_userdata());
 			// 	echo "</pre>";
-		$this->load->model('db_model');
-		$data['issuedSupplies']=$this->db_model->getIssuedSupplies();
-		$this->load->view('Assistant/issuedSupplies', $data);
-	}
-		/*$check = $this->session->userdata('stts');
+			$this->load->model('db_model');
+			$data['branchBaguio']=$this->db_model->getBaguioDepartments();
+			$this->load->view('Assistant/php/branchBaguio', $data);
+
+		}
+		
+		/*
+		$check = $this->session->userdata('stts');
 		if($check == 'Assistant'){
-			$this->load->view('Assistant/issued_supplies');
+			$this->load->view('Assistant/medical_supplies');
 		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/issued_supplies');
+			$this->load->view('Assistant/medical_supplies');
 		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/issued_supplies');
+			$this->load->view('Supervisor/medical_supplies');
 		}else{
 			header('Location: ../login');
 		} */
 		
 	}
-	public function getIssuedSupplies(){
-		$this->load->view('Assistant/php/issuedSuppliesFetch');
+	public function getBaguioDepartment(){
+		$this->load->view('Assistant/php/departmentsBaguioFetch');
+	}
+	public function editBaguioDepartment(){
+		$this->load->view('Assistant/php/departmentsEdit');
 	}
 }

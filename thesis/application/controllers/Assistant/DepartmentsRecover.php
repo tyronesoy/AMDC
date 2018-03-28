@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Departments extends CI_Controller {
+class DepartmentsRecover extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -24,12 +24,10 @@ class Departments extends CI_Controller {
 			// echo "<pre>";
 			// 	print_r ( $this->session->all_userdata());
 			// 	echo "</pre>";
-			$this->load->model('db_model');
-			$data['departments']=$this->db_model->getDepartments();
-			$this->load->view('Assistant/departments', $data);
-
+		$this->load->model('db_model');
+		$data['departmentsRecover']=$this->db_model->getRecoverDepartments();
+		$this->load->view('Assistant/departmentsRecover', $data);
 		}
-		
 		//$check = $this->session->userdata('stts');
 		//if($check == 'Assistant'){
 		//	$this->load->view('Assistant/departments');
@@ -42,17 +40,11 @@ class Departments extends CI_Controller {
 	//	}
 		
 	}
-	public function getDepartment(){
-		$this->load->view('Assistant/php/departmentsFetch');
+	public function getDepartmentsRecover(){
+		$this->load->view('Assistant/php/departmentsRecoverFetch');
 	}
-	public function addDepartment(){
-		$this->load->view('Assistant/php/departmentsAdd');
-	}
-	public function editDepartment(){
-		$this->load->view('Assistant/php/departmentsEdit');
-	}
-	public function deleteDepartments(){
-		$this->load->view('Assistant/php/departmentsDelete');
+	public function deleteDepartmentsRecover(){
+		$this->load->view('Assistant/php/departmentsRecoverDelete');
 	}
 
 }

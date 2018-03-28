@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Assistant | Suppliers</title>
+  <title>Assistant | Departments</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
@@ -16,23 +16,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-  <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-  <!-- Select2 -->
-  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
-    <!-- datatable lib -->
+
+   <!-- datatable lib -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-  <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
 
   <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -80,14 +80,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <p>
                  <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
-                  <small>Assistant </small>
+                  <small>Member since </small>
                 </p>
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
             
                 <div class="pull-right">
-                 <a href="<?php echo '../logout' ?>"  class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -157,20 +157,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>
           </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
-        <li class="active">
+        <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'departments' ?>">
+        <li class="active">
+          <a href="#">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'memo' ?>">
+          <a href="<?php echo 'memo'?>">
             <i class="fa fa-calendar"></i> <span>Memo</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
@@ -195,14 +195,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Suppliers</b>
+        <b>Departments</b>
         <!-- <small>advanced tables</small> -->
       </h1>
         
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Suppliers</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="#">Departments</a></li>
       </ol>
     </section>
 
@@ -212,138 +211,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              
               <!-- <h3 class="box-title">Office Supplies</h3> -->
-                <table style="float:right;">
-                    <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus">&nbsp;</i>Create New</button>
-                        
-                        <form name="form1" method="post" action="suppliers/addSupplier" >
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <h3>Add New Suppliers</h3>
-                                          </div>
-                                      </div>
-                                        <!-- end of modal header -->
-                                      <div class="modal-body">
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Supplier Name : </label>
-                                              <input type="text" class="form-control" name="suppName" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Contact No. : </label>
-                                              <input type="number" class="form-control" name="suppContact" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Address : </label>
-                                              <input type="text" class="form-control" name="suppAddress" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Product Type : </label>
-                                              <div class="form-group">
-                                                <select class="form-control" name="suppProduct">
-                                                  <?php
-                                                    $conn=mysqli_connect("localhost", "root", "", "itproject");
-                                                    $sql = "SELECT product FROM suppliers GROUP BY product";
-                                                    $result = mysqli_query($conn, $sql);
-
-                                                    foreach($result as $row){
-                                                      ?>
-                                                      <option value="<?php echo $row["product"]; ?>" name="suppProduct"><?php echo $row["product"]; ?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                  ?>
-                                                </select>
-                                              </div>
-                                            </div>   
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" name="addSuppliers" class="btn btn-primary">Add Suppliers</button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                              </form>
-                              </th>
-                        
-                    </tr>
-                </table> 
+              <h3> Deleted Departments </h3>
             </div>
             <!-- /.box-header -->
-            <span id="alert_action"></span>
               <div class="box-body">
-              <table id="example"  class="table table-bordered table-striped" >
-                <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM suppliers";
-                  $result = $conn->query($sql);    
-                ?>
+              <table id="example" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Supplier Name</th>
-                        <th>Contact</th>
-                        <th>Address</th>
-                        <th>Supplier Type</th>
-                        <th>Status</th>
-                        <th>Remarks</th>
+                        <th>Department Name</th>
+                        <th>Branch Location</th>
                         <th>Action</th>
+
                     </tr>
                 </thead>
-                <tbody>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
-                    <tr>
-                      <?php
-                        $status = '';
-                          if($row["supplier_status"] == 'Active')
-                          {
-                              $status = '<span class="label label-success">Active</span>';
-                          }
-                          else
-                          {
-                              $status = '<span class="label label-danger">Inactive</span>';
-                          }
-                      ?>
-                      <td><?php echo $row["company_name"]; ?></td>
-                      <td><?php echo $row["supplier_contact"]; ?></td>
-                      <td><?php echo $row["address"]; ?></td>
-                      <td><?php echo $row["product"]; ?></td>
-                      <td><?php echo $status; ?></td>
-                      <td><?php echo $row["remarks"]; ?></td>
-                      <td>
-                        <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supplier_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["supplier_id"]; ?>">Change Status</button>
-                        </div>
-                      </td>
-                    </tr>
-                  <?php 
-                      }
-                    }
-                  ?>
-                </tbody>
+                
                 <tfoot>
                   <tr>
-                    <th>Supplier Name</th>
-                    <th>Contact</th>
-                    <th>Address</th>
-                    <th>Supplier Type</th>
-                    <th>Status</th>
-                    <th>Remarks</th>
-                    <th>Action</th>
+                    <th>Department Name</th>
+                        <th>Branch Location</th>
+                        <th>Action</th>
+                    
                   </tr>
                 </tfoot>
             </table>
@@ -358,22 +246,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
       <!-- /.row -->
           <div class="row no-print">
-        <div class="col-xs-1" style="float:right">
-          <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
-          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
+        <div class="col-xs-12">
+          <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
+          
         </div>
       </div>
-      <script>
-        $('#print').click(function(){
-          var printme = document.getElementById('example');
-          var wme = window.open("","","width=900,height=700");
-          wme.document.write(printme.outerHTML);
-          wme.document.close();
-          wme.focus();
-          wme.print();
-          wme.close();
-        })
-      </script>
     
     </section>
     <!-- /.content -->
@@ -484,21 +361,6 @@ input:checked + .slider:before {
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 
-<script>
-      $(function () {
-        $('#example').DataTable()
-        $('#example1').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : false,
-          'ordering'    : true,
-          'info'        : true,
-          'autoWidth'   : false
-        })
-
-
-      })
-    </script>
 
 <script>
 <!-- date and time -->
@@ -532,35 +394,28 @@ input:checked + .slider:before {
                 <div id="content-data"></div>
             </div>
         </div>
-
-        <div class="modal fade" id="modalUpdate" role="dialog">
-            <div class="modal-dialog">
-                <div id="data-content"></div>
-            </div>
-        </div>
-
-    <!-- <script>
+   
+    <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 "processing": true,
                 "serverSide":true,
                 "ajax":{
-                    url:"suppliers/getSupplier",
+                    url:"departmentsRecover/getDepartmentsRecover",
                     type:"post"
                 }
             });
         });
-    </script> -->
+    </script>
 
-    <!--script js for get edit data-->
     <script>
-        $(document).on('click','#getEdit',function(e){
+        $(document).on('click','#getRestore',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'suppliers/editSupplier',
+                url:'departmentsRecover/deleteDepartmentsRecover',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -572,71 +427,26 @@ input:checked + .slider:before {
             });
         });
     </script>
-    <script>
-        $(document).on('click','#getUpdate',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#data-content').html('');
-            
-              $.ajax({
-                  url:'suppliers/getChange',
-                  type:'POST',
-                  data:'id='+per_id,
-                  dataType:'html'
-              }).done(function(data){
-                  $('#data-content').html('');
-                  $('#data-content').html(data);
-              }).final(function(){
-                  $('#data-content').html('<p>Error</p>');
-              });
-            
-        });
-    </script>
+
 
 </body>
 </html>
 
 <?php
-$con=mysqli_connect('localhost','root','','itproject');
-if(isset($_POST['btnEdit'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_supplierName=mysqli_real_escape_string($con,$_POST['txtsuppliername']);
-    $new_supplierContact=mysqli_real_escape_string($con,$_POST['txtcontactno']);
-    $new_supplierAddress=mysqli_real_escape_string($con,$_POST['txtaddress']);
-    $new_supplierProduct=mysqli_real_escape_string($con,$_POST['txtprodtype']);
-    $new_supplierRemarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 
-    $sqlupdate="UPDATE suppliers SET company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
+//SOFT DELETED DEPARTMENTS
+if(isset($_POST['depRestore'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $sqlupdate="UPDATE departments SET soft_deleted='N' WHERE department_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="suppliers"</script>';
+        echo '<script>window.location.href="departments"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-}
-
-if(isset($_POST['btnUpdate'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_supplierStatus=mysqli_real_escape_string($con,$_POST['txtsupplierstatus']);
-
-    if($new_supplierStatus == 'Active'){
-      $new_supplierStatus = 'Inactive';
-    }else{
-      $new_supplierStatus = 'Active';
-    }
-
-    $sqlupdate="UPDATE suppliers SET supplier_status='$new_supplierStatus' WHERE supplier_id='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
-
-    if($result_update){
-        echo '<script>window.location.href="suppliers"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
-}
-
+} // END OF SOFT DELETE DEPARTMENTS
 ?>

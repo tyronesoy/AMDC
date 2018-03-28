@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class BranchLA extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -21,15 +21,31 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		$check = $this->session->userdata('type');
-		if($check == 'BusinessManager'){
-			$this->load->view('BusinessManager/dashboard1');
+		if($check == 'Assistant'){
+		// echo "<pre>";
+		// 		print_r ( $this->session->all_userdata());
+		// 		echo "</pre>";
+		$this->load->model('db_model');
+		$data['branchLA']=$this->db_model->getLADepartments();
+		$this->load->view('Assistant/php/branchLA', $data);
+		/*
+		$check = $this->session->userdata('stts');
+		if($check == 'Assistant'){
+			$this->load->view('Assistant/medical_supplies');
 		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/dashboard');
+			$this->load->view('Assistant/medical_supplies');
 		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/dashboard');
+			$this->load->view('Supervisor/medical_supplies');
 		}else{
 			header('Location: ../login');
+		} */
 		}
 		
+	}
+	public function getLADepartment(){
+		$this->load->view('Assistant/php/departmentsLAFetch');
+	}
+	public function editLADepartment(){
+		$this->load->view('Assistant/php/departmentsEdit');
 	}
 }
