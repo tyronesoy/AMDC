@@ -31,8 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
 
    <!-- datatable lib -->
-	
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
@@ -46,7 +45,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
