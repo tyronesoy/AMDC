@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -80,217 +80,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
                         <script>
-                            var d = new Date();
-                            document.getElementById("demo").innerHTML = d.toUTCString();
-                        </script>
+                        var d = new Date().toString();
+                        d=d.split(' ').slice(0, 6).join(' ');
+                        document.getElementById("demo").innerHTML = d;
+                    </script>
                     </a>
                 </li>
-          <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header"><i class="fa fa-warning text-yellow"></i> You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                        Assistant 1 logged in the system.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                       Assistant 1 edited the the unit price of the ink supply in the office supplies.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                       Assistant 1 logged out.
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#">
-                       You logged in.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      You issued 31 pieces of tissue from the medical supplies to Cardiac Department.
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="footer"><a href="../examples/invoice.php">View all Logs</a></li>
-            </ul>
-          </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">!</span>
-            </a>
-            <ul class="dropdown-menu">
-               <?php
-                    $conn =mysqli_connect("localhost","root","");
-                    mysqli_select_db($conn, "itproject");
-                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
-                    $result2 = $conn->query($sql2);
-                  ?>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <!-- Task item reorder levels-->
-                    <h5>Items below reorder level</h5>
-                    <hr>
-                    <li>
-                    <?php 
-                      if ($result2->num_rows > 0) {
-                        while($row = $result2->fetch_assoc()) { ?>
-                          <?php echo $row["supply_description"]; 
-                                $newvalue = $row["totalstock"] * 100;
-                                $percentage = $newvalue / $row["maximumreorder"];
-                          ?>
-                        <!--Reorder level meter-->
-                      <?php
-                      if($percentage < 25){
-                      ?>
-                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: <?php echo $percentage ?>%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                      </div>
-                      <?php
-                      }else if($percentage < 50){?>
-                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: <?php echo $percentage ?>%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                      </div>
-                      <?php
-                      }else if($percentage < 100){?>
-                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: <?php echo $percentage ?>%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                      </div>
-                    <?php
-                      }
-                    }
-                    }
-                    ?>
-                  </li>
-                  <!-- end task item expiration notification-->
-                    <h5>Items nearing expiration</h5>
-                    <hr>
-                    <?php
-                        $conn =mysqli_connect("localhost","root","");
-                        mysqli_select_db($conn, "itproject");
-                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
-                        $result3 = $conn->query($sql3);
-                        $strdatetoday = strtotime(date("Y/m/d"));
-                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
-                    ?>
-                    <table id="exp" class="table table-bordered table-striped">
-                    <small>
-                            <?php 
-                              if ($result3->num_rows > 0) {
-                                while($row = $result3->fetch_assoc()) {
-                                    $expdate = strtotime($row["expiration_date"]);
-                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
-                                if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
-                            ?>
-                                  <tr class="warning">
-                                  <td><?php echo $row["supply_description"]; ?></td>
-                                  <td><?php echo $row["expiration_date"]; ?></td>
-                                  </tr>
-                                    <!--Expiration meter-->
-                                    <?php
-                                      if($expvalue < 25){
-                                    ?>
-                                    <tr class="warning">
-                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
-                                    <td><div class="progress xs">
-                                      <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
-                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                      </div>
-                                    </div></td>
-                                    </tr>
-                                    <?php
-                                      }else if($expvalue < 50){?>
-                                    <tr class="warning">
-                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
-                                    <td><div class="progress xs">
-                                      <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
-                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                      </div>
-                                    </div></td>
-                                    </tr>  
-                                    <?php
-                                      }else if($expvalue < 100){?>
-                                    <tr class="warning">
-                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
-                                    <td><div class="progress xs">
-                                      <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
-                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                      </div>
-                                    </div></td>
-                                    </tr>
-                                    <?php
-                                    }
-                                    }
-                                }
-                              }
-                            ?>
-                    </small>
-                    </table>
-                    <h5>Expired Items</h5>
-                    <hr>
-                    <?php
-                        $conn =mysqli_connect("localhost","root","");
-                        mysqli_select_db($conn, "itproject");
-                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0";
-                        $result4 = $conn->query($sql4);
-                        $strdatetoday = strtotime(date("Y/m/d"));
-                        $strdatelimit = $strdatetoday - 2588400;//today -30 days
-                    ?>
-                    <table id="expdue" class="table table-bordered table-striped">
-                    <small>
-                            <?php 
-                              if ($result4->num_rows > 0) {
-                                while($row = $result4->fetch_assoc()) {
-                                    $expdate = strtotime($row["expiration_date"]);
-                                if(($expdate < $strdatetoday) && ($expdate > $strdatelimit)){
-                            ?>
-                                  <tr class="danger">
-                                  <td><?php echo $row["supply_description"]; ?></td>
-                                  <td><?php echo $row["expiration_date"]; ?></td>
-                                  </tr>
-                            <?php
-                                }
-                              }
-                            }
-                            ?>
-                    </small>
-                    </table>
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="../../dashboard.php">View all charts</a>
-              </li>
-            </ul>
-          </li>
+     
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Supervisor</span>
+              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -298,8 +99,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
-                 Supervisor
-                  <small>Member since Oct. 2017</small>
+                 <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
+                  <small>Supervisor</small>
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -325,7 +126,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Supervisor</p>
+          <p><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
@@ -345,7 +146,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory System</li>
 	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
@@ -426,26 +227,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                 <table style="float: left;">
                     <tr>
-                        <th> <div class="btn-group">
+                        <th> <div class="dropdownButton">
+						<select name="dropdown" onchange="location =this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Branch
                           <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu">
-                        <li><a href="php/issuedBaguio.php">Baguio City</a></li>
-                        <li><a href="php/issuedLA.php">La Trinidad</a></li>
-                        <li><a href="php/issuedSLU.php">SLU Hospital</a></li>
-                        </ul>
+						<option value="issuedSupplies"><b>All branches</b></option>
+                        <option value="issuedLA">La Trinidad</option>
+                        <option value="issuedSLU">SLU Hospital</option>
+  						</select>
                       </div></th>
-                        <th> <div class="btn-group">
+						
+                        <th><div class="dropdownButton">
+						<select name="dropdown" onchange="location =this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Issued To
                           <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu">
-                          <li><a href="php/issuedToCardiac.php">Cardiac</a></li>
-                          <li><a href="php/issuedToEndoscopy.php">Endoscopy</a></li>
-                          <li><a href="php/IssuedToImaging.php">Imaging</a></li>
-                          <li><a href="php/IssuedToLaboratory.php">Laboratory</a></li>
-                        </ul>
+						  <option value="issuedSupplies">Issued To</option>
+                          <option value="php/issuedToCardiac.php">Cardiac</option>
+                          <option value="php/issuedToEndoscopy.php">Endoscopy</option>
+                          <option value="php/IssuedToImaging.php">Imaging</option>
+                          <option value="php/IssuedToLaboratory.php">Laboratory</option>
+                        </select>
                       </div></th>
                     </tr>
                 </table>      

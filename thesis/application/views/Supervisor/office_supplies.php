@@ -87,211 +87,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
                         <script>
-                            var d = new Date();
-                            document.getElementById("demo").innerHTML = d.toUTCString();
-                        </script>
+                        var d = new Date().toString();
+                        d=d.split(' ').slice(0, 6).join(' ');
+                        document.getElementById("demo").innerHTML = d;
+                    </script>
                     </a>
                 </li>
-          <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">!</span>
-            </a>
-            <ul class="dropdown-menu">
-               <?php
-                    $conn =mysqli_connect("localhost","root","");
-                    mysqli_select_db($conn, "itproject");
-                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)";
-                    $result2 = $conn->query($sql2);
-                  ?>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <!-- Task item reorder levels-->
-                    <h5>Items below reorder level</h5>
-                    <li>
-                    <?php 
-                      if ($result2->num_rows > 0) {
-                        while($row = $result2->fetch_assoc()) { ?>
-                          <?php echo $row["supply_description"]; 
-                                $newvalue = $row["totalstock"] * 100;
-                                $percentage = $newvalue / $row["maximumreorder"];
-                          ?>
-                        <!--Reorder level meter-->
-                      <?php
-                      if($percentage < 25){
-                      ?>
-                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: <?php echo $percentage ?>%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                      </div>
-                      <?php
-                      }else if($percentage < 50){?>
-                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: <?php echo $percentage ?>%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                      </div>
-                      <?php
-                      }else if($percentage < 100){?>
-                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: <?php echo $percentage ?>%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                      </div>
-                    <?php
-                      }
-                    }
-                    }
-                    ?>
-                  </li>
-                  <!-- end task item expiration notification-->
-                    <h5>Items nearing expiration</h5>
-                    <?php
-                        $conn =mysqli_connect("localhost","root","");
-                        mysqli_select_db($conn, "itproject");
-                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
-                        $result3 = $conn->query($sql3);
-                        $strdatetoday = strtotime(date("Y/m/d"));
-                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
-                    ?>
-                    <table id="exp" class="table table-bordered table-striped">
-                    <small>
-                            <?php 
-                              if ($result3->num_rows > 0) {
-                                while($row = $result3->fetch_assoc()) {
-                                    $expdate = strtotime($row["expiration_date"]);
-                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
-                                if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
-                            ?>
-                                  <tr>
-                                  <td><?php echo $row["supply_description"]; ?></td>
-                                  <td><?php echo $row["expiration_date"]; ?></td>
-                                  </tr>
-                                    <!--Expiration meter-->
-                                    <?php
-                                      if($expvalue < 25){
-                                    ?>
-                                    <tr>
-                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
-                                    <td><div class="progress xs">
-                                      <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
-                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                      </div>
-                                    </div></td>
-                                    </tr>
-                                    <?php
-                                      }else if($expvalue < 50){?>
-                                    <tr>
-                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
-                                    <td><div class="progress xs">
-                                      <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
-                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                      </div>
-                                    </div></td>
-                                    </tr>  
-                                    <?php
-                                      }else if($expvalue < 100){?>
-                                    <tr>
-                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
-                                    <td><div class="progress xs">
-                                      <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
-                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                      </div>
-                                    </div></td>
-                                    </tr>
-                                    <?php
-                                    }
-                                    }
-                                }
-                              }
-                            ?>
-                    </small>
-                    </table>
-                    <h5>Expired Items</h5>
-                    <?php
-                        $conn =mysqli_connect("localhost","root","");
-                        mysqli_select_db($conn, "itproject");
-                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0";
-                        $result4 = $conn->query($sql4);
-                        $strdatetoday = strtotime(date("Y/m/d"));
-                    ?>
-                    <table id="expdue" class="table table-bordered table-striped">
-                    <small>
-                            <?php 
-                              if ($result4->num_rows > 0) {
-                                while($row = $result4->fetch_assoc()) {
-                                    $expdate = strtotime($row["expiration_date"]);
-                                if($expdate < $strdatetoday){
-                            ?>
-                                  <tr class="danger">
-                                  <td><?php echo $row["supply_description"]; ?></td>
-                                  <td><?php echo $row["expiration_date"]; ?></td>
-                                  </tr>
-                            <?php
-                                }
-                              }
-                            }
-                            ?>
-                    </small>
-                    </table>
-                </ul>
-              </li>
-            </ul>
-          </li>
+       
+         
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Supervisor</span>
+              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -299,8 +107,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
-                 Supervisor
-                  <small>Member since Oct. 2017</small>
+                 <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
+                  <small>Supervisor</small>
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -326,7 +134,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Supervisor</p>
+          <p><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
@@ -346,7 +154,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory System</li>
 	<!-- DASHBOARD MENU -->
          <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>

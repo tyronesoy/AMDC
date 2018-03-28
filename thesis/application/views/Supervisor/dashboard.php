@@ -76,142 +76,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </script>
                 </a>
             </li>
-          <!-- Messages: style can be found in dropdown.less-->
-                   
-          <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header"><i class="fa fa-warning text-yellow"></i> You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                        Assistant 1 logged in the system.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                       Assistant 1 edited the the unit price of the ink supply in the office supplies.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                       Assistant 1 logged out.
-                    </a>
-                  </li>
 
-                  <li>
-                    <a href="#">
-                       You logged in.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      You issued 31 pieces of tissue from the medical supplies to Cardiac Department.
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="footer"><a href="pages/examples/invoice.php">View all Logs</a></li>
-            </ul>
-          </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Tissue
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% </span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        5CC Syringe
-                        <small class="pull-right">40%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% </span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Joy Liquid Soap
-                        <small class="pull-right">60%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60%</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Red Tap Tubes
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80%</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="data.php">View all supplies</a>
-              </li>
-            </ul>
-          </li>
+   
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Supervisor</span>
+				<span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
+              
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
-
-                <p>
-                 Supervisor
-                  <small>Member since Oct. 2017</small>
+				<p>
+                 <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
+                 <small>Supervisor</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -293,7 +173,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Supervisor</p>
+          <p><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i>Active</a>
         </div>
       </div>
@@ -319,16 +199,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
          
 		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
-          <a href="#" >
+       <li class ="treeview">
+          <a href="#">
             <i class="fa fa-briefcase"></i> <span>Supplies</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu" id="supplies">
-			<li><a href="<?php echo 'Supervisor/medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="<?php echo 'Supervisor/officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+          <ul class="treeview-menu">
+      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
@@ -386,7 +266,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
@@ -414,9 +294,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <!-- ./col -->
           
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-green">
+          <div class="small-box bg-yellow">
             <div class="inner">
               <?php
                   	$conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
@@ -441,35 +321,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              
-              <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT DISTINCT COUNT(*) AS total FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'Requested'";
-                  $result = $conn->query($sql);    
-              ?>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
-                    <h3><?php echo $row["total"]; ?></h3>
-                  <?php 
-                      }
-                    }
-                  ?>
-
-              <p>Delivery</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-ios-pie"></i>
-            </div>
-            <button onclick="myFunction3('Demo3')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
-          </div>
-        </div>
+       
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
@@ -610,88 +464,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tfoot>
               </table>
           </div>
-          <!-- TABLE FOR HIDDEN DELIVERY TABLE -->
-          <div id="Demo3" class="box-body w3-hide">
-              <table id="example5" class="table table-bordered table-striped">
-                <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT DISTINCT supply_description, brand_name, deliveries.delivery_date, company_name, total_quantity, unit, unit_price, total_amount, delivery_status, good_condition, damaged FROM deliveries JOIN supplies JOIN suppliers JOIN purchase_orders WHERE delivery_status = 'Requested'";
-                  $result = $conn->query($sql);    
-                ?>
-                <thead>
-                <tr>
-                  <th>Delivered Date</th>
-                  <th>Description</th>
-                  <th>Brandname</th>
-                  <th>Supplier</th>
-                  <th>Total Quantity</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th>
-                  <th>Total Amount</th>
-                  
-                  <th>Good Condition</th>
-                  <th>Damaged</th>
-                  <th>Delivery Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
-                    <tr>
-                      <td><?php echo $row["delivery_date"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["brand_name"]; ?></td>
-                      <td><?php echo $row["company_name"]; ?></td>
-                      <td><?php echo $row["total_quantity"]; ?></td>
-                      <td><?php echo $row["unit"]; ?></td>
-                      <td><?php echo $row["unit_price"]; ?></td>
-                      <td><?php echo $row["total_amount"]; ?></td>
-                      <td><?php echo $row["good_condition"]; ?></td>
-                      <td><?php echo $row["damaged"]; ?></td>
-
-                      <td>
-                        <div class="btn-group">
-                          
-
-                          <form action="delivery.php" method="get">
-                            <input type="text" name="fullDelivery" hidden value="Full">
-                            <button type="submit" class="btn btn-success">Full </button>
-                          </form> 
-
-                          <form action="delivery.php" method="get">
-                            <input type="text" name="partialDelivery" hidden value="Partial">
-                            <button type="submit" class="btn btn-warning">Partial </button>
-                          </form> 
-
-                        </div>
-
-
-                      </td>
-                    </tr>
-                  <?php 
-                      }
-                    }
-                  ?>
-                </tbody>
-                <tfoot>
-                   <tr>
-                  <th>Delivered Date</th>
-                  <th>Description</th>
-                  <th>Brandname</th>
-                  <th>Supplier</th>
-                  <th>Quantity</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th>
-                  <th>Total Amount</th>
-                  
-                  <th>Good Condition</th>
-                  <th>Damaged</th>
-                  <th>Delivery Status</th>
-                </tr> 
-                </tfoot>
-              </table>
-          </div>
+         
           <!-- TABLE FOR HIDDEN EXPIRED SUPPLIES TABLE ------>
           <div id="Demo4" class="box-body w3-hide">
               <table id="example7" class="table table-bordered table-striped">

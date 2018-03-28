@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
-  <!-- Tell the browser to be responsive to screen width -->
+   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -28,17 +28,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
     <!-- Select2 -->
-      <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
 
    <!-- datatable lib -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -156,7 +163,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Supervisor</span>
+              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -164,8 +171,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
-                 Supervisor
-                  <small>Member since </small>
+                 <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
+                  <small>Supervisor</small>
                 </p>
                 </li>
               <!-- Menu Footer-->
@@ -193,7 +200,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Supervisor</p>
+          <p><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
@@ -213,7 +220,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory System</li>
 	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
-          <a href="../../../dashboard.php">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
@@ -226,36 +233,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-			<li><a href="../medicalSupplies.php"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="../officeSupplies.php"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+			<li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
         <!--------------------------------------------------- PURCHASES -------------------------------------------------->
           <li>
-              <a href="../purchases.php">
+              <a href="<?php echo 'purchases' ?>">
                   <i class="fa fa-tags"></i><span>Orders</span>  
               </a>
           </li>
         <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
-            <li><a href="../issuedSupplies.php">
+            <li><a href="<?php echo 'issuedSupplies' ?>">
                 <i class="fa fa-truck"></i><span>Issued Supplies</span> 
                 </a>
           </li>
 		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
-          <a href="../suppliers.php">
+          <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
 		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li class="active">
-          <a href="../departments.php">
+          <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="../../examples/lockscreen.php">
+          <a href="<?php echo 'Supervisor/lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -275,9 +282,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
         
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Office Supplies</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><a href="<?php echo 'departments' ?>">Departments</a></li>
+        <li class="active"><a href="<?php echo 'branchBaguio' ?>">Baguio Branch</a></li>
       </ol>
     </section>
 
@@ -306,7 +313,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <!-- /.box-header -->
               <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+              <table id="example" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Department Name</th>
@@ -338,9 +345,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row no-print">
         <div class="col-xs-12">
           <a href="../../examples/printDepartments.php" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          <button type="button" class="btn btn-primary pull-right" style=s"margin-right: 5px;">
-            <i class="fa fa-download"></i> Generate PDF
-          </button>
+          
         </div>
       </div>
     
@@ -440,7 +445,7 @@ input:checked + .slider:before {
 <script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
 <!-- bootstrap datepicker -->
-<script src="../assets./bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- bootstrap color picker -->
 <script src="../assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 <!-- bootstrap time picker -->
@@ -451,7 +456,7 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- page script -->
+
 
 <script>
 <!-- date and time -->
