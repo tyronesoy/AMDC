@@ -127,17 +127,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
@@ -213,7 +202,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         Memo
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo '../dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">Memo</li>
       </ol>
     </section>
@@ -272,23 +261,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <!-- /.box-header -->
               <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+              <table id="example" class="table table-bordered table-striped">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM memo where soft_deleted = 'N'";
+                  $result = $conn->query($sql);    
+                ?>
                 <thead>
-            <tr>
-                <th>Memo Date</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr>
-                <th>Memo Date</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </tfoot>
+                  <tr>
+                      <th>Memo Date</th>
+                      <th>Description</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?php echo $row["memo_date"]; ?></td>
+                      <td><?php echo $row["memo_description"]; ?></td>
+                      <td><?php echo $row["memo_status"]; ?></td>
+                      <td>
+                          <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive Memo</button>
+                      </td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
+                  <tfoot>
+                  <tr>
+                      <th>Memo Date</th>
+                      <th>Description</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                  </tr>
+                  </tfoot>
               </table>
 
             </div>
@@ -312,7 +323,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
       </div>
 </section>
-</div>     
+</div>  
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
+    reserved.
+  </footer>   
 
 <style>
 
@@ -391,6 +409,22 @@ input:checked + .slider:before {
 <!-- AdminLTE for demo purposes -->
 <script src="../assets/dist/js/demo.js"></script>
 
+<script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
+      })
+    </script>
+
         <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -399,7 +433,7 @@ input:checked + .slider:before {
         </div>
 
 
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 "processing": true,
@@ -410,7 +444,7 @@ input:checked + .slider:before {
                 }
             });
         });
-    </script>
+    </script> -->
 
      <!--script js for get edit data-->
     <script>

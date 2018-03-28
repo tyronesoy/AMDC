@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo '../dashboard' ?> class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -132,17 +132,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form 
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>-->
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
@@ -218,8 +207,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="<?php echo 'purchases' ?>">Purchases</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><a href="#">Purchases</a></li>
       </ol>
     </section>
 
@@ -297,30 +286,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- /.box-header -->
               <div class="box-body">
               <table id="example" class="display" cellspacing="0" width="100%">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM purchase_orders";
+                  $result = $conn->query($sql);    
+                ?>
                 <thead>
                     <tr>
                         <th>Order Date</th>
                         <th>Quantity</th>
                         <th>Unit</th>
-						<th>Unit Price</th>
-						<th>Total Amount</th>
-						<th>Grand Total</th>
-						<th>Remarks</th>
-						<th>Action</th>
-						
+            						<th>Unit Price</th>
+            						<th>Total Amount</th>
+            						<th>Grand Total</th>
+            						<th>Remarks</th>
+            						<th>Action</th>
                     </tr>
                 </thead>
-                
+                <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?php echo $row[""]; ?></td>
+                      <td><?php echo $row[""]; ?></td>
+                      <td><?php echo $row[""]; ?></td>
+                      <td><?php echo $row[""]; ?></td>
+                      <td><?php echo $row[""]; ?></td>
+                      <td><?php echo $row[""]; ?></td>
+                      <td>
+                        <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["po_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
+                        </div>
+                        <div class="btn-group">
+                            <a href="purchases?delete=<?php echo $row["po_id"] ?>" onclick="return confirm(\'Are You Sure to delete the item?\')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Remove</a>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
                 <tfoot>
                   <tr>
-						<th>Order Date</th>
+						            <th>Order Date</th>
                         <th>Quantity</th>
                         <th>Unit</th>
-						<th>Unit Price</th>
-						<th>Total Amount</th>
-						<th>Grand Total</th>
-						<th>Remarks</th>
-						<th>Action</th>
+            						<th>Unit Price</th>
+            						<th>Total Amount</th>
+            						<th>Grand Total</th>
+            						<th>Remarks</th>
+            						<th>Action</th>
                   </tr>
                 </tfoot>
             </table>
@@ -346,9 +362,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed
