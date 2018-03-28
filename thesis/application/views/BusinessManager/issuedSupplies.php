@@ -1,6 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+if(!isset($_SESSION['first_run'])){
+    $_SESSION['first_run'] = 1;
+        $datetoday = date("Y/m/d");
+        $conn =mysqli_connect("localhost","root","");
+        mysqli_select_db($conn, "itproject");
+        $notif1 = "insert into logs (log_date,log_description,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')." has logged in','".$this->session->userdata('type')."')";
+        $res1 = $conn->query($notif1);
+    echo "logged in succesfuly";
+}else{
+    echo "failed to log, already logged in";
+}
 ?>
+<!--$this->session->userdata('fname'));
+echo ( $this->session->userdata('lname'))
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -312,7 +326,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Business Manager</span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->

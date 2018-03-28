@@ -12,7 +12,7 @@ $con=mysqli_connect('localhost','root','','itproject');
   $password = $_POST['password'];
   $user_email = $_POST['user_email'];
 
-
+  
   $sql->bind_param("sssssss", $username, $user, $fname, $lname, $user_contact, $password, $user_email);
 
   if($sql->execute()) {
@@ -24,6 +24,12 @@ $con=mysqli_connect('localhost','root','','itproject');
   $con->close();
   
   } 
+  
+  $conn =mysqli_connect("localhost","root","");
+        $datetoday = date("Y/m/d");
+        mysqli_select_db($conn, "itproject");
+        $notif1 = "insert into logs (log_date,log_description,module) VALUES ('".$datetoday."','New user ".$user_email."','".$this->session->userdata('type')."')";
+        $res1 = $conn->query($notif1);
 
   header("Location: ../userAccounts");
 ?>
