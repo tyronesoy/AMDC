@@ -300,18 +300,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- /.row -->
             <!--- PRINT AND PDF -->
               <div class="row no-print">
-        <div class="col-xs-12">
-          <button type="button" class="btn btn-default pull-right" style="margin-right: 1px;"><i class="fa fa-print"></i>
-            <a href="../examples/medicalSuppliesPrint.php"> Print</a>
-          </button>
-
-<!--
-          <a href="medicalSuppliesRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
-          </a>
-          </button>
--->
+        <div class="col-xs-1" style="float:right">
+          <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
+          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       </div>
+      <script>
+        $('#print').click(function(){
+          var printme = document.getElementById('example');
+          var wme = window.open("","","width=900,height=700");
+          wme.document.write(printme.outerHTML);
+          wme.document.close();
+          wme.focus();
+          wme.print();
+          wme.close();
+        })
+      </script>
         <!-- END OF PRINT AND PDF -->
     </section>
     <!-- /.content -->
