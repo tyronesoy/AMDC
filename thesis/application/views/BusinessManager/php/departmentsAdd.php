@@ -8,6 +8,11 @@ mysqli_select_db($connection, "itproject");
   $branch = $_POST['branch'];
   $sql->bind_param("ss", $depName, $branch); 
   if($sql->execute()) {
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date("Y/m/d");
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','New department ".$depName." has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
   $success_message = "Added Successfully";
   } else {
   $error_message = "Problem in Adding New Record";
