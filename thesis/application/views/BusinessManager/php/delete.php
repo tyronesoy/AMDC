@@ -4,7 +4,7 @@ $idvalue = $_POST['log_id'];
 $converted = urldecode($value);
 $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql2 = "DELETE FROM logs WHERE log_description='".$converted."' AND log_id ='".$idvalue."' LIMIT 1";
+                    $sql2 = "UPDATE logs SET log_status = false WHERE log_description='".$converted."' AND log_id ='".$idvalue."' LIMIT 1";
                     $result2 = $conn->query($sql2);
 ?>
 <?php
