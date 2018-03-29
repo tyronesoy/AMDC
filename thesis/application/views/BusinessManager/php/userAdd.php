@@ -26,9 +26,9 @@ $con=mysqli_connect('localhost','root','','itproject');
   } 
   
   $conn =mysqli_connect("localhost","root","");
-        $datetoday = date("Y/m/d");
+        $datetoday = date("Y/m/d ");
         mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','New user ".$user_email."','".$this->session->userdata('username')."','".$this->session->userdata('type')."')";
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','add new user ".$user_email."','".$this->session->userdata('username')."','".$this->session->userdata('type')."')";
         $res1 = $conn->query($notif1);
 
   header("Location: ../userAccounts");
