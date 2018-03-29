@@ -11,6 +11,11 @@ mysqli_select_db($connection, "itproject");
     $sql->bind_param("ssss", $suppName, $suppContact, $suppAddress, $suppProduct); 
     if($sql->execute()) {
       echo' "Added Successfully"';
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date("Y/m/d");
+        mysqli_select_db($conn, "itproject");
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','New supplier ".$suppName." has been added','".$this->session->userdata('username')."','".$this->session->userdata('type')."')";
+        $res1 = $conn->query($notif1);
     } else {
       echo' "Problem in Adding New Record"';
     }

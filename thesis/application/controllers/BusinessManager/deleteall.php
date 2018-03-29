@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class delete extends CI_Controller {
+class deleteall extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -26,8 +26,8 @@ class delete extends CI_Controller {
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
-		$data['delete']=$this->db_model->getIssuedSupplies();
-		$this->load->view('BusinessManager/php/delete', $data);
+		$data['deleteall']=$this->db_model->getIssuedSupplies();
+		$this->load->view('BusinessManager/php/deleteall', $data);
 	}
 		/*$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){

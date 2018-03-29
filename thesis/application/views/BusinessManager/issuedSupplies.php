@@ -5,11 +5,8 @@ if(!isset($_SESSION['first_run'])){
         $datetoday = date("Y/m/d");
         $conn =mysqli_connect("localhost","root","");
         mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')." has logged in','".$this->session->userdata('type')."')";
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')." has logged in','".$this->session->userdata('username')."','".$this->session->userdata('type')."')";
         $res1 = $conn->query($notif1);
-    echo "logged in succesfuly";
-}else{
-    echo "failed to log, already logged in";
 }
 ?>
 <!--$this->session->userdata('fname'));
@@ -130,7 +127,7 @@ echo ( $this->session->userdata('lname'))
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') order by log_date DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') order by log_id DESC";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -141,6 +138,7 @@ echo ( $this->session->userdata('lname'))
                         <td><small><?php echo $row["log_description"];?></small></td>
                         <td class="notif-delete">
                         <form action="delete" method="post">
+                        <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <input type="submit" name="submit" value="x" style="background-color: #f44336;border-radius: 8px;">
                         </form>
@@ -156,9 +154,9 @@ echo ( $this->session->userdata('lname'))
               <li class="footer"><a href="../examples/invoice.php">View all Logs</a></li>
               <li>
               <center>
-              
-                        <button style="background-color:#f44336;" href="deleteall">Delete all Logs</button>
-              
+              <form action="deleteall" method="post">
+                        <input type="submit" name="submit" value="Delete all Logs" style="background-color: #f44336;border-radius: 8px;">
+              </form>
               </center>
               </li>
             </ul>
