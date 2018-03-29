@@ -412,7 +412,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </ul>
             </li>
             <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
-			<li><a href="<?php echo 'BusinessManager/dep_orders' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+			<li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
 			<li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
 			<li><a href="<?php echo 'BusinessManager/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
@@ -870,9 +870,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed

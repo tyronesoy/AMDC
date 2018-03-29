@@ -366,7 +366,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-list"></i>Issued Supplies</a></li>
 			<li><a href="<?php echo 'dep_orders' ?>"><i class="fa fa-cart-plus"></i>Deparments Order</a></li>
 			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-			<li><a href="<?php echo 'delivery' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
         <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->

@@ -679,7 +679,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td><?php echo $row["unit"]; ?></td>
             <td align="right"><?php echo $row["Total Amount"]; ?></td>
             <td><?php echo $row["reorder_level"]; ?></td>
-            <td align="center"><button type="button" id="edit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-pencil"></i>Edit</button></td>
+            <td align="center"><button type="button" id="edit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button></td>
             </tr>
           <?php 
               }
@@ -785,6 +785,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     })
   })
     </script>
+    <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="content-data"></div>
+            </div>
+        </div>
 <script>
 <!-- date and time -->
   $(function () {
@@ -831,3 +836,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 </body>
 </html>
+<?php 
+if(isset($_POST['medTQEdit'])){
+    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+
+    $sqlupdate="UPDATE supplies SET reorder_level='$new_supplyReorderLevel' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="medicalSuppliesTotalQuantity"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+}
+?>

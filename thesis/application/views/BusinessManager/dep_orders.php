@@ -206,44 +206,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
-         <li>
+        <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            </a>
+          </a>
         </li>
-  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
+          
+    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li>
-              <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-tags"></i><span>Manage Accounts</span>  
-              </a>
-          </li>
-  
+          <a href="<?php echo 'userAccounts' ?>">
+              <i class="fa fa-group"></i> <span>Manage Accounts</span> </a>
+        </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class ="treeview">
-          <a href="#" id="menu1" type="button" data-toggle="dropdown">
-            <i class="fa fa-briefcase"></i> <span>Supplies</span>
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <!-- <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Dropdown Example
-          <span class="caret"></span></button> -->
-          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-            <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-            <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+          <ul class="treeview-menu">
+            <li class="treeview">
+              <a href="#"><i class="fa fa-briefcase"></i> Supplies
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
+                </li>
+              </ul>
+            </li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+      <li class="active"><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
-        <!--------------------------------------------------- PURCHASES -------------------------------------------------->
-          <li>
-              <a href="<?php echo 'purchases' ?>">
-                  <i class="fa fa-tags"></i><span>Purchases</span>  
-              </a>
-          </li>
-        <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
-            <li><a href="<?php echo 'issuedSupplies' ?>">
-                <i class="fa fa-truck"></i><span>Issued Supplies</span> 
-                </a>
-          </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
@@ -251,35 +252,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li class ="treeview">
-          <a href="#">
+    <li>
+          <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-      <li><a href="<?php echo 'departments' ?>"><i class= "fa fa-medkit"></i> Departments List</a></li>
-      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-pencil-square-o"></i> Departments Order</a></li>
-          </ul>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-        <li>
+    <li>
           <a href="<?php echo 'memo' ?>">
-            <i class="fa fa-calendar"></i> <span>Memo</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
+            <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
+    
     <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'logs' ?>">
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
-<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
+          <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
@@ -301,9 +292,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
         
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Office Supplies</a></li>
-        <li class="active">Data tables</li>
+        <li><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Department Orders</li>
       </ol>
     </section>
 
@@ -351,12 +341,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search">&nbsp;</i>View</button>
                         </div>
-                        <div class="btn-group">
-                            <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-ok"></i></button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" id="decline" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#declineModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-remove"></i></button>
-                        </div>
+                        <?php if ($row["inventory_order_status"] == 'Accepted' || $row["inventory_order_status"] == 'Declined') {?>
+                          <div class="btn-group">
+                              <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>" disabled><i class="glyphicon glyphicon-ok"></i></button>
+                          </div>
+                          <div class="btn-group">
+                              <button type="button" id="decline" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#declineModal" data-id="<?php echo $row["inventory_order_id"]; ?>" disabled><i class="glyphicon glyphicon-remove"></i></button>
+                          </div>
+                        <?php }else {?>
+                          <div class="btn-group">
+                              <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-ok"></i></button>
+                          </div>
+                          <div class="btn-group">
+                              <button type="button" id="decline" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#declineModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-remove"></i></button>
+                          </div>
+                        <?php } ?>
                       </td>
                     </tr>
                   <?php 
@@ -398,9 +397,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed

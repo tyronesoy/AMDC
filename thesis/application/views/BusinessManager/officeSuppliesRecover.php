@@ -301,71 +301,73 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory System</li>
 	<!-- DASHBOARD MENU -->
          <li>
-          <a href="<?php echo '../dashboard' ?>">
+          <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-		<!-- MANAGE ACCOUNTS MENU -->
+    <!-- MANAGE ACCOUNTS MENU -->
         <li>
-          <a href="<?php echo 'useraccounts' ?>">
+          <a href="<?php echo 'userAccounts' ?>">
             <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
         </li>
-		<!-- SUPPLIES MENU -->
-        <li class="active treeview">
+    <!-- SUPPLIES MENU -->
+        <li class="treeview">
           <a href="#">
-            <i class="fa fa-briefcase"></i> <span>Supplies</span>
+            <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-			<li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li class ="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-briefcase"></i> Supplies
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="active">
+                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a>
+                </li>
+              </ul>
+            </li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'dep_orders' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
-        <!-- PURCHASES -->
-          <li>
-              <a href="<?php echo 'purchases' ?>">
-                  <i class="fa fa-tags"></i><span>Purchases</span>  
-              </a>
-          </li>
-        <!-- ISSUED SUPPLIES -->
-            <li><a href="<?php echo 'issuedSupplies' ?>">
-                <i class="fa fa-truck"></i><span>Issued Supplies</span> 
-                </a>
-          </li>
-		<!-- SUPPLIERS MENU -->
+    <!-- SUPPLIERS MENU -->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		<!-- DEPARTMENTS MENU -->
+    <!-- DEPARTMENTS MENU -->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!-- MEMO MENU -->
+    <!-- MEMO MENU -->
         <li>
-          <a href="<?php echo 'memo'?>">
+          <a href="<?php echo 'memo' ?>">
             <i class="fa fa-calendar"></i> <span>Memo</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
           </a>
         </li>
 <!-- INVOICE MENU -->
         <li>
-          <a href="../examples/invoice.html">
+           <a href="<?php echo 'logs'?>">
+            <i class="fa fa-calendar"></i
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
 <!-- LOCKSCREEN MENU -->
         <li>
-          <a href="../examples/lockscreen.html">
+          <a href="<?php echo 'lockscreen'?>">
+            <i class="fa fa-calendar"></i
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>

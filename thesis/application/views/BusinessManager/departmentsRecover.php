@@ -191,88 +191,77 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
-         <li>
-          <a href="<?php echo '../dashboard' ?>">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            </a>
-        </li>
-  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
         <li>
-              <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-tags"></i><span>Manage Accounts</span>  
-              </a>
-          </li>
-  
+          <a href="<?php echo 'dashboard' ?>">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+          
+    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'BusinessManager/userAccounts' ?>">
+              <i class="fa fa-group"></i> <span>Manage Accounts</span> </a>
+        </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class ="treeview">
+         <li class="treeview">
           <a href="#">
-            <i class="fa fa-briefcase"></i> <span>Supplies</span>
+            <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-briefcase"></i> Supplies
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'BusinessManager/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'BusinessManager/officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
+                </li>
+              </ul>
+            </li>
+            <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li><a href="<?php echo 'BusinessManager/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
-        <!--------------------------------------------------- PURCHASES -------------------------------------------------->
-          <li>
-              <a href="<?php echo 'purchases' ?>">
-                  <i class="fa fa-tags"></i><span>Purchases</span>  
-              </a>
-          </li>
-        <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
-            <li><a href="<?php echo 'issuedSupplies' ?>">
-                <i class="fa fa-truck"></i><span>Issued Supplies</span> 
-                </a>
-          </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'suppliers' ?>">
+          <a href="<?php echo 'BusinessManager/suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li class="active">
-          <a href="#">
+    <li class="active">
+          <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'memo'?>">
-            <i class="fa fa-calendar"></i> <span>Memo</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
+    <li>
+          <a href="<?php echo 'BusinessManager/memo' ?>">
+            <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
+    
     <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'logs' ?>">
+          <a href="<?php echo 'BusinessManager/logs' ?>">
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
-<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
+          <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'lockscreen' ?>">
+          <a href="<?php echo 'BusinessManager/lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -292,8 +281,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
         
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Departments</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Departments</a></li>
       </ol>
     </section>
 

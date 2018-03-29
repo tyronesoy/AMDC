@@ -7,7 +7,8 @@ if(isset($_REQUEST['id'])){
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
-        $per_supplyExpirationDate=$row[9];
+        $per_supplyReorderLevel=$row[8];
+
     }//end while
 ?>
     <form class="form-horizontal" method="post" action ="">
@@ -19,27 +20,37 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <div class="form-group">
-                             <div class="form-group">
-                            <label hidden="true" class="col-sm-4 control-label" for="txtid">Supply ID</label>
-                            <div class="col-sm-6">
-                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label  for="txtid">Supply ID</label>
+                                    <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>">
+                                </div>
                             </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtReorderLevel">Old Reorder Level</label>
-                            <div class="col-sm-6">
-                                <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtReorderLevel">Old Reorder Level</label>
+                                    <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
+                                </div>
                             </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtReorderLevel">New Reorder Level</label>
-                            <div class="col-sm-6">
-                                <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtReorderLevel">New Reorder Level</label>
+                                    <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel">
+                                </div>
                             </div>
-                        </form>
+                        </div>
+                        
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <a href="officeSuppliesTotalQuantityEdit"><button type="button" class="btn btn-danger">Cancel</button> </a>
-                <button type="submit" class="btn btn-primary" name="medTQEdit">Save</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-primary" name="medTQEdit"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>

@@ -4,9 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Business Manager | Deliveries</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Business Manager | Data</title>
+ 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -22,28 +23,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-    <!-- daterange picker -->
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-      <!-- Bootstrap time Picker -->
+  <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
-    <!-- Select2 -->
+  <!-- Select2 -->
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
-
-   <!-- datatable lib -->
-    
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
+  <!-- datatable lib -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    
  <style>
     .example-modal .modal {
       position: relative;
@@ -53,40 +47,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       left: auto;
       display: block;
       z-index: 1;
-      border-radius: 25;
     }
 
     .example-modal .modal {
       background: transparent !important;
     }
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-    visibility: visible;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -60px;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-}
-
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -94,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="../assets/dashboard.php" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -112,12 +77,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-         <li class= "user user-menu">
+          <li class= "user user-menu">
                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
                         <script>
-                            var d = new Date();
-                            document.getElementById("demo").innerHTML = d.toUTCString();
+                          var d = new Date().toString();
+                          d=d.split(' ').slice(0, 6).join(' ');
+                          document.getElementById("demo").innerHTML = d;
                         </script>
                     </a>
                 </li>
@@ -163,7 +129,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
               <li class="footer"><a href="#">View all</a></li>
             </ul>
-          </li>
+          </li>      
+         
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -255,18 +222,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <p>
                  Business Manager
-                  <small>Member since Oct. 2017</small>
+                  <small>Member since </small>
                 </p>
-              </li>
+                </li>
               <!-- Menu Footer-->
               <li class="user-footer">
             
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                 <a href="<?php echo '../logout' ?>"  class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
-          </li>    
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+
         </ul>
       </div>
     </nav>
@@ -285,33 +254,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-	<!-- DASHBOARD MENU -->
+  <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
           
-    <!-- MANAGE ACCOUNTS MENU -->
+    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'BusinessManager/userAccounts' ?>">
+          <a href="<?php echo 'userAccounts' ?>">
               <i class="fa fa-group"></i> <span>Manage Accounts</span> </a>
         </li>
-    <!-- SUPPLIES MENU -->
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
          <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
@@ -327,49 +285,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="<?php echo 'BusinessManager/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'BusinessManager/officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
-      <li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-      <li><a href="<?php echo 'BusinessManager/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li class="active"><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
-    <!-- SUPPLIERS MENU -->
+    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'BusinessManager/suppliers' ?>">
+          <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-    <!-- DEPARTMENTS MENU -->
+    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
     <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-    <!-- CALENDAR MENU -->
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
     <li>
-          <a href="<?php echo 'BusinessManager/memo' ?>">
+          <a href="<?php echo 'memo' ?>">
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
     
-    <!-- INVOICE MENU -->
+    <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'BusinessManager/logs' ?>">
+          <a href="<?php echo 'logs' ?>">
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
-          <!--LOCKSCREEN MENU -->
+          <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'BusinessManager/lockscreen' ?>">
+          <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
+        
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -380,63 +339,92 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Deleted Medical Supplies</b>
-        <!-- <small>Supplies</small> -->
+        <b>Deliveries</b>
+        <!-- <small>advanced tables</small> -->
       </h1>
+        
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li><a href="#">Deleted Medical Supplies</a></li>
-        <li class="active">Supplies</li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Deliveries</a></li>
       </ol>
     </section>
 
     <!-- Main content -->
-    <section class="content">
-      <div class="row">
+      <section class="content">
+          <div class="row">
         <div class="col-xs-12">
-
           <div class="box">
-            <div class="box-header">
-              <a href="medicalSupplies" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
-              </button></a>
-              <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
-                      
+            <!-- /.box-header -->
+            <span id="alert_action"></span>
+              <div class="box-body w3-hide">
+              <table id="example1"  class="table table-bordered table-striped" >
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM purchase_orders where soft_deleted='N'";
+                  $result = $conn->query($sql);    
+                ?>
+                <thead>
+                  <tr>
+                        <th>Purchase ID</th>
+                        <th>Supplier</th>
+                        <th>Order Date</th>
+                        <th>Delivery Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?php echo $row["po_id"]; ?></td>
+                      <td><?php echo $row["supplier"]; ?></td>
+                      <td><?php echo $row["order_date"]; ?></td>
+                      <td><?php echo $row["delivery_date"]; ?></td>
+                      <td><?php echo $row["po_remarks"]; ?></td>
+                      <td>
+                        <?php if ($row["po_remarks"] == 'Fully Delivered' || $row["po_remarks"] == 'Partially Delivered') {?>
+                        <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["po_id"]; ?>" disabled><i class="fa fa-edit"></i> Edit</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["po_id"]; ?>"><i class="fa fa-search"></i> View</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["po_id"]; ?>"><i class="fa fa-trash"></i> Remove</button>
+                        </div>
+                        <?php }else{ ?>
+                          <div class="btn-group">
+                              <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["po_id"]; ?>"><i class="fa fa-edit"></i> Edit</button>
+                          </div>
+                          <div class="btn-group">
+                              <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["po_id"]; ?>"><i class="fa fa-search"></i> View</button>
+                          </div>
+                          <div class="btn-group">
+                              <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["po_id"]; ?>"><i class="fa fa-trash"></i> Remove</button>
+                          </div>
+                        <?php } ?>
+                      </td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                        <th>Purchase ID</th>
+                        <th>Supplier</th>
+                        <th>Order Date</th>
+                        <th>Delivery Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                  </tr>
+                </tfoot>
+            </table>
+
             </div>
-              
-      <div class="box-body">
-        <table id="example" class="table table-bordered table-striped">
-         
-          <thead>
-            <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
-                  <th>Expiration Date</th> 
-                  <th>Description</th>
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
-                  <th>Reorder Level</th>
-                  <th> Action</th> 
-            </tr>
-        </thead>
-        
-        <tfoot>
-           <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
-                  <th>Expiration Date</th> 
-                  <th>Description</th>
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
-                  <th>Reorder Level</th>
-                  <th> Action</th> 
-            </tr> 
-        </tfoot>
-      </table>             
-            </div>
+
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -444,15 +432,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
+          <div class="row no-print">
+        <div class="col-xs-1" style="float:right">
+          <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
+          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
+        </div>
+      </div>
+      <script>
+        $('#print').click(function(){
+          var printme = document.getElementById('example1');
+          var wme = window.open("","","width=900,height=700");
+          wme.document.write(printme.outerHTML);
+          wme.document.close();
+          wme.focus();
+          wme.print();
+          wme.close();
+        })
+      </script>
+    
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed
@@ -460,8 +466,66 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+<style>
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
 
+/* Hide default HTML checkbox */
+.switch input {display:none;}
 
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 24px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}    
+</style>
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -492,7 +556,74 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
- 
+<!-- page script -->
+
+<script>
+<!-- date and time -->
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+    //Date picker
+    $('#datepicker2').datepicker({
+      autoclose: true
+    })
+    //Date picker
+    $('#datepicker3').datepicker({
+      autoclose: true
+    })
+      
+    //Timepicker
+    $('.timepicker').timepicker({
+      showInputs: false
+    })
+  })
+</script>
+
+    <script>
+      $(function () {
+        $('#example1').DataTable()
+        $('#example2').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
+      })
+    </script>
+<script>
+<!-- date and time -->
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+    //Date picker
+    $('#datepicker2').datepicker({
+      autoclose: true
+    })
+    //Date picker
+    $('#datepicker3').datepicker({
+      autoclose: true
+    })
+      
+    //Timepicker
+    $('.timepicker').timepicker({
+      showInputs: false
+    })
+  })
+</script>
 
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
@@ -500,30 +631,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div id="content-data"></div>
             </div>
         </div>
-   
-    <script>
+        <div class="modal fade" id="viewModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="view-data"></div>
+            </div>
+        </div>
+        <div class="modal fade" id="deleteModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="delete-data"></div>
+            </div>
+        </div>   
+    <!--<script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
-                'autoWidth' : false,
                 "processing": true,
-                "serverSide": true,
+                "serverSide":true,
                 "ajax":{
-                    url:"medicalsuppliesRecover/getMedicalSuppliesRecover",
+                    url:"purchases/getPurchases",
                     type:"post"
                 }
             });
         });
-    </script>
+    </script>-->
 
-    <!--script js for release data-->
+    <!--script js for get edit data-->
     <script>
-        $(document).on('click','#getRestore',function(e){
+        $(document).on('click','#getEdit',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'medicalsuppliesRecover/recoverMedicalSupplies',
+                url:'deliveries/editDelivery',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -535,25 +674,80 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
     </script>
+
+    <script>
+        $(document).on('click','#getView',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#view-data').html('');
+            $.ajax({
+                url:'deliveries/viewDelivery',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#view-data').html('');
+                $('#view-data').html(data);
+            }).final(function(){
+                $('#view-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).on('click','#getDelete',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#delete-data').html('');
+            $.ajax({
+                url:'deliveries/deleteDelivery',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#delete-data').html('');
+                $('#delete-data').html(data);
+            }).final(function(){
+                $('#delete-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
 </body>
 </html>
 
-<?php 
+<?php
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-
-//SOFT DELETED MEDICAL SUPPLIES
-if(isset($_POST['medRestore'])){
+if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $sqlupdate="UPDATE supplies SET soft_deleted='N' WHERE supply_id='$new_id' ";
+    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
+    
+    $sqlupdate="UPDATE purchase_orders SET po_remarks='$new_status' WHERE po_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
-        echo '<script>window.location.href="medicalSupplies"</script>';
+        echo '<script>window.location.href="deliveries"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-} // END OF SOFT DELETE MEDICAL SUPPLIES
+}
+
+//SOFT DELETED OFFICE SUPPLIES
+if(isset($_POST['btnDelete'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $sqlupdate="UPDATE purchase_orders SET soft_deleted='Y' WHERE po_id='$new_id' ";
+    $result_update=mysqli_query($con,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="deliveries"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+} // END OF SOFT DELETE OFFICE SUPPLIES
 
 ?>
