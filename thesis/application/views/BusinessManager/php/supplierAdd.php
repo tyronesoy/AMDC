@@ -12,9 +12,9 @@ mysqli_select_db($connection, "itproject");
     if($sql->execute()) {
       echo' "Added Successfully"';
         $conn =mysqli_connect("localhost","root","");
-        $datetoday = date("Y/m/d");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','New supplier ".$suppName." has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','new supplier ".$suppName." has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $res1 = $conn->query($notif1);
     } else {
       echo' "Problem in Adding New Record"';

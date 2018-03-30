@@ -749,7 +749,7 @@ if(isset($_POST['btnEdit'])){
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
-        $datetoday = date("Y/m/d");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
         $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Supplier ".$new_supplierName." has been edited','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
@@ -775,9 +775,9 @@ if(isset($_POST['btnUpdate'])){
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
-        $datetoday = date("Y/m/d");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A supplier status has been changed to ".$new_supplierStatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','supplier status has been changed to ".$new_supplierStatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="suppliers"</script>';
     }

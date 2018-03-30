@@ -9,9 +9,9 @@ mysqli_select_db($connection, "itproject");
   $sql->bind_param("ss", $depName, $branch); 
   if($sql->execute()) {
         $conn =mysqli_connect("localhost","root","");
-        $datetoday = date("Y/m/d");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','New department ".$depName." has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','new department ".$depName." has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
   $success_message = "Added Successfully";
   } else {
