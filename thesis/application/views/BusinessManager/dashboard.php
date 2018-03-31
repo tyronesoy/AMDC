@@ -70,7 +70,7 @@ if(!isset($_SESSION['first_run'])){
 <?php  
       if(isset($_SESSION['logged_in']))  
       {  
-           echo 'dashboard';
+           //echo 'dashboard';
       }  
       else if(!isset($_SESSION['logged_in'])) 
       {?>  

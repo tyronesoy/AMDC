@@ -38,7 +38,7 @@ class Dashboard extends CI_Controller {
 
 			if($ty == 'BusinessManager' && $st == 'Active' ){
 					$_SESSION['logged_in'] = 'True';
-				echo "<pre>";
+				echo "<pre class='hidden'>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 				// $exit = $this->session->mark_as_temp(array('username', 'password'), 300);
