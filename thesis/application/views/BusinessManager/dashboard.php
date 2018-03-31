@@ -522,7 +522,7 @@ if(!isset($_SESSION['first_run'])){
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM supplies JOIN suppliers USING(supplier_id) WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
+                  $sql = "SELECT * FROM supplies JOIN suppliers USING(supplier_id) WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -604,7 +604,7 @@ if(!isset($_SESSION['first_run'])){
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
+                  $sql = "SELECT * FROM supplies JOIN suppliers USING(supplier_id) WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
                   $result = $conn->query($sql);    
                 ?>
                 <thead> 
@@ -654,7 +654,7 @@ if(!isset($_SESSION['first_run'])){
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
+                  $sql = "SELECT returns.return_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -684,8 +684,8 @@ if(!isset($_SESSION['first_run'])){
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
                           
-                        <form action="return.php" method="get">
-                          <input type="text" name="returnSupp" hidden value="">
+                         <form action="<?php echo 'BusinessManager/returns'?>" method="get">
+                          <input type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
                           <button type="submit" class="btn btn-success">Returned </button>
                         </form> 
                       </td>
