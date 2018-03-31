@@ -61,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       }  
       else if(!isset($_SESSION['logged_in'])) 
       {?>  
-           <script>window.location.href = "BusinessManager/lockscreen"</script>
+           <script>window.location.href = "lockscreen"</script>
            <?php    
       }  
       ?>
@@ -571,7 +571,7 @@ setTimeout(onUserInactivity, 1000 * 120)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "BusinessManager/lockscreen"
+    window.location.href = "lockscreen"
    <?php } ?>
 }
 </script>
