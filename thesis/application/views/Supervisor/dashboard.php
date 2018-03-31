@@ -178,6 +178,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
       </div>
       <!-- search form -->
+<!--
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -187,6 +188,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </span>
         </div>
       </form>
+-->
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -199,23 +201,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
          
 		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-       <li class ="treeview">
+        
+        <li class="treeview">
           <a href="#">
-            <i class="fa fa-briefcase"></i> <span>Supplies</span>
+            <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-      <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-briefcase"></i> Supplies
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'Supervisor/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'Supervisor/officeSupplies' ?>"><i class="fa fa-pencil-square-o">Office Supplies</i></a></li>
+                </li>
+              </ul>
+            </li>
+            <li><a href="<?php echo 'Supervisor/issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+			<li><a href="<?php echo 'Supervisor/purchases' ?>"><i class="fa fa-shopping-cart"></i>Orders</a></li>
           </ul>
         </li>
-        <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
-            <li><a href="<?php echo 'Supervisor/issuedSupplies' ?>">
-                <i class="fa fa-truck"></i><span>Issued Supplies</span> 
-                </a>
-          </li>
 		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'Supervisor/suppliers' ?>">
@@ -223,12 +234,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
 
-    <!--------------------------------------------------- PURCHASES -------------------------------------------------->
-          <li >
-              <a href="<?php echo 'Supervisor/purchases' ?>">
-                  <i class="fa fa-tags"></i><span>Orders</span>  
-              </a>
-          </li>
 
 		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
@@ -257,8 +262,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         Dashboard
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active"><a href="<?php echo '../dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+		  
       </ol>
     </section>
 
@@ -298,10 +303,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <?php
-                  	$conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT COUNT(*) AS total FROM returns JOIN supplies JOIN suppliers WHERE return_status ='Pending'";
+               <?php
+                    $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+          //$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                  $sql = "SELECT COUNT(*) as total FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -311,7 +316,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       }
                     }
                   ?>
-
               <p>Returned Supplies</p>
             </div>
             <div class="icon">
@@ -329,9 +333,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="inner">
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date <= $date";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date <= '$date' && soft_deleted='N'";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -357,7 +361,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table id="example1" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
                 ?>
@@ -407,8 +411,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example3" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns JOIN supplies JOIN suppliers WHERE return_status ='Pending'";
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                  $sql = "SELECT supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -464,13 +468,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tfoot>
               </table>
           </div>
-         
           <!-- TABLE FOR HIDDEN EXPIRED SUPPLIES TABLE ------>
-          <div id="Demo4" class="box-body w3-hide">
-              <table id="example7" class="table table-bordered table-striped">
+          <div id="Demo3" class="box-body w3-hide">
+              <table id="example5" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $date = date("Y/m/d");
                   $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit, soft_deleted FROM supplies JOIN suppliers WHERE expiration_date <= '$date' && soft_deleted='N' GROUP BY expiration_date";
                   $result = $conn->query($sql);    
@@ -499,7 +502,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["unit"]; ?></td>
                       <td>
                          
-                        <form action="Supervisor/dispose" method="get">
+                        <form action="BusinessManager/dispose" method="get">
                           <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
                           <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Disposed </button>
                         </form> 
@@ -566,8 +569,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                    $sql = "SELECT * FROM reqandsupp WHERE supply_type='Medical' LIMIT 10 ";
+          //$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                    $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Medical' ORDER BY quantity_ordered DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -581,7 +584,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
-                        
+                        <td><?php echo $row["quantity_ordered"]; ?></td>
                        <!--  <td><?php // echo $row[""]; ?></td>
                         <td><?php // echo $row[""]; ?></td>
                         <td><?php // echo $row[""]; ?></td>
@@ -619,8 +622,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
- 					//$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                    $sql = "SELECT * FROM reqandsupp WHERE supply_type='Office' LIMIT 10 ";
+          //$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                    $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Office' ORDER BY quantity_ordered DESC LIMIT 10 ";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -634,6 +637,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
+                        <td><?php echo $row["quantity_ordered"]; ?></td>
                        <!--  <td><?php // echo $row[""]; ?></td>
                         <td><?php // echo $row[""]; ?></td>
                         <td><?php // echo $row[""]; ?></td>
@@ -665,11 +669,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+    <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM. </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed
@@ -719,17 +723,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
 <!-- ITO ANG LEGIT NA JAVASCRIPT NG CHARTS -->
 <!-- jQuery 3 -->
-<script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
 <!-- ChartJS -->
 <script src="assets/bower_components/Chart.js/Chart.js"></script>
-<!-- FastClick -->
-<script src="assets/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="assets/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="assets/dist/js/demo.js"></script>
+	
 <!-- page script -->
 <!-- DataTables -->
 <script src="assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>

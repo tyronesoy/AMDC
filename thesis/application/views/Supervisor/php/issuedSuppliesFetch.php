@@ -14,6 +14,9 @@ $col = array(
     6   =>  'location'  
 );  //create column like table in database
 
+$sql = "SELECT department_name FROM departments JOIN users ON departments.department_id = users.user_id";
+$query=mysqli_query($con,$sql);
+
 $sql ="SELECT * FROM request_supplies";
 $query=mysqli_query($con,$sql);
 
