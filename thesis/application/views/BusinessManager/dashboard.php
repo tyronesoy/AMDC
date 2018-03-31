@@ -522,7 +522,7 @@ if(!isset($_SESSION['first_run'])){
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
+                  $sql = "SELECT * FROM supplies JOIN suppliers USING(supplier_id) WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
