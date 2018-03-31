@@ -80,8 +80,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
                         <script>
-                            var d = new Date();
-                            document.getElementById("demo").innerHTML = d.toUTCString();
+                          var d = new Date().toString();
+                          d=d.split(' ').slice(0, 6).join(' ');
+                          document.getElementById("demo").innerHTML = d;
                         </script>
                     </a>
                 </li>
@@ -89,42 +90,65 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."')  AND log_status = 1";
+                $result6 = $conn->query($sql6);    
+                ?>
+                <?php if ($result6->num_rows > 0) {
+                while($row = $result6->fetch_assoc()) { ?>
+                <span class="label label-warning"><?php echo $row["total"]; 
+                    $counted = $row["total"];
+                    ?></span>
+                <?php 
+                      }
+                    }
+                ?>
             </a>
             <ul class="dropdown-menu">
-              <li class="header"><i class="fa fa-warning text-yellow"></i> You have 10 notifications</li>
+              <li class="header"><i class="fa fa-warning text-yellow"></i> You have <?php echo $counted; ?> notifications</li>
               <li>
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                        Assistant 1 logged in the system.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                       Assistant 1 edited the the unit price of the ink supply in the office supplies.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                       Assistant 1 logged out.
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#">
-                       You logged in.
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      You issued 31 pieces of tissue from the medical supplies to Cardiac Department.
-                    </a>
-                  </li>
+                <ul class="menu">  
+                <table id="notify" class="table table-bordered table-striped">
+                    <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
+                    $result7 = $conn->query($sql7);
+                    ?>
+                    <?php 
+                      if ($result7->num_rows > 0) {
+                       while($row = $result7->fetch_assoc()) { 
+                    ?>
+                      <tr>
+                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <td class="notif-delete">
+                        <form action="delete" method="post">
+                        <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
+                        <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
+                        </form>
+                        </td>
+                      </tr>
+                    <?php 
+                      }
+                    }
+                    ?>
+                </table>
                 </ul>
               </li>
               <li class="footer"><a href="../examples/invoice.php">View all Logs</a></li>
+              <li>
+              <center>
+              <form action="deleteall" method="post">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
+              </form>
+              </center>
+              </li>
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
@@ -145,7 +169,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <ul class="menu">
                   <!-- Task item reorder levels-->
                     <h5>Items below reorder level</h5>
-                    <hr>
                     <li>
                     <?php 
                       if ($result2->num_rows > 0) {
@@ -188,7 +211,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </li>
                   <!-- end task item expiration notification-->
                     <h5>Items nearing expiration</h5>
-                    <hr>
                     <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -206,7 +228,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
                                 if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
                             ?>
-                                  <tr class="warning">
+                                  <tr>
                                   <td><?php echo $row["supply_description"]; ?></td>
                                   <td><?php echo $row["expiration_date"]; ?></td>
                                   </tr>
@@ -214,7 +236,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php
                                       if($expvalue < 25){
                                     ?>
-                                    <tr class="warning">
+                                    <tr>
                                     <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
                                     <td><div class="progress xs">
                                       <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
@@ -224,7 +246,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>
                                     <?php
                                       }else if($expvalue < 50){?>
-                                    <tr class="warning">
+                                    <tr>
                                     <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
                                     <td><div class="progress xs">
                                       <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
@@ -234,7 +256,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>  
                                     <?php
                                       }else if($expvalue < 100){?>
-                                    <tr class="warning">
+                                    <tr>
                                     <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
                                     <td><div class="progress xs">
                                       <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
@@ -251,14 +273,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </small>
                     </table>
                     <h5>Expired Items</h5>
-                    <hr>
                     <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0";
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
                         $result4 = $conn->query($sql4);
                         $strdatetoday = strtotime(date("Y/m/d"));
-                        $strdatelimit = $strdatetoday - 2588400;//today -30 days
                     ?>
                     <table id="expdue" class="table table-bordered table-striped">
                     <small>
@@ -266,7 +286,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               if ($result4->num_rows > 0) {
                                 while($row = $result4->fetch_assoc()) {
                                     $expdate = strtotime($row["expiration_date"]);
-                                if(($expdate < $strdatetoday) && ($expdate > $strdatelimit)){
+                                if($expdate < $strdatetoday){
                             ?>
                                   <tr class="danger">
                                   <td><?php echo $row["supply_description"]; ?></td>
@@ -280,9 +300,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </small>
                     </table>
                 </ul>
-              </li>
-              <li class="footer">
-                <a href="../../dashboard.php">View all charts</a>
               </li>
             </ul>
           </li>
@@ -331,79 +348,79 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+        <li class="header">Inventory Management System</li>
+    <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            </a>
-        </li>
-          
-		<!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'userAccounts' ?>">
-            <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
         </li>
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class = "treeview">
+         
+        <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'userAccounts' ?>">
+            <i class="fa fa-user-circle"></i> <span>Manage Accounts</span>
+          </a>
+        </li>
+        <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+               <li class="treeview">
           <a href="#">
-            <i class="fa fa-briefcase"></i> <span>Supplies</span>
+            <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-			<li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-briefcase"></i> Supplies
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="treeview">
+                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-briefcase"></i>Office Supplies</a>
+                </li>
+              </ul>
+            </li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-list"></i>Issued Supplies</a></li>
+			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-cart-plus"></i>Deparments Order</a></li>
+			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
-        <!--------------------------------------------------- PURCHASES -------------------------------------------------->
-          <li>
-              <a href="<?php echo 'purchases' ?>">
-                  <i class="fa fa-tags"></i><span>Purchases</span>  
-              </a>
-          </li>
-        <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
-            <li>
-                <a href="<?php echo 'issuedSupplies' ?>">
-                <i class="fa fa-truck"></i><span>Issued Supplies</span> 
-                </a>
-          </li>
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+        <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
-          </a>
+            </a>
         </li>
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
+        <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-        <li>
-          <a href="../calendar.html">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
-          </a>
-        </li>
-		<!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+        <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li class="active">
-          <a href="<?php echo 'logs' ?>">
-            <i class="fa fa-print"></i> <span>Logs</span>
+          <a href="<?php echo 'memo'?>">
+            <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
+        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'logs' ?>">
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
+          </a>
+        </li>
+          <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
+      
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -418,8 +435,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i> Dashbaord</a></li>
-        <li class="active">Activity Logs</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li class="active">Activity Logs</li>
       </ol>
     </section>
 
