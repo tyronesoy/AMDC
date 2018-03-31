@@ -329,17 +329,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
@@ -429,9 +418,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Activity Logs</a></li>
-        <li class="active">Data tables</li>
+        <li><i class="fa fa-dashboard"></i> Dashbaord</a></li>
+        <li class="active">Activity Logs</a></li>
       </ol>
     </section>
 
@@ -447,24 +435,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- /.box-header -->
               
             <div class="box-body">
-              <table id="example" class="table table-bordered table-striped">
+              	<table id="example" class="table table-bordered table-striped">
+                    <?php
+	                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+	                  $sql = "SELECT * FROM logs ";
+	                  $result = $conn->query($sql);    
+	                ?>
                     <thead>
-                    <tr>
-                      <th>Date & TIme</th>
-                      <th>Activities</th>
-                      <th>User</th>
-                      <th>Module</th>
-                    </tr>
+	                    <tr>
+	                      <th>Date & Time</th>
+	                      <th>Activities</th>
+	                      <th>User</th>
+	                      <th>Module</th>
+	                    </tr>
                     </thead>
-                  
-                <tfoot>
-                  <tr>
-                      <th>Date & TIme</th>
-                      <th>Activities</th>
-                      <th>User</th>
-                      <th>Module</th>
-                </tr>
-                </tfoot>
+                    <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?php echo $row["log_date"]; ?></td>
+                      <td><?php echo $row["log_description"]; ?></td>
+                      <td><?php echo $row["user"]; ?></td>
+                      <td><?php echo $row["module"]; ?></td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
+	                <tfoot>
+		                <tr>
+		                      <th>Date & Time</th>
+		                      <th>Activities</th>
+		                      <th>User</th>
+		                      <th>Module</th>
+		                </tr>
+	                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
@@ -485,11 +490,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed
@@ -531,6 +536,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
+<script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
+      })
+    </script>
 
     <script>
 <!-- date and time -->
@@ -555,7 +575,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   })
 </script>
 
-<script>
+<!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 'autoWidth' : false,
@@ -567,6 +587,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
         });
-    </script>
+    </script> -->
 </body>
 </html>
