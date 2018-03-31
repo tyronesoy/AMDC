@@ -22,12 +22,24 @@ class delete extends CI_Controller {
 	{	
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
+			$_SESSION['logged_in'] = 'True';
 			echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
 		$data['delete']=$this->db_model->getIssuedSupplies();
-		$this->load->view('BusinessManager/php/delete', $data);
+		//$this->load->view('BusinessManager/php/delete', $data);
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			//$this->load->view('BusinessManager/dashboard');
+           			$this->load->view('BusinessManager/php/delete', $data);
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "BusinessManager/lockscreen";
+           			$this->load->view('BusinessManager/lockscreen');
+      			}
 	}
 		/*$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){

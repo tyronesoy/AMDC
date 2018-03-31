@@ -29,8 +29,18 @@ class DepartmentsOrder extends CI_Controller {
 		// 	$this->load->view('BusinessManager/departments', $data);
 
 		// }
-		$this->load->view('BusinessManager/dep_orders');
-		
+		$_SESSION['logged_in'] = 'True';
+		//$this->load->view('BusinessManager/dep_orders');
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			$this->load->view('BusinessManager/dep_orders');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "BusinessManager/lockscreen";
+           			$this->load->view('BusinessManager/lockscreen');
+      			}
 		//$check = $this->session->userdata('stts');
 		//if($check == 'BusinessManager'){
 		//	$this->load->view('BusinessManager/departments');

@@ -22,7 +22,22 @@ class Deliveries extends CI_Controller {
 		// $this->load->model('db_model');
 		// $data['deliveries']=$this->db_model->getDeliveries();
 		// $this->load->view('BusinessManager/deliveries', $data);
-		$this->load->view('BusinessManager/deliveries');
+		echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
+				$_SESSION['logged_in'] = 'True';
+		//$this->load->view('BusinessManager/deliveries');
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			//$this->load->view('BusinessManager/dashboard');
+           			$this->load->view('BusinessManager/deliveries', $data);
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "BusinessManager/lockscreen";
+           			$this->load->view('BusinessManager/lockscreen');
+      			}
 		//$check = $this->session->userdata('stts');
 		//if($check == 'BusinessManager'){
 		//	$this->load->view('BusinessManager/suppliers');

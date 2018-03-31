@@ -22,12 +22,23 @@ class Logs extends CI_Controller {
 	{	
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
+			$_SESSION['logged_in'] = 'True';
 			// echo "<pre>";
 			// 	print_r ( $this->session->all_userdata());
 			// 	echo "</pre>";
 		$this->load->model('db_model');
 		$data['logs']=$this->db_model->getLogs();
-		$this->load->view('BusinessManager/logs', $data);
+		//$this->load->view('BusinessManager/logs', $data);
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			$this->load->view('BusinessManager/logs');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "BusinessManager/lockscreen";
+           			$this->load->view('BusinessManager/lockscreen');
+      			}
 	}
 		/*$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){

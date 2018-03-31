@@ -21,12 +21,24 @@ class Departments extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
+			$_SESSION['logged_in'] = 'True';
 			echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 			$this->load->model('db_model');
 			$data['departments']=$this->db_model->getDepartments();
-			$this->load->view('BusinessManager/departments', $data);
+			//$this->load->view('BusinessManager/departments', $data);
+			if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			//$this->load->view('BusinessManager/dashboard');
+           			$this->load->view('BusinessManager/departments', $data);
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "BusinessManager/lockscreen";
+           			$this->load->view('BusinessManager/lockscreen');
+      			}
 
 		}
 		

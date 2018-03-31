@@ -21,12 +21,23 @@ class Memo extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
+			$_SESSION['logged_in'] = 'True';
 			echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
 		$data['memo']=$this->db_model->getMemo();
-		$this->load->view('BusinessManager/memo', $data);
+		//$this->load->view('BusinessManager/memo', $data);
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			$this->load->view('BusinessManager/memo');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "BusinessManager/lockscreen";
+           			$this->load->view('BusinessManager/lockscreen');
+      			}
 	}
 		//$check = $this->session->userdata('stts');
 		//if($check == 'BusinessManager'){

@@ -21,11 +21,22 @@ class Dispose extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
+			$_SESSION['logged_in'] = 'True';
 			echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
-		$this->load->view('BusinessManager/php/dispose');
+		//$this->load->view('BusinessManager/php/dispose');
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			$this->load->view('BusinessManager/php/dispose');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "BusinessManager/lockscreen";
+           			$this->load->view('BusinessManager/lockscreen');
+      			}
 		}
 		//$data['users']=$this->db_model->getUsers();
 		//$this->load->view('BusinessManager/user_accounts', $data);

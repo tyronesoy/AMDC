@@ -21,12 +21,23 @@ class UserAccounts extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
+			$_SESSION['logged_in'] = 'True';
 			echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
 		$data['users']=$this->db_model->getUsers();
-		$this->load->view('BusinessManager/user_accounts', $data);
+		//$this->load->view('BusinessManager/user_accounts', $data);
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			$this->load->view('BusinessManager/user_accounts');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "BusinessManager/lockscreen";
+           			$this->load->view('BusinessManager/lockscreen');
+      			}
 	}
 		//$check = $this->session->userdata('stts');
 		//if($check == 'BusinessManager'){

@@ -22,12 +22,24 @@ class BranchLA extends CI_Controller {
 	{
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
+			$_SESSION['logged_in'] = 'True';
 		echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
 		$data['branchLA']=$this->db_model->getLADepartments();
-		$this->load->view('BusinessManager/php/branchLA', $data);
+		//$this->load->view('BusinessManager/php/branchLA', $data);
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			//$this->load->view('BusinessManager/dashboard');
+           			$this->load->view('BusinessManager/php/branchLA', $data);
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "BusinessManager/lockscreen";
+           			$this->load->view('BusinessManager/lockscreen');
+      			}
 		/*
 		$check = $this->session->userdata('stts');
 		if($check == 'BusinessManager'){

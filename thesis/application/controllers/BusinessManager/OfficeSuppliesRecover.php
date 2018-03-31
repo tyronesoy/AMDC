@@ -22,12 +22,23 @@ class OfficeSuppliesRecover extends CI_Controller {
 	{
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
+			$_SESSION['logged_in'] = 'True';
 			echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
 		$data['officeSuppliesRecover']=$this->db_model->getOfficeSuppliesRecover();
-		$this->load->view('BusinessManager/officeSuppliesRecover', $data);
+		//$this->load->view('BusinessManager/officeSuppliesRecover', $data);
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			$this->load->view('BusinessManager/officeSuppliesRecover');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "BusinessManager/lockscreen";
+           			$this->load->view('BusinessManager/lockscreen');
+      			}
 	}
 				
 	}
