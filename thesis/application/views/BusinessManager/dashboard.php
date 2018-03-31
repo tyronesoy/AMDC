@@ -63,7 +63,17 @@ if(!isset($_SESSION['first_run'])){
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-
+<?php  
+      if(isset($_SESSION['logged_in']))  
+      {  
+           echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "BusinessManager/lockscreen"</script>
+           <?php    
+      }  
+      ?>
 
 <div class="wrapper">
 
@@ -960,6 +970,15 @@ if(!isset($_SESSION['first_run'])){
 
 <!-- page script -->
 
+<script>
+setTimeout(onUserInactivity, 1000 * 300)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "BusinessManager/lockscreen"
+   <?php } ?>
+}
+</script>
 
 <!-- <script type="text/javascript">
 setTimeout(onUserInactivity, 1000 * 120)
