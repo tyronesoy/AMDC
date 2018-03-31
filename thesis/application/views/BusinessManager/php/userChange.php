@@ -11,7 +11,6 @@ if(isset($_REQUEST['id'])){
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
         $per_username=$row[2];
-        $per_password=$row[3];
         $per_lname=$row[4];
         $per_fname=$row[5];
         $per_usercontact=$row[6];

@@ -10,13 +10,14 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Business Manager | User Accounts</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Business Manager | User Accounts</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Tell the browser to be responsive to screen width -->
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -32,7 +33,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -45,6 +46,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
   
    <style>
     .example-modal .modal {
@@ -87,128 +89,229 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
          <li class= "user user-menu">
-                    <a class = "dropdown-toggle">
+                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
                         <script>
-                            var d = new Date();
-                            document.getElementById("demo").innerHTML = d.toUTCString();
+                            var d = new Date().toString();
+                            d=d.split(' ').slice(0, 6).join(' ');
+                            document.getElementById("demo").innerHTML = d;
                         </script>
                     </a>
                 </li>
           <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
+            <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."')  AND log_status = 1";
+                $result6 = $conn->query($sql6);    
+                ?>
+                <?php if ($result6->num_rows > 0) {
+                while($row = $result6->fetch_assoc()) { ?>
+                <span class="label label-warning"><?php echo $row["total"]; 
+                    $counted = $row["total"];
+                    ?></span>
+                <?php 
+                      }
+                    }
+                ?>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
+              <li class="header"><i class="fa fa-warning text-yellow"></i> You have <?php echo $counted; ?> notifications</li>
               <li>
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
-                    </a>
-                  </li>
+                <ul class="menu">  
+                <table id="notify" class="table table-bordered table-striped">
+                    <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
+                    $result7 = $conn->query($sql7);
+                    ?>
+                    <?php 
+                      if ($result7->num_rows > 0) {
+                       while($row = $result7->fetch_assoc()) { 
+                    ?>
+                      <tr>
+                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <td class="notif-delete">
+                        <form action="delete" method="post">
+                        <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
+                        <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
+                        </form>
+                        </td>
+                      </tr>
+                    <?php 
+                      }
+                    }
+                    ?>
+                </table>
                 </ul>
               </li>
-              <li class="footer"><a href="#">View all</a></li>
+              <li class="footer"><a href="../examples/invoice.php">View all Logs</a></li>
+              <li>
+              <center>
+              <form action="deleteall" method="post">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
+              </form>
+              </center>
+              </li>
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
+              <span class="label label-danger">!</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
+               <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
+                    $result2 = $conn->query($sql2);
+                  ?>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
+                  <!-- Task item reorder levels-->
+                    <h5>Items below reorder level</h5>
+                    <li>
+                    <?php 
+                      if ($result2->num_rows > 0) {
+                        while($row = $result2->fetch_assoc()) { ?>
+                          <?php echo $row["supply_description"]; 
+                                $newvalue = $row["totalstock"] * 100;
+                                $percentage = $newvalue / $row["maximumreorder"];
+                          ?>
+                        <!--Reorder level meter-->
+                      <?php
+                      if($percentage < 25){
+                      ?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
+                        <div class="progress-bar progress-bar-red" style="width: <?php echo $percentage ?>%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                         </div>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
-                      </h3>
+                      <?php
+                      }else if($percentage < 50){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
+                        <div class="progress-bar progress-bar-yellow" style="width: <?php echo $percentage ?>%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                         </div>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
-                      </h3>
+                      <?php
+                      }else if($percentage < 100){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
+                        <div class="progress-bar progress-bar-green" style="width: <?php echo $percentage ?>%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                         </div>
                       </div>
-                    </a>
+                    <?php
+                      }
+                    }
+                    }
+                    ?>
                   </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
+                  <!-- end task item expiration notification-->
+                    <h5>Items nearing expiration</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
+                        $result3 = $conn->query($sql3);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
+                    ?>
+                    <table id="exp" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result3->num_rows > 0) {
+                                while($row = $result3->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
+                                if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
+                            ?>
+                                  <tr>
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                                    <!--Expiration meter-->
+                                    <?php
+                                      if($expvalue < 25){
+                                    ?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                      }else if($expvalue < 50){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>  
+                                    <?php
+                                      }else if($expvalue < 100){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                    }
+                                    }
+                                }
+                              }
+                            ?>
+                    </small>
+                    </table>
+                    <h5>Expired Items</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
+                        $result4 = $conn->query($sql4);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                    ?>
+                    <table id="expdue" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result4->num_rows > 0) {
+                                while($row = $result4->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                if($expdate < $strdatetoday){
+                            ?>
+                                  <tr class="danger">
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                            <?php
+                                }
+                              }
+                            }
+                            ?>
+                    </small>
+                    </table>
                 </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
               </li>
             </ul>
           </li>
@@ -216,27 +319,28 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Business Manager</span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
-                <p>
-                    Business Manager
-                  <small>Member since 2017</small>
-                </p>
-              </li>
+                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+        <small> Business Manager</small>
+        </p>
+                </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-         
+            
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                 <a href="<?php echo '../logout' ?>"  class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
           </li>
+          <!-- Control Sidebar Toggle Button -->
+
         </ul>
       </div>
     </nav>
@@ -251,37 +355,26 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
           <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Business Manager</p>
+          <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
-    <!-- DASHBOARD MENU -->
+        <li class="header">Inventory Management System</li>
+  <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-    <!-- MANAGE ACCOUNTS MENU -->
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
         <li class="active">
-          <a href="<?php echo 'userAccounts' ?>">
-            <i class="fa fa-group"></i> <span>Manage Accounts</span>
-          </a>
-        </li>
-    <!-- SUPPLIES MENU -->
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
+  
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
@@ -297,51 +390,51 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
-                <li>
-                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a>
+                <li class="active"><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
-      <li><a href="<?php echo 'dep_orders' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
-    <!-- SUPPLIERS MENU -->
+    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-    <!-- DEPARTMENTS MENU -->
+    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-    <!-- MEMO MENU -->
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'memo' ?>">
-            <i class="fa fa-calendar"></i> <span>Memo</span>
+            <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-<!-- INVOICE MENU -->
+
+        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
-           <a href="<?php echo 'logs'?>">
-            <i class="fa fa-calendar"></i
-            <i class="fa fa-print"></i> <span>Logs</span>
+          <a href="<?php echo 'logs' ?>">
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
           </a>
         </li>
-<!-- LOCKSCREEN MENU -->
+
+<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'lockscreen'?>">
-            <i class="fa fa-calendar"></i
+          <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
-      
+        
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -445,11 +538,13 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Email</label>
                                                   <input type="email" class="form-control" name="user_email" id="user_email" required />
-                                                </div>    
+                                                </div>
+                                            
+
                                         </div>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal"> Cancel</button>
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-primary" name="addUser">Save New User Account</button>
                                       </div>
                                     </div>
@@ -464,16 +559,16 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 </table> 
             </div>
             <!-- /.box-header -->
-              <span id="alert_action"></span>
-              <div class="box-body">
-              <table id="example"  class="table table-bordered table-striped" >
+            <span id="alert_action"></span>
+               <div class="box-body">
+                  <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $sql = "SELECT * FROM users";
                   $result = $conn->query($sql);    
                 ?>
-                <thead>
-                  <tr>
+            <thead>
+               <tr>
                 <th>Role</th>
                 <th>User Name</th>
                 <th>First Name</th>
@@ -488,30 +583,33 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <?php
+                       <?php
                         $status = '';
-                          if($row["user_status"] == 'Pending')
+                          if($row["user_status"] == 'Active')
                           {
-                              $status = '<span class="label label-danger">Pending</span>';
+                              $status = '<span class="label label-success">Active</span>';
                           }
                           else
                           {
-                              $status = '<span class="label label-success">Delivered</span>';
+                              $status = '<span class="label label-danger">Inactive</span>';
                           }
                       ?>
                       <td><?php echo $row["user_type"]; ?></td>
                       <td><?php echo $row["username"]; ?></td>
-                      <td><?php echo $row["fname"]; ?></td>
                       <td><?php echo $row["lname"]; ?></td>
+                      <td><?php echo $row["fname"]; ?></td>
                       <td><?php echo $row["user_contact"]; ?></td>
                       <td><?php echo $row["user_email"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-edit"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                            <button type="button" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-random"></i> Change Status</button>
+                        </div>
+                        <div class="btn-group">
+                            <a href="userAccounts?reset=<?php echo $row["user_id"]; ?>" onclick="return confirm('Are you sure to reset the password?')" class="btn btn-info btn-xs"><i class="fa fa-refresh"></i> Reset Password</a>
                         </div>
                       </td>
                     </tr>
@@ -519,7 +617,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       }
                     }
                   ?>
-                </tbody>
+
             <tfoot>
             <tr>
                 <th>Role</th>
@@ -529,7 +627,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th>Contact Number</th>
                 <th>Email</th>
                 <th>Status</th>
-                <th>Action</th>
+               <!-- <th>Reset Password</th> -->
+                <th width="30%">Action</th>
                 
 
             </tr>
@@ -543,16 +642,17 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
               
           </div>
         </div>
-</section>
-</div>
-
- <footer class="main-footer">
+      </section>
+ </div>
+  <!-- /.content-wrapper -->
+   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
     <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
+     
 
 <style>
 
@@ -617,7 +717,7 @@ input:checked + .slider:before {
 </style>
         
 
-
+<!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -648,22 +748,40 @@ input:checked + .slider:before {
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
+ 
+ <script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
-        <!--create modal dialog for display detail info for edit on button cell click-->
+
+      })
+    </script>
+      
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
                 <div id="content-data"></div>
             </div>
         </div>
 
-        <div class="modal fade" id="modalUpdate" role="dialog">
+      <div class="modal fade" id="modalUpdate" role="dialog">
             <div class="modal-dialog">
                 <div id="data-content"></div>
             </div>
         </div>
-
-
-   <!-- <script>
+        <div class="modal fade" id="modalReset" role="dialog">
+            <div class="modal-dialog">
+                <div id="reset-content"></div>
+            </div>
+        </div>
+    <!--<script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 "processing": true,
@@ -674,22 +792,7 @@ input:checked + .slider:before {
                 }
             });
         });
-    </script> -->
-    <script>
-      $(function () {
-        $('#example').DataTable()
-        $('#example1').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : false,
-          'ordering'    : true,
-          'info'        : true,
-          'autoWidth'   : true
-        })
-
-
-      })
-    </script>
+    </script>-->
 
      <!--script js for get edit data-->
     <script>
@@ -712,7 +815,7 @@ input:checked + .slider:before {
         });
     </script>
 
-    <script>
+     <script>
         $(document).on('click','#getUpdate',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
@@ -733,13 +836,27 @@ input:checked + .slider:before {
             
         });
     </script>
-
-    <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
-    <!-- InputMask -->
-    <script src="../plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="../plugins/input-mask/jquery.inputmask.phone.extensions.js"></script>
-    <script src="../plugins/input-mask/jquery.inputmask.extensions.js"></script>
     
+     <script>
+        $(document).on('click','#getAdd',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'userAccounts/userAdd',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
  </body>
 </html>
 
@@ -748,18 +865,21 @@ $con=mysqli_connect('localhost','root','','itproject');
 if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_username=mysqli_real_escape_string($con,$_POST['txtusername']);
-    $new_password=mysqli_real_escape_string($con,$_POST['txtpassword']);
     $new_lname=mysqli_real_escape_string($con,$_POST['txtlname']);
     $new_fname=mysqli_real_escape_string($con,$_POST['txtfname']);
     $new_usercontact=mysqli_real_escape_string($con,$_POST['txtuser_contact']);
     $new_email=mysqli_real_escape_string($con,$_POST['txtemail']);
 
 
-    $sqlupdate="UPDATE users SET username='$new_username',
-                 password=MD5('$new_password'), lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email' WHERE user_id='$new_id' ";
+    $sqlupdate="UPDATE users SET username='$new_username', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email' WHERE user_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','User account ".$new_username." has been edited','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
         echo '<script>window.location.href="userAccounts"</script>';
     }
     else{
@@ -769,18 +889,23 @@ if(isset($_POST['btnEdit'])){
 
 if(isset($_POST['btnUpdate'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_userStatus=mysqli_real_escape_string($con,$_POST['txtstatus']);
+    $new_userstatus=mysqli_real_escape_string($con,$_POST['txtuserstatus']);
 
-    if($new_userStatus == 'Pending'){
-      $new_userStatus = 'Delivered';
+    if($new_userstatus = 'Active'){
+      $new_userstatus = 'Inactive';
     }else{
-      $new_userStatus = 'Pending';
+      $new_userstatus = 'Active';
     }
 
-    $sqlupdate="UPDATE users SET user_status='$new_userStatus' WHERE user_id='$new_id' ";
+    $sqlupdate="UPDATE users SET user_status='$new_userstatus' WHERE user_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A user account has been changed to ".$new_userstatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
         echo '<script>window.location.href="userAccounts"</script>';
     }
     else{
@@ -788,43 +913,20 @@ if(isset($_POST['btnUpdate'])){
     }
 }
 
-if(isset($_GET['delete'])){
-    $id=$_GET['delete'];
-    $sqldelete="UPDATE users SET user_status= IF(user_status='Active','Inactive', IF(user_status='Inactive','Active', user_status)) WHERE user_id='$id'";
-    $result_delete=mysqli_query($con,$sqldelete);
-    if($result_delete){
-        echo'<script>window.location.href="userAccounts"</script>';
-    }
-    else{
-        echo'<script>alert("Update Status Failed")</script>';
-    }
-}
-
 if(isset($_GET['reset'])){
     $id=$_GET['reset'];
-    $sqlreset="UPDATE users SET password='amdc123' WHERE user_id='$id'";
+    $sqlreset="UPDATE users SET password=md5('amdc123') WHERE user_id='$id'";
     $result_reset=mysqli_query($con,$sqlreset);
     if($result_reset){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A user account password has been reset','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
         echo'<script>window.location.href="userAccounts"</script>';
     }
     else{
         echo'<script>alert("Password Reset Failed")</script>';
     }
 }
-// if(isset($_GET['status'])){
-//     $status='Inactive';
-//     $status2='Active';
-//     $id=$_GET['status'];
-      
-//       $sqlstatus="UPDATE users SET user_status='Active' WHERE user_id='$id'";
-//       $result_status=mysqli_query($con,$sqlstatus);
-//       if($result_status){
-//           echo'<script>window.location.href="userAccounts"</script>';
-//       }
-//       else{
-//           echo'<script>alert("Password Reset Failed")</script>';
-//       }
-    
-// } 
-
 ?>

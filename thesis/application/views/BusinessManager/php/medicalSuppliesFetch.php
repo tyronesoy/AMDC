@@ -13,7 +13,10 @@ $col = array(
     5   =>  'quantity_in_stock',
     6   =>  'unit_price',
     7   =>  'unit_on_order',
+    8   =>  'reorder_level',
     9   =>  'expiration_date',
+    10  =>  'good_condition',
+    11  =>  'damaged',
     12  =>  'total_quantity',
     13  =>  'total_amount',
     14  =>  'delivery_id',
@@ -21,7 +24,7 @@ $col = array(
     16  =>  'soft_deleted'
 );  //create column like table in database
 
-$sql ="SELECT * FROM supplies WHERE supply_type LIKE 'Medical'";
+$sql ="SELECT * FROM supplies";
 $query=mysqli_query($con,$sql);
 
 $totalData=mysqli_num_rows($query);
@@ -38,7 +41,8 @@ if(!empty($request['search']['value'])){
     $sql.=" OR unit_price           Like '%".$request['search']['value']."%' ";
     $sql.=" OR reorder_level        Like '%".$request['search']['value']."%' ";
     $sql.=" OR expiration_date      Like '%".$request['search']['value']."%' ";
-  
+    $sql.=" OR good_condition       Like '%".$request['search']['value']."%' ";
+    $sql.=" OR damaged              Like '%".$request['search']['value']."%' ";
 }
 $query=mysqli_query($con,$sql);
 $totalData=mysqli_num_rows($query);
@@ -58,6 +62,9 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[5];  
     $subdata[]=$row[4]; 
     $subdata[]='<td align="right">&#8369; '.$row[6].'</td>';
+    $subdata[]=$row[8];  
+    $subdata[]=$row[10];
+    $subdata[]=$row[11];
 
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
     $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs"

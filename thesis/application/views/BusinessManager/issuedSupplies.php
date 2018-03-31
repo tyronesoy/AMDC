@@ -1,24 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-if(!isset($_SESSION['first_run'])){
-    $_SESSION['first_run'] = 1;
-        $datetoday = date('Y\-m\-d\ H:i:s A');
-        $conn =mysqli_connect("localhost","root","");
-        mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')." has logged in','".$this->session->userdata('username')."','".$this->session->userdata('type')."')";
-        $res1 = $conn->query($notif1);
-}
 ?>
-<!--$this->session->userdata('fname'));
-echo ( $this->session->userdata('lname'))
--->
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <title>Business Manager | Issued Supplies</title>
-  <!-- Tell the browser to be responsive to screen width -->
+ <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -33,21 +22,21 @@ echo ( $this->session->userdata('lname'))
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-             <!-- Bootstrap time Picker -->
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
-    <!-- Select2 -->
-      <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+  <!-- datatable lib -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
  <style>
     .example-modal .modal {
       position: relative;
@@ -69,7 +58,7 @@ echo ( $this->session->userdata('lname'))
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -90,13 +79,13 @@ echo ( $this->session->userdata('lname'))
          <li class= "user user-menu">
                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
-                        <script>
-                            var d = new Date();
-                            document.getElementById("demo").innerHTML = d.toUTCString();
-                        </script>
+                      <script>
+                        var d = new Date().toString();
+                        d=d.split(' ').slice(0, 6).join(' ');
+                        document.getElementById("demo").innerHTML = d;
+                      </script>
                     </a>
                 </li>
-          <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
@@ -160,7 +149,8 @@ echo ( $this->session->userdata('lname'))
               </center>
               </li>
             </ul>
-          </li>
+          </li>      
+         
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -171,7 +161,7 @@ echo ( $this->session->userdata('lname'))
                <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
+                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)/MAX(reorder_level)";
                     $result2 = $conn->query($sql2);
                   ?>
               <li>
@@ -315,36 +305,34 @@ echo ( $this->session->userdata('lname'))
                     </table>
                 </ul>
               </li>
-              <li class="footer">
-                <a href="../../dashboard.php">View all charts</a>
-              </li>
             </ul>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
-                <p>
-                 Business Manager
-                  <small>Member since Oct. 2017</small>
-                </p>
-              </li>
+                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+        <small> Business Manager</small>
+        </p>
+                </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-             
+            
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                 <a href="<?php echo '../logout' ?>"  class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
           </li>
+          <!-- Control Sidebar Toggle Button -->
+
         </ul>
       </div>
     </nav>
@@ -359,193 +347,91 @@ echo ( $this->session->userdata('lname'))
           <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Business Manager</p>
+          <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'dashboard' ?>">
+        <li class="header">Inventory Management System</li>
+  <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+         <li>
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-          <!-- <li class="treeview">
-          <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>Charts</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Layout Options</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-          </ul>
-        </li>
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
         <li>
-          <a href="pages/widgets.html">
-            <i class="fa fa-th"></i> <span>Widgets</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
-            </span>
-          </a>
-        </li>
-       
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>UI Elements</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-            <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
-          </ul>
-        </li> -->
-		<!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'userAccounts' ?>">
-            <i class="fa fa-group"></i> <span>Manage Accounts</span>
-          </a>
-        </li>
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class = "treeview">
-          <a href="#">
-            <i class="fa fa-briefcase"></i> <span>Supplies</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-			<li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
-          </ul>
-        </li>
-        <!--------------------------------------------------- PURCHASES -------------------------------------------------->
-          <li>
-              <a href="<?php echo 'purchases' ?>">
-                  <i class="fa fa-tags"></i><span>Purchases</span>  
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
               </a>
           </li>
-        <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
-            <li class="active">
-                <a href="<?php echo 'issuedSupplies' ?>">
-                <i class="fa fa-truck"></i><span>Issued Supplies</span> 
-                </a>
-          </li>
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+  
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-cubes"></i> <span>Inventory</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="treeview">
+              <a href="#"><i class="fa fa-briefcase"></i> Supplies
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
+                </li>
+              </ul>
+            </li>
+            <li  class="active"><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+          </ul>
+        </li>
+    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
-          <a href="../calendar.html">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
+          <a href="<?php echo 'memo' ?>">
+            <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-		<!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+
+        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'logs' ?>">
-            <i class="fa fa-print"></i> <span>Logs</span>
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
           </a>
         </li>
+
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
-        <!-- <li class="treeview">
-          <a href="#">
-            <i class="fa fa-share"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Level One
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-          </ul>
-        </li>
-        <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-        <li class="header">LABELS</li>
-        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li> -->
+        
       </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -556,9 +442,8 @@ echo ( $this->session->userdata('lname'))
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Distributed Supplies</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li class="active">Issued Supplies</li>
       </ol>
     </section>
 
@@ -582,17 +467,6 @@ echo ( $this->session->userdata('lname'))
                         <li><a href="php/issuedSLU.php">SLU Hospital</a></li>
                         </ul>
                       </div></th>
-                        <th> <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Issued To
-                          <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li><a href="php/issuedToCardiac.php">Cardiac</a></li>
-                          <li><a href="php/issuedToEndoscopy.php">Endoscopy</a></li>
-                          <li><a href="php/IssuedToImaging.php">Imaging</a></li>
-                          <li><a href="php/IssuedToLaboratory.php">Laboratory</a></li>
-                        </ul>
-                      </div></th>
                     </tr>
                 </table>      
             </div>
@@ -600,17 +474,35 @@ echo ( $this->session->userdata('lname'))
               
             <div class="box-body">
               <table id="example" class="table table-bordered table-striped">
-                    <thead>
+                  <?php
+                    $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                    $sql = "SELECT * FROM issuedsupplies";
+                    $result = $conn->query($sql);    
+                  ?>
+                  <thead>
+                  <tr>
+                    <th>Request Date</th>
+                    <th>Issue Date</th>
+                    <th>Supply Type</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Department</th>
+                  </tr>
+                </thead>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <th>Request Date</th>
-                      <th>Issue Date</th>
-                      <th>Supply Type</th>
-                      <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Department</th>
+                      <td><?php echo $row["request_date"]; ?></td>
+                      <td><?php echo $row["issued_date"]; ?></td>
+                      <td><?php echo $row["supply_type"]; ?></td>
+                      <td><?php echo $row["supply_description"]; ?></td>
+                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><?php echo $row["department_name"]; ?></td>
                     </tr>
-                    </thead>
-                  
+                  <?php 
+                      }
+                    }
+                  ?>
                 <tfoot>
                 <tr>
                   <th>Request Date</th>
@@ -643,9 +535,9 @@ echo ( $this->session->userdata('lname'))
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed
@@ -671,9 +563,7 @@ echo ( $this->session->userdata('lname'))
 <script src="../assets/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="../assets/bower_components/moment/min/moment.min.js"></script>
-<script src="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- bootstrap color picker -->
@@ -684,10 +574,9 @@ echo ( $this->session->userdata('lname'))
 <script src="../assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../assets/dist/js/demo.js"></script>
-            <!-- bootstrap time picker -->
+    <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
-
     <script>
 <!-- date and time -->
   $(function () {
@@ -710,8 +599,23 @@ echo ( $this->session->userdata('lname'))
     })
   })
 </script>
-
 <script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
+      })
+    </script>
+
+<!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 'autoWidth' : false,
@@ -723,6 +627,6 @@ echo ( $this->session->userdata('lname'))
                 }
             });
         });
-    </script>
+    </script> -->
 </body>
 </html>

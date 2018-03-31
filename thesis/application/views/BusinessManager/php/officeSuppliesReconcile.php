@@ -8,7 +8,6 @@ if(isset($_REQUEST['id'])){
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
-      //  $per_supplierName=$row[1];
         $per_supplyDescription=$row[2];
         $per_supplyQuantityInStock=$row[5];
 		$per_supplyRemarks=$row[11];
@@ -45,7 +44,7 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtQuantityInStock">Physical Count</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" id="txtPhysicalCount" name="txtPhysicalCount">
+                                <input type="number" class="form-control" id="txtPhysicalCount" name="txtPhysicalCount" min="0">
                             </div>
                         </div>
 						 <div class="form-group">
@@ -57,8 +56,8 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="offSupplies"><button type="button" class="btn btn-danger">Cancel</button> </a>
-                <button type="submit" class="btn btn-primary" name="offRecon">Save</button>
+                <a href="offSupplies"><button type="button" class="btn btn-danger pull-left"><i class="fa fa-times-circle"></i> Cancel</button> </a>
+                <button type="submit" class="btn btn-primary" name="offRecon"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>

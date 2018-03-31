@@ -36,6 +36,7 @@ if(isset($_REQUEST['id'])){
                                 <input type="number" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
 
+                            <div style="float:right;"> </div>
                             <div class="row">
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
@@ -70,22 +71,28 @@ if(isset($_REQUEST['id'])){
                         </div>
 
                             <div class="row">
+                                <div class="col-md-6">
+                            <div class="form-group" style="width:100%">
+                            <label for="txtQuantityInStock">Current Unit Price</label>
+                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
+                            </div>
+                            </div>
+
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
                             <label for="txtUnitPrice">Unit Price</label>
-                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
+                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" min="0" >
+                        </div>
                         </div>
                         </div>
 
+                        <div class="row">
                         <div class="col-md-6">
                         <div class="form-group" style="width:100%">
                             <label for="txtReorderLevel">Reorder Level</label>
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                         </div>
                         </div>
-                        </div>
-
-                            <div class="row">
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
                             <label for="txtExpirationDate">Expiration Date</label>
@@ -93,13 +100,14 @@ if(isset($_REQUEST['id'])){
                         </div>
                         </div>
                         </div>
+
                         </tr>
                         </table>
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="medicalSupplies"><button type="button" class="btn btn-danger">Cancel</button> </a>
-                <button type="submit" class="btn btn-primary" name="medAdd">Save</button>
+                <a href="medicalSupplies"><button type="button" class="btn btn-danger pull-left"><i class="fa fa-times-circle"></i> Cancel</button> </a>
+                <button type="submit" class="btn btn-primary" name="medAdd"><i class="fa fa-times-save"></i> Save</button>
             </div>
         </div>
     </form>

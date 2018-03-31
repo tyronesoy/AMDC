@@ -22,9 +22,9 @@ class IssuedSupplies extends CI_Controller {
 	{	
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
-			echo "<pre>";
-				print_r ( $this->session->all_userdata());
-				echo "</pre>";
+			    //echo "<pre>";
+				//print_r ( $this->session->all_userdata());
+				//echo "</pre>";
 		$this->load->model('db_model');
 		$data['issuedSupplies']=$this->db_model->getIssuedSupplies();
 		$this->load->view('BusinessManager/issuedSupplies', $data);

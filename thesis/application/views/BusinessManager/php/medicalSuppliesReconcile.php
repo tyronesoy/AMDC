@@ -11,7 +11,8 @@ if(isset($_REQUEST['id'])){
       //  $per_supplierName=$row[1];
         $per_supplyDescription=$row[2];
         $per_supplyQuantityInStock=$row[5];
-		$per_supplyRemarks=$row[11];
+        $per_supplyRemarks=$row[11];
+
 
     }//end while
 ?>
@@ -45,21 +46,20 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtQuantityInStock">Physical Count</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" id="txtPhysicalCount" name="txtPhysicalCount">
+                                <input type="number" class="form-control" id="txtPhysicalCount" name="txtPhysicalCount" min="0">
                             </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtsupplyRemarks">Remarks</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="txtsupplyRemarks" name="txtsupplyRemarks">
                             </div>
                         </div>
-                        
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="medicalSupplies"><button type="button" class="btn btn-danger">Cancel</button> </a>
-                <button type="submit" class="btn btn-primary" name="medRecon">Save</button>
+                <a href="offSupplies"><button type="button" class="btn btn-danger pull-left"><i class="fa fa-times-circle"></i> Cancel</button> </a>
+                <button type="submit" class="btn btn-primary" name="offRecon"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>

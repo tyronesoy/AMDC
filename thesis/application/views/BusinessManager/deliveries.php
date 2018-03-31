@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -37,6 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
     
  <style>
     .example-modal .modal {
@@ -91,121 +92,217 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."')  AND log_status = 1";
+                $result6 = $conn->query($sql6);    
+                ?>
+                <?php if ($result6->num_rows > 0) {
+                while($row = $result6->fetch_assoc()) { ?>
+                <span class="label label-warning"><?php echo $row["total"]; 
+                    $counted = $row["total"];
+                    ?></span>
+                <?php 
+                      }
+                    }
+                ?>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
+              <li class="header"><i class="fa fa-warning text-yellow"></i> You have <?php echo $counted; ?> notifications</li>
               <li>
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
-                    </a>
-                  </li>
+                <ul class="menu">  
+                <table id="notify" class="table table-bordered table-striped">
+                    <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
+                    $result7 = $conn->query($sql7);
+                    ?>
+                    <?php 
+                      if ($result7->num_rows > 0) {
+                       while($row = $result7->fetch_assoc()) { 
+                    ?>
+                      <tr>
+                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <td class="notif-delete">
+                        <form action="delete" method="post">
+                        <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
+                        <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
+                        </form>
+                        </td>
+                      </tr>
+                    <?php 
+                      }
+                    }
+                    ?>
+                </table>
                 </ul>
               </li>
-              <li class="footer"><a href="#">View all</a></li>
+              <li class="footer"><a href="../examples/invoice.php">View all Logs</a></li>
+              <li>
+              <center>
+              <form action="deleteall" method="post">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
+              </form>
+              </center>
+              </li>
             </ul>
           </li>      
          
           <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
+                    <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
+              <span class="label label-danger">!</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
+               <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
+                    $result2 = $conn->query($sql2);
+                  ?>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
+                  <!-- Task item reorder levels-->
+                    <h5>Items below reorder level</h5>
+                    <li>
+                    <?php 
+                      if ($result2->num_rows > 0) {
+                        while($row = $result2->fetch_assoc()) { ?>
+                          <?php echo $row["supply_description"]; 
+                                $newvalue = $row["totalstock"] * 100;
+                                $percentage = $newvalue / $row["maximumreorder"];
+                          ?>
+                        <!--Reorder level meter-->
+                      <?php
+                      if($percentage < 25){
+                      ?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                        <div class="progress-bar progress-bar-red" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
                         </div>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
-                      </h3>
+                      <?php
+                      }else if($percentage < 50){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                        <div class="progress-bar progress-bar-yellow" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
                         </div>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
-                      </h3>
+                      <?php
+                      }else if($percentage < 100){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                        <div class="progress-bar progress-bar-green" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
                         </div>
                       </div>
-                    </a>
+                    <?php
+                      }
+                    }
+                    }
+                    ?>
                   </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
+                  <!-- end task item expiration notification-->
+                    <h5>Items nearing expiration</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
+                        $result3 = $conn->query($sql3);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
+                    ?>
+                    <table id="exp" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result3->num_rows > 0) {
+                                while($row = $result3->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
+                                if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
+                            ?>
+                                  <tr>
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                                    <!--Expiration meter-->
+                                    <?php
+                                      if($expvalue < 25){
+                                    ?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                      }else if($expvalue < 50){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>  
+                                    <?php
+                                      }else if($expvalue < 100){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                    }
+                                    }
+                                }
+                              }
+                            ?>
+                    </small>
+                    </table>
+                    <h5>Expired Items</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
+                        $result4 = $conn->query($sql4);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                    ?>
+                    <table id="expdue" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result4->num_rows > 0) {
+                                while($row = $result4->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                if($expdate < $strdatetoday){
+                            ?>
+                                  <tr class="danger">
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                            <?php
+                                }
+                              }
+                            }
+                            ?>
+                    </small>
+                    </table>
                 </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
               </li>
             </ul>
           </li>
@@ -213,17 +310,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Business Manager</span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
-                <p>
-                 Business Manager
-                  <small>Member since </small>
-                </p>
+                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+        <small> Business Manager</small>
+        </p>
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
@@ -250,27 +346,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Business Manager</p>
+          <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
-        <li>
+         <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          </a>
+            </a>
         </li>
-          
-    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'userAccounts' ?>">
-              <i class="fa fa-group"></i> <span>Manage Accounts</span> </a>
-        </li>
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
+  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-         <li class="treeview">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -304,25 +400,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-    <li>
+        <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-    <li>
+        <li>
           <a href="<?php echo 'memo' ?>">
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-    
-    <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+
+        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'logs' ?>">
-            <i class="fa fa-print"></i> <span>Logs</span>
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
           </a>
         </li>
-          <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
+
+<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
@@ -334,6 +431,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.sidebar -->
   </aside>
 
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -343,9 +441,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>advanced tables</small> -->
       </h1>
         
-      <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Deliveries</a></li>
+     <ol class="breadcrumb">
+        <li><a href="<?php echo '../dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li class="active">Deliveries</li>
       </ol>
     </section>
 
@@ -729,6 +827,11 @@ if(isset($_POST['btnEdit'])){
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery record status has been changed to ".$new_status."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
         echo '<script>window.location.href="deliveries"</script>';
     }
     else{
@@ -743,6 +846,11 @@ if(isset($_POST['btnDelete'])){
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery record has been removed','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
         echo '<script>window.location.href="deliveries"</script>';
     }
     else{

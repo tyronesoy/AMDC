@@ -4,11 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Business Manager | Departments</title>
+  <title>Business Manager | Departments Recover</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
-  <!-- Tell the browser to be responsive to screen width -->
+   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -23,16 +23,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-
-   <!-- datatable lib -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+  <!-- datatable lib -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+		
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -72,77 +77,151 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
+              <span class="label label-danger">!</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
+               <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
+                    $result2 = $conn->query($sql2);
+                  ?>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
+                  <!-- Task item reorder levels-->
+                    <h5>Items below reorder level</h5>
+                    <li>
+                    <?php 
+                      if ($result2->num_rows > 0) {
+                        while($row = $result2->fetch_assoc()) { ?>
+                          <?php echo $row["supply_description"]; 
+                                $newvalue = $row["totalstock"] * 100;
+                                $percentage = $newvalue / $row["maximumreorder"];
+                          ?>
+                        <!--Reorder level meter-->
+                      <?php
+                      if($percentage < 25){
+                      ?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                        <div class="progress-bar progress-bar-red" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
                         </div>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
-                      </h3>
+                      <?php
+                      }else if($percentage < 50){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                        <div class="progress-bar progress-bar-yellow" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
                         </div>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
-                      </h3>
+                      <?php
+                      }else if($percentage < 100){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
                       <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                        <div class="progress-bar progress-bar-green" style="width: <?php echo $percentage ?>%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
                         </div>
                       </div>
-                    </a>
+                    <?php
+                      }
+                    }
+                    }
+                    ?>
                   </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
+                  <!-- end task item expiration notification-->
+                    <h5>Items nearing expiration</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
+                        $result3 = $conn->query($sql3);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
+                    ?>
+                    <table id="exp" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result3->num_rows > 0) {
+                                while($row = $result3->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
+                                if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
+                            ?>
+                                  <tr>
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                                    <!--Expiration meter-->
+                                    <?php
+                                      if($expvalue < 25){
+                                    ?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                      }else if($expvalue < 50){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>  
+                                    <?php
+                                      }else if($expvalue < 100){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                    }
+                                    }
+                                }
+                              }
+                            ?>
+                    </small>
+                    </table>
+                    <h5>Expired Items</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
+                        $result4 = $conn->query($sql4);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                    ?>
+                    <table id="expdue" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result4->num_rows > 0) {
+                                while($row = $result4->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                if($expdate < $strdatetoday){
+                            ?>
+                                  <tr class="danger">
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                            <?php
+                                }
+                              }
+                            }
+                            ?>
+                    </small>
+                    </table>
                 </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
               </li>
             </ul>
           </li>
@@ -159,7 +238,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <p>
                  Business Manager
-                  <small>Member since </small>
                 </p>
                 </li>
               <!-- Menu Footer-->
@@ -191,23 +269,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'dashboard' ?>">
+         <li>
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          </a>
+            </a>
         </li>
-          
-    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'BusinessManager/userAccounts' ?>">
-              <i class="fa fa-group"></i> <span>Manage Accounts</span> </a>
-        </li>
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-tags"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
+  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-         <li class="treeview">
+              <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -222,46 +300,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo 'BusinessManager/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'BusinessManager/officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
+                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a>
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
-      <li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-      <li><a href="<?php echo 'BusinessManager/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'BusinessManager/suppliers' ?>">
+          <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-    <li class="active">
-          <a href="<?php echo 'departments' ?>">
+        <li class="active">
+          <a href="#">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-    <li>
-          <a href="<?php echo 'BusinessManager/memo' ?>">
-            <i class="fa fa-tasks"></i> <span>Memo</span>
+        <li>
+          <a href="<?php echo 'memo'?>">
+            <i class="fa fa-calendar"></i> <span>Memo</span>
           </a>
         </li>
-    
     <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'BusinessManager/logs' ?>">
+          <a href="<?php echo 'logs' ?>">
             <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
-          <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
+<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'BusinessManager/lockscreen' ?>">
+          <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -276,13 +353,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Departments</b>
+        <b>Deleted Departments</b>
         <!-- <small>advanced tables</small> -->
-      </h1>
-        
+      </h1>   
       <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Departments</a></li>
+        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li class="active">Deleted Departments</li>
       </ol>
     </section>
 
@@ -293,11 +369,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Office Supplies</h3> -->
-              <h3> Deleted Departments </h3>
+              <a href="departments" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
+              </button></a>
             </div>
             <!-- /.box-header -->
-              <div class="box-body">
-              <table id="example" class="display" cellspacing="0" width="100%">
+             <div class="box-body">
+				<table id="example" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Department Name</th>
@@ -326,12 +403,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-          <div class="row no-print">
-        <div class="col-xs-12">
-          <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
-          
+           <div class="row no-print">
+			<div class="col-xs-1" style="float:right">
+          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
-      </div>
+      <script>
+        $('#print').click(function(){
+          var printme = document.getElementById('example');
+          var wme = window.open("","","width=900,height=700");
+          wme.document.write(printme.outerHTML);
+          wme.document.close();
+          wme.focus();
+          wme.print();
+          wme.close();
+        })
+      </script>
     
     </section>
     <!-- /.content -->
@@ -339,9 +425,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed
@@ -410,6 +496,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }    
 </style>
+
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -440,8 +527,7 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- page script -->
-
+ 
 
 <script>
 <!-- date and time -->

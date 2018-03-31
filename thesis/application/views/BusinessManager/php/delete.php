@@ -10,12 +10,12 @@ $conn =mysqli_connect("localhost","root","");
 <?php
 if ($result2 == 1) { 
 //if it updated
-            header("Location: .\issuedSupplies"); /* Redirect browser */
+            header('Location: ' . $_SERVER['HTTP_REFERER']); /* Redirect browser */
             exit();
 } else { 
 //if it failed
 
-            header("Location: .\issuedSupplies"); /* Redirect browser */
+            header('Location: ' . $_SERVER['HTTP_REFERER']); /* Redirect browser */
             exit();
 } 
 ?>

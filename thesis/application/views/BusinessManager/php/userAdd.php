@@ -12,10 +12,15 @@ $con=mysqli_connect('localhost','root','','itproject');
   $password = $_POST['password'];
   $user_email = $_POST['user_email'];
 
-  
+
   $sql->bind_param("sssssss", $username, $user, $fname, $lname, $user_contact, $password, $user_email);
 
   if($sql->execute()) {
+  $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Added new user ".$user_email."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $res1 = $conn->query($notif1);
   $success_message = "Added Successfully";
   } else {
   $error_message = "Problem in Adding New Record";
@@ -24,12 +29,6 @@ $con=mysqli_connect('localhost','root','','itproject');
   $con->close();
   
   } 
-  
-  $conn =mysqli_connect("localhost","root","");
-        $datetoday = date('Y\-m\-d\ H:i:s A');
-        mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','add new user ".$user_email."','".$this->session->userdata('username')."','".$this->session->userdata('type')."')";
-        $res1 = $conn->query($notif1);
 
   header("Location: ../userAccounts");
 ?>
