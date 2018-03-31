@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!--<?php
 //database_connection.php
-$connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
+//$connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
 //session_start();
 ?>-->
 
@@ -65,6 +65,17 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
   </style>
 </head>
 <body>
+<?php  
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "BusinessManager/lockscreen"</script>
+           <?php    
+      }  
+      ?>
     <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -748,6 +759,19 @@ input:checked + .slider:before {
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
+ 
+
+<script>
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "BusinessManager/lockscreen"
+   <?php } ?>
+}
+</script>
+
+
  
  <script>
       $(function () {
