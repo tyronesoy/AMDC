@@ -3,31 +3,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Db_model extends CI_Model {
 	public function logindata($username,$password){
-		$this->db->where('username', $username);
+		$this->db->where("(user_email = '$username' OR username = '$username')");
 		$this->db->where('password', $password);
 
 		$query = $this->db->get('users');
 		if ($query->num_rows() >0){
 			foreach ($query->result() as $row){
-				if($username == $row->username && $password == $row->password){
+				if(($username == $row->username && $password == $row->password)
+					||($username == $row->user_email && $password == $row->password)){
 
 					$sess = array(
 					'fname' => $row->fname,
 					'lname' => $row->lname,
 					'username' => $row->username,
+					'user_email' => $row->user_email,
 					'password' => $row->password,
 					'type'	   => $row->user_type,
-					'stts'	   => $row->user_status
-
+					'stts'	   => $row->user_status,
 					);
 
 					$this->session->set_userdata($sess);
 					if($row->user_type == 'BusinessManager' && $row->user_status == 'Active'){
+						$_SESSION['logged_in'] = 'True';
 						redirect('dashboard');
 					}else if($row->user_type == 'Assistant' && $row->user_status == 'Active'){
-						redirect('login');
+						$_SESSION['logged_in'] = 'True';
+						redirect('dashboard');
 					}else if($row->user_type == 'Supervisor' && $row->user_status == 'Active'){
-						redirect('login');
+						$_SESSION['logged_in'] = 'True';
+						redirect('dashboard');
 					}else{
 						$this->session->set_flashdata('info', 'This account is inactive!');
 						redirect('/thesis/login');
