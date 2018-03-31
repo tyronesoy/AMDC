@@ -51,6 +51,10 @@ if(!isset($_SESSION['first_run'])){
   <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
   <link rel="stylesheet" href="assets/dist/css/w3css.css">
+  <script src="https://cdnjs.cloudfare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
+  <script src="assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudfare.com/ajax/libs/morris.js/0.5.1/morris.css">
+  <script src="https://cdnjs.cloudfare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -161,7 +165,7 @@ if(!isset($_SESSION['first_run'])){
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="../examples/invoice.php">View all Logs</a></li>
+              <li class="footer"><a href="BusinessManager/logs">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -518,7 +522,6 @@ if(!isset($_SESSION['first_run'])){
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
               ?>
@@ -546,7 +549,6 @@ if(!isset($_SESSION['first_run'])){
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-          //$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $sql = "SELECT COUNT(*) as total FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
               ?>
@@ -574,9 +576,8 @@ if(!isset($_SESSION['first_run'])){
             <div class="inner">
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date <= '$date' && soft_deleted='N'";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date > 0 AND soft_deleted='N'";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -714,9 +715,8 @@ if(!isset($_SESSION['first_run'])){
               <table id="example5" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $date = date("Y/m/d");
-                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit, soft_deleted FROM supplies JOIN suppliers WHERE expiration_date <= '$date' && soft_deleted='N' GROUP BY expiration_date";
+                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit, soft_deleted FROM supplies JOIN suppliers WHERE expiration_date > 0 AND soft_deleted='N'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -727,8 +727,7 @@ if(!isset($_SESSION['first_run'])){
                   <th>Supplier</th>
                   <th>Quantity</th>
                   <th>Unit</th>
-                  <th>Shelf Life</th>
-                  <th></th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -745,7 +744,7 @@ if(!isset($_SESSION['first_run'])){
                          
                         <form action="BusinessManager/dispose" method="get">
                           <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
-                          <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Disposed </button>
+                          <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
                         </form> 
                       </td>
                     </tr>
@@ -762,8 +761,7 @@ if(!isset($_SESSION['first_run'])){
                       <th>Supplier</th>
                       <th>Quantity</th>
                       <th>Unit</th>
-                      <th>Shelf Life</th>
-                      <th></th>
+                      <th>Action</th>
                   </tr> 
                 </tfoot>
               </table>
@@ -787,6 +785,33 @@ if(!isset($_SESSION['first_run'])){
             </div>
             <div class="box-body">
               <div class="chart">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT SUM(supplies.total_amount) AS 'Total Expense', supplies.supply_type AS 'Type', issuedsupplies.department_name AS 'Department' FROM supplies INNER JOIN issuedsupplies USING(supply_type) WHERE supply_type = 'Medical' GROUP BY supply_type, department_name";
+                  $result = $conn->query($sql);
+                  $sql2 = "SELECT SUM(supplies.total_amount) AS 'Total Expense', supplies.supply_type AS 'Type', issuedsupplies.department_name AS 'Department' FROM supplies INNER JOIN issuedsupplies USING(supply_type) WHERE supply_type = 'Office' GROUP BY supply_type, department_name";
+                  $result2 = $conn->query($sql2);
+                  $total_data1 = '';
+                  $type_data1 = '';
+                  $location_data1 = '';
+                  while($row = mysqli_fetch_array($result)){
+                    $total_data1 .= '"'.$row["Total Expense"].'", ';
+                    $type_data1 .= '"'.$row["Type"].'", ';
+                    $location_data1 .= '"'.$row["Department"].'", ';
+                  }
+                  $total_data2 = '';
+                  $type_data2 = '';
+                  $location_data2 = '';
+                  while($row = mysqli_fetch_array($result2)){
+                    $total_data2 .= '"'.$row["Total Expense"].'", ';
+                    $type_data2 .= '"'.$row["Type"].'", ';
+                    $location_data2 .= '"'.$row["Department"].'", ';
+                  }
+                  $chart_data1 = $location_data1;
+                  $chart_data2 = $total_data1;
+                  $chart_data3 = $total_data2;
+
+                ?>
                 <canvas id="barChart" style="height:300px"></canvas>
               </div>
             </div>
@@ -810,7 +835,6 @@ if(!isset($_SESSION['first_run'])){
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-          //$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                     $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Medical' ORDER BY quantity_ordered DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
@@ -826,11 +850,6 @@ if(!isset($_SESSION['first_run'])){
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
                         <td><?php echo $row["quantity_ordered"]; ?></td>
-                       <!--  <td><?php // echo $row[""]; ?></td>
-                        <td><?php // echo $row[""]; ?></td>
-                        <td><?php // echo $row[""]; ?></td>
-                        <td><?php // echo $row[""]; ?></td>
-                        <td><center><input type="checkbox"></center></td> -->
                         </tr>
                       <?php 
                           }
@@ -863,7 +882,6 @@ if(!isset($_SESSION['first_run'])){
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-          //$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                     $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Office' ORDER BY quantity_ordered DESC LIMIT 10 ";
                     $result = $conn->query($sql);    
                   ?>
@@ -879,11 +897,6 @@ if(!isset($_SESSION['first_run'])){
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
                         <td><?php echo $row["quantity_ordered"]; ?></td>
-                       <!--  <td><?php // echo $row[""]; ?></td>
-                        <td><?php // echo $row[""]; ?></td>
-                        <td><?php // echo $row[""]; ?></td>
-                        <td><?php // echo $row[""]; ?></td>
-                        <td><center><input type="checkbox"></center></td> -->
                         </tr>
                       <?php 
                           }
@@ -1024,9 +1037,12 @@ window.onmousemove = resetTimeout
     var barChartCanvas = $('#barChart').get(0).getContext('2d')
     // This will get the first returned node in the jQuery collection.
     var barChart       = new Chart(barChartCanvas)
+    var param1 = [<?php echo $chart_data1; ?>];
+    var param2 = [<?php echo $chart_data2; ?>];
+    var param3 = [<?php echo $chart_data3; ?>];
 
     var barChartData = {
-      labels  : ['Cardiac, BC', 'Endoscopy, BC', 'Imaging, BC', 'Laboratory, BC', 'Management, BC', 'Imaging, LT', 'Laboratory, LT', 'Endoscopy, SLU H'],
+      labels  : param1,
       datasets: [
         {
           label               : 'Medical Supplies',
@@ -1036,17 +1052,17 @@ window.onmousemove = resetTimeout
           pointStrokeColor    : '#c1c7d1',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [320000, 360000, 110000, 510000, 440000, 480000, 290000, 680000]
+          data                : param2
         },
         {
           label               : 'Office Supplies',
-          fillColor           : 'rgba(60,141,188,0.9)',
-          strokeColor         : 'rgba(60,141,188,0.8)',
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
+          fillColor           : 'rgb(65, 65, 242)',
+          strokeColor         : 'rgb(65, 65, 242)',
+          pointColor          : 'rgb(65, 65, 242)',
+          pointStrokeColor    : '#c1c7d1',
           pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [280000, 480000, 470000, 190000, 150000, 340000, 670000, 600000]
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : param3
         }
       ]
       
@@ -1092,271 +1108,6 @@ window.onmousemove = resetTimeout
     }
 
     //Create the line chart
-    barChart.Bar(barChartData, barChartOptions)
-
-    
-    //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieChart       = new Chart(pieChartCanvas)
-    var PieData        = [
-      {
-        value    : 700,
-        color    : '#f56954',
-        highlight: '#f56954',
-        label    : 'Face Mask'
-      },
-      {
-        value    : 500,
-        color    : '#00a65a',
-        highlight: '#00a65a',
-        label    : 'Hand Gloves'
-      },
-      {
-        value    : 400,
-        color    : '#f39c12',
-        highlight: '#f39c12',
-        label    : '5CC Syringe'
-      },
-      {
-        value    : 600,
-        color    : '#00c0ef',
-        highlight: '#00c0ef',
-        label    : '3CC Syringe'
-      },
-      {
-        value    : 300,
-        color    : '#3c8dbc',
-        highlight: '#3c8dbc',
-        label    : 'Red Tap Tubes'
-      },
-      {
-        value    : 100,
-        color    : '#d2d6de',
-        highlight: '#d2d6de',
-        label    : 'Violet Tap Tubes'
-      }
-    ]
-    var pieOptions     = {
-      //Boolean - Whether we should show a stroke on each segment
-      segmentShowStroke    : true,
-      //String - The colour of each segment stroke
-      segmentStrokeColor   : '#fff',
-      //Number - The width of each segment stroke
-      segmentStrokeWidth   : 2,
-      //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout: 50, // This is 0 for Pie charts
-      //Number - Amount of animation steps
-      animationSteps       : 100,
-      //String - Animation easing effect
-      animationEasing      : 'easeOutBounce',
-      //Boolean - Whether we animate the rotation of the Doughnut
-      animateRotate        : true,
-      //Boolean - Whether we animate scaling the Doughnut from the centre
-      animateScale         : false,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive           : true,
-      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio  : true,
-      //String - A legend template
-      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    pieChart.Doughnut(PieData, pieOptions)
-
-          //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart2').get(0).getContext('2d')
-    var pieChart       = new Chart(pieChartCanvas)
-    var PieData        = [
-      {
-        value    : 700,
-        color    : '#f56954',
-        highlight: '#f56954',
-        label    : 'Ballpen'
-      },
-      {
-        value    : 500,
-        color    : '#00a65a',
-        highlight: '#00a65a',
-        label    : 'Masking Tape'
-      },
-      {
-        value    : 400,
-        color    : '#f39c12',
-        highlight: '#f39c12',
-        label    : 'Logbook'
-      },
-      {
-        value    : 600,
-        color    : '#00c0ef',
-        highlight: '#00c0ef',
-        label    : 'Short Bond Paper'
-      },
-      {
-        value    : 300,
-        color    : '#3c8dbc',
-        highlight: '#3c8dbc',
-        label    : 'Marker'
-      },
-      {
-        value    : 100,
-        color    : '#d2d6de',
-        highlight: '#d2d6de',
-        label    : 'Carbon Paper'
-      }
-    ]
-    var pieOptions     = {
-      //Boolean - Whether we should show a stroke on each segment
-      segmentShowStroke    : true,
-      //String - The colour of each segment stroke
-      segmentStrokeColor   : '#fff',
-      //Number - The width of each segment stroke
-      segmentStrokeWidth   : 2,
-      //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout: 50, // This is 0 for Pie charts
-      //Number - Amount of animation steps
-      animationSteps       : 100,
-      //String - Animation easing effect
-      animationEasing      : 'easeOutBounce',
-      //Boolean - Whether we animate the rotation of the Doughnut
-      animateRotate        : true,
-      //Boolean - Whether we animate scaling the Doughnut from the centre
-      animateScale         : false,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive           : true,
-      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio  : true,
-      //String - A legend template
-      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    pieChart.Doughnut(PieData, pieOptions)
-      
-    //-------------
-    //- BAR CHART 1 -
-    //-------------
-    var barChartCanvas                   = $('#barChart1').get(0).getContext('2d')
-    var barChart                         = new Chart(barChartCanvas)
-    var barChartData                     = barChartData
-    barChartData.datasets[1].fillColor   = '#00a65a'
-    barChartData.datasets[1].strokeColor = '#00a65a'
-    barChartData.datasets[1].pointColor  = '#00a65a'
-    var barChartOptions                  = {
-      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-      scaleBeginAtZero        : true,
-      //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines      : true,
-      //String - Colour of the grid lines
-      scaleGridLineColor      : 'rgba(0,0,0,.05)',
-      //Number - Width of the grid lines
-      scaleGridLineWidth      : 1,
-      //Boolean - Whether to show horizontal lines (except X axis)
-      scaleShowHorizontalLines: true,
-      //Boolean - Whether to show vertical lines (except Y axis)
-      scaleShowVerticalLines  : true,
-      //Boolean - If there is a stroke on each bar
-      barShowStroke           : true,
-      //Number - Pixel width of the bar stroke
-      barStrokeWidth          : 2,
-      //Number - Spacing between each of the X value sets
-      barValueSpacing         : 5,
-      //Number - Spacing between data sets within X values
-      barDatasetSpacing       : 1,
-      //String - A legend template
-      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-      //Boolean - whether to make the chart responsive
-      responsive              : true,
-      maintainAspectRatio     : true
-    }
-
-    barChartOptions.datasetFill = false
-    barChart.Bar(barChartData, barChartOptions)
-      
-    //-------------
-    //- BAR CHART 2 -
-    //-------------
-    var barChartCanvas                   = $('#barChart2').get(0).getContext('2d')
-    var barChart                         = new Chart(barChartCanvas)
-    var barChartData                     = barChartData
-    barChartData.datasets[1].fillColor   = '#00a65a'
-    barChartData.datasets[1].strokeColor = '#00a65a'
-    barChartData.datasets[1].pointColor  = '#00a65a'
-    var barChartOptions                  = {
-      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-      scaleBeginAtZero        : true,
-      //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines      : true,
-      //String - Colour of the grid lines
-      scaleGridLineColor      : 'rgba(0,0,0,.05)',
-      //Number - Width of the grid lines
-      scaleGridLineWidth      : 1,
-      //Boolean - Whether to show horizontal lines (except X axis)
-      scaleShowHorizontalLines: true,
-      //Boolean - Whether to show vertical lines (except Y axis)
-      scaleShowVerticalLines  : true,
-      //Boolean - If there is a stroke on each bar
-      barShowStroke           : true,
-      //Number - Pixel width of the bar stroke
-      barStrokeWidth          : 2,
-      //Number - Spacing between each of the X value sets
-      barValueSpacing         : 5,
-      //Number - Spacing between data sets within X values
-      barDatasetSpacing       : 1,
-      //String - A legend template
-      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-      //Boolean - whether to make the chart responsive
-      responsive              : true,
-      maintainAspectRatio     : true
-    }
-
-    barChartOptions.datasetFill = false
-    barChart.Bar(barChartData, barChartOptions)
-      
-       //-------------
-    //- BAR CHART 3 -
-    //-------------
-    var barChartCanvas                   = $('#barChart3').get(0).getContext('2d')
-    var barChart                         = new Chart(barChartCanvas)
-    var barChartData                     = barChartData
-    barChartData.datasets[1].fillColor   = '#00a65a'
-    barChartData.datasets[1].strokeColor = '#00a65a'
-    barChartData.datasets[1].pointColor  = '#00a65a'
-    var barChartOptions                  = {
-      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-      scaleBeginAtZero        : true,
-      //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines      : true,
-      //String - Colour of the grid lines
-      scaleGridLineColor      : 'rgba(0,0,0,.05)',
-      //Number - Width of the grid lines
-      scaleGridLineWidth      : 1,
-      //Boolean - Whether to show horizontal lines (except X axis)
-      scaleShowHorizontalLines: true,
-      //Boolean - Whether to show vertical lines (except Y axis)
-      scaleShowVerticalLines  : true,
-      //Boolean - If there is a stroke on each bar
-      barShowStroke           : true,
-      //Number - Pixel width of the bar stroke
-      barStrokeWidth          : 2,
-      //Number - Spacing between each of the X value sets
-      barValueSpacing         : 5,
-      //Number - Spacing between data sets within X values
-      barDatasetSpacing       : 1,
-      //String - A legend template
-      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-      //Boolean - whether to make the chart responsive
-      responsive              : true,
-      maintainAspectRatio     : true
-    }
-
-    barChartOptions.datasetFill = false
     barChart.Bar(barChartData, barChartOptions)
   })
 </script>
