@@ -80,10 +80,8 @@ if(isset($_REQUEST['id'])){
             </div>
 
             <div class="modal-footer">
-                <a href="userAccounts">
-                    <button type="button" class="btn btn-danger pull-left"><i class="fa fa-times-circle"> </i>
-                    Cancel</button> </a>
-                    <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-save"> </i> Save</button>
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"> </i> Cancel</button>
+                    <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>

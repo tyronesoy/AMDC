@@ -84,17 +84,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php  
-      if(isset($_SESSION['logged_in']))  
-      {  
-           //echo 'dashboard';
-      }  
-      else if(!isset($_SESSION['logged_in'])) 
-      {?>  
-           <script>window.location.href = "BusinessManager/lockscreen"</script>
-           <?php    
-      }  
-      ?>
 <div class="wrapper">
 
   <header class="main-header">
@@ -494,7 +483,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               
       <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
-         
+         <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Office' AND soft_deleted='Y' ";
+                  $result = $conn->query($sql);    
+                ?>
           <thead>
             <tr>
              <!-- <th>Date Received</th>
@@ -509,7 +502,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th> Action</th> 
             </tr>
         </thead>
-        
+        <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?php echo $row["expiration_date"]; ?></td>
+                      <td><?php echo $row["supply_description"]; ?></td>
+                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><?php echo $row["unit"]; ?></td>
+                      <td><?php echo $row["unit_price"]; ?></td>
+                      <td><?php echo $row["reorder_level"]; ?></td>
+                      <td>
+                        <button type="button" id="getRestore" class="btn btn-success btn" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-repeat"></i> Restore</button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
         <tfoot>
            <tr>
              <!-- <th>Date Received</th>
@@ -597,16 +609,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
  
  
- <script>
-setTimeout(onUserInactivity, 1000 * 120)
-function onUserInactivity() {
-  <?php unset($_SESSION['logged_in']);
-  if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "BusinessManager/lockscreen"
-   <?php } ?>
-}
-</script>
-
 
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
@@ -615,7 +617,7 @@ function onUserInactivity() {
             </div>
         </div>
    
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 'autoWidth' : false,
@@ -627,7 +629,7 @@ function onUserInactivity() {
                 }
             });
         });
-    </script>
+    </script> -->
 
     <!--script js for release data-->
     <script>

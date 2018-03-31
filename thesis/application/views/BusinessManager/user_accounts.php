@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!--<?php
 //database_connection.php
-//$connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
+$connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
 //session_start();
 ?>-->
 
@@ -65,17 +65,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body>
-<?php  
-      if(isset($_SESSION['logged_in']))  
-      {  
-           //echo 'dashboard';
-      }  
-      else if(!isset($_SESSION['logged_in'])) 
-      {?>  
-           <script>window.location.href = "BusinessManager/lockscreen"</script>
-           <?php    
-      }  
-      ?>
     <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -555,8 +544,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addUser">Save New User Account</button>
+                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                                        <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-save"></i> Save New User Account</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -759,19 +748,6 @@ input:checked + .slider:before {
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
- 
-
-<script>
-setTimeout(onUserInactivity, 1000 * 120)
-function onUserInactivity() {
-  <?php unset($_SESSION['logged_in']);
-  if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "BusinessManager/lockscreen"
-   <?php } ?>
-}
-</script>
-
-
  
  <script>
       $(function () {

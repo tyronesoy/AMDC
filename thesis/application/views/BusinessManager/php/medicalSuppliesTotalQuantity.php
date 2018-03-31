@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="../assets/dashboard.php" class="logo">
+    <a href="../dashboard" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -357,7 +357,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="active"><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
                   <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
                 </li>
@@ -370,7 +370,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </ul>
         </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
-        <li class="active">
+        <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
@@ -415,7 +415,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
        <ol class="breadcrumb">
-        <li><a href="<?php echo '../dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i>Dashboard</a></li>
         <li class="active">Medical Supplies Total Quantity</li>
       </ol>
     </section>
@@ -679,7 +679,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td><?php echo $row["reorder_level"]; ?></td>
             <td>
              <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+                <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
             </div>  
             </td>          
             </tr>
@@ -774,6 +774,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
+
+<div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="content-data"></div>
+            </div>
+        </div>
+
 <script>
   $(function () {
     $('#example1').DataTable()
@@ -813,7 +820,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   })
 </script>
 <script>
-        $(document).on('click','#edit',function(e){
+        $(document).on('click','#getEdit',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
@@ -838,15 +845,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 
-if(isset($_POST['Edit'])){
+if(isset($_POST['medTQEdit'])){
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
-    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtQuantityInStock']);
-    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
-    $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
+    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
 
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET reorder_level='$new_supplyReorderLevel' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
     if($result_update){

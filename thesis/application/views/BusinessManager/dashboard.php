@@ -70,7 +70,7 @@ if(!isset($_SESSION['first_run'])){
 <?php  
       if(isset($_SESSION['logged_in']))  
       {  
-           //echo 'dashboard';
+           echo 'dashboard';
       }  
       else if(!isset($_SESSION['logged_in'])) 
       {?>  
@@ -151,7 +151,7 @@ if(!isset($_SESSION['first_run'])){
                       <tr>
                         <td><small><?php echo $row["log_description"];?></small></td>
                         <td class="notif-delete">
-                        <form action="BusinessManager/delete" method="post">
+                        <form action="delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
@@ -168,7 +168,7 @@ if(!isset($_SESSION['first_run'])){
               <li class="footer"><a href="BusinessManager/logs">View all Logs</a></li>
               <li>
               <center>
-              <form action="BusinessManager/deleteall" method="post">
+              <form action="deleteall" method="post">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
               </form>
               </center>
@@ -522,7 +522,7 @@ if(!isset($_SESSION['first_run'])){
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers USING(supplier_id) WHERE quantity_in_stock <= reorder_level+10";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -604,7 +604,7 @@ if(!isset($_SESSION['first_run'])){
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT * FROM supplies JOIN suppliers USING(supplier_id) WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
+                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
                 ?>
                 <thead> 
@@ -654,7 +654,7 @@ if(!isset($_SESSION['first_run'])){
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT returns.return_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
+                  $sql = "SELECT supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -684,8 +684,8 @@ if(!isset($_SESSION['first_run'])){
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
                           
-                         <form action="<?php echo 'BusinessManager/returns'?>" method="get">
-                          <input type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
+                        <form action="return.php" method="get">
+                          <input type="text" name="returnSupp" hidden value="">
                           <button type="submit" class="btn btn-success">Returned </button>
                         </form> 
                       </td>
@@ -832,7 +832,7 @@ if(!isset($_SESSION['first_run'])){
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_description, SUM(quantity_ordered) FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Medical' GROUP BY supply_description ORDER BY quantity_ordered DESC LIMIT 10";
+                    $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Medical' ORDER BY quantity_ordered DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -846,7 +846,7 @@ if(!isset($_SESSION['first_run'])){
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
-                        <td><?php echo $row["SUM(quantity_ordered)"]; ?></td>
+                        <td><?php echo $row["quantity_ordered"]; ?></td>
                         </tr>
                       <?php 
                           }
@@ -879,7 +879,7 @@ if(!isset($_SESSION['first_run'])){
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_description, SUM(quantity_ordered) FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Office' GROUP BY supply_description ORDER BY quantity_ordered DESC LIMIT 10 ";
+                    $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Office' ORDER BY quantity_ordered DESC LIMIT 10 ";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -893,7 +893,7 @@ if(!isset($_SESSION['first_run'])){
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
-                        <td><?php echo $row["SUM(quantity_ordered)"]; ?></td>
+                        <td><?php echo $row["quantity_ordered"]; ?></td>
                         </tr>
                       <?php 
                           }

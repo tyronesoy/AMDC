@@ -56,17 +56,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body>
-<?php  
-      if(isset($_SESSION['logged_in']))  
-      {  
-           //echo 'dashboard';
-      }  
-      else if(!isset($_SESSION['logged_in'])) 
-      {?>  
-           <script>window.location.href = "BusinessManager/lockscreen"</script>
-           <?php    
-      }  
-      ?>
     <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -359,6 +348,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
+      <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory Management System</li>
     <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
@@ -464,22 +454,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- /.box-header -->
               <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM memo WHERE soft_deleted = 'Y'";
+                  $result = $conn->query($sql);    
+                ?>
                 <thead>
-            <tr>
-                <th>Memo Date</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr>
-                <th>Memo Date</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </tfoot>
+                  <tr>
+                      <th>Memo Date</th>
+                      <th>Description</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <?php
+                        $status = '';
+                          if($row["memo_status"] == 'Pending')
+                          {
+                              $status = '<span class="label label-danger">Pending</span>';
+                          }
+                          else
+                          {
+                              $status = '<span class="label label-success">Finished</span>';
+                          }
+                      ?>
+                      <td><?php echo $row["memo_date"]; ?></td>
+                      <td><?php echo $row["memo_description"]; ?></td>
+                      <td><?php echo $status; ?></td>
+                      <td>
+                        <div class="btn-group">
+                            <button type="button" id="getRestore" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-repeat"></i> Restore</button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                      <th>Memo Date</th>
+                      <th>Description</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                  </tr>
+                </tfoot>
               </table>
 
             </div>
@@ -504,6 +528,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           wme.close();
         })
       </script>
+      
       </div>
         <!-- END OF PRINT AND PDF -->
     </section>
@@ -609,19 +634,6 @@ input:checked + .slider:before {
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
-
-<script>
-setTimeout(onUserInactivity, 1000 * 120)
-function onUserInactivity() {
-  <?php unset($_SESSION['logged_in']);
-  if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "BusinessManager/lockscreen"
-   <?php } ?>
-}
-</script>
-
-
-
         <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -630,7 +642,7 @@ function onUserInactivity() {
         </div>
 
 
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 "processing": true,
@@ -641,7 +653,7 @@ function onUserInactivity() {
                 }
             });
         });
-    </script>
+    </script> -->
 
     <script>
         $(document).on('click','#getRestore',function(e){

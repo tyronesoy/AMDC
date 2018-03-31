@@ -56,17 +56,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body>
-<?php  
-      if(isset($_SESSION['logged_in']))  
-      {  
-           //echo 'dashboard';
-      }  
-      else if(!isset($_SESSION['logged_in'])) 
-      {?>  
-           <script>window.location.href = "BusinessManager/lockscreen"</script>
-           <?php    
-      }  
-      ?>
     <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -531,7 +520,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example"  class="table table-bordered table-striped" >
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM memo";
+                  $sql = "SELECT * FROM memo WHERE soft_deleted = 'N'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -598,6 +587,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
+        <div class="col-xs-1" style="float:left">
+            <a href="memoRecover" style="color:white;">
+              <button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover</button>
+            </a>
+      </div>
       </div>
       <script>
         $('#print').click(function(){
@@ -610,6 +604,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           wme.close();
         })
       </script>
+
     
     </section>
     <!-- /.content -->
@@ -714,19 +709,6 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-
-
-<script>
-setTimeout(onUserInactivity, 1000 * 120)
-function onUserInactivity() {
-  <?php unset($_SESSION['logged_in']);
-  if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "BusinessManager/lockscreen"
-   <?php } ?>
-}
-</script>
-
-
  
 <script>
       $(function () {

@@ -28,8 +28,8 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="memoRecover"><button type="button" class="btn btn-danger">Cancel</button> </a>
-                <button type="submit" class="btn btn-danger" name="memDelete">Archive</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i>Cancel</button>
+                <button type="submit" class="btn btn-danger" name="memDelete"><i class="fa fa-archive"></i>Archive</button>
             </div>
         </div>
     </form>

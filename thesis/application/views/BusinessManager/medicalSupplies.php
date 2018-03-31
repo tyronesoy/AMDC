@@ -55,17 +55,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php  
-      if(isset($_SESSION['logged_in']))  
-      {  
-           //echo 'dashboard';
-      }  
-      else if(!isset($_SESSION['logged_in'])) 
-      {?>  
-           <script>window.location.href = "BusinessManager/lockscreen"</script>
-           <?php    
-      }  
-      ?>
 <div class="wrapper">
 
   <header class="main-header">
@@ -766,9 +755,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         })
       </script>
     <div class="col-xs-1" style="float:left">
-          <a href="medicalSuppliesRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
+          <a href="medicalSuppliesRecover" style="color:white;">
+            <button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover</button>
           </a>
-          </button>
     </div>
       </div>
         <!-- END OF PRINT AND PDF -->
@@ -819,19 +808,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-
-
-<script>
-setTimeout(onUserInactivity, 1000 * 120)
-function onUserInactivity() {
-  <?php unset($_SESSION['logged_in']);
-  if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "BusinessManager/lockscreen"
-   <?php } ?>
-}
-</script>
-
-
 <!-- page script -->
  
 <script>

@@ -86,17 +86,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php  
-      if(isset($_SESSION['logged_in']))  
-      {  
-           //echo 'dashboard';
-      }  
-      else if(!isset($_SESSION['logged_in'])) 
-      {?>  
-           <script>window.location.href = "BusinessManager/lockscreen"</script>
-           <?php    
-      }  
-      ?>
 <div class="wrapper">
 
   <header class="main-header">
@@ -819,18 +808,6 @@ input:checked + .slider:before {
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 
-
-<script>
-setTimeout(onUserInactivity, 1000 * 120)
-function onUserInactivity() {
-  <?php unset($_SESSION['logged_in']);
-  if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "BusinessManager/lockscreen"
-   <?php } ?>
-}
-</script>
-
-
 <script>
       $(function () {
         $('#example').DataTable()
@@ -876,12 +853,12 @@ function onUserInactivity() {
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="viewModal" role="dialog">
             <div class="modal-dialog">
-                <div id="content-data"></div>
+                <div id="view-data"></div>
             </div>
         </div>
-        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="editModal" role="dialog">
             <div class="modal-dialog">
-                <div id="content-data"></div>
+                <div id="edit-data"></div>
             </div>
         </div>
           <div class="modal fade" id="modalUpdate" role="dialog">
@@ -910,17 +887,17 @@ function onUserInactivity() {
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
-            $('#content-data').html('');
+            $('#edit-data').html('');
             $.ajax({
                 url:'purchases/editPurchases',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
             }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
+                $('#edit-data').html('');
+                $('#edit-data').html(data);
             }).fial(function(){
-                $('#content-data').html('<p>Error</p>');
+                $('#edit-data').html('<p>Error</p>');
             });
         });
     </script>
@@ -930,17 +907,17 @@ function onUserInactivity() {
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
-            $('#content-data').html('');
+            $('#view-data').html('');
             $.ajax({
                 url:'purchases/viewPurchases',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
             }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
+                $('#view-data').html('');
+                $('#view-data').html(data);
             }).final(function(){
-                $('#content-data').html('<p>Error</p>');
+                $('#view-data').html('<p>Error</p>');
             });
         });
     </script>

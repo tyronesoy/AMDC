@@ -654,9 +654,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               
             <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
-         <?php // RETRIEVE or Display Office Supplies
+         <?php // RETRIEVE or Display Medical Supplies
          $conn =mysqli_connect("localhost","root","");
-   mysqli_select_db($conn, "itproject");
+          mysqli_select_db($conn, "itproject");
           $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
             FROM supplies WHERE supply_type='Office' AND quantity_in_stock IS NOT NULL
             GROUP BY supply_description;";
@@ -678,14 +678,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php
           while($row = $result->fetch_assoc()) { ?>
             <tr>
-            <!-- <td><?php // echo $row["expirationDate"]; ?></td> -->
-
             <td><?php echo $row["supply_description"]; ?></td>
             <td align="right"><?php echo $row["Total Quantity"]; ?></td>
             <td><?php echo $row["unit"]; ?></td>
             <td align="right"><?php echo $row["Total Amount"]; ?></td>
             <td><?php echo $row["reorder_level"]; ?></td>
-            <td align="center"><button type="button" id="edit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-pencil"></i>Edit</button></td>
+            <td>
+             <div class="btn-group">
+                <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+            </div>  
+            </td>          
             </tr>
           <?php 
               }
@@ -778,6 +780,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="content-data"></div>
+            </div>
+        </div>
+
 <script>
   $(function () {
     $('#example1').DataTable()
@@ -817,7 +826,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   })
 </script>
 <script>
-        $(document).on('click','#edit',function(e){
+        $(document).on('click','#getEdit',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
@@ -837,3 +846,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 </body>
 </html>
+
+<?php 
+$conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+
+if(isset($_POST['offTQEdit'])){
+    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+
+    $sqlupdate="UPDATE supplies SET reorder_level='$new_supplyReorderLevel' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="officeSupplies"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+}
+
+?>
