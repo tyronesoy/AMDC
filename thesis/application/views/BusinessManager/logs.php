@@ -414,13 +414,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
         <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-        <li class="active">
+        <li>
           <a href="<?php echo 'memo'?>">
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
         <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
-        <li>
+        <li class="active">
           <a href="<?php echo 'logs' ?>">
             <i class="fa fa-list-alt"></i> <span>Logs</span>
           </a>
