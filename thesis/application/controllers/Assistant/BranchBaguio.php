@@ -22,9 +22,9 @@ class BranchBaguio extends CI_Controller {
 	{
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 			$this->load->model('db_model');
 			$data['branchBaguio']=$this->db_model->getBaguioDepartments();
 			$this->load->view('Assistant/php/branchBaguio', $data);

@@ -22,7 +22,7 @@ if(isset($_REQUEST['id'])){
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <div class="margin">
-                        <h3>Edit Memo</h3>
+                        <center><h3>Edit Memo</h3></center>
                     </div>
             </div>
             
@@ -48,17 +48,8 @@ if(isset($_REQUEST['id'])){
                              <div class="form-group">
                                     <label class="col-sm-4 control-label" for="txtmemodescription">Description</label>
                                 <div class="col-sm-6">
-                                    <textarea type="text" class="form-control" id="txtmemodescription" name="txtmemodescription" value="<?php echo $per_memodescription;?>"/>
+                                    <input type="text" class="form-control" id="txtmemodescription" name="txtmemodescription" value="<?php echo $per_memodescription;?>"/>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="txtmemostatus">Status</label>
-                                <div class="col-sm-6">
-                                     <input type="radio" name="txtmemostatus" id="txtmemostatus" value="Not yet finished" >Not yet finished <br>
-                                    <input type="radio" name="txtmemostatus" id="txtmemostatus" value="On the process" > On Process <br>
-                                    <input type="radio" name="txtmemostatus" id="txtmemostatus" value="Finished"> Finished <br>
-                                </div> 
                             </div>
                     </div>
                 </form>
@@ -66,8 +57,8 @@ if(isset($_REQUEST['id'])){
 
             <div class="modal-footer">
                 <a href="memo">
-                    <button type="button" class="btn btn-danger">Cancel</button> </a>
-                    <button type="submit" class="btn btn-primary" name="btnEdit">Save</button>
+                    <button type="button" class="btn btn-danger pull-left"><i class="fa fa-times-circle"></i> Cancel</button></a>
+                    <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>

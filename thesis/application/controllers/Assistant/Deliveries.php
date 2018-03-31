@@ -35,18 +35,18 @@ class Deliveries extends CI_Controller {
 		//	header('Location: ../login');
 		//}
 	}
-	public function getDelivery(){
-		$this->load->view('Assistant/php/deliveryFetch');
+	public function deleteDelivery(){
+		$this->load->view('Assistant/php/deliveriesDelete');
 	}
 	// public function getChange(){
 	// 	$this->load->view('Assistant/php/supplierChange');
 	// }
-	public function getFullDelivery(){
-		$this->load->view('Assistant/php/deliveryFull');
+	public function editDelivery(){
+		$this->load->view('Assistant/php/deliveriesEdit');
 	}
 	
-	public function getPartialDelivery(){
-		$this->load->view('Assistant/php/deliveryPartial');
+	public function viewDelivery(){
+		$this->load->view('Assistant/php/deliveriesView');
 	}
 
 }

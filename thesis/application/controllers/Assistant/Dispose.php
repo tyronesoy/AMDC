@@ -21,9 +21,9 @@ class Dispose extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$this->load->view('Assistant/php/dispose');
 		}

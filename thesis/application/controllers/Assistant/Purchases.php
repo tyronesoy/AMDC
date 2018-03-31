@@ -21,9 +21,9 @@ class Purchases extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['purchases']=$this->db_model->getPurchases();
 		$this->load->view('Assistant/purchases', $data);
@@ -43,10 +43,15 @@ class Purchases extends CI_Controller {
 	public function getPurchases(){
 		$this->load->view('Assistant/php/purchasesFetch');
 	}
+	public function getChange(){
+		$this->load->view('Assistant/php/purchasesChange');
+	}
 	public function addPurchases(){
 		$this->load->view('Assistant/php/purchasesAdd');
 	}
-	
+	public function viewPurchases(){
+		$this->load->view('Assistant/php/purchasesOrderView');
+	}
 	public function editPurchases(){
 		$this->load->view('Assistant/php/purchasesEdit');
 	}

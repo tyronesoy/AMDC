@@ -18,18 +18,38 @@ class UserAccounts extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
-		$check = $this->session->userdata('stts');
-		if($check == 'BusinessManager'){
-			$this->load->view('BusinessManager/user_accounts');
-		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/user_accounts');
-		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/user_accounts');
-		}else{
-			header('Location: ../login');
-		}
+	public function index(){
+		$check = $this->session->userdata('type');
+		if($check == 'Assistant'){
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
+		$this->load->model('db_model');
+		$data['users']=$this->db_model->getUsers();
+		$this->load->view('Assistant/user_accounts', $data);
+	}
+		//$check = $this->session->userdata('stts');
+		//if($check == 'Assistant'){
+		//	$this->load->view('Assistant/user_accounts');
+		//}else if($check == 'Assistant'){
+		//	$this->load->view('Assistant/user_accounts');
+		//}else if($check == 'Supervisor'){
+		//	$this->load->view('Supervisor/user_accounts');
+		//}else{
+		//	header('Location: ../login');
+		//}
 		
+	}
+	public function getUser(){
+		$this->load->view('Assistant/php/userFetch');
+	}
+	public function addUser(){
+		$this->load->view('Assistant/php/userAdd');
+	}
+	public function getChange(){
+		$this->load->view('Assistant/php/userChange');
+	}
+	public function editUser(){
+		$this->load->view('Assistant/php/userEdit');
 	}
 }

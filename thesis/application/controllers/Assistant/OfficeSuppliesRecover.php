@@ -22,9 +22,9 @@ class OfficeSuppliesRecover extends CI_Controller {
 	{
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['officeSuppliesRecover']=$this->db_model->getOfficeSuppliesRecover();
 		$this->load->view('Assistant/officeSuppliesRecover', $data);

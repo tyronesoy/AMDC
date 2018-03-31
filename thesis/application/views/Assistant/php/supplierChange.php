@@ -29,7 +29,7 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <center><h3 class="modal-title"><b>Do you want to change the status of <h2><b><u><?php echo $per_supplierName;?></u></b></h2></b></h3></center>
+                        <center><h3 class="modal-title"><b>Are you sure to change the status of </h3><h2><b><u><?php echo $per_supplierName;?></u>?</b></h2></b></center>
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Suppliers ID</label>
                             <div class="col-sm-6">
@@ -46,8 +46,8 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" name="btnUpdate">Save</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-primary" name="btnUpdate"> <i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>

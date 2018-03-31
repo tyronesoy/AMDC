@@ -8,15 +8,12 @@ if(isset($_REQUEST['id'])){
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
-      //  $per_supplierName=$row[1];
         $per_supplyDescription=$row[2];
         $per_supplyUnit=$row[4];
         $per_supplyQuantityInStock=$row[5];
         $per_supplyUnitPrice=$row[6];
-        $per_supplyReorderLevel=$row[8];
         $per_supplyExpirationDate=$row[9];
-        $per_supplyGoodCondition=$row[10];
-        $per_supplyDamaged=$row[11];
+        $per_supplyReorderLevel=$row[8];
 
     }//end while
 ?>
@@ -36,6 +33,7 @@ if(isset($_REQUEST['id'])){
                                 <input type="number" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
 
+                            <div style="float:right;"> </div>
                             <div class="row">
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
@@ -70,22 +68,28 @@ if(isset($_REQUEST['id'])){
                         </div>
 
                             <div class="row">
+                                <div class="col-md-6">
+                            <div class="form-group" style="width:100%">
+                            <label for="txtQuantityInStock">Current Unit Price</label>
+                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
+                            </div>
+                            </div>
+
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
                             <label for="txtUnitPrice">Unit Price</label>
-                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
+                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" min="0" >
+                        </div>
                         </div>
                         </div>
 
+                        <div class="row">
                         <div class="col-md-6">
                         <div class="form-group" style="width:100%">
                             <label for="txtReorderLevel">Reorder Level</label>
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                         </div>
                         </div>
-                        </div>
-
-                            <div class="row">
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
                             <label for="txtExpirationDate">Expiration Date</label>
@@ -94,44 +98,13 @@ if(isset($_REQUEST['id'])){
                         </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtGoodCondition">Good Condition</label>
-                                <input type="number" class="form-control" id="txtGoodCondition" name="txtGoodCondition" value="<?php echo $per_supplyGoodCondition;?>" readonly>
-                        </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtGoodCondition">New Good Condition</label>
-                                <input type="number" min="0" class="form-control" id="addGC" name="addGC">
-                        </div>
-                        </div>
-                        </div>
-
-                            <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtDamaged">Damaged</label>
-                                <input type="number" class="form-control" id="txtDamaged" name="txtDamaged" value="<?php echo $per_supplyDamaged;?>" readonly>
-                            </div>
-                        </div>
-
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtDamaged">New Damaged</label>
-                                <input type="number" min="0" class="form-control" id="addDam" name="addDam">
-                            </div>
-                        </div>
-                        </div>
                         </tr>
                         </table>
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="medicalSupplies"><button type="button" class="btn btn-danger">Cancel</button> </a>
-                <button type="submit" class="btn btn-primary" name="offAdd">Save</button>
+                <a href="medicalSupplies"><button type="button" class="btn btn-danger pull-left"><i class="fa fa-times-circle"></i> Cancel</button> </a>
+                <button type="submit" class="btn btn-primary" name="offAdd"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>

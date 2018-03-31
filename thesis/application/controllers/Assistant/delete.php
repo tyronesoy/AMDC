@@ -22,12 +22,12 @@ class delete extends CI_Controller {
 	{	
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['delete']=$this->db_model->getIssuedSupplies();
-		$this->load->view('Assistant/delete', $data);
+		$this->load->view('Assistant/php/delete', $data);
 	}
 		/*$check = $this->session->userdata('stts');
 		if($check == 'Assistant'){

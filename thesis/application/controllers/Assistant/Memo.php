@@ -21,9 +21,9 @@ class Memo extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['memo']=$this->db_model->getMemo();
 		$this->load->view('Assistant/memo', $data);
@@ -49,7 +49,9 @@ class Memo extends CI_Controller {
 	public function deleteMemo(){
 		$this->load->view('Assistant/php/memoDelete');
 	}
-	
+	public function getChange(){
+		$this->load->view('Assistant/php/memoChange');
+	}
 	public function editMemo(){
 		$this->load->view('Assistant/php/memoEdit');
 	}

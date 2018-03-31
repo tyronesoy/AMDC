@@ -21,9 +21,9 @@ class Suppliers extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['suppliers']=$this->db_model->getSuppliers();
 		$this->load->view('Assistant/suppliers', $data);

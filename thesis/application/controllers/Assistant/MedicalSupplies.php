@@ -22,9 +22,9 @@ class MedicalSupplies extends CI_Controller {
 	{
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
-			// echo "<pre>";
-			// 	print_r ( $this->session->all_userdata());
-			// 	echo "</pre>";
+			echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
 		$this->load->model('db_model');
 		$data['medicalSupplies']=$this->db_model->getMedicalSupplies();
 		$this->load->view('Assistant/medicalSupplies', $data);

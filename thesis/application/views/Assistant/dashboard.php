@@ -1,12 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+if(!isset($_SESSION['first_run'])){
+    $_SESSION['first_run'] = 1;
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        $conn =mysqli_connect("localhost","root","");
+        mysqli_select_db($conn, "itproject");
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')." has logged in','".$this->session->userdata('username')."','".$this->session->userdata('type')."')";
+        $res1 = $conn->query($notif1);
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Assistant | Dashboard</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Assistant | Dashboard</title>
+
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -28,10 +37,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-  <script src="assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- Select2 -->
-  <link rel="stylesheet" href="assets/bower_components/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
     <!-- datatable lib -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -42,11 +51,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
   <link rel="stylesheet" href="assets/dist/css/w3css.css">
+  <script src="https://cdnjs.cloudfare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
+  <script src="assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudfare.com/ajax/libs/morris.js/0.5.1/morris.css">
+  <script src="https://cdnjs.cloudfare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-
+<?php  
+      if(isset($_SESSION['logged_in']))  
+      {  
+           echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "Assistant/lockscreen"</script>
+           <?php    
+      }  
+      ?>
 
 <div class="wrapper">
 
@@ -77,7 +108,158 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </script>
                 </a>
             </li>
-            
+          <!-- Tasks: style can be found in dropdown.less -->
+                  <li class="dropdown tasks-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-flag-o"></i>
+              <span class="label label-danger">!</span>
+            </a>
+            <ul class="dropdown-menu">
+               <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                        $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
+                    $result2 = $conn->query($sql2);
+                  ?>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <!-- Task item reorder levels-->
+                    <h5>Items below reorder level</h5>
+                    <li>
+                    <?php 
+                      if ($result2->num_rows > 0) {
+                        while($row = $result2->fetch_assoc()) { ?>
+                          <?php echo $row["supply_description"]; 
+                                $newvalue = $row["totalstock"] * 100;
+                                $percentage = $newvalue / $row["maximumreorder"];
+                          ?>
+                        <!--Reorder level meter-->
+                      <?php
+                      if($percentage < 25){
+                      ?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-red" style="width: <?php echo $percentage ?>%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                      </div>
+                      <?php
+                      }else if($percentage < 50){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-yellow" style="width: <?php echo $percentage ?>%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                      </div>
+                      <?php
+                      }else if($percentage < 100){?>
+                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-green" style="width: <?php echo $percentage ?>%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                      </div>
+                    <?php
+                      }
+                    }
+                    }
+                    ?>
+                  </li>
+                  <!-- end task item expiration notification-->
+                    <h5>Items nearing expiration</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
+                        $result3 = $conn->query($sql3);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
+                    ?>
+                    <table id="exp" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result3->num_rows > 0) {
+                                while($row = $result3->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
+                                if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
+                            ?>
+                                  <tr>
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                                    <!--Expiration meter-->
+                                    <?php
+                                      if($expvalue < 25){
+                                    ?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                      }else if($expvalue < 50){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>  
+                                    <?php
+                                      }else if($expvalue < 100){?>
+                                    <tr>
+                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
+                                    <td><div class="progress xs">
+                                      <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
+                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                      </div>
+                                    </div></td>
+                                    </tr>
+                                    <?php
+                                    }
+                                    }
+                                }
+                              }
+                            ?>
+                    </small>
+                    </table>
+                    <h5>Expired Items</h5>
+                    <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
+                        $result4 = $conn->query($sql4);
+                        $strdatetoday = strtotime(date("Y/m/d"));
+                    ?>
+                    <table id="expdue" class="table table-bordered table-striped">
+                    <small>
+                            <?php 
+                              if ($result4->num_rows > 0) {
+                                while($row = $result4->fetch_assoc()) {
+                                    $expdate = strtotime($row["expiration_date"]);
+                                if($expdate < $strdatetoday){
+                            ?>
+                                  <tr class="danger">
+                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["expiration_date"]; ?></td>
+                                  </tr>
+                            <?php
+                                }
+                              }
+                            }
+                            ?>
+                    </small>
+                    </table>
+                </ul>
+              </li>
+            </ul>
+          </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -171,9 +353,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i>Active</a>
         </div>
       </div>
-      <!-- sidebar menu: : style can be found in sidebar.less -->
+
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li class= "active">
           <a href="<?php echo 'dashboard' ?>">
@@ -181,35 +363,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class ="treeview">
+         <li class="treeview">
           <a href="#">
-            <i class="fa fa-briefcase"></i> <span>Supplies</span>
+            <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-      <li><a href="<?php echo 'Assistant/medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-      <li><a href="<?php echo 'Assistant/officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-briefcase"></i> Supplies
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'Assistant/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'Assistant/officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
+                </li>
+              </ul>
+            </li>
+            <li><a href="<?php echo 'Assistant/issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+			<li><a href="<?php echo 'Assistant/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+			<li><a href="<?php echo 'Assistant/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+			<li><a href="<?php echo 'Assistant/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
-        <!--------------------------------------------------- PURCHASES -------------------------------------------------->
-          <li>
-              <a href="<?php echo 'Assistant/purchases' ?>">
-                  <i class="fa fa-tags"></i><span>Purchases</span>  
-              </a>
-          </li>
-          <!--------------------------------------------------- DELIVERIES -------------------------------------------------->
-          <li>
-              <a href="<?php echo 'Assistant/deliveries' ?>">
-                  <i class="fa fa-truck"></i><span>Pending Deliveries</span>
-              </a>
-          </li>
-        <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
-            <li><a href="<?php echo 'Assistant/issuedSupplies' ?>">
-                <i class="fa fa-truck"></i><span>Issued Supplies</span> 
-                </a>
-          </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'Assistant/suppliers' ?>">
@@ -217,26 +397,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li class ="treeview">
-          <a href="#">
+		<li>
+          <a href="<?php echo 'Assistant/departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-      <li><a href="<?php echo 'Assistant/departments' ?>"><i class= "fa fa-medkit"></i> Departments List</a></li>
-      <li><a href="<?php echo 'Assistant/departmentsOrder' ?>"><i class="fa fa-pencil-square-o"></i> Departments Order</a></li>
-          </ul>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-        <li>
+		<li>
           <a href="<?php echo 'Assistant/memo' ?>">
-            <i class="fa fa-calendar"></i> <span>Memo</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
+            <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
           <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
@@ -259,7 +428,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         Dashboard
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Dashboard</li>
       </ol>
     </section>
 
@@ -328,7 +497,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date <= '$date' && soft_deleted='N'";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date > 0 AND soft_deleted='N'";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -354,6 +523,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table id="example1" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
                 ?>
@@ -403,6 +573,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example3" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $sql = "SELECT supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
@@ -461,12 +632,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- TABLE FOR HIDDEN EXPIRED SUPPLIES TABLE ------>
           <div id="Demo3" class="box-body w3-hide">
-              <table id="example7" class="table table-bordered table-striped">
+              <table id="example5" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $date = date("Y/m/d");
-                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit, soft_deleted FROM supplies JOIN suppliers WHERE expiration_date <= '$date' && soft_deleted='N' GROUP BY expiration_date";
+                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit, soft_deleted FROM supplies JOIN suppliers WHERE expiration_date > 0 AND soft_deleted='N'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -477,8 +647,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th>Supplier</th>
                   <th>Quantity</th>
                   <th>Unit</th>
-                  <th>Shelf Life</th>
-                  <th></th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -495,7 +664,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                          
                         <form action="Assistant/dispose" method="get">
                           <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
-                          <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Disposed </button>
+                          <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
                         </form> 
                       </td>
                     </tr>
@@ -512,8 +681,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <th>Supplier</th>
                       <th>Quantity</th>
                       <th>Unit</th>
-                      <th>Shelf Life</th>
-                      <th></th>
+                      <th>Action</th>
                   </tr> 
                 </tfoot>
               </table>
@@ -537,6 +705,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="box-body">
               <div class="chart">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT SUM(supplies.total_amount) AS 'Total Expense', supplies.supply_type AS 'Type', issuedsupplies.department_name AS 'Department' FROM supplies INNER JOIN issuedsupplies USING(supply_type) WHERE supply_type = 'Medical' GROUP BY supply_type, department_name";
+                  $result = $conn->query($sql);
+                  $sql2 = "SELECT SUM(supplies.total_amount) AS 'Total Expense', supplies.supply_type AS 'Type', issuedsupplies.department_name AS 'Department' FROM supplies INNER JOIN issuedsupplies USING(supply_type) WHERE supply_type = 'Office' GROUP BY supply_type, department_name";
+                  $result2 = $conn->query($sql2);
+                  $total_data1 = '';
+                  $type_data1 = '';
+                  $location_data1 = '';
+                  while($row = mysqli_fetch_array($result)){
+                    $total_data1 .= '"'.$row["Total Expense"].'", ';
+                    $type_data1 .= '"'.$row["Type"].'", ';
+                    $location_data1 .= '"'.$row["Department"].'", ';
+                  }
+                  $total_data2 = '';
+                  $type_data2 = '';
+                  $location_data2 = '';
+                  while($row = mysqli_fetch_array($result2)){
+                    $total_data2 .= '"'.$row["Total Expense"].'", ';
+                    $type_data2 .= '"'.$row["Type"].'", ';
+                    $location_data2 .= '"'.$row["Department"].'", ';
+                  }
+                  $chart_data1 = $location_data1;
+                  $chart_data2 = $total_data1;
+                  $chart_data3 = $total_data2;
+
+                ?>
                 <canvas id="barChart" style="height:300px"></canvas>
               </div>
             </div>
@@ -648,7 +843,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
@@ -708,6 +903,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- page script -->
 
+<script>
+setTimeout(onUserInactivity, 1000 * 300)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "Assistant/lockscreen"
+   <?php } ?>
+}
+</script>
 
 <!-- <script type="text/javascript">
 setTimeout(onUserInactivity, 1000 * 120)
@@ -740,13 +944,25 @@ window.onmousemove = resetTimeout
 <!--- CHARTS -->
 <script>
   $(function () {
+    /* ChartJS
+     * -------
+     * Here we will create a few charts using ChartJS
+     */
+
+    //--------------
+    //- AREA CHART -
+    //--------------
+
     // Get context with jQuery - using jQuery's .get() method.
     var barChartCanvas = $('#barChart').get(0).getContext('2d')
     // This will get the first returned node in the jQuery collection.
     var barChart       = new Chart(barChartCanvas)
+    var param1 = [<?php echo $chart_data1; ?>];
+    var param2 = [<?php echo $chart_data2; ?>];
+    var param3 = [<?php echo $chart_data3; ?>];
 
     var barChartData = {
-      labels  : ['Cardiac, BC', 'Endoscopy, BC', 'Imaging, BC', 'Laboratory, BC', 'Management, BC', 'Imaging, LT', 'Laboratory, LT', 'Endoscopy, SLU H'],
+      labels  : param1,
       datasets: [
         {
           label               : 'Medical Supplies',
@@ -756,17 +972,17 @@ window.onmousemove = resetTimeout
           pointStrokeColor    : '#c1c7d1',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [320000, 360000, 110000, 510000, 440000, 480000, 290000, 680000]
+          data                : param2
         },
         {
           label               : 'Office Supplies',
-          fillColor           : 'rgba(60,141,188,0.9)',
-          strokeColor         : 'rgba(60,141,188,0.8)',
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
+          fillColor           : 'rgb(65, 65, 242)',
+          strokeColor         : 'rgb(65, 65, 242)',
+          pointColor          : 'rgb(65, 65, 242)',
+          pointStrokeColor    : '#c1c7d1',
           pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [280000, 480000, 470000, 190000, 150000, 340000, 670000, 600000]
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : param3
         }
       ]
       
@@ -813,7 +1029,6 @@ window.onmousemove = resetTimeout
 
     //Create the line chart
     barChart.Bar(barChartData, barChartOptions)
-
   })
 </script>
 
@@ -871,8 +1086,8 @@ function myFunction3(id) {
       'info'        : true,
       'autoWidth'   : false
     })
-    $('#example7').DataTable()
-    $('#example8').DataTable({
+    $('#example5').DataTable()
+    $('#example6').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
