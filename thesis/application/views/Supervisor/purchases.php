@@ -486,7 +486,7 @@ function unit_measure($connect)
                                               <td width="20"><button type="button" name="add" id="add" class="btn btn-success">+</button></td>
                                             </tr>
                                           </table>
-                                         <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />
+                                       
                                         </div>
                                       
 
