@@ -35,7 +35,7 @@ class Login extends CI_Controller {
 			$st = $this->session->userdata('stts');
 
 			if($ty == 'BusinessManager' && $st == 'Active'){
-				echo "<pre>";
+				echo "<pre class = 'hidden'>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 				// $exit = $this->session->mark_as_temp(array('username', 'password'), 300);

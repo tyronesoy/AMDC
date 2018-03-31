@@ -25,7 +25,7 @@ class Lockscreen extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
-			echo "<pre>";
+			    echo "<pre class = 'hidden'>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 				$_SESSION['logged_in'] = 'True';
