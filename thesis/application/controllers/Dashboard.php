@@ -78,9 +78,9 @@ class Dashboard extends CI_Controller {
 	public function departmentPage(){
 	$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
-			// echo "<pre>";
-			// print_r ( $this->session->all_userdata());
-			// echo "</pre>";
+			echo "<pre class = 'hidden'>";
+			print_r ( $this->session->all_userdata());
+			echo "</pre>";
 			$exit = $this->session->mark_as_temp(array('username', 'password'), 300);
 			//		$this->session->sess_destroy();
 			$this->load->view('BusinessManager/departments');
