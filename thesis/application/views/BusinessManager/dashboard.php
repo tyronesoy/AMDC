@@ -577,7 +577,7 @@ if(!isset($_SESSION['first_run'])){
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date > 0 AND soft_deleted='N'";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -716,7 +716,7 @@ if(!isset($_SESSION['first_run'])){
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit, soft_deleted FROM supplies JOIN suppliers WHERE expiration_date > 0 AND soft_deleted='N'";
+                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, quantity_in_stock, unit, soft_deleted FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -724,7 +724,6 @@ if(!isset($_SESSION['first_run'])){
                   <th>Expiration Date</th>
                   <th>Description</th>
                   <th>Brandname</th>
-                  <th>Supplier</th>
                   <th>Quantity</th>
                   <th>Unit</th>
                   <th>Action</th>
@@ -737,7 +736,6 @@ if(!isset($_SESSION['first_run'])){
                       <td><?php echo $row["expiration_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
-                      <td><?php echo $row["company_name"]; ?></td>
                       <td><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td>
@@ -758,7 +756,6 @@ if(!isset($_SESSION['first_run'])){
                       <th>Expiration Date</th>
                       <th>Description</th>
                       <th>Brandname</th>
-                      <th>Supplier</th>
                       <th>Quantity</th>
                       <th>Unit</th>
                       <th>Action</th>
