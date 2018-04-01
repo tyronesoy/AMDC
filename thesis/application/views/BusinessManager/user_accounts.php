@@ -66,7 +66,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
 </head>
 <body>
     <body class="hold-transition skin-blue sidebar-mini">
-      <?php  
+      <?php 
+      $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];  
       if(isset($_SESSION['logged_in']))  
       {  
            //echo 'dashboard';
