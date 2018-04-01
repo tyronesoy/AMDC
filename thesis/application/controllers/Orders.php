@@ -1,38 +1,268 @@
 <?php
-//index.php
 
-$connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
+defined('BASEPATH') OR exit('No direct script access allowed');
 
+class Orders extends Admin_Controller 
+{
+	public function __construct()
+	{
+		parent::__construct();
 
-function supply_dropdown($connect)
-{ 
- $output = '';
- $query = "SELECT * FROM supplies ORDER BY supply_description ASC";
- $statement = $connect->prepare($query);
- $statement->execute();
- $result = $statement->fetchAll();
- foreach($result as $row)
- {
-  $output .= '<option value="'.$row["supply_description"].'">'.$row["supply_description"].'</option>';
- }
- return $output;
-}
+		$this->not_logged_in();
 
-function unit_measure($connect)
-{ 
- $output = '';
- $query = "SELECT * FROM unit_of_measure ORDER BY unit_name ASC";
- $statement = $connect->prepare($query);
- $statement->execute();
- $result = $statement->fetchAll();
- foreach($result as $row)
- {
-  $output .= '<option value="'.$row["unit_name"].'">'.$row["unit_name"].'</option>';
- }
- return $output;
-}
-?>
-<!DOCTYPE html>
+		$this->data['page_title'] = 'Orders';
+
+		$this->load->model('model_orders');
+		$this->load->model('model_products');
+		$this->load->model('model_company');
+	}
+
+	/* 
+	* It only redirects to the manage order page
+	*/
+	public function index()
+	{
+		if(!in_array('viewOrder', $this->permission)) {
+            redirect('dashboard');
+        }
+
+		$this->data['page_title'] = 'Manage Orders';
+		$this->render_template('orders/index', $this->data);		
+	}
+
+	/*
+	* Fetches the orders data from the orders table 
+	* this function is called from the datatable ajax function
+	*/
+	public function fetchOrdersData()
+	{
+		$result = array('data' => array());
+
+		$data = $this->model_orders->getOrdersData();
+
+		foreach ($data as $key => $value) {
+
+			$count_total_item = $this->model_orders->countOrderItem($value['id']);
+			$date = date('d-m-Y', $value['date_time']);
+			$time = date('h:i a', $value['date_time']);
+
+			$date_time = $date . ' ' . $time;
+
+			// button
+			$buttons = '';
+
+			if(in_array('viewOrder', $this->permission)) {
+				//$buttons .= '<a target="__blank" href="'.'orders/printDiv/'.$value['id'].'" class="btn btn-default"><i class="fa fa-print"></i></a>';
+				 $buttons .= '<a target="__blank" href="'.base_url('orders/printDiv/'.$value['id']).'" class="btn btn-default"><i class="fa fa-print"></i></a>';
+			}
+
+			if(in_array('updateOrder', $this->permission)) {
+				$buttons .= ' <a href="'.base_url('orders/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+			}
+
+			if(in_array('deleteOrder', $this->permission)) {
+				$buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+			}
+
+			if($value['paid_status'] == 1) {
+				$paid_status = '<span class="label label-success">Paid</span>';	
+			}
+			else {
+				$paid_status = '<span class="label label-warning">Not Paid</span>';
+			}
+
+			$result['data'][$key] = array(
+				$value['bill_no'],
+				$value['customer_name'],
+				$value['customer_phone'],
+				$date_time,
+				$count_total_item,
+				$value['net_amount'],
+				$paid_status,
+				$buttons
+			);
+		} // /foreach
+
+		echo json_encode($result);
+	}
+
+	/*
+	* If the validation is not valid, then it redirects to the create page.
+	* If the validation for each input field is valid then it inserts the data into the database 
+	* and it stores the operation message into the session flashdata and display on the manage group page
+	*/
+	public function create()
+	{
+		if(!in_array('createOrder', $this->permission)) {
+            redirect('dashboard', 'refresh');
+        }
+
+		$this->data['page_title'] = 'Add Order';
+
+		$this->form_validation->set_rules('product[]', 'Product name', 'trim|required');
+		
+	
+        if ($this->form_validation->run() == TRUE) {        	
+        	
+        	$order_id = $this->model_orders->create();
+        	
+        	if($order_id) {
+        		$this->session->set_flashdata('success', 'Successfully created');
+        		redirect('orders/update/'.$order_id, 'refresh');
+        	}
+        	else {
+        		$this->session->set_flashdata('errors', 'Error occurred!!');
+        		redirect('orders/create/', 'refresh');
+        	}
+        }
+        else {
+            // false case
+        	$company = $this->model_company->getCompanyData(1);
+        	$this->data['company_data'] = $company;
+        	$this->data['is_vat_enabled'] = ($company['vat_charge_value'] > 0) ? true : false;
+        	$this->data['is_service_enabled'] = ($company['service_charge_value'] > 0) ? true : false;
+
+        	$this->data['products'] = $this->model_products->getActiveProductData();      	
+
+            $this->render_template('orders/create', $this->data);
+        }	
+	}
+
+	/*
+	* It gets the product id passed from the ajax method.
+	* It checks retrieves the particular product data from the product id 
+	* and return the data into the json format.
+	*/
+	public function getProductValueById()
+	{
+		$product_id = $this->input->post('product_id');
+		if($product_id) {
+			$product_data = $this->model_products->getProductData($product_id);
+			echo json_encode($product_data);
+		}
+	}
+
+	/*
+	* It gets the all the active product inforamtion from the product table 
+	* This function is used in the order page, for the product selection in the table
+	* The response is return on the json format.
+	*/
+	public function getTableProductRow()
+	{
+		$products = $this->model_products->getActiveProductData();
+		echo json_encode($products);
+	}
+
+	/*
+	* If the validation is not valid, then it redirects to the edit orders page 
+	* If the validation is successfully then it updates the data into the database 
+	* and it stores the operation message into the session flashdata and display on the manage group page
+	*/
+	public function update($id)
+	{
+		if(!in_array('updateOrder', $this->permission)) {
+            redirect('dashboard', 'refresh');
+        }
+
+		if(!$id) {
+			redirect('dashboard', 'refresh');
+		}
+
+		$this->data['page_title'] = 'Update Order';
+
+		$this->form_validation->set_rules('product[]', 'Product name', 'trim|required');
+		
+	
+        if ($this->form_validation->run() == TRUE) {        	
+        	
+        	$update = $this->model_orders->update($id);
+        	
+        	if($update == true) {
+        		$this->session->set_flashdata('success', 'Successfully updated');
+        		redirect('orders/update/'.$id, 'refresh');
+        	}
+        	else {
+        		$this->session->set_flashdata('errors', 'Error occurred!!');
+        		redirect('orders/update/'.$id, 'refresh');
+        	}
+        }
+        else {
+            // false case
+        	$company = $this->model_company->getCompanyData(1);
+        	$this->data['company_data'] = $company;
+        	$this->data['is_vat_enabled'] = ($company['vat_charge_value'] > 0) ? true : false;
+        	$this->data['is_service_enabled'] = ($company['service_charge_value'] > 0) ? true : false;
+
+        	$result = array();
+        	$orders_data = $this->model_orders->getOrdersData($id);
+
+    		$result['order'] = $orders_data;
+    		$orders_item = $this->model_orders->getOrdersItemData($orders_data['id']);
+
+    		foreach($orders_item as $k => $v) {
+    			$result['order_item'][] = $v;
+    		}
+
+    		$this->data['order_data'] = $result;
+
+        	$this->data['products'] = $this->model_products->getActiveProductData();      	
+
+            $this->render_template('orders/edit', $this->data);
+        }
+	}
+
+	/*
+	* It removes the data from the database
+	* and it returns the response into the json format
+	*/
+	public function remove()
+	{
+		if(!in_array('deleteOrder', $this->permission)) {
+            redirect('dashboard', 'refresh');
+        }
+
+		$order_id = $this->input->post('order_id');
+
+        $response = array();
+        if($order_id) {
+            $delete = $this->model_orders->remove($order_id);
+            if($delete == true) {
+                $response['success'] = true;
+                $response['messages'] = "Successfully removed"; 
+            }
+            else {
+                $response['success'] = false;
+                $response['messages'] = "Error in the database while removing the product information";
+            }
+        }
+        else {
+            $response['success'] = false;
+            $response['messages'] = "Refersh the page again!!";
+        }
+
+        echo json_encode($response); 
+	}
+
+	/*
+	* It gets the product id and fetch the order data. 
+	* The order print logic is done here 
+	*/
+	public function printDiv($id)
+	{
+		if(!in_array('viewOrder', $this->permission)) {
+            redirect('dashboard', 'refresh');
+        }
+        
+		if($id) {
+			$order_data = $this->model_orders->getOrdersData($id);
+			$orders_items = $this->model_orders->getOrdersItemData($id);
+			$company_info = $this->model_company->getCompanyData(1);
+
+			$order_date = date('d/m/Y', $order_data['date_time']);
+			$paid_status = ($order_data['paid_status'] == 1) ? "Paid" : "Unpaid";
+
+			$html = '<!-- Main content -->
+			<!DOCTYPE html>
 <html>
 <head>
    <title>Supervisor | Orders</title>
@@ -67,7 +297,7 @@ function unit_measure($connect)
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -336,9 +566,20 @@ function unit_measure($connect)
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-
-    <!-- ORDERS -->
-        <li class=" active treeview" id="mainOrdersNav">
+		    <!-- PURCHASES -->
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Order</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="<?php echo 'purchases' ?>"><i class="fa fa-circle-o"></i>Add Order</a></li>
+            <!-- <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li> -->
+          </ul>
+        
+            <li class="treeview" id="mainOrdersNav">
               <a href="#">
                 <i class="fa fa-dollar"></i>
                 <span>Orders</span>
@@ -347,8 +588,9 @@ function unit_measure($connect)
                 </span>
               </a>
               <ul class="treeview-menu">
+        
                   <li id="addOrderNav"><a href="<?php echo base_url('Supervisor/orders/create') ?>"><i class="fa fa-circle-o"></i> Add Order</a></li>
-                <li class="active" id="manageOrdersNav"><a href="<?php echo 'purchases' ?>"><i class="fa fa-circle-o"></i> Views Orders</a></li>
+                <li id="manageOrdersNav"><a href="<?php echo base_url('orders') ?>"><i class="fa fa-circle-o"></i> Manage Orders</a></li>
            
               </ul>
             </li>
@@ -371,267 +613,75 @@ function unit_measure($connect)
     </section>
     <!-- /.sidebar -->
   </aside>
+			
+			<div class="wrapper">
+			  <section class="invoice">
+			    <!-- title row -->
+			    <div class="row">
+			      <div class="col-xs-12">
+			        <h2 class="page-header">
+			          '.$company_info['company_name'].'
+			          <small class="pull-right">Date: '.$order_date.'</small>
+			        </h2>
+			      </div>
+			      <!-- /.col -->
+			    </div>
+			    <!-- info row -->
+			    <div class="row invoice-info">
+			      
+			      <div class="col-sm-4 invoice-col">
+			        
+			        <b>Bill ID:</b> '.$order_data['bill_no'].'<br>
+			        <b>Name:</b> '.$order_data['customer_name'].'<br>
+			        <b>Address:</b> '.$order_data['customer_address'].' <br />
+			        <b>Phone:</b> '.$order_data['customer_phone'].'
+			      </div>
+			      <!-- /.col -->
+			    </div>
+			    <!-- /.row -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-            <i class="fa fa-shopping-cart"> </i> <b>Orders</b>
-        <!-- <small>Supplies</small> -->
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="<?php echo 'purchases' ?>">Orders</a></li>
-      </ol>
-    </section>
+			    <!-- Table row -->
+			    <div class="row">
+			      <div class="col-xs-12 table-responsive">
+			        <table class="table table-striped">
+			          <thead>
+			          <tr>
+			            <th>Product name</th>
+			            <th>Price</th>
+			            <th>Qty</th>
+			            <th>Amount</th>
+			          </tr>
+			          </thead>
+			          <tbody>'; 
 
-       <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
-                <table style="float:right;">
-                    <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-success" onclick="window.location.href='href="<?php echo base_url('orders/create') ?>'"><i class=" fa fa-plus">Add Order</i></button></th>
-                    </tr>
-                </table>      
-            </div>
-            <!-- /.box-header -->
-                   <div class="box-body">
-                   <table id="example" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Order Date</th>
-                        <th>Customer Name</th>
-                        <th>Department</th>
-                        <th>Status</th>
-                        <th>Remarks</th>
-                        <!-- <th>Action</th> -->
-                    </tr>
-                </thead>
-                
-                <tfoot>
-                  <tr>
-                        <th>Order ID</th>
-                        <th>Order Date</th>
-                        <th>Customer Name</th>
-                        <th>Department</th>
-                        <th>Status</th>
-                        <th>Remarks</th>
-                       <!-- <th>Action</th> -->
-                    </tr>
-                </tfoot>
-            </table>
+			          foreach ($orders_items as $k => $v) {
 
-            </div>
+			          	$product_data = $this->model_products->getProductData($v['product_id']); 
+			          	
+			          	$html .= '<tr>
+				            <td>'.$product_data['name'].'</td>
+				            <td>'.$v['rate'].'</td>
+				            <td>'.$v['qty'].'</td>
+				            <td>'.$v['amount'].'</td>
+			          	</tr>';
+			          }
+			          
+			          $html .= '</tbody>
+			        </table>
+			      </div>
+			      <!-- /.col -->
+			    </div>
+			    <!-- /.row -->
 
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
-    reserved.
-  </footer>
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
+			   
+			  </section>
+			  <!-- /.content -->
+			</div>
+		</body>
+	</html>';
 
-<style>
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
+			  echo $html;
+		}
+	}
+
 }
-
-/* Hide default HTML checkbox */
-.switch input {display:none;}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 24px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}    
-
-table#addItem, tr.no_border td {
-  border: 0;
-}
-</style>
-<!-- jQuery 3 -->
-<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../assets/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- Select2 -->
-<script src="../assets/bower_components/select2/dist/js/select2.full.min.js"></script>
-<!-- InputMask -->
-<script src="../assets/plugins/input-mask/jquery.inputmask.js"></script>
-<script src="../assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-
-<!-- bootstrap datepicker -->
-<script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<!-- bootstrap color picker -->
-<script src="../assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-<!-- bootstrap time picker -->
-<script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../assets/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../assets/dist/js/demo.js"></script>
-    <!-- bootstrap time picker -->
-<script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-
-<script>
-//date and time
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true,
-      format : 'yyyy-mm-dd'
-    })
-
-  })
-</script>
-
-<!--create modal dialog for display detail info for edit on button cell click-->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div id="content-data"></div>
-            </div>
-        </div>
-   
-    <script>
-        $(document).ready(function(){
-            var dataTable=$('#example').DataTable({
-                "processing": true,
-                "autoWidth" : false,
-                "serverSide":true,
-                "ajax":{
-                    url:"purchases/getPurchases",
-                    type:"post"
-                }
-            });
-        });
-
-    setInterval(function(){
-   $('#box-body').load('purchases');
-}, 2000) /* time in milliseconds (ie 2 seconds)*/
-    </script>
-
-<script>
-$(document).ready(function(){
-  var i=1;
-  var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
-  var unit = <?php echo(json_encode(unit_measure($connect))); ?>;
-  $('#add').click(function(){
-    i++;
-    $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="QTY[]" class="form-control" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td> <td><select class="form-control item" name="item[]" style="width: 100%;"><option value=""></option> '+supplyDrop+' </select></td> <td width="100"><select class="form-control unit" name="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+unit+'</select></td>  <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">-</button></td></tr>');
-  });
-  
-  $(document).on('click', '.btn_remove', function(){
-    var button_id = $(this).attr("id"); 
-    $('#row'+button_id+'').remove();
-  });
-  
-   $('#add_order').on('submit', function(event){
-  event.preventDefault();
-  var error = '';
-  var form_data = $(this).serialize();
-  if(error == '')
-  {
-   $.ajax({
-    url:"purchases/addPurchases",
-    method:"POST",
-    data:form_data,
-    success:function(data)
-    {
-     if(data == 'ok')
-     {
-      $('#dynamic_field').find("tr:gt(0)").remove();
-      $('#error').html('<div class="alert alert-success">Item Details Saved</div>');
-     }
-    }
-   });
-  }
-  else
-  {
-   $('#error').html('<div class="alert alert-danger">'+error+'</div>');
-  }
- });
- 
-  
-});
-</script>
-</body>
-</html>

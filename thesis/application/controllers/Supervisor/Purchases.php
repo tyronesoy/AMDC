@@ -21,9 +21,9 @@ class Purchases extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'Supervisor'){
-			echo "<pre>";
+			/* echo "<pre>";
 				print_r ( $this->session->all_userdata());
-				echo "</pre>";
+				echo "</pre>"; */
 		$this->load->model('db_model');
 		$data['purchases']=$this->db_model->getPurchases();
 		$this->load->view('Supervisor/purchases', $data);
@@ -43,8 +43,8 @@ class Purchases extends CI_Controller {
 	public function getPurchases(){
 		$this->load->view('Supervisor/php/purchasesFetch');
 	}
-	public function addPurchases(){
-		$this->load->view('Supervisor/php/purchasesAdd');
+	public function addOrder(){
+		$this->load->view('Supervisor/orders/create');
 	}
 	
 	public function editPurchases(){
