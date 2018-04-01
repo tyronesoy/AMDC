@@ -70,9 +70,12 @@ class Lockscreen extends CI_Controller {
 	}
 
 	public function refer(){
-		$password = $this->input->post('password');
-		if($password = $_SESSION['password']){
+		$password = $this->input->get('password');
+		$current_pass = $this->session->userdata('password');
+		if($password = $current_pass){
 			header('Location: ' . $_SESSION['current_page']);
+		}else{
+			$this->load->view('BusinessManager/lockscreen');
 		}
 		
 	}
