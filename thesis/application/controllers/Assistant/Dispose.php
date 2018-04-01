@@ -21,11 +21,22 @@ class Dispose extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
+			$_SESSION['logged_in'] = 'True';
 			echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
-		$this->load->view('Assistant/php/dispose');
+		//$this->load->view('Assistant/php/dispose');
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			$this->load->view('Assistant/php/dispose');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "Assistant/lockscreen";
+           			$this->load->view('Assistant/lockscreen');
+      			}
 		}
 		//$data['users']=$this->db_model->getUsers();
 		//$this->load->view('Assistant/user_accounts', $data);

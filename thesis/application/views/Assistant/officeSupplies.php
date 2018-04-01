@@ -56,11 +56,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+  <?php  
+    $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "lockscreen"</script>
+           <?php    
+      }  
+      ?>
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -358,7 +370,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i>Dashboard</a></li>
         <li class="active">Office Supplies</li>
       </ol>
     </section>
@@ -504,7 +516,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                       <div class="modal-body">
                                                 <div class="form-group">
-                                                <select class="form-group select2" name = "department" style="width:40%">
+                                                <select class="form-group select2" name = "department" style="width:40%" required>
                                                 <option value="">Select a Department</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
@@ -514,7 +526,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                   foreach($results as $department) { 
                                                 ?>
-                                                <option value="<?php echo $department["department_name"]; ?>" name="dep"><?php echo $department["department_name"]; ?></option>
+                                                <option value="<?php echo $department["department_name"]; ?>" name="department"><?php echo $department["department_name"]; ?></option>
                                                 <?php 
                                                   }
                                                 ?>
@@ -529,7 +541,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker3" name="reqDate">
+                                                      <?php $date=date("Y-m-d"); ?>
+                                                      <input type="text" class="form-control pull-right" id="datepicker3" name="reqDate" value="<?php echo $date; ?>" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
@@ -543,7 +556,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker4" name="issueDate">
+                                                      <?php $date=date("Y-m-d"); ?>
+                                                      <input type="text" class="form-control pull-right" id="datepicker4" name="issueDate" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
@@ -555,7 +569,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <div class="col-md-6" style="width:60%;">
                                               <label for="exampleInputEmail1">Supply Description</label>
                                               <div class="form-group">
-                                                <select class="form-group select2" name = "description" style="width:100%">
+                                                <select class="form-group select2" name = "description" style="width:100%" required>
                                                 <option value="">Select a Supply</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
@@ -609,8 +623,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th>Description</th>
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
-                  <th>Unit Price</th>
-                  <th> Action</th> 
+                  <th>Unit Price</th> 
+                  <th>Reorder Level</th>
+                  <th>Action</th>
             </tr>
         </thead>
         
@@ -623,6 +638,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["unit_price"]; ?></td>
+                      <td><?php echo $row["reorder_level"]; ?></td>
                       <td>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
@@ -653,7 +669,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
+             <!-- <th>Total Amount</th> --> 
+                  <th>Reorder Level</th>
                   <th> Action</th> 
             </tr> 
         </tfoot>
@@ -737,6 +754,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
+
+<script>
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "lockscreen"
+   <?php } ?>
+}
+</script>
  
  <script>
       $(function () {

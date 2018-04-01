@@ -57,11 +57,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
     <body class="hold-transition skin-blue sidebar-mini">
+      <?php  
+      $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "lockscreen"</script>
+           <?php    
+      }  
+      ?>
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -442,7 +454,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example"  class="table table-bordered table-striped" >
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM memo";
+                  $sql = "SELECT * FROM memo WHERE soft_deleted = 'N'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -459,13 +471,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                       <?php
                         $status = '';
-                          if($row["memo_status"] == 'Pending')
+                          if($row["memo_status"] == 'Finished')
                           {
-                              $status = '<span class="label label-danger">Pending</span>';
+                              $status = '<span class="label label-success">Finished</span>';
                           }
                           else
                           {
-                              $status = '<span class="label label-success">Finished</span>';
+                              $status = '<span class="label label-danger">Pending</span>';
                           }
                       ?>
                       <td><?php echo $row["memo_date"]; ?></td>
@@ -509,6 +521,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
+        <div class="col-xs-1" style="float:left">
+            <a href="memoRecover" style="color:white;">
+              <button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover</button>
+            </a>
+      </div>
       </div>
       <script>
         $('#print').click(function(){
@@ -521,6 +538,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           wme.close();
         })
       </script>
+
     
     </section>
     <!-- /.content -->
@@ -625,6 +643,16 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+
+<script>
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "lockscreen"
+   <?php } ?>
+}
+</script>
  
 <script>
       $(function () {
@@ -770,10 +798,10 @@ if(isset($_POST['btnUpdate'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_memostatus=mysqli_real_escape_string($con,$_POST['txtmemostatus']);
 
-    if($new_memostatus == 'Pending'){
-      $new_memostatus = 'Finished';
-    }else{
+    if($new_memostatus == 'Finished'){
       $new_memostatus = 'Pending';
+    }elseif($new_memostatus == 'Pending'){
+      $new_memostatus = 'Finished';
     }
 
     $sqlupdate="UPDATE memo SET memo_status='$new_memostatus' WHERE memo_id='$new_id' ";

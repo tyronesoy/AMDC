@@ -25,9 +25,22 @@ class deleteall extends CI_Controller {
 			echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
+				$_SESSION['logged_in'] = 'True';
 		$this->load->model('db_model');
 		$data['deleteall']=$this->db_model->getIssuedSupplies();
-		$this->load->view('Assistant/php/deleteall', $data);
+		//$this->load->view('Assistant/php/deleteall', $data);
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			//$this->load->view('Assistant/dashboard');
+           			$this->load->view('Assistant/php/deleteall', $data);
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "Assistant/lockscreen";
+           			$this->load->view('Assistant/lockscreen');
+      			}
+
 	}
 		/*$check = $this->session->userdata('stts');
 		if($check == 'Assistant'){

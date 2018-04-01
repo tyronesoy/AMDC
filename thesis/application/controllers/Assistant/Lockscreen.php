@@ -25,7 +25,7 @@ class Lockscreen extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
-			echo "<pre>";
+			    echo "<pre class = 'hidden'>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 				$_SESSION['logged_in'] = 'True';
@@ -65,8 +65,19 @@ class Lockscreen extends CI_Controller {
             $this->session->set_userdata('logged_in', $sess_data);
         }
         return TRUE;
-    
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 
+	}
+
+	public function refer(){
+		$password = $this->input->get('password');
+		$current_pass = $this->session->userdata('password');
+		if($password == $current_pass){
+			header('Location: ' . $_SESSION['current_page']);
+		}else{
+			redirect ('Assistant/lockscreen');
+		}
+		
 	}
 
 }

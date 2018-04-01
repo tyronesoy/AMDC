@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <!-- Tell the browser to be responsive to screen width -->
+   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -86,6 +86,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+  <?php
+  $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];   
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "lockscreen"</script>
+           <?php    
+      }  
+      ?>
 <div class="wrapper">
 
   <header class="main-header">
@@ -317,7 +329,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory Management System</li>
 	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
@@ -387,7 +399,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">Purchases</li>
       </ol>
     </section>
@@ -732,6 +744,16 @@ input:checked + .slider:before {
 <!-- page script -->
 
 <script>
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "lockscreen"
+   <?php } ?>
+}
+</script>
+
+<script>
       $(function () {
         $('#example').DataTable()
         $('#example1').DataTable({
@@ -776,12 +798,12 @@ input:checked + .slider:before {
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="viewModal" role="dialog">
             <div class="modal-dialog">
-                <div id="content-data"></div>
+                <div id="view-data"></div>
             </div>
         </div>
-        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="editModal" role="dialog">
             <div class="modal-dialog">
-                <div id="content-data"></div>
+                <div id="edit-data"></div>
             </div>
         </div>
           <div class="modal fade" id="modalUpdate" role="dialog">
@@ -810,17 +832,17 @@ input:checked + .slider:before {
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
-            $('#content-data').html('');
+            $('#edit-data').html('');
             $.ajax({
                 url:'purchases/editPurchases',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
             }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
+                $('#edit-data').html('');
+                $('#edit-data').html(data);
             }).fial(function(){
-                $('#content-data').html('<p>Error</p>');
+                $('#edit-data').html('<p>Error</p>');
             });
         });
     </script>
@@ -830,17 +852,17 @@ input:checked + .slider:before {
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
-            $('#content-data').html('');
+            $('#view-data').html('');
             $.ajax({
                 url:'purchases/viewPurchases',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
             }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
+                $('#view-data').html('');
+                $('#view-data').html(data);
             }).final(function(){
-                $('#content-data').html('<p>Error</p>');
+                $('#view-data').html('<p>Error</p>');
             });
         });
     </script>

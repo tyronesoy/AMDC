@@ -166,7 +166,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="BusinessManager/logs">View all Logs</a></li>
+              <li class="footer"><a href="<?php echo 'BusinessManager/logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -509,7 +509,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         Dashboard
       </h1>
       <ol class="breadcrumb">
-        <li class="active">Dashboard</li>
+        <li class="active"><i class="fa fa-dashboard">Dashboard</li>
       </ol>
     </section>
 

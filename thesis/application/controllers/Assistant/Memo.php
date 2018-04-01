@@ -21,12 +21,23 @@ class Memo extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
+			$_SESSION['logged_in'] = 'True';
 			echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
 		$data['memo']=$this->db_model->getMemo();
-		$this->load->view('Assistant/memo', $data);
+		//$this->load->view('Assistant/memo', $data);
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			$this->load->view('Assistant/memo');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "Assistant/lockscreen";
+           			$this->load->view('Assistant/lockscreen');
+      			}
 	}
 		//$check = $this->session->userdata('stts');
 		//if($check == 'Assistant'){

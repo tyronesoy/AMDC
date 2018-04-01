@@ -22,7 +22,22 @@ class Deliveries extends CI_Controller {
 		// $this->load->model('db_model');
 		// $data['deliveries']=$this->db_model->getDeliveries();
 		// $this->load->view('Assistant/deliveries', $data);
-		$this->load->view('Assistant/deliveries');
+		echo "<pre>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
+				$_SESSION['logged_in'] = 'True';
+		//$this->load->view('Assistant/deliveries');
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			//$this->load->view('Assistant/dashboard');
+           			$this->load->view('Assistant/deliveries');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "Assistant/lockscreen";
+           			$this->load->view('Assistant/lockscreen');
+      			}
 		//$check = $this->session->userdata('stts');
 		//if($check == 'Assistant'){
 		//	$this->load->view('Assistant/suppliers');

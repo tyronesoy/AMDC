@@ -4,11 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Business Manager | Medical Supplies Total Quantity</title>
+  <title>Assistant | Medical Supplies Total Quantity</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Tell the browser to be responsive to screen width -->
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -87,49 +87,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                     </a>
                 </li>
-          <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
           <!-- Tasks: style can be found in dropdown.less -->
 <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -285,16 +242,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
+              <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
-        <small> Business Manager</small>
+        <small> Assistant</small>
         </p>
                 </li>
               <!-- Menu Footer-->
@@ -319,7 +276,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
@@ -334,13 +291,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
-              <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
-              </a>
-          </li>
-  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="treeview">
           <a href="#">
@@ -387,14 +337,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-
-        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'logs' ?>">
-            <i class="fa fa-list-alt"></i> <span>Logs</span>
-          </a>
-        </li>
-
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
@@ -415,7 +357,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
        <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">Medical Supplies Total Quantity</li>
       </ol>
     </section>
@@ -430,15 +372,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                 <table style="float: left;">
                     <tr>
-                        <th> <div class="btn-group">
-                        <select name="dropdown" onchange="location =this.value;">
-                          <option><b>Total Quantity</b></optiom>
+                        <th> <div class="dropdownButton">
+                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
+                          <span class="caret"></span>
+                        </button>
+                        <option><b>Total Quantity</b></option>
                           <option value="medicalSupplies">All Supplies</option>
+                          
                         </select>
                       </div></th>
                     </tr>
                 </table> 
-                
                 <table style="float:right;">
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus"></i> Add New Item</button>

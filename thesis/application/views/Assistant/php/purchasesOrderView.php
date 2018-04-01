@@ -15,6 +15,7 @@ if(isset($_REQUEST['id'])){
         $per_supplier=$row[9];
         $per_deliveryDate=$row[7];
         $per_quantity=$row[2];
+        $per_description=$row[5];
         $per_status=$row[4];
         $per_unit=$row[3];
 
@@ -137,6 +138,16 @@ if(isset($_REQUEST['id'])){
                             </div>
                             
                         </div>
+                        <!-- <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="txtdep">Department</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="txtdep" name="txtdep" value="<?php echo $per_department;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
@@ -160,3 +171,12 @@ if(isset($_REQUEST['id'])){
 <?php
 }//end if
 ?>
+
+
+
+
+
+
+
+
+

@@ -40,6 +40,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+  <?php
+  $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];   
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "lockscreen"</script>
+           <?php    
+      }  
+      ?>
 <div class="wrapper">
 
   <header class="main-header">
@@ -229,7 +241,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Assistant</span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -237,8 +249,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
 
                 <p>
-                 Assistant
+                 <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                 </p>
+                <small>Assistant</small>
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
@@ -265,7 +278,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Assistant</p>
+          <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
@@ -276,7 +289,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
-        </li>  
+        </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
               <li class="treeview">
           <a href="#">
@@ -344,7 +357,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>advanced tables</small> -->
       </h1>   
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i>Dashboard</a></li>
         <li class="active">Deleted Departments</li>
       </ol>
     </section>
@@ -514,7 +527,16 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
- 
+
+<script>
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "lockscreen"
+   <?php } ?>
+}
+</script> 
 
 <script>
 <!-- date and time -->

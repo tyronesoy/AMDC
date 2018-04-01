@@ -151,7 +151,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="../examples/invoice.php">View all Logs</a></li>
+              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -453,7 +453,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i>Dashboard</li>
         <li class="active">Issued Supplies</li>
       </ol>
     </section>

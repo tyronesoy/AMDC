@@ -82,7 +82,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -165,7 +165,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="../examples/invoice.php">View all Logs</a></li>
+              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -460,7 +460,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
         User Accounts
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">User Accounts</li>
       </ol>
     </section>

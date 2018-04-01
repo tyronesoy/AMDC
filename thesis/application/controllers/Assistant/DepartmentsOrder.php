@@ -29,8 +29,18 @@ class DepartmentsOrder extends CI_Controller {
 		// 	$this->load->view('Assistant/departments', $data);
 
 		// }
-		$this->load->view('Assistant/dep_orders');
-		
+		$_SESSION['logged_in'] = 'True';
+		//$this->load->view('Assistant/dep_orders');
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			$this->load->view('Assistant/dep_orders');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "Assistant/lockscreen";
+           			$this->load->view('Assistant/lockscreen');
+      			}
 		//$check = $this->session->userdata('stts');
 		//if($check == 'Assistant'){
 		//	$this->load->view('Assistant/departments');

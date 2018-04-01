@@ -22,12 +22,23 @@ class MedicalSuppliesTotalQuantity extends CI_Controller {
 	{
 		$check = $this->session->userdata('type');
 		if($check == 'Assistant'){
+			$_SESSION['logged_in'] = 'True';
 			echo "<pre>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
 		$data['medicalSuppliesTotalQuantity']=$this->db_model->getMedicalSuppliesTotalQuantity();
-		$this->load->view('Assistant/php/medicalSuppliesTotalQuantity', $data);
+		//$this->load->view('Assistant/php/medicalSuppliesTotalQuantity', $data);
+		if($_SESSION['logged_in'] == 'True')  
+      			{  
+           			// echo 'dashboard';
+           			$this->load->view('Assistant/php/medicalSuppliesTotalQuantity');
+      			}  
+      			else if ($_SESSION['logged_in'] != 'True')  
+      			{  
+           			// echo "Assistant/lockscreen";
+           			$this->load->view('Assistant/lockscreen');
+      			}
 	}
 		/*
 		$check = $this->session->userdata('stts');

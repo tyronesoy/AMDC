@@ -84,7 +84,70 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                     </a>
                 </li>
-         
+         <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."')  AND log_status = 1";
+                $result6 = $conn->query($sql6);    
+                ?>
+                <?php if ($result6->num_rows > 0) {
+                while($row = $result6->fetch_assoc()) { ?>
+                <span class="label label-warning"><?php echo $row["total"]; 
+                    $counted = $row["total"];
+                    ?></span>
+                <?php 
+                      }
+                    }
+                ?>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header"><i class="fa fa-warning text-yellow"></i> You have <?php echo $counted; ?> notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">  
+                <table id="notify" class="table table-bordered table-striped">
+                    <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
+                    $result7 = $conn->query($sql7);
+                    ?>
+                    <?php 
+                      if ($result7->num_rows > 0) {
+                       while($row = $result7->fetch_assoc()) { 
+                    ?>
+                      <tr>
+                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <td class="notif-delete">
+                        <form action="delete" method="post">
+                        <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
+                        <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
+                        </form>
+                        </td>
+                      </tr>
+                    <?php 
+                      }
+                    }
+                    ?>
+                </table>
+                </ul>
+              </li>
+              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
+              <li>
+              <center>
+              <form action="deleteall" method="post">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
+              </form>
+              </center>
+              </li>
+            </ul>
+          </li>      
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -241,7 +304,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Business Manager</span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -249,8 +312,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
-                 Business Manager
+                 <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                 </p>
+                <small>Business Manager</small>
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
@@ -277,7 +341,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Business Manager</p>
+          <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>r</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
@@ -369,7 +433,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>advanced tables</small> -->
       </h1>   
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i>Dashboard</li>
         <li class="active">Deleted Departments</li>
       </ol>
     </section>

@@ -57,11 +57,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
     <body class="hold-transition skin-blue sidebar-mini">
+      <?php  
+      $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "lockscreen"</script>
+           <?php    
+      }  
+      ?>
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -245,7 +257,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Assistant</span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -253,8 +265,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
 
                 <p>
-                    Assistant
+                    <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                 </p>
+                <small>Assistant</small>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
@@ -279,14 +292,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Assistant</p>
+          <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
+      <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory Management System</li>
     <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'dashboard' ?>">
+          <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
@@ -356,7 +370,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <b> Deleted Memo </b>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">Deleted Memo</li>
       </ol>
     </section>
@@ -375,22 +389,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- /.box-header -->
               <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM memo WHERE soft_deleted = 'Y'";
+                  $result = $conn->query($sql);    
+                ?>
                 <thead>
-            <tr>
-                <th>Memo Date</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr>
-                <th>Memo Date</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </tfoot>
+                  <tr>
+                      <th>Memo Date</th>
+                      <th>Description</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <?php
+                        $status = '';
+                          if($row["memo_status"] == 'Pending')
+                          {
+                              $status = '<span class="label label-danger">Pending</span>';
+                          }
+                          else
+                          {
+                              $status = '<span class="label label-success">Finished</span>';
+                          }
+                      ?>
+                      <td><?php echo $row["memo_date"]; ?></td>
+                      <td><?php echo $row["memo_description"]; ?></td>
+                      <td><?php echo $status; ?></td>
+                      <td>
+                        <div class="btn-group">
+                            <button type="button" id="getRestore" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-repeat"></i> Restore</button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                      <th>Memo Date</th>
+                      <th>Description</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                  </tr>
+                </tfoot>
               </table>
 
             </div>
@@ -415,6 +463,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           wme.close();
         })
       </script>
+      
       </div>
         <!-- END OF PRINT AND PDF -->
     </section>
@@ -520,6 +569,16 @@ input:checked + .slider:before {
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
+<script>
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "lockscreen"
+   <?php } ?>
+}
+</script>
+
         <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -528,7 +587,7 @@ input:checked + .slider:before {
         </div>
 
 
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 "processing": true,
@@ -539,7 +598,7 @@ input:checked + .slider:before {
                 }
             });
         });
-    </script>
+    </script> -->
 
     <script>
         $(document).on('click','#getRestore',function(e){

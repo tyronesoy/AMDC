@@ -67,10 +67,11 @@ if(!isset($_SESSION['first_run'])){
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php  
+<?php 
+$_SESSION['current_page'] = $_SERVER['REQUEST_URI']; 
       if(isset($_SESSION['logged_in']))  
       {  
-           echo 'dashboard';
+           //echo 'dashboard';
       }  
       else if(!isset($_SESSION['logged_in'])) 
       {?>  
@@ -108,6 +109,8 @@ if(!isset($_SESSION['first_run'])){
                     </script>
                 </a>
             </li>
+          <!-- Messages: style can be found in dropdown.less-->
+          
           <!-- Tasks: style can be found in dropdown.less -->
                   <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -428,7 +431,7 @@ if(!isset($_SESSION['first_run'])){
         Dashboard
       </h1>
       <ol class="breadcrumb">
-        <li class="active">Dashboard</li>
+        <li class="active"><i class="fa fa-dashboard">Dashboard</li>
       </ol>
     </section>
 
@@ -442,7 +445,7 @@ if(!isset($_SESSION['first_run'])){
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers USING(supplier_id) WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -497,7 +500,7 @@ if(!isset($_SESSION['first_run'])){
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers WHERE expiration_date > 0 AND soft_deleted='N'";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -524,7 +527,7 @@ if(!isset($_SESSION['first_run'])){
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10";
+                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers USING(supplier_id) WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
                   $result = $conn->query($sql);    
                 ?>
                 <thead> 
@@ -574,7 +577,7 @@ if(!isset($_SESSION['first_run'])){
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
+                  $sql = "SELECT returns.return_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -604,8 +607,8 @@ if(!isset($_SESSION['first_run'])){
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
                           
-                        <form action="return.php" method="get">
-                          <input type="text" name="returnSupp" hidden value="">
+                        <form action="<?php echo 'Assistant/returns'?>" method="get">
+                           <input type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
                           <button type="submit" class="btn btn-success">Returned </button>
                         </form> 
                       </td>
@@ -636,7 +639,7 @@ if(!isset($_SESSION['first_run'])){
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, company_name, quantity_in_stock, unit, soft_deleted FROM supplies JOIN suppliers WHERE expiration_date > 0 AND soft_deleted='N'";
+                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, quantity_in_stock, unit, soft_deleted FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -644,7 +647,6 @@ if(!isset($_SESSION['first_run'])){
                   <th>Expiration Date</th>
                   <th>Description</th>
                   <th>Brandname</th>
-                  <th>Supplier</th>
                   <th>Quantity</th>
                   <th>Unit</th>
                   <th>Action</th>
@@ -657,7 +659,6 @@ if(!isset($_SESSION['first_run'])){
                       <td><?php echo $row["expiration_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
-                      <td><?php echo $row["company_name"]; ?></td>
                       <td><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td>
@@ -678,7 +679,6 @@ if(!isset($_SESSION['first_run'])){
                       <th>Expiration Date</th>
                       <th>Description</th>
                       <th>Brandname</th>
-                      <th>Supplier</th>
                       <th>Quantity</th>
                       <th>Unit</th>
                       <th>Action</th>
@@ -755,7 +755,7 @@ if(!isset($_SESSION['first_run'])){
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Medical' ORDER BY quantity_ordered DESC LIMIT 10";
+                    $sql = "SELECT supply_description, SUM(quantity_ordered) FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Medical' GROUP BY supply_description ORDER BY quantity_ordered DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -769,7 +769,7 @@ if(!isset($_SESSION['first_run'])){
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
-                        <td><?php echo $row["quantity_ordered"]; ?></td>
+                        <td><?php echo $row["SUM(quantity_ordered)"]; ?></td>
                         </tr>
                       <?php 
                           }
@@ -802,7 +802,7 @@ if(!isset($_SESSION['first_run'])){
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_description, quantity_ordered FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Office' ORDER BY quantity_ordered DESC LIMIT 10 ";
+                    $sql = "SELECT supply_description, SUM(quantity_ordered) FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Office' GROUP BY supply_description ORDER BY quantity_ordered DESC LIMIT 10 ";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -816,7 +816,7 @@ if(!isset($_SESSION['first_run'])){
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
                         <td><?php echo $row["supply_description"]; ?></td>
-                        <td><?php echo $row["quantity_ordered"]; ?></td>
+                        <td><?php echo $row["SUM(quantity_ordered)"]; ?></td>
                         </tr>
                       <?php 
                           }

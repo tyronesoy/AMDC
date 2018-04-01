@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Business Manager | Office Supplies Total Quantity</title>
+  <title>Assistant | Office Supplies Total Quantity</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -87,49 +87,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                     </a>
                 </li>
-          <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -285,16 +242,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
          <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
+              <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
-        <small> Business Manager</small>
+        <small> Assistant</small>
         </p>
                 </li>
               <!-- Menu Footer-->
@@ -319,7 +276,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
@@ -334,13 +291,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
-        <li class="active">
-              <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
-              </a>
-          </li>
-  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="treeview">
           <a href="#">
@@ -387,14 +337,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-
-        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'logs' ?>">
-            <i class="fa fa-list-alt"></i> <span>Logs</span>
-          </a>
-        </li>
-
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
@@ -416,7 +358,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
      <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i>Dashboard</a></li>
         <li class="active">Office Supplies Total Quantity</li>
       </ol>
     </section>
@@ -654,9 +596,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               
             <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
-         <?php // RETRIEVE or Display Office Supplies
+         <?php // RETRIEVE or Display Medical Supplies
          $conn =mysqli_connect("localhost","root","");
-   mysqli_select_db($conn, "itproject");
+          mysqli_select_db($conn, "itproject");
           $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
             FROM supplies WHERE supply_type='Office' AND quantity_in_stock IS NOT NULL
             GROUP BY supply_description;";
@@ -678,14 +620,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php
           while($row = $result->fetch_assoc()) { ?>
             <tr>
-            <!-- <td><?php // echo $row["expirationDate"]; ?></td> -->
-
             <td><?php echo $row["supply_description"]; ?></td>
             <td align="right"><?php echo $row["Total Quantity"]; ?></td>
             <td><?php echo $row["unit"]; ?></td>
             <td align="right"><?php echo $row["Total Amount"]; ?></td>
             <td><?php echo $row["reorder_level"]; ?></td>
-            <td align="center"><button type="button" id="edit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-pencil"></i>Edit</button></td>
+            <td>
+             <div class="btn-group">
+                <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+            </div>  
+            </td>          
             </tr>
           <?php 
               }
@@ -778,6 +722,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="content-data"></div>
+            </div>
+        </div>
+
 <script>
   $(function () {
     $('#example1').DataTable()
@@ -817,7 +768,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   })
 </script>
 <script>
-        $(document).on('click','#edit',function(e){
+        $(document).on('click','#getEdit',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
@@ -837,3 +788,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 </body>
 </html>
+
+<?php 
+$conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+
+if(isset($_POST['offTQEdit'])){
+    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+
+    $sqlupdate="UPDATE supplies SET reorder_level='$new_supplyReorderLevel' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+
+    if($result_update){
+        echo '<script>window.location.href="officeSupplies"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+}
+
+?>

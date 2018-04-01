@@ -84,11 +84,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+  <?php  
+  $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "lockscreen"</script>
+           <?php    
+      }  
+      ?>
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>" class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -272,7 +284,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Assistant</span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -280,8 +292,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
 
                 <p>
-                 Assistant
+                 <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                 </p>
+                <small>Assistant</small>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
@@ -306,7 +319,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Assistant</p>
+          <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
@@ -385,7 +398,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
      <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i>Dashboard</a></li>
         <li class="active">Deleted Office Supplies</li>
       </ol>
     </section>
@@ -405,7 +418,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               
       <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
-         
+         <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Office' AND soft_deleted='Y' ";
+                  $result = $conn->query($sql);    
+                ?>
           <thead>
             <tr>
              <!-- <th>Date Received</th>
@@ -420,7 +437,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th> Action</th> 
             </tr>
         </thead>
-        
+        <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?php echo $row["expiration_date"]; ?></td>
+                      <td><?php echo $row["supply_description"]; ?></td>
+                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><?php echo $row["unit"]; ?></td>
+                      <td><?php echo $row["unit_price"]; ?></td>
+                      <td><?php echo $row["reorder_level"]; ?></td>
+                      <td>
+                        <button type="button" id="getRestore" class="btn btn-success btn" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-repeat"></i> Restore</button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
         <tfoot>
            <tr>
              <!-- <th>Date Received</th>
@@ -507,7 +543,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
  
- 
+ <script>
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "lockscreen"
+   <?php } ?>
+}
+</script>
 
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
@@ -516,7 +560,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
    
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
                 'autoWidth' : false,
@@ -528,7 +572,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
         });
-    </script>
+    </script> -->
 
     <!--script js for release data-->
     <script>

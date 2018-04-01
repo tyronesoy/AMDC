@@ -34,7 +34,7 @@ if(isset($_REQUEST['id'])){
                         <tr>
                             <div class="box-body">
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-10">
                                         <div class="form-group">
                                             <label hidden="true" for="txtid">PO ID</label>
                                             <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>">
@@ -42,7 +42,7 @@ if(isset($_REQUEST['id'])){
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-10">
                                         <div class="form-group">
                                             <label for="txtdescription">Description</label>
                                             <input type="text" class="form-control" id="txtdescription" name="txtdescription" value="<?php echo $per_purchasesDescription;?>" readonly>
@@ -51,7 +51,7 @@ if(isset($_REQUEST['id'])){
         						</div>
         						 
         						<div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-10">
                                         <div class="form-group">
                                             <label for="txtquantity">Quantity</label>
                                             <input type="number" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $per_purchasesQuantity;?>" readonly>
@@ -61,7 +61,7 @@ if(isset($_REQUEST['id'])){
         						</div>
         						
         						<div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-10">
                                         <div class="form-group">
                                             <label for="txtunit">Unit</label>
                                             <input type="text" class="form-control" id="txtunit" name="txtunit" value="<?php echo $per_purchasesUnit;?>" readonly>
@@ -70,7 +70,7 @@ if(isset($_REQUEST['id'])){
 
         						</div>
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-10">
                                         <div class="form-group">
                                             <label for="txtstatus">Status</label>
                                             <select class="form-control select2" id="txtstatus" name="txtstatus" style="width:40%">
@@ -89,8 +89,8 @@ if(isset($_REQUEST['id'])){
 				</form>
             </div>
 			<div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-success" name="btnEdit">Save</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-success" name="btnEdit"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>

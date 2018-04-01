@@ -106,7 +106,7 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="medicalSupplies"><button type="button" class="btn btn-danger pull-left"><i class="fa fa-times-circle"></i> Cancel</button> </a>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                 <button type="submit" class="btn btn-primary" name="medAdd"><i class="fa fa-times-save"></i> Save</button>
             </div>
         </div>
