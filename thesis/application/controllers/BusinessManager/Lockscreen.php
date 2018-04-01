@@ -65,8 +65,16 @@ class Lockscreen extends CI_Controller {
             $this->session->set_userdata('logged_in', $sess_data);
         }
         return TRUE;
-    
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 
+	}
+
+	public function refer(){
+		$password = $this->input->post('password');
+		if($password = $_SESSION['password']){
+			header('Location: ' . $_SESSION['current_page']);
+		}
+		
 	}
 
 }
