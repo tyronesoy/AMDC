@@ -31,7 +31,7 @@ class Deliveries extends CI_Controller {
       			{  
            			// echo 'dashboard';
            			//$this->load->view('BusinessManager/dashboard');
-           			$this->load->view('BusinessManager/deliveries', $data);
+           			$this->load->view('BusinessManager/deliveries');
       			}  
       			else if ($_SESSION['logged_in'] != 'True')  
       			{  

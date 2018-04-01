@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <?php  
-  $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
+    $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       if(isset($_SESSION['logged_in']))  
       {  
            //echo 'dashboard';
@@ -596,7 +596,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                       <div class="modal-body">
                                                 <div class="form-group">
-                                                <select class="form-group select2" name = "department" style="width:40%">
+                                                <select class="form-group select2" name = "department" style="width:40%" required>
                                                 <option value="">Select a Department</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
@@ -606,7 +606,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                   foreach($results as $department) { 
                                                 ?>
-                                                <option value="<?php echo $department["department_name"]; ?>" name="dep"><?php echo $department["department_name"]; ?></option>
+                                                <option value="<?php echo $department["department_name"]; ?>" name="department"><?php echo $department["department_name"]; ?></option>
                                                 <?php 
                                                   }
                                                 ?>
@@ -621,12 +621,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <?php
-                                                          $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                                                          $date = date("Y/m/d");
-                                                          $sql = "SELECT * FROM supplies";
-                                                          $result = $conn->query($sql);
-                                                        ?>
+                                                      <?php $date=date("Y-m-d"); ?>
                                                       <input type="text" class="form-control pull-right" id="datepicker3" name="reqDate" value="<?php echo $date; ?>" readonly>
                                                     </div>
                                                     <!-- /.input group -->
@@ -641,7 +636,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker4" name="issueDate">
+                                                      <?php $date=date("Y-m-d"); ?>
+                                                      <input type="text" class="form-control pull-right" id="datepicker4" name="issueDate" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
@@ -653,7 +649,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <div class="col-md-6" style="width:60%;">
                                               <label for="exampleInputEmail1">Supply Description</label>
                                               <div class="form-group">
-                                                <select class="form-group select2" name = "description" style="width:100%">
+                                                <select class="form-group select2" name = "description" style="width:100%" required>
                                                 <option value="">Select a Supply</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
