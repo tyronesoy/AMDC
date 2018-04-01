@@ -38,12 +38,6 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[1]; 
     $subdata[]=$row[2]; 
 
-
-
-           //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
-    $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
-            <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal"
-        data-target="#myModal" data-id="'.$row[0].'"><i class="glyphicon glyphicon-trash"></i></button>';
     $data[]=$subdata;
 }
 

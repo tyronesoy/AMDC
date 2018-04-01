@@ -45,8 +45,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-
-
+<?php 
+$_SESSION['current_page'] = $_SERVER['REQUEST_URI']; 
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "Supervisor/lockscreen"</script>
+           <?php    
+      }  
+      ?>
 <div class="wrapper">
 
   <header class="main-header">
@@ -76,6 +86,73 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </script>
                 </a>
             </li>
+			
+			
+			<!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."')  AND log_status = 1";
+                $result6 = $conn->query($sql6);    
+                ?>
+                <?php if ($result6->num_rows > 0) {
+                while($row = $result6->fetch_assoc()) { ?>
+                <span class="label label-warning"><?php echo $row["total"]; 
+                    $counted = $row["total"];
+                    ?></span>
+                <?php 
+                      }
+                    }
+                ?>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header"><i class="fa fa-warning text-yellow"></i> You have <?php echo $counted; ?> notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">  
+                <table id="notify" class="table table-bordered table-striped">
+                    <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
+                    $result7 = $conn->query($sql7);
+                    ?>
+                    <?php 
+                      if ($result7->num_rows > 0) {
+                       while($row = $result7->fetch_assoc()) { 
+                    ?>
+                      <tr>
+                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <td class="notif-delete">
+                        <form action="delete" method="post">
+                        <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
+                        <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
+                        </form>
+                        </td>
+                      </tr>
+                    <?php 
+                      }
+                    }
+                    ?>
+                </table>
+                </ul>
+              </li>
+              <li class="footer"><a href="BusinessManager/logs">View all Logs</a></li>
+              <li>
+              <center>
+              <form action="deleteall" method="post">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
+              </form>
+              </center>
+              </li>
+            </ul>
+          </li>
 
    
           <!-- User Account: style can be found in dropdown.less -->
@@ -100,7 +177,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo 'logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
                 <div class="pull-left">
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
@@ -177,19 +254,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i>Active</a>
         </div>
       </div>
-      <!-- search form -->
-<!--
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
--->
-      <!-- /.search form -->
+
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
@@ -224,9 +289,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </ul>
             </li>
             <li><a href="<?php echo 'Supervisor/issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
-			<li><a href="<?php echo 'Supervisor/purchases' ?>"><i class="fa fa-shopping-cart"></i>Orders</a></li>
+
           </ul>
         </li>
+	  <!-- ORDERS -->
+        <li class="treeview" id="mainOrdersNav">
+              <a href="#">
+                <i class="fa fa-dollar"></i>
+                <span>Orders</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                  <li id="addOrderNav"><a href="<?php echo base_url('Supervisor/orders/create') ?>"><i class="fa fa-shopping-cart"></i> Add Order</a></li>
+                <li id="manageOrdersNav"><a href="<?php echo 'Supervisor/purchases' ?>"><i class="fa fa-shopping-basket"></i> Views Orders</a></li>
+           
+              </ul>
+            </li>
 		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'Supervisor/suppliers' ?>">
@@ -546,6 +626,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="box-body">
               <div class="chart">
+                  <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT SUM(supplies.total_amount) AS 'Total Expense', supplies.supply_type AS 'Type', issuedsupplies.department_name AS 'Department' FROM supplies INNER JOIN issuedsupplies USING(supply_type) WHERE supply_type = 'Medical' GROUP BY supply_type, department_name";
+                  $result = $conn->query($sql);
+                  $sql2 = "SELECT SUM(supplies.total_amount) AS 'Total Expense', supplies.supply_type AS 'Type', issuedsupplies.department_name AS 'Department' FROM supplies INNER JOIN issuedsupplies USING(supply_type) WHERE supply_type = 'Office' GROUP BY supply_type, department_name";
+                  $result2 = $conn->query($sql2);
+                  $total_data1 = '';
+                  $type_data1 = '';
+                  $location_data1 = '';
+                  while($row = mysqli_fetch_array($result)){
+                    $total_data1 .= '"'.$row["Total Expense"].'", ';
+                    $type_data1 .= '"'.$row["Type"].'", ';
+                    $location_data1 .= '"'.$row["Department"].'", ';
+                  }
+                  $total_data2 = '';
+                  $type_data2 = '';
+                  $location_data2 = '';
+                  while($row = mysqli_fetch_array($result2)){
+                    $total_data2 .= '"'.$row["Total Expense"].'", ';
+                    $type_data2 .= '"'.$row["Type"].'", ';
+                    $location_data2 .= '"'.$row["Department"].'", ';
+                  }
+                  $chart_data1 = $location_data1;
+                  $chart_data2 = $total_data1;
+                  $chart_data3 = $total_data2;
+
+                ?>
                 <canvas id="barChart" style="height:300px"></canvas>
               </div>
             </div>
@@ -731,6 +838,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- DataTables -->
 <script src="assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<script>
+setTimeout(onUserInactivity, 1000 * 300)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "Supervisor/lockscreen"
+   <?php } ?>
+}
+</script>
+
 <!--- CHARTS -->
 <script>
   $(function () {
@@ -1157,15 +1275,7 @@ function myFunction4(id) {
       'info'        : true,
       'autoWidth'   : false
     })
-    $('#example7').DataTable()
-    $('#example8').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+
 
   })
 </script>

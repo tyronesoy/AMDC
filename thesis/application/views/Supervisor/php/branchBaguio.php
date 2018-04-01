@@ -48,6 +48,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+ <?php 
+$_SESSION['current_page'] = $_SERVER['REQUEST_URI']; 
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "Supervisor/lockscreen"</script>
+           <?php    
+      }  
+      ?> 
+    
 <div class="wrapper">
 
   <header class="main-header">
@@ -204,17 +217,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
+     
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
@@ -225,29 +228,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
         </li>
 		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class ="treeview">
+       <li class="treeview">
           <a href="#">
-            <i class="fa fa-briefcase"></i> <span>Supplies</span>
+            <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-			<li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
-			<li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-briefcase"></i> Supplies
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i>Office Supplies</a></li>
+                </li>
+              </ul>
+            </li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+			
           </ul>
         </li>
-        <!--------------------------------------------------- PURCHASES -------------------------------------------------->
-          <li>
-              <a href="<?php echo 'purchases' ?>">
-                  <i class="fa fa-tags"></i><span>Orders</span>  
+   
+         <!-- ORDERS -->
+        <li class="treeview" id="mainOrdersNav">
+              <a href="#">
+                <i class="fa fa-dollar"></i>
+                <span>Orders</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
               </a>
-          </li>
-        <!--------------------------------------------------- ISSUED SUPPLIES -------------------------------------------------->
-            <li><a href="<?php echo 'issuedSupplies' ?>">
-                <i class="fa fa-truck"></i><span>Issued Supplies</span> 
-                </a>
-          </li>
+              <ul class="treeview-menu">
+                  <li id="addOrderNav"><a href="<?php echo base_url('Supervisor/orders/create') ?>"><i class="fa fa-shopping-cart"></i> Add Order</a></li>
+                <li id="manageOrdersNav"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-basket"></i> Views Orders</a></li>
+           
+              </ul>
+            </li>
 		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
@@ -314,22 +335,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- /.box-header -->
               <div class="box-body">
               <table id="example" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
+			 	<?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM departments WHERE location = 'Baguio City'";
+                  $result = $conn->query($sql);    
+                ?>
+				  <thead>
+                   <tr>
                         <th>Department Name</th>
                         <th>Branch Location</th>
-<!--                        <th>Action</th>-->
-
+						<th>Status</th>
                     </tr>
                 </thead>
-                
+                <tbody>
+				 <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <?php
+                        $status = '';
+                          if($row["department_status"] == 'Active')
+                          {
+                              $status = '<span class="label label-success">Active</span>';
+                          }
+                          else
+                          {
+                              $status = '<span class="label label-danger">Inactive</span>';
+                          }
+                      ?>
+                      <td><?php echo $row["department_name"]; ?></td>
+                      <td><?php echo $row["location"]; ?></td>
+						<td><?php echo $status; ?></td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+				 
+				 </tbody>
                 <tfoot>
-                  <tr>
-                    <th>Department Name</th>
+                 <tr>
+                        <th>Department Name</th>
                         <th>Branch Location</th>
-<!--                        <th>Action</th>-->
-                    
-                  </tr>
+						<th>Status</th>
+                    </tr>
                 </tfoot>
             </table>
 
@@ -343,11 +391,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
       <!-- /.row -->
           <div class="row no-print">
-        <div class="col-xs-12">
-          <a href="../../examples/printDepartments.php" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          
+        <div class="col-xs-1" style="float:right">
+          <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
+          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       </div>
+      <script>
+        $('#print').click(function(){
+          var printme = document.getElementById('example');
+          var wme = window.open("","","width=900,height=700");
+          wme.document.write(printme.outerHTML);
+          wme.document.close();
+          wme.focus();
+          wme.print();
+          wme.close();
+        })
+      </script>
     
     </section>
     <!-- /.content -->
@@ -355,9 +414,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; Bigornia, Cabalse, Calimlim, Calub, Duco, Malong, Siapno, Soy. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed
@@ -456,7 +515,22 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    
+<script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
 
+
+      })
+</script>
 
 <script>
 <!-- date and time -->
@@ -493,6 +567,7 @@ input:checked + .slider:before {
         </div>
 -->
    
+<!--
     <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
@@ -505,6 +580,7 @@ input:checked + .slider:before {
             });
         });
     </script>
+-->
 
     <!--script js for get edit data-->
 <!--
@@ -531,33 +607,3 @@ input:checked + .slider:before {
 </body>
 </html>
 
-<?php
-$con=mysqli_connect('localhost','root','','itproject');
-//if(isset($_POST['btnEdit'])){
-//    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-//    $new_depName=mysqli_real_escape_string($con,$_POST['txtdepartmentname']);
-//    $new_branchLoc=mysqli_real_escape_string($con,$_POST['branch']);
-//
-//    $sqlupdate="UPDATE departments SET department_name='$new_depName', location='$new_branchLoc' WHERE department_id='$new_id' ";
-//    $result_update=mysqli_query($con,$sqlupdate);
-//
-//    if($result_update){
-//        echo '<script>window.location.href="branchBaguio"</script>';
-//    }
-//    else{
-//        echo '<script>alert("Update Failed")</script>';
-//    }
-//}
-
-//if(isset($_GET['delete'])){
-//    $id=$_GET['delete'];
-//    $sqldelete="DELETE FROM departments WHERE department_id='$id'";
-//    $result_delete=mysqli_query($con,$sqldelete);
-//    if($result_delete){
-//        echo'<script>window.location.href="branchBaguio"</script>';
-//    }
-//    else{
-//        echo'<script>alert("Delete Failed")</script>';
-//    }
-//}
-?>

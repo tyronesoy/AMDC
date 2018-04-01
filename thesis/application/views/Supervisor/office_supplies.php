@@ -61,11 +61,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo 'dashboard' ?>"class="logo">
+    <a href="<?php echo '../dashboard' ?>"class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -94,7 +95,73 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </a>
                 </li>
        
-         
+        <!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."')  AND log_status = 1";
+                $result6 = $conn->query($sql6);    
+                ?>
+                <?php if ($result6->num_rows > 0) {
+                while($row = $result6->fetch_assoc()) { ?>
+                <span class="label label-warning"><?php echo $row["total"]; 
+                    $counted = $row["total"];
+                    ?></span>
+                <?php 
+                      }
+                    }
+                ?>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header"><i class="fa fa-warning text-yellow"></i> You have <?php echo $counted; ?> notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">  
+                <table id="notify" class="table table-bordered table-striped">
+                    <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
+                    $result7 = $conn->query($sql7);
+                    ?>
+                    <?php 
+                      if ($result7->num_rows > 0) {
+                       while($row = $result7->fetch_assoc()) { 
+                    ?>
+                      <tr>
+                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <td class="notif-delete">
+                        <form action="delete" method="post">
+                        <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
+                        <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
+                        </form>
+                        </td>
+                      </tr>
+                    <?php 
+                      }
+                    }
+                    ?>
+                </table>
+                </ul>
+              </li>
+              <li class="footer"><a href="BusinessManager/logs">View all Logs</a></li>
+              <li>
+              <center>
+              <form action="deleteall" method="post">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
+              </form>
+              </center>
+              </li>
+            </ul>
+          </li> 
+			
+			
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -138,18 +205,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-<!--
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
--->
+      
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -184,10 +240,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </ul>
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
-			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Orders</a></li>
           </ul>
         </li>
-        
+         <!-- ORDERS -->
+        <li class="treeview" id="mainOrdersNav">
+              <a href="#">
+                <i class="fa fa-dollar"></i>
+                <span>Orders</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                  <li id="addOrderNav"><a href="<?php echo base_url('Supervisor/orders/create') ?>"><i class="fa fa-shopping-cart"></i> Add Order</a></li>
+                <li id="manageOrdersNav"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-basket"></i> Views Orders</a></li>
+           
+              </ul>
+            </li>
 		<!-- SUPPLIERS MENU -->
         <li>
           <a href="<?php echo 'suppliers' ?>">
@@ -204,7 +273,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- LOCKSCREEN MENU -->
         <li>
-          <a href="../examples/lockscreen.html">
+          <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -255,43 +324,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               
       <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
-         
+         <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Office' AND soft_deleted='N' ";
+                  $result = $conn->query($sql);    
+                ?>
           <thead>
             <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
-                  <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
-<!--
+                  <th>Unit Price</th> 
                   <th>Reorder Level</th>
-                  <th>Good Condition</th>
-                  <th>Damaged</th>
--->
-<!--                  <th style="width:12.5%;"> Action</th> -->
             </tr>
         </thead>
-        
+        <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?php echo $row["expiration_date"]; ?></td>
+                      <td><?php echo $row["supply_description"]; ?></td>
+                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><?php echo $row["unit"]; ?></td>
+                      <td><?php echo $row["unit_price"]; ?></td>
+                      <td><?php echo $row["reorder_level"]; ?></td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
         <tfoot>
            <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
-                  <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
-<!--
+                  <th>Unit Price</th> 
                   <th>Reorder Level</th>
-                  <th>Good Condition</th>
-                  <th>Damaged</th>
--->
-<!--                  <th> Action</th> -->
-            </tr> 
+            </tr>
         </tfoot>
       </table>              
             </div>
@@ -369,6 +441,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
  
+ <script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
+      })
+    </script>
 
 <script>
  // date and time 
@@ -404,200 +491,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   }) 
 </script>
 
-<!--create modal dialog for display detail info for edit on button cell click-->
-<!--
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div id="content-data"></div>
-            </div>
-        </div>
--->
-   
-    <script>
-        $(document).ready(function(){
-            var dataTable=$('#example').DataTable({
-                'autoWidth' : false,
-                "processing": true,
-                "serverSide": true,
-                "ajax":{
-                    url:"officesupplies/getOfficeSupplies",
-                    type:"post"
-                }
-            });
-        });
-    </script>
 
-    <!--script js for get edit data-->
-<!--
-    <script>
-        $(document).on('click','#getEdit',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'officesupplies/editOfficeSupplies',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
--->
-<!--
-
-    <script>
-        $(document).on('click','#getAdd',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'officesupplies/OfficeSuppliesadd',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
--->
-    
-    <!--script js for get reconcile data-->
-<!--
-    <script>
-        $(document).on('click','#getRecon',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'officeSupplies/reconcileOfficeSupplies',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
--->
-
-    <!--script js for release data-->
-<!--
-    <script>
-        $(document).on('click','#getDelete',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'officesupplies/deleteOfficeSupplies',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
--->
 </body>
 </html>
 
-<?php 
-$conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
-$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-
-//ADD on table FOR Office SUPPLIES
-//if(isset($_POST['offAdd'])){
-//
-//    $sqladd= $conn->prepare("INSERT INTO supplies (quantity_in_stock, good_condition, damaged) VALUES (?, ?, ?)");
-//    $addQty = $_POST['addQty'];
-//    $addGC  = $_POST['addGC'];
-//    $addDam = $_POST['addDam'];
-//    $sqladd->bind_param("sss", $addQty, $addGC, $addDam);
-//
-//    if($sql->execute()) {
-//        echo '<script>window.location.href="officeSupplies"</script>';
-//        } else {
-//        echo '<script>alert("Update Failed")</script>';
-//        }
-//        $sql->close();   
-//        $connection->close();
-//} // END OF OFFICE Add on table
-
-//EDIT FOR OFFICE SUPPLIES
-//if(isset($_POST['offEdit'])){
-//    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-//    $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
-//    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
-//    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtQuantityInStock']);
-//    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
-//    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
-//    $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
-//    $new_supplyGoodCondition=mysqli_real_escape_string($conn,$_POST['txtGoodCondition']);
-//    $new_supplyDamaged=mysqli_real_escape_string($conn,$_POST['txtDamaged']);
-//
-//    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate', good_condition='$new_supplyGoodCondition', damaged='$new_supplyDamaged' WHERE supply_id='$new_id' ";
-//    $result_update=mysqli_query($conn,$sqlupdate);
-//
-//    if($result_update){
-//        echo '<script>window.location.href="officeSupplies"</script>';
-//    }
-//    else{
-//        echo '<script>alert("Update Failed")</script>';
-//    }
-//} // END OF OFFICE EDIT
-
-
-//RECONCILE FOR OFFICE SUPPLIES
-//if(isset($_POST['offRecon'])){
-//    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-//    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
-//    $sqlupdate="UPDATE supplies SET quantity_in_stock='$new_supplyQuantityInStock' WHERE supply_id='$new_id' ";
-//    $result_update=mysqli_query($conn,$sqlupdate);
-//
-//    if($result_update){
-//        echo '<script>window.location.href="officeSupplies"</script>';
-//    }
-//    else{
-//        echo '<script>alert("Update Failed")</script>';
-//    }
-//} // END OF OFFICE RECONCILE
-?>
-
-<?php 
-$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
-$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-
-//SOFT DELETED OFFICE SUPPLIES
-//if(isset($_POST['offDelete'])){
-//    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-//    $sqlupdate="UPDATE supplies SET soft_deleted='Y' WHERE supply_id='$new_id' ";
-//    $result_update=mysqli_query($con,$sqlupdate);
-//
-//    if($result_update){
-//        echo '<script>window.location.href="officeSupplies"</script>';
-//    }
-//    else{
-//        echo '<script>alert("Update Failed")</script>';
-//    }
-//} // END OF SOFT DELETE OFFICE SUPPLIES
-
-?>

@@ -61,6 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+    
 <div class="wrapper">
 
   <header class="main-header">
@@ -95,6 +96,72 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
         
           
+		<!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."')  AND log_status = 1";
+                $result6 = $conn->query($sql6);    
+                ?>
+                <?php if ($result6->num_rows > 0) {
+                while($row = $result6->fetch_assoc()) { ?>
+                <span class="label label-warning"><?php echo $row["total"]; 
+                    $counted = $row["total"];
+                    ?></span>
+                <?php 
+                      }
+                    }
+                ?>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header"><i class="fa fa-warning text-yellow"></i> You have <?php echo $counted; ?> notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">  
+                <table id="notify" class="table table-bordered table-striped">
+                    <?php
+                    $conn =mysqli_connect("localhost","root","");
+                    mysqli_select_db($conn, "itproject");
+                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
+                    $result7 = $conn->query($sql7);
+                    ?>
+                    <?php 
+                      if ($result7->num_rows > 0) {
+                       while($row = $result7->fetch_assoc()) { 
+                    ?>
+                      <tr>
+                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <td class="notif-delete">
+                        <form action="delete" method="post">
+                        <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
+                        <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
+                        </form>
+                        </td>
+                      </tr>
+                    <?php 
+                      }
+                    }
+                    ?>
+                </table>
+                </ul>
+              </li>
+              <li class="footer"><a href="BusinessManager/logs">View all Logs</a></li>
+              <li>
+              <center>
+              <form action="deleteall" method="post">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
+              </form>
+              </center>
+              </li>
+            </ul>
+          </li>	
+			
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -139,20 +206,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-		
-      <!-- search form -->
-<!--
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
--->
-      <!-- /.search form -->
+	
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
@@ -189,7 +243,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </ul>
         </li>
 
-       
+        <!-- ORDERS -->
+        <li class="treeview" id="mainOrdersNav">
+              <a href="#">
+                <i class="fa fa-dollar"></i>
+                <span>Orders</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                  <li id="addOrderNav"><a href="<?php echo base_url('Supervisor/orders/create') ?>"><i class="fa fa-shopping-cart"></i> Add Order</a></li>
+                <li id="manageOrdersNav"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-basket"></i> Views Orders</a></li>
+           
+              </ul>
+            </li>
 		<!-- SUPPLIERS MENU -->
         <li>
           <a href="<?php echo 'suppliers' ?>">
@@ -205,7 +273,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 <!-- LOCKSCREEN MENU -->
         <li>
-          <a href="../examples/lockscreen.html">
+          <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -258,43 +326,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               
       <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
-         
+         <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Medical' AND soft_deleted='N' ";
+                  $result = $conn->query($sql);    
+                ?>
           <thead>
-            <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
+			  <tr>
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
-<!--
-                  <th>Reorder Level</th>
-                  <th>Good Condition</th>
-                  <th>Damaged</th>
--->
-<!--                  <th style="width:12.5%;"> Action</th> -->
-            </tr>
+			  </tr>
         </thead>
+			  <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?php echo $row["expiration_date"]; ?></td>
+                      <td><?php echo $row["supply_description"]; ?></td>
+                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><?php echo $row["unit"]; ?></td>
+                      <td><?php echo $row["unit_price"]; ?></td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
         
         <tfoot>
-           <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
+			<tr>
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
-<!--
-                  <th>Reorder Level</th>
-                  <th>Good Condition</th>
-                  <th>Damaged</th>
--->
-<!--                  <th> Action</th> -->
-            </tr> 
+			</tr> 
         </tfoot>
       </table>              
             </div>
@@ -372,6 +441,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
  
+<script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
+      })
+    </script>
+
 
 <script>
  // date and time 
@@ -416,6 +501,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 -->
    
+<!--
     <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
@@ -429,6 +515,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
     </script>
+-->
 
     <!--script js for get edit data-->
 <!--
