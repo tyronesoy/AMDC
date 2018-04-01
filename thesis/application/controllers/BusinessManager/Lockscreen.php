@@ -72,7 +72,7 @@ class Lockscreen extends CI_Controller {
 	public function refer(){
 		$password = $this->input->get('password');
 		$current_pass = $this->session->userdata('password');
-		if($password = $current_pass){
+		if($password == $current_pass){
 			header('Location: ' . $_SESSION['current_page']);
 		}else{
 			redirect ('BusinessManager/lockscreen');
