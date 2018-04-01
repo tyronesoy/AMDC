@@ -84,8 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-  <?php
-  $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];   
+  <?php  
       if(isset($_SESSION['logged_in']))  
       {  
            //echo 'dashboard';

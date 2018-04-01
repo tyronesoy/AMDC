@@ -12,7 +12,7 @@ if(isset($_REQUEST['id'])){
         $per_id=$row[0];
         $per_memodate=$row[1];
         $per_memodescription=$row[2];
-        $per_memostatus=$row[3];
+        $per_memostatus=$row[4];
 
     }//end while
 ?>
@@ -30,13 +30,13 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Memo ID</label>
                             <div class="col-sm-6">
-                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                                <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-8 control-label" for="txtmemostatus"></label>
-                            <div class="col-sm-1">
-                                <input type="hidden" class="form-control" id="txtmemostatus" name="txtmemostatus" hidden value="<?php echo $per_memostatus;?>" readonly>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="txtmemostatus" name="txtmemostatus" value="<?php echo $per_memostatus;?>" readonly>
                             </div>
                         </div>
                     </div>

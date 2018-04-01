@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Tell the browser to be responsive to screen width -->
+   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -38,6 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  
    <style>
     .example-modal .modal {
       position: relative;
@@ -57,7 +58,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
     <body class="hold-transition skin-blue sidebar-mini">
       <?php  
-      $_SESSION['current_page'] = $_SERVER['REQUEST_URI']; 
       if(isset($_SESSION['logged_in']))  
       {  
            //echo 'dashboard';
@@ -548,13 +548,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                       <?php
                         $status = '';
-                          if($row["memo_status"] == 'Pending')
+                          if($row["memo_status"] == 'Finished')
                           {
-                              $status = '<span class="label label-danger">Pending</span>';
+                              $status = '<span class="label label-success">Finished</span>';
                           }
                           else
                           {
-                              $status = '<span class="label label-success">Finished</span>';
+                              $status = '<span class="label label-danger">Pending</span>';
                           }
                       ?>
                       <td><?php echo $row["memo_date"]; ?></td>
@@ -875,10 +875,10 @@ if(isset($_POST['btnUpdate'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_memostatus=mysqli_real_escape_string($con,$_POST['txtmemostatus']);
 
-    if($new_memostatus == 'Pending'){
-      $new_memostatus = 'Finished';
-    }else{
+    if($new_memostatus == 'Finished'){
       $new_memostatus = 'Pending';
+    }elseif($new_memostatus == 'Pending'){
+      $new_memostatus = 'Finished';
     }
 
     $sqlupdate="UPDATE memo SET memo_status='$new_memostatus' WHERE memo_id='$new_id' ";
