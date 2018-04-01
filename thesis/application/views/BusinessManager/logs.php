@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Business Manager | Issued Supplies</title>
+   <title>Business Manager | Activity Logs</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -22,17 +22,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+    <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- Bootstrap time Picker -->
              <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
     <!-- Select2 -->
-      <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+  <!-- datatable lib -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
   <!-- Google Font -->
   <link rel="stylesheet"
@@ -54,7 +55,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php  
+<?php
+$_SESSION['current_page'] = $_SERVER['REQUEST_URI'];  
       if(isset($_SESSION['logged_in']))  
       {  
            //echo 'dashboard';
@@ -318,7 +320,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Business Manager</span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -326,8 +328,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p>
-                 Business Manager
-                  <small>Member since Oct. 2017</small>
+                <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+
+                  <small>Business Manager</small>
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -353,7 +356,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Business Manager</p>
+          <p><span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
@@ -509,10 +513,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- /.row -->
         <!-- this row will not appear when printing -->
       <div class="row no-print">
-        <div class="col-xs-12">
-          <a href="../examples/invoice-print6.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
+        <div class="col-xs-1" style="float:right">
+          <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
+          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       </div>
+      <script>
+        $('#print').click(function(){
+          var printme = document.getElementById('example');
+          var wme = window.open("","","width=900,height=700");
+          wme.document.write(printme.outerHTML);
+          wme.document.close();
+          wme.focus();
+          wme.print();
+          wme.close();
+        })
+      </script>
         
     </section>
     <!-- /.content -->
