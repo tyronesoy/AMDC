@@ -292,11 +292,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'Supervisor/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'Supervisor/officeSupplies' ?>"><i class="fa fa-pencil-square-o">Office Supplies</i></a></li>
+                  <li><a href="<?php echo 'Supervisor/officeSupplies' ?>"><i class="fa fa-shopping-basket">Office Supplies</i></a></li>
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'Supervisor/issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+            <li><a href="<?php echo 'Supervisor/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
 
           </ul>
         </li>
@@ -311,7 +311,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </a>
               <ul class="treeview-menu">
                   <li id="addOrderNav"><a href="<?php echo base_url('Supervisor/orders/create') ?>"><i class="fa fa-shopping-cart"></i> Add Order</a></li>
-                <li id="manageOrdersNav"><a href="<?php echo 'Supervisor/purchases' ?>"><i class="fa fa-shopping-basket"></i> Views Orders</a></li>
+                <li id="manageOrdersNav"><a href="<?php echo 'Supervisor/purchases' ?>"><i class="fa fa-shopping-cart"></i> Views Orders</a></li>
            
               </ul>
             </li>
