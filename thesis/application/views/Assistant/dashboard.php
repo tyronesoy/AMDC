@@ -431,7 +431,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         Dashboard
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><i class="fa fa-dashboard">Dashboard</li>
+        <li class="active"><i class="fa fa-dashboard"></i>Dashboard</li>
       </ol>
     </section>
 
