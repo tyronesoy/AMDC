@@ -374,7 +374,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'userAccounts' ?>">
-            <i class="fa fa-user-circle"></i> <span>Manage Accounts</span>
+            <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
         </li>
         <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
@@ -395,11 +395,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-briefcase"></i>Office Supplies</a>
+                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a>
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-list"></i>Issued Supplies</a></li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
 			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-cart-plus"></i>Deparments Order</a></li>
 			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
 			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>

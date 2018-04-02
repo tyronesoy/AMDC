@@ -29,8 +29,6 @@ function unit_measure($connect)
  }
  return $output;
 }
-
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
 <html>
@@ -401,7 +399,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'userAccounts' ?>">
-            <i class="fa fa-user-circle"></i> <span>Manage Accounts</span>
+            <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
         </li>
 		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
@@ -422,11 +420,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a>
+                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a>
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
 			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
 			<li class="active"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
 			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
@@ -519,9 +517,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <label>Purchase Requisition ID</label>
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
+                                                        <i class="fa fa-vcard"></i>
                                                       </div>
-                                                      <input type="text" class="form-control pull-left" id="poid" name="poid" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                      <input type="text" class="form-control pull-left" id="po" name="po" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
@@ -533,10 +531,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
                                                   <div class="input-group">
-                                                      <div class="input-group-addon">
+                                                      <div class="input-group-addon">       
                                                         <i class="fa fa-user"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                  <select class="form-group select2" name="supp" style="width:100%" required>
+                                                <option value="">Select a Supplier</option>
+                                                <?php
+                                                 $conn =mysqli_connect("localhost","root","");
+                                                mysqli_select_db($conn, "itproject");
+                                                  $sql = "SELECT * FROM suppliers";
+                                                  $results = mysqli_query($conn, $sql);
+
+                                                  foreach($results as $supplier) { 
+                                                ?>
+                                                <option value="<?php echo $supplier["company_name"]; ?>" name="supp"><?php echo $supplier["company_name"]; ?></option>
+                                                <?php 
+                                                  }
+                                                ?>
+                                              </select>
                                               </div>
                                               </div>
                                               </div>
@@ -547,7 +559,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <input type="text" class="form-control" id="datepicker" name="orDate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                      <input type="text" class="form-control" id="datepicker4" name="orDate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
@@ -564,8 +576,215 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                <th>Unit of Measure</th>
                                                <th>Unit Price</th>
                                                <th>Total Amount</th>
-                                               <th></th>
                                               </tr>
+                                               <tr>
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+
+                                            </tr>
+
+
+                                             <tr>
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+
+                                            </tr>
+
+                                             <tr>
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+
+                                            </tr>
+
+                                             <tr>
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+
+                                            </tr>
+
+                                             <tr>
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+
+                                            </tr>
+
+                                             <tr>
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+
+                                            </tr>
+
+                                             <tr>
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+
+                                            </tr>
+
+                                             <tr>
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+
+                                            </tr>
+
+                                             <tr>
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+
+
+                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+
+                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
+                                              </td>
+
+                                            </tr>
+
                                               <tr>
 
                                               <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
@@ -587,7 +806,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
 
-                                              <td width="20"><button type="button" name="add" id="add" class="btn btn-success">+</button></td>
                                             </tr>
                                           </table>
 
@@ -610,7 +828,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class='fa fa-times-circle'></i> Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addOrder"><i class='fa fa-save'></i> Add Purchase Order</button>
+                                        <button type="submit" class="btn btn-primary" name="addPurchases"><i class='fa fa-save'></i> Add Purchase Order</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -636,9 +854,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Purchase ID</th>
                         <th>Supplier</th>
                         <th>Order Date</th>
-                        <th>Delivery Date</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th>Action</th>           
                   </tr>
                 </thead>
                 <tbody>
@@ -659,7 +876,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["po_id"]; ?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
-                      <td><?php echo $row["delivery_date"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
@@ -683,7 +899,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           						  <th>Purchase ID</th>
                         <th>Supplier</th>
                         <th>Order Date</th>
-                        <th>Delivery Date</th>
                         <th>Status</th>
                         <th>Action</th>
                   </tr>
@@ -965,9 +1180,6 @@ function onUserInactivity() {
         });
     </script>
 
-</body>
-</html>
-
 <?php
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -1054,3 +1266,5 @@ $(document).ready(function(){
   
 });
 </script>
+</body>
+</html>

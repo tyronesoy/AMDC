@@ -37,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-		
+    
  <style>
     .example-modal .modal {
       position: relative;
@@ -360,7 +360,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
         <li class="active">
               <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
+                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
               </a>
           </li>
   
@@ -382,11 +382,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="treeview-menu">
                 <li ><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li class="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
+                  <li class="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
@@ -456,7 +456,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <th> <div class="btn-group">
                         <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location =this.value;">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
                           <span class="caret"></span>
                         </button>
                           <option><b>Total Quantity</b></option>
@@ -740,7 +740,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- /.row -->
             <!-- PRINT AND PDF -->
                  <div class="row no-print">
-			<div class="col-xs-1" style="float:right">
+      <div class="col-xs-1" style="float:right">
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       <script>
