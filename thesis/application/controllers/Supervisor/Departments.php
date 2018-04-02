@@ -21,7 +21,7 @@ class Departments extends CI_Controller {
 	public function index(){
 		$check = $this->session->userdata('type');
 		if($check == 'Supervisor'){
-			echo "<pre>";
+			echo "<pre class = 'hidden'>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 			$this->load->model('db_model');

@@ -22,7 +22,7 @@ class Deliveries extends CI_Controller {
 		// $this->load->model('db_model');
 		// $data['deliveries']=$this->db_model->getDeliveries();
 		// $this->load->view('BusinessManager/deliveries', $data);
-		echo "<pre>";
+		echo "<pre class = 'hidden'>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 				$_SESSION['logged_in'] = 'True';
