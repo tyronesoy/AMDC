@@ -195,10 +195,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <div class="pull-right">
                   <a href="<?php echo 'logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
-                <div class="pull-left">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-                            View Profile</button>
-                  </div>
+                <table>
+                    <tr>
+                      <th><button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#modal-info">Edit account profile</button>
+                            </th> 
+                    </tr>
+                </table>
               </li>
             </ul>
           </li>
@@ -206,7 +208,81 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       </div>
     </nav>
   </header>
-    
+    <?php $identity =  $this->session->userdata('fname');?>
+ <form name="form1" id="user_form" method="post" action="Supervisor/useradd">
+<div class="modal fade" id="modal-info">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <div class="margin">
+                    <center><h3><b>Edit account profile</b></h3></center>
+                  </div>
+              </div>
+                <!-- end of modal header -->
+              <div class="modal-body">
+                <div class="box-body">
+                    
+                       <div class="form-group">
+                          <label hidden="true" for="exampleInputEmail1">id</label>
+                          <input type="text" class="hidden" name="prevname" id="prevname" value="<?php echo $identity; ?>" />
+                        </div>
+                    
+                       <div class="form-group">
+                          <label for="exampleInputEmail1">Username</label>
+                          <input type="text" class="form-control" name="username" id="username" required />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">First Name</label>
+                          <input type="name" class="form-control" name="fname" id="fname" required />
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Last Name</label>
+                          <input type="name" class="form-control" name="lname" id="lname" required />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Contact Number</label>
+                          <input type="number" class="form-control" name="user_contact" id="user_contact" required />
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Password</label>
+                          <input type="password" class="form-control" name="password" id="password" required />
+                          <input type="checkbox" onclick="myFunction()">Show Password
+
+                        <script>
+                        function myFunction() {
+                            var x = document.getElementById("password");
+                            if (x.type === "password") {
+                                x.type = "text";
+                            } else {
+                                x.type = "password";
+                            }
+                        }
+                        </script>
+                            
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email</label>
+                          <input type="email" class="form-control" name="user_email" id="user_email" required />
+                        </div>
+
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" name="addUser">Save New User Account</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        </form>     
                             
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
