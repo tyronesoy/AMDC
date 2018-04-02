@@ -253,13 +253,12 @@ function unit_measure($connect)
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-	<!-- DASHBOARD MENU -->
+  <!-- DASHBOARD MENU -->
         <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-
 		<!-- SUPPLIES MENU -->
           <li class="treeview">
           <a href="#">
@@ -286,7 +285,24 @@ function unit_measure($connect)
 
           </ul>
         </li>
-      
+        <!--- ISSUED SUPPLIES -->
+            <li><a href="<?php echo 'issuedsupplies' ?>">
+                <i class="fa fa-truck"></i><span>Issued Supplies</span> 
+                </a>
+          </li>
+    <!-- SUPPLIERS MENU -->
+        <li>
+          <a href="<?php echo 'suppliers' ?>">
+            <i class="fa fa-user"></i> <span>Suppliers</span>
+          </a>
+        </li>
+        <!-- PURCHASES -->
+          <li class="active">
+              <a href="<?php echo 'purchases' ?>">
+                  <i class="fa fa-shopping-cart"></i><span>Orders</span>  
+              </a>
+          </li>
+    <!-- DEPARTMENTS MENU -->
 
     <!-- ORDERS -->
 	  	<li class="treeview" id="mainOrdersNav">
@@ -351,36 +367,328 @@ function unit_measure($connect)
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                 <table style="float:right;">
                     <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-success" onclick="window.location.href='href="<?php echo base_url('orders/create') ?>'"><i class=" fa fa-plus">Add Order</i></button></th>
+                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Order</i></button>
+            
+             <form id="insert_form" method="post" action="purchases/addPurchases">
+                        <div class="modal fade" id="modal-info">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span></button>
+                                            <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                      <div class="modal-body">
+                                        <div class="box-body">
+                                          <div class="row">
+                                              <div class="col-md-6" style="width:100%">
+                                              <div class="form-group">
+                                                <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-institution"></i>
+                                                      </div>
+                                                <label for="exampleInputEmail1">Department</label>
+                                                <input type="text" class="form-control" id="department" name="department" value="Cardiac" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <?php
+                                                 $conn =mysqli_connect("localhost","root","");
+                                                mysqli_select_db($conn, "itproject");
+                                                $fname= $this->session->userdata('fname');
+                                                $lname= $this->session->userdata('lname');
+                                                  $sql = "SELECT department_name FROM departments JOIN users ON users.dept_ID=departments.department_id WHERE users.fname='$fname' AND users.lname='$lname' ";
+                                                  $results = mysqli_query($conn, $sql);
+                                                ?>
+                                          </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                              <div class="row">
+                                              <div class="col-md-5">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Customer Name</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-user"></i>
+                                                      </div>
+                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </div>
+                                              </div>
+                                              </div>
+
+                                              <div class="col-md-6">
+                                              <div class="form-group">
+                                                    <label>Order Date</label>
+                                                    <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
+                                                      <?php $date = date("Y-m-d"); ?>
+                                                      <input type="date" class="form-control pull-right" id="datepicker" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                    </div>
+                                                    <!-- /.input group -->
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                          
+                                        <div class="table-responsive">
+                                          <span id="error"></span>
+                                          <table class="table table-bordered" id="item_table">
+                                            <tr>
+                                              <th> Item </th>
+                                              <th> Unit of Measure</th>
+                                              <th> Quantity </th>
+                                            </tr>
+                                            <tr>
+
+                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="quantity" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            </tr>
+
+                                             <tr>
+
+                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="quantity2" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            </tr>
+
+                                            <tr>
+
+                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="quantity3" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            </tr>
+
+                                            <tr>
+
+                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="quantity4" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            </tr>
+
+                                            <tr>
+
+                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="quantity5" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            </tr>
+
+                                            <tr>
+
+                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="quantity6" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            </tr>
+
+                                            <tr>
+
+                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="quantity7" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            </tr>
+
+                                            <tr>
+
+                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="quantity8" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            </tr>
+
+
+                                            <tr>
+
+                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="quantity9" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            </tr>
+
+                                            <tr>
+
+                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supply_dropdown($connect);?>
+                                                  </select>
+                                              </td>
+
+                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" name="quantity10" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            </tr>
+                                          </table>
+                                       
+                                        </div>
+                                      
+
+                                          </div>
+                                        </div> <!-- BOX-BODY -->
+                                      <div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                                        <!-- <button type="submit" class="btn btn-primary" name="addOrder" style="display: none;">Add Order</button> -->
+                                        <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
+                                      </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                  </div>
+                                  <!-- /.modal-dialog -->
+                                </div>
+            <!-- end of Items FORM -->
+                            </div>
+              </form>
+              </th>
+                        
+              
                     </tr>
                 </table>      
             </div>
             <!-- /.box-header -->
                    <div class="box-body">
                    <table id="example" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Order Date</th>
-                        <th>Customer Name</th>
-                        <th>Department</th>
-                        <th>Status</th>
-                        <th>Remarks</th>
-                        <!-- <th>Action</th> -->
-                    </tr>
-                </thead>
-                
-                <tfoot>
-                  <tr>
-                        <th>Order ID</th>
-                        <th>Order Date</th>
-                        <th>Customer Name</th>
-                        <th>Department</th>
-                        <th>Status</th>
-                        <th>Remarks</th>
-                       <!-- <th>Action</th> -->
-                    </tr>
-                </tfoot>
+                      <?php
+                        $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                        $sql = "SELECT * FROM inventory_order";
+                        $result = $conn->query($sql);    
+                      ?>
+                      <thead>
+                          <tr>
+                              <th>Order Date</th>
+                              <th>Customer Name</th>
+                              <th>Department</th>
+                              <th>Status</th>
+                              <th>Remarks</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <?php if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) { ?>
+                            <tr>
+                              <td><?php echo $row["inventory_order_created_date"]; ?></td>
+                              <td><?php echo $row["inventory_order_name"]; ?></td>
+                              <td><?php echo $row["inventory_order_dept"]; ?></td>
+                              <td><?php echo $row["inventory_order_status"]; ?></td>
+                              <td><?php echo $row["inventory_order_remarks"]; ?></td>
+                              <td></td>
+                            </tr>
+                          <?php 
+                              }
+                            }
+                          ?>
+                        </tbody>
+                      <tfoot>
+                        <tr>
+                              <th>Order Date</th>
+                              <th>Customer Name</th>
+                              <th>Department</th>
+                              <th>Status</th>
+                              <th>Remarks</th>
+                          </tr>
+                      </tfoot>
             </table>
 
             </div>
@@ -531,74 +839,28 @@ function onUserInactivity() {
   })
 </script>
 
+<script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
+
+
+      })
+    </script>
+
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
                 <div id="content-data"></div>
             </div>
         </div>
-   
-    <script>
-        $(document).ready(function(){
-            var dataTable=$('#example').DataTable({
-                "processing": true,
-                "autoWidth" : false,
-                "serverSide":true,
-                "ajax":{
-                    url:"purchases/getPurchases",
-                    type:"post"
-                }
-            });
-        });
 
-    setInterval(function(){
-   $('#box-body').load('purchases');
-}, 2000) /* time in milliseconds (ie 2 seconds)*/
-    </script>
-
-<script>
-$(document).ready(function(){
-  var i=1;
-  var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
-  var unit = <?php echo(json_encode(unit_measure($connect))); ?>;
-  $('#add').click(function(){
-    i++;
-    $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="QTY[]" class="form-control" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td> <td><select class="form-control item" name="item[]" style="width: 100%;"><option value=""></option> '+supplyDrop+' </select></td> <td width="100"><select class="form-control unit" name="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+unit+'</select></td>  <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">-</button></td></tr>');
-  });
-  
-  $(document).on('click', '.btn_remove', function(){
-    var button_id = $(this).attr("id"); 
-    $('#row'+button_id+'').remove();
-  });
-  
-   $('#add_order').on('submit', function(event){
-  event.preventDefault();
-  var error = '';
-  var form_data = $(this).serialize();
-  if(error == '')
-  {
-   $.ajax({
-    url:"purchases/addPurchases",
-    method:"POST",
-    data:form_data,
-    success:function(data)
-    {
-     if(data == 'ok')
-     {
-      $('#dynamic_field').find("tr:gt(0)").remove();
-      $('#error').html('<div class="alert alert-success">Item Details Saved</div>');
-     }
-    }
-   });
-  }
-  else
-  {
-   $('#error').html('<div class="alert alert-danger">'+error+'</div>');
-  }
- });
- 
-  
-});
-</script>
 </body>
 </html>

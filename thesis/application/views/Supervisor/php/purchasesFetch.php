@@ -5,13 +5,14 @@ $con=mysqli_connect('localhost','root','','itproject')
 $request=$_REQUEST;
 $col = array(
 	0   =>  'inventory_order_id',
-    1   =>  'inventory_order_created_date',
-    2   =>  'inventory_order_name',
-    3   =>  'intentory_order_dept',
-    4   =>  'inventory_order_quantity',
-    5   =>  'inventory_order_description',
-    6   =>  'inventory_order_status',
-    7   =>  'inventory_order_remarks'
+    1   =>  'inventory_order_uniq_id',
+    2   =>  'inventory_order_created_date',
+    3   =>  'inventory_order_name',
+    4   =>  'intentory_order_dept',
+    5   =>  'inventory_order_quantity',
+    6   =>  'inventory_order_description',
+    7   =>  'inventory_order_status',
+    8   =>  'inventory_order_remarks'
 	
 );  //create column like table in database
 
@@ -26,6 +27,7 @@ $totalFilter=$totalData;
 $sql ="SELECT * FROM inventory_order WHERE 1=1";	
 if(!empty($request['search']['value'])){
 	$sql.=" OR po_id Like '".$request['search']['value']."%' ";
+    $sql.=" OR po_id Like '".$request['search']['value']."%' ";
 	$sql.=" OR order_date Like '".$request['search']['value']."%' ";
     $sql.=" OR order_quantity Like '".$request['search']['value']."%' ";
     $sql.=" OR order_unit Like '".$request['search']['value']."%' ";
@@ -48,11 +50,11 @@ $data=array();
 while($row=mysqli_fetch_array($query)){
     $subdata=array();
     $subdata[]=$row[0]; 
-	$subdata[]=$row[1]; 
-    $subdata[]=$row[2]; 	 	
-    $subdata[]=$row[3];
-    $subdata[]=$row[6];
-    $subdata[]=$row[7];
+	$subdata[]=$row[2]; 
+    $subdata[]=$row[3]; 	 	
+    $subdata[]=$row[4];
+    $subdata[]=$row[5];
+    $subdata[]=$row[8];
 	
            //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
     /*$subdata[]='
