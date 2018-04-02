@@ -882,6 +882,11 @@ if(isset($_POST['offTQEdit'])){
     $result_update=mysqli_query($conn,$sqlupdate);
 
     if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply reorder level has been changed to ".$new_supplyReorderLevel."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $res1 = $conn->query($notif1);
         echo '<script>window.location.href="officeSupplies"</script>';
     }
     else{
