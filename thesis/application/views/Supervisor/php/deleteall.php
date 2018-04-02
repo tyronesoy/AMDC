@@ -2,7 +2,7 @@
 
 $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql2 = "UPDATE logs SET log_status = false WHERE log_id > 0";
+                    $sql2 = "UPDATE logs SET log_status = false WHERE log_id > 0 AND log_description like '%order%'";
                     $result2 = $conn->query($sql2);
 ?>
 <?php
