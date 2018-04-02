@@ -657,6 +657,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th>Last Name</th>
                 <th>Contact Number</th>
                 <th width="20%">Email</th>
+                <th>Department</th>
                 <th>Status</th>
                <!-- <th>Reset Password</th> -->
                 <th width="30%">Action</th>
