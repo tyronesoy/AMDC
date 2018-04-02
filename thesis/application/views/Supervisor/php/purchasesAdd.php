@@ -99,7 +99,7 @@ $order_id = uniqid();
   $unit_name10        = $_POST['unit_name10'];
   $quantity10         = $_POST['quantity10'];
 
-  $sql11->bind_param("ssss", $inventory_order_id, $supply_name2, $unit_name2, $quantity2);    
+  $sql11->bind_param("ssss", $inventory_order_id, $supply_name10, $unit_name10, $quantity10);    
 
   if($sql->execute() && $sql2->execute() && $sql3->execute() && $sql4->execute()&& $sql5->execute()&& $sql6->execute()&& $sql7->execute()&& $sql8->execute()&& $sql9->execute()&& $sql10->execute()&& $sql11->execute() ) {
   $datetoday = date('Y\-m\-d\ H:i:s A');
