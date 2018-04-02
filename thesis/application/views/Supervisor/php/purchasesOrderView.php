@@ -6,93 +6,121 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="select * from inventory_order_supplies ios join inventory_order io on (ios.inventory_order_id = io.inventory_order_uniq_id) where io.inventory_order_id = $id AND supply_name != 0";
+    $sql="SELECT * FROM inventory_order_supplies JOIN inventory_order USING (inventory_order_uniq_id) WHERE inventory_order_id = $id AND supply_name != 0";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-        $ios_id=$row[0];
-        $ioi_id=$row[1];
-        $supName=$row[2];
-        $unit=$row[3];
-        $qty=$row[4];
-        $io_id=$row[5];
-        $ioiUN_id=$row[6];
-        $iocd=$row[7];
-        $io_name=$row[8];
-        $io_dept=$row[9];
+        $per_id=$row[13];
+        $per_orderDate=$row[7];
+        $per_description=$row[7];
+        $per_supplier=$row[10];
+        $per_deliveryDate=$row[8];
+        $per_quantity=$row[3];
+        $per_status=$row[16];
+        $per_unit=$row[4];
+        $per_unitprice=$row[11];
 
     }//end while
 ?>
-    <form class="form-horizontal" method="post">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="col-md-2">
-                    <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                </div>
-                <div class="col-md-8">
-                    
-                    <div class="margin">
-                        <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
-                        <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                        <center><h6>Philippines</h6></center>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-6 control-label" for="txtid">Order ID</label>
-                            <div class="col-sm-6">
-                                <input type="number" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $ios_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-body">
-                   <table border="1px">
-                      <?php
-                        $sql="select * from inventory_order_supplies ios join inventory_order io on (ios.inventory_order_id = io.inventory_order_uniq_id) where io.inventory_order_id = $id AND supply_name != 0";
-                        $result = $con->query($sql);    
-                      ?>
-                          <tr>
-                              <th width="300"><center>Item</center></th>
-                              <th width="200"><center>Unit</center></th>
-                              <th width="150"><center>Quantity</center></th>
-                          </tr>
-                        <?php if($result->num_rows > 0) {
-                          while($row = $result->fetch_assoc()) { ?>
-                          <tr>
+<form class="form-horizontal" method="post">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span></button>
+                                            <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                      <div class="modal-body">
+                                        <div class="box-body">                                      
+                                              <div class="row">
+                                              <div class="col-md-5">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Name</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-user"></i>
+                                                      </div>
+                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </div>
+                                              </div>
+                                              </div>
 
-                              <td><?php echo $row["supply_name"]; ?></td>
 
-                              <td><?php echo $row["unit_name"]; ?></td>
-                            
-                              <td><?php echo $row["quantity"]?></td>
-                          </tr>
-                          <?php 
-                              }
-                            }
-                          ?>
-            </table>
+                                              <div class="col-md-6">
+                                              <div class="form-group">
+                                                    <label>Order Date</label>
+                                                      <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  </div>
+                                                </div>
 
-            </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
+
+                                          
+                                        <div class="table-responsive">
+                                          <span id="error"></span>
+                                          <table class="table table-bordered" id="item_table">
+                                            <tr>
+                                               <th>Item Description</th>
+                                               <th>Unit of Measure</th>
+                                               <th>Quantity</th>
+                                              </tr>
+                                            <tr>
+
+                                              <td width="250"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $per_description;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              </td>
+
+                                              <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $per_unit;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              </td>
+                                            
+                                            <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $per_quantity;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  </td>
+
+                                            <td width="50"><input type="text" name="unit_price" class="form-control " value="<?php echo $per_unitprice ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
+                                            </tr>
+
+
+                                          </table>
+                                       <div class="row" >
+                                               <div class="col-md-5">
+                                              <div class="form-group">
+                                                    <label>Grand Total</label>
+                                                    <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
+                                                      <input type="text" class="form-control pull-right" id="poid" name="poid" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    </div>
+                                                    <!-- /.input group -->
+                                                  </div>
+                                                </div>
+                                          </div>
+
+                                        </div>
+                                      
+
+                                          </div>
+                                        </div> <!-- BOX-BODY -->
+                                        <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>
-        </div>
-    </form>
-
-<?php
+                                      <div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                  </div>
+                                  <!-- /.modal-dialog -->
+                                </div>
+            <!-- end of Items FORM -->
+              </form>
+              <?php
 }//end if
-?>
-
-
-
-
-
-
-
-
-

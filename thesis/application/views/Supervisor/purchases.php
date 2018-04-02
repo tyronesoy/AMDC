@@ -637,6 +637,7 @@ if(!isset($_SESSION['first_run'])){
                               <th>Department</th>
                               <th>Status</th>
                               <th>Remarks</th>
+                              <th>Action</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -648,6 +649,9 @@ if(!isset($_SESSION['first_run'])){
                               <td><?php echo $row["inventory_order_dept"]; ?></td>
                               <td><?php echo $row["inventory_order_status"]; ?></td>
                               <td><?php echo $row["inventory_order_remarks"]; ?></td>
+                              <td><div class="btn-group">
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                        </div></td>
                             </tr>
                           <?php 
                               }
@@ -661,6 +665,7 @@ if(!isset($_SESSION['first_run'])){
                               <th>Department</th>
                               <th>Status</th>
                               <th>Remarks</th>
+                              <th>Action</th>
                           </tr>
                       </tfoot>
             </table>
@@ -835,6 +840,32 @@ function onUserInactivity() {
                 <div id="content-data"></div>
             </div>
         </div>
+
+        <div class="modal fade" id="viewModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="view-data"></div>
+            </div>
+        </div>
+
+     <script>
+        $(document).on('click','#getView',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#view-data').html('');
+            $.ajax({
+                url:'purchases/viewPurchases',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#view-data').html('');
+                $('#view-data').html(data);
+            }).final(function(){
+                $('#view-data').html('<p>Error</p>');
+            });
+        });
+    </script>
 
 </body>
 </html>
