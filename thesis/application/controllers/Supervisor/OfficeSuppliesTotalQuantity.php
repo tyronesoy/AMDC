@@ -17,25 +17,37 @@ class OfficeSuppliesTotalQuantity extends CI_Controller {
 	 * So any other public methods not prefixed with an underscore will
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+//	 */
+//	public function index()
+//	{
+//		$this->load->model('db_model');
+//		$data['officeSuppliesTotalQuantity']=$this->db_model->getOfficeSuppliesTotalQuantity();
+//		$this->load->view('Supervisor/php/officeSuppliesTotalQuantity', $data);
+
 	public function index()
 	{
-		$this->load->model('db_model');
-		$data['officeSuppliesTotalQuantity']=$this->db_model->getOfficeSuppliesTotalQuantity();
-		$this->load->view('Supervisor/php/officeSuppliesTotalQuantity', $data);
-		/*
-		$check = $this->session->userdata('stts');
-		if($check == 'BusinessManager'){
-			$this->load->view('BusinessManager/medical_supplies');
-		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/medical_supplies');
-		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/medical_supplies');
-		}else{
-			header('Location: ../login');
-		} */
-		
+		$check = $this->session->userdata('type');
+		if($check == 'Supervisor'){
+			$_SESSION['logged_in'] = 'True';
+			echo "<pre class='hidden'>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
+			$this->load->model('db_model');
+			//$data['medical_supplies']=$this->db_model->getMedicalSupplies();
+			$data['officeSuppliesTotalQuantity']=$this->db_model->getOfficeSuppliesTotalQuantity();
+			if($_SESSION['logged_in'] == 'True')
+			{
+			//$this->load->view('Supervisor/medical_supplies', $data);
+			$this->load->view('Supervisor/php/officeSuppliesTotalQuantity', $data);
+			}
+				else if ($_SESSION['logged_in'] != 'True') 
+			{
+				$this->load->view('Supervisor/lockscreen');
+			}
+		}
 	}
+		
+		
 	public function editOfficeSuppliesTotalQuantity(){
 		$this->load->view('Supervisor/php/officeSuppliesTotalQuantityEdit');
 	}

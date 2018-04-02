@@ -22,12 +22,20 @@ class IssuedSupplies extends CI_Controller {
 	{	
 		$check = $this->session->userdata('type');
 		if($check == 'Supervisor'){
-			echo "<pre class = 'hidden'>";
+			$_SESSION['logged_in'] = 'True';
+			echo "<pre class='hidden'>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');
 		$data['issuedSupplies']=$this->db_model->getIssuedSupplies();
-		$this->load->view('Supervisor/issuedSupplies', $data);
+		if($_SESSION['logged_in'] == 'True')
+		{
+			$this->load->view('Supervisor/issuedSupplies', $data);
+		} else if ($_SESSION['logged_in'] != 'True') 
+		{
+			$this->load->view('Supervisor/lockscreen');
+		}
+		
 	}
 		
 	}

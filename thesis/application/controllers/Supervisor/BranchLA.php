@@ -18,24 +18,34 @@ class BranchLA extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+//	public function index()
+//	{
+//		$this->load->model('db_model');
+//		$data['branchLA']=$this->db_model->getLADepartments();
+//		$this->load->view('Supervisor/php/branchLA', $data);		
+//	}
+	
+		public function index()
 	{
-		$this->load->model('db_model');
-		$data['branchLA']=$this->db_model->getLADepartments();
-		$this->load->view('Supervisor/php/branchLA', $data);
-		/*
-		$check = $this->session->userdata('stts');
+		$check = $this->session->userdata('type');
 		if($check == 'Supervisor'){
-			$this->load->view('Supervisor/medical_supplies');
-		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/medical_supplies');
-		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/medical_supplies');
-		}else{
-			header('Location: ../login');
-		} */
-		
+			$_SESSION['logged_in'] = 'True';
+			echo "<pre class='hidden'>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
+			$this->load->model('db_model');
+			$data['branchLA']=$this->db_model->getLADepartments();
+			if($_SESSION['logged_in'] == 'True')
+			{
+			$this->load->view('Supervisor/php/branchLA', $data);
+			}
+				else if ($_SESSION['logged_in'] != 'True') 
+			{
+				$this->load->view('Supervisor/lockscreen');
+			}
+		}
 	}
+	
 	public function getLADepartment(){
 		$this->load->view('Supervisor/php/departmentsLAFetch');
 	}

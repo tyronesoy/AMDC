@@ -18,24 +18,37 @@ class MedicalSuppliesTotalQuantity extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+//	public function index()
+//	{
+//		$this->load->model('db_model');
+//		$data['medicalSuppliesTotalQuantity']=$this->db_model->getMedicalSuppliesTotalQuantity();
+//		$this->load->view('Supervisor/php/medicalSuppliesTotalQuantity', $data);
+//	}
+	
+	
 	public function index()
 	{
-		$this->load->model('db_model');
-		$data['medicalSuppliesTotalQuantity']=$this->db_model->getMedicalSuppliesTotalQuantity();
-		$this->load->view('Supervisor/php/medicalSuppliesTotalQuantity', $data);
-		/*
-		$check = $this->session->userdata('stts');
-		if($check == 'BusinessManager'){
-			$this->load->view('BusinessManager/medical_supplies');
-		}else if($check == 'Assistant'){
-			$this->load->view('Assistant/medical_supplies');
-		}else if($check == 'Supervisor'){
-			$this->load->view('Supervisor/medical_supplies');
-		}else{
-			header('Location: ../login');
-		} */
-		
+		$check = $this->session->userdata('type');
+		if($check == 'Supervisor'){
+			$_SESSION['logged_in'] = 'True';
+			echo "<pre class='hidden'>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
+			$this->load->model('db_model');
+			//$data['medical_supplies']=$this->db_model->getMedicalSupplies();
+			$data['medicalSuppliesTotalQuantity']=$this->db_model->getMedicalSuppliesTotalQuantity();
+			if($_SESSION['logged_in'] == 'True')
+			{
+			//$this->load->view('Supervisor/medical_supplies', $data);
+			$this->load->view('Supervisor/php/medicalSuppliesTotalQuantity', $data);
+			}
+				else if ($_SESSION['logged_in'] != 'True') 
+			{
+				$this->load->view('Supervisor/lockscreen');
+			}
+		}
 	}
+	
 	public function editMedicalSuppliesTotalQuantity(){
 		$this->load->view('Supervisor/php/medicalSuppliesTotalQuantityEdit');
 	}

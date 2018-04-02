@@ -18,28 +18,40 @@ class Purchases extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index(){
+//	public function index(){
+//		$check = $this->session->userdata('type');
+//		if($check == 'Supervisor'){
+//			/* echo "<pre>";
+//				print_r ( $this->session->all_userdata());
+//				echo "</pre>"; */
+//		$this->load->model('db_model');
+//		$data['purchases']=$this->db_model->getPurchases();
+//		$this->load->view('Supervisor/purchases', $data);
+//	}
+//	}
+	
+	
+	public function index()
+	{
 		$check = $this->session->userdata('type');
 		if($check == 'Supervisor'){
-			/* echo "<pre>";
+			$_SESSION['logged_in'] = 'True';
+			echo "<pre class='hidden'>";
 				print_r ( $this->session->all_userdata());
-				echo "</pre>"; */
-		$this->load->model('db_model');
-		$data['purchases']=$this->db_model->getPurchases();
-		$this->load->view('Supervisor/purchases', $data);
+				echo "</pre>";
+			$this->load->model('db_model');
+			$data['purchases']=$this->db_model->getPurchases();
+			if($_SESSION['logged_in'] == 'True')
+			{
+			$this->load->view('Supervisor/purchases', $data);
+			}
+				else if ($_SESSION['logged_in'] != 'True') 
+			{
+				$this->load->view('Supervisor/lockscreen');
+			}
+		}
 	}
-		//$check = $this->session->userdata('stts');
-		//if($check == 'Supervisor'){
-		//	$this->load->view('Supervisor/suppliers');
-		//}
-		//else if($check == 'Assistant'){
-		//	$this->load->view('Assistant/suppliers');
-		//}else if($check == 'Supervisor'){
-		//	$this->load->view('Supervisor/suppliets');
-		//}else{
-		//	header('Location: ../login');
-		//}
-	}
+	
 	public function getPurchases(){
 		$this->load->view('Supervisor/php/purchasesFetch');
 	}

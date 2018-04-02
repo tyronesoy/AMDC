@@ -18,19 +18,44 @@ class MedicalSupplies extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+//	public function index()
+//	{
+//		$check = $this->session->userdata('type');
+//		if($check == 'Supervisor'){
+//			 echo "<pre class='hidden'>";
+//				print_r ( $this->session->all_userdata());
+//				echo "</pre>"; 
+//		$this->load->model('db_model');
+//		$data['medical_supplies']=$this->db_model->getMedicalSupplies();
+//		$this->load->view('Supervisor/medical_supplies', $data);
+//		}
+//		
+//	}
+	
 	public function index()
 	{
 		$check = $this->session->userdata('type');
 		if($check == 'Supervisor'){
-			/* echo "<pre>";
+			$_SESSION['logged_in'] = 'True';
+			echo "<pre class='hidden'>";
 				print_r ( $this->session->all_userdata());
-				echo "</pre>"; */
-		$this->load->model('db_model');
-		$data['medical_supplies']=$this->db_model->getMedicalSupplies();
-		$this->load->view('Supervisor/medical_supplies', $data);
+				echo "</pre>";
+			$this->load->model('db_model');
+			$data['medical_supplies']=$this->db_model->getMedicalSupplies();
+			if($_SESSION['logged_in'] == 'True')
+			{
+			$this->load->view('Supervisor/medical_supplies', $data);
+			}
+				else if ($_SESSION['logged_in'] != 'True') 
+			{
+				$this->load->view('Supervisor/lockscreen');
+			}
 		}
-		
 	}
+	
+	
+	
+	
 	public function getMedicalSupplies(){
 		$this->load->view('Supervisor/php/medicalSuppliesFetch');
 	}
