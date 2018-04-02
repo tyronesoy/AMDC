@@ -80,10 +80,7 @@ if(isset($_REQUEST['id'])){
                                 </div>
                             </div>
                                               </div>
-                                               <?php
-                        $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id";
-                        $result = $con->query($sql);    
-                      ?>
+
 
                                           
                                         <div class="table-responsive">
@@ -96,27 +93,20 @@ if(isset($_REQUEST['id'])){
                                                <th>Unit Price</th>
                                                <th>Total Amount</th>
                                               </tr>
-                                              <?php if($result->num_rows > 0) {
-                                                while($row = $result->fetch_assoc()) { ?>
                                             <tr>
 
-                                              <td width="250"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="250"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $per_description;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                               </td>
 
-                                              <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $row['order_unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $per_unit;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                               </td>
                                             
-                                            <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  </td>
+                                            <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $per_quantity;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  </td>
 
-                                            <td width="50"><input type="text" name="unit_price" class="form-control " value="<?php echo $row['unit_price']; ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            <td width="50"><input type="text" name="unit_price" class="form-control " value="<?php echo $per_unitprice ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             <td width="50"><input type="text" name="total" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
-
-                                            <?php 
-                              }
-                            }
-                          ?>
 
 
                                           </table>

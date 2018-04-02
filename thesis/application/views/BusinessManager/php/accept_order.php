@@ -10,11 +10,11 @@ if(isset($_REQUEST['id'])){
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
-        $per_date=$row[2];
-        $per_name=$row[3];
-        $per_department=$row[4];
-        $per_status=$row[7];
-        $per_remarks=$row[8];
+        $per_date=$row[1];
+        $per_name=$row[2];
+        $per_department=$row[3];
+        $per_status=$row[4];
+        $per_remarks=$row[5];
 
     }//end while
 ?>
