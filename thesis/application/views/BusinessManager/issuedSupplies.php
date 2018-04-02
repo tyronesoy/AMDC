@@ -466,20 +466,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
-                <table style="float: left;">
-                    <tr>
-                        <th> <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Branch
-                          <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                        <li><a href="php/issuedBaguio.php">Baguio City</a></li>
-                        <li><a href="php/issuedLA.php">La Trinidad</a></li>
-                        <li><a href="php/issuedSLU.php">SLU Hospital</a></li>
-                        </ul>
-                      </div></th>
-                    </tr>
-                </table>      
+      
             </div>
             <!-- /.box-header -->
               
