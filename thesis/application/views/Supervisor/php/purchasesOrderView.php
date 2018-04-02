@@ -6,18 +6,15 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="SELECT * FROM inventory_order_supplies JOIN inventory_order USING (inventory_order_uniq_id) WHERE inventory_order_id = $id AND supply_name != 0";
+    $sql="SELECT * FROM inventory_order_supplies ios JOIN inventory_order io ON (ios.inventory_order_id = io.inventory_order_uniq_id) WHERE io.inventory_order_id = $id AND supply_name != 0";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[13];
         $per_orderDate=$row[7];
         $per_description=$row[7];
-        $per_supplier=$row[10];
-        $per_deliveryDate=$row[8];
         $per_quantity=$row[3];
-        $per_status=$row[16];
         $per_unit=$row[4];
-        $per_unitprice=$row[11];
+        
 
     }//end while
 ?>
