@@ -61,16 +61,41 @@ class Dashboard extends CI_Controller {
            			// echo "BusinessManager/lockscreen";
            			$this->load->view('BusinessManager/lockscreen');
       			}  
-     	 		
-			
-			
-			}else if($ty == 'Assistant' && $st == 'Active'){
-			$this->load->view('Assistant/dashboard');
-			}else if($ty == 'Supervisor' && $st == 'Active'){
-			$this->load->view('Supervisor/dashboard');
-			}else{
-				$this->load->view('login_view');
 			}
+			
+			
+			else if($ty == 'Assistant' && $st == 'Active'){
+				$_SESSION['logged_in'] = 'True';
+				echo "<pre class='hidden'>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
+				if($_SESSION['logged_in'] == 'True')  
+				{
+				$this->load->view('Assistant/dashboard');
+				}
+				else if ($_SESSION['logged_in'] != 'True') 
+				{
+					$this->load->view('login_view');
+				}
+			}
+			
+			
+			else if($ty == 'Supervisor' && $st == 'Active'){
+				
+				$_SESSION['logged_in'] = 'True';
+				echo "<pre class='hidden'>";
+				print_r ( $this->session->all_userdata());
+				echo "</pre>";
+				if($_SESSION['logged_in'] == 'True')  
+				{
+				$this->load->view('Supervisor/dashboard');
+				}
+				else if ($_SESSION['logged_in'] != 'True') 
+				{
+					$this->load->view('login_view');
+				}
+			}
+				
 		}
 		
 	}
