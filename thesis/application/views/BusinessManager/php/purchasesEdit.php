@@ -6,17 +6,17 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql=" SELECT * FROM purchase_orders WHERE po_id=$id";
+    $sql=" SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE purchase_order_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-		$per_id=$row[0];
-        $per_purchasesPurchaseDate=$row[1];
-		$per_purchasesDescription=$row[2];
-		$per_purchasesSupplier=$row[3];
-        $per_purchasesQuantity=$row[4];
-        $per_purchasesUnit=$row[5];
-        $per_purchasesDeliveryDate=$row[6];
-		$per_purchasesStatus=$row[7];
+		$per_id=$row[13];
+        $per_purchasesPurchaseDate=$row[2];
+		$per_purchasesDescription=$row[7];
+		$per_purchasesSupplier=$row[10];
+        $per_purchasesQuantity=$row[3];
+        $per_purchasesUnit=$row[4];
+        $per_purchasesDeliveryDate=$row[8];
+		$per_purchasesStatus=$row[16];
 
     }//end while
 ?>

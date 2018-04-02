@@ -6,18 +6,17 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="select * from purchase_orders WHERE po_id=$id";
+    $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE purchase_order_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-        $per_id=$row[0];
-        $per_orderDate=$row[1];
-        $per_description=$row[6];
-        $per_supplier=$row[9];
-        $per_deliveryDate=$row[7];
-        $per_quantity=$row[2];
-        $per_description=$row[5];
-        $per_status=$row[4];
-        $per_unit=$row[3];
+        $per_id=$row[13];
+        $per_orderDate=$row[2];
+        $per_description=$row[7];
+        $per_supplier=$row[10];
+        $per_deliveryDate=$row[8];
+        $per_quantity=$row[3];
+        $per_status=$row[16];
+        $per_unit=$row[4];
 
     }//end while
 ?>
@@ -73,7 +72,7 @@ if(isset($_REQUEST['id'])){
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="txtdesc">Description</label>
@@ -94,7 +93,7 @@ if(isset($_REQUEST['id'])){
                                     
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
@@ -113,7 +112,7 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="txtunit" name="txtunit" value="" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                        <input type="text" class="form-control" id="txtunit" name="txtunit" value="<?php echo $per_unit;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                     </div>
                                 </div>
                             </div>
