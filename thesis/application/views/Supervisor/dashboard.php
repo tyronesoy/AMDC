@@ -256,17 +256,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'Supervisor/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+		  	<li><a href="<?php echo 'Supervisor/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+		  <li><a href="<?php echo 'Supervisor/purchases' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
           </ul>
         </li>
-	  <!-- ORDERS -->
-       
-		   <li>
-			  <a href="<?php echo 'Supervisor/purchases' ?>">
-				<i class="fa fa-dollar"></i> <span>Orders</span>
-			  </a>
-			</li>
+
 		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'Supervisor/suppliers' ?>">

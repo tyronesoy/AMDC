@@ -220,7 +220,7 @@ if(!isset($_SESSION['first_run'])){
             </a>
         </li>
 		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
+          <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -241,17 +241,11 @@ if(!isset($_SESSION['first_run'])){
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+		  	<li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+		  <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
           </ul>
         </li>
-   
-    <!-- ORDERS -->
-          <li>
-			  <a href="<?php echo 'purchases' ?>">
-				<i class="fa fa-dollar"></i> <span>Orders</span>
-			  </a>
-			</li>
 		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li class="active">
           <a href="<?php echo 'suppliers' ?>">

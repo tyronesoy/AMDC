@@ -207,17 +207,7 @@ if(!isset($_SESSION['first_run'])){
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
+
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
@@ -229,7 +219,7 @@ if(!isset($_SESSION['first_run'])){
         </li>
   
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-            <li class="treeview">
+       <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -250,17 +240,12 @@ if(!isset($_SESSION['first_run'])){
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+		  	<li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+		  <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
           </ul>
         </li>
-   
-         <!-- ORDERS -->
-          <li>
-			  <a href="<?php echo 'purchases' ?>">
-				<i class="fa fa-dollar"></i> <span>Orders</span>
-			  </a>
-			</li>
+
 		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
@@ -338,8 +323,6 @@ if(!isset($_SESSION['first_run'])){
                         <th>Department Name</th>
                         <th>Branch Location</th>
 						<th>Status</th>
-<!--                        <th>Action</th>-->
-
                     </tr>
                 </thead>
 				 <tbody>
@@ -372,9 +355,7 @@ if(!isset($_SESSION['first_run'])){
                   <tr>
                     <th>Department Name</th>
                     <th>Branch Location</th>
-					<th>Status</th>  
-<!--                        <th>Action</th>-->
-                    
+					<th>Status</th>                   
                   </tr>
                 </tfoot>
             </table>

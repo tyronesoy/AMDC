@@ -222,7 +222,7 @@ if(!isset($_SESSION['first_run'])){
             </a>
         </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
+       <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -243,17 +243,12 @@ if(!isset($_SESSION['first_run'])){
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+		  	<li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+		  <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
           </ul>
         </li>
 
-        <!-- ORDERS -->
-          <li>
-			  <a href="<?php echo 'purchases' ?>">
-				<i class="fa fa-dollar"></i> <span>Orders</span>
-			  </a>
-			</li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
@@ -330,8 +325,6 @@ if(!isset($_SESSION['first_run'])){
                         <th>Department Name</th>
                         <th>Branch Location</th>
 						<th>Status</th>
-<!--                        <th>Action</th>-->
-
                     </tr>
                 </thead>
 			<tbody>
@@ -360,11 +353,9 @@ if(!isset($_SESSION['first_run'])){
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Department Name</th>
-                        <th>Branch Location</th>
-					  <th>Status</th>
-<!--                        <th>Action</th>-->
-                    
+						<th>Department Name</th>
+						<th>Branch Location</th>
+						<th>Status</th>                    
                   </tr>
                 </tfoot>
             </table>
@@ -378,16 +369,22 @@ if(!isset($_SESSION['first_run'])){
         <!-- /.col -->
       </div>
       <!-- /.row -->
-          <div class="row no-print">
-        <div class="col-xs-12">
-          <a href="../examples/printDepartments.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
-        
-<!--
-        <a href="departmentsRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
-          </a>
--->
+         <div class="row no-print">
+        <div class="col-xs-1" style="float:right">
+          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       </div>
+      <script>
+        $('#print').click(function(){
+          var printme = document.getElementById('example');
+          var wme = window.open("","","width=900,height=700");
+          wme.document.write(printme.outerHTML);
+          wme.document.close();
+          wme.focus();
+          wme.print();
+          wme.close();
+        })
+      </script>
     
     </section>
     <!-- /.content -->

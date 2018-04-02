@@ -47,18 +47,18 @@ if(!isset($_SESSION['first_run'])){
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
- <?php 
-$_SESSION['current_page'] = $_SERVER['REQUEST_URI']; 
+<?php
+  $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];   
       if(isset($_SESSION['logged_in']))  
       {  
            //echo 'dashboard';
       }  
       else if(!isset($_SESSION['logged_in'])) 
       {?>  
-           <script>window.location.href = "Supervisor/lockscreen"</script>
+           <script>window.location.href = "lockscreen"</script>
            <?php    
       }  
-      ?> 
+      ?>   
     
 <div class="wrapper">
 
@@ -93,7 +93,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     </a>
                 </li>
          
-         	<!-- Notifications: style can be found in dropdown.less -->
+          	<!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
@@ -177,7 +177,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-            <	div class="pull-left">
+            	<div class="pull-left">
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
                             View Profile</button>
                   </div>
@@ -207,18 +207,19 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-     
+
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+  <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-         <li class="treeview">
+  
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+       <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -239,17 +240,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+		  	<li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+		  <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
           </ul>
         </li>
-   
-         <!-- ORDERS -->
-          <li>
-			  <a href="<?php echo 'purchases' ?>">
-				<i class="fa fa-dollar"></i> <span>Orders</span>
-			  </a>
-			</li>
+
 		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
@@ -262,9 +258,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
+		
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'Supervisor/lockscreen' ?>">
+          <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -284,9 +281,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       </h1>
         
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
         <li><a href="<?php echo 'departments' ?>">Departments</a></li>
-        <li class="active"><a href="<?php echo 'branchBaguio' ?>">Baguio Branch</a></li>
+        <li class="active"><a href="<?php echo 'branchBaguio' ?>">Baguio City Branch</a></li>
       </ol>
     </section>
 
