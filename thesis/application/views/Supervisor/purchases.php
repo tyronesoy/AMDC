@@ -648,7 +648,6 @@ if(!isset($_SESSION['first_run'])){
                               <td><?php echo $row["inventory_order_dept"]; ?></td>
                               <td><?php echo $row["inventory_order_status"]; ?></td>
                               <td><?php echo $row["inventory_order_remarks"]; ?></td>
-                              <td></td>
                             </tr>
                           <?php 
                               }
