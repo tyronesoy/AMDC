@@ -15,6 +15,7 @@ if(!isset($_SESSION['first_run'])){
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Supervisor | Dashboard</title>
+	
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -28,6 +29,8 @@ if(!isset($_SESSION['first_run'])){
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css">
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <!-- Morris chart -->
   <link rel="stylesheet" href="assets/bower_components/chart.js/chart.css">
   <!-- jvectormap -->
@@ -36,21 +39,26 @@ if(!isset($_SESSION['first_run'])){
   <link rel="stylesheet" href="assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+    <!-- datatable lib -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
    <!-- DataTables -->
   <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
   <link rel="stylesheet" href="assets/dist/css/w3css.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
+  <script src="https://cdnjs.cloudfare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
+  <script src="assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudfare.com/ajax/libs/morris.js/0.5.1/morris.css">
+  <script src="https://cdnjs.cloudfare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+	
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <?php 
@@ -189,7 +197,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </div>
                 <div class="pull-left">
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-                            Change Password</button>
+                            View Profile</button>
                   </div>
               </li>
             </ul>
@@ -198,55 +206,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       </div>
     </nav>
   </header>
-    <div class="modal fade" id="modal-default">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Change Password</h4>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="form-group">
-                                                          <label for="exampleInputEmail1">Enter New Password</label>
-                                                          <input type="email" class="form-control">
-                                                        </div>
-                                                      <div class="form-group">
-                                                          <label for="exampleInputEmail1">Confirm New Password</label>
-                                                          <input type="email" class="form-control">
-                                                        </div>
-                                                      <div class="form-group">
-                                                          <label for="exampleInputEmail1">Security Question: Who is you favorite superhero?</label>
-                                                          <input type="email" class="form-control" placeholder="Answer">
-                                                        </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-warning">Save Password</button>
-                                  </div>
-                                </div>
-                                <!-- /.modal-content -->
-                              </div>
-                              <!-- /.modal-dialog -->
-                            </div>
-                            <!-- /.modal -->
-                            <!-- MODAL -->
-                                    <div class="modal fade" id="modal-warning">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <h4>New Password Saved!</h4>
-                                  </div>
-                                </div>
-                                <!-- /.modal-content -->
-                              </div>
-                              <!-- /.modal-dialog -->
-                            </div>
-                            <!-- /.modal -->
+    
                             
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
@@ -292,7 +252,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'Supervisor/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'Supervisor/officeSupplies' ?>"><i class="fa fa-shopping-basket">Office Supplies</i></a></li>
+                  <li><a href="<?php echo 'Supervisor/officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
@@ -301,20 +261,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </ul>
         </li>
 	  <!-- ORDERS -->
-        <li class="treeview" id="mainOrdersNav">
-              <a href="#">
-                <i class="fa fa-dollar"></i>
-                <span>Orders</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                  <li id="addOrderNav"><a href="<?php echo base_url('Supervisor/orders/create') ?>"><i class="fa fa-shopping-cart"></i> Add Order</a></li>
-                <li id="manageOrdersNav"><a href="<?php echo 'Supervisor/purchases' ?>"><i class="fa fa-shopping-cart"></i> Views Orders</a></li>
-           
-              </ul>
-            </li>
+       
+		   <li>
+			  <a href="<?php echo 'Supervisor/purchases' ?>">
+				<i class="fa fa-dollar"></i> <span>Orders</span>
+			  </a>
+			</li>
 		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'Supervisor/suppliers' ?>">
