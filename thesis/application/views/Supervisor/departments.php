@@ -48,7 +48,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
-    
+<?php
+  $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];   
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "lockscreen"</script>
+           <?php    
+      }  
+      ?>
+	
 <div class="wrapper">
 
   <header class="main-header">
@@ -545,53 +557,15 @@ input:checked + .slider:before {
   })
 </script>
 
-<!--create modal dialog for display detail info for edit on button cell click-->
-<!--
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div id="content-data"></div>
-            </div>
-        </div>
--->
-   
-<!--
-    <script>
-        $(document).ready(function(){
-            var dataTable=$('#example').DataTable({
-                "processing": true,
-                "serverSide":true,
-                "ajax":{
-                    url:"departments/getDepartment",
-                    type:"post"
-                }
-            });
-        });
-    </script>
--->
-
-    <!--script js for get edit data-->
-<!--
-    <script>
-        $(document).on('click','#getEdit',function(e){
-            e.preventDefault();
-            var per_depId=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'departments/editDepartment',
-                type:'POST',
-                data:'id='+per_depId,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
--->
-
+<script>
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "lockscreen"
+   <?php } ?>
+}
+</script>
 
 </body>
 </html>

@@ -61,7 +61,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-    
+ 
+<?php
+  $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];   
+      if(isset($_SESSION['logged_in']))  
+      {  
+           //echo 'dashboard';
+      }  
+      else if(!isset($_SESSION['logged_in'])) 
+      {?>  
+           <script>window.location.href = "lockscreen"</script>
+           <?php    
+      }  
+      ?>
+	
 <div class="wrapper">
 
   <header class="main-header">
@@ -440,6 +453,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+
+
+<script>
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "lockscreen"
+   <?php } ?>
+}
+</script>
  
 <script>
       $(function () {
@@ -492,203 +516,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   }) 
 </script>
 
-<!--create modal dialog for display detail info for edit on button cell click-->
-<!--
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div id="content-data"></div>
-            </div>
-        </div>
--->
-   
-<!--
-    <script>
-        $(document).ready(function(){
-            var dataTable=$('#example').DataTable({
-                'autoWidth' : false,
-                "processing": true,
-                "serverSide": true,
-                "ajax":{
-                    url:"medicalsupplies/getMedicalSupplies",
-                    type:"post"
-                }
-            });
-        });
-    </script>
--->
 
-    <!--script js for get edit data-->
-<!--
-    <script>
-        $(document).on('click','#getEdit',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'medicalsupplies/editMedicalSupplies',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
--->
-
-<!--
-    <script>
-        $(document).on('click','#getAdd',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'medicalsupplies/MedicalSuppliesadd',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
--->
-    
-    <!--script js for get reconcile data-->
-<!--
-    <script>
-        $(document).on('click','#getRecon',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'medicalSupplies/reconcileMedicalSupplies',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
--->
-
-    <!--script js for release data-->
-<!--
-    <script>
-        $(document).on('click','#getDelete',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'medicalsupplies/deleteMedicalSupplies',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-    </script>
--->
 </body>
 </html>
-
-<?php 
-$conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
-$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-
-//ADD on table FOR MEDICAL SUPPLIES
-if(isset($_POST['medAdd'])){
-
-    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['addQty']);
-    $new_supplyGoodCondition=mysqli_real_escape_string($conn,$_POST['addGC']);
-    $new_supplyDamaged=mysqli_real_escape_string($conn,$_POST['addDam']);
-
-    $sqlupdate="UPDATE supplies SET quantity_in_stock=quantity_in_stock+'$new_supplyQuantityInStock', good_condition =good_condition+'$new_supplyGoodCondition', damaged=damaged+'$new_supplyDamaged'  WHERE supply_id='$new_id' ";
-    $result_update=mysqli_query($conn,$sqlupdate);
-
-    if($result_update){
-        echo '<script>window.location.href="medicalSupplies"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
-} // END OF MEDICAL Add on table
-
-//EDIT FOR MEDICAL SUPPLIES
-if(isset($_POST['medEdit'])){
-    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
-    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtQuantityInStock']);
-    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
-    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
-    $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
-    $new_supplyGoodCondition=mysqli_real_escape_string($conn,$_POST['txtGoodCondition']);
-    $new_supplyDamaged=mysqli_real_escape_string($conn,$_POST['txtDamaged']);
-
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate', good_condition='$new_supplyGoodCondition', damaged='$new_supplyDamaged' WHERE supply_id='$new_id' ";
-    $result_update=mysqli_query($conn,$sqlupdate);
-
-    if($result_update){
-        echo '<script>window.location.href="medicalSupplies"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
-} // END OF MEDICAL EDIT
-
-
-//RECONCILE FOR MEDICAL SUPPLIES
-if(isset($_POST['medRecon'])){
-    $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
-    $sqlupdate="UPDATE supplies SET quantity_in_stock='$new_supplyQuantityInStock' WHERE supply_id='$new_id' ";
-    $result_update=mysqli_query($conn,$sqlupdate);
-
-    if($result_update){
-        echo '<script>window.location.href="medicalSupplies"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
-} // END OF MEDICAL RECONCILE
-?>
-
-<?php 
-$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
-$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-
-//SOFT DELETED MEDICAL SUPPLIES
-if(isset($_POST['medDelete'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $sqlupdate="UPDATE supplies SET soft_deleted='Y' WHERE supply_id='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
-
-    if($result_update){
-        echo '<script>window.location.href="medicalSupplies"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
-} // END OF SOFT DELETE MEDICAL SUPPLIES
-
-?>
