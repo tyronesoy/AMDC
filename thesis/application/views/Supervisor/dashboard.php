@@ -105,7 +105,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                 $dtoday = date("Y/m/d");
                 $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total FROM logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."')  AND log_status = 1";
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where log_description like '%order%'  AND log_status = 1";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -127,7 +127,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where log_description like '%order%' AND log_status = 1 order by log_id DESC";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -137,7 +137,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <tr>
                         <td><small><?php echo $row["log_description"];?></small></td>
                         <td class="notif-delete">
-                        <form action="delete" method="post">
+                        <form action="Supervisor/delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
@@ -154,7 +154,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <li class="footer"><a href="BusinessManager/logs">View all Logs</a></li>
               <li>
               <center>
-              <form action="deleteall" method="post">
+              <form action="Supervisor/deleteall" method="post">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
               </form>
               </center>
