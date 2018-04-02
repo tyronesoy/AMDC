@@ -75,7 +75,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       }  
       else if(!isset($_SESSION['logged_in'])) 
       {?>  
-           <script>window.location.href = "BusinessManager/lockscreen"</script>
+           <script>window.location.href = "Assistant/lockscreen"</script>
            <?php    
       }  
       ?>
@@ -365,12 +365,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-          
-    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'BusinessManager/userAccounts' ?>">
-              <i class="fa fa-group"></i> <span>Manage Accounts</span> </a>
-        </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
          <li class="treeview">
           <a href="#">
@@ -387,46 +381,39 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo 'BusinessManager/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li><a href="<?php echo 'Assistant/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'BusinessManager/officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'Assistant/officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-      <li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-      <li><a href="<?php echo 'BusinessManager/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+            <li><a href="<?php echo 'Assistant/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'Assistant/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'Assistant/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li><a href="<?php echo 'Assistant/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'BusinessManager/suppliers' ?>">
+          <a href="<?php echo 'Assistant/suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
     <li>
-          <a href="<?php echo 'BusinessManager/departments' ?>">
+          <a href="<?php echo 'Assistant/departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
     <li>
-          <a href="<?php echo 'BusinessManager/memo' ?>">
+          <a href="<?php echo 'Assistant/memo' ?>">
             <i class="fa fa-tasks"></i> <span>Memo</span>
-          </a>
-        </li>
-    
-    <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'BusinessManager/logs' ?>">
-            <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
           <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'BusinessManager/lockscreen' ?>">
+          <a href="<?php echo 'Assistant/lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -925,7 +912,7 @@ setTimeout(onUserInactivity, 1000 * 300)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "BusinessManager/lockscreen"
+    window.location.href = "Assistant/lockscreen"
    <?php } ?>
 }
 </script>
