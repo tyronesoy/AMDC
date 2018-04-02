@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -372,7 +372,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'userAccounts' ?>">
-            <i class="fa fa-group"></i> <span>Manage Accounts</span>
+            <i class="fa fa-user-circle"></i> <span>Manage Accounts</span>
           </a>
         </li>
         <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
@@ -393,11 +393,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a>
+                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-briefcase"></i>Office Supplies</a>
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-list"></i>Issued Supplies</a></li>
 			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-cart-plus"></i>Deparments Order</a></li>
 			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
 			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
@@ -567,6 +567,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="btn-group">
                             <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                        </div>
+                        <div class="btn-group">
+                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive Memo</button>
                         </div>
                       </td>
                     </tr>
@@ -781,9 +784,15 @@ function onUserInactivity() {
             </div>
         </div>
 
-                <div class="modal fade" id="modalUpdate" role="dialog">
+        <div class="modal fade" id="modalUpdate" role="dialog">
             <div class="modal-dialog">
                 <div id="data-content"></div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalDelete" role="dialog">
+            <div class="modal-dialog">
+                <div id="delete-content"></div>
             </div>
         </div>
 
@@ -844,6 +853,28 @@ function onUserInactivity() {
         });
     </script>
 
+    <script>
+        $(document).on('click','#getDelete',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#delete-content').html('');
+            
+              $.ajax({
+                  url:'memo/deleteMemo',
+                  type:'POST',
+                  data:'id='+per_id,
+                  dataType:'html'
+              }).done(function(data){
+                  $('#delete-content').html('');
+                  $('#delete-content').html(data);
+              }).final(function(){
+                  $('#delete-content').html('<p>Error</p>');
+              });
+            
+        });
+    </script>
+
  </body>
 </html>
 
@@ -890,6 +921,25 @@ if(isset($_POST['btnUpdate'])){
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
         $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo status has been changed to ".$new_memostatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
+        echo '<script>window.location.href="memo"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+}
+
+if(isset($_POST['memDelete'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+
+    $sqlupdate="UPDATE memo SET soft_deleted='Y' WHERE memo_id='$new_id' ";
+    $result_update=mysqli_query($con,$sqlupdate);
+
+    if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo has been archived','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="memo"</script>';
     }

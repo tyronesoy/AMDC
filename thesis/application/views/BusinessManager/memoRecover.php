@@ -500,7 +500,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getRestore" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-repeat"></i> Restore</button>
+                            <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-repeat"></i> Restore</button>
                         </div>
                       </td>
                     </tr>
@@ -656,6 +656,22 @@ function onUserInactivity() {
    <?php } ?>
 }
 </script>
+
+<script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
+
+
+      })
+    </script>
 
         <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
