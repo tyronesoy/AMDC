@@ -61,7 +61,7 @@ class Purchases extends CI_Controller {
 		$this->load->view('BusinessManager/php/purchasesAdd');
 	}
 	public function viewPurchases(){
-		$this->load->view('BusinessManager/php/purchasesOrderView');
+		$this->load->view('BusinessManager/php/purchaseOrderView');
 	}
 	public function editPurchases(){
 		$this->load->view('BusinessManager/php/purchasesEdit');

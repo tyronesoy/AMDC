@@ -6,17 +6,17 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="select * from purchase_orders WHERE po_id=$id";
+    $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE purchase_order_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-        $per_id=$row[0];
-        $per_purchasesOrderDate=$row[1];
-        $per_purchasesQuantity=$row[2];
-        $per_purchasesUnit=$row[3];
-        $per_purchasesUnitPrice=$row[8];
-        $per_purchasesSupplier=$row[7];
-        $per_purchasesDeliveryDate=$row[6];
-        $per_purchasesStatus=$row[4];
+        $per_id=$row[13];
+        $per_purchasesOrderDate=$row[2];
+        $per_purchasesQuantity=$row[3];
+        $per_purchasesUnit=$row[4];
+        $per_purchasesUnitPrice=$row[11];
+        $per_purchasesSupplier=$row[10];
+        $per_purchasesDeliveryDate=$row[8];
+        $per_purchasesStatus=$row[16];
         
 
     }//end while
@@ -49,7 +49,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="btnUpdate"> <i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" name="btnUpdate"> <i class="fa fa-save"></i> Change</button>
             </div>
         </div>
     </form>

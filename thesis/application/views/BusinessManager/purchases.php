@@ -1,3 +1,4 @@
+
 <?php
 $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 
@@ -66,7 +67,7 @@ function unit_measure($connect)
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-		
+    
  <style>
     .example-modal .modal {
       position: relative;
@@ -345,21 +346,23 @@ function unit_measure($connect)
               </li>
             </ul>
           </li>
+
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-               <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+              <span><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
+                
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
-                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
-				<small> Business Manager</small>
-				</p>
-                </li>
+                <p>
+                 <span><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
+                </p>
+              </li>
               <!-- Menu Footer-->
               <!-- Menu Footer-->
               <li class="user-footer">
@@ -375,7 +378,7 @@ function unit_measure($connect)
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
+ <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
@@ -390,19 +393,19 @@ function unit_measure($connect)
       </div>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory Management System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+  <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-		<!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'userAccounts' ?>">
             <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
         </li>
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
@@ -425,30 +428,30 @@ function unit_measure($connect)
               </ul>
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-			<li class="active"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li class="active"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
        <li>
           <a href="<?php echo 'memo' ?>">
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-		<!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'logs' ?>">
             <i class="fa fa-list-alt"></i> <span>Logs</span>
@@ -470,16 +473,16 @@ function unit_measure($connect)
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Purchase Orders</b>
+            <i class="fa fa-shopping-cart"> </i> <b>Purchase Orders</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li class="active">Purchases</li>
+        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><a href="<?php echo 'purchases' ?>">Purchases</a></li>
       </ol>
     </section>
 
-    <!-- Main content -->
+       <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
@@ -488,45 +491,43 @@ function unit_measure($connect)
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                 <table style="float:right;">
                     <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus"></i> Add Purchase Order</button>
-						
-						          <form id="insert_form" method="post" action="purchases/addPurchases" >
-                              <div class="modal fade" id="modal-info">
+                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Purchase Order</i></button>
+            
+             <form id="insert_form" method="post" action="purchases/addPurchases">
+                        <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                              <div class="col-md-2">
-                    <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                </div>
-                <div class="col-md-7">
-                    
-                    <div class="margin">
-                        <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
-                        <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                        <center><h6>Philippines</h6></center>
-                    </div>
-                </div>
-                            </div>
-                                  <div class="modal-body">
-                                        <div class="box-body">
-                                              <div class="row">
-                                               <div class="col-md-13">
-                                              <div class="form-group">
-                                                    <label>Purchase Requisition ID</label>
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-vcard"></i>
-                                                      </div>
-                                                      <input type="text" class="form-control pull-left" id="po" name="po" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    </div>
-                                                    <!-- /.input group -->
-                                                  </div>
+                                          <span aria-hidden="true">&times;</span></button>
+                                            <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
                                                 </div>
-                                              </div>
-                                          </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                      <div class="modal-body">
+                                        <div class="box-body">                                      
                                               <div class="row">
+                                              <div class="col-md-5">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Name</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-user"></i>
+                                                      </div>
+                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </div>
+                                              </div>
+                                              </div>
+
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
@@ -552,6 +553,7 @@ function unit_measure($connect)
                                               </div>
                                               </div>
                                               </div>
+
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                     <label>Purchase Order Date</label>
@@ -559,257 +561,292 @@ function unit_measure($connect)
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <input type="text" class="form-control" id="datepicker4" name="orDate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                      <?php $date = date("Y-m-d"); ?>
+                                                      <input type="date" class="form-control pull-right" id="datepicker" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
                                                 </div>
                                               </div>
 
-                                           <form method="post" id="insert_form">
-                                            <div class="table-repsonsive">
-                                             <span id="error"></span>
-                                             <table class="table table-bordered" id="item_table">
-                                              <tr>
+                                          
+                                        <div class="table-responsive">
+                                          <span id="error"></span>
+                                          <table class="table table-bordered" id="item_table">
+                                            <tr>
                                                <th>Select Item</th>
-                                               <th>Quantity</th>
                                                <th>Unit of Measure</th>
+                                               <th>Quantity</th>
                                                <th>Unit Price</th>
                                                <th>Total Amount</th>
                                               </tr>
-                                               <tr>
+                                            <tr>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="250"><select class="form-control select2" name="supply_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
 
-
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2" name="unit_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
-                                                    <?php echo supply_dropdown($connect);?>
+                                                    <?php echo unit_measure($connect);?> 
                                                   </select>
-
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
                                             
-                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
-                                              </td>
+                                            <td width="50"><input type="text" name="quantity" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
+                                            <td width="50"><input type="text" name="unit_price" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
-                                             <tr>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+
+                                            <tr>
+                                            <td width="250"><select class="form-control select2" name="supply_name2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
 
-
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2" name="unit_name2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
-                                                    <?php echo supply_dropdown($connect);?>
+                                                    <?php echo unit_measure($connect);?> 
                                                   </select>
-
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
                                             
-                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
-                                              </td>
+                                            <td width="50"><input type="text" name="quantity2" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
+                                            <td width="50"><input type="text" name="unit_price2" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total2" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
-                                             <tr>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+
+
+
+                                            <tr>
+                                            <td width="250"><select class="form-control select2" name="supply_name3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
 
-
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2" name="unit_name3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
-                                                    <?php echo supply_dropdown($connect);?>
+                                                    <?php echo unit_measure($connect);?> 
                                                   </select>
-
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
                                             
-                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
-                                              </td>
+                                            <td width="50"><input type="text" name="quantity3" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
+                                            <td width="50"><input type="text" name="unit_price3" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total3" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
-                                             <tr>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+
+
+
+                                            <tr>
+                                            <td width="250"><select class="form-control select2" name="supply_name4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
 
-
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2" name="unit_name4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
-                                                    <?php echo supply_dropdown($connect);?>
+                                                    <?php echo unit_measure($connect);?> 
                                                   </select>
-
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
                                             
-                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
-                                              </td>
+                                            <td width="50"><input type="text" name="quantity4" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
+                                            <td width="50"><input type="text" name="unit_price4" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total4" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
-                                             <tr>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+
+
+
+
+
+
+                                            <tr>
+                                            <td width="250"><select class="form-control select2" name="supply_name5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
 
-
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2" name="unit_name5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
-                                                    <?php echo supply_dropdown($connect);?>
+                                                    <?php echo unit_measure($connect);?> 
                                                   </select>
-
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
                                             
-                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
-                                              </td>
+                                            <td width="50"><input type="text" name="quantity5" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
+                                            <td width="50"><input type="text" name="unit_price5" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total5" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
-                                             <tr>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+
+
+
+
+
+
+                                            <tr>
+                                            <td width="250"><select class="form-control select2" name="supply_name6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
 
-
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2" name="unit_name6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
-                                                    <?php echo supply_dropdown($connect);?>
+                                                    <?php echo unit_measure($connect);?> 
                                                   </select>
-
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
                                             
-                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
-                                              </td>
+                                            <td width="50"><input type="text" name="quantity6" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
+                                            <td width="50"><input type="text" name="unit_price6" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total6" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
-                                             <tr>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+
+
+
+
+
+
+
+
+                                            <tr>
+                                            <td width="250"><select class="form-control select2" name="supply_name7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
 
-
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2" name="unit_name7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
-                                                    <?php echo supply_dropdown($connect);?>
+                                                    <?php echo unit_measure($connect);?> 
                                                   </select>
-
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
                                             
-                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
-                                              </td>
+                                            <td width="50"><input type="text" name="quantity7" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
+                                            <td width="50"><input type="text" name="unit_price7" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total7" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
-                                             <tr>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+
+
+
+
+
+
+                                            <tr>
+                                            <td width="250"><select class="form-control select2" name="supply_name8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
 
-
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2" name="unit_name8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
-                                                    <?php echo supply_dropdown($connect);?>
+                                                    <?php echo unit_measure($connect);?> 
                                                   </select>
-
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
                                             
-                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
-                                              </td>
+                                            <td width="50"><input type="text" name="quantity8" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
+                                            <td width="50"><input type="text" name="unit_price8" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total8" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
-                                             <tr>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+
+
+
+
+
+
+
+
+                                            <tr>
+                                            <td width="250"><select class="form-control select2" name="supply_name9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
 
-
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2" name="unit_name9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
-                                                    <?php echo supply_dropdown($connect);?>
+                                                    <?php echo unit_measure($connect);?> 
                                                   </select>
-
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
                                             
-                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
-                                              </td>
+                                            <td width="50"><input type="text" name="quantity9" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
+                                            <td width="50"><input type="text" name="unit_price9" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total9" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
-                                              <tr>
 
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+
+
+
+
+
+
+
+                                            <tr>
+                                            <td width="250"><select class="form-control select2" name="supply_name10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
 
-
-                                              <td width="250"><select class="form-group select2" name="name[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><select class="form-control select2" name="unit_name10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
-                                                    <?php echo supply_dropdown($connect);?>
+                                                    <?php echo unit_measure($connect);?> 
                                                   </select>
-
-                                              <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
                                               </td>
                                             
-                                            <td width="50"><input type="text" name="name[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /> </td>
-                                              </td>
+                                            <td width="50"><input type="text" name="quantity10" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
+                                            <td width="50"><input type="text" name="unit_price10" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+
+                                            <td width="50"><input type="text" name="total10" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
+
+
+
+
+
+
+
                                           </table>
-
-                                             <div class="row" >
+                                       <div class="row" >
                                                <div class="col-md-5">
                                               <div class="form-group">
                                                     <label>Grand Total</label>
@@ -823,48 +860,56 @@ function unit_measure($connect)
                                                   </div>
                                                 </div>
                                           </div>
-                                      </form>
+
+                                        </div>
+                                      
+
+                                          </div>
                                         </div> <!-- BOX-BODY -->
                                       <div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class='fa fa-times-circle'></i> Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addPurchases"><i class='fa fa-save'></i> Add Purchase Order</button>
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                                        <!-- <button type="submit" class="btn btn-primary" name="addOrder" style="display: none;">Add Order</button> -->
+                                        <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
+            <!-- end of Items FORM -->
+                            </div>
               </form>
               </th>
+                        
+              
                     </tr>
                 </table>      
             </div>
             <!-- /.box-header -->
-               <span id="alert_action"></span>
-              <div class="box-body">
-              <table id="example"  class="table table-bordered table-striped" >
-                <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM purchase_orders ORDER BY po_id DESC";
-                  $result = $conn->query($sql);    
-                ?>
-                <thead>
-                  <tr>
-                        <th>Purchase ID</th>
-                        <th>Supplier</th>
-                        <th>Order Date</th>
-                        <th>Status</th>
-                        <th>Action</th>           
-                  </tr>
-                </thead>
-                <tbody>
-                 <?php if ($result->num_rows > 0) {
+                   <div class="box-body">
+                   <table id="example" class="table table-bordered table-striped">
+                      <?php
+                        $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                        $sql = "SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) group by purchase_order_uniq_id";
+                        $result = $conn->query($sql);    
+                      ?>
+                      <thead>
+                          <tr>
+                              <th>Purchase ID</th>
+                              <th>Supplier</th>
+                              <th>Order Date</th>
+                              <th>Status</th>
+                              <th>Action</th>     
+                          </tr>
+                      </thead>
+                      <tbody>
+                         <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <?php
                         $status = '';
-                          if($row["po_remarks"] == 'Pending')
+                          if($row["purchase_order_status"] == 'Pending')
                           {
                               $status = '<span class="label label-danger">Pending</span>';
                           }
@@ -873,19 +918,19 @@ function unit_measure($connect)
                               $status = '<span class="label label-success">Delivered</span>';
                           }
                       ?>
-                      <td><?php echo $row["po_id"]; ?></td>
+                      <td><?php echo $row["purchase_order_id"]; ?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["po_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["po_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["po_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
                         </div>
                       </td>
                     </tr>
@@ -893,16 +938,16 @@ function unit_measure($connect)
                       }
                     }
                   ?>
-                </tbody>
-                <tfoot>
-                  <tr>
-          						  <th>Purchase ID</th>
-                        <th>Supplier</th>
-                        <th>Order Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                  </tr>
-                </tfoot>
+                        </tbody>
+                      <tfoot>
+                        <tr>
+                              <th>Purchase ID</th>
+                              <th>Supplier</th>
+                              <th>Order Date</th>
+                              <th>Status</th>
+                              <th>Action</th>
+                          </tr>
+                      </tfoot>
             </table>
 
             </div>
@@ -914,8 +959,8 @@ function unit_measure($connect)
         <!-- /.col -->
       </div>
       <!-- /.row -->
-		<div class="row no-print">
-			<div class="col-xs-1" style="float:right">
+    <div class="row no-print">
+      <div class="col-xs-1" style="float:right">
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
           </div>
@@ -930,8 +975,6 @@ function unit_measure($connect)
           wme.close();
         })
       </script>
-	 
-        <!-- END OF PRINT AND PDF -->
     </section>
     <!-- /.content -->
   </div>
@@ -940,9 +983,15 @@ function unit_measure($connect)
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM. </strong> All rights
     reserved.
   </footer>
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
 <style>
 /* The switch - the box around the slider */
 .switch {
@@ -1002,6 +1051,10 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }    
+
+table#addItem, tr.no_border td {
+  border: 0;
+}
 </style>
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
@@ -1184,16 +1237,17 @@ function onUserInactivity() {
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnEdit'])){
-	  $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['txtorderdate']);
     $new_purchasesQuantity=mysqli_real_escape_string($con,$_POST['txtquantity']);
     $new_purchasesUnit=mysqli_real_escape_string($con,$_POST['txtunit']);
     $new_purchasesUnitPrice=mysqli_real_escape_string($con,$_POST['txtunitprice']);
-	  $new_purchasesSupplier=mysqli_real_escape_string($con,$_POST['txtsupplier']);
-	  $new_purchasesDeliveryDate=mysqli_real_escape_string($con,$_POST['txtdeliverydate']);
+    $new_purchasesSupplier=mysqli_real_escape_string($con,$_POST['txtsupplier']);
+    $new_purchasesDeliveryDate=mysqli_real_escape_string($con,$_POST['txtdeliverydate']);
     
-	$sqlupdate="UPDATE purchase_orders SET po_id='$new_poid', order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity', order_unit='$new_purchasesUnit', po_unitprice='$new_purchasesUnitPrice', total='$new_purchasesTotalAmount', grand_total='$new_purchasesGrandTotal', po_remarks='$new_purchasesRemarks' WHERE po_id='$new_id' ";
-	$result_update=mysqli_query($con,$sqlupdate);
+  $sqlupdate="UPDATE purchase_orders, purchase_order_bm SET purchase_order_bm.purchase_order_id='$new_poid', purchase_orders.order_date='$new_purchasesOrderDate', purchase_orders.order_quantity='$new_purchasesQuantity', purchase_orders.order_unit='$new_purchasesUnit', purchase_orders.unitprice='$new_purchasesUnitPrice', purchase_orders.total='$new_purchasesTotalAmount', purchase_order_bm.purchase_order_grandtotal='$new_purchasesGrandTotal', purchase_order_bm.purchase_order_status='$new_purchasesRemarks' WHERE purchase_order_id='$new_id' ";
+  $result_update=mysqli_query($con,$sqlupdate);
+
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
@@ -1218,7 +1272,7 @@ if(isset($_POST['btnUpdate'])){
       $new_purchasesStatus = 'Pending';
     }
 
-    $sqlupdate="UPDATE purchase_orders SET po_remarks='$new_purchasesStatus' WHERE po_id='$new_id' ";
+    $sqlupdate="UPDATE purchase_order_bm SET purchase_order_status='$new_purchasesStatus' WHERE purchase_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -1266,5 +1320,6 @@ $(document).ready(function(){
   
 });
 </script>
+
 </body>
 </html>
