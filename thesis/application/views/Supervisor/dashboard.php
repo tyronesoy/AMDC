@@ -297,7 +297,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         Dashboard
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="<?php echo '../dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li class="active"><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
 		  
       </ol>
     </section>
