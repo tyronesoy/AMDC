@@ -67,7 +67,7 @@ if(isset($_REQUEST['id'])){
                                 <div class="form-group">
                                     <label class="col-sm-6 control-label" for="txtdate">Order Date</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                        <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                     </div>
                                 </div>
                             </div>
@@ -131,21 +131,11 @@ if(isset($_REQUEST['id'])){
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="txtname">Supplier Name</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="txtname" name="txtname" value="<?php echo $per_name;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                        <input type="text" class="form-control" id="txtname" name="txtname" value="<?php echo $per_supplier;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                     </div>
                                 </div>
                             </div>
                             
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="txtdep">Department</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="txtdep" name="txtdep" value="<?php echo $per_department;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-8">
