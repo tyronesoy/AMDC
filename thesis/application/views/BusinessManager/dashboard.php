@@ -152,7 +152,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <tr>
                         <td><small><?php echo $row["log_description"];?></small></td>
                         <td class="notif-delete">
-                        <form action="delete" method="post">
+                        <form action="BusinessManager/delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
@@ -169,7 +169,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <li class="footer"><a href="<?php echo 'BusinessManager/logs' ?>">View all Logs</a></li>
               <li>
               <center>
-              <form action="deleteall" method="post">
+              <form action="BusinessManager/deleteall" method="post">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
               </form>
               </center>
