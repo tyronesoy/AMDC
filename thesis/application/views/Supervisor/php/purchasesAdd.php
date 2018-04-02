@@ -102,6 +102,11 @@ $order_id = uniqid();
   $sql11->bind_param("ssss", $inventory_order_id, $supply_name2, $unit_name2, $quantity2);    
 
   if($sql->execute() && $sql2->execute() && $sql3->execute() && $sql4->execute()&& $sql5->execute()&& $sql6->execute()&& $sql7->execute()&& $sql8->execute()&& $sql9->execute()&& $sql10->execute()&& $sql11->execute() ) {
+  $datetoday = date('Y\-m\-d\ H:i:s A');
+        $conn =mysqli_connect("localhost","root","");
+        mysqli_select_db($conn, "itproject");
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')."has made a new purchase order','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $res1 = $conn->query($notif1);
   $success_message = "Added Successfully";
   } else {
   $error_message = "Problem in Adding New Record";
