@@ -764,9 +764,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tfoot>
               </table>
           </div>
+        </div>
         
 
         <section class="content">
+          <div class="row">
         <h3>Total Expenses per Department</h3>
         
           <!-- BAR CHART -->
@@ -816,6 +818,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+        </div>
+        <div class="row">
             <div class="col-md-6">
           <!-- DONUT CHART -->
         <h3>Top 10 used supplies</h3>
@@ -906,12 +910,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-
+        </div>
         </div>
         <!-- /.col (RIGHT) -->
     </section>
     <!-- /.content -->
-      </div>
+      
       <!-- /.row -->
     </section>
     <!-- /.content -->

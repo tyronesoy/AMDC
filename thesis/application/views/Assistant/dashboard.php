@@ -29,6 +29,8 @@ if(!isset($_SESSION['first_run'])){
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css">
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <!-- Morris chart -->
   <link rel="stylesheet" href="assets/bower_components/chart.js/chart.css">
   <!-- jvectormap -->
@@ -42,10 +44,8 @@ if(!isset($_SESSION['first_run'])){
   <!-- Select2 -->
   <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
     <!-- datatable lib -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-  <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
    <!-- DataTables -->
   <link rel="stylesheet" href="assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
@@ -75,7 +75,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       }  
       else if(!isset($_SESSION['logged_in'])) 
       {?>  
-           <script>window.location.href = "Assistant/lockscreen"</script>
+           <script>window.location.href = "BusinessManager/lockscreen"</script>
            <?php    
       }  
       ?>
@@ -365,6 +365,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
+          
+    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'BusinessManager/userAccounts' ?>">
+              <i class="fa fa-group"></i> <span>Manage Accounts</span> </a>
+        </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
          <li class="treeview">
           <a href="#">
@@ -381,39 +387,46 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo 'Assistant/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li><a href="<?php echo 'BusinessManager/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'Assistant/officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'BusinessManager/officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'Assistant/issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
-			<li><a href="<?php echo 'Assistant/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-			<li><a href="<?php echo 'Assistant/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-			<li><a href="<?php echo 'Assistant/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+            <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li><a href="<?php echo 'BusinessManager/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'Assistant/suppliers' ?>">
+          <a href="<?php echo 'BusinessManager/suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
     <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-		<li>
-          <a href="<?php echo 'Assistant/departments' ?>">
+    <li>
+          <a href="<?php echo 'BusinessManager/departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-		<li>
-          <a href="<?php echo 'Assistant/memo' ?>">
+    <li>
+          <a href="<?php echo 'BusinessManager/memo' ?>">
             <i class="fa fa-tasks"></i> <span>Memo</span>
+          </a>
+        </li>
+    
+    <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'BusinessManager/logs' ?>">
+            <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
           <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'Assistant/lockscreen' ?>">
+          <a href="<?php echo 'BusinessManager/lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
@@ -457,10 +470,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   ?>
 
               <p>Reorder Supplies</p>
-            </div>
-            <div class="icon">
+              <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
+            </div>
+            
             <button onclick="myFunction('Demo1')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
@@ -607,7 +621,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
                           
-                        <form action="<?php echo 'Assistant/returns'?>" method="get">
+                        <form action="<?php echo 'BusinessManager/returns'?>" method="get">
                            <input type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
                           <button type="submit" class="btn btn-success">Returned </button>
                         </form> 
@@ -663,7 +677,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <td><?php echo $row["unit"]; ?></td>
                       <td>
                          
-                        <form action="Assistant/dispose" method="get">
+                        <form action="BusinessManager/dispose" method="get">
                           <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
                           <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
                         </form> 
@@ -686,9 +700,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tfoot>
               </table>
           </div>
+        </div>
         
-
         <section class="content">
+        <div class="row">
         <h3>Total Expenses per Department</h3>
         
           <!-- BAR CHART -->
@@ -738,6 +753,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+        </div>
+        <div class="row">
             <div class="col-md-6">
           <!-- DONUT CHART -->
         <h3>Top 10 used supplies</h3>
@@ -828,12 +845,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-
+        </div>
         </div>
         <!-- /.col (RIGHT) -->
     </section>
     <!-- /.content -->
-      </div>
+      
       <!-- /.row -->
     </section>
     <!-- /.content -->
@@ -908,7 +925,7 @@ setTimeout(onUserInactivity, 1000 * 300)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "Assistant/lockscreen"
+    window.location.href = "BusinessManager/lockscreen"
    <?php } ?>
 }
 </script>
@@ -916,7 +933,7 @@ function onUserInactivity() {
 <!-- <script type="text/javascript">
 setTimeout(onUserInactivity, 1000 * 120)
 function onUserInactivity() {
-   window.location.href = "<?php //echo 'Assistant/lockscreen'?>"
+   window.location.href = "<?php //echo 'BusinessManager/lockscreen'?>"
 }
 </script> -->
 <!-- <?php
@@ -925,7 +942,7 @@ function onUserInactivity() {
 //if($time<$time_check) {
 //  $_SESSION['login'] = 'False';
 //  if($_SESSION['login'] == 'False'){
-//    echo '<script>window.location.href="<?php echo "Assistant/lockscreen" ?>"</script>';
+//    echo '<script>window.location.href="<?php echo "BusinessManager/lockscreen" ?>"</script>';
   }
 }
   ?> -->

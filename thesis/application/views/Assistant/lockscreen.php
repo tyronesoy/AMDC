@@ -51,7 +51,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <a><b>Assumption Medical and Diagnostics Center</b></a>
   </div>
   <!-- User name -->
-  <div class="lockscreen-name">Assistant </div>
+  <div class="lockscreen-name">
+    <p>
+    <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
+    <br><small>Assistant</small>
+    </p>
+  </div>
 
   <!-- START LOCK SCREEN ITEM -->
   <div class="lockscreen-item">
@@ -82,8 +87,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="text-center">
     <a href="<?php echo '../logout'?>"><u>Sign in as a Different User</u></a>
   </div>
-  <div class="lockscreen-footer text-center">
-    Copyright &copy; 2017-2018 <br/><b><a href="https://adminlte.io" class="text-black">K.Bigornia, F.Cabalse, <br/>N.Calimlim, J.Calub, <br/>E.Duco, J.Malong, <br/>R.Siapno, T.Soy</a></b><br>
+    <div class="lockscreen-footer text-center"><b>AMDC INVENTORY MANAGEMENT SYSTEM</b><br>
+    Copyright &copy; 2017-2018 <br/><b><a href="https://adminlte.io" class="text-black">
     All rights reserved
   </div>
 </div>

@@ -265,7 +265,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
 
                 <p>
-                    <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                  <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                 </p>
                 <small>Assistant</small>
               </li>
@@ -300,7 +300,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="header">Inventory Management System</li>
     <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo '../dashboard' ?>">
+          <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
@@ -370,7 +370,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <b> Deleted Memo </b>
       </h1>
       <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
         <li class="active">Deleted Memo</li>
       </ol>
     </section>
@@ -422,7 +422,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getRestore" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-repeat"></i> Restore</button>
+                            <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-repeat"></i> Restore</button>
                         </div>
                       </td>
                     </tr>
@@ -578,6 +578,22 @@ function onUserInactivity() {
    <?php } ?>
 }
 </script>
+
+<script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
+
+
+      })
+    </script>
 
         <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">

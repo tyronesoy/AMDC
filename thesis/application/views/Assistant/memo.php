@@ -265,7 +265,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
-				<small> Assistant</small>
+				<small> Business Manager</small>
 				</p>
                 </li>
               <!-- Menu Footer-->
@@ -369,7 +369,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        <b>Memo</b>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
         <li class="active">Memo</li>
       </ol>
     </section>
@@ -489,6 +489,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="btn-group">
                             <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                        </div>
+                        <div class="btn-group">
+                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive Memo</button>
                         </div>
                       </td>
                     </tr>
@@ -703,9 +706,15 @@ function onUserInactivity() {
             </div>
         </div>
 
-                <div class="modal fade" id="modalUpdate" role="dialog">
+        <div class="modal fade" id="modalUpdate" role="dialog">
             <div class="modal-dialog">
                 <div id="data-content"></div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalDelete" role="dialog">
+            <div class="modal-dialog">
+                <div id="delete-content"></div>
             </div>
         </div>
 
@@ -766,6 +775,28 @@ function onUserInactivity() {
         });
     </script>
 
+    <script>
+        $(document).on('click','#getDelete',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#delete-content').html('');
+            
+              $.ajax({
+                  url:'memo/deleteMemo',
+                  type:'POST',
+                  data:'id='+per_id,
+                  dataType:'html'
+              }).done(function(data){
+                  $('#delete-content').html('');
+                  $('#delete-content').html(data);
+              }).final(function(){
+                  $('#delete-content').html('<p>Error</p>');
+              });
+            
+        });
+    </script>
+
  </body>
 </html>
 
@@ -812,6 +843,25 @@ if(isset($_POST['btnUpdate'])){
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
         $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo status has been changed to ".$new_memostatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
+        echo '<script>window.location.href="memo"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+}
+
+if(isset($_POST['memDelete'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+
+    $sqlupdate="UPDATE memo SET soft_deleted='Y' WHERE memo_id='$new_id' ";
+    $result_update=mysqli_query($con,$sqlupdate);
+
+    if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo has been archived','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="memo"</script>';
     }
