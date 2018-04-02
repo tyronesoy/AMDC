@@ -13,7 +13,8 @@ $col = array(
     5   =>  'fname',
     6   =>  'user_contact',
     7   =>  'user_email',
-    8   =>  'user_status'
+    8   =>  'user_status',
+    9   =>  'dept_name'
 );  //create column like table in database
 
 
@@ -68,6 +69,7 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[4]; 
     $subdata[]=$row[6];  
     $subdata[]=$row[7];
+    $subdata[]=$row[9];
     $subdata[]=$status; 
     //create event on click in button edit in cell datatable for display modal dialog $row[0] is id in table on database
     // $subdata[]='';

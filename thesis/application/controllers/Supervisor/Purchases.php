@@ -55,12 +55,11 @@ class Purchases extends CI_Controller {
 	public function getPurchases(){
 		$this->load->view('Supervisor/php/purchasesFetch');
 	}
-	public function addOrder(){
-		$this->load->view('Supervisor/orders/create');
+	public function addPurchases(){
+		$this->load->view('Supervisor/php/purchasesAdd');
 	}
-	
-	public function editPurchases(){
-		$this->load->view('Supervisor/php/purchasesEdit');
+	public function viewPurchases(){
+		$this->load->view('Supervisor/php/purchasesOrderView');
 	}
 
 }

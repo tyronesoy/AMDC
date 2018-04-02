@@ -548,6 +548,26 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                   <label for="exampleInputEmail1">Email</label>
                                                   <input type="email" class="form-control" name="user_email" id="user_email" required />
                                                 </div>
+
+
+                                                     <div class="form-group">
+                                                      <label for="exampleInputEmail1">Role</label>
+                                                       <select name = "dept_name" class="form-control">
+                                                       <option value="">Select a Department</option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT * FROM departments GROUP BY department_name";
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $dept_name) { 
+                                                        ?>
+                                                        <option value="<?php echo $dept_name["department_name"]; ?>" name="dept_name"><?php echo $dept_name["department_name"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
                                             
 
                                         </div>
@@ -584,6 +604,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th>Last Name</th>
                 <th>Contact Number</th>
                 <th>Email</th>
+                <th>Department</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -608,7 +629,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       <td><?php echo $row["lname"]; ?></td>
                       <td><?php echo $row["fname"]; ?></td>
                       <td><?php echo $row["user_contact"]; ?></td>
-                      <td><?php echo $row["user_email"]; ?></td>
+                      <td width="20px"><?php echo $row["user_email"]; ?></td>
+                      <td><?php echo $row["dept_name"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
@@ -626,7 +648,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       }
                     }
                   ?>
-
+            </tbody>
             <tfoot>
             <tr>
                 <th>Role</th>
@@ -634,7 +656,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Contact Number</th>
-                <th>Email</th>
+                <th width="20%">Email</th>
                 <th>Status</th>
                <!-- <th>Reset Password</th> -->
                 <th width="30%">Action</th>

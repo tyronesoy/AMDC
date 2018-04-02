@@ -6,7 +6,7 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql=" SELECT * FROM purchase_orders WHERE po_id=$id";
+    $sql=" SELECT * FROM inventory_order WHERE inventory_order_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
 		$per_id=$row[0];
