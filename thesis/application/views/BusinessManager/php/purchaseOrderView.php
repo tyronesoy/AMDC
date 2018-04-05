@@ -18,6 +18,7 @@ if(isset($_REQUEST['id'])){
         $per_status=$row[16];
         $per_unit=$row[4];
         $per_unitprice=$row[11];
+        $per_gtotal=$row[18];
 
     }//end while
 ?>
@@ -54,8 +55,10 @@ if(isset($_REQUEST['id'])){
                                               </div>
                                               </div>
                                               </div>
+                                              <div class="col-md-1">
+                                              </div>
 
-                                              <div class="col-md-8">
+                                              <div class="col-md-5">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
 
@@ -70,6 +73,8 @@ if(isset($_REQUEST['id'])){
                                                       <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   </div>
                                                 </div>
+                                                <div class="col-md-1">
+                                                </div>
 
 
                                                 <div class="col-md-4">
@@ -80,7 +85,10 @@ if(isset($_REQUEST['id'])){
                                 </div>
                             </div>
                                               </div>
-
+                                               <?php
+                        $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id";
+                        $result = $con->query($sql);    
+                      ?>
 
                                           
                                         <div class="table-responsive">
@@ -93,33 +101,37 @@ if(isset($_REQUEST['id'])){
                                                <th>Unit Price</th>
                                                <th>Total Amount</th>
                                               </tr>
+                                              <?php if($result->num_rows > 0) {
+                                                while($row = $result->fetch_assoc()) { ?>
                                             <tr>
 
-                                              <td width="250"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $per_description;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="250"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
 
-                                              <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $per_unit;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $row['order_unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
                                             
-                                            <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $per_quantity;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  </td>
+                                            <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  </td>
 
-                                            <td width="50"><input type="text" name="unit_price" class="form-control " value="<?php echo $per_unitprice ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            <td width="50"><input type="text" name="unit_price" class="form-control " value="<?php echo $row['unit_price']; ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td>
 
-                                            <td width="50"><input type="text" name="total" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
+                                            <td width="50"><input type="text" name="total" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $row['total'] ?>" readonly/> </td>
                                             </tr>
+
+                                            <?php 
+                              }
+                            }
+                          ?>
 
 
                                           </table>
                                        <div class="row" >
-                                               <div class="col-md-5">
+                                       <div class="col-md-7">
+                                       </div>
+                                               <div class="col-md-4">
                                               <div class="form-group">
                                                     <label>Grand Total</label>
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <input type="text" class="form-control pull-right" id="poid" name="poid" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    </div>
+                                                      <input type="text" class="form-control pull-right" id="poid" name="poid" value="<?php echo $per_gtotal ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly />
                                                     <!-- /.input group -->
                                                   </div>
                                                 </div>
