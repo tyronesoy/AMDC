@@ -9,9 +9,9 @@ if(isset($_REQUEST['id'])){
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
        $per_memoid=$row[0];
-        $per_memodate=$row[1];
-        $per_memodescription=$row[2];
-        $per_memostatus=$row[3];
+        $per_memodate=$row[2];
+        $per_memodescription=$row[3];
+        $per_memostatus=$row[5];
 
     }//end while
 ?>
@@ -31,13 +31,13 @@ if(isset($_REQUEST['id'])){
                     <div class="box-body">
                         <div class="form-group">
 
+
                             <div class="form-group">
                                     <label hidden="true" class="col-sm-4 control-label" for="txtid">Memo ID</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_memoid;?>" readonly>
                                 </div>
                              </div>
-
                              <div class="form-group">
                                      <label class="col-sm-4 control-label" for="txtmemodate">Memo Date</label>
                                  <div class="col-sm-6">
