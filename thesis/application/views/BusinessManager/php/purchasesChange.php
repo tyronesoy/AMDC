@@ -59,7 +59,7 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="form-group">
-                                     <input type="hidden" class="form-control pull-right"name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" />
+                                     <input type="hidden" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" />
                         </div>
                     </div>
                 </form>
