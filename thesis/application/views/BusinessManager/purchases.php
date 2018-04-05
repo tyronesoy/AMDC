@@ -578,7 +578,6 @@ function unit_measure($connect)
                                                <th>Unit of Measure</th>
                                                <th>Quantity</th>
                                                <th>Unit Price</th>
-                                               <th>Total Amount</th>
                                               </tr>
                                             <tr>
 
@@ -597,11 +596,6 @@ function unit_measure($connect)
                                             <td width="50"><input type="text" name="quantity" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             <td width="50"><input type="text" name="unit_price" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
-                                               
-
-                                            <td width="50">
-                                            <input type="text" name="total" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /></td>
 
                                             </tr>
 
@@ -625,7 +619,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price2" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total2" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -649,7 +642,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price3" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total3" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -673,7 +665,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price4" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total4" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -700,7 +691,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price5" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total5" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -727,7 +717,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price6" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total6" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -756,7 +745,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price7" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total7" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -783,7 +771,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price8" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total8" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -812,7 +799,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price9" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total9" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -840,7 +826,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price10" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total10" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -850,20 +835,7 @@ function unit_measure($connect)
 
 
                                           </table>
-                                       <div class="row" >
-                                               <div class="col-md-5">
-                                              <div class="form-group">
-                                                    <label>Grand Total</label>
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <input type="text" class="form-control pull-right" id="poid" name="poid" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    </div>
-                                                    <!-- /.input group -->
-                                                  </div>
-                                                </div>
-                                          </div>
+                                       
 
                                         </div>
                                       
@@ -1092,15 +1064,7 @@ table#addItem, tr.no_border td {
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 
-<script>
-setTimeout(onUserInactivity, 1000 * 120)
-function onUserInactivity() {
-  <?php unset($_SESSION['logged_in']);
-  if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "lockscreen"
-   <?php } ?>
-}
-</script>
+
 
 <script>
       $(function () {
