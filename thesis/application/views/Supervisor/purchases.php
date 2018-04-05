@@ -31,6 +31,10 @@ function unit_measure($connect)
  }
  return $output;
 }
+ function dept($connect) {
+  $sql = "SELECT department_name FROM departments JOIN users ON users.dept_ID=departments.department_id WHERE users.fname='".$this->session->userdata('fname')."' AND users.lname='".$this->session->userdata('lname')."' ";
+$results = mysqli_query($conn, $sql);
+}
 ?>
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -375,14 +379,6 @@ if(!isset($_SESSION['first_run'])){
                                                       </div>
                                                 <label for="exampleInputEmail1">Department</label>
                                                 <input type="text" class="form-control" id="department" name="department" value="Cardiac" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                                <?php
-                                                 $conn =mysqli_connect("localhost","root","");
-                                                mysqli_select_db($conn, "itproject");
-                                                $fname= $this->session->userdata('fname');
-                                                $lname= $this->session->userdata('lname');
-                                                  $sql = "SELECT department_name FROM departments JOIN users ON users.dept_ID=departments.department_id WHERE users.fname='$fname' AND users.lname='$lname' ";
-                                                  $results = mysqli_query($conn, $sql);
-                                                ?>
                                           </div>
                                               </div>
                                             </div>
@@ -598,8 +594,6 @@ if(!isset($_SESSION['first_run'])){
                                           </table>
                                        
                                         </div>
-                                      
-
                                           </div>
                                         </div> <!-- BOX-BODY -->
                                       <div>
@@ -794,13 +788,13 @@ table#addItem, tr.no_border td {
 
 <!--lockscreen							-->
 <script>
-setTimeout(onUserInactivity, 1000 * 120)
+/* setTimeout(onUserInactivity, 1000 * 120)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
     window.location.href = "lockscreen"
    <?php } ?>
-}
+} */
 </script>							
 							
 <script>
