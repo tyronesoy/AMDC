@@ -1064,7 +1064,15 @@ table#addItem, tr.no_border td {
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 
-
+<script>
+setTimeout(onUserInactivity, 1000 * 300)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "BusinessManager/lockscreen"
+   <?php } ?>
+}
+</script>
 
 <script>
       $(function () {

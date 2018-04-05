@@ -86,7 +86,7 @@ if(isset($_REQUEST['id'])){
                             </div>
                                               </div>
                                                <?php
-                        $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id";
+                        $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id AND order_quantity != 0";
                         $result = $con->query($sql);    
                       ?>
 
@@ -115,7 +115,7 @@ if(isset($_REQUEST['id'])){
 
                                             <td width="50"><input type="text" name="unit_price" class="form-control " value="<?php echo $row['unit_price']; ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td>
 
-                                            <td width="50"><input type="text" name="total" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $row['total'] ?>" readonly/> </td>
+                                            <td width="50"><input type="text" name="total" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="&#8369 <?php echo $row['total'] ?>" readonly/> </td>
                                             </tr>
 
                                             <?php 
@@ -131,7 +131,7 @@ if(isset($_REQUEST['id'])){
                                                <div class="col-md-4">
                                               <div class="form-group">
                                                     <label>Grand Total</label>
-                                                      <input type="text" class="form-control pull-right" id="poid" name="poid" value="<?php echo $per_gtotal ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly />
+                                                      <input type="text" class="form-control pull-right" id="poid" name="poid" value="&#8369 <?php echo $per_gtotal ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; "  readonly />
                                                     <!-- /.input group -->
                                                   </div>
                                                 </div>
