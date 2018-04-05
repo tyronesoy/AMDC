@@ -1,21 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-if(!isset($_SESSION['first_run'])){
-    $_SESSION['first_run'] = 1;
-        $datetoday = date('Y\-m\-d\ H:i:s A');
-        $conn =mysqli_connect("localhost","root","");
-        mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')." has logged in','".$this->session->userdata('username')."','".$this->session->userdata('type')."')";
-        $res1 = $conn->query($notif1);
-}
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Supervisor | Memo Recover</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Supervisor | Issued Supplies</title>
-    <!-- Tell the browser to be responsive to screen width -->
+
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -31,7 +25,7 @@ if(!isset($_SESSION['first_run'])){
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -44,7 +38,8 @@ if(!isset($_SESSION['first_run'])){
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
- <style>
+
+   <style>
     .example-modal .modal {
       position: relative;
       top: auto;
@@ -60,10 +55,10 @@ if(!isset($_SESSION['first_run'])){
     }
   </style>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
-
-<?php
-  $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];   
+<body>
+    <body class="hold-transition skin-blue sidebar-mini">
+      <?php  
+      $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       if(isset($_SESSION['logged_in']))  
       {  
            //echo 'dashboard';
@@ -74,7 +69,6 @@ if(!isset($_SESSION['first_run'])){
            <?php    
       }  
       ?>
-
 <div class="wrapper">
 
   <header class="main-header">
@@ -101,14 +95,13 @@ if(!isset($_SESSION['first_run'])){
                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
                         <script>
-                        var d = new Date().toString();
-                        d=d.split(' ').slice(0, 6).join(' ');
-                        document.getElementById("demo").innerHTML = d;
-                    </script>
+                          var d = new Date().toString();
+                          d=d.split(' ').slice(0, 6).join(' ');
+                          document.getElementById("demo").innerHTML = d
+                        </script>
                     </a>
                 </li>
-			
-				<!-- Notifications: style can be found in dropdown.less -->
+          <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
@@ -173,12 +166,11 @@ if(!isset($_SESSION['first_run'])){
               </li>
             </ul>
           </li>
-     
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -192,10 +184,7 @@ if(!isset($_SESSION['first_run'])){
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-             	<div class="pull-left">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-                            View Profile</button>
-                  </div>
+         
                 <div class="pull-right">
                   <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
@@ -216,24 +205,20 @@ if(!isset($_SESSION['first_run'])){
           <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></p>
+          <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
-
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+        <li class="header">Inventory Management System</li>
+    <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo '../dashboard' ?>">
+          <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            </a>
+          </a>
         </li>
-          <!-- <li class="treeview">
-
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-   <li class="treeview">
+        <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+   		<li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -265,7 +250,7 @@ if(!isset($_SESSION['first_run'])){
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-	
+		  
 		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'departments' ?>">
@@ -273,18 +258,19 @@ if(!isset($_SESSION['first_run'])){
           </a>
         </li>
 	    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
-        <li>
+        <li class="active">
           <a href="<?php echo 'memo'?>">
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
 
-<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
+          <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
+      
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -295,81 +281,91 @@ if(!isset($_SESSION['first_run'])){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Issued Supplies</b>
-        <!-- <small>Supplies</small> -->
+        <b> Deleted Memo </b>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-		  <li class="active"><a href="<?php echo 'issuedSupplies' ?>">Issued Supplies</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li class="active">Deleted Memo</li>
       </ol>
     </section>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-
-          <div class="box">
-            
-            <div class="box-body">
-              <table id="example" class="table table-bordered table-striped">
-				   <?php
-                    $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT * FROM issuedsupplies";
-                    $result = $conn->query($sql);    
-                  ?>
-                    <thead>
-                    <tr>
-                      <th>Request Date</th>
-                      <th>Issue Date</th>
-                      <th>Supply Type</th>
+     <!-- Main content -->
+     
+<section class="content">
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
+              <!-- <h3 class="box-title">Office Supplies</h3> -->
+                <a href="memo" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
+              </button></a>
+            </div>
+            <!-- /.box-header -->
+              <div class="box-body">
+        <table id="example" class="table table-bordered table-striped">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT * FROM memo WHERE soft_deleted = 'Y'";
+                  $result = $conn->query($sql);    
+                ?>
+                <thead>
+                  <tr>
+                      <th>Memo Date</th>
                       <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Department</th>
-                    </tr>
-                    </thead>
-				  <tbody>
-				  <?php if ($result->num_rows > 0) {
+                      <th>Status</th>
+                      <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["request_date"]; ?></td>
-                      <td><?php echo $row["issued_date"]; ?></td>
-                      <td><?php echo $row["supply_type"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
-                      <td><?php echo $row["department_name"]; ?></td>
+                      <?php
+                        $status = '';
+                          if($row["memo_status"] == 'Pending')
+                          {
+                              $status = '<span class="label label-danger">Pending</span>';
+                          }
+                          else
+                          {
+                              $status = '<span class="label label-success">Finished</span>';
+                          }
+                      ?>
+                      <td><?php echo $row["memo_date"]; ?></td>
+                      <td><?php echo $row["memo_description"]; ?></td>
+                      <td><?php echo $status; ?></td>
+                      <td>
+                        <div class="btn-group">
+                            <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-repeat"></i> Restore</button>
+                        </div>
+                      </td>
                     </tr>
                   <?php 
                       }
                     }
                   ?>
-				  </tbody>
-                  
+                </tbody>
                 <tfoot>
-                <tr>
-                  <th>Request Date</th>
-                      <th>Issue Date</th>
-                      <th>Supply Type</th>
+                  <tr>
+                      <th>Memo Date</th>
                       <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Department</th>
-                </tr>
+                      <th>Status</th>
+                      <th>Action</th>
+                  </tr>
                 </tfoot>
               </table>
+
             </div>
+
             <!-- /.box-body -->
           </div>
-          <!-- /.box -->
+              
+          </div>
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-        <!-- this row will not appear when printing -->
-       <div class="row no-print">
-        <div class="col-xs-1" style="float:right">
-			<button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
+        <div class="row no-print">
+			<div class="col-xs-1" style="float:right">
+          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
-      </div>
       <script>
         $('#print').click(function(){
           var printme = document.getElementById('example');
@@ -381,23 +377,81 @@ if(!isset($_SESSION['first_run'])){
           wme.close();
         })
       </script>
+      
+      </div>
+        <!-- END OF PRINT AND PDF -->
     </section>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
+<footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
     <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
+<style>
 
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 24px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}    
+</style>
+        
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -415,9 +469,7 @@ if(!isset($_SESSION['first_run'])){
 <script src="../assets/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="../assets/bower_components/moment/min/moment.min.js"></script>
-<script src="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- bootstrap color picker -->
@@ -428,49 +480,8 @@ if(!isset($_SESSION['first_run'])){
 <script src="../assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../assets/dist/js/demo.js"></script>
-            <!-- bootstrap time picker -->
+    <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- page script -->
-
-
-<script>
-      $(function () {
-        $('#example').DataTable()
-        $('#example1').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : false,
-          'ordering'    : true,
-          'info'        : true,
-          'autoWidth'   : false
-        })
-
-
-      })
-</script>
-
-    <script>
-<!-- date and time -->
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
-    
-    //Date picker
-    $('#datepicker2').datepicker({
-      autoclose: true
-    })
-
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
-    })
-  })
-</script>
 
 <script>
 setTimeout(onUserInactivity, 1000 * 120)
@@ -482,5 +493,87 @@ function onUserInactivity() {
 }
 </script>
 
-</body>
+<script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
+
+
+      })
+    </script>
+
+        <!--create modal dialog for display detail info for edit on button cell click-->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="content-data"></div>
+            </div>
+        </div>
+
+
+    <!-- <script>
+        $(document).ready(function(){
+            var dataTable=$('#example').DataTable({
+                "processing": true,
+                "serverSide":true,
+                "ajax":{
+                    url:"memoRecover/getMemoRecover",
+                    type:"post"
+                }
+            });
+        });
+    </script> -->
+
+    <script>
+        $(document).on('click','#getRestore',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'memoRecover/deleteMemoRecover',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
+    
+ </body>
 </html>
+
+<?php
+$con=mysqli_connect('localhost','root','','itproject');
+
+//SOFT DELETED MEDICAL SUPPLIES
+if(isset($_POST['memRestore'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $sqlupdate="UPDATE memo SET soft_deleted='N' WHERE memo_id='$new_id' ";
+    $result_update=mysqli_query($con,$sqlupdate);
+
+    if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo has been restored','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
+        echo '<script>window.location.href="memoRecover"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+} // END OF SOFT DELETE MEDICAL SUPPLIES
+
+?>
