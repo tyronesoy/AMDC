@@ -1214,14 +1214,17 @@ $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting 
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['txtorderdate']);
+    $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['txtdate']);
     $new_purchasesQuantity=mysqli_real_escape_string($con,$_POST['txtquantity']);
+    $new_description=mysqli_real_escape_string($con,$_POST['txtdesc']);
     $new_purchasesUnit=mysqli_real_escape_string($con,$_POST['txtunit']);
-    $new_purchasesUnitPrice=mysqli_real_escape_string($con,$_POST['txtunitprice']);
+    $new_purchasesUnitPrice=mysqli_real_escape_string($con,$_POST['unit_price']);
     $new_purchasesSupplier=mysqli_real_escape_string($con,$_POST['txtsupplier']);
     $new_purchasesDeliveryDate=mysqli_real_escape_string($con,$_POST['txtdeliverydate']);
+    $new_total = $new_purchasesQuantity * $new_purchasesUnitPrice;
+
     
-  $sqlupdate="UPDATE purchase_orders, purchase_order_bm SET purchase_order_bm.purchase_order_id='$new_poid', purchase_orders.order_date='$new_purchasesOrderDate', purchase_orders.order_quantity='$new_purchasesQuantity', purchase_orders.order_unit='$new_purchasesUnit', purchase_orders.unitprice='$new_purchasesUnitPrice', purchase_orders.total='$new_purchasesTotalAmount', purchase_order_bm.purchase_order_grandtotal='$new_purchasesGrandTotal', purchase_order_bm.purchase_order_status='$new_purchasesRemarks' WHERE purchase_order_id='$new_id' ";
+  $sqlupdate="UPDATE purchase_orders, purchase_order_bm SET purchase_orders.order_date='$new_purchasesOrderDate', purchase_orders.order_quantity='$new_purchasesQuantity', purchase_orders.description='$new_description', purchase_orders.order_unit='$new_purchasesUnit', purchase_orders.unitprice='$new_purchasesUnitPrice', purchase_orders.total='$new_purchasesTotalAmount', purchase_order.total='$new_total', purchase_order_bm.purchase_order_grandtotal='$new_total' WHERE purchase_order_id='$new_id' ";
   $result_update=mysqli_query($con,$sqlupdate);
 
 
@@ -1248,7 +1251,7 @@ if(isset($_POST['btnUpdate'])){
       $new_purchasesStatus = 'Pending';
     }
 
-    $sqlupdate="UPDATE purchase_order_bm SET purchase_order_status='$new_purchasesStatus' WHERE purchase_order_id='$new_id' ";
+    $sqlupdate="UPDATE purchase_orders, purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_orders.po_remarks = '$new_purchasesStatus' WHERE purchase_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
