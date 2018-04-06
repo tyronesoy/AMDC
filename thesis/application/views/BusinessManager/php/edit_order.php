@@ -43,7 +43,17 @@ if(isset($_REQUEST['id'])){
                         <center><h4>Departments Order Form</h4></center>
                     </div>
                 </div>
-                <div class="box-body">                                      
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="hidden" for="exampleInputEmail1">Order ID</label>
+                                <div class="input-group">
+                                    <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
@@ -52,7 +62,7 @@ if(isset($_REQUEST['id'])){
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +128,7 @@ if(isset($_REQUEST['id'])){
             </div> <!-- BOX-BODY -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
-                <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
+                <button type="submit" class="btn btn-success" name="btnEdit"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>

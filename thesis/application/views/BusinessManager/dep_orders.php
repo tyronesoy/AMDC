@@ -482,23 +482,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["inventory_order_status"]; ?></td>
                       <td><?php echo $row["inventory_order_remarks"]; ?></td>
                       <td>
-                        <div class="btn-group">
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search">&nbsp;</i> View</button>
-                        </div>
-                        <?php if ($row["inventory_order_status"] == 'Accepted' || $row["inventory_order_status"] == 'Declined') {?>
+                        <!-- to show the update/edit button -->
+                        <?php if ($row["inventory_order_remarks"] == null) {?>
                           <div class="btn-group">
-                              <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["inventory_order_id"]; ?>" disabled><i class="glyphicon glyphicon-pencil">&nbsp;</i> Edit</button>
+                              <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i> Update</button>
                           </div>
+                        <?php } ?>
+
+                        <!-- to show the issue button -->
+                        <?php if ($row["inventory_order_status"] == 'Accepted') {?>
+                          
                           <div class="btn-group">
-                              <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>" disabled><i class="glyphicon glyphicon-ok"></i> Accept</button>
+                              <button type="button" id="issue" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#issueModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-retweet"></i> Issue</button>
                           </div>
-                          <div class="btn-group">
-                              <button type="button" id="decline" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#declineModal" data-id="<?php echo $row["inventory_order_id"]; ?>" disabled><i class="glyphicon glyphicon-remove"></i> Remove</button>
-                          </div>
+
+                          <!-- if the status is declined or issued it will not show any button -->
+                        <?php }elseif ($row["inventory_order_status"] == 'Declined' || $row["inventory_order_status"] == 'Issued') {?>
+
+                        <!-- the accept and decline button will be showed if the above statement will be false -->
                         <?php }else {?>
-                          <div class="btn-group">
-                              <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i> Edit</button>
-                          </div>
+                          
                           <div class="btn-group">
                               <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-ok"> Accept</i></button>
                           </div>
@@ -506,6 +509,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <button type="button" id="decline" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#declineModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-remove"> Decline</i></button>
                           </div>
                         <?php } ?>
+
+                        <!-- the view button will always show up -->
+                        <div class="btn-group">
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search">&nbsp;</i> View</button>
+                        </div>
                       </td>
                     </tr>
                   <?php 
@@ -735,6 +743,11 @@ function onUserInactivity() {
                 <div id="decline-data"></div>
             </div>
         </div>
+        <div class="modal fade" id="issueModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="issue-data"></div>
+            </div>
+        </div>
    
     <!-- <script>
         $(document).ready(function(){
@@ -831,6 +844,26 @@ function onUserInactivity() {
         });
     </script>
 
+    <script>
+        $(document).on('click','#issue',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#issue-data').html('');
+            $.ajax({
+                url:'departmentsOrder/issueOrder',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#issue-data').html('');
+                $('#issue-data').html(data);
+            }).final(function(){
+                $('#issue-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
 
 </body>
 </html>
@@ -889,6 +922,25 @@ if(isset($_POST['btnDecline'])){
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
         $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A department order request has been declined','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
+        echo '<script>window.location.href="departmentsOrder"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+}
+if(isset($_POST['btnIssue'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
+
+    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Issued', inventory_order_remarks='The item has been issued' WHERE inventory_order_id='$new_id' ";
+    $result_update=mysqli_query($con,$sqlupdate);
+
+    if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A department order has been issued','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="departmentsOrder"</script>';
     }
