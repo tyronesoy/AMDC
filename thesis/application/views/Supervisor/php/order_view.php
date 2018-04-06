@@ -45,18 +45,8 @@ if(isset($_REQUEST['id'])){
                     </div>
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="col-sm-6 control-label" for="txtid">Order ID</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="col-md-11">
+                                    <div class="form-group">
                                 <label for="exampleInputEmail1">Supervisor Name</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -65,8 +55,19 @@ if(isset($_REQUEST['id'])){
                                     <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                 </div>
                             </div>
+                            </div>
                         </div>
-                            <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="txtid">Order ID</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
+                        
+                            </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Order Date</label>
                                 <div class="input-group">

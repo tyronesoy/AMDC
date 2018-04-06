@@ -487,6 +487,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <input type="text" class="form-control" id="memo_user" name="memo_user" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </div>
                                               </div>
+                                              
                                                <div class="form-group">
                                                   <label for="exampleInputEmail1"> Memo Date</label>
                                                   <input type="date" class="form-control" name="memo_date" id="memo_date" required />
