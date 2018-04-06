@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition lockscreen" >
+<body background="../assets/dist/img/lockscreen.jpg">
 
 <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
@@ -53,8 +53,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- User name -->
   <div class="lockscreen-name">
 		<p>
-		<?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
-		<br><small>Supervisor</small>
+		<center><font color="#737373"><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></font>
+		<br><font color="#737373"><small>Supervisor</small></font></center>
 		</p>
 	</div>
 
@@ -87,9 +87,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="text-center">
     <a href="<?php echo '../logout'?>"><u>Sign in as a Different User</u></a>
   </div>
-    <div class="lockscreen-footer text-center"><b>AMDC INVENTORY MANAGEMENT SYSTEM</b><br>
-    Copyright &copy; 2017-2018 <br/><b><a href="https://adminlte.io" class="text-black">
-    All rights reserved
+    <div class="lockscreen-footer text-center"><b><font color="#737373">AMDC INVENTORY MANAGEMENT SYSTEM</font></b><br>
+    <font color="#737373">Copyright &copy; 2017-2018 </font><br/><b><a href="https://adminlte.io" class="text-black">
+    <font color="#097627">All rights reserved</font>
   </div>
 </div>
 <!-- /.center -->
