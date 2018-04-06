@@ -469,7 +469,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example1"  class="table table-bordered table-striped" >
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM purchase_orders where soft_deleted='N'";
+                  $sql = "SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where po_remarks = 'Delivered' group by purchase_order_uniq_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -486,7 +486,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                  <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["po_id"]; ?></td>
+                      <td><?php echo $row["purchase_order_id"]; ?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
                       <td><?php echo $row["delivery_date"]; ?></td>
@@ -494,23 +494,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td>
                         <?php if ($row["po_remarks"] == 'Fully Delivered' || $row["po_remarks"] == 'Partially Delivered') {?>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["po_id"]; ?>" disabled><i class="fa fa-edit"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>" disabled><i class="fa fa-edit"></i> Edit</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["po_id"]; ?>"><i class="fa fa-search"></i> View</button>
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["po_id"]; ?>"><i class="fa fa-trash"></i> Remove</button>
+                            <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Remove</button>
                         </div>
                         <?php }else{ ?>
                           <div class="btn-group">
-                              <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["po_id"]; ?>"><i class="fa fa-edit"></i> Edit</button>
+                              <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Edit</button>
                           </div>
                           <div class="btn-group">
-                              <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["po_id"]; ?>"><i class="fa fa-search"></i> View</button>
+                              <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                           </div>
                           <div class="btn-group">
-                              <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["po_id"]; ?>"><i class="fa fa-trash"></i> Remove</button>
+                              <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Remove</button>
                           </div>
                         <?php } ?>
                       </td>

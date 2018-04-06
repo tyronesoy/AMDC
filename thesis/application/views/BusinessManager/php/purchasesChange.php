@@ -9,14 +9,28 @@ if(isset($_REQUEST['id'])){
     $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE purchase_order_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-        $per_id=$row[13];
-        $per_purchasesOrderDate=$row[2];
-        $per_purchasesQuantity=$row[3];
-        $per_purchasesUnit=$row[4];
-        $per_purchasesUnitPrice=$row[11];
-        $per_purchasesSupplier=$row[10];
-        $per_purchasesDeliveryDate=$row[8];
-        $per_purchasesStatus=$row[16];
+        $per_po_uniq_id=$row[0];
+        $per_po_id=$row[1];
+        $per_orderDate=$row[2];
+        $per_quantity=$row[3];
+        $per_unit=$row[4];
+        $per_po_remarks=$row[5];
+        $per_soft_deleted=$row[6];
+        $per_description=$row[7];
+        $per_deliveryDate=$row[8];
+        $per_supply_type=$row[9];
+        $per_supplier=$row[10];
+        $per_unitprice=$row[11];
+        $per_total=$row[12];
+        $per_purch_id=$row[13];
+        $per_id=$row[14];
+        $per_createdDate_=$row[15];
+        $per_status=$row[17];
+        $per_orderName=$row[16];        
+        $per_purchRemarks=$row[18];
+        $per_gtotal=$row[19];
+        $per_key=$row[20];
+        $date = date("Y-m-d");
         
 
     }//end while
@@ -35,14 +49,17 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Purchase ID</label>
                             <div class="col-sm-6">
-                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_key;?>" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-8 control-label" for="txtstatus"></label>
                             <div class="col-sm-1">
-                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $per_purchasesStatus;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $per_status;?>" readonly>
                             </div>
+                        </div>
+                        <div class="form-group">
+                                     <input type="hidden" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" />
                         </div>
                     </div>
                 </form>

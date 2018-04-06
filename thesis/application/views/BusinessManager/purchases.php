@@ -900,7 +900,7 @@ function unit_measure($connect)
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i>Update</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
@@ -1219,16 +1219,20 @@ if(isset($_POST['btnEdit'])){
     $new_description=mysqli_real_escape_string($con,$_POST['txtdesc']);
     $new_purchasesUnit=mysqli_real_escape_string($con,$_POST['txtunit']);
     $new_purchasesUnitPrice=mysqli_real_escape_string($con,$_POST['unit_price']);
+     $new_total = mysqli_real_escape_string($con,$_POST['txtquantity']) * mysqli_real_escape_string($con,$_POST['unit_price']);
     $new_purchasesSupplier=mysqli_real_escape_string($con,$_POST['txtsupplier']);
     $new_purchasesDeliveryDate=mysqli_real_escape_string($con,$_POST['txtdeliverydate']);
-    $new_total = $new_purchasesQuantity * $new_purchasesUnitPrice;
+   
 
     
-  $sqlupdate="UPDATE purchase_orders, purchase_order_bm SET purchase_orders.order_date='$new_purchasesOrderDate', purchase_orders.order_quantity='$new_purchasesQuantity', purchase_orders.description='$new_description', purchase_orders.order_unit='$new_purchasesUnit', purchase_orders.unitprice='$new_purchasesUnitPrice', purchase_orders.total='$new_purchasesTotalAmount', purchase_order.total='$new_total', purchase_order_bm.purchase_order_grandtotal='$new_total' WHERE purchase_order_id='$new_id' ";
+  $sqlupdate="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity', description='$new_description', order_unit='$new_purchasesUnit', unitprice='$new_purchasesUnitPrice', total='$new_total', WHERE po_key='$new_id' ";
   $result_update=mysqli_query($con,$sqlupdate);
 
+   $sqlupdate2="UPDATE purchase_order_bm SET purchase_order_grandtotal='$new_total' WHERE po_key='$new_id' ";
+  $result_update2=mysqli_query($con,$sqlupdate2);
 
-    if($result_update){
+
+    if($result_update && $result_update2){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
@@ -1245,16 +1249,19 @@ if(isset($_POST['btnUpdate'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_purchasesStatus=mysqli_real_escape_string($con,$_POST['txtstatus']);
 
-    if($new_purchasesStatus == 'Pending'){
+    if($new_purchasesStatus == 'Pending' && $new_id == $new_id){
       $new_purchasesStatus = 'Delivered';
     }else{
       $new_purchasesStatus = 'Pending';
     }
 
-    $sqlupdate="UPDATE purchase_orders, purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_orders.po_remarks = '$new_purchasesStatus' WHERE purchase_order_id='$new_id' ";
+    $sqlupdate="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus' WHERE po_key='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
-    if($result_update){
+       $sqlupdate2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus' WHERE po_key='$new_id' ";
+    $result_update2=mysqli_query($con,$sqlupdate2);
+
+    if($result_update && $sqlupdate2){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");

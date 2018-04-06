@@ -273,6 +273,12 @@ if(!isset($_SESSION['first_run'])){
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
+  <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'memo'?>">
+            <i class="fa fa-tasks"></i> <span>Memo</span>
+          </a>
+        </li>
 
 <!-- LOCKSCREEN MENU -->
         <li>

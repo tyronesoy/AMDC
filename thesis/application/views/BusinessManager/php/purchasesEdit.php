@@ -5,51 +5,34 @@
 // start again
 $con=mysqli_connect('localhost','root','','itproject'); 
 
-function supply_dropdown($con)
-{ 
- $output = '';
- $query = "SELECT * FROM supplies ORDER BY supply_description ASC";
- $statement = $connect->prepare($query);
- $statement->execute();
- $result = $statement->fetchAll();
- foreach($result as $row)
- {
-  $output .= '<option value="'.$row["supply_description"].'">'.$row["supply_description"].'</option>';
- }
- return $output;
-}
-
-function unit_measure($connect)
-{ 
- $output = '';
- $query = "SELECT * FROM unit_of_measure ORDER BY unit_name ASC";
- $statement = $connect->prepare($query);
- $statement->execute();
- $result = $statement->fetchAll();
- foreach($result as $row)
- {
-  $output .= '<option value="'.$row["unit_name"].'">'.$row["unit_name"].'</option>';
- }
- return $output;
-}
-
-
 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
     $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE purchase_order_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-        $per_id=$row[13];
+        $per_po_uniq_id=$row[0];
+        $per_po_id=$row[1];
         $per_orderDate=$row[2];
-        $per_description=$row[7];
-        $per_supplier=$row[10];
-        $per_deliveryDate=$row[8];
         $per_quantity=$row[3];
-        $per_status=$row[16];
         $per_unit=$row[4];
+        $per_po_remarks=$row[5];
+        $per_soft_deleted=$row[6];
+        $per_description=$row[7];
+        $per_deliveryDate=$row[8];
+        $per_supply_type=$row[9];
+        $per_supplier=$row[10];
         $per_unitprice=$row[11];
-        $per_gtotal=$row[18];
+        $per_total=$row[12];
+        $per_purch_id=$row[13];
+        $per_id=$row[14];
+        $per_createdDate_=$row[15];
+        $per_status=$row[17];
+        $per_orderName=$row[16];        
+        $per_purchRemarks=$row[18];
+        $per_gtotal=$row[19];
+        $per_key=$row[20];
+
 
     }//end while
 ?>
@@ -76,7 +59,11 @@ if(isset($_REQUEST['id'])){
                                         </div>
                                         <!-- end of modal header -->
                                       <div class="modal-body">
-                                        <div class="box-body">                                      
+                                        <div class="box-body">                   
+                                             <div class="form-group" style="width:100%">
+                                                <label for="txtid">Purchase ID</label>
+                                                    <input type="number" class="form-control" id="txtid" name="txtid" value="<?php echo $per_key;?>" readonly>
+                                              </div>      
                                               <div class="row">
                                               <div class="col-md-5">
                                               <div class="form-group">
@@ -107,12 +94,6 @@ if(isset($_REQUEST['id'])){
                                                       <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                              <div class="form-group">
-                                                    <label>Delvery Order Date</label>
-                                                      <input type="text" class="form-control" id="txtdate" name="txtdeliverydate" value="<?php echo $per_deliveryDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                  </div>
-                                                </div>
                                                 <div class="col-md-1">
                                                 </div>
 
@@ -123,10 +104,13 @@ if(isset($_REQUEST['id'])){
                                         <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
 
                                 </div>
-                                <div class="form-group">
-                                        <input type="hidden" class="form-control" id="txtid" name="txtstatus" value="<?php echo $per_id;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
 
-                                </div>
+                                <div class="col-md-6">
+                                              <div class="form-group">
+                                                    <label>Delvery Order Date</label>
+                                                      <input type="text" class="form-control" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_deliveryDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  </div>
+                                                </div>
                             </div>
                                               </div>
                                                <?php
@@ -156,7 +140,7 @@ if(isset($_REQUEST['id'])){
                                             
                                             <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >  </td>
 
-                                            <td width="50"><input type="text" name="unit_price" class="form-control " value="<?php echo $row['unit_price']; ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            <td width="50"><input type="text" id="unit_price" name="unit_price" class="form-control " value="&#8369 <?php echo $row['unit_price']; ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             </tr>
 

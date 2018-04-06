@@ -352,7 +352,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		
+		  <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'Supervisor/memo'?>">
+            <i class="fa fa-tasks"></i> <span>Memo</span>
+          </a>
+        </li>
           <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'Supervisor/lockscreen' ?>">
