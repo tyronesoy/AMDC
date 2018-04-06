@@ -43,20 +43,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition lockscreen" >
+<body class="hold-transition lockscreen">
 
 <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
-       <center><img src="../assets/dist/img/AMDC.png" alt="User Image" style="width:300px;height:100px;"></center>
+      <a><b>Assumption Medical and Diagnostics Center</b></a>
   </div>
   <!-- User name -->
   <div class="lockscreen-name">
-		<p>
-		<?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
-		<br><small>Supervisor</small>
-		</p>
-	</div>
+    <p>
+    <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
+    <br><small>Supervisor</small>
+    </p>
+  </div>
 
   <!-- START LOCK SCREEN ITEM -->
   <div class="lockscreen-item">
@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.lockscreen-image -->
 
     <!-- lockscreen credentials (contains the form) -->
-    <form class="lockscreen-credentials" method="get" action="<?php echo 'errorlockscreen/refer' ?>">
+    <form class="lockscreen-credentials" method="get" action="<?php echo 'lockscreen/refer' ?>">
       <div class="input-group">
         <input type="text" name="username" placeholder="username" value="<?php echo $_SESSION["username"]; ?>" hidden/>
         <input type="password" name="password" class="form-control" placeholder="Password" required/>
@@ -78,7 +78,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </form>
     <!-- /.lockscreen credentials -->
-
+  <div class="help-block text-center">
+    <font color="red"><p> Password is Incorrect!</p></font>
+  </div>
   </div>
   <!-- /.lockscreen-item -->
   <div class="help-block text-center">
