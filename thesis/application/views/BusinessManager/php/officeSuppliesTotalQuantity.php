@@ -680,15 +680,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          <?php // RETRIEVE or Display Medical Supplies
          $conn =mysqli_connect("localhost","root","");
           mysqli_select_db($conn, "itproject");
-          $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
+          $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', ' ', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
             FROM supplies WHERE supply_type='Office' AND quantity_in_stock IS NOT NULL
             GROUP BY supply_description;";
           $result = $conn->query($sql);  ?>
+            <col width="50%">
+            <col width="auto">
+            <col width="5%">
+            <col width="13%">
+            <col width="auto">
+            <col width="5%">
           <thead>
             <tr>
-             <!--     <th>Date Received</th>
-                  <th>Time Received</th>
-                  <th>Expiration Date</th> --> 
                   <th>Description</th>
                   <th>Total Quantity in Stock</th>
                   <th>Unit</th>
@@ -705,7 +708,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td align="right"><?php echo $row["Total Quantity"]; ?></td>
             <td><?php echo $row["unit"]; ?></td>
             <td align="right"><?php echo $row["Total Amount"]; ?></td>
-            <td><?php echo $row["reorder_level"]; ?></td>
+            <td align="right"><?php echo $row["reorder_level"]; ?></td>
             <td>
              <div class="btn-group">
                 <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
@@ -718,9 +721,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </tbody>
         <tfoot>
            <tr>
-            <!--     <th>Date Received</th>
-                  <th>Time Received</th>
-                  <th>Expiration Date</th> --> 
                   <th>Description</th>
                   <th> Total Quantity in Stock</th>
                   <th>Unit</th>
