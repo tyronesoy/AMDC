@@ -348,7 +348,7 @@ if(!isset($_SESSION['first_run'])){
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Order</i></button>
             
-             <form id="insert_form" method="post" action="purchases/addPurchases">
+             <form id="insert_form" method="post" action="order/addOrder">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -621,7 +621,7 @@ if(!isset($_SESSION['first_run'])){
                    <table id="example" class="table table-bordered table-striped">
                       <?php
                         $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                        $sql = "SELECT * FROM inventory_order";
+                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) GROUP BY inventory_order_id";
                         $result = $conn->query($sql);    
                       ?>
                       <thead>
@@ -848,7 +848,7 @@ function onUserInactivity() {
             //alert(per_id);
             $('#view-data').html('');
             $.ajax({
-                url:'purchases/viewPurchases',
+                url:'order/viewOrder',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
