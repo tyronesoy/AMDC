@@ -378,7 +378,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </li>
   
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -474,28 +474,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="table table-bordered table-striped">
                   <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT * FROM issuedsupplies";
-                    $result = $conn->query($sql);    
+                    $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status='Issued' GROUP BY inventory_order_id";
+                    $result = $conn->query($sql);
+
+                    //  WHERE inventory_order_status='Issued'   
                   ?>
-                  <thead>
+                  <thead> 
                   <tr>
                     <th>Request Date</th>
                     <th>Issue Date</th>
-                    <th>Supply Type</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
                     <th>Department</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["request_date"]; ?></td>
+                      <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["issued_date"]; ?></td>
-                      <td><?php echo $row["supply_type"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
-                      <td><?php echo $row["department_name"]; ?></td>
+                      <td><?php echo $row["inventory_order_dept"]; ?></td>
+                      <td><div class="btn-group">
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></td>
                     </tr>
                   <?php 
                       }
@@ -503,12 +502,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   ?>
                 <tfoot>
                 <tr>
-                  <th>Request Date</th>
-                      <th>Issue Date</th>
-                      <th>Supply Type</th>
-                      <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Department</th>
+                    <th>Request Date</th>
+                    <th>Issue Date</th>
+                    <th>Department</th>
+                    <th>Action</th>
                 </tr>
                 </tfoot>
               </table>
@@ -622,6 +619,32 @@ function onUserInactivity() {
 
 
       })
+    </script>
+
+    <div class="modal fade" id="viewModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="view-data"></div>
+            </div>
+        </div>
+
+    <script>
+        $(document).on('click','#getView',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#view-data').html('');
+            $.ajax({
+                url:'issuedSupplies/issueView',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#view-data').html('');
+                $('#view-data').html(data);
+            }).final(function(){
+                $('#view-data').html('<p>Error</p>');
+            });
+        });
     </script>
 
 <!-- <script>
