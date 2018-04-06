@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Lockscreen extends CI_Controller {
+class ErrorLockscreen extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -30,7 +30,7 @@ class Lockscreen extends CI_Controller {
 				echo "</pre>";
 				$_SESSION['logged_in'] = 'True';
 			$this->load->model('db_model');
-			$this->load->view('BusinessManager/lockscreen');
+			$this->load->view('BusinessManager/errorlockscreen');
 
 		}
 		
