@@ -48,7 +48,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
-      <a><b>Assumption Medical and Diagnostics Center</b></a>
+      <center><img src="../assets/dist/img/AMDC.png" alt="User Image" style="width:300px;height:100px;"></center>
+  </div>
   </div>
   <!-- User name -->
   <div class="lockscreen-name">
