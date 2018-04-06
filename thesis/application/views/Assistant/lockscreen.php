@@ -91,6 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <font color="#737373">Copyright &copy; 2017-2018 </font><br/><b><a href="https://adminlte.io" class="text-black">
     <font color="#097627">All rights reserved</font>
   </div>
+</div>
 <!-- /.center -->
 
 <!-- jQuery 3 -->
