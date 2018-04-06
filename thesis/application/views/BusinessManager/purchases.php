@@ -54,7 +54,7 @@ function unit_measure($connect)
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -1219,13 +1219,14 @@ if(isset($_POST['btnEdit'])){
     $new_description=mysqli_real_escape_string($con,$_POST['txtdesc']);
     $new_purchasesUnit=mysqli_real_escape_string($con,$_POST['txtunit']);
     $new_purchasesUnitPrice=mysqli_real_escape_string($con,$_POST['unit_price']);
-     $new_total = mysqli_real_escape_string($con,$_POST['txtquantity']) * mysqli_real_escape_string($con,$_POST['unit_price']);
+    $new_total = $new_purchasesQuantity * $new_purchasesUnitPrice;
     $new_purchasesSupplier=mysqli_real_escape_string($con,$_POST['txtsupplier']);
     $new_purchasesDeliveryDate=mysqli_real_escape_string($con,$_POST['txtdeliverydate']);
+
    
 
     
-  $sqlupdate="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity', description='$new_description', order_unit='$new_purchasesUnit', unitprice='$new_purchasesUnitPrice', total='$new_total', WHERE po_key='$new_id' ";
+  $sqlupdate="UPDATE purchase_orders SET delivery_date='$new_purchasesDeliveryDate', order_quantity='$new_purchasesQuantity', description='$new_description', order_unit='$new_purchasesUnit', unitprice='$new_purchasesUnitPrice', total='$new_total', WHERE po_key='$new_id' ";
   $result_update=mysqli_query($con,$sqlupdate);
 
    $sqlupdate2="UPDATE purchase_order_bm SET purchase_order_grandtotal='$new_total' WHERE po_key='$new_id' ";

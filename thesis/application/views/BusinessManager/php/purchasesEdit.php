@@ -45,9 +45,7 @@ if(isset($_REQUEST['id'])){
                                             <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
-                                            <div class="margin">
-                                              <center><h3>Edit Purchases</h3></center>
-                                            </div>
+                                            
                                             <div class="col-md-8">
                                                 
                                                 <div class="margin">
@@ -59,10 +57,13 @@ if(isset($_REQUEST['id'])){
                                         </div>
                                         <!-- end of modal header -->
                                       <div class="modal-body">
+                                        <div class="box-header">
+                                              <center><h3>Edit Purchases</h3></center>
+                                        </div>
                                         <div class="box-body">                   
                                              <div class="form-group" style="width:100%">
-                                                <label for="txtid">Purchase ID</label>
-                                                    <input type="number" class="form-control" id="txtid" name="txtid" value="<?php echo $per_key;?>" readonly>
+                                                <label class="hidden" for="txtid">Purchase ID</label>
+                                                    <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_key;?>" readonly>
                                               </div>      
                                               <div class="row">
                                               <div class="col-md-5">
@@ -83,33 +84,39 @@ if(isset($_REQUEST['id'])){
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
 
-                                        <input type="text" class="form-control" id="txtsupplier" name="txtsupplier" value="<?php echo $per_supplier;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                        <input type="text" class="form-control" id="txtsupplier" name="txtsupplier" value="<?php echo $per_supplier;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
 
                                               </div>
                                               </div>
-
-                                              <div class="col-md-6">
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-md-5">
                                               <div class="form-group">
                                                     <label>Purchase Order Date</label>
-                                                      <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                      <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                   </div>
                                                 </div>
                                                 <div class="col-md-1">
                                                 </div>
 
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="txtstatus">Status</label>
                                         <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
 
                                 </div>
-
-                                <div class="col-md-6">
-                                              <div class="form-group">
-                                                    <label>Delvery Order Date</label>
-                                                      <input type="text" class="form-control" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_deliveryDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                  </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                                <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
+                                                      <?php $date = date("Y-m-d"); ?>
+                                                      <input type="date" class="form-control pull-right" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_deliveryDate;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                    </div>
                                                 </div>
                             </div>
                                               </div>
@@ -155,13 +162,11 @@ if(isset($_REQUEST['id'])){
                                       
 
                                           </div>
-                                        </div> <!-- BOX-BODY -->
                                         <div class="modal-footer">
                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                    <button type="submit" class="btn btn-success" name="btnEdit"><i class="fa fa-save"></i> Save</button>
                 </div>
-                                      <div>
-                                    </div>
+              </div>
                                     <!-- /.modal-content -->
                                   </div>
                                   <!-- /.modal-dialog -->
