@@ -43,20 +43,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body background="../assets/dist/img/lockscreen.jpg">
+<body class="hold-transition lockscreen">
 
 <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
-       <center><img src="../assets/dist/img/AMDC.png" alt="User Image" style="width:300px;height:100px;"></center>
+      <a><b>Assumption Medical and Diagnostics Center</b></a>
   </div>
   <!-- User name -->
   <div class="lockscreen-name">
-		<p>
-		<center><font color="#737373"><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></font>
-		<br><font color="#737373"><small>Supervisor</small></font></center>
-		</p>
-	</div>
+    <p>
+    <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
+    <br><small>Supervisor</small>
+    </p>
+  </div>
 
   <!-- START LOCK SCREEN ITEM -->
   <div class="lockscreen-item">
@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.lockscreen-image -->
 
     <!-- lockscreen credentials (contains the form) -->
-    <form class="lockscreen-credentials" method="get" action="<?php echo 'errorlockscreen/refer' ?>">
+    <form class="lockscreen-credentials" method="get" action="<?php echo 'lockscreen/refer' ?>">
       <div class="input-group">
         <input type="text" name="username" placeholder="username" value="<?php echo $_SESSION["username"]; ?>" hidden/>
         <input type="password" name="password" class="form-control" placeholder="Password" required/>
@@ -78,7 +78,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </form>
     <!-- /.lockscreen credentials -->
-
+  <div class="help-block text-center">
+    <font color="red"><p> Password is Incorrect!</p></font>
+  </div>
   </div>
   <!-- /.lockscreen-item -->
   <div class="help-block text-center">
@@ -87,9 +89,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="text-center">
     <a href="<?php echo '../logout'?>"><u>Sign in as a Different User</u></a>
   </div>
-    <div class="lockscreen-footer text-center"><b><font color="#737373">AMDC INVENTORY MANAGEMENT SYSTEM</font></b><br>
-    <font color="#737373">Copyright &copy; 2017-2018 </font><br/><b><a href="https://adminlte.io" class="text-black">
-    <font color="#097627">All rights reserved</font>
+    <div class="lockscreen-footer text-center"><b>AMDC INVENTORY MANAGEMENT SYSTEM</b><br>
+    Copyright &copy; 2017-2018 <br/><b><a href="https://adminlte.io" class="text-black">
+    All rights reserved
   </div>
 </div>
 <!-- /.center -->
