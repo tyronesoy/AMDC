@@ -31,15 +31,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
  
 </head>
-<body class="hold-transition login-page">
+<body background="assets/dist/img/Background.jpg" >
+
+  <style type="text/css">
+    body {
+    
+   background-size: 100%;
+    }
+  </style>
+
 
 <div class="login-box">
-  <div class="login-logo">
-    <b>Assumption Medical and Diagnostic Center</b>
-  </div>
+
   <!-- /.login-logo -->
-  <div class="login-box-body">
-      <center><img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:160px;height:160px;"></center>
+  <div class="login-box-body" >
+
+   <br>
+      <div class="login-logo">
+       <center><img src="assets/dist/img/AMDC.png" alt="User Image" style="width:300px;height:100px;"></center>
+  </div>
+   <br>
+   <br>
+    <br>
+
     <p class="login-box-msg">Sign in to start your session</p>
 
     <form name="form1" method="post" action="<?php echo site_url('login/checklogin') ?>">
@@ -65,7 +79,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="row" style="display: flex; align-items: center; justify-content: center;">
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" name="login" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" name="login" class="btn btn-success btn-block btn-flat">Sign In</button>
         </div>
         <!-- /.col -->
       </div>

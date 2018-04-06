@@ -43,12 +43,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition lockscreen">
+<body class="hold-transition lockscreen" >
 
 <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
-      <a><b>Assumption Medical and Diagnostics Center</b></a>
+       <center><img src="../assets/dist/img/AMDC.png" alt="User Image" style="width:300px;height:100px;"></center>
   </div>
   <!-- User name -->
   <div class="lockscreen-name">
