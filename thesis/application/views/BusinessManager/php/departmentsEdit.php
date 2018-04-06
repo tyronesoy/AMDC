@@ -46,8 +46,11 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtlocation">Location</label>
                             <div class="col-sm-6">
-                                 <input type="radio" id="txtlocation" name="txtlocation" value="Baguio City" <?php echo ($per_departmentLocation =='Baguio City')?'checked':'' ?>> Baguio City &nbsp; &nbsp;
-                                <input type="radio" id="txtlocation" name="txtlocation" value="La Trinidad" <?php echo ($per_departmentLocation =='La Trinidad')?'checked':'' ?>> La Trinidad  <br>
+                                <select id="txtlocation" name="txtlocation">
+                                    <option value="Baguio City" <?php echo ($per_departmentLocation =='Baguio City')?'selected':'' ?>>Baguio City</option>
+                                    <option value="La Trinidad" <?php echo ($per_departmentLocation =='La Trinidad')?'selected':'' ?>>La Trinidad</option>
+                                </select>
+                                   <br>
                             </div>
                         </div>
                     </div>
