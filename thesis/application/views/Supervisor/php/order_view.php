@@ -37,14 +37,25 @@ if(isset($_REQUEST['id'])){
                 </div>
             </div>
             <div class="modal-body">
-                <div class="box-header">
-                    <div class="margin">
-                        <center><h4>Departments Order Form</h4></center>
+                <form class="form-horizontal" method="post">
+                    <div class="box-header">
+                        <div class="margin">
+                            <center><h4>Order Form</h4></center>
+                        </div>
                     </div>
-                </div>
-                <div class="box-body">                                      
-                    <div class="row">
-                        <div class="col-md-5">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-6 control-label" for="txtid">Order ID</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Supervisor Name</label>
                                 <div class="input-group">
@@ -55,25 +66,19 @@ if(isset($_REQUEST['id'])){
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                            <div class="col-md-6">
                             <div class="form-group">
-                                <label>Order Date</label>
-                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <label for="exampleInputEmail1">Order Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control" id="orDate" name="orDate" value="<?php echo $per_date ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-1">
                         </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="txtstatus">Status</label>
-                                <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            </div>
-                        </div>
-                    </div>
-                      <?php
+                        <?php
                         $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND quantity !=0";
                         $result = $con->query($sql);    
                       ?>
@@ -103,8 +108,8 @@ if(isset($_REQUEST['id'])){
                         }?>
                         </table>
                     </div>
-                </div>   
-            </div> <!-- BOX-BODY -->
+                </form>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->

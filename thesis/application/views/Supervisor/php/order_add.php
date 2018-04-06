@@ -11,7 +11,7 @@ $order_id = uniqid();
 
   $sql->bind_param("ssss", $inventory_order_id, $orDate, $name, $department); 
  
-   $sql2 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)"); 
+   $sql2 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_uniq_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)"); 
 
   $inventory_order_id = $order_id;
   $supply_name      = $_POST['supply_name'];
@@ -20,7 +20,7 @@ $order_id = uniqid();
 
   $sql2->bind_param("ssss", $inventory_order_id, $supply_name, $unit_name, $quantity);
 
-     $sql3 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
+     $sql3 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_uniq_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
  
   $inventory_order_id = $order_id;
   $supply_name2      = $_POST['supply_name2'];
@@ -29,7 +29,7 @@ $order_id = uniqid();
 
   $sql3->bind_param("ssss", $inventory_order_id, $supply_name2, $unit_name2, $quantity2);
 
-       $sql4 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
+       $sql4 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_uniq_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
  
   $inventory_order_id = $order_id;
   $supply_name3      = $_POST['supply_name3'];
@@ -38,7 +38,7 @@ $order_id = uniqid();
 
   $sql4->bind_param("ssss", $inventory_order_id, $supply_name3, $unit_name3, $quantity3);  
 
-       $sql5 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
+       $sql5 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_uniq_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
  
   $inventory_order_id = $order_id;
   $supply_name4      = $_POST['supply_name4'];
@@ -47,7 +47,7 @@ $order_id = uniqid();
 
   $sql5->bind_param("ssss", $inventory_order_id, $supply_name4, $unit_name4, $quantity4);  
 
-       $sql6 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
+       $sql6 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_uniq_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
  
   $inventory_order_id = $order_id;
   $supply_name5      = $_POST['supply_name5'];
@@ -56,7 +56,7 @@ $order_id = uniqid();
 
   $sql6->bind_param("ssss", $inventory_order_id, $supply_name5, $unit_name5, $quantity5);  
 
-       $sql7 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
+       $sql7 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_uniq_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
  
   $inventory_order_id = $order_id;
   $supply_name6      = $_POST['supply_name6'];
@@ -65,7 +65,7 @@ $order_id = uniqid();
 
   $sql7->bind_param("ssss", $inventory_order_id, $supply_name6, $unit_name6, $quantity6);  
 
-       $sql8 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
+       $sql8 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_uniq_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
  
   $inventory_order_id = $order_id;
   $supply_name7      = $_POST['supply_name7'];
@@ -74,7 +74,7 @@ $order_id = uniqid();
 
   $sql8->bind_param("ssss", $inventory_order_id, $supply_name7, $unit_name7, $quantity7);  
 
-       $sql9 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
+       $sql9 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_uniq_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
  
   $inventory_order_id = $order_id;
   $supply_name8      = $_POST['supply_name8'];
@@ -83,7 +83,7 @@ $order_id = uniqid();
 
   $sql9->bind_param("ssss", $inventory_order_id, $supply_name8, $unit_name8, $quantity8);  
 
-       $sql10 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
+       $sql10 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_uniq_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
  
   $inventory_order_id = $order_id;
   $supply_name9      = $_POST['supply_name9'];
@@ -92,7 +92,7 @@ $order_id = uniqid();
 
   $sql10->bind_param("ssss", $inventory_order_id, $supply_name9, $unit_name9, $quantity9);  
 
-       $sql11 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
+       $sql11 = $connection->prepare("INSERT INTO inventory_order_supplies (inventory_order_uniq_id, supply_name, unit_name, quantity) VALUES (?, ?, ?, ?)");  
  
   $inventory_order_id = $order_id;
   $supply_name10      = $_POST['supply_name10'];

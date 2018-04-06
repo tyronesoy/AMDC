@@ -333,7 +333,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </ul>
             </li>
 		  	<li><a href="<?php echo 'Supervisor/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-		  <li><a href="<?php echo 'Supervisor/purchases' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+		  <li><a href="<?php echo 'Supervisor/order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
           </ul>
         </li>
@@ -352,7 +352,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		
+		  <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'Supervisor/memo'?>">
+            <i class="fa fa-tasks"></i> <span>Memo</span>
+          </a>
+        </li>
           <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'Supervisor/lockscreen' ?>">

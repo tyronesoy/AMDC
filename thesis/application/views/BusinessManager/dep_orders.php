@@ -457,7 +457,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM inventory_order";
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) GROUP BY inventory_order_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -483,12 +483,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["inventory_order_remarks"]; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i> Edit</button>
-                        </div>
-                        <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search">&nbsp;</i> View</button>
                         </div>
                         <?php if ($row["inventory_order_status"] == 'Accepted' || $row["inventory_order_status"] == 'Declined') {?>
+                          <div class="btn-group">
+                              <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["inventory_order_id"]; ?>" disabled><i class="glyphicon glyphicon-pencil">&nbsp;</i> Edit</button>
+                          </div>
                           <div class="btn-group">
                               <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>" disabled><i class="glyphicon glyphicon-ok"></i> Accept</button>
                           </div>
@@ -497,7 +497,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           </div>
                         <?php }else {?>
                           <div class="btn-group">
-                              <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-ok"> Ok</i></button>
+                              <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i> Edit</button>
+                          </div>
+                          <div class="btn-group">
+                              <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-ok"> Accept</i></button>
                           </div>
                           <div class="btn-group">
                               <button type="button" id="decline" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#declineModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-remove"> Decline</i></button>
