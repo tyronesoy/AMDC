@@ -503,15 +503,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <div class="form-group">
                                                   <label for="exampleInputEmail1">Branch Location</label>
                                                   <br>
-                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City &nbsp; &nbsp;
-                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad  <br>
-                                                </div> 
+                                                  <select name="branch">
+                                                    <option value="Baguio City">Baguio City</option>
+                                                    <option value="La Trinidad">La Trinidad</option>
+                                                  </select>
+                                                  </div> 
                                             <tr>
                                               <td><div class="form-group">
                                                   <label for="exampleInputEmail1">Department Name</label>
                                                   <input type="text" class="form-control" name="depName" required />
                                                 </div></td>
-                                            </tr>          
+                                            </tr>         
                                              </th>
                                             </tbody>
                                           </table>
