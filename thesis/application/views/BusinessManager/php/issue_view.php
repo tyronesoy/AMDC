@@ -18,6 +18,7 @@ if(isset($_REQUEST['id'])){
         $per_supplyName=$row[8];
         $per_supplyUnit=$row[9];
         $per_supplyQuantity=$row[10];
+        $per_issueDate=$row[7];
 
     }//end while
 ?>
@@ -55,22 +56,20 @@ if(isset($_REQUEST['id'])){
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label>Order Date</label>
+                                <label>Request Date</label>
                                 <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                             </div>
                         </div>
-                        <div class="col-md-1">
-                        </div>
-
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label for="txtstatus">Status</label>
-                                <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <label>Issued Date</label>
+                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_issueDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                             </div>
+                        </div>
+                    </div>
+                        <div class="col-md-1">
                         </div>
                     </div>
                       <?php

@@ -52,7 +52,7 @@ class IssuedSupplies extends CI_Controller {
 		} */
 		
 	}
-	public function getIssuedSupplies(){
-		$this->load->view('BusinessManager/php/issuedSuppliesFetch');
+	public function issueView(){
+		$this->load->view('BusinessManager/php/issue_view');
 	}
 }

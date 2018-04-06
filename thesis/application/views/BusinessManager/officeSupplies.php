@@ -378,7 +378,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </li>
   
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -386,7 +386,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+            <li class="active treeview">
               <a href="#"><i class="fa fa-briefcase"></i> Supplies
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -700,7 +700,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <col width="auto">
             <col width="5%">
             <col width="auto">
-            <col width="auto">
+            <col width="8%">
             <col width="25%">
           <thead>
             <tr>

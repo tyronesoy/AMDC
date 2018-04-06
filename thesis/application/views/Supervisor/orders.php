@@ -892,8 +892,8 @@ if(isset($_POST['ordEdit'])){
     $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['unit_name']);
     $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtquantity']);
 
-    $sqlupdate="UPDATE inventory_order_supplies SET supply_name='$new_supplyDescription', unit_name='$new_supplyUnit', quantity='$new_supplyQuantityInStock' WHERE inventory_order_supplies_id='$new_id' ";
-    $result_update=mysqli_query($conn,$sqlupdate);
+          $sqlupdate="UPDATE inventory_order_supplies SET supply_name='$new_supplyDescription', unit_name='$new_supplyUnit', quantity='$new_supplyQuantityInStock' WHERE inventory_order_supplies_id='$new_id' ";
+          $result_update=mysqli_query($conn,$sqlupdate);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
