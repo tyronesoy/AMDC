@@ -9,16 +9,16 @@ if(isset($_REQUEST['id'])){
     $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE purchase_order_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-        $per_id=$row[14];
+        $per_id=$row[16];
         $per_orderDate=$row[2];
         $per_description=$row[7];
         $per_supplier=$row[10];
         $per_deliveryDate=$row[8];
         $per_quantity=$row[3];
-        $per_status=$row[17];
+        $per_status=$row[19];
         $per_unit=$row[4];
         $per_unitprice=$row[11];
-        $per_gtotal=$row[19];
+        $per_gtotal=$row[21];
 
     }//end while
 ?>
@@ -122,6 +122,7 @@ if(isset($_REQUEST['id'])){
                                                <th>Item Description</th>
                                                <th>Unit of Measure</th>
                                                <th>Quantity</th>
+                                               <th>Quantity Delivered</th>
                                                <th>Unit Price</th>
                                                <th>Total Amount</th>
                                               </tr>
@@ -136,6 +137,8 @@ if(isset($_REQUEST['id'])){
                                               </td>
                                             
                                             <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  </td>
+
+                                            <td width="50"><input type="text" class="form-control" id="txtquantitydelivered" name="txtquantitydelivered" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >  </td>
 
                                             <td width="50"><input type="text" name="unit_price" class="form-control " value="<?php echo $row['unit_price']; ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td>
 
