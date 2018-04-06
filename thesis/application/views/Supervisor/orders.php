@@ -645,6 +645,7 @@ if(!isset($_SESSION['first_run'])){
                               <td><?php echo $row["inventory_order_remarks"]; ?></td>
                               <td><div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="fa fa-edit"></i> Edit</button>
                         </div></td>
                             </tr>
                           <?php 

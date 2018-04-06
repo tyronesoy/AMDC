@@ -487,11 +487,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <input type="text" class="form-control" id="memo_user" name="memo_user" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </div>
                                               </div>
-                                              
-                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1"> Memo Date</label>
-                                                  <input type="date" class="form-control" name="memo_date" id="memo_date" required />
-                                                </div>
+
+                                               
+                                              <div class="form-group">
+                                                    <label>Memo Date</label>
+                                                    <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
+                                                      <?php $date = date("Y-m-d"); ?>
+                                                      <input type="date" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                    </div>
+                                                    <!-- /.input group -->
+                                                  </div>
+                                    
+
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <textarea type="name" class="form-control" name="memo_description" id="memo_description" required /> </textarea>
