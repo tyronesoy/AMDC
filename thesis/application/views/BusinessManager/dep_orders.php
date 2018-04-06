@@ -483,7 +483,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["inventory_order_remarks"]; ?></td>
                       <td>
                         <!-- to show the update/edit button -->
-                        <?php if ($row["inventory_order_remarks"] == null) {?>
+                        <?php if ($row["inventory_order_remarks"] == null && $row["inventory_order_status"] == 'Accepted') {?>
                           <div class="btn-group">
                               <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-pencil">&nbsp;</i> Update</button>
                           </div>
@@ -932,8 +932,9 @@ if(isset($_POST['btnDecline'])){
 if(isset($_POST['btnIssue'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
+    $date=date("Y-m-d");
 
-    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Issued', inventory_order_remarks='The item has been issued' WHERE inventory_order_id='$new_id' ";
+    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Issued', inventory_order_remarks='The item has been issued', issued_date='$date' WHERE inventory_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
