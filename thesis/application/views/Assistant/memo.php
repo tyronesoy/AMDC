@@ -224,7 +224,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </table>
                     <h5>Expired Items</h5>
                     <?php
-                        $conn =mysqli_connect("localhost","root","");
+                        $conn = mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
                         $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
                         $result4 = $conn->query($sql4);
