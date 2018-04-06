@@ -400,6 +400,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <!-- end of modal header -->
                                       <div class="modal-body">
                                         <div class="box-body">
+                                           <div class="form-group">
+                                                  <label for="exampleInputEmail1">User Name</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-user"></i>
+                                                      </div>
+                                                  <input type="text" class="form-control" id="memo_user" name="memo_user" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </div>
+                                              </div>
                                                <div class="form-group">
                                                   <label for="exampleInputEmail1"> Memo Date</label>
                                                   <input type="date" class="form-control" name="memo_date" id="memo_date" required />
@@ -454,11 +463,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example"  class="table table-bordered table-striped" >
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM memo WHERE soft_deleted = 'N'";
+                   $sql = "SELECT * FROM memo WHERE soft_deleted = 'N' AND memo_user='".$this->session->userdata('fname')." ".$this->session->userdata('lname')."'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
                     <tr>
+                      <th>Memo User</th>
                         <th>Memo Date</th>
                         <th>Description</th>
                         <th>Status</th>
@@ -480,6 +490,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               $status = '<span class="label label-danger">Pending</span>';
                           }
                       ?>
+                      <td><?php echo $row["memo_user"]; ?></td>
                       <td><?php echo $row["memo_date"]; ?></td>
                       <td><?php echo $row["memo_description"]; ?></td>
                       <td><?php echo $status; ?></td>
@@ -502,6 +513,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
+                    <th>Memo User</th>
                     	<th>Memo Date</th>
                         <th>Description</th>
                         <th>Status</th>
