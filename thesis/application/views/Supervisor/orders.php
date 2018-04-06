@@ -216,8 +216,7 @@ if(!isset($_SESSION['first_run'])){
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
-              <span><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
-                
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>     
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -231,11 +230,9 @@ if(!isset($_SESSION['first_run'])){
               <!-- Menu Footer-->
               <!-- Menu Footer-->
               <li class="user-footer">
-				   <div class="pull-left">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-                            View Profile</button>
-                  </div>
-         
+				<div class="pull-left">
+                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#modal-info">Edit Profile</button>
+                </div>
                 <div class="pull-right">
                    <a href="<?php echo '../logout' ?>"  class="btn btn-default btn-flat">Sign out</a>
                 </div>
@@ -256,7 +253,7 @@ if(!isset($_SESSION['first_run'])){
           <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Supervisor</p>
+           <p><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
@@ -271,7 +268,7 @@ if(!isset($_SESSION['first_run'])){
           </a>
         </li>
 		<!-- SUPPLIES MENU -->
-     	<li class="treeview">
+     	<li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -293,7 +290,7 @@ if(!isset($_SESSION['first_run'])){
               </ul>
             </li>
 		  	<li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-		  <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+		  <li class="active"><a href="<?php echo '' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
           </ul>
         </li>
@@ -311,7 +308,12 @@ if(!isset($_SESSION['first_run'])){
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'memo'?>">
+            <i class="fa fa-tasks"></i> <span>Memo</span>
+          </a>
+        </li>
 <!-- LOCKSCREEN MENU -->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
@@ -332,8 +334,8 @@ if(!isset($_SESSION['first_run'])){
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="<?php echo 'purchases' ?>">Orders</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li class="active">Orders</li>
       </ol>
     </section>
 

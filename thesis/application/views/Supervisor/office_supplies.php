@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo '../dashboard' ?>"class="logo">
+    <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
@@ -171,7 +171,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
+               <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -185,10 +185,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-            	<div class="pull-left">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-                            View Profile</button>
-                  </div>
+            <div class="pull-left">
+                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#modal-info">Edit Profile</button>
+                </div>
                 <div class="pull-right">
                   <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
@@ -226,7 +225,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
 
 		<!-- SUPPLIES MENU -->
-           <li class="treeview">
+           <li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -234,7 +233,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+            <li class="active treeview">
               <a href="#"><i class="fa fa-briefcase"></i> Supplies
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -243,12 +242,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li class="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
 		  	<li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-		  <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+		  <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
           </ul>
         </li>
@@ -292,9 +291,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li class="#">Supplies</li>
-		<li><a href="<?php echo 'officeSupplies' ?>">Office Supplies</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li>Supplies</li>
+		<li class="active">Office Supplies</li>
        
       </ol>
     </section>

@@ -195,12 +195,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <div class="pull-right">
                   <a href="<?php echo 'logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
-                <table>
-                    <tr>
-                      <th><button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#modal-info">Edit account profile</button>
-                            </th> 
-                    </tr>
-                </table>
+                <div class="pull-left">
+                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#modal-info">Edit Profile</button>
+                </div>
               </li>
             </ul>
           </li>
@@ -217,7 +214,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                 <div class="margin">
-                    <center><h3><b>Edit account profile</b></h3></center>
+                    <center><h3><b>Edit Profile</b></h3></center>
                   </div>
               </div>
                 <!-- end of modal header -->
@@ -378,8 +375,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         Dashboard
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-		  
+        <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li> 
       </ol>
     </section>
 
