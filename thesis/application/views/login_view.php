@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
    <br>
       <div class="login-logo">
-       <center><img src="assets/dist/img/AMDC.png" alt="User Image" style="width:300px;height:100px;"></center>
+       <center><img src="assets/dist/img/AMDC.png" alt="User Image" style="width:310px;height:110px;"></center>
   </div>
    <br>
    <br>
