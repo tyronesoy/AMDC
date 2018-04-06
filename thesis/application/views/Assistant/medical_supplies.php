@@ -93,8 +93,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_futr = date("Y-m-d", strtotime('+30 days') ) ;
+                $date_past = date("Y-m-d", strtotime('-1 year') ) ;
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql5 = "SELECT COUNT(*) AS total FROM supplies where quantity_in_stock < reorder_level";
+                $number1 = $conn->query($sql5);
+                if ($number1->num_rows > 0) {
+                        while($row = $number1->fetch_assoc()) {
+                            $num1 = $row["total"];
+                        }
+                }
+                $sqlfive = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$dtoday."' AND '".$date_futr."')";
+                $number2 = $conn->query($sqlfive);
+                if ($number2->num_rows > 0) {
+                        while($row = $number2->fetch_assoc()) {
+                            $num2 = $row["total"];
+                        }
+                }
+                $sqlV = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$date_past."' AND '".$dtoday."') AND soft_deleted = 'N'";
+                $number3 = $conn->query($sqlV);
+                if ($number3->num_rows > 0) {
+                        while($row = $number3->fetch_assoc()) {
+                            $num3 = $row["total"];
+                        }
+                }
+                $flagtotal = $num1 + $num2 + $num3;
+                ?>
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
+              <span class="label label-danger"><?php echo $flagtotal ?></span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have 9 tasks</li>
