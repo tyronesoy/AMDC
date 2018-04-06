@@ -105,7 +105,8 @@ function unit_measure($connect)
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+      <span class="logo-lg"><b>AMDC</b> Inc.</span>
+    </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
@@ -1214,8 +1215,10 @@ function onUserInactivity() {
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnEdit'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['txtdate']);
+
+
+    $new_id=mysqli_real_escape_string($con,$_POST['txtuniqid']);
+    $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['orDate']);
     $new_purchasesQuantity=mysqli_real_escape_string($con,$_POST['txtquantity']);
     $new_description=mysqli_real_escape_string($con,$_POST['txtdesc']);
     $new_purchasesUnit=mysqli_real_escape_string($con,$_POST['txtunit']);
@@ -1226,14 +1229,14 @@ if(isset($_POST['btnEdit'])){
    
 
     
-  $sqlupdate="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity', description='$new_description', order_unit='$new_purchasesUnit', unitprice='$new_purchasesUnitPrice', total='$new_total', WHERE po_key='$new_id' ";
+  $sqlupdate="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity', order_unit='$new_purchasesUnit', description='$new_description', unit_price='$new_purchasesUnitPrice' WHERE po_id='$new_id' ";
   $result_update=mysqli_query($con,$sqlupdate);
 
-   $sqlupdate2="UPDATE purchase_order_bm SET purchase_order_grandtotal='$new_total' WHERE po_key='$new_id' ";
-  $result_update2=mysqli_query($con,$sqlupdate2);
+  //  $sqlupdate2="UPDATE purchase_order_bm SET purchase_order_grandtotal='$new_total' WHERE po_id='$new_id' ";
+  // $result_update2=mysqli_query($con,$sqlupdate2);
 
 
-    if($result_update && $result_update2){
+    if($result_update ){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
