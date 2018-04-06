@@ -57,7 +57,7 @@ class Order extends CI_Controller {
 	// 	$this->load->view('BusinessManager/php/departmentsFetch');
 	// }
 	public function editOrder(){
-		$this->load->view('Supervisor/php/edit_order');
+		$this->load->view('Supervisor/php/order_edit');
 	}
 	public function viewOrder(){
 		$this->load->view('Supervisor/php/order_view');

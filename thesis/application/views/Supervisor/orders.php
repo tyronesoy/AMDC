@@ -645,7 +645,7 @@ if(!isset($_SESSION['first_run'])){
                               <td><?php echo $row["inventory_order_remarks"]; ?></td>
                               <td><div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="fa fa-edit"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-edit"></i> Edit</button>
                         </div></td>
                             </tr>
                           <?php 
@@ -862,5 +862,49 @@ function onUserInactivity() {
         });
     </script>
 
+
+    <script>
+        $(document).on('click','#getEdit',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#view-data').html('');
+            $.ajax({
+                url:'order/editOrder',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#view-data').html('');
+                $('#view-data').html(data);
+            }).final(function(){
+                $('#view-data').html('<p>Error</p>');
+            });
+        });
+    </script>
 </body>
 </html>
+<?php
+//EDIT FOR MEDICAL SUPPLIES
+if(isset($_POST['ordEdit'])){
+    $new_id=mysqli_real_escape_string($conn,$_POST['txtuniqid']);
+    $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['supply_name']);
+    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['unit_name']);
+    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtquantity']);
+
+    $sqlupdate="UPDATE inventory_order_supplies SET supply_name='$new_supplyDescription', unit_name='$new_supplyUnit', quantity='$new_supplyQuantityInStock' WHERE inventory_order_supplies_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+
+    if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Medical supply ".$new_supplyDescription." has been edited','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
+        echo '<script>window.location.href="order"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+} // END OF MEDICAL EDIT
+?>

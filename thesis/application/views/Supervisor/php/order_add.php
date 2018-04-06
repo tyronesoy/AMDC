@@ -114,6 +114,6 @@ $order_id = uniqid();
   $sql->close();   
   $connection->close();
   } 
-  header("Location: ../purchases");
+  header("Location: ../order");
 
 ?>
