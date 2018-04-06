@@ -696,11 +696,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Medical' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
+            <col width="auto">
+            <col width="auto">
+            <col width="5%">
+            <col width="auto">
+            <col width="auto">
+            <col width="25%">
           <thead>
             <tr>
                   <th>Expiration Date</th> 
                   <th>Description</th>
-                  <th>Quantity in Stock</th>
+                  <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
                   <th> Action</th> 
@@ -712,9 +718,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                       <td><?php echo $row["expiration_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
-                      <td><?php echo $row["unit_price"]; ?></td>
+                      <td align="right" ><?php echo '&#8381 '; echo $row["unit_price"]; ?></td>
                       <td>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
@@ -738,11 +744,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         <tfoot>
            <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
                   <th>Expiration Date</th> 
                   <th>Description</th>
-                  <th>Quantity in Stock</th>
+                  <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
                   <th> Action</th> 
