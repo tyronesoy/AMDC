@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.lockscreen-image -->
 
     <!-- lockscreen credentials (contains the form) -->
-    <form class="lockscreen-credentials" method="get" action="<?php echo 'lockscreen/checklogin' ?>">
+    <form class="lockscreen-credentials" method="get" action="<?php echo 'lockscreen/refer' ?>">
       <div class="input-group">
         <input type="text" name="username" placeholder="username" value="<?php echo $_SESSION["username"]; ?>" hidden/>
         <input type="password" name="password" class="form-control" placeholder="Password" required/>
