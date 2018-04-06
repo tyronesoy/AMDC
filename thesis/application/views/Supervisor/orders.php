@@ -788,13 +788,13 @@ table#addItem, tr.no_border td {
 
 <!--lockscreen							-->
 <script>
-/* setTimeout(onUserInactivity, 1000 * 120)
+ setTimeout(onUserInactivity, 1000 * 120)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
     window.location.href = "lockscreen"
    <?php } ?>
-} */
+} 
 </script>							
 							
 <script>
