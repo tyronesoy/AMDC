@@ -23,13 +23,16 @@ if(isset($_REQUEST['id'])){
         $per_unitprice=$row[11];
         $per_total=$row[12];
         $per_purch_id=$row[13];
-        $per_id=$row[14];
-        $per_createdDate_=$row[15];
-        $per_status=$row[17];
-        $per_orderName=$row[16];        
-        $per_purchRemarks=$row[18];
-        $per_gtotal=$row[19];
-        $per_key=$row[20];
+        $per_qtyDelivered=$row[14];
+        $per_delRemarks=$row[15];
+        $per_id=$row[16];
+        $per_createdDate_=$row[17];
+        $per_status=$row[19];
+        $per_orderName=$row[18];        
+        $per_purchRemarks=$row[20];
+        $per_gtotal=$row[21];
+        $per_key=$row[22];
+        $per_itemdelRemarks=$row[23];
         $date = date("Y-m-d");
         
 

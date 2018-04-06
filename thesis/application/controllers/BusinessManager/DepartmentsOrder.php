@@ -68,5 +68,8 @@ class DepartmentsOrder extends CI_Controller {
 	public function declineOrder(){
 		$this->load->view('BusinessManager/php/decline_order');
 	}
+	public function issueOrder(){
+		$this->load->view('BusinessManager/php/issue_order');
+	}
 
 }
