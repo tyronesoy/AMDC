@@ -75,7 +75,7 @@ class Lockscreen extends CI_Controller {
 		if($password == $current_pass){
 			header('Location: ' . $_SESSION['current_page']);
 		}else{
-			redirect ('Supervisor/lockscreen');
+			redirect ('Supervisor/errorlockscreen');
 		}
 		
 	}
