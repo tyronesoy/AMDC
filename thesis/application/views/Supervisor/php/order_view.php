@@ -11,7 +11,7 @@ if(isset($_REQUEST['id'])){
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[1];
         $per_date=$row[2];
-        $per_name=$row[3];
+        $per_name=$row[3]; 
         $per_department=$row[4];
         $per_status=$row[5];
         $per_remarks=$row[6];
@@ -111,6 +111,7 @@ if(isset($_REQUEST['id'])){
                     </div>
                 </form>
             </div>
+            <div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
