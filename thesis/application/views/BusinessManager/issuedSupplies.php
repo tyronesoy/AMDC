@@ -514,6 +514,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>Request Date</th>
                     <th>Issue Date</th>
                     <th>Department</th>
+                    <th>Customer Name</th>
+                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -523,6 +525,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["issued_date"]; ?></td>
                       <td><?php echo $row["inventory_order_dept"]; ?></td>
+                      <td><?php echo $row["inventory_order_name"]; ?></td>
+                      <td><?php echo $row["inventory_order_status"]; ?></td>
                       <td><div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></td>
                     </tr>
@@ -535,6 +539,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>Request Date</th>
                     <th>Issue Date</th>
                     <th>Department</th>
+                    <th>Customer Name</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
                 </tfoot>
