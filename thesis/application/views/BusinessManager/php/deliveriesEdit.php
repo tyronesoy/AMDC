@@ -24,14 +24,15 @@ if(isset($_REQUEST['id'])){
         $per_supplier=$row[10];
         $per_unitprice=$row[11];
         $per_total=$row[12];
-        $per_purch_id=$row[13];
-        $per_id=$row[14];
-        $per_createdDate_=$row[15];
-        $per_status=$row[17];
-        $per_orderName=$row[16];        
-        $per_purchRemarks=$row[18];
-        $per_gtotal=$row[19];
-        $per_key=$row[20];
+        $per_po_key=$row[13];
+        $per_quantityDelivered=$row[14];
+        $per_itemDeliveryRemarks=$row[15];
+        $per_purch_id=$row[16];
+        $per_orderCreateDate=$row[17];        
+        $per_purchOrderName=$row[18];
+        $per_purchOrderStatus=$row[19];
+        $per_purchOrderRemarks=$row[20];
+        $per_gtotal=$row[21];
 
 
     }//end while
@@ -45,9 +46,7 @@ if(isset($_REQUEST['id'])){
                                             <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
-                                            <div class="margin">
-                                              <center><h3>Edit Purchases</h3></center>
-                                            </div>
+                                            
                                             <div class="col-md-8">
                                                 
                                                 <div class="margin">
@@ -59,10 +58,15 @@ if(isset($_REQUEST['id'])){
                                         </div>
                                         <!-- end of modal header -->
                                       <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4>Edit Deliveries Form</h4></center>
+                                            </div>
+                                        </div>
                                         <div class="box-body">                   
                                              <div class="form-group" style="width:100%">
-                                                <label for="txtid">Purchase ID</label>
-                                                    <input type="number" class="form-control" id="txtid" name="txtid" value="<?php echo $per_key;?>" readonly>
+                                                <label class="hidden" for="txtid">Purchase ID</label>
+                                                    <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_po_key;?>" readonly>
                                               </div>      
                                               <div class="row">
                                               <div class="col-md-5">
@@ -87,8 +91,10 @@ if(isset($_REQUEST['id'])){
 
                                               </div>
                                               </div>
+                                            </div>
+                                            <div class="row">
 
-                                              <div class="col-md-6">
+                                              <div class="col-md-5">
                                               <div class="form-group">
                                                     <label>Purchase Order Date</label>
                                                       <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
@@ -98,24 +104,30 @@ if(isset($_REQUEST['id'])){
                                                 </div>
 
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="txtstatus">Status</label>
-                                        <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                        <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_purchOrderStatus;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
 
                                 </div>
-
-                                <div class="col-md-6">
+                              </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
                                               <div class="form-group">
                                                     <label>Delivery Date</label>
                                                       <input type="text" class="form-control" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_deliveryDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   </div>
                                                 </div>
                             </div>
-                                              </div>
                                                <?php
                         $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id AND order_quantity != 0";
-                        $result = $con->query($sql);    
+                        $result = $con->query($sql);
+
+                        $desc = '';
+                        $unit = '';
+                        $quantity = '';   
+                        $unitPrice = ''; 
                       ?>
 
                                           
@@ -132,24 +144,29 @@ if(isset($_REQUEST['id'])){
 
                                               </tr>
                                               <?php if($result->num_rows > 0) {
-                                                while($row = $result->fetch_assoc()) { ?>
+                                                while($row = $result->fetch_assoc()) { 
+                                                  $desc = $row['description'];
+                                                  $unit = $row['order_unit'];
+                                                  $quantity = $row['order_quantity'];   
+                                                  $unitPrice = $row['unit_price'];
+                                              ?>
                                             <tr>
 
                                               <td width="10">
                                               <input type="checkbox" name="check" value="Full" />
                                               </td>
 
-                                              <td width="250"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                              <td width="250"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $desc;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
 
-                                              <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $row['order_unit'];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                              <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $unit;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
                                             
-                                            <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >  </td>
+                                            <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $quantity;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >  </td>
 
                                             <td width="50"><input type="text" class="form-control" id="txtquantitydelivered" name="txtquantitydelivered" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >  </td>
 
-                                            <td width="50"><input type="text" id="unit_price" name="unit_price" class="form-control " value="&#8369 <?php echo $row['unit_price']; ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                            <td width="50"><input type="text" id="unit_price" name="unit_price" class="form-control " value="&#8369 <?php echo $unitPrice; ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             </tr>
 

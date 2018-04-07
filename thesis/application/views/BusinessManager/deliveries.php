@@ -407,7 +407,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </li>
   
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
+        <li class="treeview active">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -873,21 +873,47 @@ $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
+    $new_quantity=mysqli_real_escape_string($con,$_POST['txtquantity']);
+    $new_quantityDelivered=mysqli_real_escape_string($con,$_POST['txtquantitydelivered']);
     
-    $sqlupdate="UPDATE purchase_orders SET po_remarks='$new_status' WHERE po_id='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
+    if($new_quantity == $new_quantityDelivered){
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full' WHERE po_key='$new_id' ";
+      $result_update=mysqli_query($con,$sqlupdate);
 
-    if($result_update){
-        $conn =mysqli_connect("localhost","root","");
-        $datetoday = date('Y\-m\-d\ H:i:s A');
-        mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery record status has been changed to ".$new_status."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
-        $result = $conn->query($notif);
-        echo '<script>window.location.href="deliveries"</script>';
+      $sqlupdate2="UPDATE purchase_orders_supplies SET item_delivery_remarks='Full' WHERE po_key='$new_id' ";
+      $result_update2=mysqli_query($con,$sqlupdate2);
+
+      if($result_update && $result_update2){
+          $conn =mysqli_connect("localhost","root","");
+          $datetoday = date('Y\-m\-d\ H:i:s A');
+          mysqli_select_db($conn, "itproject");
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery record status has been changed to ".$new_status."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $result = $conn->query($notif);
+          echo '<script>window.location.href="deliveries"</script>';
+      }
+      else{
+          echo '<script>alert("Update if Failed")</script>';
+      }
+    }else{
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial' WHERE po_key='$new_id' ";
+      $result_update=mysqli_query($con,$sqlupdate);
+
+      $sqlupdate2="UPDATE purchase_orders_supplies SET item_delivery_remarks='Partial' WHERE po_key='$new_id' ";
+      $result_update2=mysqli_query($con,$sqlupdate2);
+
+      if($result_update && $result_update2){
+          $conn =mysqli_connect("localhost","root","");
+          $datetoday = date('Y\-m\-d\ H:i:s A');
+          mysqli_select_db($conn, "itproject");
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery record status has been changed to ".$new_status."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $result = $conn->query($notif);
+          echo '<script>window.location.href="deliveries"</script>';
+      }
+      else{
+          echo '<script>alert("Update else Failed")</script>';
+      }
     }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
+    
 }
 
 //SOFT DELETED OFFICE SUPPLIES
