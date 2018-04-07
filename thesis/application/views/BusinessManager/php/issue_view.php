@@ -103,12 +103,11 @@ if(isset($_REQUEST['id'])){
                         </table>
                     </div>
                 </div>   
-            </div> <!-- BOX-BODY -->
-            <div class="modal-footer">
+                <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>
-        </div>
+            </div> <!-- BOX-BODY -->
     </form>
 
 <?php
