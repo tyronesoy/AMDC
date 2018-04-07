@@ -25,7 +25,7 @@ if(isset($_REQUEST['id'])){
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <div class="margin">
-                        <h3>Edit User's Information</h3>
+                        <center><h3>Edit User's Information</h3></center>
                     </div>
             </div>
             
@@ -75,6 +75,7 @@ if(isset($_REQUEST['id'])){
                                     <input type="email" class="form-control" id="txtemail" name="txtemail" value="<?php echo $per_email;?>">
                                 </div>
                             </div>
+                            
                     </div>
                 </form>
             </div>

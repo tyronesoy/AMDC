@@ -86,7 +86,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+      <span class="logo-lg"><b>AMDC</b> Inc.</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -178,38 +178,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <?php
-                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                $dtoday = date("Y/m/d");
-                $date_futr = date("Y-m-d", strtotime('+30 days') ) ;
-                $date_past = date("Y-m-d", strtotime('-1 year') ) ;
-                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql5 = "SELECT COUNT(*) AS total FROM supplies where quantity_in_stock < reorder_level";
-                $number1 = $conn->query($sql5);
-                if ($number1->num_rows > 0) {
-                        while($row = $number1->fetch_assoc()) {
-                            $num1 = $row["total"];
-                        }
-                }
-                $sqlfive = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$dtoday."' AND '".$date_futr."')";
-                $number2 = $conn->query($sqlfive);
-                if ($number2->num_rows > 0) {
-                        while($row = $number2->fetch_assoc()) {
-                            $num2 = $row["total"];
-                        }
-                }
-                $sqlV = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$date_past."' AND '".$dtoday."') AND soft_deleted = 'N'";
-                $number3 = $conn->query($sqlV);
-                if ($number3->num_rows > 0) {
-                        while($row = $number3->fetch_assoc()) {
-                            $num3 = $row["total"];
-                        }
-                }
-                $flagtotal = $num1 + $num2 + $num3;
-                ?>
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger"><?php echo $flagtotal ?></span>
+              <span class="label label-danger">!</span>
             </a>
             <ul class="dropdown-menu">
                <?php
@@ -518,17 +488,18 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                         <!-- end of modal header -->
                                       <div class="modal-body">
                                         <div class="box-body">
-
+                                           <div class="row">
+                                                  <div class="col-md-6">
                                                <div class="form-group">
                                                   <label for="exampleInputEmail1">Username</label>
                                                   <input type="text" class="form-control" name="username" id="username" required />
                                                 </div>
-
-                                            
-                                                     <div class="form-group">
+                                              </div>
+                                                  <div class="col-md-6">
+                                                    <div class="form-group">
                                                       <label for="exampleInputEmail1">Role</label>
                                                        <select name = "usertype" class="form-control">
-                                                       <option value="">Select a role</option>
+                                                       <option value="">Select a Role</option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
@@ -543,25 +514,36 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                           ?>
                                                       </select>
                                                      </div>
-                            
+                                                   </div>
+                                                  </div>
 
+                                                  <div class="row">
+                                                <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">First Name</label>
                                                   <input type="name" class="form-control" name="fname" id="fname" required />
                                                 </div>
+                                              </div>
+                                              <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Last Name</label>
                                                   <input type="name" class="form-control" name="lname" id="lname" required />
                                                 </div>
+                                              </div>
+                                            </div>
 
+                                                <div class="row">
+                                                <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Contact Number</label>
-                                                  <input type="number" class="form-control" name="user_contact" id="user_contact" required />
+                                                  <input type="text" class="form-control" name="user_contact" id="user_contact" pattern="^[0-9]{11}$" required />
                                                 </div>
+                                              </div>
+                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Password</label>
                                                   <input type="password" class="form-control" name="password" id="password" required />
-                                                  <input type="checkbox" onclick="myFunction()">Show Password
+                                                  <input type="checkbox" onclick="myFunction()"> &nbsp;Show Password
 
                                                 <script>
                                                 function myFunction() {
@@ -574,20 +556,25 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 }
                                                 </script>
                                                 </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="row">
+                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Email</label>
                                                   <input type="email" class="form-control" name="user_email" id="user_email" required />
                                                 </div>
-
-
+                                              </div>
+                                                    <div class="col-md-6">
                                                      <div class="form-group">
-                                                      <label for="exampleInputEmail1">Role</label>
+                                                      <label for="exampleInputEmail1">Department</label>
                                                        <select name = "dept_name" class="form-control">
                                                        <option value="">Select a Department</option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT * FROM departments GROUP BY department_name";
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City'";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $dept_name) { 
@@ -598,8 +585,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                           ?>
                                                       </select>
                                                      </div>
-                                            
-
+                                                   </div>
+                                                 </div>
                                         </div>
                                       </div>
                                       <div class="modal-footer">
