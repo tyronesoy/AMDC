@@ -63,7 +63,7 @@ class UserAccounts extends CI_Controller {
 	public function editUser(){
 		$this->load->view('BusinessManager/php/userEdit');
 	}
-	public function resetPassword(){
+	public function passwordReset(){
 		$this->load->view('BusinessManager/php/userReset');
 	}
 }

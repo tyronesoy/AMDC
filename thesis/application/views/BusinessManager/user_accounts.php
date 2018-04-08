@@ -693,13 +693,13 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;Update</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                            <button type="button" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp;Change Status</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getReset" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalReset" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-refresh fa-spin"></i> Reset Password</button>
+                            <button type="button" id="getReset" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;Reset Password</button>
                         </div>
                       </td>
                     </tr>
@@ -947,7 +947,7 @@ function onUserInactivity() {
             $('#data-content').html('');
             
               $.ajax({
-                  url:'userAccounts/resetPassword',
+                  url:'userAccounts/passwordReset',
                   type:'POST',
                   data:'id='+per_id,
                   dataType:'html'
@@ -1013,15 +1013,15 @@ if(isset($_POST['btnEdit'])){
 
 if(isset($_POST['btnUpdate'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_departmentStatus=mysqli_real_escape_string($con,$_POST['txtUserStatus']);
+    $new_userstatus=mysqli_real_escape_string($con,$_POST['txtUserStatus']);
 
-    if($new_departmentStatus == 'Active'){
-      $new_departmentStatus = 'Inactive';
+    if($new_userstatus == 'Active'){
+      $new_userstatus = 'Inactive';
     }else{
-      $new_departmentStatus = 'Active';
+      $new_userstatus = 'Active';
     }
 
-    $sqlupdate="UPDATE users SET user_status='$new_departmentStatus' WHERE user_id='$new_id' ";
+    $sqlupdate="UPDATE users SET user_status='$new_userstatus' WHERE user_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -1039,8 +1039,8 @@ if(isset($_POST['btnUpdate'])){
 
 if(isset($_POST['btnReset'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_departmentStatus=mysqli_real_escape_string($con,$_POST['txtPassword']);
-    $sqlreset="UPDATE users SET password=md5('amdc123') WHERE user_id='$id'";
+    $new_password=mysqli_real_escape_string($con,$_POST['txtPassword']);
+    $sqlreset="UPDATE users SET password='$new_password' WHERE user_id='$new_id'";
     $result_reset=mysqli_query($con,$sqlreset);
 
     if($result_reset){

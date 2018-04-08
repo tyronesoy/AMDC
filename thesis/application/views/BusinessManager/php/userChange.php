@@ -45,7 +45,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="btnUpdate"><i class="glyphicon glyphicon-random"></i> Change</button>
+                <button type="submit" class="btn btn-warning" name="btnUpdate"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp;Change</button>
             </div>
         </div>
     </form>
