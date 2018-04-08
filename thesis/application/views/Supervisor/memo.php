@@ -130,17 +130,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where log_description like '%order%' AND log_status = 1 order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
                       if ($result7->num_rows > 0) {
-                       while($row = $result7->fetch_assoc()) { 
+                       while($row = $result7->fetch_assoc()) {
+                        $logvalue = $row["log_description"];
                     ?>
                       <tr>
-                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <?php
+                        if(strpos($logvalue, 'order') !== false) { ?>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'Supervisor/order' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <?php
+                        }else{
+                        ?>
+                            <td><small><?php echo $row["log_description"];?></small></td>
+                        <?php
+                        }  
+                        ?>
                         <td class="notif-delete">
-                        <form action="Supervisor/delete" method="post">
+                        <form action="BusinessManager/delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
