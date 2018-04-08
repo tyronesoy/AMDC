@@ -1040,7 +1040,7 @@ if(isset($_POST['btnUpdate'])){
 if(isset($_POST['btnReset'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_password=mysqli_real_escape_string($con,$_POST['txtPassword']);
-    $sqlreset="UPDATE users SET password='$new_password' WHERE user_id='$new_id'";
+    $sqlreset="UPDATE users SET password=md5('$new_password') WHERE user_id='$new_id'";
     $result_reset=mysqli_query($con,$sqlreset);
 
     if($result_reset){
