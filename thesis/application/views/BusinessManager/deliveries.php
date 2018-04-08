@@ -871,19 +871,120 @@ function onUserInactivity() {
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnEdit'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $new_id=mysqli_real_escape_string($con,$_POST['txtpoid']);
+    $new_pokey=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
     $new_quantity=mysqli_real_escape_string($con,$_POST['txtquantity']);
     $new_quantityDelivered=mysqli_real_escape_string($con,$_POST['txtquantitydelivered']);
+
+    $new_id1=mysqli_real_escape_string($con,$_POST['txtpoid1']);
+    $new_status1=mysqli_real_escape_string($con,$_POST['txtstatus1']);
+    $new_quantity1=mysqli_real_escape_string($con,$_POST['txtquantity1']);
+    $new_quantityDelivered1=mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
+
+    $new_id2=mysqli_real_escape_string($con,$_POST['txtpoid2']);
+    $new_status2=mysqli_real_escape_string($con,$_POST['txtstatus2']);
+    $new_quantity2=mysqli_real_escape_string($con,$_POST['txtquantity2']);
+    $new_quantityDelivered2=mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
+
+    $new_id3=mysqli_real_escape_string($con,$_POST['txtpoid3']);
+    $new_status3=mysqli_real_escape_string($con,$_POST['txtstatus3']);
+    $new_quantity3=mysqli_real_escape_string($con,$_POST['txtquantity3']);
+    $new_quantityDelivered3=mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
+
+    $new_id4=mysqli_real_escape_string($con,$_POST['txtpoid4']);
+    $new_status4=mysqli_real_escape_string($con,$_POST['txtstatus4']);
+    $new_quantity4=mysqli_real_escape_string($con,$_POST['txtquantity4']);
+    $new_quantityDelivered4=mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
+
+    $new_id5=mysqli_real_escape_string($con,$_POST['txtpoid5']);
+    $new_status5=mysqli_real_escape_string($con,$_POST['txtstatus5']);
+    $new_quantity5=mysqli_real_escape_string($con,$_POST['txtquantity5']);
+    $new_quantityDelivered5=mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
+
+    $new_id6=mysqli_real_escape_string($con,$_POST['txtpoid6']);
+    $new_status6=mysqli_real_escape_string($con,$_POST['txtstatus6']);
+    $new_quantity6=mysqli_real_escape_string($con,$_POST['txtquantity6']);
+    $new_quantityDelivered6=mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
+
+    $new_id7=mysqli_real_escape_string($con,$_POST['txtpoid7']);
+    $new_status7=mysqli_real_escape_string($con,$_POST['txtstatus7']);
+    $new_quantity7=mysqli_real_escape_string($con,$_POST['txtquantity7']);
+    $new_quantityDelivered7=mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
+
+    $new_id8=mysqli_real_escape_string($con,$_POST['txtpoid8']);
+    $new_status8=mysqli_real_escape_string($con,$_POST['txtstatus8']);
+    $new_quantity8=mysqli_real_escape_string($con,$_POST['txtquantity8']);
+    $new_quantityDelivered8=mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
+
+    $new_id9=mysqli_real_escape_string($con,$_POST['txtpoid9']);
+    $new_status9=mysqli_real_escape_string($con,$_POST['txtstatus9']);
+    $new_quantity9=mysqli_real_escape_string($con,$_POST['txtquantity9']);
+    $new_quantityDelivered9=mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
     
-    if($new_quantity == $new_quantityDelivered){
-      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full' WHERE po_key='$new_id' ";
+    if($new_quantity == $new_quantityDelivered && $new_quantity2 == $new_quantityDelivered2 && $new_quantity3 == $new_quantityDelivered3 && $new_quantity4 == $new_quantityDelivered4 && $new_quantity5 == $new_quantityDelivered5 && $new_quantity6 == $new_quantityDelivered6 && $new_quantity7 == $new_quantityDelivered7 && $new_quantity8 == $new_quantityDelivered8 && $new_quantity9 == $new_quantityDelivered9){
+
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered' WHERE po_id='$new_id' ";
       $result_update=mysqli_query($con,$sqlupdate);
 
-      $sqlupdate2="UPDATE purchase_orders_supplies SET item_delivery_remarks='Full' WHERE po_key='$new_id' ";
-      $result_update2=mysqli_query($con,$sqlupdate2);
+      $sqlupdate2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_key='$new_pokey' ";
+      $result_updates=mysqli_query($con,$sqlupdate2);
 
-      if($result_update && $result_update2){
+      $sqlupdate1_1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered1' WHERE po_id='$new_id1' ";
+      $result_updatess=mysqli_query($con,$sqlupdate1_1);
+
+      $sqlupdate1_2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_key='$new_pokey' ";
+      $result_update1=mysqli_query($con,$sqlupdate1_2);
+
+      $sqlupdate2_1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered2'  WHERE po_id='$new_id2' ";
+      $result_update2=mysqli_query($con,$sqlupdate2_1);
+
+      $sqlupdate2_2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_key='$new_pokey' ";
+      $result_update3=mysqli_query($con,$sqlupdate2_2);
+
+      $sqlupdate3_1="UPDATE purchase_orders SET item_delivery_remarks='Full' , quantity_delivered='$new_quantityDelivered3' WHERE po_id='$new_id3' ";
+      $result_update4=mysqli_query($con,$sqlupdate3_1);
+
+      $sqlupdate3_2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_key='$new_pokey' ";
+      $result_update5=mysqli_query($con,$sqlupdate3_2);
+
+      $sqlupdate4_1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered4' WHERE po_id='$new_id4' ";
+      $result_update6=mysqli_query($con,$sqlupdate4_1);
+
+      $sqlupdate4_2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_key='$new_pokey' ";
+      $result_update7=mysqli_query($con,$sqlupdate4_2);
+
+      $sqlupdate5_1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered5' WHERE po_id='$new_id5' ";
+      $result_update8=mysqli_query($con,$sqlupdate5_1);
+
+      $sqlupdate5_2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_key='$new_pokey' ";
+      $result_update9=mysqli_query($con,$sqlupdate5_2);
+
+      $sqlupdate6_1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered6' WHERE po_id='$new_id6' ";
+      $result_update10=mysqli_query($con,$sqlupdate6_1);
+
+      $sqlupdate6_2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_key='$new_pokey' ";
+      $result_update11=mysqli_query($con,$sqlupdate6_2);
+
+      $sqlupdate7_1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered7' WHERE po_id='$new_id7' ";
+      $result_update12=mysqli_query($con,$sqlupdate7_1);
+
+      $sqlupdate7_2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_key='$new_pokey' ";
+      $result_update13=mysqli_query($con,$sqlupdate7_2);
+
+      $sqlupdate8_1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered8' WHERE po_id='$new_id8' ";
+      $result_update14=mysqli_query($con,$sqlupdate8_1);
+
+      $sqlupdate8_2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_key='$new_pokey' ";
+      $result_update15=mysqli_query($con,$sqlupdate8_2);
+
+      $sqlupdate9_1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered9' WHERE po_id='$new_id9' ";
+      $result_update16=mysqli_query($con,$sqlupdate9_1);
+
+      $sqlupdate9_2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_key='$new_pokey' ";
+      $result_update17=mysqli_query($con,$sqlupdate9_2);
+
+      if($result_update && $result_updates && $result_updatess && $result_update1 && $result_update2 && $result_update3 && $result_update4 && $result_update5 && $result_update6 && $result_update7 && $result_update8 && $result_update9 && $result_update10 && $result_update11 && $result_update12 && $result_update13 && $result_update14 && $result_update15 && $result_update16 && $result_update17){
           $conn =mysqli_connect("localhost","root","");
           $datetoday = date('Y\-m\-d\ H:i:s A');
           mysqli_select_db($conn, "itproject");
@@ -895,13 +996,68 @@ if(isset($_POST['btnEdit'])){
           echo '<script>alert("Update if Failed")</script>';
       }
     }else{
-      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial' WHERE po_key='$new_id' ";
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered' WHERE po_id='$new_id' ";
       $result_update=mysqli_query($con,$sqlupdate);
 
-      $sqlupdate2="UPDATE purchase_orders_supplies SET item_delivery_remarks='Partial' WHERE po_key='$new_id' ";
-      $result_update2=mysqli_query($con,$sqlupdate2);
+      $sqlupdate2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_key='$new_pokey' ";
+      $result_updates=mysqli_query($con,$sqlupdate2);
 
-      if($result_update && $result_update2){
+      $sqlupdate1_1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered1' WHERE po_id='$new_id1' ";
+      $result_updatess=mysqli_query($con,$sqlupdate1_1);
+
+      $sqlupdate1_2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_key='$new_pokey' ";
+      $result_update1=mysqli_query($con,$sqlupdate1_2);
+
+      $sqlupdate2_1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered2'  WHERE po_id='$new_id2' ";
+      $result_update2=mysqli_query($con,$sqlupdate2_1);
+
+      $sqlupdate2_2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_key='$new_pokey' ";
+      $result_update3=mysqli_query($con,$sqlupdate2_2);
+
+      $sqlupdate3_1="UPDATE purchase_orders SET item_delivery_remarks='Partial' , quantity_delivered='$new_quantityDelivered3' WHERE po_id='$new_id3' ";
+      $result_update4=mysqli_query($con,$sqlupdate3_1);
+
+      $sqlupdate3_2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_key='$new_pokey' ";
+      $result_update5=mysqli_query($con,$sqlupdate3_2);
+
+      $sqlupdate4_1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4' WHERE po_id='$new_id4' ";
+      $result_update6=mysqli_query($con,$sqlupdate4_1);
+
+      $sqlupdate4_2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_key='$new_pokey' ";
+      $result_update7=mysqli_query($con,$sqlupdate4_2);
+
+      $sqlupdate5_1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered5' WHERE po_id='$new_id5' ";
+      $result_update8=mysqli_query($con,$sqlupdate5_1);
+
+      $sqlupdate5_2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_key='$new_pokey' ";
+      $result_update9=mysqli_query($con,$sqlupdate5_2);
+
+      $sqlupdate6_1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered6' WHERE po_id='$new_id6' ";
+      $result_update10=mysqli_query($con,$sqlupdate6_1);
+
+      $sqlupdate6_2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_key='$new_pokey' ";
+      $result_update11=mysqli_query($con,$sqlupdate6_2);
+
+      $sqlupdate7_1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered7' WHERE po_id='$new_id7' ";
+      $result_update12=mysqli_query($con,$sqlupdate7_1);
+
+      $sqlupdate7_2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_key='$new_pokey' ";
+      $result_update13=mysqli_query($con,$sqlupdate7_2);
+
+      $sqlupdate8_1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered8' WHERE po_id='$new_id8' ";
+      $result_update14=mysqli_query($con,$sqlupdate8_1);
+
+      $sqlupdate8_2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_key='$new_pokey' ";
+      $result_update15=mysqli_query($con,$sqlupdate8_2);
+
+      $sqlupdate9_1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered9' WHERE po_id='$new_id9' ";
+      $result_update16=mysqli_query($con,$sqlupdate9_1);
+
+      $sqlupdate9_2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_key='$new_pokey' ";
+      $result_update17=mysqli_query($con,$sqlupdate9_2);
+
+
+      if($result_update && $result_updates && $result_updatess && $result_update1 && $result_update2 && $result_update3 && $result_update4 && $result_update5 && $result_update6 && $result_update7 && $result_update8 && $result_update9 && $result_update10 && $result_update11 && $result_update12 && $result_update13 && $result_update14 && $result_update15 && $result_update16 && $result_update17){
           $conn =mysqli_connect("localhost","root","");
           $datetoday = date('Y\-m\-d\ H:i:s A');
           mysqli_select_db($conn, "itproject");
