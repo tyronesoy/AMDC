@@ -645,7 +645,7 @@ if(!isset($_SESSION['first_run'])){
                    <table id="example" class="table table-bordered table-striped">
                       <?php
                         $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) GROUP BY inventory_order_id";
+                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name ='".$this->session->userdata('fname').' '.$this->session->userdata('lname')."' GROUP BY inventory_order_id";
                         $result = $conn->query($sql);    
                       ?>
                       <thead>
