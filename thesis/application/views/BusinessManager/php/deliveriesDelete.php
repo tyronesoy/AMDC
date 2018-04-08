@@ -6,17 +6,32 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql=" SELECT * FROM purchase_orders WHERE po_id=$id";
+    $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE purchase_order_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-        $per_id=$row[0];
-        $per_purchasesPurchaseDate=$row[1];
-        $per_purchasesDescription=$row[2];
-        $per_purchasesSupplier=$row[3];
-        $per_purchasesQuantity=$row[4];
-        $per_delete=$row[5];
-        $per_purchasesDeliveryDate=$row[6];
-        $per_purchasesStatus=$row[7];
+        $per_po_uniq_id=$row[0];
+        $per_po_id=$row[1];
+        $per_orderDate=$row[2];
+        $per_quantity=$row[3];
+        $per_unit=$row[4];
+        $per_po_remarks=$row[5];
+        $per_description=$row[6];
+        $per_deliveryDate=$row[7];
+        $per_supply_type=$row[8];
+        $per_supplier=$row[9];
+        $per_unitprice=$row[10];
+        $per_total=$row[11];
+        $per_po_key=$row[12];
+        $per_quantityDelivered=$row[13];
+        $per_itemDeliveryRemarks=$row[14];
+        $per_purch_id=$row[15];
+        $per_orderCreateDate=$row[16];        
+        $per_purchOrderName=$row[17];
+        $per_purchOrderStatus=$row[18];
+        $per_purchOrderRemarks=$row[19];
+        $per_gtotal=$row[20];
+        $per_soft_deleted=$row[23];
+
 
     }//end while
 ?>
@@ -34,13 +49,13 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">PO ID</label>
                             <div class="col-sm-6">
-                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_purch_id;?>" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-8 control-label" for="txtdelete"></label>
                             <div class="col-sm-1">
-                                <input type="hidden" class="form-control" id="txtdelete" name="txtdelete" hidden value="<?php echo $per_delete;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtdelete" name="txtdelete" value="<?php echo $per_soft_deleted;?>" readonly>
                             </div>
                         </div>
                     </div>

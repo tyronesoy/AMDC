@@ -15,22 +15,23 @@ if(isset($_REQUEST['id'])){
         $per_quantity=$row[3];
         $per_unit=$row[4];
         $per_po_remarks=$row[5];
-        $per_soft_deleted=$row[6];
-        $per_description=$row[7];
-        $per_deliveryDate=$row[8];
-        $per_supply_type=$row[9];
-        $per_supplier=$row[10];
-        $per_unitprice=$row[11];
-        $per_total=$row[12];
-        $per_po_key=$row[13];
-        $per_quantityDelivered=$row[14];
-        $per_itemDeliveryRemarks=$row[15];
-        $per_purch_id=$row[16];
-        $per_orderCreateDate=$row[17];        
-        $per_purchOrderName=$row[18];
-        $per_purchOrderStatus=$row[19];
-        $per_purchOrderRemarks=$row[20];
-        $per_gtotal=$row[21];
+        $per_description=$row[6];
+        $per_deliveryDate=$row[7];
+        $per_supply_type=$row[8];
+        $per_supplier=$row[9];
+        $per_unitprice=$row[10];
+        $per_total=$row[11];
+        $per_po_key=$row[12];
+        $per_quantityDelivered=$row[13];
+        $per_itemDeliveryRemarks=$row[14];
+        $per_purch_id=$row[15];
+        $per_orderCreateDate=$row[16];        
+        $per_purchOrderName=$row[17];
+        $per_purchOrderStatus=$row[18];
+        $per_purchOrderRemarks=$row[19];
+        $per_gtotal=$row[20];
+        $per_soft_deleted=$row[23];
+
 
     }//end while
 ?>
@@ -182,7 +183,7 @@ if(isset($_REQUEST['id'])){
                                           </div>
                                         </div> <!-- BOX-BODY -->
                                         <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>
                                       <div>
