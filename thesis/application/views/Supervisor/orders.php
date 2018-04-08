@@ -31,10 +31,7 @@ function unit_measure($connect)
  }
  return $output;
 }
- function dept($connect) {
-  $sql = "SELECT department_name FROM departments JOIN users ON users.dept_ID=departments.department_id WHERE users.fname='".$this->session->userdata('fname')."' AND users.lname='".$this->session->userdata('lname')."' ";
-$results = mysqli_query($conn, $sql);
-}
+
 ?>
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -380,7 +377,22 @@ if(!isset($_SESSION['first_run'])){
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-institution"></i>
                                                       </div>
-                                                <input type="text" class="form-control" id="department" name="department" value="Cardiac" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                       <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                          mysqli_select_db($conn, "itproject");
+                                                          $dept = "SELECT dept_name FROM users WHERE fname='".$this->session->userdata('fname')."' AND users.lname='".$this->session->userdata('lname')."'";
+                                                          $resulty = $conn->query($dept);
+                                                          ?>
+                                                          <?php 
+                                                            if ($resulty->num_rows > 0) {
+                                                             while($row = $resulty->fetch_assoc()) { 
+                                                          ?>
+                                                
+                                                <input type="text" class="form-control" id="department" name="department" value="<?php echo $row['dept_name']; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                   <?php 
+                                                      }
+                                                    }
+                                                    ?>
                                           </div>
                                               </div>
                                             </div>
