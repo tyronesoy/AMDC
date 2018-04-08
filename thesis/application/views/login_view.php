@@ -37,6 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     body {
     
    background-size: 100%;
+    background-repeat: repeat-y;
     }
   </style>
 
