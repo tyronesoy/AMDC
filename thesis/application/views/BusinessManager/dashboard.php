@@ -139,10 +139,20 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     ?>
                     <?php 
                       if ($result7->num_rows > 0) {
-                       while($row = $result7->fetch_assoc()) { 
+                       while($row = $result7->fetch_assoc()) {
+                        $logvalue = $row["log_description"];
                     ?>
                       <tr>
-                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <?php
+                        if(strpos($logvalue, 'order') !== false) { ?>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <?php
+                        }else{
+                        ?>
+                            <td><small><?php echo $row["log_description"];?></small></td>
+                        <?php
+                        }  
+                        ?>
                         <td class="notif-delete">
                         <form action="BusinessManager/delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
