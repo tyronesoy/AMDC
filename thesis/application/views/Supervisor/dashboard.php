@@ -216,8 +216,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
     </nav>
   </header>
     <?php $identity =  $this->session->userdata('fname');?>
- <form name="form1" id="user_form" method="post" action="Supervisor/useradd">
+ 
 <div class="modal fade" id="modal-info">
+<form name="form1" id="user_form" method="post" action="Supervisor/useradd">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -288,8 +289,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
           </div>
           <!-- /.modal-dialog -->
+        </form> 
         </div>
-        </form>     
+            
                             
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
