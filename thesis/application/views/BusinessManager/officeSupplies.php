@@ -626,7 +626,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <col width="5%">
             <col width="auto">
             <col width="8%">
-            <col width="25%">
+            <col width="22.5%">
           <thead>
             <tr>
                   <th>Expiration Date</th> 
@@ -648,16 +648,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" id="getRecon" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-adjust"></i> Reconcile</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Remove</button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" id="getAdd" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-plus"></i> Add</button>
                         </div>
                       </td>
                     </tr>

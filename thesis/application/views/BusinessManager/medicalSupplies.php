@@ -646,16 +646,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" id="getRecon" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-adjust"></i> Reconcile</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Remove</button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" id="getAdd" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-plus"></i> Add</button>
                         </div>
                       </td>
                     </tr>
@@ -952,19 +949,18 @@ if(isset($_POST['medAdd'])){
 if(isset($_POST['medEdit'])){
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
-    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtQuantityInStock']);
+    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['addQTY']);
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
     $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
 
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', quantity_in_stock=quantity_in_stock+'$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Medical supply ".$new_supplyDescription." has been edited','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Medical supply ".$new_supplyDescription." has been edited and new arrived ".$new_supplyDescription." has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="medicalSupplies"</script>';
     }

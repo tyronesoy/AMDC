@@ -77,9 +77,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </form>
     <!-- /.lockscreen credentials -->
-  <div class="help-block text-center">
-    <font color="red"><p> Password is Incorrect!</p></font>
   </div>
+  <div class="help-block text-center">
+    <h4><span class="label label-danger">Password is Incorrect!</span></h4>
   </div>
   <!-- /.lockscreen-item -->
   <div class="help-block text-center">
