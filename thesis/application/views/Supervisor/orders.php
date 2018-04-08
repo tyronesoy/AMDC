@@ -375,11 +375,11 @@ if(!isset($_SESSION['first_run'])){
                                           <div class="row">
                                               <div class="col-md-6" style="width:100%">
                                               <div class="form-group">
+                                                   <label for="exampleInputEmail1">Department</label>
                                                 <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-institution"></i>
                                                       </div>
-                                                <label for="exampleInputEmail1">Department</label>
                                                 <input type="text" class="form-control" id="department" name="department" value="Cardiac" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                           </div>
                                               </div>
