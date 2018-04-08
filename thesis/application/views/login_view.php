@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
  
 </head>
-<body background="assets/dist/img/Background.jpg" >
+<body background="assets/dist/img/Background.png" >
 
   <style type="text/css">
     body {
@@ -41,18 +41,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </style>
 
 
-<div class="login-box">
+<div class="login-box" style="float: left; margin-left: 100px; margin-top: 150px;">
 
   <!-- /.login-logo -->
-  <div class="login-box-body" >
+  <div>
 
    <br>
       <div class="login-logo">
        <center><img src="assets/dist/img/AMDC.png" alt="User Image" style="width:310px;height:110px;"></center>
   </div>
    <br>
-   <br>
-    <br>
+
 
     <p class="login-box-msg">Sign in to start your session</p>
 
@@ -85,7 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </form>
     <br>
-    <center><a type="submit"  data-toggle="modal" data-target="#modal-info" ><u>I forgot my password</u></a><br></center>
+    <center><a type="submit"  data-toggle="modal" data-target="#modal-info" ><u>Forgot Password ?</u></a><br></center>
       <form name="form2" method="post">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
