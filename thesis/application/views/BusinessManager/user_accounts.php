@@ -79,14 +79,13 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
       }  
       ?>
 <div class="wrapper">
-
   <header class="main-header">
     <!-- Logo -->
     <a href="<?php echo '../dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-             <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+             <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -176,10 +175,40 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
+           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_futr = date("Y-m-d", strtotime('+30 days') ) ;
+                $date_past = date("Y-m-d", strtotime('-1 year') ) ;
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql5 = "SELECT COUNT(*) AS total FROM supplies where quantity_in_stock < reorder_level";
+                $number1 = $conn->query($sql5);
+                if ($number1->num_rows > 0) {
+                        while($row = $number1->fetch_assoc()) {
+                            $num1 = $row["total"];
+                        }
+                }
+                $sqlfive = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$dtoday."' AND '".$date_futr."')";
+                $number2 = $conn->query($sqlfive);
+                if ($number2->num_rows > 0) {
+                        while($row = $number2->fetch_assoc()) {
+                            $num2 = $row["total"];
+                        }
+                }
+                $sqlV = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$date_past."' AND '".$dtoday."') AND soft_deleted = 'N'";
+                $number3 = $conn->query($sqlV);
+                if ($number3->num_rows > 0) {
+                        while($row = $number3->fetch_assoc()) {
+                            $num3 = $row["total"];
+                        }
+                }
+                $flagtotal = $num1 + $num2 + $num3;
+                ?>
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">!</span>
+              <span class="label label-danger"><?php echo $flagtotal ?></span>
             </a>
             <ul class="dropdown-menu">
                <?php
@@ -403,12 +432,12 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
@@ -454,11 +483,11 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        User Accounts
+        <b>User Accounts</b>
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">User Accounts</li>
+        <li class="active"><i class="fa fa-group"></i> User Accounts</li>
       </ol>
     </section>
 
@@ -481,12 +510,25 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <center><h3><b>Create New User Account</b></h3></center>
-                                          </div>
-                                      </div>
+                                         <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- end of modal header -->
-                                      <div class="modal-body">
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Create New User Account</b></h4></center>
+                                            </div>
+                                        </div>
                                         <div class="box-body">
                                            <div class="row">
                                                   <div class="col-md-6">
@@ -591,7 +633,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-save"></i> Save New User Account</button>
+                                        <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-plus"></i> Create</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -651,7 +693,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-random"></i> Change Status</button>
