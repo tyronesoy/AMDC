@@ -624,7 +624,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <col width="5%">
             <col width="auto">
             <col width="8%">
-            <col width="25%">
+            <col width="22.5%">
           <thead>
             <tr>
                   <th>Expiration Date</th> 
