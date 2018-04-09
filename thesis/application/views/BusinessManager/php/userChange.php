@@ -26,7 +26,7 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <center><h3 class="modal-title"><b>Are you sure to change the status of </h3><h2><b><u><?php echo $per_userName;?></u>?</b></h2></b></h3></center>
+                        <center><h3 class="modal-title"><b>Are you sure to change the status of</h3><h2><b><?php echo 'Username: '; ?><u><?php echo $per_userName;?></u>?</b></h2></b></h3></center>
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">User ID</label>
                             <div class="col-sm-6">
