@@ -22,7 +22,7 @@ if(isset($_REQUEST['id'])){
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
                                        <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
@@ -30,7 +30,7 @@ if(isset($_REQUEST['id'])){
                                             <div class="col-md-8">
                                                 
                                                 <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h5>Assumption Medical Diagnostic Center </h5></center>
                                                     <center><h6>10 Assumption Rd., Baguio City</h6></center>
                                                     <center><h6>Philippines</h6></center>
                                                 </div>
@@ -42,37 +42,25 @@ if(isset($_REQUEST['id'])){
                                           <div class="margin">
                                               <center><h4><b>Update Department Details</b></h4></center>
                                             </div>
-                                              <div class="col-md-6">
-                                                  <div class="form-group">
+                                        </div>
+                    <div class="box-body">
+                        <div class="form-group">
                             <label hidden="true" for="txtid">Department ID</label>
                             <div class="col-sm-6">
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                                 </div>
                             </div>
-                            </div>
-                        </div>
-                        <tr>
-                                               <div class="box-body">
-                                          <table class="table table-bordered table-striped">
-                                            <tbody>                            <label class="exampleInputEmail" for="txtlocation">Location</label>
+                                <div class="col-md-6">
+                                      <label class="exampleInputEmail" for="txtlocation">Branch Location</label>
                                 <select id="txtlocation" name="txtlocation">
                                     <option value="Baguio City" <?php echo ($per_departmentLocation =='Baguio City')?'selected':'' ?>>Baguio City</option>
                                     <option value="La Trinidad" <?php echo ($per_departmentLocation =='La Trinidad')?'selected':'' ?>>La Trinidad</option>
                                     <option value="SLU Hospital" <?php echo ($per_departmentLocation =='SLU Hospital')?'selected':'' ?>>SLU Hospital</option>
-                                </select>
-                            </div>
-                            </div>
-                        </div>
-                        <tr>
-                            <div class="col-md-6">
-                            <div class="form-group">
-                            <label class="exampleInputEmail" for="txtdepartmentname">Department Name</label>
+                                </select>                       
+                             <label class="exampleInputEmail" for="txtdepartmentname">Department Name</label>
                                 <input type="text" class="form-control" id="txtdepartmentname" name="txtdepartmentname" value="<?php echo $per_departmentName;?>">
                             </div>
-                        </tr>
-                    </tbody>
-                </table>
                     </div>
-                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                 <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-edit"></i> Update</button>

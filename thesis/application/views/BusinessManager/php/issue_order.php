@@ -23,9 +23,21 @@ if(isset($_REQUEST['id'])){
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-                
+               <div class="col-md-2">
+                    <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                </div>
+                <div class="col-md-8">
+                    
+                    <div class="margin">
+                        <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                        <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                        <center><h6>Philippines</h6></center>
+                    </div>
+                </div>
             </div>
             <div class="modal-body">
+                <div class="box-header">
+                </div>
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <center><h3 class="modal-title"><b>Are you sure you want to issue this items?</b></h3></center>
@@ -46,7 +58,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-success" name="btnIssue"><i class="fa fa-check-circle"></i> Accept</button>
+                <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
             </div>
         </div>
     </form>

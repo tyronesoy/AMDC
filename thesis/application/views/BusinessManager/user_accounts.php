@@ -516,7 +516,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                             <div class="col-md-8">
                                                 
                                                 <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
                                                     <center><h6>10 Assumption Rd., Baguio City</h6></center>
                                                     <center><h6>Philippines</h6></center>
                                                 </div>
@@ -633,7 +633,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-plus"></i> Create</button>
+                                        <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-plus"></i> Create</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->

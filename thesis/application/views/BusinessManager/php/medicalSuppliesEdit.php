@@ -32,7 +32,7 @@ if(isset($_REQUEST['id'])){
                                             <div class="col-md-8">
                                                 
                                                 <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
                                                     <center><h6>10 Assumption Rd., Baguio City</h6></center>
                                                     <center><h6>Philippines</h6></center>
                                                 </div>
@@ -48,8 +48,8 @@ if(isset($_REQUEST['id'])){
                 <form class="form-horizontal" method="post">
                     <table style="float:right;">
                     <tr>
-                    <div class="box-body" margin="0px auto">
-                             <div class="form-group" style="width:100%">
+                    <div class="box-body">
+                             <div class="form-group" style="width:100%" >
                             <label for="txtid">Supply ID</label>
                                 <input type="number" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
