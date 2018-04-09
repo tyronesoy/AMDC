@@ -22,9 +22,21 @@ if(isset($_REQUEST['id'])){
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-                
-            </div>
-            <div class="modal-body">
+                                                       <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <center><h3 class="modal-title"><b>Are you sure to change the status of </h3><h2><b><u><?php echo $per_departmentName;?></u>?</b></h2></b></h3></center>
@@ -46,9 +58,10 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="btnUpdate"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" name="btnUpdate"><i class="glyphicon glyphicon-random"></i> Change</button>
             </div>
         </div>
+    </div>
     </form>
 
 <?php

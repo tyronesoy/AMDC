@@ -24,43 +24,60 @@ if(isset($_REQUEST['id'])){
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <span aria-hidden="true">&times;</span></button>
-                <div class="margin">
-                    <center><h3>Edit Supplier's Information</h3></center>
-                </div>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" method="post">
-                    <div class="box-body">
-                        <div class="form-group">
-                             <div class="form-group">
-                            <label hidden="true" class="col-sm-4 control-label" for="txtid">Department ID</label>
+                                       <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Department Details</b></h4></center>
+                                            </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group">
+                            <label hidden="true" for="txtid">Department ID</label>
                             <div class="col-sm-6">
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                             </div>
-                            <label class="col-sm-4 control-label" for="txtdepartmentname">Department Name</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtdepartmentname" name="txtdepartmentname" value="<?php echo $per_departmentName;?>">
-                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtlocation">Location</label>
-                            <div class="col-sm-6">
+                        <tr>
+                                               <div class="box-body">
+                                          <table class="table table-bordered table-striped">
+                                            <tbody>                            <label class="exampleInputEmail" for="txtlocation">Location</label>
                                 <select id="txtlocation" name="txtlocation">
                                     <option value="Baguio City" <?php echo ($per_departmentLocation =='Baguio City')?'selected':'' ?>>Baguio City</option>
                                     <option value="La Trinidad" <?php echo ($per_departmentLocation =='La Trinidad')?'selected':'' ?>>La Trinidad</option>
+                                    <option value="SLU Hospital" <?php echo ($per_departmentLocation =='SLU Hospital')?'selected':'' ?>>SLU Hospital</option>
                                 </select>
-                                   <br>
+                            </div>
                             </div>
                         </div>
+                        <tr>
+                            <div class="col-md-6">
+                            <div class="form-group">
+                            <label class="exampleInputEmail" for="txtdepartmentname">Department Name</label>
+                                <input type="text" class="form-control" id="txtdepartmentname" name="txtdepartmentname" value="<?php echo $per_departmentName;?>">
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
                     </div>
-                </form>
-            </div>
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-edit"></i> Update</button>
             </div>
-        </div>
+    </div>
     </form>
 <?php
 }//end if
