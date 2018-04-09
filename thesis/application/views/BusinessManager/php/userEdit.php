@@ -16,6 +16,7 @@ if(isset($_REQUEST['id'])){
         $per_usercontact=$row[6];
         $per_email=$row[7];
          $per_status=$row[8];
+         $per_deptname=$row[9];
 
     }//end while
 ?>
@@ -84,6 +85,28 @@ if(isset($_REQUEST['id'])){
                                     <input type="email" class="form-control" id="txtemail" name="txtemail" value="<?php echo $per_email;?>">
                                 </div>
                             </div>
+                       
+                                    <div class="form-group">
+                                                      <label class="col-sm-4 control-label" for="txtdeptname">Department</label>
+                                        <div class="col-sm-6">
+                                                       <select name = "txtdeptname" class="form-control">
+                                                       <option value=""><?php echo $per_deptname;?></option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City'";
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $dept_name) { 
+                                                        ?>
+                                                        <option value="<?php echo $dept_name["department_name"]; ?>" name="dept_name"><?php echo $dept_name["department_name"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                        </div>
+                                                     </div>
+                        
                             
                     </div>
                 </form>

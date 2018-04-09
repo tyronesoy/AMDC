@@ -993,9 +993,10 @@ if(isset($_POST['btnEdit'])){
     $new_fname=mysqli_real_escape_string($con,$_POST['txtfname']);
     $new_usercontact=mysqli_real_escape_string($con,$_POST['txtuser_contact']);
     $new_email=mysqli_real_escape_string($con,$_POST['txtemail']);
+    $new_deptname=mysqli_real_escape_string($con,$_POST['txtdeptname']);
 
 
-    $sqlupdate="UPDATE users SET username='$new_username', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email' WHERE user_id='$new_id' ";
+    $sqlupdate="UPDATE users SET username='$new_username', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', dept_name='$new_deptname' WHERE user_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
