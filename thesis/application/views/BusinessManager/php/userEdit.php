@@ -16,7 +16,7 @@ if(isset($_REQUEST['id'])){
         $per_usercontact=$row[6];
         $per_email=$row[7];
          $per_status=$row[8];
-         $per_status=$row[9];
+         $per_deptname=$row[9];
 
     }//end while
 ?>
@@ -89,8 +89,8 @@ if(isset($_REQUEST['id'])){
                                     <div class="form-group">
                                                       <label class="col-sm-4 control-label" for="txtdeptname">Department</label>
                                         <div class="col-sm-6">
-                                                       <select name = "dept_name" class="form-control">
-                                                       <option value="">Select a Department</option>
+                                                       <select name = "txtdeptname" class="form-control">
+                                                       <option value=""><?php echo $per_deptname;?></option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
