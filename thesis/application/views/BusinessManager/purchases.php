@@ -1350,38 +1350,38 @@ if(isset($_POST['btnEdit'])){
   $sqlupdate="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity', order_unit='$new_purchasesUnit', description='$new_description', unit_price='$new_purchasesUnitPrice', total='$new_total' WHERE po_id='$new_id' ";
   $result_update=mysqli_query($con,$sqlupdate);
 
-  $sqlupdate1="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate1', order_quantity='$new_purchasesQuantity1', order_unit='$new_purchasesUnit1', description='$new_description1', unit_price='$new_purchasesUnitPrice1', total='$new_total1' WHERE po_id='$new_id1' ";
+  $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity1', order_unit='$new_purchasesUnit1', description='$new_description1', unit_price='$new_purchasesUnitPrice1', total='$new_total1' WHERE po_id='$new_id1' ";
   $result_update1=mysqli_query($con,$sqlupdate1);
 
-    $sqlupdate2="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate2', order_quantity='$new_purchasesQuantity2', order_unit='$new_purchasesUnit2', description='$new_description2', unit_price='$new_purchasesUnitPrice2', total='$new_total2' WHERE po_id='$new_id2' ";
+    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity2', order_unit='$new_purchasesUnit2', description='$new_description2', unit_price='$new_purchasesUnitPrice2', total='$new_total2' WHERE po_id='$new_id2' ";
   $result_update2=mysqli_query($con,$sqlupdate2);
 
-    $sqlupdate3="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate3', order_quantity='$new_purchasesQuantity3', order_unit='$new_purchasesUnit3', description='$new_description3', unit_price='$new_purchasesUnitPrice3', total='$new_total3' WHERE po_id='$new_id3' ";
+    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity3', order_unit='$new_purchasesUnit3', description='$new_description3', unit_price='$new_purchasesUnitPrice3', total='$new_total3' WHERE po_id='$new_id3' ";
   $result_update3=mysqli_query($con,$sqlupdate3);
 
-    $sqlupdate4="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate4', order_quantity='$new_purchasesQuantity4', order_unit='$new_purchasesUnit4', description='$new_description4', unit_price='$new_purchasesUnitPrice4', total='$new_total4' WHERE po_id='$new_id4' ";
+    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity4', order_unit='$new_purchasesUnit4', description='$new_description4', unit_price='$new_purchasesUnitPrice4', total='$new_total4' WHERE po_id='$new_id4' ";
   $result_update4=mysqli_query($con,$sqlupdate4);
 
-    $sqlupdate5="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate5', order_quantity='$new_purchasesQuantity5', order_unit='$new_purchasesUnit5', description='$new_description5', unit_price='$new_purchasesUnitPrice5', total='$new_total5' WHERE po_id='$new_id5' ";
+    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity5', order_unit='$new_purchasesUnit5', description='$new_description5', unit_price='$new_purchasesUnitPrice5', total='$new_total5' WHERE po_id='$new_id5' ";
   $result_update5=mysqli_query($con,$sqlupdate5);
 
-    $sqlupdate6="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate6', order_quantity='$new_purchasesQuantity6', order_unit='$new_purchasesUnit6', description='$new_description6', unit_price='$new_purchasesUnitPrice6', total='$new_total6' WHERE po_id='$new_id6' ";
+    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity6', order_unit='$new_purchasesUnit6', description='$new_description6', unit_price='$new_purchasesUnitPrice6', total='$new_total6' WHERE po_id='$new_id6' ";
   $result_update6=mysqli_query($con,$sqlupdate6);
 
-    $sqlupdate7="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate7', order_quantity='$new_purchasesQuantity7', order_unit='$new_purchasesUnit7', description='$new_description7', unit_price='$new_purchasesUnitPrice7', total='$new_total7' WHERE po_id='$new_id7' ";
+    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity7', order_unit='$new_purchasesUnit7', description='$new_description7', unit_price='$new_purchasesUnitPrice7', total='$new_total7' WHERE po_id='$new_id7' ";
   $result_update7=mysqli_query($con,$sqlupdate7);
 
-    $sqlupdate8="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate8', order_quantity='$new_purchasesQuantity8', order_unit='$new_purchasesUnit8', description='$new_description8', unit_price='$new_purchasesUnitPrice8', total='$new_total8' WHERE po_id='$new_id8' ";
+    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity8', order_unit='$new_purchasesUnit8', description='$new_description8', unit_price='$new_purchasesUnitPrice8', total='$new_total8' WHERE po_id='$new_id8' ";
   $result_update8=mysqli_query($con,$sqlupdate8);
 
-    $sqlupdate9="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate9', order_quantity='$new_purchasesQuantity9', order_unit='$new_purchasesUnit9', description='$new_description9', unit_price='$new_purchasesUnitPrice9', total='$new_total9' WHERE po_id='$new_id9' ";
+    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity9', order_unit='$new_purchasesUnit9', description='$new_description9', unit_price='$new_purchasesUnitPrice9', total='$new_total9' WHERE po_id='$new_id9' ";
   $result_update9=mysqli_query($con,$sqlupdate9);
 
-  $sqlupdate10="UPDATE purchase_order_bm SET purchase_order_grandtotal='$new_total10' WHERE purchase_order_uniq_id='$new_uid' ";
-  $result_update10=mysqli_query($con,$sqlupdate10);
+  //$sqlupdate10="UPDATE purchase_order_bm SET purchase_order_grandtotal='$new_total10' WHERE purchase_order_uniq_id='$new_uid' ";
+  //$result_update10=mysqli_query($con,$sqlupdate10);
 
 
-    if($result_update && $result_update1 && $result_update2 && $result_update3 && $result_update4 && $result_update5 && $result_update6 && $result_update7 && $result_update8 && $result_update9 && $result_update10){
+    if($result_update){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
