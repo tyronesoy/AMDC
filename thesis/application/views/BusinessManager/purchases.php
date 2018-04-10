@@ -168,9 +168,18 @@ function unit_measure($connect)
                        while($row = $result7->fetch_assoc()) { 
                     ?>
                       <tr>
-                        <td><small><?php echo $row["log_description"];?></small></td>
+                        <?php
+                        if(strpos($logvalue, 'order') !== false) { ?>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <?php
+                        }else{
+                        ?>
+                            <td><small><?php echo $row["log_description"];?></small></td>
+                        <?php
+                        }  
+                        ?>
                         <td class="notif-delete">
-                        <form action="delete" method="post">
+                        <form action="BusinessManager/delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>

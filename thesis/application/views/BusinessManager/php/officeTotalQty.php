@@ -104,8 +104,7 @@
                     ?>
                     <?php 
                       if ($result7->num_rows > 0) {
-                       while($row = $result7->fetch_assoc()) {
-                        $logvalue = $row["log_description"];
+                       while($row = $result7->fetch_assoc()) { 
                     ?>
                       <tr>
                         <?php
