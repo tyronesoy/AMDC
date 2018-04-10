@@ -139,4 +139,9 @@ class Dashboard extends CI_Controller {
         return TRUE;
     }
 	}
+    
+    public function addUser(){
+		$this->load->view('Supervisor/php/userAdd');
+	}
+    
 }
