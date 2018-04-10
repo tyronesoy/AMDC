@@ -144,7 +144,7 @@ if(!isset($_SESSION['first_run'])){
                         }  
                         ?>
                         <td class="notif-delete">
-                        <form action="BusinessManager/delete" method="post">
+                        <form action="Supervisor/delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
@@ -158,7 +158,7 @@ if(!isset($_SESSION['first_run'])){
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="BusinessManager/logs">View all Logs</a></li>
+              <li class="footer"><a href="Supervisor/logs">View all Logs</a></li>
               <li>
               <center>
               <form action="Supervisor/deleteall" method="post">
