@@ -13,6 +13,11 @@
       $sql->bind_param("sssss", $description, $quantity, $unit, $priceUnit, $expirationDate);
 
       if($sql->execute()) {
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply ".$description." with quantity ".$quantity." has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
         $success_message = "Added Successfully";
         } else {
         $error_message = "Problem in Adding New Record";

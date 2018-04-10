@@ -123,8 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     ?>
                     <?php 
                       if ($result7->num_rows > 0) {
-                       while($row = $result7->fetch_assoc()) {
-                        $logvalue = $row["log_description"];
+                       while($row = $result7->fetch_assoc()) { 
                     ?>
                       <tr>
                         <?php
@@ -152,10 +151,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
+              <li class="footer"><a href="<?php echo 'BusinessManager/logs' ?>">View all Logs</a></li>
               <li>
               <center>
-              <form action="deleteall" method="post">
+              <form action="BusinessManager/deleteall" method="post">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
               </form>
               </center>

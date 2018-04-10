@@ -195,6 +195,11 @@ $random = mt_rand();
    
 
   if($sql->execute() && $sql2->execute() && $sql3->execute() && $sql4->execute() && $sql5->execute() && $sql6->execute() && $sql7->execute() && $sql8->execute() && $sql9->execute() && $sql10->execute() && $sql11->execute()) {
+  $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A purchase order has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
   $success_message = "Added Successfully";
   } else {
   $error_message = "Problem in Adding New Record";

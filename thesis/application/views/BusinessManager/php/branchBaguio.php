@@ -709,6 +709,11 @@ if(isset($_POST['btnEdit'])){
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A department has been edited','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
         echo '<script>window.location.href="branchBaguio"</script>';
     }
     else{
@@ -721,6 +726,11 @@ if(isset($_GET['delete'])){
     $sqldelete="DELETE FROM departments WHERE department_id='$id'";
     $result_delete=mysqli_query($con,$sqldelete);
     if($result_delete){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A department has been deleted','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
         echo'<script>window.location.href="branchBaguio"</script>';
     }
     else{
