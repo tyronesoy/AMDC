@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-       <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+       <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -408,7 +408,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
@@ -461,12 +461,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <section class="content-header">
       <h1>
         <b>Suppliers</b>
-        <!-- <small>advanced tables</small> -->
+
       </h1>
         
        <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li class="active">Suppliers</li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><i class="fa fa-user"></i> Suppliers</li>
       </ol>
     </section>
 
@@ -489,12 +489,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <center> <h3>Add New Supplier</h3></center>
-                                          </div>
-                                      </div>
+                                       <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- end of modal header -->
-                                      <div class="modal-body">
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Add New Supplier</b></h4></center>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
                                         <div class="box-body">
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Company Name</label>
@@ -502,7 +516,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Contact No.</label>
-                                              <input type="number" class="form-control" name="suppContact" required />
+                                              <input type="text" class="form-control" name="suppContact" pattern="^[0-9]{11}$" required />
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Address</label>
@@ -512,6 +526,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <label for="exampleInputEmail1">Product Type</label>
                                               <div class="form-group">
                                                 <select class="form-control" name="suppProduct">
+                                                  <option value="">Select Product Type</option>
                                                   <?php
                                                     $conn=mysqli_connect("localhost", "root", "", "itproject");
                                                     $sql = "SELECT product FROM suppliers GROUP BY product";
@@ -530,7 +545,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"> </i> Cancel</button>
-                                        <button type="button" class="btn btn-primary" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-save"> </i> Save</button>
+                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"> </i> Add</button>
                                       </div>
                                     </div>
 									                 </div>
@@ -547,8 +562,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                           <center><h3><b>Are you sure to add this supplier?</b></h3></center>
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
-                                          <button type="submit" class="btn btn-primary" name="addSuppliers"><i class="fa fa-save"></i> Save</button>
+                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
+                                          <button type="submit" class="btn btn-primary" name="addSuppliers"><i class="fa fa-check"></i> Yes</button>
                                     <!-- /.modal-content -->
                                   </div>
                                   <!-- /.modal-dialog -->
@@ -604,7 +619,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["remarks"]; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supplier_id"]; ?>"><i class="fa fa-edit"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supplier_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["supplier_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>

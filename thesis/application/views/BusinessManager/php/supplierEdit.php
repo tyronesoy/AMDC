@@ -24,12 +24,25 @@ if(isset($_REQUEST['id'])){
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-                <div class="margin">
-                    <center><h3>Edit Supplier</h3></center>
-                </div>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" method="post">
+                <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Supplier Details</b></h4></center>
+                                            </div>
+                                        </div>
                     <div class="box-body">
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Suppliers ID</label>
@@ -46,7 +59,7 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtcontactno">Contact No.</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>">
+                                <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>" pattern="^[0-9]{11}$">
                             </div>
                         </div>
                         <div class="form-group">
@@ -72,9 +85,10 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-edit"></i> Update</button>
             </div>
         </div>
+    </div>
     </form>
 
 <?php

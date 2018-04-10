@@ -15,22 +15,23 @@ if(isset($_REQUEST['id'])){
         $per_quantity=$row[3];
         $per_unit=$row[4];
         $per_po_remarks=$row[5];
-        $per_soft_deleted=$row[6];
-        $per_description=$row[7];
-        $per_deliveryDate=$row[8];
-        $per_supply_type=$row[9];
-        $per_supplier=$row[10];
-        $per_unitprice=$row[11];
-        $per_total=$row[12];
-        $per_po_key=$row[13];
-        $per_quantityDelivered=$row[14];
-        $per_itemDeliveryRemarks=$row[15];
-        $per_purch_id=$row[16];
-        $per_orderCreateDate=$row[17];        
-        $per_purchOrderName=$row[18];
-        $per_purchOrderStatus=$row[19];
-        $per_purchOrderRemarks=$row[20];
-        $per_gtotal=$row[21];
+        $per_description=$row[6];
+        $per_deliveryDate=$row[7];
+        $per_supply_type=$row[8];
+        $per_supplier=$row[9];
+        $per_unitprice=$row[10];
+        $per_total=$row[11];
+        $per_po_key=$row[12];
+        $per_quantityDelivered=$row[13];
+        $per_itemDeliveryRemarks=$row[14];
+        $per_purch_id=$row[15];
+        $per_orderCreateDate=$row[16];        
+        $per_purchOrderName=$row[17];
+        $per_purchOrderStatus=$row[18];
+        $per_purchOrderRemarks=$row[19];
+        $per_gtotal=$row[20];
+        $per_soft_deleted=$row[23];
+
 
     }//end while
 ?>
@@ -150,11 +151,11 @@ if(isset($_REQUEST['id'])){
                                             
                                             <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  </td>
 
-                                            <td width="50"><input type="text" class="form-control" id="txtquantitydelivered" name="txtquantitydelivered" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >  </td>
+                                            <td width="50"><input type="text" class="form-control" id="txtquantitydelivered" name="txtquantitydelivered" value="<?php echo $row['quantity_delivered']; ?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  </td>
 
-                                            <td width="50"><input type="text" name="unit_price" class="form-control " value="<?php echo $row['unit_price']; ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td>
+                                            <td width="50"><input type="text" name="unit_price" class="form-control " value="&#8369 <?php echo $row['unit_price']; ?>" min="0" style="width: 75px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td>
 
-                                            <td width="250"><input type="text" name="total" class="form-control " min="0" style="width: 150px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="&#8369 <?php echo $row['total'] ?>" readonly/> </td>
+                                            <td width="250"><input type="text" name="total" class="form-control " min="0" style="width: 100px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="&#8369 <?php echo $row['total'] ?>" readonly/> </td>
                                             </tr>
 
                                             <?php 
@@ -182,7 +183,7 @@ if(isset($_REQUEST['id'])){
                                           </div>
                                         </div> <!-- BOX-BODY -->
                                         <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>
                                       <div>

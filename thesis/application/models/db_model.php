@@ -13,6 +13,7 @@ class Db_model extends CI_Model {
 					||($username == $row->user_email && $password == $row->password)){
 
 					$sess = array(
+					'id'	=> $row->user_id,
 					'fname' => $row->fname,
 					'lname' => $row->lname,
 					'username' => $row->username,
@@ -33,13 +34,13 @@ class Db_model extends CI_Model {
 						$_SESSION['logged_in'] = 'True';
 						redirect('dashboard');
 					}else{
-						$this->session->set_flashdata('info', 'This account is inactive!');
-						redirect('/thesis/login');
+						$this->session->set_flashdata('info', '<h3><span class="label label-warning">This account is inactive!</span></h3>');
+						redirect('login');
 					}
 				}
 			}
 		} else {
-			$this->session->set_flashdata('info', 'The username or password is incorrect!');
+			$this->session->set_flashdata('info', '<h3><span class="label label-danger">The username or password is incorrect!</span></h3>');
 			redirect('login');
 		}
 	}

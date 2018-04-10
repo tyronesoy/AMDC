@@ -516,7 +516,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                             <div class="col-md-8">
                                                 
                                                 <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
                                                     <center><h6>10 Assumption Rd., Baguio City</h6></center>
                                                     <center><h6>Philippines</h6></center>
                                                 </div>
@@ -633,7 +633,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-plus"></i> Create</button>
+                                        <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-plus"></i> Create</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -693,13 +693,13 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;Update</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-random"></i> Change Status</button>
+                            <button type="button" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp;Change Status</button>
                         </div>
                         <div class="btn-group">
-                            <a href="userAccounts?reset=<?php echo $row["user_id"]; ?>" onclick="return confirm('Are you sure to reset the password?')" class="btn btn-info btn-xs"><i class="fa fa-refresh"></i> Reset Password</a>
+                            <button type="button" id="getReset" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;Reset Password</button>
                         </div>
                       </td>
                     </tr>
@@ -877,9 +877,10 @@ function onUserInactivity() {
                 <div id="data-content"></div>
             </div>
         </div>
+
         <div class="modal fade" id="modalReset" role="dialog">
             <div class="modal-dialog">
-                <div id="reset-content"></div>
+                <div id="data-content"></div>
             </div>
         </div>
     <!--<script>
@@ -938,6 +939,28 @@ function onUserInactivity() {
         });
     </script>
     
+    <script>
+        $(document).on('click','#getReset',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#data-content').html('');
+            
+              $.ajax({
+                  url:'userAccounts/passwordReset',
+                  type:'POST',
+                  data:'id='+per_id,
+                  dataType:'html'
+              }).done(function(data){
+                  $('#data-content').html('');
+                  $('#data-content').html(data);
+              }).final(function(){
+                  $('#data-content').html('<p>Error</p>');
+              });
+            
+        });
+    </script>
+
      <script>
         $(document).on('click','#getAdd',function(e){
             e.preventDefault();
@@ -970,9 +993,10 @@ if(isset($_POST['btnEdit'])){
     $new_fname=mysqli_real_escape_string($con,$_POST['txtfname']);
     $new_usercontact=mysqli_real_escape_string($con,$_POST['txtuser_contact']);
     $new_email=mysqli_real_escape_string($con,$_POST['txtemail']);
+    $new_deptname=mysqli_real_escape_string($con,$_POST['txtdeptname']);
 
 
-    $sqlupdate="UPDATE users SET username='$new_username', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email' WHERE user_id='$new_id' ";
+    $sqlupdate="UPDATE users SET username='$new_username', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', dept_name='$new_deptname' WHERE user_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -990,9 +1014,9 @@ if(isset($_POST['btnEdit'])){
 
 if(isset($_POST['btnUpdate'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_userstatus=mysqli_real_escape_string($con,$_POST['txtuserstatus']);
+    $new_userstatus=mysqli_real_escape_string($con,$_POST['txtUserStatus']);
 
-    if($new_userstatus = 'Active'){
+    if($new_userstatus == 'Active'){
       $new_userstatus = 'Inactive';
     }else{
       $new_userstatus = 'Active';
@@ -1014,10 +1038,12 @@ if(isset($_POST['btnUpdate'])){
     }
 }
 
-if(isset($_GET['reset'])){
-    $id=$_GET['reset'];
-    $sqlreset="UPDATE users SET password=md5('amdc123') WHERE user_id='$id'";
+if(isset($_POST['btnReset'])){
+    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $new_password=mysqli_real_escape_string($con,$_POST['txtPassword']);
+    $sqlreset="UPDATE users SET password=md5('$new_password') WHERE user_id='$new_id'";
     $result_reset=mysqli_query($con,$sqlreset);
+
     if($result_reset){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');

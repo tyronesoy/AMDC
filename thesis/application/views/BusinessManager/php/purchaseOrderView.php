@@ -10,16 +10,31 @@ if(isset($_REQUEST['id'])){
     $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE purchase_order_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-        $per_id=$row[16];
+        $per_po_uniq_id=$row[0];
+        $per_po_id=$row[1];
         $per_orderDate=$row[2];
-        $per_description=$row[7];
-        $per_supplier=$row[10];
-        $per_deliveryDate=$row[8];
         $per_quantity=$row[3];
-        $per_status=$row[19];
         $per_unit=$row[4];
-        $per_unitprice=$row[11];
-        $per_gtotal=$row[21];
+        $per_po_remarks=$row[5];
+        $per_description=$row[6];
+        $per_deliveryDate=$row[7];
+        $per_supply_type=$row[8];
+        $per_supplier=$row[9];
+        $per_unitprice=$row[10];
+        $per_total=$row[11];
+        $per_purch_id=$row[12];
+        $per_qtyDelivered=$row[13];
+        $per_delRemarks=$row[14];
+        $per_id=$row[15];
+        $per_createdDate_=$row[16];
+        $per_status=$row[18];
+        $per_orderName=$row[17];        
+        $per_purchRemarks=$row[19];
+        $per_gtotal=$row[20];
+        $per_key=$row[21];
+        $per_itemdelRemarks=$row[22];
+        $per_soft_deleted=$row[23];
+        $date = date("Y-m-d");
 
     }//end while
 ?>
