@@ -114,7 +114,8 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
                             <label for="txtExpirationDate">Expiration Date</label>
-                                <input type="text" class="form-control" id="datepicker" name="txtExpirationDate" placeholder="yyyy-mm-dd" value="<?php echo $per_supplyExpirationDate;?>">
+                                <input type="text" class="form-control" id="datepicker" name="txtExpirationDate" placeholder="yyyy-mm-dd" value="<?php echo $per_supplyExpirationDate; ?>">
+
                         </div>
                         </div>
                         </div>
