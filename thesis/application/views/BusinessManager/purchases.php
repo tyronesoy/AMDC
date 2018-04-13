@@ -168,18 +168,9 @@ function unit_measure($connect)
                        while($row = $result7->fetch_assoc()) { 
                     ?>
                       <tr>
-                        <?php
-                        if(strpos($logvalue, 'order') !== false) { ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
-                        <?php
-                        }else{
-                        ?>
-                            <td><small><?php echo $row["log_description"];?></small></td>
-                        <?php
-                        }  
-                        ?>
+                        <td><small><?php echo $row["log_description"];?></small></td>
                         <td class="notif-delete">
-                        <form action="BusinessManager/delete" method="post">
+                        <form action="delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
@@ -940,9 +931,10 @@ function unit_measure($connect)
                       <td><?php echo $row["delivery_date"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
-                        <div class="btn-group">
+                       <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i>Update</button>
                         </div>
+                        
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
                         </div>
@@ -1257,8 +1249,8 @@ if(isset($_POST['btnEdit'])){
 
 
     $new_uid=mysqli_real_escape_string($con,$_POST['txtuniqid']);
-    $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['orDate']);
-    $new_purchasesSupplier=mysqli_real_escape_string($con,$_POST['txtsupplier']);
+    // $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['orDate']);
+    // $new_purchasesSupplier=mysqli_real_escape_string($con,$_POST['txtsupplier']);
     $new_purchasesDeliveryDate=mysqli_real_escape_string($con,$_POST['txtdeliverydate']);
 
     $new_id=mysqli_real_escape_string($con,$_POST['txtpoid0']);
@@ -1356,41 +1348,86 @@ if(isset($_POST['btnEdit'])){
 
 
 
-  $sqlupdate="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity', order_unit='$new_purchasesUnit', description='$new_description', unit_price='$new_purchasesUnitPrice', total='$new_total' WHERE po_id='$new_id' ";
+  $sqlupdate="UPDATE purchase_orders SET order_quantity='$new_quantity', order_unit='$new_purchasesUnit', description='$new_description', unit_price='$new_purchasesUnitPrice', total='$new_total' WHERE po_id='$new_id' ";
   $result_update=mysqli_query($con,$sqlupdate);
-
-  $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity1', order_unit='$new_purchasesUnit1', description='$new_description1', unit_price='$new_purchasesUnitPrice1', total='$new_total1' WHERE po_id='$new_id1' ";
+// if($result_update){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+  $sqlupdate1="UPDATE purchase_orders SET order_quantity='$new_quantity1', order_unit='$new_purchasesUnit1', description='$new_description1', unit_price='$new_purchasesUnitPrice1', total='$new_total1' WHERE po_id='$new_id1' ";
   $result_update1=mysqli_query($con,$sqlupdate1);
-
-    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity2', order_unit='$new_purchasesUnit2', description='$new_description2', unit_price='$new_purchasesUnitPrice2', total='$new_total2' WHERE po_id='$new_id2' ";
+// if($result_update1){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate2="UPDATE purchase_orders SET order_quantity='$new_quantity2', order_unit='$new_purchasesUnit2', description='$new_description2', unit_price='$new_purchasesUnitPrice2', total='$new_total2' WHERE po_id='$new_id2' ";
   $result_update2=mysqli_query($con,$sqlupdate2);
-
-    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity3', order_unit='$new_purchasesUnit3', description='$new_description3', unit_price='$new_purchasesUnitPrice3', total='$new_total3' WHERE po_id='$new_id3' ";
+// if($result_update2){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate3="UPDATE purchase_orders SET order_quantity='$new_quantity3', order_unit='$new_purchasesUnit3', description='$new_description3', unit_price='$new_purchasesUnitPrice3', total='$new_total3' WHERE po_id='$new_id3' ";
   $result_update3=mysqli_query($con,$sqlupdate3);
-
-    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity4', order_unit='$new_purchasesUnit4', description='$new_description4', unit_price='$new_purchasesUnitPrice4', total='$new_total4' WHERE po_id='$new_id4' ";
+// if($result_update3){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate4="UPDATE purchase_orders SET order_quantity='$new_quantity4', order_unit='$new_purchasesUnit4', description='$new_description4', unit_price='$new_purchasesUnitPrice4', total='$new_total4' WHERE po_id='$new_id4' ";
   $result_update4=mysqli_query($con,$sqlupdate4);
-
-    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity5', order_unit='$new_purchasesUnit5', description='$new_description5', unit_price='$new_purchasesUnitPrice5', total='$new_total5' WHERE po_id='$new_id5' ";
+// if($result_update4){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate5="UPDATE purchase_orders SET order_quantity='$new_quantity5', order_unit='$new_purchasesUnit5', description='$new_description5', unit_price='$new_purchasesUnitPrice5', total='$new_total5' WHERE po_id='$new_id5' ";
   $result_update5=mysqli_query($con,$sqlupdate5);
-
-    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity6', order_unit='$new_purchasesUnit6', description='$new_description6', unit_price='$new_purchasesUnitPrice6', total='$new_total6' WHERE po_id='$new_id6' ";
+// if($result_update5){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate6="UPDATE purchase_orders SET order_quantity='$new_quantity6', order_unit='$new_purchasesUnit6', description='$new_description6', unit_price='$new_purchasesUnitPrice6', total='$new_total6' WHERE po_id='$new_id6' ";
   $result_update6=mysqli_query($con,$sqlupdate6);
-
-    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity7', order_unit='$new_purchasesUnit7', description='$new_description7', unit_price='$new_purchasesUnitPrice7', total='$new_total7' WHERE po_id='$new_id7' ";
+// if($result_update6){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate7="UPDATE purchase_orders SET order_quantity='$new_quantity7', order_unit='$new_purchasesUnit7', description='$new_description7', unit_price='$new_purchasesUnitPrice7', total='$new_total7' WHERE po_id='$new_id7' ";
   $result_update7=mysqli_query($con,$sqlupdate7);
-
-    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity8', order_unit='$new_purchasesUnit8', description='$new_description8', unit_price='$new_purchasesUnitPrice8', total='$new_total8' WHERE po_id='$new_id8' ";
+// if($result_update7){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate8="UPDATE purchase_orders SET order_quantity='$new_quantity8', order_unit='$new_purchasesUnit8', description='$new_description8', unit_price='$new_purchasesUnitPrice8', total='$new_total8' WHERE po_id='$new_id8' ";
   $result_update8=mysqli_query($con,$sqlupdate8);
-
-    $sqlupdate.="UPDATE purchase_orders SET order_date='$new_purchasesOrderDate', order_quantity='$new_purchasesQuantity9', order_unit='$new_purchasesUnit9', description='$new_description9', unit_price='$new_purchasesUnitPrice9', total='$new_total9' WHERE po_id='$new_id9' ";
+// if($result_update8){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate9="UPDATE purchase_orders SET order_quantity='$new_quantity9', order_unit='$new_purchasesUnit9', description='$new_description9', unit_price='$new_purchasesUnitPrice9', total='$new_total9' WHERE po_id='$new_id9' ";
   $result_update9=mysqli_query($con,$sqlupdate9);
 
-  //$sqlupdate10="UPDATE purchase_order_bm SET purchase_order_grandtotal='$new_total10' WHERE purchase_order_uniq_id='$new_uid' ";
-  //$result_update10=mysqli_query($con,$sqlupdate10);
+  $sqlupdate10="UPDATE purchase_order_bm SET purchase_order_grandtotal='$new_total10' WHERE po_key='$new_uid' ";
+  $result_update10=mysqli_query($con,$sqlupdate10);
 
 
-    if($result_update){
+    if($result_update && $result_update1 && $result_update2 && $result_update3 && $result_update4 && $result_update5 && $result_update6 && $result_update7 && $result_update8 && $result_update9){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");

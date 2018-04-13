@@ -114,7 +114,7 @@ if(isset($_REQUEST['id'])){
                                                <th>Item Description</th>
                                                <th>Unit of Measure</th>
                                                <th>Quantity</th>
-                                               <th>Unit Price</th>
+                                               <th>Unit Price (&#8369)</th>
                                                <th>Total Amount</th>
                                               </tr>
                                               <?php if($result->num_rows > 0) {
