@@ -72,9 +72,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+                <?php
+                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                $dtoday = date("Y/m/d");
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where log_description like '%order%'  AND log_status = 1";
+                $result6 = $conn->query($sql6);    
+                ?>
+                <?php if ($result6->num_rows > 0) {
+                while($row = $result6->fetch_assoc()) { ?>
+                <span class="label label-warning"><?php echo $row["total"]; 
+                    $counted = $row["total"];
+                    ?></span>
+                <?php 
+                      }
+                    }
+                ?>
             </a>
             <ul class="dropdown-menu">
+              <li class="header"><i class="fa fa-warning text-yellow"></i> You have <?php echo $counted; ?> notifications</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">  
@@ -82,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' order by log_id DESC";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -93,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <tr>
                         <?php
                         if(strpos($logvalue, 'order') !== false) { ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
                         }else{
                         ?>
@@ -102,7 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }  
                         ?>
                         <td class="notif-delete">
-                        <form action="BusinessManager/delete" method="post">
+                        <form action="delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
@@ -116,7 +133,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="#">View all</a></li>
+              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
+              <li>
+              <center>
+              <form action="deleteall" method="post">
+                        <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
+              </form>
+              </center>
+              </li>
             </ul>
           </li>      
          

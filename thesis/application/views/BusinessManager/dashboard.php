@@ -121,7 +121,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                 $dtoday = date("Y/m/d");
                 $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total FROM logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."')  AND log_status = 1";
+                $sql6 = "SELECT COUNT(*) AS total FROM logs where log_description like '%order%'  AND log_status = 1";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -143,12 +143,13 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where (log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1 order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' order by log_id DESC";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
                       if ($result7->num_rows > 0) {
-                       while($row = $result7->fetch_assoc()) { 
+                       while($row = $result7->fetch_assoc()) {
+                        $logvalue = $row["log_description"];
                     ?>
                       <tr>
                         <?php
@@ -176,7 +177,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo 'BusinessManager/logs' ?>">View all Logs</a></li>
+              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="BusinessManager/deleteall" method="post">
