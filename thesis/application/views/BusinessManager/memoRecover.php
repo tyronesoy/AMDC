@@ -485,7 +485,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b> Deleted Memo </b>
+        <i class="fa fa-tasks"></i> <b> Deleted Memo </b>
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
