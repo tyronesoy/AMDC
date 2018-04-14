@@ -470,7 +470,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Suppliers</b>
+       <i class="fa fa-user"></i>  <b>Suppliers</b>
 
       </h1>
         

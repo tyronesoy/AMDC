@@ -53,7 +53,7 @@ function unit_measure($connect)
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <!-- <script src="../assets/jquery/jquery-1.12.4.js"></script>
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
@@ -63,7 +63,6 @@ function unit_measure($connect)
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
   <!-- datatable lib -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -513,12 +512,12 @@ function unit_measure($connect)
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-            <i class="fa fa-shopping-cart"> </i> <b>Purchase Orders</b>
+            <i class="fa fa-shopping-cart"></i><b> Purchase Orders</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active"><a href="<?php echo 'purchases' ?>">Purchases</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><i class="fa fa-shopping-cart"></i> Purchases</li>
       </ol>
     </section>
 
@@ -533,7 +532,7 @@ function unit_measure($connect)
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Purchase Order</i></button>
             
-             <form id="insert_form" method="post" action="purchases/addPurchases">
+                    <form id="insert_form" method="post" action="purchases/addPurchases">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -552,28 +551,33 @@ function unit_measure($connect)
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- end of modal header -->
-                                      <div class="modal-body">
+                                        <div class="modal-body">
+                                              <div class="box-header">
+                                                  <div class="margin">
+                                                        <center><h4><b>Add Purchase Order</b></h4></center>
+                                                  </div>
                                         <div class="box-body">                                      
                                               <div class="row">
-                                              <div class="col-md-5">
+                                              <div class="col-md-12">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Name</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-user"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
+                                              </div>
                                               </div>
                                               </div>
                                               </div>
 
+                                              <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">       
-                                                        <i class="fa fa-user"></i>
+                                                        <i class="fa fa-group"></i>
                                                       </div>
                                                   <select class="form-group select2" name="supp" style="width:100%" required>
                                                 <option value="">Select a Supplier</option>
@@ -592,29 +596,27 @@ function unit_measure($connect)
                                               </select>
                                               </div>
                                               </div>
-                                              </div>
-
+                                            </div>
                                               <div class="col-md-6">
                                               <div class="form-group">
-                                                    <label>Purchase Order Date</label>
+                                                    <label for="exampleInputEmail1">Purchase Order Date</label>
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                       <?php $date = date("Y-m-d"); ?>
-                                                      <input type="date" class="form-control pull-right" id="datepicker" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                      <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
                                                 </div>
                                               </div>
 
-                                          
                                         <div class="table-responsive">
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="item_table">
                                             <tr>
-                                               <th>Select Item</th>
+                                               <th>Item Description</th>
                                                <th>Unit of Measure</th>
                                                <th>Quantity</th>
                                                <th>Unit Price</th>
@@ -884,9 +886,9 @@ function unit_measure($connect)
                                         </div> <!-- BOX-BODY -->
                                       <div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <!-- <button type="submit" class="btn btn-primary" name="addOrder" style="display: none;">Add Order</button> -->
-                                        <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
+                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                                        <button type="submit" class="btn btn-success" name="addOrder"><i class="fa fa-plus"></i> Add </button>
+                                        <!--  <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -942,7 +944,7 @@ function unit_measure($connect)
                       <td><?php echo $status; ?></td>
                       <td>
                        <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i>Update</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
                         
                         <div class="btn-group">

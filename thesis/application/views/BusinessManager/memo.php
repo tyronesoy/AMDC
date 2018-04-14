@@ -486,7 +486,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       <b>Memo</b>
+       <i class="fa fa-tasks"></i> <b>Memo</b>
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
@@ -551,7 +551,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                       <?php $date = date("Y-m-d"); ?>
-                                                      <input type="date" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                      <input type="text" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>

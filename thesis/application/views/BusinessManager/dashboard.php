@@ -547,7 +547,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Dashboard</b>
+        <i class="fa fa-dashboard"></i> <b>Dashboard</b>
       </h1>
       <ol class="breadcrumb">
         <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>

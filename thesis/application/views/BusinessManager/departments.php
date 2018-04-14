@@ -470,7 +470,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Departments</b>
+        <i class="fa fa-building"></i> <b>Departments</b>
         <!-- <small>advanced tables</small> -->
       </h1>
         

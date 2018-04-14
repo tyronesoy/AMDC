@@ -53,7 +53,6 @@ if(isset($_REQUEST['id'])){
                                 <input type="hidden" class="form-control" id="txtdepartmentStatus" name="txtdepartmentStatus" hidden value="<?php echo $per_departmentStatus;?>" readonly>
                             </div>
                         </div>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">

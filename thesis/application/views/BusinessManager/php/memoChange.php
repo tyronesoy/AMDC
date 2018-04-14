@@ -11,8 +11,10 @@ if(isset($_REQUEST['id'])){
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
         $per_memodate=$row[1];
-        $per_memodescription=$row[2];
-        $per_memostatus=$row[4];
+        $per_memouser=$row[2];
+        $per_memodescription=$row[3];
+        $per_memosoft=$row[4];
+        $per_memostatus=$row[5];
 
     }//end while
 ?>
@@ -44,9 +46,13 @@ if(isset($_REQUEST['id'])){
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label class="col-sm-8 control-label" for="txtmemostatus"></label>
+                            <div class="col-sm-1">
+                                <input type="hidden" class="form-control" id="txtmemostatus" name="txtmemostatus" value="<?php echo $per_memostatus;?>" readonly>
+                            </div>
+                        </div>
                 </form>
-            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                 <button type="submit" class="btn btn-warning" name="btnUpdate"><i class="glyphicon glyphicon-random"></i> Change</button>

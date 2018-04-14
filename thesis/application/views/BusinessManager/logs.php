@@ -486,7 +486,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Activity Logs</b>
+          <i class="fa fa-list-alt"></i> <b>Activity Logs</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">

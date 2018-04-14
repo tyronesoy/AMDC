@@ -61,15 +61,16 @@ if(isset($_REQUEST['id'])){
         $per_purch_id=$row[12];
         $per_qtyDelivered=$row[13];
         $per_delRemarks=$row[14];
-        $per_id=$row[15];
-        $per_createdDate_=$row[16];
-        $per_status=$row[18];
-        $per_orderName=$row[17];        
-        $per_purchRemarks=$row[19];
-        $per_gtotal=$row[20];
-        $per_key=$row[21];
-        $per_itemdelRemarks=$row[22];
-        $per_soft_deleted=$row[23];
+        $per_notes=$row[15];
+        $per_id=$row[16];
+        $per_createdDate_=$row[17];
+        $per_orderName=$row[18];  
+        $per_status=$row[19];
+        $per_purchRemarks=$row[20];
+        $per_gtotal=$row[21];
+        $per_key=$row[22];
+        $per_itemdelRemarks=$row[23];
+        $per_soft_deleted=$row[24];
         $date = date("Y-m-d");
 
 
@@ -94,10 +95,11 @@ if(isset($_REQUEST['id'])){
                   </div>
            </div>
             <!-- end of modal header -->
-            <div class="modal-body">
-              <div class="box-header">
-                <center><h3>Edit Purchases</h3></center>
-              </div>
+             <div class="modal-body">
+                 <div class="box-header">
+                    <div class="margin">
+                        <center><h4><b>Update Purchase Order Details</b></h4></center>
+                    </div>
               <div class="box-body">                   
                 <div class="form-group" style="width:100%">
                   <label class="hidden" for="txtid">Purchase ID</label>
@@ -115,7 +117,7 @@ if(isset($_REQUEST['id'])){
                           <div class="input-group-addon">
                               <i class="fa fa-user"></i>
                           </div>
-                            <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                            <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly margin="0px auto">
                         </div>
                       </div>
                      </div>
@@ -125,9 +127,12 @@ if(isset($_REQUEST['id'])){
                       <div class="col-md-5">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Supplier</label>
-
+                          <div class="input-group">
+                          <div class="input-group-addon">
+                              <i class="fa fa-group"></i>
+                          </div>
                             <input type="text" class="form-control" id="txtsupplier" name="txtsupplier" value="<?php echo $per_supplier;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-
+                          </div>
                         </div>
                       </div>
                    </div>
@@ -135,26 +140,38 @@ if(isset($_REQUEST['id'])){
                       <div class="col-md-5">
                         <div class="form-group">
                           <label>Purchase Order Date</label>
+                            <div class="input-group">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                          </div>
                            <input type="text" class="form-control" id="orDate" name="orDate" value="<?php echo $per_orderDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-1"></div>
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label for="txtstatus">Status</label>
+                            <label for="txtstatus">Status</label>
+                          <div class="input-group">
+                          <div class="input-group-addon">
+                              <i class="fa fa-toggle-on"></i>
+                          </div>
                             <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                         </div>
                       </div>
                     </div>
+                  </div>
                       <div class="row">
                         <div class="col-md-5">
+                           <div class="form-group">
+                            <label for="txtdeliverydate">Delivery Date</label>
                           <div class="input-group">
                               <div class="input-group-addon">
                                  <i class="fa fa-calendar"></i>
                               </div>
                                   <?php $date = date("Y-m-d"); ?>
-                                  <label for="txtdeliverydate">Delivery Date</label>
-                                   <input type="date" class="form-control pull-right" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_deliveryDate;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                  
+                                   <input type="date" class="form-control pull-right" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_deliveryDate;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto">
                           </div>
                         </div>
                       </div>
@@ -173,7 +190,7 @@ if(isset($_REQUEST['id'])){
                   $zero = 0;    
                 ?>
 
-                                          
+                  <div class="row">                 
                 <div class="table-responsive">
                   <span id="error"></span>
                     <table class="table table-bordered" id="item_table">
@@ -225,9 +242,9 @@ if(isset($_REQUEST['id'])){
                         </select>
                         </td>
 
-                        <td width="50"><input type="text" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" ></td>
+                        <td width="50"><input type="number" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]);?>" min="0"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" ></td>
 
-                        <td width="50"><input type="text" id="unit_price<?php echo $x; ?>" name="unit_price<?php echo $x; ?>" class="form-control " value=" <?php print_r($unitPrice[$zero]); ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                        <td width="50"><input type="number" id="unit_price<?php echo $x; ?>" name="unit_price<?php echo $x; ?>" class="form-control " value=" <?php print_r($unitPrice[$zero]); ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                         <td class="hidden" width="250"><input class="form-control" id="txtsupplier<?php echo $x; ?>" name="txtsupplier<?php echo $x; ?>" value="<?php print_r($supplier[$zero++]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                          </td>
@@ -247,7 +264,7 @@ if(isset($_REQUEST['id'])){
                   </div>
                   <div class="modal-footer">
                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                   <button type="submit" class="btn btn-success" name="btnEdit"><i class="fa fa-save"></i> Save</button>
+                   <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-edit"></i> Update</button>
                 </div>
               </div>
               <!-- /.modal-content -->

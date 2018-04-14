@@ -493,7 +493,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>User Accounts</b>
+        <i class="fa fa-group"></i> <b>User Accounts</b>
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -511,7 +511,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
               <!-- <h3 class="box-title">Office Supplies</h3> -->
                 <table style="float:right;">
                     <tr>
-                      <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="fa fa-plus"></i> Create New User</button>
+                      <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="fa fa-user-plus"></i> Create New User</button>
                         
                         <form name="form1" id="user_form" method="post" action="userAccounts/addUser">
                         <div class="modal fade" id="modal-info">

@@ -489,7 +489,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Issued Supplies</b>
+         <i class="fa fa-retweet"></i> <b>Issued Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">

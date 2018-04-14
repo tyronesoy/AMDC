@@ -48,7 +48,7 @@ if(isset($_REQUEST['id'])){
                              <div class="form-group">
                                      <label class="col-sm-4 control-label" for="txtmemodate">Memo Date</label>
                                  <div class="col-sm-6">
-                                    <input type="date" class="form-control" id="txtmemodate" name="txtmemodate" value="<?php echo $per_memodate;?>">
+                                    <input type="date" class="form-control" id="txtmemodate" name="txtmemodate" value="<?php echo $per_memodate;?>" readonly>
                                 </div>
                             </div>
                             
