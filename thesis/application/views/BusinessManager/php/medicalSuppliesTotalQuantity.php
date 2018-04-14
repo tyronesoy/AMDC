@@ -472,7 +472,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Medical Supplies</b>
+         <i class="fa fa-medkit"></i> <b>Medical Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
        <ol class="breadcrumb">
