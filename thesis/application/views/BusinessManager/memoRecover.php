@@ -489,6 +489,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li><i class="fa fa-tasks"></i> Memo</li>
         <li class="active"><i class="fa fa-tasks"></i> Deleted Memo</li>
       </ol>
     </section>

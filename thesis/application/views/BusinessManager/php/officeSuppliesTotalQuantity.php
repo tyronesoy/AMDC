@@ -479,6 +479,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
      <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+         <li ><i class="fa fa-pencil-square"></i> Office Supplies</i> 
         <li class="active"><i class="fa fa-pencil-square"></i> Office Supplies Total Quantity</li>
       </ol>
     </section>
