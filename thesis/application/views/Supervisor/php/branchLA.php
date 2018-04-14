@@ -68,7 +68,7 @@ if(!isset($_SESSION['first_run'])){
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>AMDC</b> Inc.</span>
+      <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -218,7 +218,7 @@ if(!isset($_SESSION['first_run'])){
 
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
           <a href="<?php echo '../dashboard' ?>">
@@ -244,7 +244,7 @@ if(!isset($_SESSION['first_run'])){
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-spencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
@@ -290,14 +290,14 @@ if(!isset($_SESSION['first_run'])){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Departments</b>
+        <i class="fa fa-building"></i> <b>Departments</b>
         <!-- <small>advanced tables</small> -->
       </h1>
         
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li>Departments</li>
-        <li class="active">La Trinidad Branch</li>
+        <li><i class="fa fa-building"></i> Departments</li>
+        <li class="active"><i class="fa fa-building"></i> La Trinidad Branch</li>
       </ol>
     </section>
 
@@ -308,20 +308,20 @@ if(!isset($_SESSION['first_run'])){
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Office Supplies</h3> -->
-              <table style="float: left;">
+             <table style="float: left;">
                     <tr>
                         <th> <div class="dropdownButton">
-                        <select name="dropdown" onchange="location =this.value;">
+                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Departments
                           <span class="caret"></span>
                         </button>
-                          <option value="branchLA"><b>La Trinidad</b></option>
-                          <option value="branchBaguio">Baguio</option>
-                          <option value="departments">All Departments</option>
+                          <option><b>La Trinidad</b></option>
+                             <option value="branchBaguio"><a href="<?php echo 'branchBaguio' ?>">Baguio</a></option>
+                             <option value="departments"><a href="<?php echo 'departments' ?>">All Departments</a></option>
                         </select>
                       </div></th>
                     </tr>
-                </table>
+                </table> 
                 
             </div>
             <!-- /.box-header -->

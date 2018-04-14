@@ -309,7 +309,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
 	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
         <li class= "active">
           <a href="<?php echo 'dashboard' ?>">
@@ -336,7 +336,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'Supervisor/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'Supervisor/officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'Supervisor/officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
@@ -383,7 +383,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
+       <i class="fa fa-dashboard"></i> <b>Dashboard</b>
       </h1>
       <ol class="breadcrumb">
         <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li> 

@@ -61,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+      <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -215,7 +215,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
           <a href="<?php echo '../dashboard' ?>">
@@ -240,7 +240,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
@@ -286,13 +286,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Departments</b>
+        <i class="fa fa-building"></i> <b>Departments</b>
         <!-- <small>advanced tables</small> -->
       </h1>
         
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li class="active">Departments</li>
+        <li class="active"><i class="fa fa-building"></i> Departments</li>
       </ol>
     </section>
 
@@ -306,18 +306,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table style="float: left;">
                     <tr>
                         <th> <div class="dropdownButton">
-                        <select name="dropdown" onchange="location =this.value;">
+                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Departments
                           <span class="caret"></span>
                         </button>
                           <option><b>All Departments</b></option>
-                          <option value="branchBaguio">Baguio</option>
-						  <option value="branchLA">La Trinidad</option>
+                             <option value="branchBaguio"><a href="<?php echo 'branchBaguio' ?>">Baguio</a></option>
+                             <option value="branchLA"><a href="<?php echo 'branchLA' ?>">La Trinidad</a></option>
                         </select>
                       </div></th>
                     </tr>
-                </table>
-                
+                </table> 
             </div>
             <!-- /.box-header -->
               <div class="box-body">

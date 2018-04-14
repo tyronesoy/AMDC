@@ -14,8 +14,8 @@ if(!isset($_SESSION['first_run'])){
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Supervisor | Medical Supplies Total</title>
-    <!-- Tell the browser to be responsive to screen width -->
+   <title>Supervisor | Medical Supplies Total Quantity</title>
+       <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -82,7 +82,7 @@ if(!isset($_SESSION['first_run'])){
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>AMDC</b> Inc.</span>
+       <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -231,7 +231,7 @@ if(!isset($_SESSION['first_run'])){
      
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory System</li>
+        <li class="header">Inventory Management System</li>
   <!-- DASHBOARD MENU -->
          <li>
           <a href="<?php echo '../dashboard' ?>">
@@ -256,7 +256,7 @@ if(!isset($_SESSION['first_run'])){
               <ul class="treeview-menu">
                 <li class="active"><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
@@ -301,13 +301,13 @@ if(!isset($_SESSION['first_run'])){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Medical Supplies</b>
+          <i class="fa fa-medkit"></i> <b>Medical Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li>Medical Supplies</li>
-		<li class="active">Medical Supplies Total Quantity</li>
+        <li><i class="fa fa-medkit"></i> Medical Supplies</li>
+		<li class="active"><i class="fa fa-medkit"></i> Medical Supplies Total Quantity</li>
       </ol>
     </section>
 
@@ -319,12 +319,15 @@ if(!isset($_SESSION['first_run'])){
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
-                <table style="float: left;">
+               <table style="float: left;">
                     <tr>
-                        <th> <div class="btn-group">
-                        <select name="dropdown" onchange="location =this.value;">
+                        <th> <div class="dropdownButton">
+                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
+                          <span class="caret"></span>
+                        </button>
                           <option><b>Total Quantity</b></option>
-                          <option value="medicalSupplies">All Supplies</option>
+              <option value="medicalSupplies"><a href="<?php echo 'medicalSupplies' ?>">All Supplies</a></option>
                         </select>
                       </div></th>
                     </tr>

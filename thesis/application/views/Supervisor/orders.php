@@ -119,7 +119,7 @@ if(!isset($_SESSION['first_run'])){
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+      <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -291,7 +291,7 @@ if(!isset($_SESSION['first_run'])){
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
@@ -336,12 +336,12 @@ if(!isset($_SESSION['first_run'])){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-            <i class="fa fa-shopping-cart"> </i> <b>Orders</b>
+            <i class="fa fa-dollar"></i> <b>Orders</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li class="active">Orders</li>
+        <li class="active"><i class="fa fa-dollar"></i> Orders</li>
       </ol>
     </section>
 
@@ -356,7 +356,7 @@ if(!isset($_SESSION['first_run'])){
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Order</i></button>
             
-             <form id="insert_form" method="post" action="order/addOrder">
+                       <form id="insert_form" method="post" action="order/addOrder">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -375,8 +375,12 @@ if(!isset($_SESSION['first_run'])){
                                                 </div>
                                             </div>
                                         </div>
+                                         <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Add New Order</b></h4></center>
+                                            </div>
                                         <!-- end of modal header -->
-                                      <div class="modal-body">
                                         <div class="box-body">
                                           <div class="row">
                                               <div class="col-md-6" style="width:100%">
@@ -440,7 +444,7 @@ if(!isset($_SESSION['first_run'])){
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="item_table">
                                             <tr>
-                                              <th> Item </th>
+                                              <th> Item Description </th>
                                               <th> Unit of Measure</th>
                                               <th> Quantity </th>
                                             </tr>
@@ -621,9 +625,9 @@ if(!isset($_SESSION['first_run'])){
                                         </div> <!-- BOX-BODY -->
                                       <div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <!-- <button type="submit" class="btn btn-primary" name="addOrder" style="display: none;">Add Order</button> -->
-                                        <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
+                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                                         <button type="submit" class="btn btn-success" name="addOrder"><i class="fa fa-plus"></i> Add </button>
+                                        <!-- <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -667,8 +671,10 @@ if(!isset($_SESSION['first_run'])){
                               <td><?php echo $row["inventory_order_status"]; ?></td>
                               <td><?php echo $row["inventory_order_remarks"]; ?></td>
                               <td><div class="btn-group">
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
+                            
+                            <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-edit"></i> Update</button>
                         </div></td>
                             </tr>
                           <?php 

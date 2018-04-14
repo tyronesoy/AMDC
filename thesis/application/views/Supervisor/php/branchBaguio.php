@@ -68,7 +68,7 @@ if(!isset($_SESSION['first_run'])){
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>AMDC</b> Inc.</span>
+      <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -243,7 +243,7 @@ if(!isset($_SESSION['first_run'])){
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
@@ -289,14 +289,14 @@ if(!isset($_SESSION['first_run'])){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Departments</b>
+        <i class="fa fa-building"></i> <b>Departments</b>
         <!-- <small>advanced tables</small> -->
       </h1>
         
       <ol class="breadcrumb">
 		<li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li>Departments</li>
-        <li class="active">Baguio City Branch</li>
+        <li><i class="fa fa-building"></i> Departments</li>
+        <li class="active"><i class="fa fa-building"></i> Baguio City Branch</li>
       </ol>
     </section>
 
@@ -310,17 +310,17 @@ if(!isset($_SESSION['first_run'])){
               <table style="float: left;">
                     <tr>
                         <th> <div class="dropdownButton">
-                        <select name="dropdown" onchange="location =this.value;">
+                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Departments
                           <span class="caret"></span>
                         </button>
-                          <option value="branchBaguio"><b>Baguio</b></option>
-                          <option value="branchLA">La Trinidad</option>
-                          <option value="departments">All Departments</option>
+                          <option><b>Baguio</b></option>
+                             <option value="branchLA"><a href="<?php echo 'branchLA' ?>">La Trinidad</a></option>
+                             <option value="departments"><a href="<?php echo 'departments' ?>">All Departments</a></option>
                         </select>
                       </div></th>
                     </tr>
-                </table>
+                </table> 
                
             </div>
             <!-- /.box-header -->

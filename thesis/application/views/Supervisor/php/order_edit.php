@@ -57,24 +57,22 @@ if(isset($_REQUEST['id'])){
         <div class="modal-content">
             <div class="modal-header">
                 <div class="col-md-2">
-                    <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                </div>
-                <div class="col-md-8">
-                    
-                    <div class="margin">
-                        <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
-                        <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                        <center><h6>Philippines</h6></center>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" method="post">
-                    <div class="box-header">
-                        <div class="margin">
-                            <center><h4>Order Form</h4></center>
-                        </div>
-                    </div>
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Order Details</b></h4></center>
+                                            </div>
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-11">
@@ -115,6 +113,7 @@ if(isset($_REQUEST['id'])){
                         $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND quantity !=0";
                         $result = $con->query($sql);    
                       ?>
+                      <div class="row">
                     <div class="table-responsive">
                         <span id="error"></span>
                         <table class="table table-bordered" id="item_table">
@@ -153,7 +152,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                    <button type="submit" class="btn btn-primary" name="ordEdit"><i class="fa fa-save"></i> Save</button>
+                    <button type="submit" class="btn btn-primary" name="ordEdit"><i class="fa fa-edit"></i> Update</button>
             </div>
         </div>
     </form>
