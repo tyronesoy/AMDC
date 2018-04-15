@@ -63,5 +63,9 @@ class MedicalSupplies extends CI_Controller {
 	public function addMedicalSuppliesIssueTo(){
 		$this->load->view('BusinessManager/php/medicalSuppliesIssueTo');
 	}
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
+	}
+    
 	
 }

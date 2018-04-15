@@ -55,4 +55,8 @@ class IssuedSupplies extends CI_Controller {
 	public function issueView(){
 		$this->load->view('BusinessManager/php/issue_view');
 	}
+    
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
+	}
 }

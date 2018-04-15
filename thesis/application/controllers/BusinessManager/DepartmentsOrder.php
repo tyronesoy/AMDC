@@ -71,5 +71,8 @@ class DepartmentsOrder extends CI_Controller {
 	public function issueOrder(){
 		$this->load->view('BusinessManager/php/issue_order');
 	}
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
+	}
 
 }

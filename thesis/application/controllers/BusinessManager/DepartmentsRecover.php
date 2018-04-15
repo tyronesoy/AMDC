@@ -57,5 +57,8 @@ class DepartmentsRecover extends CI_Controller {
 	public function deleteDepartmentsRecover(){
 		$this->load->view('BusinessManager/php/departmentsRecoverDelete');
 	}
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
+	}
 
 }

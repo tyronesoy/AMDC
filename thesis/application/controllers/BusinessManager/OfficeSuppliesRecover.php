@@ -49,4 +49,8 @@ class OfficeSuppliesRecover extends CI_Controller {
 	public function recoverOfficeSupplies(){
 		$this->load->view('BusinessManager/php/officeSuppliesRecoverDelete');
 	}
+    
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
+	}
 }
