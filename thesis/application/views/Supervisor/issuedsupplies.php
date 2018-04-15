@@ -215,12 +215,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <div class="margin">
-                    <center><h3><b>Edit Profile</b></h3></center>
-                  </div>
-              </div>
-                <!-- end of modal header -->
-              <div class="modal-body">
+                  <div class="col-md-2">
+                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Profile</b></h4></center>
+                                            </div>
+                                      </div>
                 <div class="box-body">
                     
                         <?php
@@ -283,8 +296,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser">Save New User Account</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -293,6 +306,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- /.modal-dialog -->
         </form> 
         </div>
+            
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -311,16 +325,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory Mangement System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
-        <li>
+<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+         <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-          <!-- <li class="treeview">
-
-		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-   <li class="active treeview">
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
+        <li>
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
+  
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -341,28 +360,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
-		  	<li class="active"><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-		  <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+            <li  class="active"><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i> Orders</a></li>
 
           </ul>
         </li>
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-	
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-	    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'memo'?>">
+          <a href="<?php echo 'memo' ?>">
             <i class="fa fa-tasks"></i> <span>Memo</span>
+          </a>
+        </li>
+
+        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'logs' ?>">
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
           </a>
         </li>
 
@@ -372,22 +397,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
+        
       </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <i class="fa fa-retweet"></i> <b>Issued Supplies</b>
+         <i class="fa fa-retweet"></i> <b>Issued Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-		<li class="active"><i class="fa fa-retweet"></i> Issued Supplies</li>
+        <li class="active"><i class="fa fa-retweet"></i> Issued Supplies</li>
       </ol>
     </section>
 
@@ -397,49 +424,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-xs-12">
 
           <div class="box">
-            
+            <div class="box-header">
+              <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
+      
+            </div>
+            <!-- /.box-header -->
+              
             <div class="box-body">
               <table id="example" class="table table-bordered table-striped">
-				   <?php
+                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT * FROM issuedsupplies";
-                    $result = $conn->query($sql);    
+                    $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status='Issued' GROUP BY inventory_order_id";
+                    $result = $conn->query($sql);
+
+                    //  WHERE inventory_order_status='Issued'   
                   ?>
-                    <thead>
-                    <tr>
-                      <th>Request Date</th>
-                      <th>Issue Date</th>
-                      <th>Supply Type</th>
-                      <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Department</th>
-                    </tr>
-                    </thead>
-				  <tbody>
-				  <?php if ($result->num_rows > 0) {
+                  <thead> 
+                  <tr>
+                    <th>Request Date</th>
+                    <th>Issue Date</th>
+                    <th>Department</th>
+                    <th>Customer Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["request_date"]; ?></td>
+                      <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["issued_date"]; ?></td>
-                      <td><?php echo $row["supply_type"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
-                      <td><?php echo $row["department_name"]; ?></td>
+                      <td><?php echo $row["inventory_order_dept"]; ?></td>
+                      <td><?php echo $row["inventory_order_name"]; ?></td>
+                      <td><?php echo $row["inventory_order_status"]; ?></td>
+                      <td><div class="btn-group">
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></td>
                     </tr>
                   <?php 
                       }
                     }
                   ?>
-				  </tbody>
-                  
                 <tfoot>
                 <tr>
-                  <th>Request Date</th>
-                      <th>Issue Date</th>
-                      <th>Supply Type</th>
-                      <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Department</th>
+                    <th>Request Date</th>
+                    <th>Issue Date</th>
+                    <th>Department</th>
+                    <th>Customer Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
                 </tfoot>
               </table>
@@ -452,22 +484,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
       <!-- /.row -->
         <!-- this row will not appear when printing -->
-       <div class="row no-print">
-        <div class="col-xs-1" style="float:right">
-			<button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
+      <div class="row no-print">
+        <div class="col-xs-12">
+          <a href="../examples/invoice-print6.php" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a>
         </div>
       </div>
-      <script>
-        $('#print').click(function(){
-          var printme = document.getElementById('example');
-          var wme = window.open("","","width=900,height=700");
-          wme.document.write(printme.outerHTML);
-          wme.document.close();
-          wme.focus();
-          wme.print();
-          wme.close();
-        })
-      </script>
+        
     </section>
     <!-- /.content -->
   </div>
@@ -502,9 +524,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="../assets/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="../assets/bower_components/moment/min/moment.min.js"></script>
-<script src="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- bootstrap color picker -->
@@ -515,25 +535,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="../assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../assets/dist/js/demo.js"></script>
-            <!-- bootstrap time picker -->
+    <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 
-
 <script>
-      $(function () {
-        $('#example').DataTable()
-        $('#example1').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : false,
-          'ordering'    : true,
-          'info'        : true,
-          'autoWidth'   : false
-        })
-
-
-      })
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+  <?php unset($_SESSION['logged_in']);
+  if(!isset($_SESSION['logged_in'])) { ?>
+    window.location.href = "lockscreen"
+   <?php } ?>
+}
 </script>
 
     <script>
@@ -558,36 +571,60 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     })
   })
 </script>
-
 <script>
-setTimeout(onUserInactivity, 1000 * 120)
-function onUserInactivity() {
-  <?php unset($_SESSION['logged_in']);
-  if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "lockscreen"
-   <?php } ?>
-}
-</script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
-<script>
-        $(document).on('click','#getAdd',function(e){
+
+      })
+    </script>
+
+    <div class="modal fade" id="viewModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="view-data"></div>
+            </div>
+        </div>
+
+    <script>
+        $(document).on('click','#getView',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
-            $('#content-data').html('');
+            $('#view-data').html('');
             $.ajax({
-                url:'dashboard/addUser',
+                url:'issuedSupplies/issueView',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
             }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
+                $('#view-data').html('');
+                $('#view-data').html(data);
             }).final(function(){
-                $('#content-data').html('<p>Error</p>');
+                $('#view-data').html('<p>Error</p>');
             });
         });
     </script>
 
+<!-- <script>
+        $(document).ready(function(){
+            var dataTable=$('#example').DataTable({
+                'autoWidth' : false,
+                "processing": true,
+                "serverSide": true,
+                "ajax":{
+                    url:"issuedsupplies/getIssuedSupplies",
+                    type:"post"
+                }
+            });
+        });
+    </script> -->
 </body>
 </html>
