@@ -648,7 +648,7 @@ if(!isset($_SESSION['first_run'])){
                    <table id="example" class="table table-bordered table-striped">
                       <?php
                         $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name ='".$this->session->userdata('fname').' '.$this->session->userdata('lname')."' GROUP BY inventory_order_id";
+                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name ='".$this->session->userdata('fname').' '.$this->session->userdata('lname')."' GROUP BY inventory_order_id ";
                         $result = $conn->query($sql);    
                       ?>
                       <thead>
@@ -914,25 +914,95 @@ function onUserInactivity() {
 </body>
 </html>
 <?php
-//EDIT FOR MEDICAL SUPPLIES
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['ordEdit'])){
-    $new_id=mysqli_real_escape_string($conn,$_POST['txtuniqid']);
-    $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['supply_name']);
-    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['unit_name']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtquantity']);
+    $new_uid = mysqli_real_escape_string($con,$_POST['txtuniqid']);
 
-        $array=array($_POST['txtdesc'], $_POST['txtunit'], $_POST['txtquantity']);
-        if(sizeof($array) >0) {
-          $placeholders = array();
-          for($i=0; $i<=sizeof($array); $i++) {
-            $placeholders[] = '?';
-          }
-          $sql=" UPDATE inventory_order_supplies SET supply_name='$new_supplyDescription', unit_name='$new_supplyUnit' ,quantity='$new_supplyQuantityInStock' WHERE inventory_order_supplies_id='$new_id' ";
-          $result_update=mysqli_query($conn,$sqlupdate);
-        }
 
-    if($result_update){
-        $conn =mysqli_connect("localhost","root","");
+    $new_id = mysqli_real_escape_string($con,$_POST['txtiosid0']);
+    $new_description = mysqli_real_escape_string($con,$_POST['txtdescription0']);
+    $new_unit = mysqli_real_escape_string($con,$_POST['txtunit0']);
+    $new_quantity = mysqli_real_escape_string($con,$_POST['txtquantity0']);
+
+    $new_id1 = mysqli_real_escape_string($con,$_POST['txtiosid1']);
+    $new_description1 = mysqli_real_escape_string($con,$_POST['txtdescription1']);
+    $new_unit1 = mysqli_real_escape_string($con,$_POST['txtunit1']);
+    $new_quantity1 = mysqli_real_escape_string($con,$_POST['txtquantity1']);
+
+    $new_id2 = mysqli_real_escape_string($con,$_POST['txtiosid2']);
+    $new_description2 = mysqli_real_escape_string($con,$_POST['txtdescription2']);
+    $new_unit2 = mysqli_real_escape_string($con,$_POST['txtunit2']);
+    $new_quantity2 = mysqli_real_escape_string($con,$_POST['txtquantity2']);
+
+    $new_id3 = mysqli_real_escape_string($con,$_POST['txtiosid3']);
+    $new_description3 = mysqli_real_escape_string($con,$_POST['txtdescription3']);
+    $new_unit3 = mysqli_real_escape_string($con,$_POST['txtunit3']);
+    $new_quantity3 = mysqli_real_escape_string($con,$_POST['txtquantity3']);
+
+    $new_id4 = mysqli_real_escape_string($con,$_POST['txtiosid4']);
+    $new_description4 = mysqli_real_escape_string($con,$_POST['txtdescription4']);
+    $new_unit4 = mysqli_real_escape_string($con,$_POST['txtunit4']);
+    $new_quantity4 = mysqli_real_escape_string($con,$_POST['txtquantity4']);
+
+
+    $new_id5 = mysqli_real_escape_string($con,$_POST['txtiosid5']);
+    $new_description5 = mysqli_real_escape_string($con,$_POST['txtdescription5']);
+    $new_unit5 = mysqli_real_escape_string($con,$_POST['txtunit5']);
+    $new_quantity5 = mysqli_real_escape_string($con,$_POST['txtquantity5']);
+
+    $new_id6 = mysqli_real_escape_string($con,$_POST['txtiosid6']);
+    $new_description6 = mysqli_real_escape_string($con,$_POST['txtdescription6']);
+    $new_unit6 = mysqli_real_escape_string($con,$_POST['txtunit6']);
+    $new_quantity6 = mysqli_real_escape_string($con,$_POST['txtquantity6']);
+
+    $new_id7 = mysqli_real_escape_string($con,$_POST['txtiosid7']);
+    $new_description7 = mysqli_real_escape_string($con,$_POST['txtdescription7']);
+    $new_unit7 = mysqli_real_escape_string($con,$_POST['txtunit7']);
+    $new_quantity7 = mysqli_real_escape_string($con,$_POST['txtquantity7']);
+
+    $new_id8 = mysqli_real_escape_string($con,$_POST['txtiosid8']);
+    $new_description8 = mysqli_real_escape_string($con,$_POST['txtdescription8']);
+    $new_unit8 = mysqli_real_escape_string($con,$_POST['txtunit8']);
+    $new_quantity8 = mysqli_real_escape_string($con,$_POST['txtquantity8']);
+
+    $new_id9 = mysqli_real_escape_string($con,$_POST['txtiosid9']);
+    $new_description9 = mysqli_real_escape_string($con,$_POST['txtdescription9']);
+    $new_unit9 = mysqli_real_escape_string($con,$_POST['txtunit9']);
+    $new_quantity9 = mysqli_real_escape_string($con,$_POST['txtquantity9']);    
+
+          $sqlupdate = " UPDATE inventory_order_supplies SET supply_name = '$new_description', unit_name = '$new_unit' ,quantity = '$new_quantity' WHERE inventory_order_supplies_id = '$new_id' ";
+          $result_update = mysqli_query($con,$sqlupdate);
+         
+           $sqlupdate1 = " UPDATE inventory_order_supplies SET supply_name = '$new_description1', unit_name = '$new_unit1' ,quantity = '$new_quantity1' WHERE inventory_order_supplies_id = '$new_id1' ";
+          $result_update1 = mysqli_query($con,$sqlupdate1);
+
+          $sqlupdate2 = " UPDATE inventory_order_supplies SET supply_name = '$new_description2', unit_name = '$new_unit2' ,quantity = '$new_quantity2' WHERE inventory_order_supplies_id = '$new_id2' ";
+          $result_update2 = mysqli_query($con,$sqlupdate2);
+
+          $sqlupdate3 = " UPDATE inventory_order_supplies SET supply_name = '$new_description3', unit_name = '$new_unit3' ,quantity = '$new_quantity3' WHERE inventory_order_supplies_id = '$new_id3' ";
+          $result_update3 = mysqli_query($con,$sqlupdate3);
+
+          $sqlupdate4 = " UPDATE inventory_order_supplies SET supply_name = '$new_description4', unit_name = '$new_unit4' ,quantity = '$new_quantity4' WHERE inventory_order_supplies_id = '$new_id4' ";
+          $result_update4 = mysqli_query($con,$sqlupdate4);
+
+          $sqlupdate5 = " UPDATE inventory_order_supplies SET supply_name = '$new_description5', unit_name = '$new_unit5' ,quantity = '$new_quantity5' WHERE inventory_order_supplies_id = '$new_id5' ";
+          $result_update5 = mysqli_query($con,$sqlupdate5);
+
+          $sqlupdate6 = " UPDATE inventory_order_supplies SET supply_name = '$new_description6', unit_name = '$new_unit6' ,quantity = '$new_quantity6' WHERE inventory_order_supplies_id = '$new_id6' ";
+          $result_update6 = mysqli_query($con,$sqlupdate6);
+
+          $sqlupdate7 = " UPDATE inventory_order_supplies SET supply_name = '$new_description7', unit_name = '$new_unit7' ,quantity = '$new_quantity7' WHERE inventory_order_supplies_id = '$new_id7' ";
+          $result_update7 = mysqli_query($con,$sqlupdate7);
+
+          $sqlupdate8 = " UPDATE inventory_order_supplies SET supply_name = '$new_description8', unit_name = '$new_unit8' ,quantity = '$new_quantity8' WHERE inventory_order_supplies_id = '$new_id8' ";
+          $result_update8 = mysqli_query($con,$sqlupdate8);
+
+          $sqlupdate9 = " UPDATE inventory_order_supplies SET supply_name = '$new_description9', unit_name = '$new_unit9' ,quantity = '$new_quantity9' WHERE inventory_order_supplies_id = '$new_id9' ";
+          $result_update9 = mysqli_query($con,$sqlupdate9);         
+
+    if($result_update && $result_update1 && $result_update2 && $result_update3 && $result_update4 && $result_update5 && $result_update6 && $result_update7 && $result_update8 && $result_update9){
+        $conn = mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
         $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$new_supplyDescription." has been edited','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";

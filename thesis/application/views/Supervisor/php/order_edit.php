@@ -34,19 +34,21 @@ function unit_measure($connect)
 $results = mysqli_query($conn, $sql);
 }
 
-$con=mysqli_connect('localhost','root','','itproject'); 
+$con = mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id GROUP BY inventory_order_id";
+    $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-        $per_id=$row[1];
+        
         $per_uniq_id=$row[0];
+        $per_id=$row[1];
         $per_date=$row[2];
         $per_name=$row[3];
         $per_department=$row[4];
         $per_status=$row[5];
         $per_remarks=$row[6];
+        $per_iosid = $row[7];
         $per_supplyName=$row[8];
         $per_supplyUnit=$row[9];
         $per_supplyQuantity=$row[10];
@@ -57,8 +59,8 @@ if(isset($_REQUEST['id'])){
         <div class="modal-content">
             <div class="modal-header">
                 <div class="col-md-2">
-                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                                            </div>
+                          <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                </div>
                                             <div class="col-md-8">
                                                 
                                                 <div class="margin">
@@ -96,8 +98,8 @@ if(isset($_REQUEST['id'])){
                                     </div>
                                 </div>
                             </div>
-
-                        <div class="col-md-6">
+                        <div class="row">
+                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Order Date</label>
                                 <div class="input-group">
@@ -109,9 +111,17 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         </div>
+
                         <?php
-                        $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND quantity !=0";
-                        $result = $con->query($sql);    
+                        $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND quantity!='0'";
+                        $result = $con->query($sql);  
+
+                                  $arrayIosId = '';
+                                  $arrayDesc = '';
+                                  $arrayUnit = '';
+                                  $arrayQuantity = ''; 
+                                  $arrayId = ''; 
+                                  $zero = 0;   
                       ?>
                       <div class="row">
                     <div class="table-responsive">
@@ -124,31 +134,57 @@ if(isset($_REQUEST['id'])){
                             </tr>
                             <?php if($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) { 
+                                           $arrayIosId .= $row['inventory_order_supplies_id'].', ';
+                                           $arrayDesc .= $row['supply_name'].', ';
+                                           $arrayUnit .= $row['unit_name'].', ';
+                                           $arrayQuantity .= $row['quantity'].', '; 
+                                            $arrayId .= $row['inventory_order_id'].', ';  
+                     
+                                           
+                                           $iosid = explode(", ", $arrayIosId);
+                                           $desc = explode(", ", $arrayDesc);
+                                           $unit = explode(", ", $arrayUnit);
+                                           $quantity = explode(", ", $arrayQuantity);
+                                           $id = explode(", ", $arrayId);
+    
+                                         }
                             ?>
                             <tr>
-                                <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option><?php echo $row['supply_name'];?></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
+                                <?php 
+                                  $countiosid = count($iosid)-1;
+                                   for($x=0; $x < $countiosid; $x++){
+                                 ?>
+                          <td class="hidden" width="100">
+                          <input class="form-control" id="txtiosid<?php echo $x; ?>" name="txtiosid<?php echo $x; ?>" value="<?php print_r($iosid[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                         </td>
 
-                                <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option><?php echo $row['unit_name'];?></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity'];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
-                                    <input type="hidden" class="form-control" id="txtuniqid" name="txtuniqid" value="<?php echo $row['inventory_order_supplies_id'];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
-                                </td>
+                        <td width="250"><select class="form-control select2" id="txtdescription<?php echo $x; ?>" name="txtdescription<?php echo $x; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                        <option value="<?php print_r($desc[$zero]);?>"><?php print_r($desc[$zero]);?></option>
+                         <?php echo supply_dropdown($connect);?>
+                         </select>
+                        </td>
+
+                        <td width="100"><select class="form-control select2" id="txtunit<?php echo $x; ?>" name="txtunit<?php echo $x; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                        <option value="<?php print_r($unit[$zero]);?>"><?php print_r($unit[$zero]);?></option>
+                        <?php echo unit_measure($connect);?>
+                        </select>
+                        </td>
+
+                        <td width="50"><input type="number" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]);?>" min="0"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" ></td>
+
+
+                        <td class="hidden" width="250"><input class="form-control" id="txtid<?php echo $x; ?>" name="txtid<?php echo $x; ?>" value="<?php print_r($id[$zero++]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                         </td>
                             </tr>
 
-                            <?php 
-                            }
-                        }?>
+                           <?php } ?>
+                                            <!-- end index 0 -->
+
+                    <?php 
+                       }       
+                      ?>
                         </table>
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
