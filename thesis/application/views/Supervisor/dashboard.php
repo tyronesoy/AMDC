@@ -205,7 +205,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <a href="<?php echo 'logout' ?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
                 <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#modal-info">Edit Profile</button>
+                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
                 </div>
               </li>
             </ul>
@@ -216,7 +216,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
   </header>
     <?php $identity =  $this->session->userdata('fname');?>
  
-<div class="modal fade" id="modal-info">
+<div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -269,11 +269,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
                         <script>
                         function mouseoverPass(obj) {
-                          var obj = document.getElementById('myPassword');
+                          var obj = document.getElementById('password');
                           obj.type = "text";
                         }
                         function mouseoutPass(obj) {
-                          var obj = document.getElementById('myPassword');
+                          var obj = document.getElementById('password');
                           obj.type = "password";
                         }
                         </script>
