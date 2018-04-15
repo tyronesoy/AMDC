@@ -55,4 +55,8 @@ class Logs extends CI_Controller {
 	public function getLogs(){
 		$this->load->view('BusinessManager/php/logsFetch');
 	}
+    
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
+	}
 }

@@ -63,5 +63,8 @@ class Deliveries extends CI_Controller {
 	public function viewDelivery(){
 		$this->load->view('BusinessManager/php/deliveriesView');
 	}
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
+	}
 
 }

@@ -95,4 +95,8 @@ class Returns extends CI_Controller {
         return TRUE;
     }
 	}
+    
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
+	}
 }

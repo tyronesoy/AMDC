@@ -138,18 +138,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                        while($row = $result7->fetch_assoc()) { 
                     ?>
                       <tr>
-                        <?php
-                        if(strpos($logvalue, 'order') !== false) { ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
-                        <?php
-                        }else{
-                        ?>
-                            <td><small><?php echo $row["log_description"];?></small></td>
-                        <?php
-                        }  
-                        ?>
+                        <td><small><?php echo $row["log_description"];?></small></td>
                         <td class="notif-delete">
-                        <form action="BusinessManager/delete" method="post">
+                        <form action="delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
@@ -373,19 +364,120 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-            
+        
                 <div class="pull-right">
-                 <a href="<?php echo '../logout' ?>"  class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+                <div class="pull-left">
+                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
                 </div>
               </li>
             </ul>
           </li>
-          <!-- Control Sidebar Toggle Button -->
-
         </ul>
       </div>
     </nav>
   </header>
+    <?php $identity =  $this->session->userdata('fname');?>
+ 
+<div class="modal fade" id="editprof">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-md-2">
+                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Profile</b></h4></center>
+                                            </div>
+                                      </div>
+                <div class="box-body">
+                    
+                        <?php
+                          $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                          $date = date("Y/m/d");
+                          $sql = "Select * from users where user_id = ".$this->session->userdata('id')."";
+                          $result = $conn->query($sql);    
+                        ?>
+                        <?php if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) { ?>
+                            
+                            <div class="form-group">
+                          <label hidden="true" for="exampleInputEmail1">id</label>
+                          <input type="text" class="hidden" name="prevname" id="prevname" value="<?php echo $identity; ?>" />
+                        </div>
+                    
+                       <div class="form-group">
+                          <label for="exampleInputEmail1">Username</label>
+                          <input type="text" class="form-control" name="username" id="username" value="<?php echo $row['username'] ?>" required />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">First Name</label>
+                          <input type="name" class="form-control" name="fname" id="fname" value="<?php echo $row['fname'] ?>" required />
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Last Name</label>
+                          <input type="name" class="form-control" name="lname" id="lname" value="<?php echo $row['lname'] ?>" required />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Contact Number</label>
+                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Password</label>
+                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $row['password'] ?>" required />
+
+                        <script>
+                        function mouseoverPass(obj) {
+                          var obj = document.getElementById('password');
+                          obj.type = "text";
+                        }
+                        function mouseoutPass(obj) {
+                          var obj = document.getElementById('password');
+                          obj.type = "password";
+                        }
+                        </script>
+                            
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email</label>
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
+                        </div>
+                    
+                          <?php 
+                              }
+                            }
+                          ?>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </form> 
+        </div> 
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -533,7 +625,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["po_remarks"]; ?></td>
                       <td><?php echo $row["item_delivery_remarks"]; ?></td>
                       <td>
-                        <?php if ($row["item_delivery_remarks"] == 'Full') {?>
+                        <?php if ($row["item_delivery_remarks"] == 'Full' ) {?>
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                         </div>
@@ -886,131 +978,307 @@ if(isset($_POST['btnEdit'])){
     $new_status=mysqli_real_escape_string($con,$_POST['txtstatus0']);
     $new_quantity=mysqli_real_escape_string($con,$_POST['txtquantity0']);
     $new_quantityDelivered=mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
+    $new_notes=mysqli_real_escape_string($con,$_POST['txtnotes0']);
+    $new_desc=mysqli_real_escape_string($con,$_POST['txtdesc0']);
+    $new_unit=mysqli_real_escape_string($con,$_POST['txtunit0']);
+    $quantity_returned = mysqli_real_escape_string($con,$_POST['txtquantity0']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
+    $amount=mysqli_real_escape_string($con,$_POST['unit_price0']) * (mysqli_real_escape_string($con,$_POST['txtquantity0']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']));
+    $supplierid=mysqli_real_escape_string($con,$_POST['txtsupplierid0']);
+    $suppliesid=mysqli_real_escape_string($con,$_POST['txtsuppliesid0']);
+    $addstock=mysqli_real_escape_string($con,$_POST['txtstock0']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
+    $stock=mysqli_real_escape_string($con,$_POST['txtstock0']);
+    $new_supid=mysqli_real_escape_string($con,$_POST['txtsupid0']);
+    $new_inputExp=mysqli_real_escape_string($con,$_POST['txtexpiration0']);
+    $type=mysqli_real_escape_string($con,$_POST['txttype0']);
+    $brand=mysqli_real_escape_string($con,$_POST['txtbrand0']);
+    $price=mysqli_real_escape_string($con,$_POST['unit_price0']);
+    $new_OrigExp=mysqli_real_escape_string($con,$_POST['txtexpire0']);
 
     $new_id1=mysqli_real_escape_string($con,$_POST['txtpoid1']);
     $new_status1=mysqli_real_escape_string($con,$_POST['txtstatus1']);
     $new_quantity1=mysqli_real_escape_string($con,$_POST['txtquantity1']);
     $new_quantityDelivered1=mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
+    $new_notes1=mysqli_real_escape_string($con,$_POST['txtnotes1']);
+    $quantity_returned1 = mysqli_real_escape_string($con,$_POST['txtquantity1'])- mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
+    $amount1=mysqli_real_escape_string($con,$_POST['unit_price1']) * (mysqli_real_escape_string($con,$_POST['txtquantity1']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']));
+    $supplierid1=mysqli_real_escape_string($con,$_POST['txtsupplierid1']);
+    $suppliesid1=mysqli_real_escape_string($con,$_POST['txtsuppliesid1']);
+    $addstock1=mysqli_real_escape_string($con,$_POST['txtstock1']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
+    $new_supid1=mysqli_real_escape_string($con,$_POST['txtsupid1']);
 
     $new_id2=mysqli_real_escape_string($con,$_POST['txtpoid2']);
     $new_status2=mysqli_real_escape_string($con,$_POST['txtstatus2']);
     $new_quantity2=mysqli_real_escape_string($con,$_POST['txtquantity2']);
     $new_quantityDelivered2=mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
+    $new_notes2=mysqli_real_escape_string($con,$_POST['txtnotes2']);
+    $quantity_returned2 = mysqli_real_escape_string($con,$_POST['txtquantity2']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
+    $amount2=mysqli_real_escape_string($con,$_POST['unit_price2']) * (mysqli_real_escape_string($con,$_POST['txtquantity2']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']));
+    $supplierid2=mysqli_real_escape_string($con,$_POST['txtsupplierid2']);
+    $suppliesid2=mysqli_real_escape_string($con,$_POST['txtsuppliesid2']);
+    $addstock2=mysqli_real_escape_string($con,$_POST['txtstock2']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
+    $new_supid2=mysqli_real_escape_string($con,$_POST['txtsupid2']);
 
     $new_id3=mysqli_real_escape_string($con,$_POST['txtpoid3']);
     $new_status3=mysqli_real_escape_string($con,$_POST['txtstatus3']);
     $new_quantity3=mysqli_real_escape_string($con,$_POST['txtquantity3']);
     $new_quantityDelivered3=mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
+    $new_notes3=mysqli_real_escape_string($con,$_POST['txtnotes3']);
+    $quantity_returned3 = mysqli_real_escape_string($con,$_POST['txtquantity3']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
+    $amount3=mysqli_real_escape_string($con,$_POST['unit_price3']) * (mysqli_real_escape_string($con,$_POST['txtquantity3']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']));
+    $supplierid3=mysqli_real_escape_string($con,$_POST['txtsupplierid3']);
+    $suppliesid3=mysqli_real_escape_string($con,$_POST['txtsuppliesid3']);
+    $addstock3=mysqli_real_escape_string($con,$_POST['txtstock3']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
+    $new_supid3=mysqli_real_escape_string($con,$_POST['txtsupid3']);
 
     $new_id4=mysqli_real_escape_string($con,$_POST['txtpoid4']);
     $new_status4=mysqli_real_escape_string($con,$_POST['txtstatus4']);
     $new_quantity4=mysqli_real_escape_string($con,$_POST['txtquantity4']);
     $new_quantityDelivered4=mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
+    $new_notes4=mysqli_real_escape_string($con,$_POST['txtnotes4']);
+    $quantity_returned4 = mysqli_real_escape_string($con,$_POST['txtquantity4']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
+    $amount4=mysqli_real_escape_string($con,$_POST['unit_price4']) * (mysqli_real_escape_string($con,$_POST['txtquantity4']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']));
+    $supplierid4=mysqli_real_escape_string($con,$_POST['txtsupplierid4']);
+    $suppliesid4=mysqli_real_escape_string($con,$_POST['txtsuppliesid4']);
+    $addstock4=mysqli_real_escape_string($con,$_POST['txtstock4']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
+    $new_supid4=mysqli_real_escape_string($con,$_POST['txtsupid4']);
 
     $new_id5=mysqli_real_escape_string($con,$_POST['txtpoid5']);
     $new_status5=mysqli_real_escape_string($con,$_POST['txtstatus5']);
     $new_quantity5=mysqli_real_escape_string($con,$_POST['txtquantity5']);
     $new_quantityDelivered5=mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
+    $new_notes5=mysqli_real_escape_string($con,$_POST['txtnotes5']);
+    $quantity_returned5 = mysqli_real_escape_string($con,$_POST['txtquantity5']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
+    $amount5=mysqli_real_escape_string($con,$_POST['unit_price5']) * (mysqli_real_escape_string($con,$_POST['txtquantity5']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']));
+    $supplierid5=mysqli_real_escape_string($con,$_POST['txtsupplierid5']);
+    $suppliesid5=mysqli_real_escape_string($con,$_POST['txtsuppliesid5']);
+    $addstock5=mysqli_real_escape_string($con,$_POST['txtstock5']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
+    $new_supid5=mysqli_real_escape_string($con,$_POST['txtsupid5']);
 
     $new_id6=mysqli_real_escape_string($con,$_POST['txtpoid6']);
     $new_status6=mysqli_real_escape_string($con,$_POST['txtstatus6']);
     $new_quantity6=mysqli_real_escape_string($con,$_POST['txtquantity6']);
     $new_quantityDelivered6=mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
+    $new_notes6=mysqli_real_escape_string($con,$_POST['txtnotes6']);
+    $quantity_returned6 = mysqli_real_escape_string($con,$_POST['txtquantity6']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
+    $amount6=mysqli_real_escape_string($con,$_POST['unit_price6']) * (mysqli_real_escape_string($con,$_POST['txtquantity6']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']));
+    $supplierid6=mysqli_real_escape_string($con,$_POST['txtsupplierid6']);
+    $suppliesid6=mysqli_real_escape_string($con,$_POST['txtsuppliesid6']);
+    $addstock6=mysqli_real_escape_string($con,$_POST['txtstock6']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
+    $new_supid6=mysqli_real_escape_string($con,$_POST['txtsupid6']);
 
     $new_id7=mysqli_real_escape_string($con,$_POST['txtpoid7']);
     $new_status7=mysqli_real_escape_string($con,$_POST['txtstatus7']);
     $new_quantity7=mysqli_real_escape_string($con,$_POST['txtquantity7']);
     $new_quantityDelivered7=mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
+    $new_notes7=mysqli_real_escape_string($con,$_POST['txtnotes7']);
+    $quantity_returned7 = mysqli_real_escape_string($con,$_POST['txtquantity7']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
+    $amount7=mysqli_real_escape_string($con,$_POST['unit_price7']) * (mysqli_real_escape_string($con,$_POST['txtquantity7']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']));
+    $supplierid7=mysqli_real_escape_string($con,$_POST['txtsupplierid7']);
+    $suppliesid7=mysqli_real_escape_string($con,$_POST['txtsuppliesid7']);
+    $addstock7=mysqli_real_escape_string($con,$_POST['txtstock7']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
+    $new_supid7=mysqli_real_escape_string($con,$_POST['txtsupid7']);
 
     $new_id8=mysqli_real_escape_string($con,$_POST['txtpoid8']);
     $new_status8=mysqli_real_escape_string($con,$_POST['txtstatus8']);
     $new_quantity8=mysqli_real_escape_string($con,$_POST['txtquantity8']);
     $new_quantityDelivered8=mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
+    $new_notes8=mysqli_real_escape_string($con,$_POST['txtnotes8']);
+    $quantity_returned8 = mysqli_real_escape_string($con,$_POST['txtquantity8']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
+    $amount8=mysqli_real_escape_string($con,$_POST['unit_price8']) * (mysqli_real_escape_string($con,$_POST['txtquantity8']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']));
+    $supplierid8=mysqli_real_escape_string($con,$_POST['txtsupplierid8']);
+    $suppliesid8=mysqli_real_escape_string($con,$_POST['txtsuppliesid8']);
+    $addstock8=mysqli_real_escape_string($con,$_POST['txtstock8']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
+    $new_supid8=mysqli_real_escape_string($con,$_POST['txtsupid8']);
 
     $new_id9=mysqli_real_escape_string($con,$_POST['txtpoid9']);
     $new_status9=mysqli_real_escape_string($con,$_POST['txtstatus9']);
     $new_quantity9=mysqli_real_escape_string($con,$_POST['txtquantity9']);
     $new_quantityDelivered9=mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
+    $new_notes9=mysqli_real_escape_string($con,$_POST['txtnotes9']);
+    $quantity_returned9 = mysqli_real_escape_string($con,$_POST['txtquantity9']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
+    $amount9=mysqli_real_escape_string($con,$_POST['unit_price9']) * (mysqli_real_escape_string($con,$_POST['txtquantity9']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']));
+    $supplierid9=mysqli_real_escape_string($con,$_POST['txtsupplierid9']);
+    $suppliesid9=mysqli_real_escape_string($con,$_POST['txtsuppliesid9']);
+    $addstock9=mysqli_real_escape_string($con,$_POST['txtstock9']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
+    $new_supid9=mysqli_real_escape_string($con,$_POST['txtsupid9']);
     
     // if for index 0
     if($new_quantity == $new_quantityDelivered){
-      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered' WHERE po_id='$new_id' ";
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered', notes='$new_notes' WHERE po_id='$new_id' ";
       $result_update=mysqli_query($con,$sqlupdate);
+
+      $sqladd="UPDATE supplies SET quantity_in_stock='$addstock' WHERE supply_id='$new_supid' ";
+      $result_add=mysqli_query($con,$sqladd);
     }else {
-      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered' WHERE po_id='$new_id' ";
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered', notes='$new_notes' WHERE po_id='$new_id' ";
       $result_update=mysqli_query($con,$sqlupdate);
+
+      $sqlinsert="INSERT INTO returns (return_date, quantity_returned, cost_amount, reason, po_id, supplier_id, supplies_id) VALUES (CURDATE() , $quantity_returned, $amount, $new_notes, $new_id, $supplierid, $suppliesid) ";     
+      $sqlinerted=mysqli_query($con,$sqlinsert);
+
+      if($new_inputExp == $new_OrigExp){
+        $sqladd="UPDATE supplies SET quantity_in_stock='$addstock' WHERE supply_id='$new_supid' ";
+        $result_add=mysqli_query($con,$sqladd);
+      }else if($new_inputExp != $new_OrigExp){
+        $sqlexp="INSERT INTO supplies (supply_type, supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, total_amount, delivery_id, suppliers_id) VALUES ($type, $new_desc, $brand, $new_unit, $stock, $price, $new_inputExp, $new_purchaseID, $supplierid)";
+        $resultexp=mysqli_query($con,$sqlexp);
+      }
+      
+
+
     }
     // if for index 1
     if ($new_quantity1 == $new_quantityDelivered1) {
-      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered1' WHERE po_id='$new_id1' ";
+      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1' WHERE po_id='$new_id1' ";
       $result_update1=mysqli_query($con,$sqlupdate1);
+
+      $sqladd1="UPDATE supplies SET quantity_in_stock='$addstock1' WHERE supply_id='$new_supid1' ";
+      $result_add1=mysqli_query($con,$sqladd1);
     }else{
-      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered1' WHERE po_id='$new_id1' ";
+      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1' WHERE po_id='$new_id1' ";
       $result_update1=mysqli_query($con,$sqlupdate1);
+
+      $sqlinsert1="INSERT INTO returns (return_date, quantity_returned, cost_amount, reason, po_id, supplier_id, supplies_id) VALUES (CURDATE() , $quantity_returned1, $amount1, $new_notes1, $new_id1, $supplierid1, $suppliesid1) ";     
+      $sqlinerted1=mysqli_query($con,$sqlinsert1);
+
+      $sqladd1="UPDATE supplies SET quantity_in_stock='$addstock1' WHERE supply_id='$new_supid1' ";
+      $result_add1=mysqli_query($con,$sqladd1);
     }
     // if for index 2
     if($new_quantity2 == $new_quantityDelivered2){
-      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered2'  WHERE po_id='$new_id2' ";
+      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2'  WHERE po_id='$new_id2' ";
       $result_update2=mysqli_query($con,$sqlupdate2);
+
+      $sqladd2="UPDATE supplies SET quantity_in_stock='$addstock2' WHERE supply_id='$new_supid2' ";
+      $result_add2=mysqli_query($con,$sqladd2);
     }else{
-      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered2'  WHERE po_id='$new_id2' ";
+      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2'  WHERE po_id='$new_id2' ";
       $result_update2=mysqli_query($con,$sqlupdate2);
+
+      $sqlinsert2="INSERT INTO returns (return_date, quantity_returned, cost_amount, reason, po_id, supplier_id, supplies_id) VALUES (CURDATE() , $quantity_returned2, $amount2, $new_notes2, $new_id2, $supplierid2, $suppliesid2) ";     
+      $sqlinerted2=mysqli_query($con,$sqlinsert2);
+
+      $sqladd2="UPDATE supplies SET quantity_in_stock='$addstock2' WHERE supply_id='$new_supid2' ";
+      $result_add2=mysqli_query($con,$sqladd2);
     }
     // if for index 3
     if($new_quantity3 == $new_quantityDelivered3){
-      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Full' , quantity_delivered='$new_quantityDelivered3' WHERE po_id='$new_id3' ";
+      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Full' , quantity_delivered='$new_quantityDelivered3', notes='$new_notes3' WHERE po_id='$new_id3' ";
       $result_update3=mysqli_query($con,$sqlupdate3);
+
+      $sqladd3="UPDATE supplies SET quantity_in_stock='$addstock3' WHERE supply_id='$new_supid3' ";
+      $result_add3=mysqli_query($con,$sqladd3);
     }else{
-      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Partial' , quantity_delivered='$new_quantityDelivered3' WHERE po_id='$new_id3' ";
+      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Partial' , quantity_delivered='$new_quantityDelivered3', notes='$new_notes3' WHERE po_id='$new_id3' ";
       $result_update3=mysqli_query($con,$sqlupdate3);
+
+      $sqlinsert3="INSERT INTO returns (return_date, quantity_returned, cost_amount, reason, po_id, supplier_id, supplies_id) VALUES (CURDATE() , $quantity_returned3, $amount3, $new_notes3, $new_id3, $supplierid3, $suppliesid3) ";     
+      $sqlinerted3=mysqli_query($con,$sqlinsert3);
+
+      $sqladd3="UPDATE supplies SET quantity_in_stock='$addstock3' WHERE supply_id='$new_supid3' ";
+      $result_add3=mysqli_query($con,$sqladd3);
     }
     // if for index 4
     if($new_quantity4 == $new_quantityDelivered4){
-      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered4' WHERE po_id='$new_id4' ";
+      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4' WHERE po_id='$new_id4' ";
       $result_update4=mysqli_query($con,$sqlupdate4);
+
+      $sqladd4="UPDATE supplies SET quantity_in_stock='$addstock4' WHERE supply_id='$new_supid4' ";
+      $result_add4=mysqli_query($con,$sqladd4);
     }else{
-      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4' WHERE po_id='$new_id4' ";
+      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4' WHERE po_id='$new_id4' ";
       $result_update4=mysqli_query($con,$sqlupdate4);
+
+      $sqlinsert4="INSERT INTO returns (return_date, quantity_returned, cost_amount, reason, po_id, supplier_id, supplies_id) VALUES (CURDATE() , $quantity_returned4, $amount4, $new_notes4, $new_id4, $supplierid4, $suppliesid4) ";     
+      $sqlinerted4=mysqli_query($con,$sqlinsert4);
+
+      $sqladd4="UPDATE supplies SET quantity_in_stock='$addstock4' WHERE supply_id='$new_supid4' ";
+      $result_add4=mysqli_query($con,$sqladd4);
     }
     // if for index 5
     if($new_quantity5 == $new_quantityDelivered5){
-      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered5' WHERE po_id='$new_id5' ";
+      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5' WHERE po_id='$new_id5' ";
       $result_update5=mysqli_query($con,$sqlupdate5);
+
+      $sqladd5="UPDATE supplies SET quantity_in_stock='$addstock5' WHERE supply_id='$new_supid5' ";
+      $result_add5=mysqli_query($con,$sqladd5);
     }else{
-      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered5' WHERE po_id='$new_id5' ";
+      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5' WHERE po_id='$new_id5' ";
       $result_update5=mysqli_query($con,$sqlupdate5);
+
+      $sqlinsert5="INSERT INTO returns (return_date, quantity_returned, cost_amount, reason, po_id, supplier_id, supplies_id) VALUES (CURDATE() , $quantity_returned5, $amount5, $new_notes5, $new_id5, $supplierid5, $suppliesid5) ";     
+      $sqlinerted5=mysqli_query($con,$sqlinsert5);
+
+      $sqladd5="UPDATE supplies SET quantity_in_stock='$addstock5' WHERE supply_id='$new_supid5' ";
+      $result_add5=mysqli_query($con,$sqladd5);
     }
     // if for index 6
     if($new_quantity6 == $new_quantityDelivered6){
-      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered6' WHERE po_id='$new_id6' ";
+      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6' WHERE po_id='$new_id6' ";
       $result_update6=mysqli_query($con,$sqlupdate6);
+
+      $sqladd6="UPDATE supplies SET quantity_in_stock='$addstock6' WHERE supply_id='$new_supid6' ";
+      $result_add6=mysqli_query($con,$sqladd6);
     }else{
-      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered6' WHERE po_id='$new_id6' ";
+      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6' WHERE po_id='$new_id6' ";
       $result_update6=mysqli_query($con,$sqlupdate6);
+
+      $sqlinsert6="INSERT INTO returns (return_date, quantity_returned, cost_amount, reason, po_id, supplier_id, supplies_id) VALUES (CURDATE() , $quantity_returned6, $amount6, $new_notes6, $new_id6, $supplierid6, $suppliesid6) ";     
+      $sqlinerted6=mysqli_query($con,$sqlinsert6);
+
+      $sqladd6="UPDATE supplies SET quantity_in_stock='$addstock6' WHERE supply_id='$new_supid6' ";
+      $result_add6=mysqli_query($con,$sqladd6);
     }
     // if for index 7
     if($new_quantity7 == $new_quantityDelivered7){
-      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered7' WHERE po_id='$new_id7' ";
+      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7' WHERE po_id='$new_id7' ";
       $result_update7=mysqli_query($con,$sqlupdate7);
+
+      $sqladd7="UPDATE supplies SET quantity_in_stock='$addstock7' WHERE supply_id='$new_supid7' ";
+      $result_add7=mysqli_query($con,$sqladd7);
     }else{
-      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered7' WHERE po_id='$new_id7' ";
+      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7' WHERE po_id='$new_id7' ";
       $result_update7=mysqli_query($con,$sqlupdate7);
+
+      $sqlinsert7="INSERT INTO returns (return_date, quantity_returned, cost_amount, reason, po_id, supplier_id, supplies_id) VALUES (CURDATE() , $quantity_returned7, $amount7, $new_notes7, $new_id7, $supplierid7, $suppliesid7) ";     
+      $sqlinerted7=mysqli_query($con,$sqlinsert7);
+
+      $sqladd7="UPDATE supplies SET quantity_in_stock='$addstock7' WHERE supply_id='$new_supid7' ";
+      $result_add7=mysqli_query($con,$sqladd7);
     }
     // if for index 8
     if($new_quantity8 == $new_quantityDelivered8){
-      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered8' WHERE po_id='$new_id8' ";
+      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered8', notes='$new_notes8' WHERE po_id='$new_id8' ";
       $result_update8=mysqli_query($con,$sqlupdate8);
+
+      $sqladd8="UPDATE supplies SET quantity_in_stock='$addstock8' WHERE supply_id='$new_supid8' ";
+      $result_add8=mysqli_query($con,$sqladd8);
     }else{
-      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered8' WHERE po_id='$new_id8' ";
+      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered8', notes='$new_notes8' WHERE po_id='$new_id8' ";
       $result_update8=mysqli_query($con,$sqlupdate8);
+
+      $sqlinsert8="INSERT INTO returns (return_date, quantity_returned, cost_amount, reason, po_id, supplier_id, supplies_id) VALUES (CURDATE() , $quantity_returned8, $amount8, $new_notes8, $new_id8, $supplierid8, $suppliesid8) ";     
+      $sqlinerted8=mysqli_query($con,$sqlinsert8);
+
+      $sqladd8="UPDATE supplies SET quantity_in_stock='$addstock8' WHERE supply_id='$new_supid8' ";
+      $result_add8=mysqli_query($con,$sqladd8);
     }
     // if for index 9
     if($new_quantity9 == $new_quantityDelivered9){
-      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered9' WHERE po_id='$new_id9' ";
+      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9' WHERE po_id='$new_id9' ";
       $result_update9=mysqli_query($con,$sqlupdate9);
+
+      $sqladd9="UPDATE supplies SET quantity_in_stock='$addstock9' WHERE supply_id='$new_supid9' ";
+      $result_add9=mysqli_query($con,$sqladd9);
     }else{
-      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered9' WHERE po_id='$new_id9' ";
+      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9' WHERE po_id='$new_id9' ";
       $result_update9=mysqli_query($con,$sqlupdate9);
+
+      $sqlinsert9="INSERT INTO returns (return_date, quantity_returned, cost_amount, reason, po_id, supplier_id, supplies_id) VALUES (CURDATE() , $quantity_returned9, $amount9, $new_notes9, $new_id9, $supplierid9, $suppliesid9) ";     
+      $sqlinerted9=mysqli_query($con,$sqlinsert9);
+
+      $sqladd9="UPDATE supplies SET quantity_in_stock='$addstock9' WHERE supply_id='$new_supid9' ";
+      $result_add9=mysqli_query($con,$sqladd9);
     }
 
     if($new_quantity == $new_quantityDelivered && $new_quantity1 == $new_quantityDelivered1 && $new_quantity2 == $new_quantityDelivered2 && $new_quantity3 == $new_quantityDelivered3 && $new_quantity4 == $new_quantityDelivered4 && $new_quantity5 == $new_quantityDelivered5 && $new_quantity6 == $new_quantityDelivered6 && $new_quantity7 == $new_quantityDelivered7 && $new_quantity8 == $new_quantityDelivered8 && $new_quantity9 == $new_quantityDelivered9){
@@ -1068,3 +1336,22 @@ if(isset($_POST['btnDelete'])){
 } // END OF SOFT DELETE OFFICE SUPPLIES
 
 ?>
+<script>
+        $(document).on('click','#getAdd',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'dashboard/addUser',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+</script>

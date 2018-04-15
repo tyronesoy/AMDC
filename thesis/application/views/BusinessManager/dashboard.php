@@ -380,74 +380,126 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <li class="user-header">
                 <img src="assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
-                <p>
-                 <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
-                  <small> Business Manager </small>
-                </p>
+                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+        <small> Business Manager</small>
+        </p>
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-            
+        
                 <div class="pull-right">
                   <a href="<?php echo 'logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+                <div class="pull-left">
+                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
                 </div>
               </li>
             </ul>
           </li>
-          </ul>
+        </ul>
       </div>
     </nav>
   </header>
-    <div class="modal fade" id="modal-default">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Change Password</h4>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="form-group">
-                                                          <label for="exampleInputEmail1">Enter New Password</label>
-                                                          <input type="email" class="form-control">
-                                                        </div>
-                                                      <div class="form-group">
-                                                          <label for="exampleInputEmail1">Confirm New Password</label>
-                                                          <input type="email" class="form-control">
-                                                        </div>
-                                                      <div class="form-group">
-                                                          <label for="exampleInputEmail1">Security Question: Who is you favorite superhero?</label>
-                                                          <input type="email" class="form-control" placeholder="Answer">
-                                                        </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-warning">Save Password</button>
-                                  </div>
-                                </div>
-                                <!-- /.modal-content -->
-                              </div>
-                              <!-- /.modal-dialog -->
+    <?php $identity =  $this->session->userdata('fname');?>
+ 
+<div class="modal fade" id="editprof">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-md-2">
+                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                             </div>
-                            <!-- /.modal -->
-                            <!-- MODAL -->
-                            <div class="modal fade" id="modal-warning">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <h4>New Password Saved!</h4>
-                                  </div>
-                                </div>
-                                <!-- /.modal-content -->
-                              </div>
-                              <!-- /.modal-dialog -->
-                            </div>
-                            <!-- /.modal -->
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Profile</b></h4></center>
+                                            </div>
+                                      </div>
+                <div class="box-body">
+                    
+                        <?php
+                          $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                          $date = date("Y/m/d");
+                          $sql = "Select * from users where user_id = ".$this->session->userdata('id')."";
+                          $result = $conn->query($sql);    
+                        ?>
+                        <?php if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) { ?>
                             
+                            <div class="form-group">
+                          <label hidden="true" for="exampleInputEmail1">id</label>
+                          <input type="text" class="hidden" name="prevname" id="prevname" value="<?php echo $identity; ?>" />
+                        </div>
+                    
+                       <div class="form-group">
+                          <label for="exampleInputEmail1">Username</label>
+                          <input type="text" class="form-control" name="username" id="username" value="<?php echo $row['username'] ?>" required />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">First Name</label>
+                          <input type="name" class="form-control" name="fname" id="fname" value="<?php echo $row['fname'] ?>" required />
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Last Name</label>
+                          <input type="name" class="form-control" name="lname" id="lname" value="<?php echo $row['lname'] ?>" required />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Contact Number</label>
+                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Password</label>
+                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $row['password'] ?>" required />
+
+                        <script>
+                        function mouseoverPass(obj) {
+                          var obj = document.getElementById('password');
+                          obj.type = "text";
+                        }
+                        function mouseoutPass(obj) {
+                          var obj = document.getElementById('password');
+                          obj.type = "password";
+                        }
+                        </script>
+                            
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email</label>
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
+                        </div>
+                    
+                          <?php 
+                              }
+                            }
+                          ?>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </form> 
+        </div>                        
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -1220,6 +1272,26 @@ function myFunction3(id) {
     })
 
   })
+</script>
+
+<script>
+        $(document).on('click','#getAdd',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'dashboard/addUser',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
 </script>
 </body>
 </html>

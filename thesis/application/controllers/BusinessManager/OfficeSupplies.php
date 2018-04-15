@@ -77,4 +77,7 @@ class OfficeSupplies extends CI_Controller {
 	public function totalOfficeSupplies(){
 		$this->load->view('BusinessManager/php/OfficeSuppliesTotalQuantity');
 	}
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
+	}
 }

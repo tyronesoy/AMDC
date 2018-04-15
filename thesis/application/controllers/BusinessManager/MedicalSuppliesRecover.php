@@ -49,4 +49,7 @@ class MedicalSuppliesRecover extends CI_Controller {
 	public function recoverMedicalSupplies(){
 		$this->load->view('BusinessManager/php/medicalSuppliesRecoverDelete');
 	}
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
+	}
 }
