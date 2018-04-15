@@ -582,7 +582,7 @@ function unit_measure($connect)
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
-                                                  <select class="form-control select2" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <select class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
@@ -998,12 +998,16 @@ if(isset($_POST['medEdit'])){
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['addQTY']);
-    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
+    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['unitPrice']);
     $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
 
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', quantity_in_stock='$new_supplyQuantityInStock'+quantity_in_stock, unit_price='$new_supplyUnitPrice', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit_price='$new_supplyUnitPrice', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
+
+    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['addQTY']);
+
+    $sqlinsert="INSERT INTO quantity_in_stock='$new_supplyQuantityInStock'+quantity_in_stock WHERE supply_id='$id' ";
+    $result_update2=mysqli_query($conn, $sqlinsert);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
