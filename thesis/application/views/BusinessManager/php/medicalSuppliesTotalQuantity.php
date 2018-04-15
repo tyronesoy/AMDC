@@ -630,7 +630,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          $conn =mysqli_connect("localhost","root","");
           mysqli_select_db($conn, "itproject");
           $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
-            FROM supplies WHERE supply_type='Medical' AND quantity_in_stock IS NOT NULL
+            FROM supplies WHERE supply_type='Medical' AND quantity_in_stock IS NOT NULL AND supply_description != ' ' AND (unit_price IS NOT NULL AND unit_price != 0)
             GROUP BY supply_description;";
           $result = $conn->query($sql);  ?>
           <col width="50%">
@@ -839,7 +839,7 @@ if(isset($_POST['medTQEdit'])){
         mysqli_select_db($conn, "itproject");
         $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Medical supply reorder level has been changed to ".$new_supplyReorderLevel."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $res1 = $conn->query($notif1);
-        echo '<script>window.location.href="medicalSupplies"</script>';
+        echo '<script>window.location.href="medicalSuppliesTotalQuantity"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
