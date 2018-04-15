@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../../assets/dist/css/skins/_all-skins.min.css">
   <script src="../../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- Select2 -->
   <link rel="stylesheet" href="../../bower_components/select2/dist/css/select2.min.css">
     <!-- datatable lib -->
@@ -133,6 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table>
                 </ul>
               </li>
+              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -141,7 +142,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </center>
               </li>
             </ul>
-          </li>
+          </li>      
+         
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

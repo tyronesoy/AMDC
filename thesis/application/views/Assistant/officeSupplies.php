@@ -408,8 +408,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
+        <li>
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
+  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -417,7 +424,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+            <li class="active treeview">
               <a href="#"><i class="fa fa-briefcase"></i> Supplies
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -426,7 +433,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li class="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li class="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
@@ -454,6 +461,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
+
+        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'logs' ?>">
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
+          </a>
+        </li>
+
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
@@ -470,12 +485,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Office Supplies</b>
+          <i class="fa fa-pencil-square"></i> <b>Office Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li class="active">Office Supplies</li>
+        <li><i class="fa fa-briefcase"></i> Supplies</li>
+        <li class="active"><i class="fa fa-pencil-square"></i> Office Supplies</li>
       </ol>
     </section>
 
@@ -511,12 +527,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <center><h3 class="modal-title"><b>Add New Item</b></h3></center>
-                                          </div>
-                                      </div>
+                                              <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- end of modal header -->
-                                      <div class="modal-body">
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Add New Item</b></h4></center>
+                                            </div>
+                                        </div>
                                         <div class="box-body">
 
                                           <!-- /.form group -->
@@ -568,7 +597,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="button" class="btn btn-primary" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-save"></i> Save Supply</button>
+                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"></i> Add</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -576,7 +605,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
-
+</div>
                                 <div class="modal modal-success fade" id="modal-success">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
@@ -588,8 +617,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                           <h3>Are you sure to add this item?&hellip;</h3>
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
-                                          <button type="submit" class="btn btn-outline" name="addOffSupply"><i class="fa fa-save"></i> Save changes</button>
+                                          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
+                                          <button type="submit" class="btn btn-outline" name="addOffSupply"><i class="fa fa-check"></i> Yes</button>
 
                                         </div>
                                       </div>
@@ -602,112 +631,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </th> 
                               
                             <!--- END OF ADD -->
-                        <!---  ISSUE BUTTON -->
-                         <th>&nbsp;&nbsp;<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default">Issue To
-                          <i class="glyphicon glyphicon-arrow-right"></i></button>
-                                <form name ="form2" method="post" action="officeSupplies/addOfficeSuppliesIssueTo">
-                                <div class="modal fade" id="modal-default">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <center><h3 class="modal-title"><b>Issue Supply</b></h3></center>
-                                          </div>
-                                      </div>
-                                        <!-- end of modal header -->
-
-                                      <div class="modal-body">
-                                                <div class="form-group">
-                                                <select class="form-group select2" name = "department" style="width:40%" required>
-                                                <option value="">Select a Department</option>
-                                                <?php
-                                                 $conn =mysqli_connect("localhost","root","");
-                                                mysqli_select_db($conn, "itproject");
-                                                  $sql = "SELECT * FROM departments GROUP BY department_name";
-                                                  $results = mysqli_query($conn, $sql);
-
-                                                  foreach($results as $department) { 
-                                                ?>
-                                                <option value="<?php echo $department["department_name"]; ?>" name="department"><?php echo $department["department_name"]; ?></option>
-                                                <?php 
-                                                  }
-                                                ?>
-                                              </select>
-                                          </div>
-                                                  <div class="row">
-                                                  <div class="col-md-6">
-                                              <!-- Date and Time -->
-                                                  <div class="form-group">
-                                                    <label>Request Date</label>
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <?php $date=date("Y-m-d"); ?>
-                                                      <input type="text" class="form-control pull-right" id="datepicker3" name="reqDate" value="<?php echo $date; ?>" readonly>
-                                                    </div>
-                                                    <!-- /.input group -->
-                                                  </div>
-                                                </div>
-
-                                          <!-- /.form group -->
-                                                 <div class="col-md-6">
-                                                 <div class="form-group">
-                                                    <label>Issue Date</label>
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <?php $date=date("Y-m-d"); ?>
-                                                      <input type="text" class="form-control pull-right" id="datepicker4" name="issueDate" readonly>
-                                                    </div>
-                                                    <!-- /.input group -->
-                                                  </div>
-                                          <!-- /.form group -->
-                                        </div>
-                                          </div>
-                                          <!-- /.form group -->
-                                              <div class="row">
-                                              <div class="col-md-6" style="width:60%;">
-                                              <label for="exampleInputEmail1">Supply Description</label>
-                                              <div class="form-group">
-                                                <select class="form-group select2" name = "description" style="width:100%" required>
-                                                <option value="">Select a Supply</option>
-                                                <?php
-                                                 $conn =mysqli_connect("localhost","root","");
-                                                mysqli_select_db($conn, "itproject");
-                                                  $sql = "SELECT * FROM supplies WHERE supply_type='Office' ";
-                                                  $results = mysqli_query($conn, $sql);
-
-                                                  foreach($results as $description) { 
-                                                ?>
-                                                <option value="<?php echo $description["supply_description"]; ?>" name="desc"><?php echo $description["supply_description"]; ?></option>
-                                                <?php 
-                                                  }
-                                                ?>
-                                              </select>
-                                          </div>
-                                              </div>
-                                              <div class="col-md-6" style="width:40%;">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" name="quantity" min="0" required />
-                                                </div>
-                                              </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-warning" name="offIssueTo"><i class="glyphicon glyphicon-arrow-right"></i> Issue Supplies</button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                              </form>
-                             <!-- /.modal --></th>
+                        
                     </tr>
                 </table>      
             </div>
@@ -718,41 +642,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Office' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
-         
+            
+            <col width="10%">
+            <col width="auto">
+            <col width="5%">
+            <col width="auto">
+            <col width="8%">
+            <col width="22.5%">
           <thead>
             <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
                   <th>Expiration Date</th> 
                   <th>Description</th>
-                  <th>Quantity in Stock</th>
+                  <th>Quantity In Stock</th>
                   <th>Unit</th>
-                  <th>Unit Price</th> 
-                  <th>Action</th>
+                  <th>Unit Price</th>
+                  <th> Action</th> 
             </tr>
         </thead>
-        
         <tbody>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <td><?php echo $row["expiration_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
-                      <td><?php echo $row["unit_price"]; ?></td>
+                      <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" id="getRecon" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-adjust"></i> Reconcile</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Remove</button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" id="getAdd" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                            <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
                         </div>
                       </td>
                     </tr>
@@ -761,14 +685,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                   ?>
                 </tbody>
-
+        
         <tfoot>
            <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
                   <th>Expiration Date</th> 
                   <th>Description</th>
-                  <th>Quantity in Stock</th>
+                  <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
                   <th> Action</th> 
@@ -785,7 +707,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- /.row -->
             <!--- PRINT AND PDF -->
              <div class="row no-print">
-			<div class="col-xs-1" style="float:right">
+      <div class="col-xs-1" style="float:right">
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       <script>
@@ -799,11 +721,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           wme.close();
         })
       </script>
-	  <div class="col-xs-1" style="float:left">
+    <div class="col-xs-1" style="float:left">
           <a href="officeSuppliesRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
           </a>
           </button>
-		</div>
+    </div>
       </div>
         <!-- END OF PRINT AND PDF -->
     </section>

@@ -149,6 +149,7 @@
                 </table>
                 </ul>
               </li>
+              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">

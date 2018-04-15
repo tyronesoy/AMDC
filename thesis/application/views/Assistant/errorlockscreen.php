@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <title>Business Manager | Lockscreen</title>
+ <title>Assistant | Lockscreen</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
    <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="lockscreen-name">
     <p>
 	<center><font color="#737373"><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></font>
-	<br><font color="#737373"><small>Supervisor</small></font></center>
+	<br><font color="#737373"><small>Assistant</small></font></center>
 	</p>
   </div>
 
@@ -80,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.lockscreen credentials -->
   </div>
   <div class="help-block text-center">
-    <h4><span class="label label-danger">Password is Incorrect!</span></h4>
+    <h3><span class="label label-danger">Password is Incorrect!</span></h3>
   </div>
   <!-- /.lockscreen-item -->
   <div class="help-block text-center">

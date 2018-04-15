@@ -408,8 +408,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
+        <li>
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
+  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -426,12 +433,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
             <li  class="active"><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
@@ -454,6 +461,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
+
+        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'logs' ?>">
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
+          </a>
+        </li>
+
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
@@ -472,12 +487,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Issued Supplies</b>
+         <i class="fa fa-retweet"></i> <b>Issued Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i>Dashboard</li>
-        <li class="active">Issued Supplies</li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li class="active"><i class="fa fa-retweet"></i> Issued Supplies</li>
       </ol>
     </section>
 
@@ -489,20 +504,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
-                <table style="float: left;">
-                    <tr>
-                        <th> <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Branch
-                          <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                        <li><a href="php/issuedBaguio.php">Baguio City</a></li>
-                        <li><a href="php/issuedLA.php">La Trinidad</a></li>
-                        <li><a href="php/issuedSLU.php">SLU Hospital</a></li>
-                        </ul>
-                      </div></th>
-                    </tr>
-                </table>      
+      
             </div>
             <!-- /.box-header -->
               
@@ -510,28 +512,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="table table-bordered table-striped">
                   <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT * FROM issuedsupplies";
-                    $result = $conn->query($sql);    
+                    $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status='Issued' GROUP BY inventory_order_id";
+                    $result = $conn->query($sql);
+
+                    //  WHERE inventory_order_status='Issued'   
                   ?>
-                  <thead>
+                  <thead> 
                   <tr>
                     <th>Request Date</th>
                     <th>Issue Date</th>
-                    <th>Supply Type</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
                     <th>Department</th>
+                    <th>Customer Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["request_date"]; ?></td>
+                      <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["issued_date"]; ?></td>
-                      <td><?php echo $row["supply_type"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
-                      <td><?php echo $row["department_name"]; ?></td>
+                      <td><?php echo $row["inventory_order_dept"]; ?></td>
+                      <td><?php echo $row["inventory_order_name"]; ?></td>
+                      <td><?php echo $row["inventory_order_status"]; ?></td>
+                      <td><div class="btn-group">
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></td>
                     </tr>
                   <?php 
                       }
@@ -539,12 +544,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   ?>
                 <tfoot>
                 <tr>
-                  <th>Request Date</th>
-                      <th>Issue Date</th>
-                      <th>Supply Type</th>
-                      <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Department</th>
+                    <th>Request Date</th>
+                    <th>Issue Date</th>
+                    <th>Department</th>
+                    <th>Customer Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
                 </tfoot>
               </table>
@@ -658,6 +663,32 @@ function onUserInactivity() {
 
 
       })
+    </script>
+
+    <div class="modal fade" id="viewModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="view-data"></div>
+            </div>
+        </div>
+
+    <script>
+        $(document).on('click','#getView',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#view-data').html('');
+            $.ajax({
+                url:'issuedSupplies/issueView',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#view-data').html('');
+                $('#view-data').html(data);
+            }).final(function(){
+                $('#view-data').html('<p>Error</p>');
+            });
+        });
     </script>
 
 <!-- <script>

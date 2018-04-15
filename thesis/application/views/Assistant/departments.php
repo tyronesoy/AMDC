@@ -453,13 +453,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Departments</b>
+        <i class="fa fa-building"></i> <b>Departments</b>
         <!-- <small>advanced tables</small> -->
       </h1>
         
       <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i>Dashboard</li>
-        <li class="active">Departments</li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li class="active"><i class="fa fa-building"></i> Departments</li>
       </ol>
     </section>
 
@@ -475,7 +475,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table style="float:right;">
                     <tr>                  
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus"></i> Add New Department</button>
-						
+            
                         <form name="form1" method="post" action="departments/addDepartment" >
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
@@ -483,43 +483,71 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <center><h3>Add New Department</h3></center>
-                                          </div>
-                                      </div>
+                                                                               <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- end of modal header -->
-                                      <div class="modal-body">
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Add New Department</b></h4></center>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
                                         <div class="box-body">
                                           <table class="table table-bordered table-striped">
                                             <tbody>
-                                            <th> 
+                                              <div class="col-md-6">
                                                   <div class="form-group">
                                                   <label for="exampleInputEmail1">Branch Location</label>
-                                                  <br>
-                                                  <input type="radio" name="branch" value="Baguio City"> Baguio City &nbsp; &nbsp;
-                                                  <input type="radio" name="branch" value="La Trinidad"> La Trinidad  <br>
-                                                </div> 
+                                                       <select name = "branch" class="form-control">
+                                                       <option value="">Select Branch Location</option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT DISTINCT location FROM departments" ;
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $branch) { 
+                                                        ?>
+                                                        <option value="<?php echo $branch["location"]; ?>" name="branch"><?php echo $branch["location"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                  </div> 
+                                                </div>
+                                                  </div>
                                             <tr>
-                                              <td><div class="form-group">
+                                              <div class="col-md-6">
+                                              <div class="form-group">
                                                   <label for="exampleInputEmail1">Department Name</label>
                                                   <input type="text" class="form-control" name="depName" required />
-                                                </div></td>
-                                            </tr>          
-                                             </th>
+                                                </div>
+                                            </tr>         
                                             </tbody>
                                           </table>
                                         </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"> </i> Cancel</button>
-                                        <button type="button" class="btn btn-primary" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-save"> </i> Save</button>
+                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"> </i> Add</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
-							               	<div class="modal modal-default" id="modal-success">
+                              <div class="modal modal-default" id="modal-success">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
                                         <div class="modal-header">
@@ -530,12 +558,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                           <center><h3><b>Are you sure to add this department?</b></h3></center>
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
-                                          <button type="submit" class="btn btn-primary" name="addDep"><i class="fa fa-save"></i> Save changes</button>
-										  </div>
-										  </div>
-								</div>
-								</div>
+                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
+                                          <button type="submit" class="btn btn-primary" name="addDep"><i class="fa fa-check"></i> Yes</button>
+                      </div>
+                      </div>
+                </div>
+                </div>
                                 </form>
                                 </th>
                     </tr>
@@ -554,7 +582,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <th>Department Name</th>
                         <th>Branch Location</th>
-						            <th>Status</th>
+                        <th>Status</th>
                         <th>Action</th>
 
                     </tr>
@@ -579,7 +607,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["department_id"]; ?>"><i class="fa fa-edit"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["department_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["department_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
@@ -593,9 +621,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-						<th>Department Name</th>
+            <th>Department Name</th>
                         <th>Branch Location</th>
-						<th>Status</th>
+            <th>Status</th>
                         <th>Action</th>
                   </tr>
                 </tfoot>
@@ -611,7 +639,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
       <!-- /.row -->
            <div class="row no-print">
-			<div class="col-xs-1" style="float:right">
+      <div class="col-xs-1" style="float:right">
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       <script>
@@ -795,12 +823,12 @@ function onUserInactivity() {
             </div>
         </div>
    
-   		  <div class="modal fade" id="modalUpdate" role="dialog">
+        <div class="modal fade" id="modalUpdate" role="dialog">
             <div class="modal-dialog">
                 <div id="data-content"></div>
             </div>
         </div>
-		
+    
     <!-- <script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
@@ -834,7 +862,7 @@ function onUserInactivity() {
             });
         });
     </script>
-		<script>
+    <script>
         $(document).on('click','#getUpdate',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');

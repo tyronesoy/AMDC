@@ -434,8 +434,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
+        <li>
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
+  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -443,16 +450,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+            <li class=" active treeview">
               <a href="#"><i class="fa fa-briefcase"></i> Supplies
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="active treeview"><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a></li>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
@@ -480,6 +487,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
+
+        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'logs' ?>">
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
+          </a>
+        </li>
+
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
@@ -497,12 +512,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Deleted Medical Supplies</b>
+          <i class="fa fa-medkit"></i> <b>Deleted Medical Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li class="active">Deleted Medical Supplies</li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+         <li><i class="fa fa-medkit"></i> Medical Supplies</a></li>
+        <li class="active"><i class="fa fa-medkit"></i> Deleted Medical Supplies</li>
       </ol>
     </section>
 
@@ -552,7 +568,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["reorder_level"]; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getRestore" class="btn btn-success btn" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-repeat"></i> Restore</button>
+                            <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-repeat"></i> Restore</button>
                         </div>
                         </div>
                       </td>
@@ -584,8 +600,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <!-- /.col -->
       </div>
-	   <div class="row no-print">
-			<div class="col-xs-1" style="float:right">
+     <div class="row no-print">
+      <div class="col-xs-1" style="float:right">
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       <script>

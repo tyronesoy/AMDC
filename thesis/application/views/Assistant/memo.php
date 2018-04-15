@@ -465,15 +465,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       <b>Memo</b>
+       <i class="fa fa-tasks"></i> <b>Memo</b>
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li class="active">Memo</li>
+        <li class="active"><i class="fa fa-tasks"></i> Memo</li>
       </ol>
     </section>
 
@@ -496,14 +496,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                           <center><h3>Add New Memo</h3></center>
-                                          </div>
-                                      </div>
+                                        <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- end of modal header -->
-                                      <div class="modal-body">
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Add New Memo</b></h4></center>
+                                            </div>
+                                        <!-- end of modal header -->
                                         <div class="box-body">
-                                           <div class="form-group">
+                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">User Name</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
@@ -512,17 +525,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <input type="text" class="form-control" id="memo_user" name="memo_user" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </div>
                                               </div>
-                                                <div class="form-group">
+
+                                               
+                                              <div class="form-group">
                                                     <label>Memo Date</label>
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                       <?php $date = date("Y-m-d"); ?>
-                                                      <input type="date" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                      <input type="text" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
+                                    
+
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <textarea type="name" class="form-control" name="memo_description" id="memo_description" required /> </textarea>
@@ -532,7 +549,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="button" class="btn btn-primary" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-save"> </i> Save</button>
+                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"> </i> Add</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -552,8 +569,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                           <center><h3><b>Are you sure to add this memo?</b></h3></center>
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
-                                          <button type="submit" class="btn btn-primary" name="addMemo"><i class="fa fa-save"></i> Save</button>
+                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
+                                          <button type="submit" class="btn btn-primary" name="addMemo"><i class="fa fa-check"></i> Yes</button>
                                     <!-- /.modal-content -->
                                   </div>
                                   <!-- /.modal-dialog -->
@@ -573,7 +590,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example"  class="table table-bordered table-striped" >
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                   $sql = "SELECT * FROM memo WHERE soft_deleted = 'N' AND memo_user='".$this->session->userdata('fname')." ".$this->session->userdata('lname')."'";
+                  $sql = "SELECT * FROM memo WHERE soft_deleted = 'N' AND memo_user='".$this->session->userdata('fname')." ".$this->session->userdata('lname')."'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -584,6 +601,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
+                </thead>
                 <tbody>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
@@ -605,13 +623,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Edit</button>
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
                         </div>
                         <div class="btn-group">
-                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive Memo</button>
+                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
                         </div>
                       </td>
                     </tr>
@@ -623,7 +641,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tfoot>
                   <tr>
                     <th>Memo User</th>
-                    	<th>Memo Date</th>
+                      <th>Memo Date</th>
                         <th>Description</th>
                         <th>Status</th>
                         <th>Action</th>

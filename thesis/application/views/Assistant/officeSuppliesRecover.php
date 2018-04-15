@@ -435,8 +435,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-		<!-- SUPPLIES MENU -->
-                <li class="treeview">
+    <!-- MANAGE ACCOUNTS MENU -->
+        <li>
+          <a href="<?php echo 'useraccounts' ?>">
+            <i class="fa fa-group"></i> <span>Manage Accounts</span>
+          </a>
+        </li>
+    <!-- SUPPLIES MENU -->
+                <li class=" active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -444,41 +450,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+            <li class="active treeview">
               <a href="#"><i class="fa fa-briefcase"></i> Supplies
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
-                <li class="treeview">
-                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-circle-o"></i>Office Supplies</a>
+                <li class="treeview"><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="active treeview">
+                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a>
                 </li>
               </ul>
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
-			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
-		<!-- SUPPLIERS MENU -->
+    <!-- SUPPLIERS MENU -->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		<!-- DEPARTMENTS MENU -->
+    <!-- DEPARTMENTS MENU -->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!-- MEMO MENU -->
+    <!-- MEMO MENU -->
         <li>
           <a href="<?php echo 'memo'?>">
             <i class="fa fa-calendar"></i> <span>Memo</span>
+          </a>
+        </li>
+<!-- INVOICE MENU -->
+        <li>
+           <a href="<?php echo 'logs'?>">
+            <i class="fa fa-calendar"></i
+            <i class="fa fa-print"></i> <span>Logs</span>
           </a>
         </li>
 <!-- LOCKSCREEN MENU -->
@@ -497,12 +510,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <b>Deleted Office Supplies</b>
+          <i class="fa fa-pencil-square"></i> <b>Deleted Office Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
      <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i>Dashboard</li>
-        <li class="active">Deleted Office Supplies</li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
+         <li><i class="fa fa-pencil-square"></i> Office Supplies</a></li>
+        <li class="active"><i class="fa fa-pencil-square"></i> Deleted Office Supplies</li>
       </ol>
     </section>
 
@@ -551,7 +565,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["unit_price"]; ?></td>
                       <td><?php echo $row["reorder_level"]; ?></td>
                       <td>
-                        <button type="button" id="getRestore" class="btn btn-success btn" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-repeat"></i> Restore</button>
+                        <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-repeat"></i> Restore</button>
                         </div>
                       </td>
                     </tr>
@@ -583,8 +597,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-	         <div class="row no-print">
-			<div class="col-xs-1" style="float:right">
+           <div class="row no-print">
+      <div class="col-xs-1" style="float:right">
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       <script>

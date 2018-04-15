@@ -470,11 +470,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b> Deleted Memo </b>
+        <i class="fa fa-tasks"></i> <b> Deleted Memo </b>
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li class="active">Deleted Memo</li>
+        <li><i class="fa fa-tasks"></i> Memo</li>
+        <li class="active"><i class="fa fa-tasks"></i> Deleted Memo</li>
       </ol>
     </section>
 
@@ -525,7 +526,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-repeat"></i> Restore</button>
+                            <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-repeat"></i> Restore</button>
                         </div>
                       </td>
                     </tr>
@@ -552,7 +553,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
         <div class="row no-print">
-			<div class="col-xs-1" style="float:right">
+      <div class="col-xs-1" style="float:right">
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
       <script>

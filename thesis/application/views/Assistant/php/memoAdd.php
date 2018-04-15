@@ -10,7 +10,6 @@ $con=mysqli_connect('localhost','root','','itproject');
   
   $sql->bind_param("sss", $memo_user, $memo_date, $memo_description);
 
-
   if($sql->execute()) {
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');

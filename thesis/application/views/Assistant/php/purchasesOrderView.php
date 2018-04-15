@@ -44,7 +44,6 @@ if(isset($_REQUEST['id'])){
                         </div>
                     </div>
                     <div class="box-body">
-                        
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -136,18 +135,8 @@ if(isset($_REQUEST['id'])){
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
-                        <!-- <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="txtdep">Department</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="txtdep" name="txtdep" value="<?php echo $per_department;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+    
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
