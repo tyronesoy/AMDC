@@ -63,4 +63,7 @@ class Dispose extends CI_Controller {
 	public function editUser(){
 		$this->load->view('Assistant/php/userEdit');
 	}
+    public function addUser(){
+		$this->load->view('Assistant/php/userAdd2');
+	}
 }

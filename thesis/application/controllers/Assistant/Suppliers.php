@@ -64,5 +64,8 @@ class Suppliers extends CI_Controller {
 	public function editSupplier(){
 		$this->load->view('Assistant/php/supplierEdit');
 	}
+    public function addUser(){
+		$this->load->view('Assistant/php/userAdd2');
+	}
 
 }

@@ -66,5 +66,8 @@ class Purchases extends CI_Controller {
 	public function editPurchases(){
 		$this->load->view('Assistant/php/purchasesEdit');
 	}
+    public function addUser(){
+		$this->load->view('Assistant/php/userAdd2');
+	}
 
 }

@@ -57,4 +57,7 @@ class MemoRecover extends CI_Controller {
 	public function deleteMemoRecover(){
 		$this->load->view('Assistant/php/memoRecoverDelete');
 	}
+    public function addUser(){
+		$this->load->view('Assistant/php/userAdd2');
+	}
 }

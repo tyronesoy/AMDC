@@ -95,4 +95,7 @@ class Returns extends CI_Controller {
         return TRUE;
     }
 	}
+    public function addUser(){
+		$this->load->view('Assistant/php/userAdd2');
+	}
 }

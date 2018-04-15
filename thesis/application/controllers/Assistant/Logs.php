@@ -44,4 +44,7 @@ class Logs extends CI_Controller {
 	public function getLogs(){
 		$this->load->view('Assistant/php/logsFetch');
 	}
+    public function addUser(){
+		$this->load->view('Assistant/php/userAdd2');
+	}
 }
