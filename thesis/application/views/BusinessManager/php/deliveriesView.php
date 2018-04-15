@@ -24,13 +24,14 @@ if(isset($_REQUEST['id'])){
         $per_po_key=$row[12];
         $per_quantityDelivered=$row[13];
         $per_itemDeliveryRemarks=$row[14];
-        $per_purch_id=$row[15];
-        $per_orderCreateDate=$row[16];        
-        $per_purchOrderName=$row[17];
-        $per_purchOrderStatus=$row[18];
-        $per_purchOrderRemarks=$row[19];
-        $per_gtotal=$row[20];
-        $per_soft_deleted=$row[23];
+        $per_notes=$row[15];
+        $per_purch_id=$row[16];
+        $per_orderCreateDate=$row[17];        
+        $per_purchOrderName=$row[18];
+        $per_purchOrderStatus=$row[19];
+        $per_purchOrderRemarks=$row[20];
+        $per_gtotal=$row[21];
+        $per_soft_deleted=$row[24];
 
 
     }//end while
@@ -138,6 +139,7 @@ if(isset($_REQUEST['id'])){
                                                <th>Quantity Delivered</th>
                                                <th>Unit Price</th>
                                                <th>Total Amount</th>
+                                               <th>Notes</th>
                                               </tr>
                                               <?php if($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) { ?>
@@ -156,6 +158,9 @@ if(isset($_REQUEST['id'])){
                                             <td width="50"><input type="text" name="unit_price" class="form-control " value="&#8369 <?php echo $row['unit_price']; ?>" min="0" style="width: 75px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td>
 
                                             <td width="250"><input type="text" name="total" class="form-control " min="0" style="width: 100px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="&#8369 <?php echo $row['total'] ?>" readonly/> </td>
+                                            </tr>
+
+                                            <td width="250"><input type="text" name="notes" class="form-control " min="0" style="width: 100px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $row['notes'] ?>" readonly/> </td>
                                             </tr>
 
                                             <?php 
