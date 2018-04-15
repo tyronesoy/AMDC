@@ -52,4 +52,7 @@ class BranchLA extends CI_Controller {
 	public function editLADepartment(){
 		$this->load->view('Supervisor/php/departmentsEdit');
 	}
+    public function addUser(){
+		$this->load->view('Supervisor/php/userAdd');
+	}
 }

@@ -66,4 +66,7 @@ class Memo extends CI_Controller {
 	public function editMemo(){
 		$this->load->view('Supervisor/php/memoEdit');
 	}
+    public function addUser(){
+		$this->load->view('Supervisor/php/userAdd');
+	}
 }

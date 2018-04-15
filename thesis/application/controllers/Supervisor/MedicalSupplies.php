@@ -77,5 +77,8 @@ class MedicalSupplies extends CI_Controller {
 	public function addMedicalSuppliesIssueTo(){
 		$this->load->view('/php/medicalSuppliesIssueTo');
 	}
+    public function addUser(){
+		$this->load->view('Supervisor/php/userAdd');
+	}
 	
 }

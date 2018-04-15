@@ -79,5 +79,9 @@ class ErrorLockscreen extends CI_Controller {
 		}
 		
 	}
+    
+    public function addUser(){
+		$this->load->view('Supervisor/php/userAdd');
+	}
 
 }

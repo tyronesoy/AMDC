@@ -217,7 +217,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
     <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="modal-info">
-<form name="form1" id="user_form" method="post" action="Supervisor/useradd">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -231,52 +231,63 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <div class="modal-body">
                 <div class="box-body">
                     
-                       <div class="form-group">
+                        <?php
+                          $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                          $date = date("Y/m/d");
+                          $sql = "Select * from users where user_id = ".$this->session->userdata('id')."";
+                          $result = $conn->query($sql);    
+                        ?>
+                        <?php if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) { ?>
+                            
+                            <div class="form-group">
                           <label hidden="true" for="exampleInputEmail1">id</label>
                           <input type="text" class="hidden" name="prevname" id="prevname" value="<?php echo $identity; ?>" />
                         </div>
                     
                        <div class="form-group">
                           <label for="exampleInputEmail1">Username</label>
-                          <input type="text" class="form-control" name="username" id="username" required />
+                          <input type="text" class="form-control" name="username" id="username" value="<?php echo $row['username'] ?>" required />
                         </div>
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">First Name</label>
-                          <input type="name" class="form-control" name="fname" id="fname" required />
+                          <input type="name" class="form-control" name="fname" id="fname" value="<?php echo $row['fname'] ?>" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Last Name</label>
-                          <input type="name" class="form-control" name="lname" id="lname" required />
+                          <input type="name" class="form-control" name="lname" id="lname" value="<?php echo $row['lname'] ?>" required />
                         </div>
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="number" class="form-control" name="user_contact" id="user_contact" required />
+                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
-                          <input type="password" class="form-control" name="password" id="password" required />
-                          <input type="checkbox" onclick="myFunction()">Show Password
+                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $row['password'] ?>" required />
 
                         <script>
-                        function myFunction() {
-                            var x = document.getElementById("password");
-                            if (x.type === "password") {
-                                x.type = "text";
-                            } else {
-                                x.type = "password";
-                            }
+                        function mouseoverPass(obj) {
+                          var obj = document.getElementById('myPassword');
+                          obj.type = "text";
+                        }
+                        function mouseoutPass(obj) {
+                          var obj = document.getElementById('myPassword');
+                          obj.type = "password";
                         }
                         </script>
                             
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" name="user_email" id="user_email" required />
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
                         </div>
-
-
+                    
+                          <?php 
+                              }
+                            }
+                          ?>
                 </div>
               </div>
               <div class="modal-footer">

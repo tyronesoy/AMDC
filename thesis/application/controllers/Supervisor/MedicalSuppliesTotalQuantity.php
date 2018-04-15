@@ -52,5 +52,8 @@ class MedicalSuppliesTotalQuantity extends CI_Controller {
 	public function editMedicalSuppliesTotalQuantity(){
 		$this->load->view('Supervisor/php/medicalSuppliesTotalQuantityEdit');
 	}
+    public function addUser(){
+		$this->load->view('Supervisor/php/userAdd');
+	}
 	
 }

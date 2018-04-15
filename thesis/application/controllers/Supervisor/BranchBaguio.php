@@ -52,4 +52,7 @@ class BranchBaguio extends CI_Controller {
 	public function editBaguioDepartment(){
 		$this->load->view('Supervisor/php/departmentsEdit');
 	}
+    public function addUser(){
+		$this->load->view('Supervisor/php/userAdd');
+	}
 }

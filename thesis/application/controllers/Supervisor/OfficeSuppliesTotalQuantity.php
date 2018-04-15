@@ -51,5 +51,8 @@ class OfficeSuppliesTotalQuantity extends CI_Controller {
 	public function editOfficeSuppliesTotalQuantity(){
 		$this->load->view('Supervisor/php/officeSuppliesTotalQuantityEdit');
 	}
+    public function addUser(){
+		$this->load->view('Supervisor/php/userAdd');
+	}
 	
 }

@@ -50,5 +50,8 @@ class Departments extends CI_Controller {
 	public function deleteDepartments(){
 		$this->load->view('Supervisor/php/departmentsDelete');
 	}
+    public function addUser(){
+		$this->load->view('Supervisor/php/userAdd');
+	}
 
 }

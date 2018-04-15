@@ -42,4 +42,7 @@ class IssuedSupplies extends CI_Controller {
 	public function getIssuedSupplies(){
 		$this->load->view('Supervisor/php/issuedSuppliesFetch');
 	}
+    public function addUser(){
+		$this->load->view('Supervisor/php/userAdd');
+	}
 }
