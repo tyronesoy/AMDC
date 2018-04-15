@@ -6,7 +6,7 @@ $con=mysqli_connect('localhost','root','','itproject')
 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="select * from supplies WHERE supply_id=$id";
+    $sql="select * from supplies WHERE supply_id=$id AND supply_type LIKE 'Office' AND soft_deleted='N'";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
@@ -17,8 +17,6 @@ if(isset($_REQUEST['id'])){
         $per_supplyUnitPrice=$row[6];
         $per_supplyReorderLevel=$row[8];
         $per_supplyExpirationDate=$row[9];
-        $per_supplyGoodCondition=$row[10];
-        $per_supplyDamaged=$row[11];
 
     }//end while
 ?>

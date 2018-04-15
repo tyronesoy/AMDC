@@ -1000,14 +1000,11 @@ if(isset($_POST['medEdit'])){
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['unitPrice']);
     $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
-
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit_price='$new_supplyUnitPrice', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
-    $result_update=mysqli_query($conn,$sqlupdate);
-
     $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['addQTY']);
 
-    $sqlinsert="INSERT INTO quantity_in_stock='$new_supplyQuantityInStock'+quantity_in_stock WHERE supply_id='$id' ";
-    $result_update2=mysqli_query($conn, $sqlinsert);
+    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit_price='$new_supplyUnitPrice', quantity_in_stock= '$new_supplyQuantityInStock',expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate);
+
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
