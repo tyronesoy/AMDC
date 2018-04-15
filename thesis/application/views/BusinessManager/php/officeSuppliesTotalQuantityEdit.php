@@ -45,6 +45,15 @@ if(isset($_REQUEST['id'])){
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="txtid">Supply Description</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_supplyDescription;?>" readonly>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtReorderLevel">Old Reorder Level</label>
                             <div class="col-sm-6">
