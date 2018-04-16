@@ -502,13 +502,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row">
         <div class="col-xs-12">
           <div class="box">
+            <div class="box-header">
+              <!-- <h3 class="box-title">Office Supplies</h3> -->
+                <a href="deliveries" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
+              </button></a>
+            </div>
             <!-- /.box-header -->
             <span id="alert_action"></span>
               <div class="box-body w3-hide">
               <table id="example1"  class="table table-bordered table-striped" >
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM purchase_orders JOIN purchase_order_bm USING(purchase_order_uniq_id) WHERE po_remarks = 'Delivered' AND soft_deleted='N' GROUP BY purchase_order_uniq_id";
+                  $sql = "SELECT * FROM purchase_orders JOIN purchase_order_bm USING(purchase_order_uniq_id) WHERE po_remarks = 'Delivered' AND soft_deleted='Y' GROUP BY purchase_order_uniq_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -533,24 +538,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["po_remarks"]; ?></td>
                       <td><?php echo $row["item_delivery_remarks"]; ?></td>
                       <td>
-                        <?php if ($row["item_delivery_remarks"] == 'Full') {?>
                         <div class="btn-group">
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
+                            <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-repeat"></i> Restore</button>
                         </div>
-                        <div class="btn-group">
-                            <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Remove</button>
-                        </div>
-                        <?php }else{ ?>
-                          <div class="btn-group">
-                              <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-check"></i> Check</button>
-                          </div>
-                          <div class="btn-group">
-                              <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
-                          </div>
-                          <div class="btn-group">
-                              <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Remove</button>
-                          </div>
-                        <?php } ?>
                       </td>
                     </tr>
                   <?php 
@@ -585,11 +575,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
           <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
-        <div class="col-xs-1" style="float:left">
-            <a href="deliveriesRecover" style="color:white;">
-              <button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover</button>
-            </a>
-      </div>
       </div>
       <script>
         $('#print').click(function(){
@@ -794,16 +779,7 @@ function onUserInactivity() {
                 <div id="content-data"></div>
             </div>
         </div>
-        <div class="modal fade" id="viewModal" role="dialog">
-            <div class="modal-dialog">
-                <div id="view-data"></div>
-            </div>
-        </div>
-        <div class="modal fade" id="deleteModal" role="dialog">
-            <div class="modal-dialog">
-                <div id="delete-data"></div>
-            </div>
-        </div>   
+
     <!--<script>
         $(document).ready(function(){
             var dataTable=$('#example').DataTable({
@@ -819,13 +795,13 @@ function onUserInactivity() {
 
     <!--script js for get edit data-->
     <script>
-        $(document).on('click','#getEdit',function(e){
+        $(document).on('click','#getRestore',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'deliveries/editDelivery',
+                url:'deliveriesRecover/recoverDelivery',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
@@ -838,238 +814,30 @@ function onUserInactivity() {
         });
     </script>
 
-    <script>
-        $(document).on('click','#getView',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#view-data').html('');
-            $.ajax({
-                url:'deliveries/viewDelivery',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#view-data').html('');
-                $('#view-data').html(data);
-            }).final(function(){
-                $('#view-data').html('<p>Error</p>');
-            });
-        });
-    </script>
-
-    <script>
-        $(document).on('click','#getDelete',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#delete-data').html('');
-            $.ajax({
-                url:'deliveries/deleteDelivery',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#delete-data').html('');
-                $('#delete-data').html(data);
-            }).final(function(){
-                $('#delete-data').html('<p>Error</p>');
-            });
-        });
-    </script>
-
 </body>
 </html>
 
 <?php
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-if(isset($_POST['btnEdit'])){
-    $new_purchaseID=mysqli_real_escape_string($con,$_POST['txtid']);
 
-    $new_id=mysqli_real_escape_string($con,$_POST['txtpoid0']);
-    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus0']);
-    $new_quantity=mysqli_real_escape_string($con,$_POST['txtquantity0']);
-    $new_quantityDelivered=mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
-
-    $new_id1=mysqli_real_escape_string($con,$_POST['txtpoid1']);
-    $new_status1=mysqli_real_escape_string($con,$_POST['txtstatus1']);
-    $new_quantity1=mysqli_real_escape_string($con,$_POST['txtquantity1']);
-    $new_quantityDelivered1=mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
-
-    $new_id2=mysqli_real_escape_string($con,$_POST['txtpoid2']);
-    $new_status2=mysqli_real_escape_string($con,$_POST['txtstatus2']);
-    $new_quantity2=mysqli_real_escape_string($con,$_POST['txtquantity2']);
-    $new_quantityDelivered2=mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
-
-    $new_id3=mysqli_real_escape_string($con,$_POST['txtpoid3']);
-    $new_status3=mysqli_real_escape_string($con,$_POST['txtstatus3']);
-    $new_quantity3=mysqli_real_escape_string($con,$_POST['txtquantity3']);
-    $new_quantityDelivered3=mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
-
-    $new_id4=mysqli_real_escape_string($con,$_POST['txtpoid4']);
-    $new_status4=mysqli_real_escape_string($con,$_POST['txtstatus4']);
-    $new_quantity4=mysqli_real_escape_string($con,$_POST['txtquantity4']);
-    $new_quantityDelivered4=mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
-
-    $new_id5=mysqli_real_escape_string($con,$_POST['txtpoid5']);
-    $new_status5=mysqli_real_escape_string($con,$_POST['txtstatus5']);
-    $new_quantity5=mysqli_real_escape_string($con,$_POST['txtquantity5']);
-    $new_quantityDelivered5=mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
-
-    $new_id6=mysqli_real_escape_string($con,$_POST['txtpoid6']);
-    $new_status6=mysqli_real_escape_string($con,$_POST['txtstatus6']);
-    $new_quantity6=mysqli_real_escape_string($con,$_POST['txtquantity6']);
-    $new_quantityDelivered6=mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
-
-    $new_id7=mysqli_real_escape_string($con,$_POST['txtpoid7']);
-    $new_status7=mysqli_real_escape_string($con,$_POST['txtstatus7']);
-    $new_quantity7=mysqli_real_escape_string($con,$_POST['txtquantity7']);
-    $new_quantityDelivered7=mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
-
-    $new_id8=mysqli_real_escape_string($con,$_POST['txtpoid8']);
-    $new_status8=mysqli_real_escape_string($con,$_POST['txtstatus8']);
-    $new_quantity8=mysqli_real_escape_string($con,$_POST['txtquantity8']);
-    $new_quantityDelivered8=mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
-
-    $new_id9=mysqli_real_escape_string($con,$_POST['txtpoid9']);
-    $new_status9=mysqli_real_escape_string($con,$_POST['txtstatus9']);
-    $new_quantity9=mysqli_real_escape_string($con,$_POST['txtquantity9']);
-    $new_quantityDelivered9=mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
-    
-    // if for index 0
-    if($new_quantity == $new_quantityDelivered){
-      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered' WHERE po_id='$new_id' ";
-      $result_update=mysqli_query($con,$sqlupdate);
-    }else {
-      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered' WHERE po_id='$new_id' ";
-      $result_update=mysqli_query($con,$sqlupdate);
-    }
-    // if for index 1
-    if ($new_quantity1 == $new_quantityDelivered1) {
-      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered1' WHERE po_id='$new_id1' ";
-      $result_update1=mysqli_query($con,$sqlupdate1);
-    }else{
-      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered1' WHERE po_id='$new_id1' ";
-      $result_update1=mysqli_query($con,$sqlupdate1);
-    }
-    // if for index 2
-    if($new_quantity2 == $new_quantityDelivered2){
-      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered2'  WHERE po_id='$new_id2' ";
-      $result_update2=mysqli_query($con,$sqlupdate2);
-    }else{
-      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered2'  WHERE po_id='$new_id2' ";
-      $result_update2=mysqli_query($con,$sqlupdate2);
-    }
-    // if for index 3
-    if($new_quantity3 == $new_quantityDelivered3){
-      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Full' , quantity_delivered='$new_quantityDelivered3' WHERE po_id='$new_id3' ";
-      $result_update3=mysqli_query($con,$sqlupdate3);
-    }else{
-      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Partial' , quantity_delivered='$new_quantityDelivered3' WHERE po_id='$new_id3' ";
-      $result_update3=mysqli_query($con,$sqlupdate3);
-    }
-    // if for index 4
-    if($new_quantity4 == $new_quantityDelivered4){
-      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered4' WHERE po_id='$new_id4' ";
-      $result_update4=mysqli_query($con,$sqlupdate4);
-    }else{
-      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4' WHERE po_id='$new_id4' ";
-      $result_update4=mysqli_query($con,$sqlupdate4);
-    }
-    // if for index 5
-    if($new_quantity5 == $new_quantityDelivered5){
-      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered5' WHERE po_id='$new_id5' ";
-      $result_update5=mysqli_query($con,$sqlupdate5);
-    }else{
-      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered5' WHERE po_id='$new_id5' ";
-      $result_update5=mysqli_query($con,$sqlupdate5);
-    }
-    // if for index 6
-    if($new_quantity6 == $new_quantityDelivered6){
-      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered6' WHERE po_id='$new_id6' ";
-      $result_update6=mysqli_query($con,$sqlupdate6);
-    }else{
-      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered6' WHERE po_id='$new_id6' ";
-      $result_update6=mysqli_query($con,$sqlupdate6);
-    }
-    // if for index 7
-    if($new_quantity7 == $new_quantityDelivered7){
-      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered7' WHERE po_id='$new_id7' ";
-      $result_update7=mysqli_query($con,$sqlupdate7);
-    }else{
-      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered7' WHERE po_id='$new_id7' ";
-      $result_update7=mysqli_query($con,$sqlupdate7);
-    }
-    // if for index 8
-    if($new_quantity8 == $new_quantityDelivered8){
-      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered8' WHERE po_id='$new_id8' ";
-      $result_update8=mysqli_query($con,$sqlupdate8);
-    }else{
-      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered8' WHERE po_id='$new_id8' ";
-      $result_update8=mysqli_query($con,$sqlupdate8);
-    }
-    // if for index 9
-    if($new_quantity9 == $new_quantityDelivered9){
-      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered9' WHERE po_id='$new_id9' ";
-      $result_update9=mysqli_query($con,$sqlupdate9);
-    }else{
-      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered9' WHERE po_id='$new_id9' ";
-      $result_update9=mysqli_query($con,$sqlupdate9);
-    }
-
-    if($new_quantity == $new_quantityDelivered && $new_quantity1 == $new_quantityDelivered1 && $new_quantity2 == $new_quantityDelivered2 && $new_quantity3 == $new_quantityDelivered3 && $new_quantity4 == $new_quantityDelivered4 && $new_quantity5 == $new_quantityDelivered5 && $new_quantity6 == $new_quantityDelivered6 && $new_quantity7 == $new_quantityDelivered7 && $new_quantity8 == $new_quantityDelivered8 && $new_quantity9 == $new_quantityDelivered9){
-
-      $query="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE purchase_order_id='$new_purchaseID' ";
-      $query_result=mysqli_query($con,$query);
-
-      if($query_result){
-          $conn =mysqli_connect("localhost","root","");
-          $datetoday = date('Y\-m\-d\ H:i:s A');
-          mysqli_select_db($conn, "itproject");
-          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status has been changed to Full','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
-          $result = $conn->query($notif);
-          echo '<script>window.location.href="deliveries"</script>';
-      }
-      else{
-          echo '<script>alert("Update if Failed")</script>';
-      }
-    }else{
-      $query1="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE purchase_order_id='$new_purchaseID' ";
-      $query_result1=mysqli_query($con,$query1);
-
-      if($query_result1){
-          $conn =mysqli_connect("localhost","root","");
-          $datetoday = date('Y\-m\-d\ H:i:s A');
-          mysqli_select_db($conn, "itproject");
-          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status has been changed to Partial','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
-          $result = $conn->query($notif);
-          echo '<script>window.location.href="deliveries"</script>';
-      }
-      else{
-          echo '<script>alert("Update else Failed")</script>';
-      }
-    }
-    
-}
-
-//SOFT DELETED OFFICE SUPPLIES
-if(isset($_POST['btnDelete'])){
+//SOFT DELETED DELIVERIES
+if(isset($_POST['deliveryRestore'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $sqlupdate="UPDATE purchase_order_bm SET soft_deleted='Y' WHERE purchase_order_id='$new_id' ";
+    $sqlupdate="UPDATE purchase_orders, purchase_order_bm SET soft_deleted='N' WHERE purchase_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery record has been removed','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery has been restored','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
-        echo '<script>window.location.href="deliveries"</script>';
+        echo '<script>window.location.href="deliveriesRecover"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-} // END OF SOFT DELETE OFFICE SUPPLIES
+} // END OF SOFT DELETE MEDICAL SUPPLIES
 
 ?>
