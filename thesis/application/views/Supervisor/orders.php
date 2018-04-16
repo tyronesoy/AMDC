@@ -152,7 +152,7 @@ if(!isset($_SESSION['first_run'])){
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                 $dtoday = date("Y/m/d");
                 $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total FROM logs where log_description like '%order%'  AND log_status = 1";
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%'";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -185,7 +185,7 @@ if(!isset($_SESSION['first_run'])){
                       <tr>
                         <?php
                         if(strpos($logvalue, 'order') !== false) { ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'Supervisor/order' ?>"><?php echo $row["log_description"];?></a></small></td>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'order' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
                         }else{
                         ?>
@@ -194,7 +194,7 @@ if(!isset($_SESSION['first_run'])){
                         }  
                         ?>
                         <td class="notif-delete">
-                        <form action="Supervisor/delete" method="post">
+                        <form action="delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
@@ -210,14 +210,13 @@ if(!isset($_SESSION['first_run'])){
               </li>
               <li>
               <center>
-              <form action="Supervisor/deleteall" method="post">
+              <form action="deleteall" method="post">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash"></i> Delete all Logs</button>
               </form>
               </center>
               </li>
             </ul>
           </li>
-
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -116,7 +116,7 @@ if(!isset($_SESSION['first_run'])){
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                 $dtoday = date("Y/m/d");
                 $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total FROM logs where log_description like '%order%'  AND log_status = 1";
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%'";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -181,7 +181,6 @@ if(!isset($_SESSION['first_run'])){
               </li>
             </ul>
           </li>
-          
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
