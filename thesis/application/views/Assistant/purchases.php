@@ -34,7 +34,7 @@ function unit_measure($connect)
 <!DOCTYPE html>
 <html>
 <head>
-  <title> Assistant | Purchases</title>
+  <title>Business Manager | Purchases</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
@@ -53,8 +53,8 @@ function unit_measure($connect)
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-  <script src="../assets/jquery/jquery-1.12.4.js"></script>
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+  <!-- <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -105,7 +105,7 @@ function unit_measure($connect)
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+       <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -119,18 +119,18 @@ function unit_measure($connect)
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-            <li class= "user user-menu">
+         <li class= "user user-menu">
                     <a class = "dropdown-toggle">
                         <span class="hidden-xs" id="demo"></span>
                         <script>
                           var d = new Date().toString();
                           d=d.split(' ').slice(0, 6).join(' ');
-                          document.getElementById("demo").innerHTML = d
+                          document.getElementById("demo").innerHTML = d;
                         </script>
                     </a>
                 </li>
-          <!-- Notifications: style can be found in dropdown.less -->
-<li class="dropdown notifications-menu">
+          <!-- Tasks: style can be found in dropdown.less -->
+            <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
@@ -203,8 +203,7 @@ function unit_measure($connect)
               </li>
             </ul>
           </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-           <li class="dropdown tasks-menu">
+          <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
@@ -356,7 +355,7 @@ function unit_measure($connect)
                     </table>
                     <h5>Expired Items</h5>
                     <?php
-                        $conn =mysqli_connect("localhost","root","");
+                        $conn = mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
                         $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
                         $result4 = $conn->query($sql4);
@@ -385,24 +384,21 @@ function unit_measure($connect)
               </li>
             </ul>
           </li>
-
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
-                
+              <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
+              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
 
-                <p>
-                 <span><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
-                </p>
-              </li>
-              <!-- Menu Footer-->
+                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+        <small> Assistant</small>
+        </p>
+                </li>
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
@@ -418,7 +414,7 @@ function unit_measure($connect)
       </div>
     </nav>
   </header>
-        <?php $identity =  $this->session->userdata('fname');?>
+    <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
@@ -427,12 +423,25 @@ function unit_measure($connect)
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <div class="margin">
-                    <center><h3><b>Edit Profile</b></h3></center>
-                  </div>
-              </div>
-                <!-- end of modal header -->
-              <div class="modal-body">
+                  <div class="col-md-2">
+                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Profile</b></h4></center>
+                                            </div>
+                                      </div>
                 <div class="box-body">
                     
                         <?php
@@ -495,8 +504,8 @@ function unit_measure($connect)
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser">Save New User Account</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -504,15 +513,15 @@ function unit_measure($connect)
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>
+        </div>   
   <!-- Left side column. contains the logo and sidebar -->
- <aside class="main-sidebar">
+  <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
@@ -527,14 +536,8 @@ function unit_measure($connect)
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'userAccounts' ?>">
-            <i class="fa fa-group"></i> <span>Manage Accounts</span>
-          </a>
-        </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -551,7 +554,7 @@ function unit_measure($connect)
               <ul class="treeview-menu">
                 <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-shopping-basket"></i>Office Supplies</a>
+                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a>
                 </li>
               </ul>
             </li>
@@ -579,12 +582,6 @@ function unit_measure($connect)
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-    <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'logs' ?>">
-            <i class="fa fa-list-alt"></i> <span>Logs</span>
-          </a>
-        </li>
     <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
@@ -601,12 +598,12 @@ function unit_measure($connect)
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-            <i class="fa fa-shopping-cart"> </i> <b>Purchase Orders</b>
+            <i class="fa fa-shopping-cart"></i><b> Purchase Orders</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?php echo 'dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active"><a href="<?php echo 'purchases' ?>">Purchases</a></li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><i class="fa fa-shopping-cart"></i> Purchases</li>
       </ol>
     </section>
 
@@ -621,7 +618,7 @@ function unit_measure($connect)
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Purchase Order</i></button>
             
-             <form id="insert_form" method="post" action="purchases/addPurchases">
+                    <form id="insert_form" method="post" action="purchases/addPurchases">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -640,28 +637,33 @@ function unit_measure($connect)
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- end of modal header -->
-                                      <div class="modal-body">
+                                        <div class="modal-body">
+                                              <div class="box-header">
+                                                  <div class="margin">
+                                                        <center><h4><b>Add Purchase Order</b></h4></center>
+                                                  </div>
                                         <div class="box-body">                                      
                                               <div class="row">
-                                              <div class="col-md-5">
+                                              <div class="col-md-12">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Name</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-user"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
+                                              </div>
                                               </div>
                                               </div>
                                               </div>
 
+                                              <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">       
-                                                        <i class="fa fa-user"></i>
+                                                        <i class="fa fa-group"></i>
                                                       </div>
                                                   <select class="form-group select2" name="supp" style="width:100%" required>
                                                 <option value="">Select a Supplier</option>
@@ -680,33 +682,30 @@ function unit_measure($connect)
                                               </select>
                                               </div>
                                               </div>
-                                              </div>
-
+                                            </div>
                                               <div class="col-md-6">
                                               <div class="form-group">
-                                                    <label>Purchase Order Date</label>
+                                                    <label for="exampleInputEmail1">Purchase Order Date</label>
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                       <?php $date = date("Y-m-d"); ?>
-                                                      <input type="date" class="form-control pull-right" id="datepicker" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                      <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
                                                 </div>
                                               </div>
 
-                                          
                                         <div class="table-responsive">
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="item_table">
                                             <tr>
-                                               <th>Select Item</th>
+                                               <th>Item Description</th>
                                                <th>Unit of Measure</th>
                                                <th>Quantity</th>
                                                <th>Unit Price</th>
-                                               <th>Total Amount</th>
                                               </tr>
                                             <tr>
 
@@ -725,11 +724,6 @@ function unit_measure($connect)
                                             <td width="50"><input type="text" name="quantity" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             <td width="50"><input type="text" name="unit_price" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
-                                               
-
-                                            <td width="50">
-                                            <input type="text" name="total" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" /></td>
 
                                             </tr>
 
@@ -753,7 +747,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price2" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total2" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -777,7 +770,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price3" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total3" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -801,7 +793,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price4" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total4" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -828,7 +819,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price5" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total5" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -855,7 +845,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price6" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total6" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -884,7 +873,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price7" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total7" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -911,7 +899,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price8" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total8" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -940,7 +927,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price9" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total9" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -968,7 +954,6 @@ function unit_measure($connect)
 
                                             <td width="50"><input type="text" name="unit_price10" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="total10" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="" /> </td>
                                             </tr>
 
 
@@ -978,20 +963,7 @@ function unit_measure($connect)
 
 
                                           </table>
-                                       <div class="row" >
-                                               <div class="col-md-5">
-                                              <div class="form-group">
-                                                    <label>Grand Total</label>
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <input type="text" class="form-control pull-right" id="poid" name="poid" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    </div>
-                                                    <!-- /.input group -->
-                                                  </div>
-                                                </div>
-                                          </div>
+                                       
 
                                         </div>
                                       
@@ -1000,9 +972,9 @@ function unit_measure($connect)
                                         </div> <!-- BOX-BODY -->
                                       <div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <!-- <button type="submit" class="btn btn-primary" name="addOrder" style="display: none;">Add Order</button> -->
-                                        <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
+                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                                        <button type="submit" class="btn btn-success" name="addOrder"><i class="fa fa-plus"></i> Add </button>
+                                        <!--  <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -1031,6 +1003,7 @@ function unit_measure($connect)
                               <th>Purchase ID</th>
                               <th>Supplier</th>
                               <th>Order Date</th>
+                              <th>Delivery Date</th>
                               <th>Status</th>
                               <th>Action</th>     
                           </tr>
@@ -1053,11 +1026,13 @@ function unit_measure($connect)
                       <td><?php echo $row["purchase_order_id"]; ?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
+                      <td><?php echo $row["delivery_date"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
-                        <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+                       <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
+                        
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
                         </div>
@@ -1221,7 +1196,7 @@ table#addItem, tr.no_border td {
 <!-- page script -->
 
 <script>
-setTimeout(onUserInactivity, 1000 * 120)
+setTimeout(onUserInactivity, 1000 * 300)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
@@ -1369,19 +1344,188 @@ function onUserInactivity() {
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnEdit'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['txtorderdate']);
-    $new_purchasesQuantity=mysqli_real_escape_string($con,$_POST['txtquantity']);
-    $new_purchasesUnit=mysqli_real_escape_string($con,$_POST['txtunit']);
-    $new_purchasesUnitPrice=mysqli_real_escape_string($con,$_POST['txtunitprice']);
-    $new_purchasesSupplier=mysqli_real_escape_string($con,$_POST['txtsupplier']);
+
+
+    $new_uid=mysqli_real_escape_string($con,$_POST['txtuniqid']);
+    // $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['orDate']);
+    // $new_purchasesSupplier=mysqli_real_escape_string($con,$_POST['txtsupplier']);
     $new_purchasesDeliveryDate=mysqli_real_escape_string($con,$_POST['txtdeliverydate']);
-    
-  $sqlupdate="UPDATE purchase_orders, purchase_order_bm SET purchase_order_bm.purchase_order_id='$new_poid', purchase_orders.order_date='$new_purchasesOrderDate', purchase_orders.order_quantity='$new_purchasesQuantity', purchase_orders.order_unit='$new_purchasesUnit', purchase_orders.unitprice='$new_purchasesUnitPrice', purchase_orders.total='$new_purchasesTotalAmount', purchase_order_bm.purchase_order_grandtotal='$new_purchasesGrandTotal', purchase_order_bm.purchase_order_status='$new_purchasesRemarks' WHERE purchase_order_id='$new_id' ";
+
+    $new_id=mysqli_real_escape_string($con,$_POST['txtpoid0']);
+    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus0']);
+    $new_quantity=mysqli_real_escape_string($con,$_POST['txtquantity0']);
+    $new_purchasesUnit=mysqli_real_escape_string($con,$_POST['txtunit0']);
+    $new_description=mysqli_real_escape_string($con,$_POST['txtdesc0']);
+    $new_purchasesUnitPrice=mysqli_real_escape_string($con,$_POST['unit_price0']);
+    $new_total = mysqli_real_escape_string($con,$_POST['txtquantity0']) * mysqli_real_escape_string($con,$_POST['unit_price0']);
+
+
+    $new_id1=mysqli_real_escape_string($con,$_POST['txtpoid1']);
+    $new_status1=mysqli_real_escape_string($con,$_POST['txtstatus1']);
+    $new_quantity1=mysqli_real_escape_string($con,$_POST['txtquantity1']);
+    $new_purchasesUnit1=mysqli_real_escape_string($con,$_POST['txtunit1']);
+    $new_description1=mysqli_real_escape_string($con,$_POST['txtdesc1']);
+    $new_purchasesUnitPrice1=mysqli_real_escape_string($con,$_POST['unit_price1']);
+    $new_total1 = mysqli_real_escape_string($con,$_POST['txtquantity1']) * mysqli_real_escape_string($con,$_POST['unit_price1']);
+
+
+    $new_id2=mysqli_real_escape_string($con,$_POST['txtpoid2']);
+    $new_status2=mysqli_real_escape_string($con,$_POST['txtstatus2']);
+    $new_quantity2=mysqli_real_escape_string($con,$_POST['txtquantity2']);
+    $new_purchasesUnit2=mysqli_real_escape_string($con,$_POST['txtunit2']);
+    $new_description2=mysqli_real_escape_string($con,$_POST['txtdesc2']);
+    $new_purchasesUnitPrice2=mysqli_real_escape_string($con,$_POST['unit_price2']);
+    $new_total2 = mysqli_real_escape_string($con,$_POST['txtquantity2']) * mysqli_real_escape_string($con,$_POST['unit_price2']);
+
+
+    $new_id3=mysqli_real_escape_string($con,$_POST['txtpoid3']);
+    $new_status3=mysqli_real_escape_string($con,$_POST['txtstatus3']);
+    $new_quantity3=mysqli_real_escape_string($con,$_POST['txtquantity3']);
+    $new_purchasesUnit3=mysqli_real_escape_string($con,$_POST['txtunit3']);
+    $new_description3=mysqli_real_escape_string($con,$_POST['txtdesc3']);
+    $new_purchasesUnitPrice3=mysqli_real_escape_string($con,$_POST['unit_price3']);
+    $new_total3 = mysqli_real_escape_string($con,$_POST['txtquantity3']) * mysqli_real_escape_string($con,$_POST['unit_price3']);
+
+
+    $new_id4=mysqli_real_escape_string($con,$_POST['txtpoid4']);
+    $new_status4=mysqli_real_escape_string($con,$_POST['txtstatus4']);
+    $new_quantity4=mysqli_real_escape_string($con,$_POST['txtquantity4']);
+    $new_purchasesUnit4=mysqli_real_escape_string($con,$_POST['txtunit4']);
+    $new_description4=mysqli_real_escape_string($con,$_POST['txtdesc4']);
+    $new_purchasesUnitPrice4=mysqli_real_escape_string($con,$_POST['unit_price4']);
+    $new_total4 = mysqli_real_escape_string($con,$_POST['txtquantity4']) * mysqli_real_escape_string($con,$_POST['unit_price4']);
+
+
+    $new_id5=mysqli_real_escape_string($con,$_POST['txtpoid5']);
+    $new_status5=mysqli_real_escape_string($con,$_POST['txtstatus5']);
+    $new_quantity5=mysqli_real_escape_string($con,$_POST['txtquantity5']);
+    $new_purchasesUnit5=mysqli_real_escape_string($con,$_POST['txtunit5']);
+    $new_description5=mysqli_real_escape_string($con,$_POST['txtdesc5']);
+    $new_purchasesUnitPrice5=mysqli_real_escape_string($con,$_POST['unit_price5']);
+    $new_total5 = mysqli_real_escape_string($con,$_POST['txtquantity5']) * mysqli_real_escape_string($con,$_POST['unit_price5']);
+
+
+    $new_id6=mysqli_real_escape_string($con,$_POST['txtpoid6']);
+    $new_status6=mysqli_real_escape_string($con,$_POST['txtstatus6']);
+    $new_quantity6=mysqli_real_escape_string($con,$_POST['txtquantity6']);
+    $new_purchasesUnit6=mysqli_real_escape_string($con,$_POST['txtunit6']);
+    $new_description6=mysqli_real_escape_string($con,$_POST['txtdesc6']);
+    $new_purchasesUnitPrice6=mysqli_real_escape_string($con,$_POST['unit_price6']);
+    $new_total6 = mysqli_real_escape_string($con,$_POST['txtquantity6']) * mysqli_real_escape_string($con,$_POST['unit_price6']);
+
+
+    $new_id7=mysqli_real_escape_string($con,$_POST['txtpoid7']);
+    $new_status7=mysqli_real_escape_string($con,$_POST['txtstatus7']);
+    $new_quantity7=mysqli_real_escape_string($con,$_POST['txtquantity7']);
+    $new_purchasesUnit7=mysqli_real_escape_string($con,$_POST['txtunit7']);
+    $new_description7=mysqli_real_escape_string($con,$_POST['txtdesc7']);
+    $new_purchasesUnitPrice7=mysqli_real_escape_string($con,$_POST['unit_price7']);
+    $new_total7 = mysqli_real_escape_string($con,$_POST['txtquantity7']) * mysqli_real_escape_string($con,$_POST['unit_price7']);
+
+
+    $new_id8=mysqli_real_escape_string($con,$_POST['txtpoid8']);
+    $new_status8=mysqli_real_escape_string($con,$_POST['txtstatus8']);
+    $new_quantity8=mysqli_real_escape_string($con,$_POST['txtquantity8']);
+    $new_purchasesUnit8=mysqli_real_escape_string($con,$_POST['txtunit8']);
+    $new_description8=mysqli_real_escape_string($con,$_POST['txtdesc8']);
+    $new_purchasesUnitPrice8=mysqli_real_escape_string($con,$_POST['unit_price8']);
+    $new_total8 = mysqli_real_escape_string($con,$_POST['txtquantity8']) * mysqli_real_escape_string($con,$_POST['unit_price8']);
+
+
+    $new_id9=mysqli_real_escape_string($con,$_POST['txtpoid9']);
+    $new_status9=mysqli_real_escape_string($con,$_POST['txtstatus9']);
+    $new_quantity9=mysqli_real_escape_string($con,$_POST['txtquantity9']);
+    $new_purchasesUnit9=mysqli_real_escape_string($con,$_POST['txtunit9']);
+    $new_description9=mysqli_real_escape_string($con,$_POST['txtdesc9']);
+    $new_purchasesUnitPrice9=mysqli_real_escape_string($con,$_POST['unit_price9']);
+    $new_total9 = mysqli_real_escape_string($con,$_POST['txtquantity9']) * mysqli_real_escape_string($con,$_POST['unit_price9']);
+
+
+
+    $new_total10 = (mysqli_real_escape_string($con,$_POST['txtquantity0']) * mysqli_real_escape_string($con,$_POST['unit_price0'])) + (mysqli_real_escape_string($con,$_POST['txtquantity1']) * mysqli_real_escape_string($con,$_POST['unit_price1'])) + (mysqli_real_escape_string($con,$_POST['txtquantity2']) * mysqli_real_escape_string($con,$_POST['unit_price2'])) + (mysqli_real_escape_string($con,$_POST['txtquantity3']) * mysqli_real_escape_string($con,$_POST['unit_price3'])) + (mysqli_real_escape_string($con,$_POST['txtquantity4']) * mysqli_real_escape_string($con,$_POST['unit_price4'])) + (mysqli_real_escape_string($con,$_POST['txtquantity5']) * mysqli_real_escape_string($con,$_POST['unit_price5'])) + (mysqli_real_escape_string($con,$_POST['txtquantity6']) * mysqli_real_escape_string($con,$_POST['unit_price6'])) + (mysqli_real_escape_string($con,$_POST['txtquantity7']) * mysqli_real_escape_string($con,$_POST['unit_price7'])) + (mysqli_real_escape_string($con,$_POST['txtquantity8']) * mysqli_real_escape_string($con,$_POST['unit_price8'])) + (mysqli_real_escape_string($con,$_POST['txtquantity9']) * mysqli_real_escape_string($con,$_POST['unit_price9']));
+
+
+
+  $sqlupdate="UPDATE purchase_orders SET order_quantity='$new_quantity', order_unit='$new_purchasesUnit', description='$new_description', unit_price='$new_purchasesUnitPrice', total='$new_total' WHERE po_id='$new_id' ";
   $result_update=mysqli_query($con,$sqlupdate);
+// if($result_update){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+  $sqlupdate1="UPDATE purchase_orders SET order_quantity='$new_quantity1', order_unit='$new_purchasesUnit1', description='$new_description1', unit_price='$new_purchasesUnitPrice1', total='$new_total1' WHERE po_id='$new_id1' ";
+  $result_update1=mysqli_query($con,$sqlupdate1);
+// if($result_update1){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate2="UPDATE purchase_orders SET order_quantity='$new_quantity2', order_unit='$new_purchasesUnit2', description='$new_description2', unit_price='$new_purchasesUnitPrice2', total='$new_total2' WHERE po_id='$new_id2' ";
+  $result_update2=mysqli_query($con,$sqlupdate2);
+// if($result_update2){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate3="UPDATE purchase_orders SET order_quantity='$new_quantity3', order_unit='$new_purchasesUnit3', description='$new_description3', unit_price='$new_purchasesUnitPrice3', total='$new_total3' WHERE po_id='$new_id3' ";
+  $result_update3=mysqli_query($con,$sqlupdate3);
+// if($result_update3){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate4="UPDATE purchase_orders SET order_quantity='$new_quantity4', order_unit='$new_purchasesUnit4', description='$new_description4', unit_price='$new_purchasesUnitPrice4', total='$new_total4' WHERE po_id='$new_id4' ";
+  $result_update4=mysqli_query($con,$sqlupdate4);
+// if($result_update4){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate5="UPDATE purchase_orders SET order_quantity='$new_quantity5', order_unit='$new_purchasesUnit5', description='$new_description5', unit_price='$new_purchasesUnitPrice5', total='$new_total5' WHERE po_id='$new_id5' ";
+  $result_update5=mysqli_query($con,$sqlupdate5);
+// if($result_update5){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate6="UPDATE purchase_orders SET order_quantity='$new_quantity6', order_unit='$new_purchasesUnit6', description='$new_description6', unit_price='$new_purchasesUnitPrice6', total='$new_total6' WHERE po_id='$new_id6' ";
+  $result_update6=mysqli_query($con,$sqlupdate6);
+// if($result_update6){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate7="UPDATE purchase_orders SET order_quantity='$new_quantity7', order_unit='$new_purchasesUnit7', description='$new_description7', unit_price='$new_purchasesUnitPrice7', total='$new_total7' WHERE po_id='$new_id7' ";
+  $result_update7=mysqli_query($con,$sqlupdate7);
+// if($result_update7){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate8="UPDATE purchase_orders SET order_quantity='$new_quantity8', order_unit='$new_purchasesUnit8', description='$new_description8', unit_price='$new_purchasesUnitPrice8', total='$new_total8' WHERE po_id='$new_id8' ";
+  $result_update8=mysqli_query($con,$sqlupdate8);
+// if($result_update8){
+//         echo '<script>window.location.href="purchases"</script>';
+//     }
+//     else{
+//         echo '<script>alert("Update Failed")</script>';
+//     }
+    $sqlupdate9="UPDATE purchase_orders SET order_quantity='$new_quantity9', order_unit='$new_purchasesUnit9', description='$new_description9', unit_price='$new_purchasesUnitPrice9', total='$new_total9' WHERE po_id='$new_id9' ";
+  $result_update9=mysqli_query($con,$sqlupdate9);
+
+  $sqlupdate10="UPDATE purchase_order_bm SET purchase_order_grandtotal='$new_total10' WHERE po_key='$new_uid' ";
+  $result_update10=mysqli_query($con,$sqlupdate10);
 
 
-    if($result_update){
+    if($result_update && $result_update1 && $result_update2 && $result_update3 && $result_update4 && $result_update5 && $result_update6 && $result_update7 && $result_update8 && $result_update9){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
@@ -1397,17 +1541,22 @@ if(isset($_POST['btnEdit'])){
 if(isset($_POST['btnUpdate'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_purchasesStatus=mysqli_real_escape_string($con,$_POST['txtstatus']);
+     $new_deliveryDate=mysqli_real_escape_string($con,$_POST['orDate']);
 
-    if($new_purchasesStatus == 'Pending'){
+    if($new_purchasesStatus == 'Pending' && $new_id == $new_id){
       $new_purchasesStatus = 'Delivered';
     }else{
       $new_purchasesStatus = 'Pending';
+      $new_deliveryDate = NULL;
     }
 
-    $sqlupdate="UPDATE purchase_order_bm SET purchase_order_status='$new_purchasesStatus' WHERE purchase_order_id='$new_id' ";
+    $sqlupdate="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='$new_deliveryDate' WHERE po_key='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
-    if($result_update){
+       $sqlupdate2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='$new_deliveryDate' WHERE po_key='$new_id' ";
+    $result_update2=mysqli_query($con,$sqlupdate2);
+
+    if($result_update && $sqlupdate2){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
@@ -1452,8 +1601,7 @@ $(document).ready(function(){
   
 });
 </script>
-
-    <script>
+<script>
         $(document).on('click','#getAdd',function(e){
             e.preventDefault();
             var per_id=$(this).data('id');
@@ -1471,6 +1619,7 @@ $(document).ready(function(){
                 $('#content-data').html('<p>Error</p>');
             });
         });
-    </script>
+</script>
+    
 </body>
 </html>
