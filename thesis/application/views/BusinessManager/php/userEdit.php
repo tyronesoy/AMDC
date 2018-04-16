@@ -89,10 +89,10 @@ if(isset($_REQUEST['id'])){
                                     <div class="form-group">
                                                       <label class="col-sm-4 control-label" for="txtdeptname">Department</label>
                                         <div class="col-sm-6">
-                                                       <select name = "txtdeptname" class="form-control">
-                                                       <option value=""><?php echo $per_deptname;?></option>
+                                                       <select name = "txtdeptname" id="txtdeptname" class="form-control" value="<?php echo $per_deptname;?>">
+                                                       <option><?php echo $per_deptname;?></option>
                                                         <?php
-                                                          $conn =mysqli_connect("localhost","root","");
+                                                          $conn = mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
                                                             $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City'";
                                                             $results = mysqli_query($conn, $sql);
@@ -109,7 +109,7 @@ if(isset($_REQUEST['id'])){
                         
                             
                     </div>
-                </form>
+            
             </div>
 
             <div class="modal-footer">
