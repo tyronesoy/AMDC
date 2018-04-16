@@ -54,7 +54,7 @@ function unit_measure($connect)
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <!-- <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
+  <!- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -1045,6 +1045,8 @@ function unit_measure($connect)
                       <td><?php echo $row["delivery_date"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
+
+                      <?php if($row['po_remarks'] == 'Pending') {?>
                        <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
@@ -1055,6 +1057,26 @@ function unit_measure($connect)
                         <div class="btn-group">
                             <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
                         </div>
+
+                        <?php }elseif($row['po_remarks'] == 'Delivered') { ?>
+                        <div class="btn-group">
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                        </div>
+                        <?php }else{ ?>
+                          <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                        </div>
+                        <?php } ?>
                       </td>
                     </tr>
                   <?php 

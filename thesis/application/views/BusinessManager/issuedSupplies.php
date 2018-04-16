@@ -625,7 +625,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>Request Date</th>
                     <th>Issue Date</th>
                     <th>Department</th>
-                    <th>Customer Name</th>
+                    <th>Supervisor Name</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -650,7 +650,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>Request Date</th>
                     <th>Issue Date</th>
                     <th>Department</th>
-                    <th>Customer Name</th>
+                    <th>Supervisor Name</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
