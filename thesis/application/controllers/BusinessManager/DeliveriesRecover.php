@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Deliveries extends CI_Controller {
+class DeliveriesRecover extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -31,7 +31,7 @@ class Deliveries extends CI_Controller {
       			{  
            			// echo 'dashboard';
            			//$this->load->view('BusinessManager/dashboard');
-           			$this->load->view('BusinessManager/deliveries');
+           			$this->load->view('BusinessManager/deliveriesRecover');
       			}  
       			else if ($_SESSION['logged_in'] != 'True')  
       			{  
@@ -50,18 +50,9 @@ class Deliveries extends CI_Controller {
 		//	header('Location: ../login');
 		//}
 	}
-	public function deleteDelivery(){
-		$this->load->view('BusinessManager/php/deliveriesDelete');
+	public function recoverDelivery(){
+		$this->load->view('BusinessManager/php/deliveriesRestore');
 	}
-	// public function getChange(){
-	// 	$this->load->view('BusinessManager/php/supplierChange');
-	// }
-	public function editDelivery(){
-		$this->load->view('BusinessManager/php/deliveriesEdit');
-	}
-	
-	public function viewDelivery(){
-		$this->load->view('BusinessManager/php/deliveriesView');
-	}
+
 
 }

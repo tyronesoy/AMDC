@@ -8,12 +8,22 @@
     mysqli_select_db($conn, "itproject");
     
     $id = $_GET['returnSupp'];
+    $supid = $_GET['supid'];
+    $qty= $_GET['qty'];
+    $qtyReturn= $_GET['qtyReturn'];
+    $add=$qty+$qtyReturn;
+ 
+    $sql = $conn->prepare("UPDATE returns join supplies on supplies_id = supply_id SET return_status='Returned' WHERE return_id='$id'");
+    $sqladd = $conn->prepare("UPDATE supplies join returns on supplies_id = supply_id SET quantity_in_stock='$add' WHERE supply_id='$supid'");
 
-    $sql = $conn->prepare("UPDATE returns SET return_status='Returned' WHERE return_id='$id'");
-
-        $sql->execute();
-        $sql->close();   
-        $conn->close();
+        if($sql->execute() && $sqladd->execute())
+        {
+            $sql->close(); 
+            $sqladd->close();  
+            $conn->close();
+        }
+        
+       
 
     header ('Location: ../dashboard');
 ?> 

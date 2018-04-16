@@ -616,7 +616,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers USING(supplier_id) WHERE quantity_in_stock <= reorder_level+10";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -698,7 +698,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers USING(supplier_id) WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
+                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
                   $result = $conn->query($sql);    
                 ?>
                 <thead> 
@@ -748,7 +748,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT returns.return_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
+                  $sql = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -768,12 +768,14 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
+                      <td class="hidden"><input type="text" name="supid" hidden value="<?php echo $row["supplies_id"]; ?>"></td>
                       <td><?php echo $row["supply_type"]; ?></td>
                       <td><?php echo $row["return_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
                       <td><?php echo $row["company_name"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><input type="text" class="form-control" name="qtyReturn" value="<?php echo $row["quantity_returned"]; ?>"  style="border: 0; outline: 0;  background: transparent;" readonly></td>
+                      <td class="hidden"><input type="text" hidden name="qty" value="<?php echo $row["quantity_in_stock"]; ?>" readonly></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
