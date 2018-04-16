@@ -11,17 +11,15 @@
     $supid = $_GET['supid'];
     $qty= $_GET['qty'];
     $qtyReturn= $_GET['qtyReturn'];
-    $add=$qty+$qtyReturn;
+    $add=$_GET['qty'] + $_GET['qtyReturn'];
  
     $sql = $conn->prepare("UPDATE returns join supplies on supplies_id = supply_id SET return_status='Returned' WHERE return_id='$id'");
     $sqladd = $conn->prepare("UPDATE supplies join returns on supplies_id = supply_id SET quantity_in_stock='$add' WHERE supply_id='$supid'");
-
-        if($sql->execute() && $sqladd->execute())
-        {
-            $sql->close(); 
-            $sqladd->close();  
-            $conn->close();
-        }
+    $sql->execute();
+    $sqladd->execute();
+    $sql->close(); 
+    $sqladd->close();  
+    $conn->close();
         
        
 
