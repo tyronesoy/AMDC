@@ -803,6 +803,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       <td><?php echo $row["dept_name"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
+                        <?php if($row['user_status'] == 'Active') { ?>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;Update</button>
                         </div>
@@ -812,6 +813,12 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                         <div class="btn-group">
                             <button type="button" id="getReset" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;Reset Password</button>
                         </div>
+
+                        <?php } else { ?>
+                            <div class="btn-group">
+                            <button type="button" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp;Change Status</button>
+                        </div>
+                        <?php } ?>
                       </td>
                     </tr>
                   <?php 

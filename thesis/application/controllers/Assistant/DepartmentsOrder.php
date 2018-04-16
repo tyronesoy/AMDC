@@ -68,8 +68,11 @@ class DepartmentsOrder extends CI_Controller {
 	public function declineOrder(){
 		$this->load->view('Assistant/php/decline_order');
 	}
+	public function issueOrder(){
+		$this->load->view('Assistant/php/issue_order');
+	}
     public function addUser(){
-		$this->load->view('Assistant/php/userAdd2');
+		$this->load->view('BusinessManager/php/userAdd2');
 	}
 
 }

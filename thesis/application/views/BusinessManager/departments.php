@@ -724,12 +724,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["location"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
+                        <?php if($row['department_status'] == 'Active') { ?>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["department_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["department_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
                         </div>
+                        <?php }else{?>
+                            <div class="btn-group">
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["department_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                        </div>
+                        <?php } ?>
                       </td>
                     </tr>
                   <?php 

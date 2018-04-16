@@ -742,6 +742,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["memo_description"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
+                        <?php if($row['memo_status'] == 'Pending'){ ?>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
@@ -751,6 +752,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="btn-group">
                           <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
                         </div>
+
+                      <?php }else{ ?>
+                        <div class="btn-group">
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                        </div>
+                        <div class="btn-group">
+                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
+                        </div>
+                        <?php } ?>
                       </td>
                     </tr>
                   <?php 
