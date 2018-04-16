@@ -16,7 +16,7 @@ $con=mysqli_connect('localhost','root','','itproject');
   $_SESSION['username'] = $username;
   $_SESSION['user_email'] = $user_email;
   $_SESSION['password'] = $password;
-  $sql = $con->prepare("UPDATE users SET username='".$username."',fname='".$fname."',lname='".$lname."',user_contact='".$user_contact."',password='".$password."' where user_id = ".$this->session->userdata('id')."");
+  $sql = $con->prepare("UPDATE users SET username='".$username."',fname='".$fname."',lname='".$lname."',user_contact='".$user_contact."',password='".$password."',user_email='".$user_email."' where user_id = ".$this->session->userdata('id')."");
 
   if($sql->execute()) {
   $conn =mysqli_connect("localhost","root","");
