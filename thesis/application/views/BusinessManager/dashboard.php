@@ -886,10 +886,20 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <div class="chart">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT SUM(supplies.total_amount) AS 'Total Expense', supplies.supply_type AS 'Type', issuedsupplies.department_name AS 'Department' FROM supplies INNER JOIN issuedsupplies USING(supply_type) WHERE supply_type = 'Medical' GROUP BY supply_type, department_name";
+                  $query="SELECT SUM(supplies.unit_price*inventory_order_supplies.quantity) AS 'Total Expense', supplies.supply_type AS 'Type', inventory_order.inventory_order_dept AS 'Department' FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name GROUP BY inventory_order_dept";
+                  $query_result=$conn->query($query);
+
+                  $sql = "SELECT SUM(supplies.unit_price*inventory_order_supplies.quantity) AS 'Total Expense', supplies.supply_type AS 'Type', inventory_order.inventory_order_dept AS 'Department' FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE supply_type = 'Medical' GROUP BY inventory_order_dept";
                   $result = $conn->query($sql);
-                  $sql2 = "SELECT SUM(supplies.total_amount) AS 'Total Expense', supplies.supply_type AS 'Type', issuedsupplies.department_name AS 'Department' FROM supplies INNER JOIN issuedsupplies USING(supply_type) WHERE supply_type = 'Office' GROUP BY supply_type, department_name";
+
+                  $sql2 = "SELECT SUM(supplies.unit_price*inventory_order_supplies.quantity) AS 'Total Expense', supplies.supply_type AS 'Type', inventory_order.inventory_order_dept AS 'Department' FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE supply_type = 'Office' GROUP BY inventory_order_dept";
                   $result2 = $conn->query($sql2);
+
+                  $location = '';
+                  while ($row = mysqli_fetch_array($query_result)) {
+                    $location .= '"'.$row["Department"].'", ';
+                  }
+
                   $total_data1 = '';
                   $type_data1 = '';
                   $location_data1 = '';
@@ -906,7 +916,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     $type_data2 .= '"'.$row["Type"].'", ';
                     $location_data2 .= '"'.$row["Department"].'", ';
                   }
-                  $chart_data1 = $location_data1;
+                  $chart_data1 = $location;
                   $chart_data2 = $total_data1;
                   $chart_data3 = $total_data2;
 
