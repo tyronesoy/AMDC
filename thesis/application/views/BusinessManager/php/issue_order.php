@@ -90,7 +90,7 @@ if(isset($_REQUEST['id'])){
                         <span id="error"></span>
                         <table class="table table-bordered" id="item_table">
                             <tr>
-                                <th style="text-align: center;">Expiration Date</th>
+                                <th class="hidden" style="text-align: center;">Expiration Date</th>
                                 <th style="text-align: center;">Qty in Stock</th>
                                 <th style="text-align: center;">Item Description</th>
                                 <th style="text-align: center;">Qty Ordered</th>
@@ -123,7 +123,7 @@ if(isset($_REQUEST['id'])){
                                 <td class="hidden" width="75"><input class="form-control hidden" id="txtsupid<?php echo $x; ?>" name="txtsupid<?php echo $x; ?>" value="<?php print_r($supply_id[$zero]);?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
 
-                                <td width="75"><input class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php print_r($expiration_date[$zero]);?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td class="hidden" width="75"><input class="form-control hidden" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php print_r($expiration_date[$zero]);?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
 
                                 <td width="50"><input class="form-control" id="txtsupply<?php echo $x; ?>" name="txtsupply<?php echo $x; ?>" value="<?php print_r($quantity_in_stock[$zero]);?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
