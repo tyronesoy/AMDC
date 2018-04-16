@@ -6,7 +6,7 @@ $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 function supply_dropdown($connect)
 { 
  $output = '';
- $query = "SELECT * FROM supplies ORDER BY supply_description ASC";
+ $query = "SELECT * FROM supplies WHERE soft_deleted='N' ORDER BY supply_description ASC";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
