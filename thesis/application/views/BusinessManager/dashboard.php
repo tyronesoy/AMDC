@@ -177,7 +177,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
+              <li class="footer"><a href="<?php echo 'BusinessManager/logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="BusinessManager/deleteall" method="post">
