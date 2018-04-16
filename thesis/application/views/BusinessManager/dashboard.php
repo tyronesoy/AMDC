@@ -753,12 +753,14 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 ?>
                 <thead>
                 <tr>
+                  <th class="hidden"></th>
                   <th>Supply Type</th>
                   <th>Date Returned</th>
                   <th>Description</th>
                   <th>Brandname</th>
                   <th>Supplier</th>
                   <th>Quantity</th>
+                  <th class="hidden"></th>
                   <th>Unit</th>
                   <th>Reason</th>
                   <th></th>
@@ -783,7 +785,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                           
                         
                            <input type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
-                          <button type="submit" class="btn btn-success">Returned </button>
+                          <button type="submit" class="btn btn-xs btn-success">Returned </button>
                         
                       </td>
                       </form> 
@@ -840,7 +842,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                          
                         <form action="BusinessManager/dispose" method="get">
                           <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
-                          <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
+                          <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
                         </form> 
                       </td>
                     </tr>
