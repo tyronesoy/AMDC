@@ -1,5 +1,35 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+$connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
+
+function unit_measure($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM unit_of_measure ORDER BY unit_name ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $output .= '<option value="'.$row["unit_name"].'">'.$row["unit_name"].'</option>';
+ }
+ return $output;
+}
+
+function supplier($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM suppliers ORDER BY company_name ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $output .= '<option value="'.$row["supplier_id"].'">'.$row["company_name"].'</option>';
+ }
+ return $output;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -651,6 +681,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
+                                                  <label for="exampleInputEmail1">Brand Name</label>
+                                                  <input type="text" class="form-control" id="brandname" min="0" name="brandname" required />
+                                                
+                                              </div>
+                                              </div>
+
+                                              <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Supplier</label>
+                                                  <select class="form-control select2" name="supplier" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supplier($connect);?>
+                                                  </select>
+                                              </div>
+                                              </div>
+                                              </div>
+                                              <div class="row">
+                                              <div class="col-md-6">
+                                              <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
                                                   <input type="number" class="form-control" id="Quantity" min="0" name="Quantity" required />
                                                 
@@ -660,7 +709,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
-                                                  <input type="text" class="form-control" id="Unit" name="Unit" />
+                                                  <select class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
                                               </div>
                                               </div>
                                               </div>

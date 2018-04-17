@@ -16,6 +16,20 @@ function unit_measure($connect)
  }
  return $output;
 }
+
+function supplier($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM suppliers ORDER BY company_name ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $output .= '<option value="'.$row["supplier_id"].'">'.$row["company_name"].'</option>';
+ }
+ return $output;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -685,7 +699,25 @@ function unit_measure($connect)
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
-                                            
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Brand Name</label>
+                                                  <input type="text" class="form-control" id="brandname" min="0" name="brandname" required />
+                                                
+                                              </div>
+                                              </div>
+
+                                              <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Supplier</label>
+                                                  <select class="form-control select2" name="supplier" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supplier($connect);?>
+                                                  </select>
+                                              </div>
+                                              </div>
+                                              </div>
                                               <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
