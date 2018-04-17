@@ -666,7 +666,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row no-print">
         <div class="col-xs-1" style="float:right">
           <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
-          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
         <div class="col-xs-1" style="float:left">
             <a href="deliveriesRecover" style="color:white;">

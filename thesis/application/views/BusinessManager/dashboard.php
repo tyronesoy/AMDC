@@ -404,7 +404,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       </div>
     </nav>
   </header>
-    <?php $identity =  $this->session->userdata('fname');?>
+ <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
@@ -414,7 +414,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                   <div class="col-md-2">
-                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                             </div>
                                 <div class="col-md-8">
                                                 
@@ -464,7 +464,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -495,7 +495,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -503,7 +503,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>                        
+        </div>                       
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -557,8 +557,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             </li>
             <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
-      <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-      <li><a href="<?php echo 'BusinessManager/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+      <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'BusinessManager/deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->

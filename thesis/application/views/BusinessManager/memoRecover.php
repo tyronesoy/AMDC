@@ -394,7 +394,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </nav>
   </header>
-    <?php $identity =  $this->session->userdata('fname');?>
+   <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
@@ -454,7 +454,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -485,7 +485,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -493,7 +493,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>   
+        </div>       
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -547,8 +547,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
 			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
-			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
         <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
@@ -566,13 +566,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!---------------------------------------------------- MEMO MENU -------------------------------------------------------------->
         <li class="active">
           <a href="<?php echo 'memo'?>">
-            <i class="fa fa-calendar"></i> <span>Memo</span>
+            <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
         <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'logs' ?>">
-            <i class="fa fa-print"></i> <span>Logs</span>
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
           </a>
         </li>
           <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
@@ -674,23 +674,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               
           </div>
         </div>
-        <div class="row no-print">
-			<div class="col-xs-1" style="float:right">
-          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
-        </div>
-      <script>
-        $('#print').click(function(){
-          var printme = document.getElementById('example');
-          var wme = window.open("","","width=900,height=700");
-          wme.document.write(printme.outerHTML);
-          wme.document.close();
-          wme.focus();
-          wme.print();
-          wme.close();
-        })
-      </script>
-      
-      </div>
         <!-- END OF PRINT AND PDF -->
     </section>
     <!-- /.content -->

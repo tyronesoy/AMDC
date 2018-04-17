@@ -391,7 +391,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </nav>
   </header>
-    <?php $identity =  $this->session->userdata('fname');?>
+   <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
@@ -451,7 +451,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -482,7 +482,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -490,7 +490,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div> 
+        </div>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -544,8 +544,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-      <li class="active"><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li class="active"><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
@@ -592,13 +592,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Deliveries</b>
+        <i class="fa fa-truck"></i> <b>Deliveries</b>
         <!-- <small>advanced tables</small> -->
       </h1>
         
      <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li class="active">Deliveries</li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active"><i class="fa fa-truck"></i> Deliveries</li>
       </ol>
     </section>
 
@@ -688,7 +688,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row no-print">
         <div class="col-xs-1" style="float:right">
           <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
-          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
         </div>
         <div class="col-xs-1" style="float:left">
             <a href="deliveriesRecover" style="color:white;">
