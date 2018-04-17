@@ -794,6 +794,8 @@ if(!isset($_SESSION['first_run'])){
                               <td><div class="btn-group">
                             <?php if($row['inventory_order_status'] == 'Issued') { ?>
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
+                            <?php }elseif($row['inventory_order_status'] == 'Accepted' || $row['inventory_order_status'] == 'Declined') { ?>
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
                             <?php }else{ ?>
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
                             
