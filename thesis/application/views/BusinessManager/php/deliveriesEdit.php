@@ -90,7 +90,7 @@ if(isset($_REQUEST['id'])){
                                                   <label for="exampleInputEmail1">Supplier</label>
 
                                         <input type="text" class="form-control" id="txtsupplier" name="txtsupplier" value="<?php echo $per_supplier;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                        <input type="hidden" class="form-control" id="txtsupid" name="txtsupid" value="<?php echo $per_sup_id;?>" readonly>
+                                        <input type="hidden" class="form-control" id="txtsupids" name="txtsupids" value="<?php echo $per_sup_id;?>" readonly>
 
                                               </div>
                                               </div>
