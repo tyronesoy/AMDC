@@ -22,13 +22,13 @@ if(isset($_REQUEST['id'])){
         $per_po_key=$row[12];
         $per_quantityDelivered=$row[13];
         $per_itemDeliveryRemarks=$row[14];
-        $per_purch_id=$row[15];
-        $per_orderCreateDate=$row[16];        
-        $per_purchOrderName=$row[17];
-        $per_purchOrderStatus=$row[18];
-        $per_purchOrderRemarks=$row[19];
-        $per_gtotal=$row[20];
-        $per_soft_deleted=$row[23];
+        $per_purch_id=$row[16];
+        $per_orderCreateDate=$row[17];        
+        $per_purchOrderName=$row[18];
+        $per_purchOrderStatus=$row[19];
+        $per_purchOrderRemarks=$row[20];
+        $per_gtotal=$row[21];
+        $per_soft_deleted=$row[24];
     }//end while
 ?>
     <form class="form-horizontal" method="post" action ="">
