@@ -24,20 +24,21 @@ if(isset($_REQUEST['id'])){
         $per_po_key=$row[12];
         $per_quantityDelivered=$row[13];
         $per_itemDeliveryRemarks=$row[14];
-        $per_purch_id=$row[15];
-        $per_orderCreateDate=$row[16];        
-        $per_purchOrderName=$row[17];
-        $per_purchOrderStatus=$row[18];
-        $per_purchOrderRemarks=$row[19];
-        $per_gtotal=$row[20];
-        $per_soft_deleted=$row[23];
+        $per_notes=$row[15];
+        $per_purch_id=$row[16];
+        $per_orderCreateDate=$row[17];        
+        $per_purchOrderName=$row[18];
+        $per_purchOrderStatus=$row[19];
+        $per_purchOrderRemarks=$row[20];
+        $per_gtotal=$row[21];
+        $per_soft_deleted=$row[24];
 
 
     }//end while
 ?>
 <form class="form-horizontal" method="post">
                                   <div class="modal-dialog">
-                                    <div class="modal-content">
+                                    <div class="modal-content modal-lg">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
@@ -54,11 +55,11 @@ if(isset($_REQUEST['id'])){
                                             </div>
                                         </div>
                                         <!-- end of modal header -->
-                                      <div class="modal-body">
-                                      <div class="box-header">
-                                        <div class="margin">
-                                          <center><h4>View Deliveries Form</h4></center>
-                                        </div>
+                                     <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>View Deliveries</b></h4></center>
+                                            </div>
                                       </div>
                                         <div class="box-body">
                                         <div class="row">
@@ -89,36 +90,54 @@ if(isset($_REQUEST['id'])){
                                               <div class="col-md-5">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
-
+                                                   <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-group"></i>
+                                                      </div>
                                         <input type="text" class="form-control" id="txtname" name="txtname" value="<?php echo $per_supplier;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                      </div>
 
                                               </div>
                                               </div>
 
-                                              <div class="col-md-6">
+                                              <div class="col-md-5">
                                               <div class="form-group">
+                                                 <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
                                                     <label>Purchase Order Date</label>
                                                       <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   </div>
+                                                </div>
                                                 </div>
                                                 <div class="col-md-1">
                                                 </div>
 
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label for="txtstatus">Status</label>
+                                                         <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-toggle-on"></i>
+                                                      </div>
                                                             <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_purchOrderStatus;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-
+                                                          </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6">
+                                                <div class="col-md-5">
                                               <div class="form-group">
                                                     <label>Delivery Date</label>
+                                                     <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
                                                       <input type="text" class="form-control" id="txtddate" name="txtddate" value="<?php echo $per_deliveryDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   </div>
                                                 </div>
+                                              </div>
 
 
                                               </div>
@@ -127,7 +146,7 @@ if(isset($_REQUEST['id'])){
                         $result = $con->query($sql);    
                       ?>
 
-                                          
+                                          <div class="row">
                                         <div class="table-responsive">
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="item_table">
@@ -138,6 +157,7 @@ if(isset($_REQUEST['id'])){
                                                <th>Quantity Delivered</th>
                                                <th>Unit Price</th>
                                                <th>Total Amount</th>
+                                               <th>Notes</th>
                                               </tr>
                                               <?php if($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) { ?>
@@ -146,7 +166,7 @@ if(isset($_REQUEST['id'])){
                                               <td width="250"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
 
-                                              <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $row['order_unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $row['order_unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;width: 70px" readonly>
                                               </td>
                                             
                                             <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  </td>
@@ -155,7 +175,10 @@ if(isset($_REQUEST['id'])){
 
                                             <td width="50"><input type="text" name="unit_price" class="form-control " value="&#8369 <?php echo $row['unit_price']; ?>" min="0" style="width: 75px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td>
 
-                                            <td width="250"><input type="text" name="total" class="form-control " min="0" style="width: 100px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="&#8369 <?php echo $row['total'] ?>" readonly/> </td>
+                                            <td width="100"><input type="text" name="total" class="form-control " min="0" style="width: 100px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="&#8369 <?php echo $row['total'] ?>" readonly/> </td>
+                                            
+
+                                            <td width="250"><input type="text" name="notes" class="form-control " min="0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $row['notes'] ?>" readonly/> </td>
                                             </tr>
 
                                             <?php 

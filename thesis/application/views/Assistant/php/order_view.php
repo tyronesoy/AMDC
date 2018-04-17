@@ -24,6 +24,7 @@ if(isset($_REQUEST['id'])){
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="col-md-2">
                     <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                 </div>
@@ -39,12 +40,12 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <div class="box-header">
                     <div class="margin">
-                        <center><h4><b>Departments Order Form</b></h4></center>
+                        <center><h4><b>View Departments Order </b></h4></center>
                     </div>
                 </div>
                 <div class="box-body">                                      
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-11">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Supervisor Name</label>
                                 <div class="input-group">
@@ -60,7 +61,12 @@ if(isset($_REQUEST['id'])){
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Order Date</label>
+                                   <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
                                 <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -69,7 +75,12 @@ if(isset($_REQUEST['id'])){
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="txtstatus">Status</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-toggle-on"></i>
+                                    </div>
                                 <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -77,6 +88,7 @@ if(isset($_REQUEST['id'])){
                         $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND quantity !=0";
                         $result = $con->query($sql);    
                       ?>
+                      <div class="row">
                     <div class="table-responsive">
                         <span id="error"></span>
                         <table class="table table-bordered" id="item_table">

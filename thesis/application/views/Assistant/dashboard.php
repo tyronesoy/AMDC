@@ -407,7 +407,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                   <div class="col-md-2">
-                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                             </div>
                                 <div class="col-md-8">
                                                 
@@ -457,7 +457,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -488,7 +488,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -544,8 +544,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             </li>
             <li><a href="<?php echo 'Assistant/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'Assistant/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'Assistant/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
-      <li><a href="<?php echo 'Assistant/deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
+      <li><a href="<?php echo 'Assistant/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'Assistant/deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
@@ -589,8 +589,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
       </ol>
     </section>
-
-    <!-- Main content -->
+   <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
@@ -600,7 +599,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers ON supplies.suppliers_id=suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -612,11 +611,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   ?>
 
               <p>Reorder Supplies</p>
-              <div class="icon">
+            </div>
+            <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            </div>
-            
             <button onclick="myFunction('Demo1')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
@@ -683,7 +681,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers ON supplies.suppliers_id=suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
+                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
                   $result = $conn->query($sql);    
                 ?>
                 <thead> 
@@ -733,17 +731,19 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT returns.return_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
+                  $sql = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
                 <tr>
+                  <th class="hidden"></th>
                   <th>Supply Type</th>
                   <th>Date Returned</th>
                   <th>Description</th>
                   <th>Brandname</th>
                   <th>Supplier</th>
                   <th>Quantity</th>
+                  <th class="hidden"></th>
                   <th>Unit</th>
                   <th>Reason</th>
                   <th></th>
@@ -753,21 +753,25 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
+                    <form action="<?php echo 'BusinessManager/returns'?>" method="get">
+                      <td class="hidden"><input type="hidden" name="supid" hidden value="<?php echo $row["supply_id"]; ?>"></td>
                       <td><?php echo $row["supply_type"]; ?></td>
                       <td><?php echo $row["return_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
                       <td><?php echo $row["company_name"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><input type="text" class="form-control" name="qtyReturn" value="<?php echo $row["quantity_returned"]; ?>"  style="border: 0; outline: 0;  background: transparent;" readonly></td>
+                      <td class="hidden"><input type="hidden" hidden name="qty" value="<?php echo $row["quantity_in_stock"]; ?>" readonly></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
                           
-                        <form action="<?php echo 'BusinessManager/returns'?>" method="get">
+                        
                            <input type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
-                          <button type="submit" class="btn btn-success">Returned </button>
-                        </form> 
+                          <button type="submit" class="btn btn-xs btn-success">Returned </button>
+                        
                       </td>
+                      </form> 
                     </tr>
                   <?php 
                       }
@@ -821,7 +825,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                          
                         <form action="BusinessManager/dispose" method="get">
                           <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
-                          <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
+                          <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
                         </form> 
                       </td>
                     </tr>
@@ -844,8 +848,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </div>
         </div>
         
+
         <section class="content">
-        <div class="row">
+          <div class="row">
         <h3>Total Expenses per Department</h3>
         
           <!-- BAR CHART -->
@@ -924,7 +929,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_description, SUM(quantity_ordered) FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Medical' GROUP BY supply_description ORDER BY quantity_ordered DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Issued' AND supply_type='Medical' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -937,8 +942,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <?php if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
-                        <td><?php echo $row["supply_description"]; ?></td>
-                        <td><?php echo $row["SUM(quantity_ordered)"]; ?></td>
+                        <td><?php echo $row["supply_name"]; ?></td>
+                        <td><?php echo $row["SUM(quantity)"]; ?></td>
                         </tr>
                       <?php 
                           }
@@ -971,7 +976,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_description, SUM(quantity_ordered) FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Office' GROUP BY supply_description ORDER BY quantity_ordered DESC LIMIT 10 ";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Issued' AND supply_type='Office' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10 ";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -984,8 +989,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <?php if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
-                        <td><?php echo $row["supply_description"]; ?></td>
-                        <td><?php echo $row["SUM(quantity_ordered)"]; ?></td>
+                        <td><?php echo $row["supply_name"]; ?></td>
+                        <td><?php echo $row["SUM(quantity)"]; ?></td>
                         </tr>
                       <?php 
                           }
@@ -1077,7 +1082,7 @@ setTimeout(onUserInactivity, 1000 * 300)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "Assistant/lockscreen"
+    window.location.href = "BusinessManager/lockscreen"
    <?php } ?>
 }
 </script>
@@ -1286,6 +1291,6 @@ function myFunction3(id) {
                 $('#content-data').html('<p>Error</p>');
             });
         });
-    </script>
+</script>
 </body>
 </html>
