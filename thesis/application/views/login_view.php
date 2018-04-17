@@ -85,9 +85,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </form>
     <br>
-    <center><a type="submit"  data-toggle="modal" data-target="#modal-info" ><u>Forgot Password ?</u></a><br></center>
-      <form name="form2" method="post">
-                        <div class="modal fade" id="modal-info">
+    <center><button type="submit" class="btn btn-info" data-toggle="modal" data-target="#forgotpass">Forgot password</button></center>
+      <form name="form2" method="post"  action="login/passforget">
+                        <div class="modal fade" id="forgotpass">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
                                       <div class="modal-header">
@@ -100,17 +100,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <!-- end of modal header -->
                                       <div class="modal-body">
                                         <div class="box-body">
-                                           
-                                            <div class="form-group">
-                                                  <label for="exampleInputEmail1">Username</label>
-                                                  <input type="text" user="user"class="form-control" placeholder="Enter Username  ">
-                                                  
-                                                </div>
+                                           <div class="form-group">
+                                              <label for="exampleInputEmail1">Username</label>
+                                              <input type="text" class="form-control" name="username" id="username" required />
+                                            </div>
                                         </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Next</button>
+                                        <button type="submit" class="btn btn-success" name="passforget">Next</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -137,45 +135,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       if($per_type == 'BusinessManager'){
                                   ?>
                                 </div>
-                                <!-- MODAL -->
-                                          <div class="modal fade" id="modal-default">
-                                          <div class="modal-dialog">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span></button>
-                                                <div class="margin">
-                                                    <h3>Forgot Password</h3>
-                                                  </div>
-                                              </div>
-                                                <!-- end of modal header -->
-                                              <div class="modal-body">
-                                                <div class="box-body">
-
-                                                      <div class="form-group">
-                                                          <label for="exampleInputEmail1">Enter New Password</label>
-                                                          <input type="email" class="form-control">
-                                                        </div>
-                                                      <div class="form-group">
-                                                          <label for="exampleInputEmail1">Confirm New Password</label>
-                                                          <input type="email" class="form-control">
-                                                        </div>
-                                                      <div class="form-group">
-                                                          <label for="exampleInputEmail1">Security Question: Who is you favorite superhero?</label>
-                                                          <input type="email" class="form-control" placeholder="Answer">
-                                                        </div>
-                                                </div>
-                                              </div>
-                                              <div class="modal-footer">
-                                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-warning">Change Password</button>
-                                              </div>
-                                            </div>
-                                            <!-- /.modal-content --> 
-                                          </div>
-                                          <!-- /.modal-dialog -->
-                                        </div>
-                                <!-- MODAL -->
                                     <div class="modal fade" id="modal-warning">
                               <div class="modal-dialog">
                                 <div class="modal-content">
@@ -194,43 +153,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php
                                 }  
                               }
-                              ?>
-
-                            <!-- /.modal -->
-    <!-- <center><a type="submit"  data-toggle="modal" data-target="#modal-info"><u>I forgot my password</u></a><br></center>
-                      <form name="form2" method="post" action="<?php //echo site_url('forget/forgetPass') ?>"> 
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="margin">
-                                            <h3>Forgot Password</h3>
-                                          </div>
-                                      </div>
-                                        <!- end of modal header -->
-                                      <!-- <div class="modal-body">
-                                        <div class="box-body">
-                                           
-                                            <div class="form-group">
-                                                  <label for="exampleInputEmail1">Username</label>
-                                                  <input type="text" name="uname" class="form-control" placeholder="Enter Username">
-                                                  
-                                                </div>
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" id="getEdit" class="btn btn-primary" data-toggle="modal" data-target="#forg">Next</button>
-                                      </div>
-                                    </div>
-                                    <!- /.modal-content -->
-                                  <!-- </div>
-                                  <!- /.modal-dialog -->
-                                <!-- </div> -->
-                     <!--  </form> --> 
-                                <!-- MODAL --> 
+                              ?> 
                                 
   </div>
   <!-- /.login-box-body -->
@@ -285,6 +208,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </body>
 </html>
+
+<script>
+        $(document).on('click','#getAdd',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'login/passforget',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
 <?php 
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -303,4 +247,5 @@ if(isset($_POST['change'])){
         echo '<script>alert("Update Failed")</script>';
     }
 }
+
 ?>

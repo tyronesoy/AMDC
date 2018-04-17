@@ -159,7 +159,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </center>
               </li>
             </ul>
-          </li> 
+          </li>     
          
           <!-- Tasks: style can be found in dropdown.less -->
           <li class="dropdown tasks-menu">
@@ -973,6 +973,7 @@ if(isset($_POST['btnIssue'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
     $date=date("Y-m-d");
+    $cust_name=mysqli_real_escape_string($con,$_POST['custName']);
 
     $new_issue0=mysqli_real_escape_string($con,$_POST['txtissued0']);
     $new_quantity0=mysqli_real_escape_string($con,$_POST['txtquantity0']);
@@ -1066,7 +1067,7 @@ if(isset($_POST['btnIssue'])){
       $result_update9=mysqli_query($con,$sqlupdate9);
 
 
-    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Issued', inventory_order_remarks='The item has been issued', issued_date='$date' WHERE inventory_order_id='$new_id' ";
+    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Issued', inventory_order_remarks='The item has been issued to $cust_name', issued_date='$date' WHERE inventory_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
