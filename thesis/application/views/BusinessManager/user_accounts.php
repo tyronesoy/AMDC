@@ -695,12 +695,12 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Password</label>
-                                                  <input type="password" class="form-control" name="password" id="password" required />
+                                                  <input type="password" class="form-control" name="password" id="myInput" required />
                                                   <input type="checkbox" onclick="myFunction()"> &nbsp;Show Password
 
                                                 <script>
                                                 function myFunction() {
-                                                    var x = document.getElementById("password");
+                                                    var x = document.getElementById("myInput");
                                                     if (x.type === "password") {
                                                         x.type = "text";
                                                     } else {
