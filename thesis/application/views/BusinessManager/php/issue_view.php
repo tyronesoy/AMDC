@@ -87,7 +87,7 @@ if(isset($_REQUEST['id'])){
                         $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND quantity !=0";
                         $result = $con->query($sql);    
                       ?>
-                    <div class="table-responsive">
+                    <div class="row">
                         <span id="error"></span>
                         <table class="table table-bordered" id="item_table">
                             <tr>

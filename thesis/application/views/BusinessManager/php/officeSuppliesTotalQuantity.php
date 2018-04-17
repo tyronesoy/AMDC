@@ -32,8 +32,8 @@ function unit_measure($connect)
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- DataTables
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -53,7 +53,21 @@ function unit_measure($connect)
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    
+  
+<link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
+
+    <script src="../assets/table/jquery-1.12.4.js"></script>
+    <script src="../assets/table/jquery.dataTables.min.js"></script>
+    <script src="../assets/table/dataTables.buttons.min.js"></script>
+    <script src="../assets/table/buttons.flash.min.js"></script>
+    <script src="../assets/table/jszip.min.js"></script>
+    <script src="../assets/table/pdfmake.min.js"></script>
+    <script src="../assets/table/vfs_fonts.js"></script>
+    <script src="../assets/table/buttons.html5.min.js"></script>
+    <script src="../assets/table/buttons.print.min.js"></script>
+    <script src="../assets/table/buttons.colVis.min.js"></script>
+
  <style>
     .example-modal .modal {
       position: relative;
@@ -745,7 +759,7 @@ function unit_measure($connect)
             </div>
               
             <div class="box-body">
-        <table id="example1" class="table table-bordered table-striped">
+        <table id="example" class="table table-bordered table-striped">
          <?php // RETRIEVE or Display Medical Supplies
          $conn =mysqli_connect("localhost","root","");
           mysqli_select_db($conn, "itproject");
@@ -807,23 +821,7 @@ function unit_measure($connect)
         <!-- /.col -->
       </div>
       <!-- /.row -->
-            <!-- PRINT AND PDF -->
-                 <div class="row no-print">
-      <div class="col-xs-1" style="float:right">
-          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
-        </div>
-      <script>
-        $('#print').click(function(){
-          var printme = document.getElementById('example');
-          var wme = window.open("","","width=900,height=700");
-          wme.document.write(printme.outerHTML);
-          wme.document.close();
-          wme.focus();
-          wme.print();
-          wme.close();
-        })
-      </script>
-        <!-- END OF PRINT AND PDF -->
+     
     </section>
     <!-- /.content -->
   </div>
@@ -841,13 +839,12 @@ function unit_measure($connect)
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
+<!-- DataTables
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -880,17 +877,50 @@ function unit_measure($connect)
         </div>
 
 <script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
+  // $(function () {
+  //   $('#example1').DataTable()
+  //   $('#example2').DataTable({
+  //     'paging'      : true,
+  //     'lengthChange': false,
+  //     'searching'   : false,
+  //     'ordering'    : true,
+  //     'info'        : true,
+  //     'autoWidth'   : false
+  //   })
+  // })
+
+  $(document).ready(function() {
+    var printCounter = 0;
+ 
+    // Append a caption to the table before the DataTables initialisation
+    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
+ 
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                messageTop: function () {
+                    printCounter++;
+ 
+                    if ( printCounter === 1 ) {
+                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Office Supplies Total Quantity</center></h4>';
+                    }
+                    
+                },
+                messageBottom: null
+            },
+        'colvis'
+         ] //,
+        // columnDefs: [ {
+        //     targets: -1,
+        //     visible: false
+        // } ]
+    } );
+} );
     </script>
 <script>
 <!-- date and time -->

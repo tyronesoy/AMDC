@@ -16,8 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- DataTables
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -37,6 +37,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
+
+    <script src="../assets/table/jquery-1.12.4.js"></script>
+    <script src="../assets/table/jquery.dataTables.min.js"></script>
+    <script src="../assets/table/dataTables.buttons.min.js"></script>
+    <script src="../assets/table/buttons.flash.min.js"></script>
+    <script src="../assets/table/jszip.min.js"></script>
+    <script src="../assets/table/pdfmake.min.js"></script>
+    <script src="../assets/table/vfs_fonts.js"></script>
+    <script src="../assets/table/buttons.html5.min.js"></script>
+    <script src="../assets/table/buttons.print.min.js"></script>
+    <script src="../assets/table/buttons.colVis.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <?php
@@ -744,22 +758,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-           <div class="row no-print">
-      <div class="col-xs-1" style="float:right">
-          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
-        </div>
-      <script>
-        $('#print').click(function(){
-          var printme = document.getElementById('example');
-          var wme = window.open("","","width=900,height=700");
-          wme.document.write(printme.outerHTML);
-          wme.document.close();
-          wme.focus();
-          wme.print();
-          wme.close();
-        })
-      </script>
-      </div>
         <!-- END OF PRINT AND PDF -->
     </section>
     <!-- /.content -->
@@ -838,13 +836,11 @@ input:checked + .slider:before {
   border-radius: 50%;
 }    
 </style>
-<!-- jQuery 3 -->
-<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
+<!-- DataTables
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -881,19 +877,50 @@ function onUserInactivity() {
 </script>
 
 <script>
-      $(function () {
-        $('#example').DataTable()
-        $('#example1').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : false,
-          'ordering'    : true,
-          'info'        : true,
-          'autoWidth'   : true
-        })
+      // $(function () {
+      //   $('#example').DataTable()
+      //   $('#example1').DataTable({
+      //     'paging'      : true,
+      //     'lengthChange': false,
+      //     'searching'   : false,
+      //     'ordering'    : true,
+      //     'info'        : true,
+      //     'autoWidth'   : true
+      //   })
+      // })
 
-
-      })
+      $(document).ready(function() {
+    var printCounter = 0;
+ 
+    // Append a caption to the table before the DataTables initialisation
+    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
+ 
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                messageTop: function () {
+                    printCounter++;
+ 
+                    if ( printCounter === 1 ) {
+                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Departments</center></h4>';
+                    }
+                    
+                },
+                messageBottom: null
+            },
+        'colvis'
+         ] //,
+        // columnDefs: [ {
+        //     targets: -1,
+        //     visible: false
+        // } ]
+    } );
+} );
     </script>
 
 <script>
