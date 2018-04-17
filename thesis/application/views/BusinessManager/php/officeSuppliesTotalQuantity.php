@@ -650,7 +650,7 @@ function unit_measure($connect)
                                         <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
-                                              <center><h4><b>Inventory Reconciliation</b></h4></center>
+                                              <center><h4><b>Add New Item</b></h4></center>
                                             </div>
                                         <div class="box-body">
                                             <div class="form-group" style="width:100%;">

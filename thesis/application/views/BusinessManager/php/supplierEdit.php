@@ -70,8 +70,12 @@ if(isset($_REQUEST['id'])){
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtprodtype">Product Type</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtprodtype" name="txtprodtype" value="<?php echo $per_supplierProduct;?>">
+                            <div class="col-sm-8">
+                               <select id="txtprodtype" name="txtprodtype">
+                                    <option value="Office" <?php echo ($per_supplierProduct =='Office')?'selected':'' ?>>Office</option>
+                                    <option value="Medical" <?php echo ($per_supplierProduct =='Medical')?'selected':'' ?>>Medical</option>
+
+                                </select>   
                             </div>
                         </div>
                         <div class="form-group">

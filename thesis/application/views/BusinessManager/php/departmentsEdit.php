@@ -49,16 +49,22 @@ if(isset($_REQUEST['id'])){
                             <div class="col-sm-6">
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                                  </div>
-                            </div>
+                        </div>
                                 <div class="col-md-6">
-                                      <label class="exampleInputEmail" for="txtlocation">Branch Location</label>
-                                <select id="txtlocation" name="txtlocation">
-                                    <option value="Baguio City" <?php echo ($per_departmentLocation =='Baguio City')?'selected':'' ?>>Baguio City</option>
-                                    <option value="La Trinidad" <?php echo ($per_departmentLocation =='La Trinidad')?'selected':'' ?>>La Trinidad</option>
-                                    <option value="SLU Hospital" <?php echo ($per_departmentLocation =='SLU Hospital')?'selected':'' ?>>SLU Hospital</option>
-                                </select>                       
-                             <label class="exampleInputEmail" for="txtdepartmentname">Department Name</label>
-                                <input type="text" class="form-control" id="txtdepartmentname" name="txtdepartmentname" value="<?php echo $per_departmentName;?>">
+                                    <div class="form-group">
+                                    <label class="exampleInputEmail" for="txtlocation">Branch Location</label>
+                                    <select id="txtlocation" name="txtlocation">
+                                        <option value="Baguio City" <?php echo ($per_departmentLocation =='Baguio City')?'selected':'' ?>>Baguio City</option>
+                                        <option value="La Trinidad" <?php echo ($per_departmentLocation =='La Trinidad')?'selected':'' ?>>La Trinidad</option>
+                                        <option value="SLU Hospital" <?php echo ($per_departmentLocation =='SLU Hospital')?'selected':'' ?>>SLU Hospital</option>
+                                    </select> 
+                                </div>    
+                            </div>
+                                    <div class="col-md-6">  
+                                    <div class="form-group">              
+                                        <label class="exampleInputEmail" for="txtdepartmentname">Department Name</label>
+                                        <input type="text" class="form-control" id="txtdepartmentname" name="txtdepartmentname" value="<?php echo $per_departmentName;?>">
+                                    </div>
                             </div>
                     </div>
             <div class="modal-footer">

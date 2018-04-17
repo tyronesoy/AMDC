@@ -514,7 +514,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
          
         <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
-        <li class="active">
+        <li>
           <a href="<?php echo 'userAccounts' ?>">
             <i class="fa fa-group"></i> <span>Manage Accounts</span>
           </a>
@@ -560,7 +560,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
         <!---------------------------------------------------- MEMO MENU -------------------------------------------------------------->
-        <li>
+        <li class="active">
           <a href="<?php echo 'memo'?>">
             <i class="fa fa-calendar"></i> <span>Memo</span>
           </a>

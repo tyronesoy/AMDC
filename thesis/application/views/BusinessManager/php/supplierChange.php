@@ -22,6 +22,8 @@ if(isset($_REQUEST['id'])){
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
                 <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
