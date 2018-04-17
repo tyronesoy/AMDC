@@ -400,21 +400,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <!-- <h3 class="box-title">Office Supplies</h3> -->
-              <table style="float: left;">
-                    <tr>
-                        <th> <div class="dropdownButton">
-                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Departments
-                          <span class="caret"></span>
-                        </button>
-                          <option><b>All Departments</b></option>
-                             <option value="branchBaguio"><a href="<?php echo 'branchBaguio' ?>">Baguio</a></option>
-                             <option value="branchLA"><a href="<?php echo 'branchLA' ?>">La Trinidad</a></option>
-                        </select>
-                      </div></th>
-                    </tr>
-                </table> 
             </div>
             <!-- /.box-header -->
               <div class="box-body">
@@ -473,23 +458,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-         <div class="row no-print">
-        <div class="col-xs-1" style="float:right">
-          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
-        </div>
-      </div>
-      <script>
-        $('#print').click(function(){
-          var printme = document.getElementById('example');
-          var wme = window.open("","","width=900,height=700");
-          wme.document.write(printme.outerHTML);
-          wme.document.close();
-          wme.focus();
-          wme.print();
-          wme.close();
-        })
-      </script>
-    
     </section>
     <!-- /.content -->
   </div>

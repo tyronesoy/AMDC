@@ -413,21 +413,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
           <div class="box">
             <div class="box-header">
-              <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
-                <table style="float: left;">
-                    <tr>
-                        <th> <div class="dropdownButton">
-                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
-                          <span class="caret"></span>
-                        </button>
-                          <option><b>All Supplies</b></option>
-							<option value="officeSuppliesTotalQuantity"><a href="<?php echo 'officeSupplies' ?>">Total Quantity</a></option>
-                        </select>
-                      </div></th>
-                    </tr>
-                </table> 
-                
             </div>
               
       <div class="box-body">
@@ -482,25 +467,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-            <!--- PRINT AND PDF -->
-              <div class="row no-print">
-        <div class="col-xs-1" style="float:right">
-          <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
-          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
-        </div>
-      </div>
-      <script>
-        $('#print').click(function(){
-          var printme = document.getElementById('example');
-          var wme = window.open("","","width=900,height=700");
-          wme.document.write(printme.outerHTML);
-          wme.document.close();
-          wme.focus();
-          wme.print();
-          wme.close();
-        })
-      </script>
-        <!-- END OF PRINT AND PDF -->
     </section>
     <!-- /.content -->
   </div>
