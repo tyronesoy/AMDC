@@ -44,6 +44,14 @@ if(!isset($_SESSION['first_run'])){
         $res1 = $conn->query($notif1);
 }
 ?>
+<script type="text/javascript">
+  $("select").on('focus', function () {
+    previous = this.value;
+    }).change(function() {
+         $("select[value="+$(this).val()+"]").not(this).val(previous);
+    });
+</script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -550,13 +558,13 @@ if(!isset($_SESSION['first_run'])){
                                             <tr>
 
                                               <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
                                               <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
@@ -567,13 +575,13 @@ if(!isset($_SESSION['first_run'])){
                                              <tr>
 
                                               <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
                                               <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
@@ -584,13 +592,13 @@ if(!isset($_SESSION['first_run'])){
                                             <tr>
 
                                               <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
                                               <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
@@ -601,13 +609,13 @@ if(!isset($_SESSION['first_run'])){
                                             <tr>
 
                                               <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
                                               <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
@@ -618,13 +626,13 @@ if(!isset($_SESSION['first_run'])){
                                             <tr>
 
                                               <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
                                               <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
@@ -635,13 +643,13 @@ if(!isset($_SESSION['first_run'])){
                                             <tr>
 
                                               <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
                                               <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
@@ -652,13 +660,13 @@ if(!isset($_SESSION['first_run'])){
                                             <tr>
 
                                               <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
                                               <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
@@ -669,13 +677,13 @@ if(!isset($_SESSION['first_run'])){
                                             <tr>
 
                                               <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
                                               <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
@@ -687,13 +695,13 @@ if(!isset($_SESSION['first_run'])){
                                             <tr>
 
                                               <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
                                               <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
@@ -704,13 +712,13 @@ if(!isset($_SESSION['first_run'])){
                                             <tr>
 
                                               <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo supply_dropdown($connect);?>
                                                   </select>
                                               </td>
 
                                               <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
+                                                    <option></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </td>
@@ -770,10 +778,14 @@ if(!isset($_SESSION['first_run'])){
                               <td><?php echo $row["inventory_order_status"]; ?></td>
                               <td><?php echo $row["inventory_order_remarks"]; ?></td>
                               <td><div class="btn-group">
+                            <?php if($row['inventory_order_status'] == 'Issued') { ?>
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
+                            <?php }else{ ?>
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
                             
                             <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-edit"></i> Update</button>
+                            <?php } ?>
                         </div></td>
                             </tr>
                           <?php 
@@ -787,7 +799,6 @@ if(!isset($_SESSION['first_run'])){
                               <th>Customer Name</th>
                               <th>Department</th>
                               <th>Status</th>
-                              <th>Remarks</th>
                               <th>Action</th>
                           </tr>
                       </tfoot>
