@@ -30,7 +30,7 @@ if(!isset($_SESSION['first_run'])){
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <!-- Morris chart -->
   <link rel="stylesheet" href="assets/bower_components/chart.js/chart.css">
   <!-- jvectormap -->
@@ -222,7 +222,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                   <div class="col-md-2">
-                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                             </div>
                                 <div class="col-md-8">
                                                 
@@ -272,7 +272,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -412,7 +412,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       </ol>
     </section>
 
-   <!-- Main content -->
+ <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
@@ -422,7 +422,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers ON supplies.suppliers_id=suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -504,7 +504,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers ON supplies.suppliers_id=suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
+                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
                   $result = $conn->query($sql);    
                 ?>
                 <thead> 
@@ -554,17 +554,19 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT returns.return_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
+                  $sql = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
                 <tr>
+                  <th class="hidden"></th>
                   <th>Supply Type</th>
                   <th>Date Returned</th>
                   <th>Description</th>
                   <th>Brandname</th>
                   <th>Supplier</th>
                   <th>Quantity</th>
+                  <th class="hidden"></th>
                   <th>Unit</th>
                   <th>Reason</th>
                   <th></th>
@@ -574,21 +576,25 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
+                    <form action="<?php echo 'BusinessManager/returns'?>" method="get">
+                      <td class="hidden"><input type="hidden" name="supid" hidden value="<?php echo $row["supply_id"]; ?>"></td>
                       <td><?php echo $row["supply_type"]; ?></td>
                       <td><?php echo $row["return_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
                       <td><?php echo $row["company_name"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><input type="text" class="form-control" name="qtyReturn" value="<?php echo $row["quantity_returned"]; ?>"  style="border: 0; outline: 0;  background: transparent;" readonly></td>
+                      <td class="hidden"><input type="hidden" hidden name="qty" value="<?php echo $row["quantity_in_stock"]; ?>" readonly></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
                           
-                        <form action="<?php echo 'BusinessManager/returns'?>" method="get">
+                        
                            <input type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
-                          <button type="submit" class="btn btn-success">Returned </button>
-                        </form> 
+                          <button type="submit" class="btn btn-xs btn-success">Returned </button>
+                        
                       </td>
+                      </form> 
                     </tr>
                   <?php 
                       }
@@ -642,7 +648,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                          
                         <form action="BusinessManager/dispose" method="get">
                           <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
-                          <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
+                          <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
                         </form> 
                       </td>
                     </tr>
@@ -663,9 +669,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tfoot>
               </table>
           </div>
+        </div>
         
 
         <section class="content">
+          <div class="row">
         <h3>Total Expenses per Department</h3>
         
           <!-- BAR CHART -->
@@ -725,6 +733,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+        </div>
+        <div class="row">
             <div class="col-md-6">
           <!-- DONUT CHART -->
         <h3>Top 10 used supplies</h3>
@@ -742,7 +752,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_description, SUM(quantity_ordered) FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Medical' GROUP BY supply_description ORDER BY quantity_ordered DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Issued' AND supply_type='Medical' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -755,8 +765,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <?php if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
-                        <td><?php echo $row["supply_description"]; ?></td>
-                        <td><?php echo $row["SUM(quantity_ordered)"]; ?></td>
+                        <td><?php echo $row["supply_name"]; ?></td>
+                        <td><?php echo $row["SUM(quantity)"]; ?></td>
                         </tr>
                       <?php 
                           }
@@ -789,7 +799,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_description, SUM(quantity_ordered) FROM request_supplies inner join supplies using (supply_id) WHERE supply_type='Office' GROUP BY supply_description ORDER BY quantity_ordered DESC LIMIT 10 ";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Issued' AND supply_type='Office' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10 ";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -802,8 +812,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <?php if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
-                        <td><?php echo $row["supply_description"]; ?></td>
-                        <td><?php echo $row["SUM(quantity_ordered)"]; ?></td>
+                        <td><?php echo $row["supply_name"]; ?></td>
+                        <td><?php echo $row["SUM(quantity)"]; ?></td>
                         </tr>
                       <?php 
                           }
@@ -815,12 +825,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-
+        </div>
         </div>
         <!-- /.col (RIGHT) -->
     </section>
     <!-- /.content -->
-      </div>
+      
       <!-- /.row -->
     </section>
     <!-- /.content -->
@@ -830,11 +840,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       
   </div>
   <!-- /.content-wrapper -->
-    <footer class="main-footer">
+   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM. </strong> All rights
+    <strong>Copyright &copy; AMDC INVENTORY MANAGEMENT SYSTEM </strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed
@@ -853,7 +863,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    
 <!-- Morris.js charts -->
 <script src="assets/bower_components/raphael/raphael.min.js"></script>
 <script src="assets/bower_components/chart.js/chart.min.js"></script>
@@ -881,29 +890,54 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 <script src="assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="assets/dist/js/demo.js"></script>
-    
-<!-- ITO ANG LEGIT NA JAVASCRIPT NG CHARTS -->
-<!-- jQuery 3 -->
-
-<!-- ChartJS -->
-<script src="assets/bower_components/Chart.js/Chart.js"></script>
-	
-<!-- page script -->
 <!-- DataTables -->
 <script src="assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    
+<!-- ITO ANG LEGIT NA JAVASCRIPT NG CHARTS -->
+<!-- ChartJS -->
+<script src="assets/bower_components/Chart.js/Chart.js"></script>
+
+<!-- page script -->
 
 <script>
 setTimeout(onUserInactivity, 1000 * 300)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "Supervisor/lockscreen"
+    window.location.href = "BusinessManager/lockscreen"
    <?php } ?>
 }
 </script>
 
-
+<!-- <script type="text/javascript">
+setTimeout(onUserInactivity, 1000 * 120)
+function onUserInactivity() {
+   window.location.href = "<?php //echo 'BusinessManager/lockscreen'?>"
+}
+</script> -->
+<!-- <?php
+//$time = $_SESSION['Time'];
+//$time_check=$time-120;
+//if($time<$time_check) {
+//  $_SESSION['login'] = 'False';
+//  if($_SESSION['login'] == 'False'){
+//    echo '<script>window.location.href="<?php echo "BusinessManager/lockscreen" ?>"</script>';
+  }
+}
+  ?> -->
+<!-- <script type="text/javascript">
+inactivityTimeout = False
+resetTimeout()
+function onUserInactivity() {
+   window.location.href = "lockscreen"
+}
+function resetTimeout() {
+   clearTimeout(inactivityTimeout)
+   inactivityTimeout = setTimeout(onUserInactivity, 1000 * 120)
+}
+window.onmousemove = resetTimeout
+</script> -->
 <!--- CHARTS -->
 <script>
   $(function () {
@@ -1080,7 +1114,6 @@ function myFunction3(id) {
                 $('#content-data').html('<p>Error</p>');
             });
         });
-    </script>
-
+</script>
 </body>
 </html>

@@ -75,7 +75,7 @@ if(!isset($_SESSION['first_run'])){
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -330,7 +330,7 @@ if(!isset($_SESSION['first_run'])){
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -535,7 +535,7 @@ if(!isset($_SESSION['first_run'])){
                                               <div class="row">
                                               <div class="col-md-5">
                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Customer Name</label>
+                                                  <label for="exampleInputEmail1">Supervisor Name</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-user"></i>
@@ -775,7 +775,7 @@ if(!isset($_SESSION['first_run'])){
                       <thead>
                           <tr>
                               <th>Order Date</th>
-                              <th>Customer Name</th>
+                              <th>Supervisor Name</th>
                               <th>Department</th>
                               <th>Status</th>
                               <th>Remarks</th>
@@ -810,7 +810,7 @@ if(!isset($_SESSION['first_run'])){
                       <tfoot>
                         <tr>
                               <th>Order Date</th>
-                              <th>Customer Name</th>
+                              <th>Supervisor Name</th>
                               <th>Department</th>
                               <th>Remarks</th>
                               <th>Status</th>

@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -265,7 +265,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -413,6 +413,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
           <div class="box">
             <div class="box-header">
+               <table style="float: left;">
+                    <tr>
+                        <th> <div class="dropdownButton">
+                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
+                          <span class="caret"></span>
+                        </button>
+                          <option><b>All Supplies</b></option>
+                          <option value="officeSuppliesTotalQuantity">Total Quantity</option>
+                        </select>
+                      </div></th>
+                    </tr>
+                </table> 
             </div>
               
       <div class="box-body">
