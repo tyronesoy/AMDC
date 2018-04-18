@@ -556,6 +556,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["memo_description"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
+                        <?php if($row['memo_status'] == 'Finished') {?>
+                        <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
+                        </div>
+                        <div class="btn-group">
+                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive Memo</button>
+                        </div>
+                        <?php } else{ ?>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
@@ -565,6 +573,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="btn-group">
                           <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive Memo</button>
                         </div>
+                        <?php } ?>
                       </td>
                     </tr>
                   <?php 
