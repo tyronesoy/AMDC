@@ -51,7 +51,7 @@ if(isset($_REQUEST['id'])){
                     <div class="box-body">
                              <div class="form-group" style="width:100%;" >
                             <label for="txtid">Supply ID</label>
-                                <input type="number" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
                             </div>
 
                             <div style="float:right;"> </div>
@@ -76,14 +76,14 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%;">
                             <label for="txtQuantityInStock">Current Quantity In Stock</label>
-                                <input type="number" class="form-control" id="txtQuantityInStock" name="txtQuantityInStock" value="<?php echo $per_supplyQuantityInStock;?>" readonly>
+                                <input type="number" class="form-control" value="<?php echo $per_supplyQuantityInStock;?>" readonly>
                         </div>
                         </div>
 
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%;">
-                            <label for="txtQuantityInStock">Add Quantity</label>
-                                <input type="number" min="0" class="form-control" id="addQty" name="addQty" >
+                            <label for="txtAddQuantity">Add Quantity</label>
+                                <input type="number" class="form-control" id="addQty" name="addQty">
                         </div>
                         </div>
                         </div>
@@ -91,7 +91,7 @@ if(isset($_REQUEST['id'])){
                             <div class="row">
                                 <div class="col-md-6">
                             <div class="form-group" style="width:100%;">
-                            <label for="txtQuantityInStock">Current Unit Price</label>
+                            <label for="txtCurrentPrice">Current Unit Price</label>
                                 <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
                             </div>
                             </div>

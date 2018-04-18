@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 
 function unit_measure($connect)
@@ -30,7 +31,6 @@ function supplier($connect)
  return $output;
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +38,7 @@ function supplier($connect)
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-   <!-- Tell the browser to be responsive to screen width -->
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -46,7 +46,7 @@ function supplier($connect)
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
+  <!-- DataTables 
   <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
@@ -67,7 +67,7 @@ function supplier($connect)
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
+<link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
 
     <script src="../assets/table/jquery-1.12.4.js"></script>
@@ -80,7 +80,7 @@ function supplier($connect)
     <script src="../assets/table/buttons.html5.min.js"></script>
     <script src="../assets/table/buttons.print.min.js"></script>
     <script src="../assets/table/buttons.colVis.min.js"></script>
-   <style>
+ <style>
     .example-modal .modal {
       position: relative;
       top: auto;
@@ -96,29 +96,16 @@ function supplier($connect)
     }
   </style>
 </head>
-<body>
-    <body class="hold-transition skin-blue sidebar-mini">
-      <?php  
-      $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
-      if(isset($_SESSION['logged_in']))  
-      {  
-           //echo 'dashboard';
-      }  
-      else if(!isset($_SESSION['logged_in'])) 
-      {?>  
-           <script>window.location.href = "lockscreen"</script>
-           <?php    
-      }  
-      ?>
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo '../dashboard' ?>" class="logo">
+    <a href="../dashboard" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-       <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+      <span class="logo-lg"><b>AMDC</b> Inc.</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -142,8 +129,8 @@ function supplier($connect)
                         </script>
                     </a>
                 </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-            <li class="dropdown notifications-menu">
+          <!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
@@ -151,7 +138,7 @@ function supplier($connect)
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                 $dtoday = date("Y/m/d");
                 $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%'";
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%')";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -173,7 +160,7 @@ function supplier($connect)
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') order by log_id DESC";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -185,6 +172,10 @@ function supplier($connect)
                         <?php
                         if(strpos($logvalue, 'order') !== false) { ?>
                             <td><small><a display="block" style="color:black" href="<?php echo 'departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <?php
+                        }else if(strpos($logvalue, 'profile') !== false){
+                        ?>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
                         }else{
                         ?>
@@ -207,6 +198,7 @@ function supplier($connect)
                 </table>
                 </ul>
               </li>
+              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -216,7 +208,8 @@ function supplier($connect)
               </li>
             </ul>
           </li>
-          <li class="dropdown tasks-menu">
+          <!-- Tasks: style can be found in dropdown.less -->
+<li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
@@ -255,7 +248,7 @@ function supplier($connect)
                <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
+                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)";
                     $result2 = $conn->query($sql2);
                   ?>
               <li>
@@ -368,9 +361,9 @@ function supplier($connect)
                     </table>
                     <h5>Expired Items</h5>
                     <?php
-                        $conn = mysqli_connect("localhost","root","");
+                        $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0";
                         $result4 = $conn->query($sql4);
                         $strdatetoday = strtotime(date("Y/m/d"));
                     ?>
@@ -400,13 +393,13 @@ function supplier($connect)
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
+              <img src="../assets/dist/img/Assistant.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/Assistant.png" class="img-circle" alt="User Image">
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
         <small> Assistant</small>
@@ -414,21 +407,22 @@ function supplier($connect)
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
-                </div>
+        
                 <div class="pull-right">
                   <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+                <div class="pull-left">
+                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
                 </div>
               </li>
             </ul>
           </li>
-          </ul>
+        </ul>
       </div>
     </nav>
   </header>
-      <?php $identity =  $this->session->userdata('fname');?>
-  
+    <?php $identity =  $this->session->userdata('fname');?>
+ 
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
           <div class="modal-dialog">
@@ -487,7 +481,7 @@ function supplier($connect)
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
+                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -518,7 +512,7 @@ function supplier($connect)
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                               <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -526,15 +520,14 @@ function supplier($connect)
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>   
-  <!-- Left side column. contains the logo and sidebar -->
+        </div> 
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/Assistant.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
@@ -549,7 +542,13 @@ function supplier($connect)
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
+        <li>
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
+  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="active treeview">
           <a href="#">
@@ -574,8 +573,8 @@ function supplier($connect)
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-            <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
-      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
@@ -594,6 +593,13 @@ function supplier($connect)
         <li>
           <a href="<?php echo 'memo' ?>">
             <i class="fa fa-tasks"></i> <span>Memo</span>
+          </a>
+        </li>
+
+        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
+        <li>
+          <a href="<?php echo 'logs' ?>">
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
           </a>
         </li>
 
@@ -680,12 +686,11 @@ function supplier($connect)
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
-                                          
                                               <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Brand Name</label>
-                                                  <input type="text" class="form-control" id="brandname" name="brandname" required />
+                                                  <input type="text" class="form-control" id="brandname" min="0" name="brandname" required />
                                                 
                                               </div>
                                               </div>
@@ -704,7 +709,7 @@ function supplier($connect)
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" id="Quantity" min="1" name="Quantity" required />
+                                                  <input type="number" class="form-control" id="Quantity" min="0" name="Quantity" required />
                                                 
                                               </div>
                                               </div>
@@ -719,7 +724,6 @@ function supplier($connect)
                                               </div>
                                               </div>
                                               </div>
-
                                               <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
@@ -747,7 +751,7 @@ function supplier($connect)
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"></i> Add</button>
+                                        <button type="button" class="btn btn-primary" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"></i> Add</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -756,7 +760,7 @@ function supplier($connect)
                                   <!-- /.modal-dialog -->
                                 </div>
 
-                              <div class="modal modal-default fade" id="modal-success">
+                                <div class="modal modal-success fade" id="modal-success">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
                                         <div class="modal-header">
@@ -764,12 +768,11 @@ function supplier($connect)
                                             <span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div class="modal-body">
-                                          <h3><center><b>Are you sure to add this item?</b></center></h3>
+                                          <h3>Are you sure to add this item?&hellip;</h3>
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-primary" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
-
+                                          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
+                                          <button type="submit" class="btn btn-outline" name="addMedSupply"><i class="fa fa-check"></i> Yes </button>
 
                                         </div>
                                       </div>
@@ -870,10 +873,9 @@ function supplier($connect)
 </div>
 <!-- ./wrapper -->
 
-
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables 
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
 <!-- SlimScroll -->
@@ -919,6 +921,7 @@ function supplier($connect)
   //     'autoWidth'   : false
   //   })
   // })
+
   $(document).ready(function() {
     var printCounter = 0;
  
@@ -937,9 +940,11 @@ function supplier($connect)
                     printCounter++;
  
                     if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Medical Supplies Total Quantity</center></h4>';
+                        return '<h2><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Medical Supplies Total Quantity</center></h2>';
                     }
-                    
+                    else {
+                        return 'You have printed this document '+printCounter+' times';
+                    }
                 },
                 messageBottom: null
             },
@@ -953,7 +958,7 @@ function supplier($connect)
 } );
     </script>
 <script>
-<!-- date and time -->
+//date and time
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
@@ -1024,7 +1029,6 @@ if(isset($_POST['medTQEdit'])){
 }
 
 ?>
-
 <script>
         $(document).on('click','#getAdd',function(e){
             e.preventDefault();
@@ -1043,4 +1047,4 @@ if(isset($_POST['medTQEdit'])){
                 $('#content-data').html('<p>Error</p>');
             });
         });
-    </script>
+</script>

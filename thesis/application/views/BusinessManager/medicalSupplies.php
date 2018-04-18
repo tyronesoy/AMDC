@@ -437,7 +437,7 @@ function supplier($connect)
       </div>
     </nav>
   </header>
-      <?php $identity =  $this->session->userdata('fname');?>
+    <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
@@ -497,7 +497,7 @@ function supplier($connect)
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
+                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -528,7 +528,7 @@ function supplier($connect)
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -536,7 +536,7 @@ function supplier($connect)
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>
+        </div> 
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -590,8 +590,8 @@ function supplier($connect)
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
-      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
+      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
           </ul>
         </li>
     <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
@@ -705,7 +705,7 @@ function supplier($connect)
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Brand Name</label>
-                                                  <input type="text" class="form-control" id="brandname" name="brandname" required />
+                                                  <input type="text" class="form-control" id="brandname" min="0" name="brandname" required />
                                                 
                                               </div>
                                               </div>
@@ -724,7 +724,7 @@ function supplier($connect)
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" id="Quantity" min="1" name="Quantity" required />
+                                                  <input type="number" class="form-control" id="Quantity" min="0" name="Quantity" required />
                                                 
                                               </div>
                                               </div>
@@ -775,7 +775,7 @@ function supplier($connect)
                                   <!-- /.modal-dialog -->
                                 </div>
 
-                                <div class="modal modal-default fade" id="modal-success">
+                                <div class="modal modal-success fade" id="modal-success">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
                                         <div class="modal-header">
@@ -783,11 +783,12 @@ function supplier($connect)
                                             <span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div class="modal-body">
-                                          <h3><center><b>Are you sure to add this item?</b></center></h3>
+                                          <h3>Are you sure to add this item?&hellip;</h3>
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-primary" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
+                                          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
+                                          <button type="submit" class="btn btn-outline" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
+
                                         </div>
                                       </div>
                                       <!-- /.modal-content -->
@@ -1133,7 +1134,7 @@ $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 
 //ADD on table FOR MEDICAL SUPPLIES
-if(isset($_POST['medAdd'])){
+/*if(isset($_POST['medAdd'])){
   $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 
@@ -1154,8 +1155,8 @@ if(isset($_POST['medAdd'])){
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-} // END OF MEDICAL Add on table
-?>
+} // END OF MEDICAL Add on table */
+?> 
 
 <?php
 //EDIT FOR MEDICAL SUPPLIES
@@ -1166,9 +1167,9 @@ if(isset($_POST['medEdit'])){
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['unitPrice']);
     $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['addQTY']);
+    $new_supplyStock=mysqli_real_escape_string($conn,$_POST['addQTY']);
 
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit_price='$new_supplyUnitPrice', quantity_in_stock= '$new_supplyQuantityInStock',expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit_price='$new_supplyUnitPrice', quantity_in_stock=quantity_in_stock+'$new_supplyStock', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
 

@@ -91,8 +91,8 @@ if(isset($_REQUEST['id'])){
                             <div class="row">
                                 <div class="col-md-6">
                             <div class="form-group" style="width:100%">
-                            <label for="txtQuantityInStock">Current Unit Price</label>
-                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
+                            <label for="txtPrice">Current Unit Price</label>
+                                <input type="number" class="form-control" id="txtPrice" name="txtPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
                             </div>
                             </div>
 

@@ -47,9 +47,9 @@ if(isset($_REQUEST['id'])){
 						</div>
 
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="txtid">Description</label>
+                                <label class="col-sm-4 control-label" for="desc">Description</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_supplyDescription;?>" readonly>
+                                    <input type="text" class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $per_supplyDescription;?>" readonly>
                                 </div>
                             </div>
                         <div class="form-group">
