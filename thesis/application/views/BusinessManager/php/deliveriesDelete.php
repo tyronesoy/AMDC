@@ -40,12 +40,22 @@ if(isset($_REQUEST['id'])){
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-                
-            </div>
-            <div class="modal-body">
+                <div class="col-md-2">
+                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+      <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <center><h3 class="modal-title"><b>Are you sure to delete this item?</b> </h3></center>
+                        <center><h3 class="modal-title"><b>Are you sure to archive this item?</b> </h3></center>
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">PO ID</label>
                             <div class="col-sm-6">
@@ -63,7 +73,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-danger" name="btnDelete"> <i class="fa fa-trash"></i> Remove</button>
+                <button type="submit" class="btn btn-danger" name="btnDelete"> <i class="fa fa-trash"></i> Archive</button>
             </div>
         </div>
     </form>

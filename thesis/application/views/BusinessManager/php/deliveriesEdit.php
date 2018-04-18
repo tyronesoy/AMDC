@@ -62,7 +62,7 @@ if(isset($_REQUEST['id'])){
                                       <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
-                                              <center><h4>Edit Deliveries Form</h4></center>
+                                              <center><h4><b>Check Deliveries</b></h4></center>
                                             </div>
                                         </div>
                                         <div class="box-body">                   
@@ -88,10 +88,14 @@ if(isset($_REQUEST['id'])){
                                               <div class="col-md-5">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
+                                                   <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-group"></i>
+                                                      </div>
 
                                         <input type="text" class="form-control" id="txtsupplier" name="txtsupplier" value="<?php echo $per_supplier;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                         <input type="hidden" class="form-control" id="txtsupids" name="txtsupids" value="<?php echo $per_sup_id;?>" readonly>
-
+                                          </div>
                                               </div>
                                               </div>
                                             </div>
@@ -99,8 +103,13 @@ if(isset($_REQUEST['id'])){
 
                                               <div class="col-md-5">
                                               <div class="form-group">
+                                                 <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
                                                     <label>Purchase Order Date</label>
                                                       <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    </div>
                                                   </div>
                                                 </div>
                                                 <div class="col-md-1">
@@ -110,8 +119,12 @@ if(isset($_REQUEST['id'])){
                                                 <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="txtstatus">Status</label>
+                                     <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-toggle-on"></i>
+                                                      </div>
                                         <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_purchOrderStatus;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-
+                                      </div>
                                 </div>
                               </div>
                             </div>
@@ -119,9 +132,15 @@ if(isset($_REQUEST['id'])){
                                 <div class="col-md-5">
                                               <div class="form-group">
                                                     <label>Delivery Date</label>
+                                                     <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
+
                                                       <input type="text" class="form-control" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_deliveryDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   </div>
                                                 </div>
+                                              </div>
                             </div>
                                                <?php
                         $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join supplies on supplies.supply_description = purchase_orders.description where purchase_order_id='$id' AND order_quantity != 0";
@@ -145,7 +164,7 @@ if(isset($_REQUEST['id'])){
                         $zero = 0;
                       ?>
 
-                                          
+                                          <div class="row">
                                         <div class="table-responsive">
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="item_table" style="width:1200px">
