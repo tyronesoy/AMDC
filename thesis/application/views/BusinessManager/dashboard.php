@@ -194,6 +194,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           <!-- Tasks: style can be found in dropdown.less -->
                   <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -699,6 +700,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           <!-- TABLE FOR HIDDEN REORDER SUPPLIES TABLE -->
           <div id="Demo1" class="box-body w3-hide">
                 <table id="example1" class="table table-bordered table-striped">
+                    <center><h2>Reorder Supplies</h2></center>
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -749,6 +751,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           <!-- TABLE FOR HIDDEN RETURNED SUPPLIES TABLE -->
           <div id="Demo2" class="box-body w3-hide">
               <table id="example3" class="table table-bordered table-striped">
+                  <center><h2>Returned Supplies</h2></center>
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -817,6 +820,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           <!-- TABLE FOR HIDDEN EXPIRED SUPPLIES TABLE ------>
           <div id="Demo3" class="box-body w3-hide">
               <table id="example5" class="table table-bordered table-striped">
+                  <center><h2>Expired Supplies</h2></center>
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
