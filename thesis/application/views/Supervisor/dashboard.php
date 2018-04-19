@@ -368,20 +368,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </ul>
         </li>
 
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'Supervisor/suppliers' ?>">
-            <i class="fa fa-user"></i> <span>Suppliers</span>
-          </a>
-        </li>
 
-
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'Supervisor/departments' ?>">
-            <i class="fa fa-building"></i> <span>Departments</span>
-          </a>
-        </li>
 		  <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'Supervisor/memo'?>">

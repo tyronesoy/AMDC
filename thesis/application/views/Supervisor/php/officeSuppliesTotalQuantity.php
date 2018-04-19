@@ -365,19 +365,6 @@ if(!isset($_SESSION['first_run'])){
           </ul>
         </li>
 
-
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'suppliers' ?>">
-            <i class="fa fa-user"></i> <span>Suppliers</span>
-          </a>
-        </li>
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'departments' ?>">
-            <i class="fa fa-building"></i> <span>Departments</span>
-          </a>
-        </li>
 	    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'memo'?>">

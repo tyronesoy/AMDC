@@ -370,19 +370,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
           </ul>
         </li>
-		<!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'suppliers' ?>">
-            <i class="fa fa-user"></i> <span>Suppliers</span>
-          </a>
-        </li>
-		  
-		<!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'departments' ?>">
-            <i class="fa fa-building"></i> <span>Departments</span>
-          </a>
-        </li>
+		
 	    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li class="active">
           <a href="<?php echo 'memo'?>">
