@@ -3,7 +3,7 @@ $con=mysqli_connect('localhost','root','','itproject');
 
  //CREATE or ADD User Account
   if (isset($_POST['addUser'])) {
-  $sql = $con->prepare("INSERT INTO users (username, user_type, fname, lname, user_contact, password, user_email, dept_name) VALUES (?, ?, ?, ?, ?, MD5(?), ?, ?)");  
+  $sql = $con->prepare("INSERT INTO users (username, user_type, fname, lname, user_contact, password, user_email, dept_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");  
   $username = $_POST['username'];
   $user = $_POST['usertype'];
   $fname = $_POST['fname'];
