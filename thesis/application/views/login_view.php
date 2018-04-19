@@ -31,13 +31,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
  
 </head>
-<body background="assets/dist/img/Background.png" >
+<body>
 
   <style type="text/css">
     body {
-    
-   background-size: 100%;
-    background-repeat: repeat-y;
+   background-image: url('assets/dist/img/Background.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
     }
   </style>
 
@@ -85,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </form>
     <br>
-    <center><button type="submit" class="btn btn-info" data-toggle="modal" data-target="#forgotpass">Forgot password</button></center>
+    <center><a data-toggle="modal" data-target="#forgotpass" style="color:green;">Forgot password</a></center>
       <form name="form2" method="post"  action="login/passforget">
                         <div class="modal fade" id="forgotpass">
                                   <div class="modal-dialog">
