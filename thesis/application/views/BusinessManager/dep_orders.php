@@ -614,7 +614,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) GROUP BY inventory_order_id";
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status != 'Issued' GROUP BY inventory_order_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -654,23 +654,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           </div>
 
                           <!-- if the status is declined or issued it will not show any button -->
-                        <?php }elseif ($row["inventory_order_status"] == 'Declined' || $row["inventory_order_status"] == 'Issued') {?>
-
+                        <?php }elseif ($row["inventory_order_status"] == 'Pending') {?>
+                          <div class="btn-group">
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                          </div>
                         <!-- the accept and decline button will be showed if the above statement will be false -->
                         <?php }else {?>
                           
-                          <div class="btn-group">
+                          <!-- <div class="btn-group">
                               <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-ok"> Accept</i></button>
                           </div>
                           <div class="btn-group">
                               <button type="button" id="decline" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#declineModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-remove"> Decline</i></button>
-                          </div>
+                          </div> -->
                         <?php } ?>
 
                         <!-- the view button will always show up -->
-                        <div class="btn-group">
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
-                        </div>
+                        
                       </td>
                     </tr>
                   <?php 
@@ -972,25 +972,7 @@ function onUserInactivity() {
         });
     </script>
 
-    <script>
-        $(document).on('click','#accept',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#accept-data').html('');
-            $.ajax({
-                url:'departmentsOrder/acceptOrder',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#accept-data').html('');
-                $('#accept-data').html(data);
-            }).final(function(){
-                $('#accept-data').html('<p>Error</p>');
-            });
-        });
-    </script>
+    
 
     <script>
         $(document).on('click','#decline',function(e){
