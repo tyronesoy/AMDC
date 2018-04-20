@@ -161,21 +161,6 @@ if(isset($_REQUEST['id'])){
                       </div>
                     </div>
                   </div>
-                      <div class="row">
-                        <div class="col-md-5">
-                           <div class="form-group">
-                            <label for="txtdeliverydate">Delivery Date</label>
-                          <div class="input-group">
-                              <div class="input-group-addon">
-                                 <i class="fa fa-calendar"></i>
-                              </div>
-                                  <?php $date = date("Y-m-d"); ?>
-                                  
-                                   <input type="date" class="form-control pull-right" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_deliveryDate;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto">
-                          </div>
-                        </div>
-                      </div>
-                </div>
                 <?php
                 $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id";
                 $result = $con->query($sql);
@@ -184,8 +169,7 @@ if(isset($_REQUEST['id'])){
                   $arrayDesc = '';
                   $arrayUnit = '';
                   $arrayQuantity = '';   
-                  $arrayQuantityDelivered = '';   
-                  $arrayUnitPrice = ''; 
+                  $arrayQuantityDelivered = '';
                   $arraySupplier = ''; 
                   $zero = 0;    
                 ?>
@@ -198,7 +182,6 @@ if(isset($_REQUEST['id'])){
                       <th>Item Description</th>
                       <th>Unit of Measure</th>
                       <th>Quantity</th>
-                      <th>Unit Price (&#8369)</th>
                      </tr>
                      <?php if($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) { 
@@ -207,8 +190,7 @@ if(isset($_REQUEST['id'])){
                            $arrayDesc .= $row['description'].', ';
                            $arrayUnit .= $row['order_unit'].', ';
                            $arrayQuantity .= $row['order_quantity'].', ';   
-                           $arrayQuantityDelivered .= $row['quantity_delivered'].', ';   
-                           $arrayUnitPrice .= $row['unit_price'].', ';
+                           $arrayQuantityDelivered .= $row['quantity_delivered'].', ';
                            $arraySupplier .= $row['supplier'].', ';
                            
                            $poid = explode(", ", $arrayPoId);
@@ -216,7 +198,6 @@ if(isset($_REQUEST['id'])){
                            $unit = explode(", ", $arrayUnit);
                            $quantity = explode(", ", $arrayQuantity);
                            $quantityDelivered = explode(", ", $arrayQuantityDelivered);
-                           $unitPrice = explode(", ", $arrayUnitPrice);
                            $supplier = explode(", ", $arraySupplier);
                          }
 
@@ -243,8 +224,6 @@ if(isset($_REQUEST['id'])){
                         </td>
 
                         <td width="50"><input type="number" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]);?>" min="0"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" ></td>
-
-                        <td width="50"><input type="number" id="unit_price<?php echo $x; ?>" name="unit_price<?php echo $x; ?>" class="form-control " value=" <?php print_r($unitPrice[$zero]); ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                         <td class="hidden" width="250"><input class="form-control" id="txtsupplier<?php echo $x; ?>" name="txtsupplier<?php echo $x; ?>" value="<?php print_r($supplier[$zero++]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                          </td>

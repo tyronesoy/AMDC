@@ -736,7 +736,6 @@ function unit_measure($connect)
                                                <th>Item Description</th>
                                                <th>Unit of Measure</th>
                                                <th>Quantity</th>
-                                               <th>Unit Price</th>
                                               </tr>
                                             <tr>
 
@@ -753,8 +752,6 @@ function unit_measure($connect)
                                               </td>
                                             
                                             <td width="50"><input type="text" name="quantity" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
-                                            <td width="50"><input type="text" name="unit_price" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             </tr>
 
@@ -775,8 +772,6 @@ function unit_measure($connect)
                                               </td>
                                             
                                             <td width="50"><input type="text" name="quantity2" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
-                                            <td width="50"><input type="text" name="unit_price2" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             </tr>
 
@@ -799,8 +794,6 @@ function unit_measure($connect)
                                             
                                             <td width="50"><input type="text" name="quantity3" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="unit_price3" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
                                             </tr>
 
 
@@ -821,8 +814,6 @@ function unit_measure($connect)
                                               </td>
                                             
                                             <td width="50"><input type="text" name="quantity4" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
-                                            <td width="50"><input type="text" name="unit_price4" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             </tr>
 
@@ -848,8 +839,6 @@ function unit_measure($connect)
                                             
                                             <td width="50"><input type="text" name="quantity5" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="unit_price5" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
                                             </tr>
 
 
@@ -873,8 +862,6 @@ function unit_measure($connect)
                                               </td>
                                             
                                             <td width="50"><input type="text" name="quantity6" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
-                                            <td width="50"><input type="text" name="unit_price6" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             </tr>
 
@@ -902,8 +889,6 @@ function unit_measure($connect)
                                             
                                             <td width="50"><input type="text" name="quantity7" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="unit_price7" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
                                             </tr>
 
 
@@ -927,8 +912,6 @@ function unit_measure($connect)
                                               </td>
                                             
                                             <td width="50"><input type="text" name="quantity8" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
-                                            <td width="50"><input type="text" name="unit_price8" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             </tr>
 
@@ -956,8 +939,6 @@ function unit_measure($connect)
                                             
                                             <td width="50"><input type="text" name="quantity9" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
-                                            <td width="50"><input type="text" name="unit_price9" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
                                             </tr>
 
 
@@ -982,8 +963,6 @@ function unit_measure($connect)
                                               </td>
                                             
                                             <td width="50"><input type="text" name="quantity10" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-
-                                            <td width="50"><input type="text" name="unit_price10" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
 
                                             </tr>
 

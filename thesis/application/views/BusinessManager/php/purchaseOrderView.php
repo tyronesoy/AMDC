@@ -136,8 +136,6 @@ if(isset($_REQUEST['id'])){
                                                <th>Item Description</th>
                                                <th>Unit of Measure</th>
                                                <th>Quantity</th>
-                                               <th>Unit Price (&#8369)</th>
-                                               <th>Total Amount</th>
                                               </tr>
                                               <?php if($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) { ?>
@@ -150,10 +148,6 @@ if(isset($_REQUEST['id'])){
                                               </td>
                                             
                                             <td width="75"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  </td>
-
-                                            <td width="75"><input type="text" name="unit_price" class="form-control " value="<?php echo $row['unit_price']; ?>" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly /> </td>
-
-                                            <td width="50"><input type="text" name="total" class="form-control " min="0" style="width: 100px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="&#8369 <?php echo $row['total'] ?>" readonly/> </td>
                                             </tr>
 
                                             <?php 
@@ -163,17 +157,6 @@ if(isset($_REQUEST['id'])){
 
 
                                           </table>
-                                       <div class="row" >
-                                       <div class="col-md-7">
-                                       </div>
-                                               <div class="col-md-4">
-                                              <div class="form-group">
-                                                    <label>Grand Total</label>
-                                                      <input type="text" class="form-control pull-right" id="poid" name="poid" value="&#8369 <?php echo $per_gtotal ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; "  readonly />
-                                                    <!-- /.input group -->
-                                                  </div>
-                                                </div>
-                                          </div>
                                           </div>
                                         </div> <!-- BOX-BODY -->
                   <div class="modal-footer">
