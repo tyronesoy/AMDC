@@ -692,7 +692,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     
                                                   <label for="exampleInputEmail1">Description</label>
                                                
-                                                  <textarea type="name" class="form-control" name="memo_description" id="memo_description" required /> </textarea>
+                                                  <textarea type="name" class="form-control" name="memo_description" id="memo_description" rows="15" cols="83" required /> </textarea>
 
                                                 </div>
                                         </div>

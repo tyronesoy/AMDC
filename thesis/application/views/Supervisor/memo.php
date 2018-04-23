@@ -442,7 +442,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </div>
                                         <!-- end of modal header -->
                                         <div class="box-body">
-                                                 <div class="form-group">
+                                                                     <div class="form-group" hidden>
                                                   <label for="exampleInputEmail1">User Name</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
@@ -451,7 +451,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <input type="text" class="form-control" id="memo_user" name="memo_user" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </div>
                                               </div>
-                                                <div class="form-group">
+
+                                                  <div class="form-group">
                                                     <label>Memo Date</label>
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
@@ -462,9 +463,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
+                                    
                                                 <div class="form-group">
+                                                  <label for="exampleInputEmail1">Memo Title (Limit to 10 Characters)</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-pencil-square"></i>
+                                                      </div>
+                                                  <input type="text" class="form-control" id="memo_title" name="memo_title" required style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                              </div>
+                                              </div>
+
+
+                                                <div class="form-group">
+                                                    
                                                   <label for="exampleInputEmail1">Description</label>
-                                                  <textarea type="name" class="form-control" name="memo_description" id="memo_description" required /> </textarea>
+                                               
+                                                  <textarea type="name" class="form-control" name="memo_description" id="memo_description" rows="15" cols="83" required /> </textarea>
 
                                                 </div>
                                         </div>
@@ -519,7 +534,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                       <th>Memo User</th>
                         <th>Memo Date</th>
-                        <th>Description</th>
+                        <th>Memo Title</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -541,17 +556,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       ?>
                       <td><?php echo $row["memo_user"]; ?></td>
                       <td><?php echo $row["memo_date"]; ?></td>
-                      <td><?php echo $row["memo_description"]; ?></td>
+                      <td><?php echo $row["memo_title"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
-                        <?php if($row['memo_status'] == 'Finished') {?>
+                        <?php if($row['memo_status'] == 'Pending'){ ?>
                         <div class="btn-group">
+                          <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
                         <div class="btn-group">
-                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive Memo</button>
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
                         </div>
-                        <?php } else{ ?>
+                        <div class="btn-group">
+                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
+                        </div>
+                      <?php }elseif($row['memo_status'] == 'Finished'){ ?>
+                         <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
+                        <div class="btn-group">
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                        </div>
+                        <div class="btn-group">
+                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
+                        </div>
+                      <?php }else{ ?>
+                         <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
@@ -559,7 +587,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
                         </div>
                         <div class="btn-group">
-                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive Memo</button>
+                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
                         </div>
                         <?php } ?>
                       </td>
@@ -573,7 +601,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <tr>
                     <th>Memo User</th>
                     	<th>Memo Date</th>
-                        <th>Description</th>
+                        <th>Memo Title</th>
                         <th>Status</th>
                         <th>Action</th>
                   </tr>
@@ -890,9 +918,10 @@ if(isset($_POST['btnEdit'])){
     $new_memodate=mysqli_real_escape_string($con,$_POST['txtmemodate']);
     $new_memodescription=mysqli_real_escape_string($con,$_POST['txtmemodescription']);
     $new_memostatus=mysqli_real_escape_string($con,$_POST['txtmemostatus']);
+    $new_memotitle=mysqli_real_escape_string($con,$_POST['txtmemotitle']);
 
 
-    $sqlupdate="UPDATE memo SET memo_date ='$new_memodate',memo_description='$new_memodescription', memo_status='$new_memostatus'WHERE memo_id='$new_id' ";
+    $sqlupdate="UPDATE memo SET memo_date ='$new_memodate',memo_description='$new_memodescription', memo_status='$new_memostatus', memo_title='$new_memotitle' WHERE memo_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -971,6 +1000,33 @@ if(isset($_POST['memDelete'])){
                 $('#content-data').html(data);
             }).final(function(){
                 $('#content-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
+
+        <div class="modal fade" id="viewModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="view-data"></div>
+            </div>
+        </div>
+
+     <script>
+        $(document).on('click','#getView',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#view-data').html('');
+            $.ajax({
+                url:'memo/viewMemo',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#view-data').html('');
+                $('#view-data').html(data);
+            }).final(function(){
+                $('#view-data').html('<p>Error</p>');
             });
         });
     </script>

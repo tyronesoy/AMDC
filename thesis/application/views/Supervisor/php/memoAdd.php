@@ -3,12 +3,13 @@ $con=mysqli_connect('localhost','root','','itproject');
 
  //CREATE or ADD User Account
   if (isset($_POST['addMemo'])) {
-  $sql = $con->prepare("INSERT INTO memo (memo_user, memo_date, memo_description, soft_deleted) VALUES (?,?,?, 'N')");  
+  $sql = $con->prepare("INSERT INTO memo (memo_user, memo_date, memo_description, memo_title, soft_deleted) VALUES (?,?,?,?, 'N')");  
   $memo_user = $_POST['memo_user'];
   $memo_date = $_POST['memo_date'];
   $memo_description = $_POST['memo_description'];
+  $memo_title = $_POST['memo_title'];
   
-  $sql->bind_param("sss", $memo_user, $memo_date, $memo_description);
+  $sql->bind_param("ssss", $memo_user, $memo_date, $memo_description, $memo_title);
 
   if($sql->execute()) {
         $conn =mysqli_connect("localhost","root","");

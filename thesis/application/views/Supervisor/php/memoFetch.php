@@ -6,10 +6,12 @@ $con=mysqli_connect('localhost','root','','itproject')
 $request=$_REQUEST;
 $col = array(
     0   =>  'memo_id',
-    1   =>  'memo_date',
-    2   =>  'memo_description',
-    3   =>  'soft_deleted',
-    4   =>  'memo_status'
+    1   =>  'memo_user',
+    2   =>  'memo_date',
+    3   =>  'memo_description',
+    4   =>  'soft_deleted',
+    5   =>  'memo_status'
+    6   =>  'memo_title'
 );  //create column like table in database
 
 
@@ -28,6 +30,7 @@ if(!empty($request['search']['value'])){
     $sql.=" OR memo_date Like '".$request['search']['value']."%' ";
     $sql.=" OR memo_description Like '".$request['search']['value']."%' ";
     $sql.=" OR memo_status Like '".$request['search']['value']."%' ";
+    $sql.=" OR memo_title Like '".$request['search']['value']."%' ";
 }
 
 $query=mysqli_query($con,$sql);
