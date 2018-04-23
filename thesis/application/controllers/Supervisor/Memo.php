@@ -70,7 +70,7 @@ class Memo extends CI_Controller {
 		$this->load->view('Supervisor/php/userAdd');
 	}
 
-		public function viewMemo(){
-		$this->load->view('Supervisor/php/memo_view');
+	public function viewMemo(){
+	$this->load->view('Supervisor/php/memo_view');
 	}
 }
