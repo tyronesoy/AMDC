@@ -937,6 +937,7 @@ if(isset($_POST['btnEdit'])){
     }
 }
 
+
 if(isset($_POST['btnUpdate'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_memostatus=mysqli_real_escape_string($con,$_POST['txtmemostatus']);
@@ -944,6 +945,8 @@ if(isset($_POST['btnUpdate'])){
     if($new_memostatus == 'Finished'){
       $new_memostatus = 'Pending';
     }elseif($new_memostatus == 'Pending'){
+      $new_memostatus = 'Finished';
+    }else{
       $new_memostatus = 'Finished';
     }
 
@@ -962,6 +965,7 @@ if(isset($_POST['btnUpdate'])){
         echo '<script>alert("Update Failed")</script>';
     }
 }
+
 
 if(isset($_POST['memDelete'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
