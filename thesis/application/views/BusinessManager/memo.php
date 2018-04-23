@@ -653,7 +653,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <center><h4><b>Add New Memo</b></h4></center>
                                             </div>
                                         <!-- end of modal header -->
-                                        
+
                                         <div class="box-body">
                                                  <div class="form-group" hidden>
                                                   <label for="exampleInputEmail1">User Name</label>
@@ -665,18 +665,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               </div>
                                               </div>
 
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Memo Title (Limit to 10 Characters)</label>
-                                                  <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-pencil-square"></i>
-                                                      </div>
-                                                  <input type="text" class="form-control" id="memo_title" name="memo_title" required style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
-                                              </div>
-                                              </div>
-
-                                               
-                                              <div class="form-group">
+                                                  <div class="form-group">
                                                     <label>Memo Date</label>
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
@@ -688,6 +677,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <!-- /.input group -->
                                                   </div>
                                     
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Memo Title (Limit to 10 Characters)</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-pencil-square"></i>
+                                                      </div>
+                                                  <input type="text" class="form-control" id="memo_title" name="memo_title" required style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                              </div>
+                                              </div>
+
 
                                                 <div class="form-group">
                                                     

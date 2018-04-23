@@ -47,6 +47,16 @@ if(isset($_REQUEST['id'])){
                                 </div>
                              </div>
 
+                                     <div class="form-group">
+                                                  <label for="txtmemodate">Memo Date</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
+                                                  <input type="text" class="form-control" id="txtmemodate" name="txtmemodate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $per_memodate;?>">
+                                              </div>
+                                              </div>
+
                                     <div class="form-group">
                                                   <label for="txtmemotitle">Memo Title (Limit to 10 Characters)</label>
                                                   <div class="input-group">
@@ -54,17 +64,6 @@ if(isset($_REQUEST['id'])){
                                                         <i class="fa fa-pencil-square"></i>
                                                       </div>
                                                   <input type="text" class="form-control" id="txtmemotitle" name="txtmemotitle" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" value="<?php echo $per_memotitle;?>">
-                                              </div>
-                                              </div>
-
-
-                                    <div class="form-group">
-                                                  <label for="txtmemodate">Memo Date</label>
-                                                  <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                  <input type="text" class="form-control" id="txtmemodate" name="txtmemodate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $per_memodate;?>">
                                               </div>
                                               </div>
 
