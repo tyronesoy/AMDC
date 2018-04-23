@@ -479,6 +479,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                         </script>
                             
                         </div>
+
                         <div class="form-group">
                           <label for="exampleInputEmail1">Email</label>
                           <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
@@ -743,6 +744,26 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                       </select>
                                                      </div>
                                                    </div>
+
+                                                <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Confirm Password</label>
+                                                  <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required />
+                                                  <input type="checkbox" onclick="myFunction()"> &nbsp;Show Password
+
+                                                <script>
+                                                function myFunction() {
+                                                    var x = document.getElementById("confirmpassword");
+                                                    if (x.type === "password") {
+                                                        x.type = "text";
+                                                    } else {
+                                                        x.type = "password";
+                                                    }
+                                                }
+                                                </script>
+                                                </div>
+                                              </div>
+
                                                  </div>
                                         </div>
                                       </div>
