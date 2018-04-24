@@ -780,6 +780,110 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                 </form>
                             </th> 
                     </tr>
+                    <tr>
+                    <th>
+                        <button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#defpass"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp;Change default password</button>
+                        
+                        <form name="form1" id="user_form" method="post" action="userAccounts/addUser">
+                        <div class="modal fade" id="defpass">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span></button>
+                                         <div class="col-md-2">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Change Default Password</b></h4></center>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="row">
+                                               <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Current Password</label>
+                                                  <input type="password" class="form-control" name="oldpass" id="oldpass" required />
+                                                  <input type="checkbox" onclick="myFunction1()"> &nbsp;Show Password
+
+                                                <script>
+                                                function myFunction1() {
+                                                    var x = document.getElementById("oldpass");
+                                                    if (x.type === "password") {
+                                                        x.type = "text";
+                                                    } else {
+                                                        x.type = "password";
+                                                    }
+                                                }
+                                                </script>
+                                                </div>
+                                              </div>     
+                                            </div>
+                                                <div class="row">
+                                               <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Password</label>
+                                                  <input type="password" class="form-control" name="passw" id="passw" required />
+                                                  <input type="checkbox" onclick="myFunction2()"> &nbsp;Show Password
+
+                                                <script>
+                                                function myFunction2() {
+                                                    var x = document.getElementById("passw");
+                                                    if (x.type === "password") {
+                                                        x.type = "text";
+                                                    } else {
+                                                        x.type = "password";
+                                                    }
+                                                }
+                                                </script>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Confirm Password</label>
+                                                  <input type="password" class="form-control" name="passwconf" id="passwconf" required />
+                                                  <input type="checkbox" onclick="myFunction3()"> &nbsp;Show Password
+
+                                                <script>
+                                                function myFunction3() {
+                                                    var x = document.getElementById("passwconf");
+                                                    if (x.type === "password") {
+                                                        x.type = "text";
+                                                    } else {
+                                                        x.type = "password";
+                                                    }
+                                                }
+                                                </script>
+                                                </div>
+                                              </div>      
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                                        <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-plus"></i> Create</button>
+                                      </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                    
+                                  </div>
+                                  <!-- /.modal-dialog -->
+                                </div>
+                                </form>
+                    </th>
+                    </tr>
                 </table> 
             </div>
             <!-- /.box-header -->
