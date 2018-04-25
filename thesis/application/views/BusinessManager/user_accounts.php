@@ -782,7 +782,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                     </tr>
                     <tr>
                     <th>
-                        <button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#defpass"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp;Change default password</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#defpass"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;Change default password</button>
                         
                         <form name="form3" id="user_form" method="post" action="userAccounts/passdef">
                         <div class="modal fade" id="defpass">
@@ -814,10 +814,20 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                             <div class="row">
                                                <div class="col-md-6">
                                                 <div class="form-group">
-                                                  <label for="exampleInputEmail1">Current Password</label>
-                                                  <input type="password" class="form-control" name="oldpass" id="oldpass" required />
-                                                  <input type="checkbox" onclick="myFunction1()"> &nbsp;Show Password
-
+                                                    <?php
+                                                    $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                                                      $sql9 = "SELECT terms from invoices where invoice_id = 0 LIMIT 1";
+                                                      $result = $conn->query($sql9); 
+                                                      if ($result->num_rows > 0){
+                                                      while($row = $result->fetch_assoc()) {
+                                                    ?>
+                                                        <label for="exampleInputEmail1">Current Password</label>
+                                                        <input type="password" class="form-control" name="oldpass" id="oldpass" value="<?php echo $row['terms'] ?>" required />
+                                                        <input type="checkbox" onclick="myFunction1()"> &nbsp;Show Password
+                                                    <?php
+                                                      }
+                                                      }
+                                                    ?>
                                                 <script>
                                                 function myFunction1() {
                                                     var x = document.getElementById("oldpass");
@@ -873,7 +883,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="passdef"><i class="fa fa-plus"></i> Create</button>
+                                        <button type="submit" class="btn btn-success" name="passdef"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp; Change</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
