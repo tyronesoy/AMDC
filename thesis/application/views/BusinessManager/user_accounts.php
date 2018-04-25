@@ -784,7 +784,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                     <th>
                         <button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#defpass"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp;Change default password</button>
                         
-                        <form name="form1" id="user_form" method="post" action="userAccounts/addUser">
+                        <form name="form3" id="user_form" method="post" action="userAccounts/passdef">
                         <div class="modal fade" id="defpass">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -873,7 +873,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-plus"></i> Create</button>
+                                        <button type="submit" class="btn btn-success" name="passdef"><i class="fa fa-plus"></i> Create</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -1331,6 +1331,25 @@ if(isset($_POST['btnReset'])){
             $('#content-data').html('');
             $.ajax({
                 url:'dashboard/addUser',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+</script>
+<script>
+        $(document).on('click','#getAdd',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'dashboard/passdef',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'

@@ -69,4 +69,7 @@ class UserAccounts extends CI_Controller {
     public function addUser2(){
 		$this->load->view('BusinessManager/php/userAdd2');
 	}
+    public function passdef(){
+		$this->load->view('BusinessManager/php/defpassres');
+	}
 }
