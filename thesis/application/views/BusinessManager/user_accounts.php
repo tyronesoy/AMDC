@@ -742,6 +742,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 </script>
                                                 </div>
                                               </div>
+                                            </div>
+                                            <div class="row">
                                                     <div class="col-md-6">
                                                      <div class="form-group">
                                                       <label for="exampleInputEmail1">Department</label>
@@ -762,26 +764,6 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                       </select>
                                                      </div>
                                                    </div>
-
-                                                <div class="col-md-6">
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Confirm Password</label>
-                                                  <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required />
-                                                  <input type="checkbox" onclick="myFunction()"> &nbsp;Show Password
-
-                                                <script>
-                                                function myFunction() {
-                                                    var x = document.getElementById("confirmpassword");
-                                                    if (x.type === "password") {
-                                                        x.type = "text";
-                                                    } else {
-                                                        x.type = "password";
-                                                    }
-                                                }
-                                                </script>
-                                                </div>
-                                              </div>
-
                                                  </div>
                                         </div>
                                       </div>
