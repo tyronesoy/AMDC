@@ -68,8 +68,8 @@ class Order extends CI_Controller {
 	public function declineOrder(){
 		$this->load->view('Supervisor/php/decline_order');
 	}
-    public function addUser(){
-		$this->load->view('Supervisor/php/userAdd');
+    public function addItem(){
+		$this->load->view('Supervisor/name');
 	}
 
 }

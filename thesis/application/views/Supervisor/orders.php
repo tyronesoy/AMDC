@@ -3,7 +3,6 @@
 
 $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 
-
 function supply_dropdown($connect)
 { 
  $output = '';
@@ -13,7 +12,7 @@ function supply_dropdown($connect)
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output .= '<option value="'.$row["supply_description"].'">'.$row["supply_description"].'</option>';
+  $output .= '<option value="'.$row["supply_description"].'" selected>'.$row["supply_description"].'</option>';
  }
  return $output;
 }
@@ -82,8 +81,8 @@ if(!isset($_SESSION['first_run'])){
   <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
-  <!-- datatable lib -->
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <!-- datatable lib
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <!-- Google Font -->
   <link rel="stylesheet"
@@ -92,7 +91,9 @@ if(!isset($_SESSION['first_run'])){
   <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
 
-    <script src="../assets/table/jquery-1.12.4.js"></script>
+      <!-- Bootstrap 3.3.7 -->
+  <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!--   <script src="../assets/table/jquery-1.12.4.js"></script> -->
     <script src="../assets/table/jquery.dataTables.min.js"></script>
     <script src="../assets/table/dataTables.buttons.min.js"></script>
     <script src="../assets/table/buttons.flash.min.js"></script>
@@ -464,7 +465,7 @@ if(!isset($_SESSION['first_run'])){
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Order</i></button>
             
-                       <form id="insert_form" method="post" action="order/addOrder">
+                       <form id="add_name" name="add_name">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -550,181 +551,25 @@ if(!isset($_SESSION['first_run'])){
                                           
                                         <div class="table-responsive">
                                           <span id="error"></span>
-                                          <table class="table table-bordered" id="item_table">
+                                          <table class="table table-bordered" id="dynamic_field">
                                             <tr>
-                                              <th> Item Description </th>
-                                              <th> Unit of Measure</th>
                                               <th> Quantity </th>
+                                              <th> Description </th>
+                                              <th> Unit </th>
+                                              <th> Action </th>
                                             </tr>
                                             <tr>
 
-                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
-
-                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                            <td width="50"><input type="text" name="quantity" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-                                            </tr>
-
-                                             <tr>
-
-                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
-
-                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                            <td width="50"><input type="text" name="quantity2" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-                                            </tr>
-
-                                            <tr>
-
-                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
-
-                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                            <td width="50"><input type="text" name="quantity3" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-                                            </tr>
-
-                                            <tr>
-
-                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
-
-                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                            <td width="50"><input type="text" name="quantity4" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-                                            </tr>
-
-                                            <tr>
-
-                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
-
-                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                            <td width="50"><input type="text" name="quantity5" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-                                            </tr>
-
-                                            <tr>
-
-                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
-
-                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                            <td width="50"><input type="text" name="quantity6" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-                                            </tr>
-
-                                            <tr>
-
-                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
-
-                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                            <td width="50"><input type="text" name="quantity7" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-                                            </tr>
-
-                                            <tr>
-
-                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
-
-                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                            <td width="50"><input type="text" name="quantity8" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-                                            </tr>
-
-
-                                            <tr>
-
-                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
-
-                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                            <td width="50"><input type="text" name="quantity9" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
-                                            </tr>
-
-                                            <tr>
-
-                                              <td width="250"><select class="form-control select2 inventory_order_supply_name" name="supply_name10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo supply_dropdown($connect);?>
-                                                  </select>
-                                              </td>
-
-                                              <td width="100"><select class="form-control select2 inventory_order_unit" name="unit_name10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </td>
-                                            
-                                            <td width="50"><input type="text" name="quantity10" class="form-control inventory_order_quantity" min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  /> </td>
+                                              <td width="10px"><input type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td>
+                                              <td width="250px"><select class=" select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <option value=""></option>
+                                              <?php echo supply_dropdown($connect);?>
+                                            </select></td>
+                                           <td width="60px"><select class=" select2" name="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <option value=""></option>
+                                              <?php echo unit_measure($connect);?>
+                                            </select></td>
+                                            <td><button type="button" name="add" id="add" class="btn btn-success">+</button></td>
                                             </tr>
                                           </table>
                                        
@@ -734,7 +579,7 @@ if(!isset($_SESSION['first_run'])){
                                       <div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                         <button type="submit" class="btn btn-success" name="addOrder"><i class="fa fa-plus"></i> Add </button>
+                                         <button type="submit"  class="btn btn-success" name="submit" id="submit"><i class="fa fa-plus"></i> Add </button>
                                         <!-- <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
@@ -756,7 +601,7 @@ if(!isset($_SESSION['first_run'])){
                    <table id="example" class="table table-bordered table-striped">
                       <?php
                         $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name ='".$this->session->userdata('fname').' '.$this->session->userdata('lname')."' GROUP BY inventory_order_id ";
+                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name ='".$this->session->userdata('fname').' '.$this->session->userdata('lname')."' AND inventory_order_status != 'Issued' GROUP BY inventory_order_id ";
                         $result = $conn->query($sql);    
                       ?>
                       <thead>
@@ -779,13 +624,10 @@ if(!isset($_SESSION['first_run'])){
                               <td><?php echo $row["inventory_order_status"]; ?></td>
                               <td><?php echo $row["inventory_order_remarks"]; ?></td>
                               <td><div class="btn-group">
-                            <?php if($row['inventory_order_status'] == 'Issued') { ?>
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
-                            <?php }elseif($row['inventory_order_status'] == 'Accepted' || $row['inventory_order_status'] == 'Declined') { ?>
+                            <?php if($row['inventory_order_status'] == 'Accepted' || $row['inventory_order_status'] == 'Declined') { ?>
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
                             <?php }else{ ?>
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
-                            
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>  
                             <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-edit"></i> Update</button>
                             <?php } ?>
@@ -901,8 +743,6 @@ table#addItem, tr.no_border td {
 </style>
 <!-- jQuery 3
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>-->
-<!-- Bootstrap 3.3.7 -->
-<script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
@@ -939,7 +779,42 @@ function onUserInactivity() {
     window.location.href = "lockscreen"
    <?php } ?>
 } 
-</script>							
+</script>
+
+<script>
+$(document).ready(function(){
+  var postURL = "order/addItem";
+  var i=1;
+  var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
+  var unitDrop = <?php echo(json_encode(unit_measure($connect))); ?>;
+  $('#add').click(function(){
+    i++;
+    $('#dynamic_field').append('<tr id="row'+i+'"></td> <td><input type="text" name="number[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td> <td><select class="form-control select2" name="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+unitDrop+' </select></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+  });
+  
+  $(document).on('click', '.btn_remove', function(){
+    var button_id = $(this).attr("id"); 
+    $('#row'+button_id+'').remove();
+  });
+  
+  $('#submit').click(function(){    
+    $.ajax({
+      url: postURL,
+      method:"POST",
+      data:$('#add_name').serialize(),
+      type: 'json',
+      success:function(data)
+      {
+          i=1;
+                  $('.dynamic-added').remove();
+                  $('#add_name')[0].reset();
+            alert('Record Inserted Successfully.');
+      }
+    });
+  });
+  
+});
+</script>					
 							
 <script>
 //date and time
