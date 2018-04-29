@@ -699,12 +699,12 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Password</label>
-                                                  <input type="password" class="form-control" name="password" id="password" required />
+                                                  <input type="password" class="form-control" name="password" id="myInput" required />
                                                   <input type="checkbox" onclick="myFunction()"> &nbsp;Show Password
 
                                                 <script>
                                                 function myFunction() {
-                                                    var x = document.getElementById("nathan");
+                                                    var x = document.getElementById("myInput");
                                                     if (x.type === "password") {
                                                         x.type = "text";
                                                     } else {
@@ -763,7 +763,24 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                      </div>
                                                    </div>
 
-                                
+                                                <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Confirm Password</label>
+                                                  <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required />
+                                                  <input type="checkbox" onclick="myFunction()"> &nbsp;Show Password
+
+                                                <script>
+                                                function myFunction() {
+                                                    var x = document.getElementById("confirmpassword");
+                                                    if (x.type === "password") {
+                                                        x.type = "text";
+                                                    } else {
+                                                        x.type = "password";
+                                                    }
+                                                }
+                                                </script>
+                                                </div>
+                                              </div>
 
                                                  </div>
                                         </div>
@@ -780,10 +797,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                 </div>
                                 </form>
                             </th> 
-                    </tr>
-                    <tr>
                     <th>
-                        <button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#defpass"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;Change default password</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#defpass" style="margin-left:5px"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;Change default password</button>
                         
                         <form name="form3" id="user_form" method="post" action="userAccounts/passdef">
                         <div class="modal fade" id="defpass">
