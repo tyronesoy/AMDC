@@ -51,6 +51,10 @@ while($row = $result2->fetch_assoc()) {
   <?php
 }
   }
+}else{
+    ?>
+    <script type="text/javascript">alert("Username not recognized");history.go(-1);</script>
+<?php 
 }
 
 ?>
