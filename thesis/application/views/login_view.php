@@ -108,8 +108,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                       </div>
                                       <div class="modal-footer">
+<!--
+                                          <script>
+                                          function myFunction() {
+                                                var x = document.getElementById("resetbutton");
+                                                var y = document.getElementById("nextbutton");
+                                                if (x.style.display === "none") {
+                                                    x.style.display = "block";
+                                                    y.style.display = "none";
+                                                } else {
+                                                    x.style.display = "none";
+                                                }
+                                            }
+                                          </script>
                                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="passforget">Next</button>
+                                        <a style="display:block;width:60px;float:right;" id="nextbutton" class="btn btn-success" onclick="myFunction()">Next</a>
+-->                                       <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                                          <div style="display:block;" id="resetbutton">
+                                          <button type="submit" class="btn btn-danger" name="passforget">Reset</button>
+                                          </div>
+                                        
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->

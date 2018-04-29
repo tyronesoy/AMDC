@@ -45,7 +45,12 @@ while($row = $result2->fetch_assoc()) {
  ?>
     <script type="text/javascript">alert("Password has been reset");history.go(-1);</script>
 <?php
-    }else{
+    }else if($row['user_type'] = 'Supervisor' || $row['user_type'] = 'Assistant'){
+                    $conn =mysqli_connect("localhost","root","");
+                    $datetoday = date('Y\-m\-d\ H:i:s A');
+                    mysqli_select_db($conn, "itproject");
+                    $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','User ".$username." petition for password reset','','')";
+                    $res1 = $conn->query($notif1);
 ?>
       <script type="text/javascript">alert("Please proceed to the business manager for password reset");history.go(-1);</script>
   <?php
