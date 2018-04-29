@@ -618,7 +618,6 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <table style="float:right;">
                     <tr>
                       <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="fa fa-user-plus"></i> Create New User</button>
-                        
                         <form name="form1" id="user_form" method="post" action="userAccounts/addUser">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
@@ -700,12 +699,12 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Password</label>
-                                                  <input type="password" class="form-control" name="password" id="myInput" required />
+                                                  <input type="password" class="form-control" name="password" id="password" required />
                                                   <input type="checkbox" onclick="myFunction()"> &nbsp;Show Password
 
                                                 <script>
                                                 function myFunction() {
-                                                    var x = document.getElementById("myInput");
+                                                    var x = document.getElementById("nathan");
                                                     if (x.type === "password") {
                                                         x.type = "text";
                                                     } else {
@@ -722,6 +721,25 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Email</label>
                                                   <input type="email" class="form-control" name="user_email" id="user_email" required />
+                                                </div>
+                                              </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Confirm Password</label>
+                                                  <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required />
+                                                  <input type="checkbox" onclick="myFunction2()"> &nbsp;Show Password
+
+                                                <script>
+                                                function myFunction2() {
+                                                    var x = document.getElementById("confirmpassword");
+                                                    if (x.type === "password") {
+                                                        x.type = "text";
+                                                    } else {
+                                                        x.type = "password";
+                                                    }
+                                                }
+                                                </script>
                                                 </div>
                                               </div>
                                                     <div class="col-md-6">
@@ -745,24 +763,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                      </div>
                                                    </div>
 
-                                                <div class="col-md-6">
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Confirm Password</label>
-                                                  <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required />
-                                                  <input type="checkbox" onclick="myFunction()"> &nbsp;Show Password
-
-                                                <script>
-                                                function myFunction() {
-                                                    var x = document.getElementById("confirmpassword");
-                                                    if (x.type === "password") {
-                                                        x.type = "text";
-                                                    } else {
-                                                        x.type = "password";
-                                                    }
-                                                }
-                                                </script>
-                                                </div>
-                                              </div>
+                                
 
                                                  </div>
                                         </div>

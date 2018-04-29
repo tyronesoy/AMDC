@@ -12,10 +12,12 @@ $con=mysqli_connect('localhost','root','','itproject');
   $password = $_POST['password'];
   $user_email = $_POST['user_email'];
   $dept_name = $_POST['dept_name'];
+  $confirmpassword = $_POST['confirmpassword'];
 
 
   $sql->bind_param("ssssssss", $username, $user, $fname, $lname, $user_contact, $password, $user_email, $dept_name);
-
+  if($confirmpassword == $password){
+    echo ' <h3><span class="label label-danger">Password did not matched!</span></h3>';
   if($sql->execute()) {
   $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
@@ -28,8 +30,15 @@ $con=mysqli_connect('localhost','root','','itproject');
   }
   $sql->close();   
   $con->close();
-  
+  }else{
+?>
+      <script type="text/javascript">alert("Password does not match");history.go(-1);</script>
+  <?php
+  }
   } 
 
   header("Location: ../userAccounts");
 ?>
+
+
+<!--       <script type="text/javascript">alert("SUCCESS");history.go(-1);</script> -->
