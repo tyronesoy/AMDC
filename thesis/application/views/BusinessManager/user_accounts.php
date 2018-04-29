@@ -700,18 +700,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Password</label>
                                                   <input type="password" class="form-control" name="password" id="myInput" required />
-                                                  <input type="checkbox" onclick="myFunction()"> &nbsp;Show Password
-
-                                                <script>
-                                                function myFunction() {
-                                                    var x = document.getElementById("myInput");
-                                                    if (x.type === "password") {
-                                                        x.type = "text";
-                                                    } else {
-                                                        x.type = "password";
-                                                    }
-                                                }
-                                                </script>
+                                                  
                                                 </div>
                                               </div>
                                             </div>
@@ -728,18 +717,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Confirm Password</label>
                                                   <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required />
-                                                  <input type="checkbox" onclick="myFunction2()"> &nbsp;Show Password
-
-                                                <script>
-                                                function myFunction2() {
-                                                    var x = document.getElementById("confirmpassword");
-                                                    if (x.type === "password") {
-                                                        x.type = "text";
-                                                    } else {
-                                                        x.type = "password";
-                                                    }
-                                                }
-                                                </script>
+                                           
                                                 </div>
                                               </div>
                                             </div>
