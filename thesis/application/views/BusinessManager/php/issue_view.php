@@ -18,7 +18,7 @@ if(isset($_REQUEST['id'])){
         $per_supplyName=$row[8];
         $per_supplyUnit=$row[9];
         $per_supplyQuantity=$row[10];
-        $per_issueDate=$row[11];
+        $per_issueDate=$row[7];
 
     }//end while
 ?>

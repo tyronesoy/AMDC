@@ -9,6 +9,7 @@ if(isset($_REQUEST['id'])){
     $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE inventory_order_id=$id GROUP BY inventory_order_id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
+        $per_uniqid=$row[0];
         $per_id=$row[1];
         $per_date=$row[2];
         $per_name=$row[3];
@@ -18,8 +19,10 @@ if(isset($_REQUEST['id'])){
         $per_supplyName=$row[9];
         $per_supplyUnit=$row[10];
         $per_supplyQuantity=$row[11];
-        $per_supplyID=$row[12];
-        $per_expiration=$row[23];
+        $per_quantityIssued=$row[12];
+        $per_supplyID=$row[13];
+        $per_quantityStock=$row[18];
+        $per_expiration=$row[22];
 
     }//end while
 ?>
@@ -91,10 +94,10 @@ if(isset($_REQUEST['id'])){
                         <table class="table table-bordered" id="item_table">
                             <tr>
                                 <th class="hidden" style="text-align: center;">Expiration Date</th>
-                                <th style="text-align: center;">Qty in Stock</th>
+                                <th class="hidden" style="text-align: center;">Qty in Stock</th>
                                 <th style="text-align: center;">Item Description</th>
                                 <th style="text-align: center;">Qty Ordered</th>
-                                <th style="text-align: center;">Qty to be Issued</th>
+                                <th class="hidden" style="text-align: center;">Qty to be Issued</th>
                             </tr>
                             <?php if($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) {
@@ -103,7 +106,7 @@ if(isset($_REQUEST['id'])){
                                     $arraySuppQty .= $row['quantity_in_stock'].', ';
                                     $arraySuppName .= $row['supply_name'].', ';   
                                     $arrayQuantity .= $row['quantity'].', ';   
-                                    $arrayIssuedQty .= $row['qty_issued'].', ';
+                                    $arrayIssuedQty .= $row['quantity_issued'].', ';
                                     $arrayDept .= $row['inventory_order_dept'].', ';
                                                   
                                     $expiration_date = explode(", ", $arrayExp);
@@ -126,7 +129,7 @@ if(isset($_REQUEST['id'])){
                                 <td class="hidden" width="75"><input class="form-control hidden" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php print_r($expiration_date[$zero]);?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
 
-                                <td width="50"><input class="form-control" id="txtsupply<?php echo $x; ?>" name="txtsupply<?php echo $x; ?>" value="<?php print_r($quantity_in_stock[$zero]);?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td class="hidden" width="50"><input class="form-control" id="txtsupply<?php echo $x; ?>" name="txtsupply<?php echo $x; ?>" value="<?php print_r($quantity_in_stock[$zero]);?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
 
                                 <td width="150"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc<?php echo $x; ?>" value="<?php print_r($supply_name[$zero]);?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
@@ -135,7 +138,7 @@ if(isset($_REQUEST['id'])){
                                 <td width="50"><input type="text" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]);?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
                                 </td>
 
-                                <td width="50"><input type="text" class="form-control" id="txtissued<?php echo $x; ?>" name="txtissued<?php echo $x; ?>" value="<?php print_r($quantity_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  
+                                <td class="hidden" width="50"><input type="text" class="form-control" id="txtissued<?php echo $x; ?>" name="txtissued<?php echo $x; ?>" value="<?php print_r($quantity_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  
                                 </td>                                
 
                                 <td class="hidden" width="75"><input class="form-control hidden" id="txtdept<?php echo $x; ?>" name="txtdept<?php echo $x; ?>" value="<?php print_r($inventory_order_dept[$zero++]);?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
@@ -150,7 +153,7 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
+                <button type="button" class="btn btn pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <button type="button" id="accept" class="btn btn-success" data-toggle="modal" data-target="#modal-accept" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-ok"> Accept</i></button>
                 <button type="button" id="decline" class="btn btn-danger" data-toggle="modal" data-target="#modal-decline" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-remove"> Decline</i></button>
                 <!-- <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button> -->
@@ -221,7 +224,7 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="button" class="btn btn pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                 <button type="submit" class="btn btn-success" name="btnAccept"><i class="fa fa-check-circle"></i> Accept</button>
             </div>
         </div>
@@ -289,11 +292,17 @@ if(isset($_REQUEST['id'])){
                                 <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $per_status;?>" readonly>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="txtremarks">Remarks</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="txtremarks" name="txtremarks" value="">
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="button" class="btn btn pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                 <button type="submit" class="btn btn-danger" name="btnDecline"><i class="fa fa-close"></i> Decline</button>
             </div>
         </div>

@@ -35,7 +35,7 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-    <form class="form-horizontal" method="post">
+    <form class="form-horizontal" method="post" action="purchases/addPurchases">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -55,7 +55,7 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <div class="box-header">
                     <div class="margin">
-                        <center><h4>Departments Order Issue Form</h4></center>
+                        <center><h4>Departments Order Purchase Form</h4></center>
                     </div>
                 </div>
                 <form class="form-horizontal" method="post">
@@ -63,73 +63,96 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label class="col-sm-4 control-label hidden" for="txtid">Order ID</label>
                             <div class="col-sm-6">
-                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label hidden" for="txtuniqid">Order Unique ID</label>
                             <div class="col-sm-6">
-                                <input type="hidden" class="form-control" id="txtuniqid" name="txtuniqid" hidden value="<?php echo $per_uniqid;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtuniqid" name="txtuniqid" value="<?php echo $per_uniqid;?>" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-8 control-label hidden" for="txtstatus"></label>
                             <div class="col-sm-1">
-                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $per_status;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Supervisor Name</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="qtyStock">Quantity in Stock</label>
+                                    <label for="exampleInputEmail1">Supplier</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="qtyStock" name="qtyStock" value="<?php echo $per_quantityStock ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <div class="input-group-addon">       
+                                            <i class="fa fa-group"></i>
+                                        </div>
+                                        <select class="form-group select2" name="supp" style="width:100%" required>
+                                            <option value="">Select a Supplier</option>
+                                                <?php
+                                                $conn =mysqli_connect("localhost","root","");
+                                                mysqli_select_db($conn, "itproject");
+                                                $sql = "SELECT * FROM suppliers";
+                                                $results = mysqli_query($conn, $sql);
+
+                                                foreach($results as $supplier) { 
+                                                ?>
+                                            <option value="<?php echo $supplier["company_name"]; ?>" name="supp"><?php echo $supplier["company_name"]; ?></option>
+                                                <?php 
+                                                  }
+                                                ?>
+                                        </select>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Purchase Order Date</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <?php $date = date("Y-m-d"); ?>
+                                        <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                    </div>
+                                                    <!-- /.input group -->
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="supplyName">Item Description</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="supplyName" name="supplyName" value="<?php echo $per_supplyName ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="qtyOrdered">Quantity Ordered</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" id="qtyOrdered" name="qtyOrdered" value="<?php echo $per_supplyQuantity ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="qtyIssued">Quantity to be Issued</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" id="qtyIssued" name="qtyIssued" value="<?php echo $per_quantityIssued ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php echo $per_supplyQuantity;?>">
-                                    </div>
-                                </div>
-                            </div>
+
+                        <div class="table-responsive">
+                            <span id="error"></span>
+                            <table class="table table-bordered" id="item_table">
+                                <tr>
+                                    <th>Item Description</th>
+                                    <th>Quantity</th>
+                                </tr>
+                                <tr>
+                                    <td width="250">
+                                        <select class="form-control select2" name="supply_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                            <option value="<?php echo $per_supplyName ?>"><?php echo $per_supplyName ?></option>
+                                        </select>
+                                    </td>
+                                            
+                                    <td width="50">
+                                        <input type="text" name="quantity" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
+                                    </td>
+
+                                </tr>
+                            </table>
                         </div>
                       
                     </div>
@@ -137,7 +160,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
+                <button type="submit" class="btn btn-success" name="btnOrder"><i class="fa fa-shopping-cart"></i> Order</button>
             </div>
         </div>
     </form>
