@@ -615,29 +615,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
                           <span class="caret"></span>
                         </button>
-                          <option value="departmentsOrder">Pending</option>
                           <option value="declineOrders">Declined</option>
+                          <option value="departmentsOrder">Pending</option>
                         </select>
                       </div></th>
                     </tr>
-                </table> 
-
-              <table style="float:right;">
-                    <tr>
-                      <th>
-                        <a href="issueOrderSupplies">
-                          <button type="submit" class="btn btn-primary btn-block btn-warning"><i class="fa fa-retweet"></i> Issue Supplies</button>
-                        </a>
-                      </th> 
-                    </tr>
-                </table>              
+                </table>      
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Pending' GROUP BY inventory_order_id";
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Declined' GROUP BY inventory_order_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
