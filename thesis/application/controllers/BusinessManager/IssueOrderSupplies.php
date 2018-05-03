@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class DepartmentsOrder extends CI_Controller {
+class IssueOrderSupplies extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -34,7 +34,7 @@ class DepartmentsOrder extends CI_Controller {
 		if($_SESSION['logged_in'] == 'True')  
       			{  
            			// echo 'dashboard';
-           			$this->load->view('BusinessManager/dep_orders');
+           			$this->load->view('BusinessManager/depIssueOrder');
       			}  
       			else if ($_SESSION['logged_in'] != 'True')  
       			{  
@@ -71,8 +71,8 @@ class DepartmentsOrder extends CI_Controller {
 	public function issueOrder(){
 		$this->load->view('BusinessManager/php/issue_order');
 	}
-	public function purchaseOrder(){
-		$this->load->view('BusinessManager/php/dep_po');
+    public function addUser(){
+		$this->load->view('BusinessManager/php/userAdd2');
 	}
 
 }
