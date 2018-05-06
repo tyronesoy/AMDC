@@ -649,7 +649,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                   <div class="col-md-6">
                                                <div class="form-group">
                                                   <label for="exampleInputEmail1">Username</label>
-                                                  <input type="text" class="form-control" name="username" id="username" required />
+                                                  <input type="text" minlength=6 class="form-control" name="username" id="username" required />
                                                 </div>
                                               </div>
                                                   <div class="col-md-6">
@@ -699,7 +699,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Password</label>
-                                                  <input type="password" class="form-control" name="password" id="myInput" required />
+                                                  <input type="password" minlength=6 class="form-control" name="password" id="myInput" required />
                                                   
                                                 </div>
                                               </div>
@@ -716,7 +716,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Confirm Password</label>
-                                                  <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required />
+                                                  <input type="password" minlength=6 class="form-control" name="confirmpassword" id="confirmpassword" required />
                                            
                                                 </div>
                                               </div>

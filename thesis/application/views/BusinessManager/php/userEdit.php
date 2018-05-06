@@ -54,7 +54,7 @@ if(isset($_REQUEST['id'])){
                              <div class="form-group">
                                      <label class="col-sm-4 control-label" for="txtusername">Username</label>
                                  <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="txtusername" name="txtusername" value="<?php echo $per_username;?>">
+                                    <input type="text" minlength=6 class="form-control" id="txtusername" name="txtusername" value="<?php echo $per_username;?>">
                                 </div>
                             </div>
 

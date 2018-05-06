@@ -1,5 +1,5 @@
 <?php
-$connection =mysqli_connect("localhost","root","");
+$connection = mysqli_connect("localhost","root","");
 mysqli_select_db($connection, "itproject");
 
   if (isset($_POST['addDep'])) {
