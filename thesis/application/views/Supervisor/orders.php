@@ -1,6 +1,4 @@
 <?php
-//index.php
-
 $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 
 function supply_dropdown($connect)
@@ -73,7 +71,7 @@ if(!isset($_SESSION['first_run'])){
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+  <script src="../assets/table/jquery-1.12.4.js"></script>
   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
@@ -82,7 +80,6 @@ if(!isset($_SESSION['first_run'])){
   <!-- Select2 -->
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
   <!-- datatable lib
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <!-- Google Font -->
   <link rel="stylesheet"
@@ -560,11 +557,11 @@ if(!isset($_SESSION['first_run'])){
                                             </tr>
                                             <tr>
                                               <td width="10px"><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 88%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td>
-                                              <td width="250px"><select class=" select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="250px"><select class=" select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                               <option value=""></option>
                                               <?php echo supply_dropdown($connect);?>
                                             </select></td>
-                                           <td width="120px"><select class=" select2" name="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                           <td width="120px"><select class=" select2" name="unit[]" id="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                               <option value=""></option>
                                               <?php echo unit_measure($connect);?>
                                             </select></td>
@@ -780,6 +777,7 @@ function onUserInactivity() {
 } 
 </script>
 
+
 <script>
 $(document).ready(function(){
   var postURL = "order/addItem";
@@ -789,6 +787,7 @@ $(document).ready(function(){
   $('#add').click(function(){
     i++;
     $('#dynamic_field').append('<tr id="row'+i+'"></td> <td><input type="text" name="number[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td> <td><select class="form-control select2" name="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+unitDrop+' </select></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
+
   });
   
   $(document).on('click', '.btn_remove', function(){
