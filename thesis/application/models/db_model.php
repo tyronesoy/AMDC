@@ -7,12 +7,13 @@ class Db_model extends CI_Model {
 		$this->db->where('password', $password);
 
 		$query = $this->db->get('users');
-		if ($query->num_rows() >0){
+		if ($query->num_rows() > 0){
 			foreach ($query->result() as $row){
+				
 				if(($username == $row->username && $password == $row->password)
 					||($username == $row->user_email && $password == $row->password)){
 
-					$sess = array(
+			        $sess = array(
 					'id'	=> $row->user_id,
 					'fname' => $row->fname,
 					'lname' => $row->lname,
@@ -35,14 +36,20 @@ class Db_model extends CI_Model {
 						redirect('dashboard');
 					}else{
 						$this->session->set_flashdata('info', '<h3><span class="label label-warning">This account is inactive!</span></h3>');
-						redirect('login');
+							redirect('login');
 					}
-				}
+			    }
 			}
 		} else {
-			$this->session->set_flashdata('info', '<h3><span class="label label-danger">The username or password is incorrect!</span></h3>');
-			redirect('login');
+			if(preg_match("/^ /", $username) || preg_match("/^ /", $password)){
+			    header("Location: ../login?login=invalid");
+			    exit();
+			}else {
+				$this->session->set_flashdata('info', '<h3><span class="label label-danger">The username or password is incorrect!</span></h3>');
+				redirect('login');
+			}
 		}
+
 	}
 
 	public function getSuppliers(){
