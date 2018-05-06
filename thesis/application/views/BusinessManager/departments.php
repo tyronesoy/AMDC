@@ -888,7 +888,7 @@ input:checked + .slider:before {
 <!-- page script -->
 
 <script>
-setTimeout(onUserInactivity, 1000 * 120)
+setTimeout(onUserInactivity, 1000 * 1800)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
