@@ -49,7 +49,23 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label class="col-sm-8 control-label" for="txtPassword"></label>
                             <div class="col-sm-1">
-                                <input type="hidden" class="form-control" id="txtPassword" name="txtPassword" hidden value="<?php echo 'amdc123' ?>" readonly>
+                                <?php
+                                    $conn =mysqli_connect("localhost","root","");
+                                    mysqli_select_db($conn, "itproject");
+                                    $sql2 = "select terms from invoices where po_id = 246 AND supplier_id = 4 LIMIT 1";
+                                    $result2 = $conn->query($sql2);
+                                  ?>
+                                <?php 
+                                  if ($result2->num_rows > 0) {
+                                    while($row = $result2->fetch_assoc()) { ?>
+                                    <?php
+                                        $newpass = $row['terms'];
+                                      
+                                    }
+                                  }
+                                      ?>
+                                
+                                <input type="hidden" class="form-control" id="txtPassword" name="txtPassword" hidden value="<?php echo $newpass ?>" readonly>
                             </div>
                         </div>
                     </div>
