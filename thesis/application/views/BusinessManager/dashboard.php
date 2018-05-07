@@ -1,6 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<!--REMOVE EXPIRED ITEMS-->
+<?php
+    $conn =mysqli_connect("localhost","root","");
+    mysqli_select_db($conn, "itproject");
+    $datetoday = date("Y/m/d");
+    $sql1 = "UPDATE supplies SET accounted_for = 'Y',quantity_in_stock = 0 where (expiration_date <= '".$datetoday."' AND soft_deleted = 'N') AND accounted_for = 'N'";
+    $result1 = $conn->query($sql1);
+?>
 <!DOCTYPE html>
 <html>
 <head>
