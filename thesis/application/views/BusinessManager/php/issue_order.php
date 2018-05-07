@@ -32,8 +32,8 @@ if(isset($_REQUEST['id'])){
         $per_unitOrder=$row[20];
         $per_reorderLevel=$row[21];
         $per_expiration=$row[22];
-
-    }//end while
+    }
+    //end while
 ?>
     <form class="form-horizontal" method="post">
         <div class="modal-content">
@@ -59,25 +59,62 @@ if(isset($_REQUEST['id'])){
                     </div>
                 </div>
                 <form class="form-horizontal" method="post">
+                    <?php 
+                        $invetory_supid = $per_inventorySupid;
+                        $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE inventory_order_id=$id AND quantity !=0 AND inventory_order_supplies_id='$inventory_supid'";
+                        $result = $con->query($sql);
+
+                        $arrayOrdId = '';
+                        $arrayOrdUniqId = '';
+                        $arrayStatus = '';
+                        $arraySupervisor = '';   
+                        $arrayQtyStock = '';   
+                        $arrayDesc = '';
+                        $arrayQtyOrdered = '';
+                        $arrayQtyIssued = '';
+                        $zero = 0;
+
+                        if($result->num_rows > 0){
+                            while ($row = $result->fetch_assoc()) {
+                                $arrayOrdId .= $row['inventory_order_id'].', ';
+                                $arrayOrdUniqId .= $row['inventory_order_uniq_id'].', ';
+                                $arrayStatus .= $row['inventory_order_status'].', ';
+                                $arraySupervisor .= $row['inventory_order_name'].', ';   
+                                $arrayQtyStock .= $row['quantity_in_stock'].', ';   
+                                $arrayDesc .= $row['supply_name'].', ';
+                                $arrayQtyOrdered .= $row['quantity'].', ';
+                                $arrayQtyIssued .= $row['quantity_issued'].', ';
+
+                                $order_id = explode(", ", $arrayOrdId);
+                                $order_uniqid = explode(", ", $arrayOrdUniqId);
+                                $status = explode(", ", $arrayStatus);
+                                $supervisor = explode(", ", $arraySupervisor);
+                                $qty_stock = explode(", ", $arrayQtyStock);
+                                $item_desc = explode(", ", $arrayDesc);
+                                $qty_ordered = explode(", ", $arrayQtyOrdered);
+                                $qty_issued = explode(", ", $arrayQtyIssued);
+
+                            }
+                    ?>
                     <div class="box-body">
+                        <?php 
+                            $count = count($order_id)-1;
+                            for ($x=0; $x < $count; $x++) { 
+                        ?>
+
                         <div class="form-group">
                             <label class="col-sm-4 control-label hidden" for="txtid">Order ID</label>
                             <div class="col-sm-6">
-                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtid<?php echo $x;?>" name="txtid<?php echo $x;?>" hidden value="<?php print_r($order_id[$zero]);?>" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label hidden" for="txtuniqid">Order Unique ID</label>
                             <div class="col-sm-6">
-                                <input type="hidden" class="form-control" id="txtuniqid" name="txtuniqid" hidden value="<?php echo $per_uniqid;?>" readonly>
+                                <input type="hidden" class="form-control" id="txtuniqid<?php echo $x;?>" name="txtuniqid<?php echo $x;?>" hidden value="<?php print_r($order_uniqid[$zero]);?>" readonly>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-8 control-label hidden" for="txtstatus"></label>
-                            <div class="col-sm-1">
-                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $per_status;?>" readonly>
-                            </div>
-                        </div>
+                        
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group">
@@ -86,7 +123,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="custName<?php echo $x;?>" name="custName<?php echo $x;?>" value="<?php print_r($supervisor[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +133,7 @@ if(isset($_REQUEST['id'])){
                                 <div class="form-group">
                                     <label for="qtyStock">Quantity in Stock</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="qtyStock" name="qtyStock" value="<?php echo $per_quantityStock ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="qtyStock<?php echo $x;?>" name="qtyStock<?php echo $x;?>" value="<?php print_r($qty_stock[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +143,7 @@ if(isset($_REQUEST['id'])){
                                 <div class="form-group">
                                     <label for="supplyName">Item Description</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="supplyName" name="supplyName" value="<?php echo $per_supplyName ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="supplyName<?php echo $x;?>" name="supplyName<?php echo $x;?>" value="<?php print_r($item_desc[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +153,7 @@ if(isset($_REQUEST['id'])){
                                 <div class="form-group">
                                     <label for="qtyOrdered">Quantity Ordered</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="qtyOrdered" name="qtyOrdered" value="<?php echo $per_supplyQuantity ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="number" class="form-control" id="qtyOrdered<?php echo $x;?>" name="qtyOrdered<?php echo $x;?>" value="<?php print_r($qty_ordered[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -126,12 +163,19 @@ if(isset($_REQUEST['id'])){
                                 <div class="form-group">
                                     <label for="qtyIssued">Quantity to be Issued</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="qtyIssued" name="qtyIssued" value="<?php echo $per_quantityIssued ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php echo $per_supplyQuantity;?>">
+                                        <input type="number" class="form-control" id="qtyIssued<?php echo $x;?>" name="qtyIssued<?php echo $x;?>" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php echo $per_supplyQuantity;?>">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                      
+                        <div class="form-group">
+                            <label class="col-sm-8 control-label hidden" for="txtstatus">Status</label>
+                            <div class="col-sm-1">
+                                <input type="hidden" class="form-control" id="txtstatus<?php echo $x;?>" name="txtstatus<?php echo $x;?>" hidden value="<?php print_r($status[$zero++]);?>" readonly>
+                            </div>
+                        </div>
+                      <?php }
+                      } ?>
                     </div>
                 </form>
             </div>
