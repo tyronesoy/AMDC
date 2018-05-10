@@ -42,7 +42,7 @@ class Db_model extends CI_Model {
 			}
 		} else {
 			if(preg_match("/^ /", $username) || preg_match("/^ /", $password)){
-			    header("Location: ../login?login=invalid");
+			    header("Location: ../login");
 			    exit();
 			}else {
 				$this->session->set_flashdata('info', '<h3><span class="label label-danger">The username or password is incorrect!</span></h3>');
