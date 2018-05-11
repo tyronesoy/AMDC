@@ -71,5 +71,8 @@ class Order extends CI_Controller {
     public function addItem(){
 		$this->load->view('Supervisor/name');
 	}
+	public function updateItem(){
+		$this->load->view('Supervisor/update_order');
+	}
 
 }

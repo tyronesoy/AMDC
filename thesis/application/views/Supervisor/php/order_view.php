@@ -1,3 +1,5 @@
+ <link rel="stylesheet" href="../assets/orderedit/bootstrap.min.css" />
+    <script src="../assets/orderedit/bootstrap.min.js"></script>
 <?php
 /**
  for display full info. and edit data
@@ -101,9 +103,9 @@ if(isset($_REQUEST['id'])){
                                 </td>
                                             
                                 <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
-                                </td>
                             </tr>
-                            <?php 
+                                              </td>
+              <?php 
                             }
                         }?>
                         </table>

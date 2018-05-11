@@ -10,24 +10,24 @@ function supply_dropdown($connect)
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output .= '<option value="'.$row["supply_description"].'">'.$row["supply_description"].'</option>';
+    $output .= '<option value="'.$row["supply_description"].'">'.$row["supply_description"].'</option>';
  }
  return $output;
 }
 
-function unit_measure($connect)
-{ 
- $output = '';
- $query = "SELECT * FROM unit_of_measure ORDER BY unit_name ASC";
- $statement = $connect->prepare($query);
- $statement->execute();
- $result = $statement->fetchAll();
- foreach($result as $row)
- {
-  $output .= '<option value="'.$row["unit_name"].'">'.$row["unit_name"].'</option>';
- }
- return $output;
-}
+// function unit_measure($connect)
+// { 
+//  $output = '';
+//  $query = "SELECT * FROM unit_of_measure ORDER BY unit_name ASC";
+//  $statement = $connect->prepare($query);
+//  $statement->execute();
+//  $result = $statement->fetchAll();
+//  foreach($result as $row)
+//  {
+//   $output .= '<option value="'.$row["unit_name"].'">'.$row["unit_name"].'</option>';
+//  }
+//  return $output;
+// }
 
 ?>
 <?php
@@ -71,7 +71,7 @@ if(!isset($_SESSION['first_run'])){
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-  <script src="../assets/table/jquery-1.12.4.js"></script>
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
@@ -552,19 +552,19 @@ if(!isset($_SESSION['first_run'])){
                                             <tr>
                                               <th> Quantity </th>
                                               <th> Description </th>
-                                              <th> Unit </th>
+                                              <!-- <th> Unit </th> -->
                                               <th><button type="button" name="add" id="add" class="btn btn-success">+</button> </th>
                                             </tr>
                                             <tr>
                                               <td width="10px"><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 88%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td>
-                                              <td width="250px"><select class=" select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td width="250px"><select class="preferenceSelect select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                               <option value=""></option>
                                               <?php echo supply_dropdown($connect);?>
                                             </select></td>
-                                           <td width="120px"><select class=" select2" name="unit[]" id="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                           <!-- <td width="120px"><select class=" select2" name="unit[]" id="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                               <option value=""></option>
-                                              <?php echo unit_measure($connect);?>
-                                            </select></td>
+                                              <?php // echo unit_measure($connect);?>
+                                            </select></td> -->
                                     
                                             </tr>
                                           </table>
@@ -645,7 +645,6 @@ if(!isset($_SESSION['first_run'])){
                           </tr>
                       </tfoot>
             </table>
-
             </div>
 
             <!-- /.box-body -->
@@ -738,7 +737,7 @@ table#addItem, tr.no_border td {
 }
 </style>
 <!-- jQuery 3
-<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>-->
+-->
 <!-- DataTables
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
@@ -783,10 +782,10 @@ $(document).ready(function(){
   var postURL = "order/addItem";
   var i=1;
   var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
-  var unitDrop = <?php echo(json_encode(unit_measure($connect))); ?>;
+  // var unitDrop = <?php // echo(json_encode(unit_measure($connect))); ?>;
   $('#add').click(function(){
     i++;
-    $('#dynamic_field').append('<tr id="row'+i+'"></td> <td><input type="text" name="number[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td> <td><select class="form-control select2" name="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+unitDrop+' </select></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
+    $('#dynamic_field').append('<tr id="row'+i+'"></td> <td><input type="text" name="number[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
 
   });
   
@@ -830,23 +829,18 @@ $(document).ready(function(){
 </script>
 
 <script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : true
-      //   })
-      // })
-
       $(document).ready(function() {
     var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
+
+    // $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+    //     $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+    // } );
+     
+    // $('table.table').DataTable( {
+    //     scrollY:        200,
+    //     scrollCollapse: true,
+    //     paging:         false
+    // } );
  
     $('#example').DataTable( {
         dom: 'Bfrtip',
@@ -873,6 +867,7 @@ $(document).ready(function(){
         //     visible: false
         // } ]
     } );
+
 } );
     </script>
 
