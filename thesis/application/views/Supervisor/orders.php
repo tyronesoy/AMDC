@@ -458,6 +458,22 @@ if(!isset($_SESSION['first_run'])){
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
+
+              <table style="float: left;">
+                    <tr>
+                        <th> <div class="dropdownButton">
+                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                          <span class="caret"></span>
+                        </button>
+                          <option><b>Pending</b></option>
+                          <option value="orderAccepted">Accepted</option>
+                          <option value="orderDeclined">Declined</option>
+                        </select>
+                      </div></th>
+                    </tr>
+                </table>
+
                 <table style="float:right;">
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Order</i></button>
@@ -597,7 +613,7 @@ if(!isset($_SESSION['first_run'])){
                    <table id="example" class="table table-bordered table-striped">
                       <?php
                         $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name ='".$this->session->userdata('fname').' '.$this->session->userdata('lname')."' AND inventory_order_status != 'Issued' GROUP BY inventory_order_id ";
+                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name ='".$this->session->userdata('fname').' '.$this->session->userdata('lname')."' AND inventory_order_status = 'Pending' GROUP BY inventory_order_id ";
                         $result = $conn->query($sql);    
                       ?>
                       <thead>
@@ -620,9 +636,7 @@ if(!isset($_SESSION['first_run'])){
                               <td><?php echo $row["inventory_order_status"]; ?></td>
                               <td><?php echo $row["inventory_order_remarks"]; ?></td>
                               <td><div class="btn-group">
-                            <?php if($row['inventory_order_status'] == 'Accepted' || $row['inventory_order_status'] == 'Declined') { ?>
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
-                            <?php }else{ ?>
+                            <?php if($row['inventory_order_status'] == 'Pending'){ ?>
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>  
                             <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-edit"></i> Update</button>
