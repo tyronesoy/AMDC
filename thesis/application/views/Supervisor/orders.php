@@ -550,14 +550,14 @@ if(!isset($_SESSION['first_run'])){
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="dynamic_field">
                                             <tr>
-                                              <th> Quantity </th>
+                                              <th width="10%"> Quantity </th>
                                               <th> Description </th>
                                               <!-- <th> Unit </th> -->
-                                              <th><button type="button" name="add" id="add" class="btn btn-success">+</button> </th>
+                                              <th width="10%"><button type="button" name="add" id="add" class="btn btn-success">+</button> </th>
                                             </tr>
                                             <tr>
-                                              <td width="10px"><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 88%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td>
-                                              <td width="250px"><select class="preferenceSelect select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                              <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td>
+                                              <td><select class="preferenceSelect select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                               <option value=""></option>
                                               <?php echo supply_dropdown($connect);?>
                                             </select></td>
@@ -785,7 +785,7 @@ $(document).ready(function(){
   // var unitDrop = <?php // echo(json_encode(unit_measure($connect))); ?>;
   $('#add').click(function(){
     i++;
-    $('#dynamic_field').append('<tr id="row'+i+'"></td> <td><input type="text" name="number[]" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
+    $('#dynamic_field').append('<tr id="row'+i+'"></td> <td><input type="text" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
 
   });
   
