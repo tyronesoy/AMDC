@@ -1160,10 +1160,10 @@ if(isset($_POST['offAdd'])){
 if(isset($_POST['offEdit'])){
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['addQTY']);
+    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtAddQty']);
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
 
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock=quantity_in_stock+'$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
     if($result_update){

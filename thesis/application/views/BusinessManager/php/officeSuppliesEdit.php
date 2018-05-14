@@ -79,8 +79,8 @@ if(isset($_REQUEST['id'])){
 
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
-                            <label for="txtQuantityInStock">Add Quantity</label>
-                                <input type="number" min="0" class="form-control" id="addQty" name="addQty" >
+                            <label>Add Quantity</label>
+                                <input type="number" id="txtAddQty" name="txtAddQty"  min="0" class="form-control" >
                         </div>
                         </div>
                         </div>
@@ -89,7 +89,7 @@ if(isset($_REQUEST['id'])){
                                 <div class="col-md-6">
                             <div class="form-group" style="width:100%">
                             <label for="txtQuantityInStock">Current Unit Price</label>
-                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
+                                <input type="number" class="form-control"  value="<?php echo $per_supplyUnitPrice;?>" readonly>
                             </div>
                             </div>
 
@@ -108,12 +108,6 @@ if(isset($_REQUEST['id'])){
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                         </div>
                         </div>
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtExpirationDate">Expiration Date</label>
-                                <input type="text" class="form-control" id="datepicker" name="txtExpirationDate" placeholder="yyyy-mm-dd" value="<?php echo $per_supplyExpirationDate;?>">
-                        </div>
-                        </div>
                         </div>
 
                         </tr>
@@ -122,7 +116,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="medAdd"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-primary" name="offEdit"><i class="fa fa-edit"></i> Update</button>
             </div>
         </div>
     </form>
