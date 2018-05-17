@@ -5,7 +5,7 @@ $con=mysqli_connect('localhost','root','','itproject');
   if (isset($_POST['addUser'])) {
   $sql = $con->prepare("INSERT INTO users (username, user_type, fname, lname, user_contact, password, user_email, dept_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");  
   $username = $_POST['username'];
-  $user = $_POST['usertype'];
+  $role = $_POST['roletype'];
   $fname = $_POST['fname'];
   $lname = $_POST['lname'];
   $user_contact = $_POST['user_contact'];
@@ -17,7 +17,7 @@ $con=mysqli_connect('localhost','root','','itproject');
   $usernamelength= strlen($username);
   $passwordlength= strlen($password);
 
-  $sql->bind_param("ssssssss", $username, $user, $fname, $lname, $user_contact, $password, $user_email, $dept_name);
+  $sql->bind_param("ssssssss", $username, $role, $fname, $lname, $user_contact, $password, $user_email, $dept_name);
 
 
 if (isset($addUser)){

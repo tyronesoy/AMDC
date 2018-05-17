@@ -655,17 +655,17 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                   <div class="col-md-6">
                                                     <div class="form-group">
                                                       <label for="exampleInputEmail1">Role</label>
-                                                       <select name = "usertype" class="form-control">
+                                                       <select name = "roletype" class="form-control">
                                                        <option value="">Select a Role</option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT * FROM users WHERE user_type = 'Assistant' OR user_type='Supervisor' GROUP BY user_type" ;
+                                                            $sql = "SELECT * FROM role WHERE role_type = 'Assistant' OR role_type='Supervisor' GROUP BY role_type" ;
                                                             $results = mysqli_query($conn, $sql);
 
-                                                            foreach($results as $user) { 
+                                                            foreach($results as $role) { 
                                                         ?>
-                                                        <option value="<?php echo $user["user_type"]; ?>" name="user"><?php echo $user["user_type"]; ?></option>
+                                                        <option value="<?php echo $role["role_type"]; ?>" name="role"><?php echo $role["role_type"]; ?></option>
                                                          <?php 
                                                             }
                                                           ?>
@@ -730,7 +730,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City'";
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio'";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $dept_name) { 
@@ -911,8 +911,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       ?>
                       <td><?php echo $row["user_type"]; ?></td>
                       <td><?php echo $row["username"]; ?></td>
-                      <td><?php echo $row["lname"]; ?></td>
                       <td><?php echo $row["fname"]; ?></td>
+                      <td><?php echo $row["lname"]; ?></td>
                       <td><?php echo $row["user_contact"]; ?></td>
                       <td width="20px"><?php echo $row["user_email"]; ?></td>
                       <td><?php echo $row["dept_name"]; ?></td>
