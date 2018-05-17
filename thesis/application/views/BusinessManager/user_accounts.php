@@ -911,8 +911,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       ?>
                       <td><?php echo $row["user_type"]; ?></td>
                       <td><?php echo $row["username"]; ?></td>
-                      <td><?php echo $row["lname"]; ?></td>
                       <td><?php echo $row["fname"]; ?></td>
+                      <td><?php echo $row["lname"]; ?></td>
                       <td><?php echo $row["user_contact"]; ?></td>
                       <td width="20px"><?php echo $row["user_email"]; ?></td>
                       <td><?php echo $row["dept_name"]; ?></td>
