@@ -790,6 +790,7 @@ function supplier($connect)
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Medical' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
+            <col width="auto">
             <col width="10%">
             <col width="auto">
             <col width="5%">
@@ -797,7 +798,7 @@ function supplier($connect)
             <col width="8%">
             <col width="22.5%">
           <thead>
-            <tr>
+            <tr>  <th>Department</th>
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity In Stock</th>
@@ -810,6 +811,7 @@ function supplier($connect)
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
+                      <td><?php echo $row["dep_name"]; ?></td>
                       <td><?php echo $row["expiration_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
@@ -834,7 +836,8 @@ function supplier($connect)
                 </tbody>
         
         <tfoot>
-           <tr>
+           <tr> 
+                  <th>Department</th>
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity In Stock</th>

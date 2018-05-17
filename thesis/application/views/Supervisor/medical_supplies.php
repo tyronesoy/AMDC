@@ -429,7 +429,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   $result = $conn->query($sql);    
                 ?>
           <thead>
-			  <tr>
+			  <tr>   
+                  <th>Department</th>
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity in Stock</th>
@@ -441,6 +442,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
+                      <td><?php echo $row["dep_name"]; ?></td>
                       <td><?php echo $row["expiration_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["quantity_in_stock"]; ?></td>
@@ -455,6 +457,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         <tfoot>
 			<tr>
+                  <th>Department</th>
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity in Stock</th>
