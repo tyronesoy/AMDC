@@ -729,19 +729,7 @@ function supplier($connect)
                                                   <input type="number" class="form-control" id="priceUnit" name="priceUnit" min="0" required />
                                                 </div>
                                               </div>
-                                              <!-- Date and Time -->
-                                              <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Expiration Date</label>
-
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker2" name="expirationDate">
-                                                    </div>
-                                                  </div>
-                                                  </div>
+                            
                                                   </div>
 
                                         </div>
@@ -769,7 +757,7 @@ function supplier($connect)
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-primary" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
+                                          <button type="submit" class="btn btn-primary" name="addOffSupply"><i class="fa fa-check"></i> Yes</button>
 
                                         </div>
                                       </div>
@@ -794,15 +782,14 @@ function supplier($connect)
                   $result = $conn->query($sql);    
                 ?>
             
-            <col width="10%">
             <col width="auto">
             <col width="5%">
-            <col width="auto">
+            <col width="10%">
             <col width="8%">
             <col width="22.5%">
           <thead>
             <tr>
-                  <th>Expiration Date</th> 
+               
                   <th>Description</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
@@ -814,7 +801,6 @@ function supplier($connect)
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["expiration_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
@@ -839,7 +825,6 @@ function supplier($connect)
         
         <tfoot>
            <tr>
-                  <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
@@ -1143,10 +1128,10 @@ if(isset($_POST['offEdit'])){
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
     $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtQuantityInStock']);
+    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtAddQty']);
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
 
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate', good_condition='$new_supplyGoodCondition', damaged='$new_supplyDamaged' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock=quantity_in_stock+'$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
     if($result_update){

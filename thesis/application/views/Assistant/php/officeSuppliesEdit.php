@@ -82,7 +82,7 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
                             <label for="txtQuantityInStock">Add Quantity</label>
-                                <input type="number" min="0" class="form-control" id="addQty" name="addQty" >
+                                <input type="number" min="0" class="form-control" id="txtAddQty" name="txtAddQty" >
                         </div>
                         </div>
                         </div>
@@ -110,12 +110,7 @@ if(isset($_REQUEST['id'])){
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                         </div>
                         </div>
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtExpirationDate">Expiration Date</label>
-                                <input type="text" class="form-control" id="datepicker" name="txtExpirationDate" placeholder="yyyy-mm-dd" value="<?php echo $per_supplyExpirationDate;?>">
-                        </div>
-                        </div>
+                 
                         </div>
 
                         </tr>
@@ -124,7 +119,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="medAdd"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-primary" name="offEdit"><i class="fa fa-edit"></i> Update</button>
             </div>
         </div>
     </form>

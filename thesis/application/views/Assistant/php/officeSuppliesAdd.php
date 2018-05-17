@@ -4,15 +4,15 @@
                                 // OFFICE SUPPLY
   //CREATE or ADD OFFICE SUPPLY
   if (isset($_POST['addOffSupply'])) {
-      $sql = $connection->prepare("INSERT INTO supplies (supply_description, brand_name, suppliers_id, quantity_in_stock, unit, unit_price, supply_type, expiration_date, soft_deleted) VALUES (?, ?, ?, ?, ?, ?, 'Office', ?, 'N')");  
+      $sql = $connection->prepare("INSERT INTO supplies (supply_description, brand_name, suppliers_id, quantity_in_stock, unit, unit_price, supply_type, soft_deleted) VALUES (?, ?, ?, ?, ?, ?, 'Office', 'N')");  
       $description=$_POST['Description'];
       $brandName= $_POST['brandname'];
       $supplier = $_POST['supplier'];
       $quantity = $_POST['Quantity'];
       $unit= $_POST['Unit'];
       $priceUnit= $_POST['priceUnit'];
-      $expirationDate= $_POST['expirationDate'];
-      $sql->bind_param("sssssss", $description, $brandName, $supplier, $quantity, $unit, $priceUnit, $expirationDate);
+
+      $sql->bind_param("ssssss", $description, $brandName, $supplier, $quantity, $unit, $priceUnit);
       if($sql->execute()) {
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');

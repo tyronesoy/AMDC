@@ -775,7 +775,7 @@ function supplier($connect)
                                   <!-- /.modal-dialog -->
                                 </div>
 
-                                <div class="modal modal-success fade" id="modal-success">
+                                <div class="modal modal-default fade" id="modal-success">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
                                         <div class="modal-header">
@@ -786,8 +786,8 @@ function supplier($connect)
                                           <h3>Are you sure to add this item?&hellip;</h3>
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-outline" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
+                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
+                                          <button type="submit" class="btn btn-primary" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
 
                                         </div>
                                       </div>
