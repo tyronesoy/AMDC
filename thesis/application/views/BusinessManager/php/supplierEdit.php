@@ -19,6 +19,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
@@ -70,8 +74,8 @@ if(isset($_REQUEST['id'])){
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtprodtype">Product Type</label>
-                            <div class="col-sm-8">
-                               <select id="txtprodtype" name="txtprodtype">
+                            <div class="col-sm-6">
+                               <select id="txtprodtype" name="txtprodtype" class="form-control">
                                     <option value="Office" <?php echo ($per_supplierProduct =='Office')?'selected':'' ?>>Office</option>
                                     <option value="Medical" <?php echo ($per_supplierProduct =='Medical')?'selected':'' ?>>Medical</option>
 

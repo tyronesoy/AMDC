@@ -17,6 +17,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
@@ -36,7 +40,6 @@ if(isset($_REQUEST['id'])){
                                         </div>
                                         <!-- end of modal header -->
                                         <div class="modal-body">
-                                        <div class="box-header">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <center><h3 class="modal-title"><b>Are you sure to change the status of </h3><h2><b><u><?php echo $per_departmentName;?></u>?</b></h2></b></h3></center>

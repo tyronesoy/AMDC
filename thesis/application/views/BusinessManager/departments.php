@@ -746,9 +746,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-						<th>Department Name</th>
+						            <th>Department Name</th>
                         <th>Branch Location</th>
-						<th>Status</th>
+						            <th>Status</th>
                         <th>Action</th>
                   </tr>
                 </tfoot>

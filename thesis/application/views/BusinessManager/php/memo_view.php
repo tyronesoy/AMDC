@@ -19,9 +19,15 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span></button>
                  <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
@@ -40,10 +46,8 @@ if(isset($_REQUEST['id'])){
                                               <center><h4><b>View Memo</b></h4></center>
                                             </div>
                     <div class="box-body">
-
-                   <div class="row">
-                            <div class="col-md-11">
-                                    <div class="form-group">
+                        <div class="form-group">
+                                    
                                 <label for="exampleInputEmail1">Memo Date</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -52,11 +56,6 @@ if(isset($_REQUEST['id'])){
                                     <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_memodate ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                 </div>
                             </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-11">
                                     <div class="form-group">
                                 <label for="exampleInputEmail1">Memo Title</label>
                                 <div class="input-group">
@@ -66,17 +65,14 @@ if(isset($_REQUEST['id'])){
                                     <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_memotitle ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                 </div>
                             </div>
-                            </div>
-                        </div>
                        
                                     <div class="form-group">
                                 <label for="exampleInputEmail1">Description</label>
                                 <div class="input-group">
-                                    <textarea rows="15" cols="83" readonly><?php echo $per_memodesc ?></textarea>
+                                    <textarea class="form-control" rows="15" cols="83" readonly><?php echo $per_memodesc ?></textarea>
                                 </div>
                             </div>
                             </div>
-                        </div>
                 </form>
             </div>
             <div>

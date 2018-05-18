@@ -657,12 +657,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <option value="">Select Product Type</option>
                                                   <?php
                                                     $conn=mysqli_connect("localhost", "root", "", "itproject");
-                                                    $sql = "SELECT product FROM suppliers GROUP BY product";
+                                                    $sql = "SELECT DISTINCT supply_type FROM supplies WHERE supply_type='Medical' OR supply_type='Office' ";
                                                     $result = mysqli_query($conn, $sql);
 
                                                     foreach($result as $row){
                                                       ?>
-                                                      <option value="<?php echo $row["product"]; ?>" name="suppProduct"><?php echo $row["product"]; ?></option>
+                                                      <option value="<?php echo $row["supply_type"]; ?>" name="suppProduct"><?php echo $row["supply_type"]; ?></option>
                                                     <?php
                                                     }
                                                     ?>
@@ -673,31 +673,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"> </i> Cancel</button>
-                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"> </i> Add</button>
+                                        <button type="submit" class="btn btn-success" class="btn btn-success" name="addSuppliers"><i class="fa fa-plus"> </i> Add</button>
                                       </div>
                                     </div>
 									                 </div>
                                     </div>
-									
-                                <div class="modal modal-default" id="modal-success">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <center><h3><b>Are you sure to add this supplier?</b></h3></center>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-primary" name="addSuppliers"><i class="fa fa-check"></i> Yes</button>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-								</div>
-								</div>
                               </form>
                               </th>
                         

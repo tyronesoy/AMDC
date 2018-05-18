@@ -4,7 +4,7 @@ $con=mysqli_connect('localhost','root','','itproject');
  //CREATE or ADD User Account
   if (isset($_POST['addUser'])) { 
   $username = $_POST['username'];
-  $user = $_POST['usertype'];
+  $role = $_POST['roletype'];
   $fname = $_POST['fname'];
   $lname = $_POST['lname'];
   $user_contact = $_POST['user_contact'];

@@ -691,7 +691,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <div class="form-group">
                                                     
                                                   <label for="exampleInputEmail1">Description</label>
-                                               
+                                            
                                                   <textarea type="name" class="form-control" name="memo_description" id="memo_description" rows="15" cols="83" required /> </textarea>
 
                                                 </div>
@@ -699,7 +699,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"> </i> Add</button>
+                                        <button type="submit" class="btn btn-success" name="addMemo"><i class="fa fa-plus"> </i> Add</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -707,28 +707,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
-
-                                    <div class="modal modal-default" id="modal-success">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <center><h3><b>Are you sure to add this memo?</b></h3></center>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-primary" name="addMemo"><i class="fa fa-check"></i> Yes</button>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                </div>
-                </div>
-
-
                                 </form>
                             </th> 
                     </tr>
