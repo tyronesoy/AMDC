@@ -9,13 +9,13 @@ $con=mysqli_connect('localhost','root','','itproject');
   
       
       $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-      $sql2 = "SELECT terms from invoices where invoice_id = 0";
+      $sql2 = "SELECT value from defaults where attribute = 'defpass' LIMIT 1";
       $result = $conn->query($sql2); 
       if ($result->num_rows > 0){
       while($row = $result->fetch_assoc()) {
-          if($oldpass == $row['terms']){
+          if($oldpass == $row['value']){
                 if($passw == $passwconf){
-                    $sql = $con->prepare("UPDATE invoices SET terms = '".$passwconf."'");
+                    $sql = $con->prepare("UPDATE defaults SET value = '".$passwconf."'");
                       if($sql->execute()) {
                       $conn =mysqli_connect("localhost","root","");
                             $datetoday = date('Y\-m\-d\ H:i:s A');
