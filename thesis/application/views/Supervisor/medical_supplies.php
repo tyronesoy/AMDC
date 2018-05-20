@@ -425,7 +425,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <table id="example" class="table table-bordered table-striped">
          <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Medical' AND soft_deleted='N' ";
+                  $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Medical' AND soft_deleted='N' AND dep_name='".$this->session->userdata('dept_name')."' ";
                   $result = $conn->query($sql);    
                 ?>
           <thead>
