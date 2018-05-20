@@ -6,7 +6,18 @@ $con=mysqli_connect('localhost','root','','itproject');
   $oldpass = $_POST['oldpass'];
   $passw = $_POST['passw'];
   $passwconf = $_POST['passwconf'];
-  
+
+        $conn =mysqli_connect("localhost","root","");
+        mysqli_select_db($conn, "itproject");
+        $sql3 = "select fname,lname from users where user_type = 'BusinessManager'";
+        $result3 = $conn->query($sql3);
+        if ($result3->num_rows > 0) {
+            while($row = $result3->fetch_assoc()) {
+            $firstn = $row["fname"];
+            $lastn = $row["lname"];
+            }
+        }
+      
       
       $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
       $sql2 = "SELECT value from defaults where attribute = 'defpass' LIMIT 1";
@@ -20,7 +31,7 @@ $con=mysqli_connect('localhost','root','','itproject');
                       $conn =mysqli_connect("localhost","root","");
                             $datetoday = date('Y\-m\-d\ H:i:s A');
                             mysqli_select_db($conn, "itproject");
-                            $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$fname." ".$lname." has changed the default password','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+                            $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Default password has been changed','".$firstn." ".$lastn."','BusinessManager')";
                             $res1 = $conn->query($notif1);
                       $success_message = "Added Successfully";
                       } else {
