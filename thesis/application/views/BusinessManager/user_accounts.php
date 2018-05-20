@@ -792,13 +792,13 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 <div class="form-group">
                                                     <?php
                                                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                                                      $sql9 = "SELECT terms from invoices where invoice_id = 0 LIMIT 1";
+                                                      $sql9 = "SELECT value from defaults where attribute = 'defpass' LIMIT 1";
                                                       $result = $conn->query($sql9); 
                                                       if ($result->num_rows > 0){
                                                       while($row = $result->fetch_assoc()) {
                                                     ?>
                                                         <label for="exampleInputEmail1">Current Password</label>
-                                                        <input type="password" class="form-control" name="oldpass" id="oldpass" value="<?php echo $row['terms'] ?>" required />
+                                                        <input type="password" class="form-control" name="oldpass" id="oldpass" value="<?php echo $row['value'] ?>" required />
                                                         <input type="checkbox" onclick="myFunction1()"> &nbsp;Show Password
                                                     <?php
                                                       }

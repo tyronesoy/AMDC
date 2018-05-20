@@ -8,11 +8,11 @@ $con=mysqli_connect('localhost','root','','itproject');
       
       
       $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-      $sql2 = "SELECT terms from invoices where invoice_id = 0 LIMIT 1";
+      $sql2 = "SELECT value from defaults where attribute = 'defpass' LIMIT 1";
       $result = $conn->query($sql2); 
       if ($result->num_rows > 0){
         while($row = $result->fetch_assoc()) {
-          $sql = $con->prepare("UPDATE users SET password = '".$row['terms']."' where username = '".$username."' AND user_type = 'BusinessManager'");
+          $sql = $con->prepare("UPDATE users SET password = '".$row['value']."' where username = '".$username."' AND user_type = 'BusinessManager'");
             
               if($sql->execute()) {
               $conn =mysqli_connect("localhost","root","");
