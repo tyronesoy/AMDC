@@ -52,14 +52,14 @@ if(isset($_REQUEST['id'])){
                                 <?php
                                     $conn =mysqli_connect("localhost","root","");
                                     mysqli_select_db($conn, "itproject");
-                                    $sql2 = "select terms from invoices where po_id = 246 AND supplier_id = 4 LIMIT 1";
+                                    $sql2 = "select value from defaults where attribute = 'defpass' LIMIT 1";
                                     $result2 = $conn->query($sql2);
                                   ?>
                                 <?php 
                                   if ($result2->num_rows > 0) {
                                     while($row = $result2->fetch_assoc()) { ?>
                                     <?php
-                                        $newpass = $row['terms'];
+                                        $newpass = $row['value'];
                                       
                                     }
                                   }
