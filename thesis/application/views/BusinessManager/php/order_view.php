@@ -256,6 +256,7 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+<div id="printThis">
     <form class="form-horizontal" method="post">
         <div class="modal" id="modal-decline">
         <div class="modal-content">
@@ -302,13 +303,14 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
+                <button id="btnPrint" type="button" class="btn btn-success" style="float:left;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
                 <button type="button" class="btn btn pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                 <button type="submit" class="btn btn-danger" name="btnDecline"><i class="fa fa-close"></i> Decline</button>
             </div>
         </div>
     </div>
     </form>
-
+</div>
 <?php
 }//end if
 ?>
@@ -352,3 +354,49 @@ if(isset($_REQUEST['id'])){
             });
         });
     </script>
+
+<script>
+document.getElementById("btnPrint").onclick = function () {
+printElement(document.getElementById("printThis"));
+
+window.print();
+}
+
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    
+    $printSection.appendChild(domClone);
+}
+</script>
+
+<style>
+@media screen {
+  #printSection {
+      display: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility:hidden;
+  }
+  #printSection, #printSection * {
+    visibility:visible;
+  }
+  #printSection {
+    position:absolute;
+    left:0;
+    top:0;
+  }
+}
+</style>

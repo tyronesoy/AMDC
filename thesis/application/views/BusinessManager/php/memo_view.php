@@ -22,13 +22,13 @@ if(isset($_REQUEST['id'])){
        <div class="row">
           <div class="col-xs-12">
               <div class="box">
-            <div class="box-header">
+            <div class="box-header"  id="printThis">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
-                 <div class="col-md-2">
+                                            <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
                                             <div class="col-md-8">
@@ -75,20 +75,63 @@ if(isset($_REQUEST['id'])){
                             </div>
                 </form>
             </div>
-            <div>
+            <div id="modifyMe">
             <div class="modal-footer">
+                <button id="btnPrint" type="button" class="btn btn-success" style="float:left;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>
-        </div>
+            </div>
     </form>
 
 <?php
 }//end if
 ?>
+<script>
+document.getElementById("btnPrint").onclick = function () {
+printElement(document.getElementById("printThis"));
 
+window.print();
+}
 
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    
+    $printSection.appendChild(domClone);
+}
+</script>
 
+<style>
+@media screen {
+  #printSection {
+      display: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility:hidden;
+  }
+  #printSection, #printSection * {
+    visibility:visible;
+  }
+  #printSection {
+    position:absolute;
+    left:0;
+    top:0;
+  }
+}
+</style>
 
 
 
