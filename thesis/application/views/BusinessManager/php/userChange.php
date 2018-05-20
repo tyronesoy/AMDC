@@ -19,6 +19,10 @@ if(isset($_REQUEST['id'])){
     $result = $con->query($sql9); 
       if ($result->num_rows < 1){
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">

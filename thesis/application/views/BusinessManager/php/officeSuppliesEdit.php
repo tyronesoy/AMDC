@@ -20,6 +20,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post" action ="">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,12 +50,11 @@ if(isset($_REQUEST['id'])){
                     <table style="float:right;">
                     <tr>
                     <div class="box-body">
-                             <div class="form-group" style="width:100%">
+                             <div class="form-group">
                             <label for="txtid">Supply ID</label>
                                 <input type="number" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
 
-                            <div style="float:right;"> </div>
                             <div class="row">
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
@@ -61,7 +64,7 @@ if(isset($_REQUEST['id'])){
                             </div>
 
                             <div class="col-md-6">
-                            <div class="form-group" style="width:40%">
+                            <div class="form-group">
                             <label for="txtUnit">Unit</label>
                                 <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo $per_supplyUnit;?>" readonly>
                         </div>
@@ -78,7 +81,7 @@ if(isset($_REQUEST['id'])){
                         </div>
 
                             <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
+                            <div class="form-group">
                             <label>Add Quantity</label>
                                 <input type="number" id="txtAddQty" name="txtAddQty"  min="0" class="form-control" >
                         </div>
@@ -94,7 +97,7 @@ if(isset($_REQUEST['id'])){
                             </div>
 
                             <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
+                            <div class="form-group">
                             <label for="txtUnitPrice">Unit Price</label>
                                 <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" min="0" >
                         </div>
