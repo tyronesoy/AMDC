@@ -47,11 +47,10 @@ if(isset($_REQUEST['id'])){
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
-                            <label class="col-sm-4 control-label" for="txtsupplyDescription">Description</label>
-                            <div class="col-sm-6">
+                        <div class="col-sm-6">
+                            <label for="txtsupplyDescription">Description</label>
                                 <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" readonly/>
                             </div>
-                        </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtQuantityInStock">Logical Count</label>
                             <div class="col-sm-6">

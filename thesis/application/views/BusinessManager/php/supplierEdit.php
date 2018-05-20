@@ -49,32 +49,35 @@ if(isset($_REQUEST['id'])){
                                         </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label hidden="true" class="col-sm-4 control-label" for="txtid">Suppliers ID</label>
+                            <label hidden="true" for="txtid">Suppliers ID</label>
                             <div class="col-sm-6">
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtsuppliername">Supplier Name</label>
-                            <div class="col-sm-6">
+                        <div class="row">
+                        <div class="col-sm-6">
+                        <div class="form-group" style="width:100%;">
+                            <label for="txtsuppliername">Supplier Name</label>
                                 <input type="text" class="form-control" id="txtsuppliername" name="txtsuppliername" value="<?php echo $per_supplierName;?>">
                             </div>
                         </div>
+                        <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtcontactno">Contact No.</label>
-                            <div class="col-sm-6">
+                            <label for="txtcontactno">Contact No.</label>
                                 <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>" pattern="^[0-9]{11}$">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtaddress">Address</label>
-                            <div class="col-sm-6">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                        <div class="form-group" style="width:100%;">
+                            <label for="txtaddress">Address</label>
                                 <input type="text" class="form-control" id="txtaddress" name="txtaddress" value="<?php echo $per_supplierAddress;?>">
                             </div>
                         </div>
+                         <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtprodtype">Product Type</label>
-                            <div class="col-sm-6">
+                            <label for="txtprodtype">Product Type</label>
                                <select id="txtprodtype" name="txtprodtype" class="form-control">
                                     <option value="Office" <?php echo ($per_supplierProduct =='Office')?'selected':'' ?>>Office</option>
                                     <option value="Medical" <?php echo ($per_supplierProduct =='Medical')?'selected':'' ?>>Medical</option>
@@ -82,9 +85,10 @@ if(isset($_REQUEST['id'])){
                                 </select>   
                             </div>
                         </div>
+                    </div>
+                        <div class="col-sm-13">
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtremarks">Remarks</label>
-                            <div class="col-sm-6">
+                            <label for="txtremarks">Remarks</label>
                                 <input type="text" class="form-control" id="txtremarks" name="txtremarks" value="<?php echo $per_supplierRemarks;?>">
                             </div>
                         </div>
