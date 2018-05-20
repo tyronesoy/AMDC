@@ -737,11 +737,13 @@ function supplier($connect)
                                                   <select class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
+                                                      
                                                   </select>
+                                                  
+                                        
                                               </div>
                                               </div>
                                               </div>
-
                                               <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
@@ -749,19 +751,7 @@ function supplier($connect)
                                                   <input type="number" class="form-control" id="priceUnit" name="priceUnit" min="0" required />
                                                 </div>
                                               </div>
-                                              <!-- Date and Time -->
-                                              <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Expiration Date</label>
-
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker2" name="expirationDate">
-                                                    </div>
-                                                  </div>
-                                                  </div>
+                                
                                                   </div>
 
                                         </div>
@@ -789,7 +779,7 @@ function supplier($connect)
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-primary" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
+                                          <button type="submit" class="btn btn-primary" name="addOffSupply"><i class="fa fa-check"></i> Yes</button>
 
                                         </div>
                                       </div>
