@@ -20,7 +20,7 @@ function unit_measure($connect)
 function supplier($connect)
 { 
  $output = '';
- $query = "SELECT * FROM suppliers ORDER BY company_name ASC";
+ $query = "SELECT * FROM suppliers WHERE product = 'Medical' AND supplier_status = 'Active' ORDER BY company_name ASC";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
