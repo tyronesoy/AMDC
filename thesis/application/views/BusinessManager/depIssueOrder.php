@@ -617,7 +617,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE  inventory_order_status = 'Accepted' AND (quantity != '0' OR supply_name != '')";
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE  inventory_order_status = 'Accepted' AND (quantity != '0' OR supply_name != '') GROUP BY inventory_order_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -792,7 +792,7 @@ input:checked + .slider:before {
 <!-- page script -->
 
 <script>
-setTimeout(onUserInactivity, 1000 * 120)
+setTimeout(onUserInactivity, 1000 * 1800)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
