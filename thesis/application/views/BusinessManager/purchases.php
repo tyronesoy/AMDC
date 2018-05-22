@@ -649,7 +649,7 @@ function unit_measure($connect)
                     <tr>
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Purchase Order</i></button>
             
-                    <form id="insert_form" method="post" action="purchases/addPurchases">
+                    <form id="add_name" name="add_name">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -943,7 +943,7 @@ function unit_measure($connect)
                                       <div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="submit"><i class="fa fa-plus"></i> Add </button>
+                                        <button type="submit" class="btn btn-success" name="submit" id="submit"><i class="fa fa-plus"></i> Add </button>
                                         <!--  <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
