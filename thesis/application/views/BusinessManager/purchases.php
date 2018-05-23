@@ -936,6 +936,25 @@ function unit_measure($connect)
                         </td>
                         <td><button type="button" name="remove" id="9" class="btn btn-danger btn_remove">x</button></td>        
                       </tr>
+
+                      <tr id="row10" class="hidden">
+                        <td width="10px"><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 88%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                        </td>
+                        <td width="250px">
+                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            <option value=""></option>
+                            <?php echo supply_dropdown($connect);?>
+                          </select>
+                        </td>
+                        <td width="120px">
+                          <select class=" select2" name="unit[]" id="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            <option value=""></option>
+                            <?php echo unit_measure($connect);?>
+                          </select>
+                        </td>
+                        <td><button type="button" name="remove" id="10" class="btn btn-danger btn_remove">x</button></td>        
+                      </tr>
+
                                           </table>
                                        
                                         </div>
@@ -1199,6 +1218,7 @@ $(document).ready(function(){
   $(document).on('click', '.btn_remove', function(){
     var button_id = $(this).attr("id"); 
     document.getElementById('row'+button_id+'').setAttribute("class", "hidden");
+    i--;
     // $('#row'+button_id+'').remove();
   });
   
