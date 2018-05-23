@@ -100,7 +100,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="input-group-addon">       
                                             <i class="fa fa-group"></i>
                                         </div>
-                                        <select class="form-group select2" name="supp" style="width:100%" required>
+                                        <select class="form-group select2" name="supp" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                             <option value="">Select a Supplier</option>
                                                 <?php
                                                 $conn =mysqli_connect("localhost","root","");
@@ -133,28 +133,78 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
 
-                        <div class="table-responsive">
-                            <span id="error"></span>
-                            <table class="table table-bordered" id="item_table">
-                                <tr>
-                                    <th>Item Description</th>
-                                    <th>Quantity</th>
-                                </tr>
-                                <tr>
-                                    <td width="250">
-                                        <select class="form-control select2" name="supply_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                            <option value="<?php echo $per_supplyName ?>"><?php echo $per_supplyName ?></option>
-                                        </select>
-                                    </td>
-                                            
-                                    <td width="50">
-                                        <input type="text" name="quantity" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
+                        <?php 
+                                $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE inventory_order_id=$id AND quantity !=0 AND quantity_in_stock = 0";
+                                $result = $con->query($sql);
+
+                                $arrayOrdId = '';
+                                $arrayOrdUniqId = '';
+                                $arrayStatus = '';
+                                $arraySupervisor = '';   
+                                $arrayQtyStock = '';   
+                                $arrayDesc = '';
+                                $arrayQtyOrdered = '';
+                                $arrayQtyIssued = '';
+                                $arrayInventory = '';
+                                $zero = 0;
+                        ?>
+                        <div class="row">
+                            <div class="table-responsive">
+                                <span id="error"></span>
+                                <table class="table table-bordered" id="item_table">
+                                    <tr>
+                                        <th>Item Description</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                    <?php 
+                                        if($result->num_rows > 0){
+                                            while ($row = $result->fetch_assoc()) {
+                                                $arrayOrdId .= $row['inventory_order_id'].', ';
+                                                $arrayOrdUniqId .= $row['inventory_order_uniq_id'].', ';
+                                                $arrayStatus .= $row['inventory_order_status'].', ';
+                                                $arraySupervisor .= $row['inventory_order_name'].', ';   
+                                                $arrayQtyStock .= $row['quantity_in_stock'].', ';   
+                                                $arrayDesc .= $row['supply_name'].', ';
+                                                $arrayQtyOrdered .= $row['quantity'].', ';
+                                                $arrayQtyIssued .= $row['quantity_issued'].', ';
+                                                $arrayInventory .= $row['inventory_order_supplies_id'].', ';
+
+                                                $order_id = explode(", ", $arrayOrdId);
+                                                $order_uniqid = explode(", ", $arrayOrdUniqId);
+                                                $status = explode(", ", $arrayStatus);
+                                                $supervisor = explode(", ", $arraySupervisor);
+                                                $qty_stock = explode(", ", $arrayQtyStock);
+                                                $item_desc = explode(", ", $arrayDesc);
+                                                $qty_ordered = explode(", ", $arrayQtyOrdered);
+                                                $qty_issued = explode(", ", $arrayQtyIssued);
+                                                $inventory_supid = explode(", ", $arrayInventory);
+
+                                            }
+                                        
+                                    ?>
+                                    <tr>
+                                        
+                                        <td width="250">
+                                            <select class="form-control select2" name="supply_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                <option value="<?php print_r($item_desc[$zero]);?>"><?php print_r($item_desc[$zero]);?></option>
+                                            </select>
+                                        </td>
+                                                
+                                        <td width="50">
+                                            <input type="text" name="quantity" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
+                                        </td>
+
+                                        <td width="50" class="hidden">
+                                        <input type="hidden" class="form-control hidden" id="status" name="status" value="<?php print_r($status[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                     </td>
 
-                                </tr>
-                            </table>
+                                    </tr>
+                                    <?php 
+                                        
+                                    }?>
+                                </table>
+                            </div>
                         </div>
-                      
                     </div>
                 </form>
             </div>

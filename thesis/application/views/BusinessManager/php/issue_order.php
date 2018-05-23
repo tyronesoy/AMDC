@@ -168,7 +168,17 @@ if(isset($_REQUEST['id'])){
                                         <input type="number" class="form-control" id="qtyOrdered" name="qtyOrdered" value="<?php print_r($qty_ordered[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
                                     </td>
                                     <td width="50">
-                                        <input type="number" class="form-control" id="qtyIssued" name="qtyIssued" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php print_r($qty_ordered[$zero]);?>">
+                                        <?php if($qty_ordered[$zero] < $qty_stock[$zero]){ ?>
+                                            <input type="number" class="form-control" id="qtyIssued" name="qtyIssued" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php print_r($qty_ordered[$zero]);?>">
+                                        <?php } else { ?>
+                                            <center>
+                                                <!-- <form class="form-horizontal" method="post">
+                                                    <input type="button" id="porder" class="btn btn-success" value="Order" onclick="document.location='addPurchases'">
+                                                </form> -->
+                                                <button type="button" id="porder" name="porder" class="btn btn-success btn-xs" data-toggle="modal" data-target="#porderModal" data-id="<?php print_r($order_id[$zero]);?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button>
+                                            </center>
+                                        <?php } ?>
+                                        
                                     </td>
                                     <td width="50" class="hidden">
                                         <input type="hidden" class="form-control hidden" id="status" name="status" value="<?php print_r($status[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">

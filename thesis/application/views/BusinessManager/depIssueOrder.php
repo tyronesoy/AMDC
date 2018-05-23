@@ -644,15 +644,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["inventory_order_status"]; ?></td>
                       <td><?php echo $row["inventory_order_remarks"]; ?></td>
                       <td>
-                        <?php if($row['quantity_in_stock'] != 0){ ?>
+                        
                           <div class="btn-group">
                               <button type="button" id="issue" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#issueModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-retweet"></i> Issue</button>
                           </div>
-                        <?php } else{ ?>
-                          <div class="btn-group">
-                              <button type="button" id="porder" class="btn btn-success btn-xs" data-toggle="modal" data-target="#porderModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button>
-                          </div>
-                        <?php } ?>
                         
                       </td>
                     </tr>
