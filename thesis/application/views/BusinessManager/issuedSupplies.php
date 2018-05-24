@@ -110,14 +110,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </script>
                     </a>
                 </li>
-          <li class="dropdown notifications-menu">
+          <!--        BELL START-->
+         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                $dtoday = date("Y/m/d");
-                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $dtoday = date('Y\-m\-d\ H:i:s A');
+                $date_select = date('Y\-m\-d\ H:i:s A', strtotime('-3 days') ) ;//minus three days
                 $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%')";
                 $result6 = $conn->query($sql6);    
                 ?>
@@ -189,8 +190,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
+          <!--            FLAG START-->
+                  <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -198,7 +201,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $date_futr = date("Y-m-d", strtotime('+30 days') ) ;
                 $date_past = date("Y-m-d", strtotime('-1 year') ) ;
                 $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql5 = "SELECT COUNT(*) AS total FROM supplies where quantity_in_stock < reorder_level";
+                $sql5 = "SELECT COUNT(*) AS total from supplies where accounted_for = 'N' group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
                 $number1 = $conn->query($sql5);
                 if ($number1->num_rows > 0) {
                         while($row = $number1->fetch_assoc()) {
@@ -228,15 +231,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)/MAX(reorder_level)";
+                        $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder`,accounted_for as `expired` from supplies where accounted_for = 'N' group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
                     $result2 = $conn->query($sql2);
                   ?>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <!-- Task item reorder levels-->
-                    <h5>Items below reorder level</h5>
-                    <hr>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
+                    <h5 style="padding:3px;margin:3px;">Items below reorder level</h5>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <li>
                     <?php 
                       if ($result2->num_rows > 0) {
@@ -274,12 +278,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php
                       }
                     }
+                    }else{
+                    ?>
+                    <div>
+                    <small>No items to display</small>
+                    </div>
+                    <?php    
                     }
                     ?>
                   </li>
                   <!-- end task item expiration notification-->
-                    <h5>Items nearing expiration</h5>
-                    <hr>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
+                    <h5 style="padding:3px;margin:3px;">Items nearing expiration</h5>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -297,7 +308,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
                                 if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
                             ?>
-                                  <tr class="warning">
+                                  <tr>
                                   <td><?php echo $row["supply_description"]; ?></td>
                                   <td><?php echo $row["expiration_date"]; ?></td>
                                   </tr>
@@ -305,7 +316,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php
                                       if($expvalue < 25){
                                     ?>
-                                    <tr class="warning">
+                                    <tr>
                                     <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
                                     <td><div class="progress xs">
                                       <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
@@ -315,7 +326,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>
                                     <?php
                                       }else if($expvalue < 50){?>
-                                    <tr class="warning">
+                                    <tr>
                                     <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
                                     <td><div class="progress xs">
                                       <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
@@ -325,7 +336,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>  
                                     <?php
                                       }else if($expvalue < 100){?>
-                                    <tr class="warning">
+                                    <tr>
                                     <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
                                     <td><div class="progress xs">
                                       <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
@@ -337,19 +348,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     }
                                     }
                                 }
+                              }else{
+                            ?>
+                                <div>
+                                <p>No items to display</p>
+                                </div>
+                            <?php      
                               }
                             ?>
                     </small>
                     </table>
-                    <h5>Expired Items</h5>
-                    <hr>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
+                    <h5 style="padding:3px;margin:3px;">Expired Items</h5>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0";
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
                         $result4 = $conn->query($sql4);
                         $strdatetoday = strtotime(date("Y/m/d"));
-                        $strdatelimit = $strdatetoday - 2588400;//today -30 days
                     ?>
                     <table id="expdue" class="table table-bordered table-striped">
                     <small>
@@ -357,7 +374,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               if ($result4->num_rows > 0) {
                                 while($row = $result4->fetch_assoc()) {
                                     $expdate = strtotime($row["expiration_date"]);
-                                if(($expdate < $strdatetoday) && ($expdate > $strdatelimit)){
+                                if($expdate < $strdatetoday){
                             ?>
                                   <tr class="danger">
                                   <td><?php echo $row["supply_description"]; ?></td>
@@ -366,6 +383,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php
                                 }
                               }
+                            }else{
+                            ?>
+                            <div>
+                            <p>No items to display</p>
+                            </div>
+                            <?php
                             }
                             ?>
                     </small>
@@ -374,6 +397,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
             </ul>
           </li>
+<!--          FLAG END-->
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
