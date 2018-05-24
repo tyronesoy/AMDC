@@ -97,13 +97,15 @@ if(isset($_REQUEST['id'])){
                               <div class="row">
                                      <div class="col-sm-6">
                                     <div class="form-group" style="width:100%">
+                                   <<?php if($per_type != 'Assistant'){ ?>
                                                       <label for="txtdeptname">Department</label>
+                                                      
                                                        <select name = "txtdeptname" id="txtdeptname" class="form-control" value="<?php echo $per_deptname;?>">
                                                        <option><?php echo $per_deptname;?></option>
                                                         <?php
                                                           $conn = mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio' ";
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio' ;
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $dept_name) { 
@@ -113,6 +115,12 @@ if(isset($_REQUEST['id'])){
                                                             }
                                                           ?>
                                                       </select>
+                                                      <?php } else { ?>
+                                                      <label for="txtdeptname">Department</label>
+                                                      <input type="text" name="txtdeptname" id="txtdeptname" class="form-control" value="<?php echo $per_deptname;?>" readonly>
+                                                      
+                                                       
+                                                      <?php } ?>
                                         </div>
                                                      </div>
                     </div>
