@@ -50,23 +50,24 @@ if(isset($_REQUEST['id'])){
                     <table style="float:right;">
                     <tr>
                     <div class="box-body">
+
                              <div class="form-group">
                             <label for="txtid">Supply ID</label>
-                                <input type="number" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+                                <input class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
                             </div>
 
                             <div class="row">
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
                             <label for="txtsupplyDescription">Description</label>
-                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>">
+                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" readonly>
                             </div>
                             </div>
 
                             <div class="col-md-6">
                             <div class="form-group">
                             <label for="txtUnit">Unit</label>
-                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo $per_supplyUnit;?>" readonly>
+                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo $per_supplyUnit;?>">
                         </div>
                         </div>
                         </div>

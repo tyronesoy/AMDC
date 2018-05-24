@@ -55,7 +55,6 @@ if(isset($_REQUEST['id'])){
                             <label for="txtsupplyDescription">Description</label>
                                 <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" readonly/>
                             </div>
-                        </div>
 
                              <div class="col-sm-6">
                              <div class="form-group" style="width:100%">

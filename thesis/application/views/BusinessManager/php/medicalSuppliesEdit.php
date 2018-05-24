@@ -22,6 +22,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post" action ="" >
         <div class="modal-content">
             <div class="modal-header">
@@ -49,24 +53,23 @@ if(isset($_REQUEST['id'])){
                     <table style="float:right;">
                     <tr>
                     <div class="box-body">
-                             <div class="form-group" style="width:100%;" >
+                             <div class="form-group">
                             <label for="txtid">Supply ID</label>
-                                <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
+                                <input class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
                             </div>
 
-                            <div style="float:right;"> </div>
                             <div class="row">
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%;">
                             <label for="txtsupplyDescription">Description</label>
-                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>">
+                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" readonly>
                             </div>
                             </div>
 
                             <div class="col-md-6">
-                            <div class="form-group" style="width:40%;">
+                            <div class="form-group">
                             <label for="txtUnit">Unit</label>
-                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo $per_supplyUnit;?>" readonly>
+                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo $per_supplyUnit;?>" >
                         </div>
                         </div>
                         </div>
@@ -81,9 +84,9 @@ if(isset($_REQUEST['id'])){
                         </div>
 
                             <div class="col-md-6">
-                            <div class="form-group" style="width:100%;">
+                            <div class="form-group" >
                             <label for="txtAddQuantity">Add Quantity</label>
-                                <input type="number" class="form-control" id="addQty" name="addQty">
+                                <input type="number" class="form-control" id="addQty" min="1" pattern="^[0-9]$" name="addQty">
                         </div>
                         </div>
                         </div>
@@ -97,7 +100,7 @@ if(isset($_REQUEST['id'])){
                             </div>
 
                             <div class="col-md-6">
-                            <div class="form-group" style="width:100%;">
+                            <div class="form-group" >
                             <label for="txtUnitPrice">Unit Price</label>
                                 <input type="number" class="form-control" id="unitPrice" name="unitPrice">
                         </div>
@@ -112,7 +115,7 @@ if(isset($_REQUEST['id'])){
                         </div>
                         </div>
                             <div class="col-md-6">
-                            <div class="form-group" style="width:100%;">
+                            <div class="form-group">
                             <label for="txtExpirationDate">Expiration Date</label>
                                 <input type="text" class="form-control" id="datepicker" name="txtExpirationDate" placeholder="yyyy-mm-dd" value="<?php echo $per_supplyExpirationDate; ?>">
 

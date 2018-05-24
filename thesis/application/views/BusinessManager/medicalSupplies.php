@@ -731,16 +731,14 @@ function supplier($connect)
 
                                               <div class="col-md-6">
                                               <div class="form-group">
+                                                 <p>Add new unit if not exists <input type="text" id="newopt" /> <input type="button" value="Add New" id="addopt" />
+ 
                                                   <label for="exampleInputEmail1">Unit</label>
                                                   <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
-                                              </div>
-                                                    <p>Add new unit if not exists <input type="text" id="newopt" /> <input type="button" value="Add New" id="addopt" /></p>
- 
-
-                                                  
+                                                  </p>
                                               </div>
                                               </div>
 
@@ -764,13 +762,39 @@ function supplier($connect)
                                                     </div>
                                                   </div>
                                                   </div>
+
+                                                   <div class="row">
+                                                    <div class="col-md-6">
+                                                     <div class="form-group">
+                                                      <label for="exampleInputEmail1">Department</label>
+                                                       <select name = "dep_name" class="form-control">
+                                                       <option value="">Select a Department</option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio'";
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $dep_name) { 
+                                                        ?>
+                                                        <option value="<?php echo $dep_name["department_name"]; ?>" name="dep_name"><?php echo $dep_name["department_name"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>
+                                                 </div>
+
+
+
                                                   </div>
 
                                         </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"></i> Add</button>
+                                        <button type="submit" class="btn btn-success" class="btn btn-outline" name="addMedSupply"><i class="fa fa-plus"></i> Add</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -778,27 +802,6 @@ function supplier($connect)
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
-
-                                <div class="modal modal-success fade" id="modal-success">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <h3>Are you sure to add this item?&hellip;</h3>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-outline" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
-
-                                        </div>
-                                      </div>
-                                      <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                  </div>
                                   <!-- /.modal -->
                                 </form>
                             </th> 

@@ -16,6 +16,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post" action ="">
         <div class="modal-content">
             <div class="modal-header">
@@ -47,25 +51,30 @@ if(isset($_REQUEST['id'])){
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
                             <label for="txtsupplyDescription">Description</label>
                                 <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" readonly/>
                             </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtQuantityInStock">Logical Count</label>
-                            <div class="col-sm-6">
+
+                          <div class="col-sm-6">
+                             <div class="form-group" style="width:100%">
+                            <label for="txtQuantityInStock">Logical Count</label>
                                 <input type="number" class="form-control" id="txtQuantityInStock" name="txtQuantityInStock" value="<?php echo $per_supplyQuantityInStock;?>" readonly>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtQuantityInStock">Physical Count</label>
-                            <div class="col-sm-6">
+                        
+                          <div class="col-sm-6">
+                             <div class="form-group">
+                            <label for="txtQuantityInStock">Physical Count</label>
                                 <input type="number" class="form-control" id="txtPhysicalCount" name="txtPhysicalCount" min="0">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtsupplyRemarks">Remarks</label>
-                            <div class="col-sm-6">
+
+                        <div class="col-sm-12">
+                             <div class="form-group">
+                            <label for="txtsupplyRemarks">Remarks</label>
                                 <input type="text" class="form-control" id="txtsupplyRemarks" name="txtsupplyRemarks">
                             </div>
                         </div>

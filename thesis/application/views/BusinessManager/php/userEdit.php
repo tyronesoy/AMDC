@@ -103,7 +103,7 @@ if(isset($_REQUEST['id'])){
                                                         <?php
                                                           $conn = mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City'";
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio' ";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $dept_name) { 

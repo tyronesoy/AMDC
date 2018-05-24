@@ -404,7 +404,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                   <div class="col-md-2">
-                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                             </div>
                                 <div class="col-md-8">
                                                 
@@ -438,25 +438,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <input type="text" class="hidden" name="prevname" id="prevname" value="<?php echo $identity; ?>" />
                         </div>
                     
+                       <div class="col-md-13">
                        <div class="form-group">
                           <label for="exampleInputEmail1">Username</label>
                           <input type="text" class="form-control" name="username" id="username" value="<?php echo $row['username'] ?>" required />
                         </div>
+                      </div>
 
-                        <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">First Name</label>
                           <input type="name" class="form-control" name="fname" id="fname" value="<?php echo $row['fname'] ?>" required />
                         </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Last Name</label>
                           <input type="name" class="form-control" name="lname" id="lname" value="<?php echo $row['lname'] ?>" required />
                         </div>
+                      </div>
+                      </div>
 
+                      <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group" style="width:100%">
+                          <label for="exampleInputEmail1">Email</label>
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
+                        </div>
+                      </div>
+                
+                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
                           <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
-                        <div class="form-group">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Password</label>
                           <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $row['password'] ?>" required />
 
@@ -472,16 +494,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                             
                         </div>
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
-                        </div>
-                    
                           <?php 
                               }
                             }
                           ?>
                 </div>
+              </div>
+              </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
@@ -493,7 +512,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>       
+        </div>    
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -592,12 +611,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fa fa-tasks"></i> <b> Deleted Memo </b>
+        <i class="fa fa-tasks"></i> <b> Archived Memo </b>
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
         <li><i class="fa fa-tasks"></i> Memo</li>
-        <li class="active"><i class="fa fa-tasks"></i> Deleted Memo</li>
+        <li class="active"><i class="fa fa-tasks"></i> Archived Memo</li>
       </ol>
     </section>
 
@@ -609,7 +628,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Office Supplies</h3> -->
-                <a href="memo" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
+                <a href="memo" style="color:white;"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-arrow-left"></i>
               </button></a>
             </div>
             <!-- /.box-header -->

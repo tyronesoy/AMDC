@@ -431,7 +431,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                   <div class="col-md-2">
-                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                             </div>
                                 <div class="col-md-8">
                                                 
@@ -465,25 +465,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <input type="text" class="hidden" name="prevname" id="prevname" value="<?php echo $identity; ?>" />
                         </div>
                     
+                       <div class="col-md-13">
                        <div class="form-group">
                           <label for="exampleInputEmail1">Username</label>
                           <input type="text" class="form-control" name="username" id="username" value="<?php echo $row['username'] ?>" required />
                         </div>
+                      </div>
 
-                        <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">First Name</label>
                           <input type="name" class="form-control" name="fname" id="fname" value="<?php echo $row['fname'] ?>" required />
                         </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Last Name</label>
                           <input type="name" class="form-control" name="lname" id="lname" value="<?php echo $row['lname'] ?>" required />
                         </div>
+                      </div>
+                      </div>
 
+                      <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group" style="width:100%">
+                          <label for="exampleInputEmail1">Email</label>
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
+                        </div>
+                      </div>
+                
+                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
                           <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
-                        <div class="form-group">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Password</label>
                           <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $row['password'] ?>" required />
 
@@ -499,16 +521,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                             
                         </div>
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
-                        </div>
-                    
                           <?php 
                               }
                             }
                           ?>
                 </div>
+              </div>
+              </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
@@ -520,7 +539,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>
+        </div>    
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -539,19 +558,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory Management System</li>
 	<!-- DASHBOARD MENU -->
+ <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-		<!-- MANAGE ACCOUNTS MENU -->
+  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'useraccounts' ?>">
-            <i class="fa fa-group"></i> <span>Manage Accounts</span>
-          </a>
-        </li>
-		<!-- SUPPLIES MENU -->
-                <li class=" active treeview">
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
+  
+    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -559,7 +580,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active treeview">
+            <li class=" active treeview">
               <a href="#"><i class="fa fa-briefcase"></i> Supplies
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -568,64 +589,64 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="treeview-menu">
                 <li class="treeview"><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="active treeview">
-                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a>
+                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
-			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
-			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
+      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
-		<!-- SUPPLIERS MENU -->
+    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-		<!-- DEPARTMENTS MENU -->
+    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-		<!-- MEMO MENU -->
+    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'memo'?>">
-            <i class="fa fa-calendar"></i> <span>Memo</span>
+          <a href="<?php echo 'memo' ?>">
+            <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-<!-- INVOICE MENU -->
+
+        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
         <li>
-           <a href="<?php echo 'logs'?>">
-            <i class="fa fa-calendar"></i
-            <i class="fa fa-print"></i> <span>Logs</span>
+          <a href="<?php echo 'logs' ?>">
+            <i class="fa fa-list-alt"></i> <span>Logs</span>
           </a>
         </li>
-<!-- LOCKSCREEN MENU -->
+
+<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'lockscreen'?>">
-            <i class="fa fa-calendar"></i
+          <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
+        
       </ul>
     </section>
-    <!-- /.sidebar -->
   </aside>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <i class="fa fa-pencil-square"></i> <b>Deleted Office Supplies</b>
+          <i class="fa fa-pencil-square"></i> <b>Archived Office Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
      <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
          <li><i class="fa fa-pencil-square"></i> Office Supplies</a></li>
-        <li class="active"><i class="fa fa-pencil-square"></i> Deleted Office Supplies</li>
+        <li class="active"><i class="fa fa-pencil-square"></i> Archived Office Supplies</li>
       </ol>
     </section>
 
@@ -636,7 +657,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
           <div class="box">
             <div class="box-header">
-              <a href="officeSupplies" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
+              <a href="officeSupplies" style="color:white;"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-arrow-left"></i>
               </button></a>
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                       
@@ -706,10 +727,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-	         <div class="row no-print">
-			<div class="col-xs-1" style="float:right">
-          <button class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</button>
-        </div>
       <script>
         $('#print').click(function(){
           var printme = document.getElementById('example');
