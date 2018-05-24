@@ -130,15 +130,16 @@ function supplier($connect)
                     </a>
                 </li>
           <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
+          <!--            BELL START-->
+            <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                $dtoday = date("Y/m/d");
-                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%')";
+                $dtoday = date('Y\-m\-d\ H:i:s A');
+                $date_select = date('Y\-m\-d\ H:i:s A', strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%'";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -160,7 +161,7 @@ function supplier($connect)
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' order by log_id DESC";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -172,10 +173,6 @@ function supplier($connect)
                         <?php
                         if(strpos($logvalue, 'order') !== false) { ?>
                             <td><small><a display="block" style="color:black" href="<?php echo 'departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
-                        <?php
-                        }else if(strpos($logvalue, 'profile') !== false){
-                        ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
                         }else{
                         ?>
@@ -198,7 +195,6 @@ function supplier($connect)
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -208,8 +204,7 @@ function supplier($connect)
               </li>
             </ul>
           </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-<li class="dropdown tasks-menu">
+                    <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
@@ -218,7 +213,7 @@ function supplier($connect)
                 $date_futr = date("Y-m-d", strtotime('+30 days') ) ;
                 $date_past = date("Y-m-d", strtotime('-1 year') ) ;
                 $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql5 = "SELECT COUNT(*) AS total FROM supplies where quantity_in_stock < reorder_level";
+                $sql5 = "SELECT COUNT(*) AS total from supplies where accounted_for = 'N' group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
                 $number1 = $conn->query($sql5);
                 if ($number1->num_rows > 0) {
                         while($row = $number1->fetch_assoc()) {
@@ -248,14 +243,16 @@ function supplier($connect)
                <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder` from supplies group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)";
+                        $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder`,accounted_for as `expired` from supplies where accounted_for = 'N' group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
                     $result2 = $conn->query($sql2);
                   ?>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <!-- Task item reorder levels-->
-                    <h5>Items below reorder level</h5>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
+                    <h5 style="padding:3px;margin:3px;">Items below reorder level</h5>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <li>
                     <?php 
                       if ($result2->num_rows > 0) {
@@ -293,11 +290,19 @@ function supplier($connect)
                     <?php
                       }
                     }
+                    }else{
+                    ?>
+                    <div>
+                    <small>No items to display</small>
+                    </div>
+                    <?php    
                     }
                     ?>
                   </li>
                   <!-- end task item expiration notification-->
-                    <h5>Items nearing expiration</h5>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
+                    <h5 style="padding:3px;margin:3px;">Items nearing expiration</h5>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -355,15 +360,23 @@ function supplier($connect)
                                     }
                                     }
                                 }
+                              }else{
+                            ?>
+                                <div>
+                                <p>No items to display</p>
+                                </div>
+                            <?php      
                               }
                             ?>
                     </small>
                     </table>
-                    <h5>Expired Items</h5>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
+                    <h5 style="padding:3px;margin:3px;">Expired Items</h5>
+                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0";
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
                         $result4 = $conn->query($sql4);
                         $strdatetoday = strtotime(date("Y/m/d"));
                     ?>
@@ -382,6 +395,12 @@ function supplier($connect)
                             <?php
                                 }
                               }
+                            }else{
+                            ?>
+                            <div>
+                            <p>No items to display</p>
+                            </div>
+                            <?php
                             }
                             ?>
                     </small>
@@ -390,6 +409,7 @@ function supplier($connect)
               </li>
             </ul>
           </li>
+<!--          FLAG END-->
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
