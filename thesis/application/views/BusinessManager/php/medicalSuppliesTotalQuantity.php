@@ -787,9 +787,23 @@ function supplier($connect)
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker2" name="expirationDate">
+                                                     <?php
+                                                        $datetoday = date('Y\-m\-d', strtotime('95 days') );
+                                                        ?>
+                                                      <input type="text" class="form-control pull-right datepicker" id="datepicker2" value="<?php echo $datetoday?>" name="expirationDate">
+                                                        <script>
+                                                        jQuery(function() {
+                                                          var datepicker = $('input.datepicker');
+
+                                                          if (datepicker.length > 0) {
+                                                            datepicker.datepicker({
+                                                              format: "yyyy-mm-dd",
+                                                              startDate: new Date()
+                                                            });
+                                                          }
+                                                        });
+                                                        </script>
                                                     </div>
-                                                          <!-- /.input group --> 
                                                   </div>
                                                   </div>
                                                   </div>
