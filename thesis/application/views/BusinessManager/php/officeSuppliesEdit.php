@@ -83,7 +83,7 @@ if(isset($_REQUEST['id'])){
 
                             <div class="col-md-6">
                             <div class="form-group">
-                            <label>Add Quantity</label>
+                            <label>Update Quantity</label>
                                 <input type="number" id="txtAddQty" name="txtAddQty" value="<?php echo $per_supplyQuantityInStock;?>" min="1" class="form-control" >
                         </div>
                         </div>
