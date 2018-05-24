@@ -65,7 +65,7 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-6">
                             <div class="form-group" style="width:40%">
                             <label for="txtUnit">Unit</label>
-                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo $per_supplyUnit;?>" readonly>
+                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo $per_supplyUnit;?>" >
                         </div>
                         </div>
                         </div>
@@ -81,8 +81,8 @@ if(isset($_REQUEST['id'])){
 
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%">
-                            <label for="txtQuantityInStock">Add Quantity</label>
-                                <input type="number" min="0" class="form-control" id="txtAddQty" name="txtAddQty" >
+                            <label for="txtQuantityInStock">Update Quantity</label>
+                                <input type="number" min="0" class="form-control" id="txtAddQty" name="txtAddQty" value="<?php echo $per_supplyQuantityInStock;?>" >
                         </div>
                         </div>
                         </div>

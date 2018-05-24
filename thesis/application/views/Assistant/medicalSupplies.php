@@ -1165,6 +1165,7 @@ if(isset($_POST['medAdd'])){
 } // END OF MEDICAL Add on table
 ?>
 
+
 <?php
 //EDIT FOR MEDICAL SUPPLIES
 if(isset($_POST['medEdit'])){
@@ -1172,12 +1173,14 @@ if(isset($_POST['medEdit'])){
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['addQTY']);
-    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
+    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['unitPrice']);
     $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
+    $new_supplyStock=mysqli_real_escape_string($conn,$_POST['addQty']);
+    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
 
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', quantity_in_stock='$new_supplyQuantityInStock'+quantity_in_stock, unit_price='$new_supplyUnitPrice', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
+
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
