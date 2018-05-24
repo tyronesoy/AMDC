@@ -185,13 +185,13 @@ if(isset($_REQUEST['id'])){
                                     <tr>
                                         
                                         <td width="250">
-                                            <select class="form-control select2" name="supply_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                            <select class="form-control select2" name="neym" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                 <option value="<?php print_r($item_desc[$zero]);?>"><?php print_r($item_desc[$zero]);?></option>
                                             </select>
                                         </td>
                                                 
                                         <td width="50">
-                                            <input type="text" name="quantity" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
+                                            <input type="text" name="number" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
                                         </td>
 
                                         <td width="50" class="hidden">

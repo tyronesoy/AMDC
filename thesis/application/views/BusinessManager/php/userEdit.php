@@ -17,6 +17,7 @@ if(isset($_REQUEST['id'])){
         $per_email=$row[7];
          $per_status=$row[8];
          $per_deptname=$row[9];
+         $per_type=$row[1];
 
     }//end while
 ?>
@@ -97,7 +98,7 @@ if(isset($_REQUEST['id'])){
                               <div class="row">
                                      <div class="col-sm-6">
                                     <div class="form-group" style="width:100%">
-                                   <<?php if($per_type != 'Assistant'){ ?>
+                                      <?php if($per_type != 'Assistant'){ ?>
                                                       <label for="txtdeptname">Department</label>
                                                       
                                                        <select name = "txtdeptname" id="txtdeptname" class="form-control" value="<?php echo $per_deptname;?>">
@@ -105,7 +106,7 @@ if(isset($_REQUEST['id'])){
                                                         <?php
                                                           $conn = mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio'" ;
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City'";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $dept_name) { 
