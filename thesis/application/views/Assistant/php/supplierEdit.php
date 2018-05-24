@@ -59,7 +59,7 @@ if(isset($_REQUEST['id'])){
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtcontactno">Contact No.</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>" pattern="^[0-9]{11}$">
+                                <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$">
                             </div>
                         </div>
                         <div class="form-group">

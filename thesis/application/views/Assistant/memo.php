@@ -680,12 +680,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   </div>
                                     
                                                 <div class="form-group">
-                                                  <label for="exampleInputEmail1">Memo Title (Limit to 10 Characters)</label>
+                                                  <label for="exampleInputEmail1">Memo Title (Limit to 20 Characters)</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-pencil-square"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="memo_title" name="memo_title" required style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <input type="text" class="form-control" id="memo_title" name="memo_title" maxlength="20" required style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </div>
                                               </div>
 

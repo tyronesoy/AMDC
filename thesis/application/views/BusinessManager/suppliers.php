@@ -691,7 +691,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Contact Number</label>
-                                              <input type="text" class="form-control" name="suppContact" value="09" pattern="^[0-9]{11}$" required />
+                                              <input type="text" class="form-control" name="suppContact" value="" placeholder="09XXXXXXXXX" maxlength="11" pattern="^[0-9]{11}$" required />
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Address</label>

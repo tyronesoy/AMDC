@@ -678,7 +678,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               	<table id="example" class="table table-bordered table-striped">
                     <?php
 	                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-	                  $sql = "SELECT * FROM logs ";
+	                  $sql = "SELECT * FROM logs ORDER BY log_id DESC";
 	                  $result = $conn->query($sql);    
 	                ?>
                     <thead>
