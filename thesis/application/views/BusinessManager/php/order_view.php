@@ -26,6 +26,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,25 +50,25 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <div class="box-header">
                     <div class="margin">
-                        <center><h4>Departments Order Issue Form</h4></center>
+                        <center><h4><b>Department's Order View</b></h4></center>
                     </div>
                 </div>
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="col-sm-4 control-label hidden" for="txtid">Order ID</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 hidden">
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="col-sm-8 control-label hidden" for="txtstatus"></label>
-                            <div class="col-sm-1">
+                            <div class="col-sm-1 hidden">
                                 <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $per_status;?>" readonly>
                             </div>
                         </div>
                         <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Supervisor Name</label>
                                 <div class="input-group">
@@ -153,13 +157,17 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <button type="button" id="accept" class="btn btn-success" data-toggle="modal" data-target="#modal-accept" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-ok"> Accept</i></button>
                 <button type="button" id="decline" class="btn btn-danger" data-toggle="modal" data-target="#modal-decline" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-remove"> Decline</i></button>
                 <!-- <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button> -->
             </div>
         </div>
     </form>
+</div>
+</div>
+</div>
+</div>
 
 <?php
 }//end if
@@ -185,6 +193,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal" id="modal-accept">
         <div class="modal-content">
@@ -208,15 +220,15 @@ if(isset($_REQUEST['id'])){
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <center><h3 class="modal-title"><b>Are you sure you want to accept this order?</b></h3></center>
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Order ID</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 hidden">
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-8 control-label" for="txtsupplierstatus"></label>
-                            <div class="col-sm-1">
+                        <div class="form-group hidden">
+                            <label class="col-sm-8 control-label hidden" for="txtsupplierstatus"></label>
+                            <div class="col-sm-1 hidden">
                                 <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $per_status;?>" readonly>
                             </div>
                         </div>
@@ -224,13 +236,17 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                 <button type="submit" class="btn btn-success" name="btnAccept"><i class="fa fa-check-circle"></i> Accept</button>
             </div>
         </div>
     </div>
 </div>
     </form>
+</div>
+</div>
+</div>
+</div>
 
 <?php
 }//end if
@@ -256,6 +272,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
 <div id="printThis">
     <form class="form-horizontal" method="post">
         <div class="modal" id="modal-decline">
@@ -287,9 +307,9 @@ if(isset($_REQUEST['id'])){
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="col-sm-8 control-label" for="txtsupplierstatus"></label>
-                            <div class="col-sm-1">
+                            <div class="col-sm-1 hidden">
                                 <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $per_status;?>" readonly>
                             </div>
                         </div>
@@ -304,12 +324,16 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button id="btnPrint" type="button" class="btn btn-success" style="float:left;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
-                <button type="button" class="btn btn pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                 <button type="submit" class="btn btn-danger" name="btnDecline"><i class="fa fa-close"></i> Decline</button>
             </div>
         </div>
     </div>
     </form>
+</div>
+</div>
+</div>
+</div>
 </div>
 <?php
 }//end if
