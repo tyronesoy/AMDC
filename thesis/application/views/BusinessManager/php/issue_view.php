@@ -93,7 +93,6 @@ if(isset($_REQUEST['id'])){
                         <table class="table table-bordered" id="item_table">
                             <tr>
                                 <th>Item Description</th>
-                                <th>Unit of Measure</th>
                                 <th>Quantity</th>
                             </tr>
                             <?php if($result->num_rows > 0) {
@@ -101,9 +100,6 @@ if(isset($_REQUEST['id'])){
                             ?>
                             <tr>
                                 <td width="150"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                </td>
-
-                                <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $row['unit_name'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
                                             
                                 <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
