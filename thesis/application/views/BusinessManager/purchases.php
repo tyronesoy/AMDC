@@ -944,7 +944,6 @@ function unit_measure($connect)
                       ?>
                       <thead>
                           <tr>
-                              <th style="display: none;">ID</th>
                               <th>Purchase ID</th>
                               <th>Supplier</th>
                               <th>Order Date</th>

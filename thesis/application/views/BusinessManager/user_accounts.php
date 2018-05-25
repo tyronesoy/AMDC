@@ -929,6 +929,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 ?>
             <thead>
                <tr>
+                <th style="display: none;">ID</th>
                 <th>Role</th>
                 <th>User Name</th>
                 <th>First Name</th>
@@ -955,6 +956,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                               $status = '<span class="label label-danger">Inactive</span>';
                           }
                       ?>
+                      <td style="display: none;"><?php echo $row['user_id'];?></td>
                       <td><?php echo $row["user_type"]; ?></td>
                       <td><?php echo $row["username"]; ?></td>
                       <td><?php echo $row["fname"]; ?></td>
@@ -989,6 +991,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
             </tbody>
             <tfoot>
             <tr>
+                <th style="display: none;">ID</th>
                 <th>Role</th>
                 <th>User Name</th>
                 <th>First Name</th>
@@ -1131,12 +1134,13 @@ function onUserInactivity() {
  
  <script>
       $(function () {
-        $('#example').DataTable()
+        $('#example').DataTable({
+          'order' : [[ 0, 'desc' ]],
+        })
         $('#example1').DataTable({
           'paging'      : true,
           'lengthChange': false,
           'searching'   : false,
-          'ordering'    : true,
           'info'        : true,
           'autoWidth'   : false
         })
