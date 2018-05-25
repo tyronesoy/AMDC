@@ -900,12 +900,13 @@ function onUserInactivity() {
 
     <script>
       $(function () {
-        $('#example1').DataTable()
+        $('#example1').DataTable({
+          'order' : [[ 0, 'desc' ]],
+        })
         $('#example2').DataTable({
           'paging'      : true,
           'lengthChange': false,
           'searching'   : false,
-          'ordering'    : true,
           'info'        : true,
           'autoWidth'   : false
         })
@@ -914,7 +915,7 @@ function onUserInactivity() {
       })
     </script>
 <script>
-<!-- date and time -->
+//date and time 
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()

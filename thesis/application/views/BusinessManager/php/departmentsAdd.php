@@ -53,5 +53,5 @@ document.location='../departments';
 }
 // echo "<h2>This Entry Already Exist</h2>";
 }
-//header("Location: ../departments");
+header("Location: ../departments");
 ?>

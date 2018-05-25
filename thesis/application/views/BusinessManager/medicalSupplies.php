@@ -757,16 +757,17 @@ function supplier($connect)
                                               </div>
                                               </div>
 
-                                              <div class="col-md-6">
+                                              
+                                            <div class="col-md-6">
                                               <div class="form-group">
-                                                 <p>Add new unit if not exists <input type="text" id="newopt" /> <input type="button" value="Add New" id="addopt" />
+                                                 <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
  
                                                   <label for="exampleInputEmail1">Unit</label>
                                                   <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
-                                                  </p>
+                                           
                                               </div>
                                               </div>
 
@@ -871,7 +872,8 @@ function supplier($connect)
             <col width="22.5%">
           <thead>
             <tr>
-                <th>Department</th>
+                  <th style="display: none;"> ID </th>                
+                  <th>Department</th>
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity In Stock</th>
@@ -884,7 +886,8 @@ function supplier($connect)
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                        <td><?php echo $row["dep_name"]; ?></td>
+                      <td style="display: none;"><?php echo $row["supply_id"];?></td>
+                      <td><?php echo $row["dep_name"]; ?></td>
                       <td><?php echo $row["expiration_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
@@ -910,7 +913,8 @@ function supplier($connect)
         
         <tfoot>
            <tr>
-                <th>Department</th>
+                  <th style="display: none;">ID</th>
+                  <th>Department</th>
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity In Stock</th>
@@ -1014,6 +1018,7 @@ function onUserInactivity() {
     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
  
     $('#example').DataTable( {
+        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {

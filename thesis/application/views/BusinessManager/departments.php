@@ -665,7 +665,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
-                                                                               <div class="col-md-2">
+                                                <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
                                             <div class="col-md-8">
@@ -746,6 +746,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 ?>
                 <thead>
                     <tr>
+                        <th style="display: none;">ID</th>
                         <th>Department Name</th>
                         <th>Branch Location</th>
 						            <th>Status</th>
@@ -768,6 +769,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               $status = '<span class="label label-danger">Inactive</span>';
                           }
                       ?>
+                      <td style="display: none;"><?php echo $row['department_id'];?></td>
                       <td><?php echo $row["department_name"]; ?></td>
                       <td><?php echo $row["location"]; ?></td>
                       <td><?php echo $status; ?></td>
@@ -793,6 +795,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
+                        <th style="display: none;">ID</th>
 						            <th>Department Name</th>
                         <th>Branch Location</th>
 						            <th>Status</th>
@@ -948,6 +951,7 @@ function onUserInactivity() {
     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
  
     $('#example').DataTable( {
+        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {

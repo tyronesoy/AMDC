@@ -35,6 +35,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post" action="purchases/addPurchases">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,27 +59,27 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <div class="box-header">
                     <div class="margin">
-                        <center><h4>Departments Order Purchase Form</h4></center>
+                        <center><h4><b>Department's Purchase Order Form</b></h4></center>
                     </div>
                 </div>
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="col-sm-4 control-label hidden" for="txtid">Order ID</label>
-                            <div class="col-sm-6">
-                                <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
+                            <div class="col-sm-6 hidden">
+                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="col-sm-4 control-label hidden" for="txtuniqid">Order Unique ID</label>
-                            <div class="col-sm-6">
-                                <input type="hidden" class="form-control" id="txtuniqid" name="txtuniqid" value="<?php echo $per_uniqid;?>" readonly>
+                            <div class="col-sm-6 hidden">
+                                <input type="hidden" class="form-control" id="txtuniqid" name="txtuniqid" hidden value="<?php echo $per_uniqid;?>" readonly>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="col-sm-8 control-label hidden" for="txtstatus"></label>
-                            <div class="col-sm-1">
-                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly>
+                            <div class="col-sm-1 hidden">
+                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $per_status;?>" readonly>
                             </div>
                         </div>
                         <div class="row">
@@ -134,7 +138,7 @@ if(isset($_REQUEST['id'])){
                         </div>
 
                         <?php 
-                                $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE inventory_order_id=$id AND quantity !=0 AND quantity_in_stock = 0";
+                                $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE inventory_order_id=$id AND quantity !=0 AND (quantity_in_stock = 0 OR quantity_in_stock IS NULL) ";
                                 $result = $con->query($sql);
 
                                 $arrayOrdId = '';
@@ -184,14 +188,14 @@ if(isset($_REQUEST['id'])){
                                     ?>
                                     <tr>
                                         
-                                        <td width="250">
+                                        <td width="250px">
                                             <select class="form-control select2" name="neym" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                 <option value="<?php print_r($item_desc[$zero]);?>"><?php print_r($item_desc[$zero]);?></option>
                                             </select>
                                         </td>
                                                 
-                                        <td width="50">
-                                            <input type="text" name="number" class="form-control " min="0" style="width: 60px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
+                                        <td width="100px">
+                                            <input type="text" name="number" class="form-control " min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
                                         </td>
 
                                         <td width="50" class="hidden">
@@ -209,12 +213,15 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                 <button type="submit" class="btn btn-success" name="btnOrder"><i class="fa fa-shopping-cart"></i> Order</button>
             </div>
         </div>
     </form>
-
+</div>
+</div>
+</div>
+</div>
 <?php
 }//end if
 ?>

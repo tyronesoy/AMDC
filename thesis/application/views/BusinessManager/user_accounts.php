@@ -739,7 +739,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Contact Number</label>
-                                                  <input type="text" class="form-control" name="user_contact" id="user_contact" value="09" pattern="^[0-9]{11}$" required />
+                                                  <input type="text" class="form-control" name="user_contact" id="user_contact" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" required />
                                                 </div>
                                               </div>
                                                <div class="col-md-6">
@@ -755,7 +755,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                              <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Email</label>
-                                                  <input type="email" class="form-control" name="user_email" id="user_email" required />
+                                                  <input type="email" class="form-control" name="user_email" placeholder="email@email.com" id="user_email" required />
                                                 </div>
                                               </div>
 

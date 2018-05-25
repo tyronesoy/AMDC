@@ -83,14 +83,14 @@ if(isset($_REQUEST['id'])){
                          <div class="col-sm-6">
                             <div class="form-group" style="width:100%">
                                     <label for="txtuser_contact">Contact Number</label>
-                                    <input type="text" class="form-control" id="txtuser_contact" name="txtuser_contact" value="<?php echo $per_usercontact;?>" pattern="^[0-9]{11}$">
+                                    <input type="text" class="form-control" id="txtuser_contact" name="txtuser_contact" value="<?php echo $per_usercontact;?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                             <div class="form-group">
                                     <label for="txtemail">Email</label>
-                                    <input type="email" class="form-control" id="txtemail" name="txtemail" value="<?php echo $per_email;?>">
+                                    <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="email@email.com" value="<?php echo $per_email;?>">
                                 </div>
                             </div>
                         </div>

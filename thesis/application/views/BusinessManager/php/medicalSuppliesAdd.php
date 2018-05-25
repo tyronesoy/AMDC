@@ -12,7 +12,7 @@
       $unit= $_POST['Unit'];
       $priceUnit= $_POST['priceUnit'];
       $expirationDate= $_POST['expirationDate'];
-      $dep_name=$_POST['dep_name']
+      $dep_name=$_POST['dep_name'];
       $sql->bind_param("ssssssss", $description, $brandName, $supplier, $quantity, $unit, $priceUnit, $expirationDate, $dep_name);
 
       if($sql->execute()) {

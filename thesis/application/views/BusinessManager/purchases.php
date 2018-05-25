@@ -1210,6 +1210,7 @@ $(document).ready(function(){
     var printCounter = 0;
 
     $('#example').DataTable( {
+        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {

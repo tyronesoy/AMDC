@@ -35,6 +35,10 @@ if(isset($_REQUEST['id'])){
     }
     //end while
 ?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,31 +59,31 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <div class="box-header">
                     <div class="margin">
-                        <center><h4>Departments Order Issue Form</h4></center>
+                        <center><h4><b>Department's Issue Order Form</b></h4></center>
                     </div>
                 </div>
                 <form class="form-horizontal" method="post">
                     
                     <div class="box-body">
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="col-sm-4 control-label hidden" for="txtid">Order ID</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 hidden">
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
 
 
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="col-sm-4 control-label hidden" for="txtinventorysupid">Inventory Supplies ID</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 hidden">
                                 <input type="hidden" class="form-control" id="txtinventorysupid" name="txtinventorysupid" hidden value=" <?php echo $per_inventorySupid;?>" readonly>
                             </div>
                         </div>
 
 
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label class="col-sm-4 control-label hidden" for="txtuniqid">Order Unique ID</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 hidden">
                                 <input type="hidden" class="form-control" id="txtuniqid" name="txtuniqid" hidden value="<?php echo $per_uniqid;?>" readonly>
                             </div>
                         </div>
@@ -193,11 +197,15 @@ if(isset($_REQUEST['id'])){
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                 <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
             </div>
         </div>
     </form>
+</div>
+</div>
+</div>
+</div>
 
 <?php
 }//end if

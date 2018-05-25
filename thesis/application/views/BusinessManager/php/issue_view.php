@@ -22,6 +22,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
 <div id="printThis">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
@@ -93,20 +97,16 @@ if(isset($_REQUEST['id'])){
                         <table class="table table-bordered" id="item_table">
                             <tr>
                                 <th>Item Description</th>
-                                <th>Unit of Measure</th>
                                 <th>Quantity</th>
                             </tr>
                             <?php if($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) { 
                             ?>
                             <tr>
-                                <td width="150"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                </td>
-
-                                <td width="100"><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $row['unit_name'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td width="200px"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
                                             
-                                <td width="50"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                                <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
                                 </td>
                             </tr>
                             <?php 
@@ -121,7 +121,12 @@ if(isset($_REQUEST['id'])){
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>
             </div> <!-- BOX-BODY -->
+        </div>
     </form>
+</div>
+</div>
+</div>
+</div>
 </div>
 <?php
 }//end if
