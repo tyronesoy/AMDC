@@ -22,15 +22,15 @@
     $statement->execute(
    array(
     ':purchase_order_uniq_id'   => $order_id,
-    ':order_quantity'  => $_POST["number"], 
-    ':description' => $_POST["neym"],
+    ':order_quantity'  => $_POST["number"][$count], 
+    ':description' => $_POST["neym"][$count],
     ':order_date' => $_POST["orDate"], 
     ':supplier'   => $_POST['supp'],
     ':po_key'     => $random
    )
   );
    } 
-  if($statement->execute() && $statement2->execute()) {
+  if($statement2->execute() && $statement->execute()) {
   $success_message = "Added Successfully";
   } else {
   $error_message = "Problem in Adding New Record";

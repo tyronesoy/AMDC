@@ -5,8 +5,7 @@ $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 function supply_dropdown($connect)
 { 
  $output = '';
- $supp = $_REQUEST["supp"];
- $query = "SELECT * FROM supplies JOIN suppliers ON supplies.supply_type = suppliers.product WHERE soft_deleted='N' AND supply_type=(SELECT product FROM suppliers WHERE company_name = '$supp') ORDER BY supply_description ASC";
+ $query = "SELECT * FROM supplies WHERE soft_deleted='N' ORDER BY supply_description ASC";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
@@ -762,12 +761,12 @@ function unit_measure($connect)
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="dynamic_field">
                                             <tr>
-                                              <th> Quantity </th>
+                                              <th width="10%"> Quantity </th>
                                               <th> Description </th>
                                               <th></th>
                                             </tr>
                                             <tr id="row0">
-                        <td width="100px"><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
                         </td>
                         <td>
                           <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
@@ -791,7 +790,7 @@ function unit_measure($connect)
                       </tr>
 
                       <tr id="row2" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="quantity; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
                         </td>
                         <td>
                           <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
@@ -1157,7 +1156,7 @@ $(document).ready(function(){
   var postURL = "purchases/addPurchases";
   var i=1;
   var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
-  // var unitDrop = <?php echo(json_encode(unit_measure($connect))); ?>;
+  // var unitDrop = <?php //echo(json_encode(unit_measure($connect))); ?>;
   $('#add').click(function(){
     if(i < 10){
       i++;
@@ -1189,6 +1188,7 @@ $(document).ready(function(){
                   $('.dynamic-added').remove();
                   $('#add_name')[0].reset();
             alert('Record Inserted Successfully.');
+            location.reload();
       }
     });
   });
@@ -1210,7 +1210,6 @@ $(document).ready(function(){
     var printCounter = 0;
 
     $('#example').DataTable( {
-        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {
