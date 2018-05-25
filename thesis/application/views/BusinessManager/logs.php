@@ -683,6 +683,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 	                ?>
                     <thead>
 	                    <tr>
+                        <th style="display: none;">ID</th>
 	                      <th>Date & Time</th>
 	                      <th>Activities</th>
 	                      <th>User</th>
@@ -692,6 +693,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
+                      <td style="display: none;"><?php echo $row['log_id']?></td>
                       <td><?php echo $row["log_date"]; ?></td>
                       <td><?php echo $row["log_description"]; ?></td>
                       <td><?php echo $row["user"]; ?></td>
@@ -704,6 +706,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tbody>
 	                <tfoot>
 		                <tr>
+                          <th style="display: none;">ID</th>
 		                      <th>Date & Time</th>
 		                      <th>Activities</th>
 		                      <th>User</th>
@@ -801,6 +804,7 @@ function onUserInactivity() {
     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
  
     $('#example').DataTable( {
+        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {
