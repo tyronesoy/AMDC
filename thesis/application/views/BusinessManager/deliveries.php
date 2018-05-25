@@ -905,7 +905,7 @@ function onUserInactivity() {
           'paging'      : true,
           'lengthChange': false,
           'searching'   : false,
-          'ordering'    : true,
+          'order' : [[ 0, 'desc' ]],
           'info'        : true,
           'autoWidth'   : false
         })
@@ -914,7 +914,7 @@ function onUserInactivity() {
       })
     </script>
 <script>
-<!-- date and time -->
+//date and time 
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()

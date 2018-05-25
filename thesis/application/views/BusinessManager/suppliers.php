@@ -742,6 +742,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 ?>
                 <thead>
                     <tr>
+                        <th style="display: none;">ID</th>
                         <th>Company Name</th>
                         <th>Contact Number</th>
                         <th>Address</th>
@@ -766,6 +767,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               $status = '<span class="label label-danger">Inactive</span>';
                           }
                       ?>
+                      <td style="display: none;"><?php echo $row['supplier_id']; ?></td>
                       <td><?php echo $row["company_name"]; ?></td>
                       <td><?php echo $row["supplier_contact"]; ?></td>
                       <td><?php echo $row["address"]; ?></td>
@@ -794,6 +796,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
+                    <th style="display: none;"></th>
                     <th>Company Name</th>
                     <th>Contact Number</th>
                     <th>Address</th>
@@ -953,6 +956,7 @@ function onUserInactivity() {
     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
  
     $('#example').DataTable( {
+        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {

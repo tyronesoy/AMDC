@@ -944,6 +944,7 @@ function unit_measure($connect)
                       ?>
                       <thead>
                           <tr>
+                              <th style="display: none;">ID</th>
                               <th>Purchase ID</th>
                               <th>Supplier</th>
                               <th>Order Date</th>
@@ -1210,6 +1211,7 @@ $(document).ready(function(){
     var printCounter = 0;
 
     $('#example').DataTable( {
+        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {
