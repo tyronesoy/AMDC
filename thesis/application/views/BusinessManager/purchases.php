@@ -5,8 +5,7 @@ $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 function supply_dropdown($connect)
 { 
  $output = '';
- $supp = $_REQUEST["supp"];
- $query = "SELECT * FROM supplies JOIN suppliers ON supplies.supply_type = suppliers.product WHERE soft_deleted='N' AND supply_type=(SELECT product FROM suppliers WHERE company_name = '$supp') ORDER BY supply_description ASC";
+ $query = "SELECT * FROM supplies WHERE soft_deleted='N' ORDER BY supply_description ASC";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
@@ -16,6 +15,7 @@ function supply_dropdown($connect)
  }
  return $output;
 }
+
 
 function unit_measure($connect)
 { 
