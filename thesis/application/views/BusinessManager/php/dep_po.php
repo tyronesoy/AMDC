@@ -195,7 +195,7 @@ if(isset($_REQUEST['id'])){
                                         </td>
                                                 
                                         <td width="100px">
-                                            <input type="text" name="number" class="form-control " min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
+                                            <input type="text" name="number" class="form-control " min="1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
                                         </td>
 
                                         <td width="50" class="hidden">
