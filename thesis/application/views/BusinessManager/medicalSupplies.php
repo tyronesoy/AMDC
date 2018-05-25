@@ -757,16 +757,17 @@ function supplier($connect)
                                               </div>
                                               </div>
 
-                                              <div class="col-md-6">
+                                              
+                                            <div class="col-md-6">
                                               <div class="form-group">
-                                                 <p>Add new unit if not exists <input type="text" id="newopt" /> <input type="button" value="Add New" id="addopt" />
+                                                 <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
  
                                                   <label for="exampleInputEmail1">Unit</label>
                                                   <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
-                                                  </p>
+                                           
                                               </div>
                                               </div>
 
