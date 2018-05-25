@@ -797,6 +797,7 @@ if(!isset($_SESSION['first_run'])){
                       ?>
                       <thead>
                           <tr>
+                              <th style="display: none;">ID</th>
                               <th>Order Date</th>
                               <th>Supervisor Name</th>
                               <th>Department</th>
@@ -809,6 +810,7 @@ if(!isset($_SESSION['first_run'])){
                         <?php if ($result->num_rows > 0) {
                           while($row = $result->fetch_assoc()) { ?>
                             <tr>
+                              <td style="display: none;"><?php echo $row["inventory_order_supplies_id"] ?></td>
                               <td><?php echo $row["inventory_order_created_date"]; ?></td>
                               <td><?php echo $row["inventory_order_name"]; ?></td>
                               <td><?php echo $row["inventory_order_dept"]; ?></td>
@@ -829,6 +831,7 @@ if(!isset($_SESSION['first_run'])){
                         </tbody>
                       <tfoot>
                         <tr>
+                              <th style="display: none;"> ID </th>
                               <th>Order Date</th>
                               <th>Supervisor Name</th>
                               <th>Department</th>
@@ -1050,6 +1053,7 @@ $(document).ready(function(){
     // } );
  
     $('#example').DataTable( {
+        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {
