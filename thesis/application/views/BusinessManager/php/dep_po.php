@@ -199,7 +199,11 @@ if(isset($_REQUEST['id'])){
                                         </td>
                                                 
                                         <td width="100px">
+<<<<<<< HEAD
                                             <input type="number" id="number" name="number[<?php echo $x; ?>]" class="form-control " min="1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
+=======
+                                            <input type="text" name="number" class="form-control " min="1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
+>>>>>>> a52710bf396ba02da395f3cc979d3db80dee875b
                                         </td>
 
                                         <td width="50" class="hidden">

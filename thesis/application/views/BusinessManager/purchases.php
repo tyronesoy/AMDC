@@ -16,6 +16,7 @@ function supply_dropdown($connect)
  return $output;
 }
 
+
 function unit_measure($connect)
 { 
  $output = '';
