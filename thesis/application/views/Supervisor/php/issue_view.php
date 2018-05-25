@@ -121,7 +121,12 @@ if(isset($_REQUEST['id'])){
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>
             </div> <!-- BOX-BODY -->
+        </div>
     </form>
+</div>
+</div>
+</div>
+</div>
 </div>
 <?php
 }//end if
