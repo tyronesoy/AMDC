@@ -193,10 +193,6 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal" id="modal-accept">
         <div class="modal-content">
@@ -243,10 +239,6 @@ if(isset($_REQUEST['id'])){
     </div>
 </div>
     </form>
-</div>
-</div>
-</div>
-</div>
 
 <?php
 }//end if
@@ -272,10 +264,6 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
 <div id="printThis">
     <form class="form-horizontal" method="post">
         <div class="modal" id="modal-decline">
@@ -330,10 +318,6 @@ if(isset($_REQUEST['id'])){
         </div>
     </div>
     </form>
-</div>
-</div>
-</div>
-</div>
 </div>
 <?php
 }//end if
