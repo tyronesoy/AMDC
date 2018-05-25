@@ -99,8 +99,8 @@ if(isset($_REQUEST['id'])){
                             <tr>
                                 <th class="hidden" style="text-align: center;">Expiration Date</th>
                                 <th class="hidden" style="text-align: center;">Qty in Stock</th>
-                                <th style="text-align: center;">Item Description</th>
-                                <th style="text-align: center;">Qty Ordered</th>
+                                <th>Item Description</th>
+                                <th>Qty Ordered</th>
                                 <th class="hidden" style="text-align: center;">Qty to be Issued</th>
                             </tr>
                             <?php if($result->num_rows > 0) {
