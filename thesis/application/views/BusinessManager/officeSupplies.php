@@ -850,7 +850,6 @@ function supplier($connect)
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Office' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
-            
              <col width="auto">
             <col width="5%">
             <col width="10%">
@@ -858,7 +857,7 @@ function supplier($connect)
             <col width="22.5%">
           <thead>
             <tr>
-                  
+                  <th style="display: none;">ID</th>
                   <th>Description</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
@@ -870,7 +869,7 @@ function supplier($connect)
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                     
+                      <td style="display: none;"><?php echo $row['supply_id']; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
@@ -895,7 +894,7 @@ function supplier($connect)
         
         <tfoot>
            <tr>
-                
+                  <th style="display: none;">ID</th>
                   <th>Description</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
@@ -999,6 +998,7 @@ function onUserInactivity() {
     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
  
     $('#example').DataTable( {
+        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {
