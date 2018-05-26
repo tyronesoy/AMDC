@@ -170,14 +170,13 @@ if(isset($_REQUEST['id'])){
                                           <table class="table table-bordered" id="item_table" style="width:1200px">
                                             <tr>
                                                 <th class="hidden">ID</th>
-                                                <th>Stock</th>
-                                               <th>Item Description</th>
+                                                
+                                               <th>Item Name</th>
                                                <th>Unit of Measure</th>
                                                <th>Quantity</th>
                                                <th>Quantity Delivered</th>
                                                <th>Unit Price</th>
                                                <th>Notes</th>
-                                               <th>Type</th>
                                                <th>Brand</th>
                                                <th>Expiration Date</th>
 
@@ -241,9 +240,6 @@ if(isset($_REQUEST['id'])){
                                               <input class="form-control" id="txtsupid<?php echo $x; ?>" name="txtsupid<?php echo $x; ?>" value="<?php print_r($supid[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
 
-                                              <td width="70px">
-                                              <input class="form-control" id="txtstock<?php echo $x; ?>" name="txtstock<?php echo $x; ?>" value="<?php print_r($stock[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
 
                                               <td width="200px"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc<?php echo $x; ?>" value="<?php print_r($desc[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
@@ -259,13 +255,6 @@ if(isset($_REQUEST['id'])){
                                             </td>
 
                                             <td width="250px"><input type="text" class="form-control" id="txtnotes<?php echo $x; ?>" name="txtnotes<?php echo $x; ?>" value="<?php echo($notes[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
-                                              </td>
-
-                                              <td width="100px">
-                                              <select class="form-control select2 inventory_order_supply_name" id="txttype<?php echo $x; ?>" name="txttype<?php echo $x; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;width: 100px" >
-                                                <option value="<?php print_r($type[$zero]);?>">Medical</option>
-                                                <option value="<?php print_r($type[$zero]);?>">Office</option>
-                                                 </select>
                                               </td>
 
                                               <td width="100px"><input type="text" class="form-control" id="txtbrand<?php echo $x; ?>" name="txtbrand<?php echo $x; ?>" value="<?php echo($brand[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >

@@ -152,7 +152,7 @@ if(isset($_REQUEST['id'])){
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="item_table">
                                             <tr>
-                                               <th>Item Description</th>
+                                               <th>Item Name</th>
                                                <th>Unit of Measure</th>
                                                <th>Quantity</th>
                                                <th>Quantity Delivered</th>
