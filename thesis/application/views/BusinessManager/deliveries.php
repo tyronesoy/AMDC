@@ -942,12 +942,12 @@ function onUserInactivity() {
 
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="position: absolute;margin-left: 15%;">
                 <div id="content-data"></div>
             </div>
         </div>
         <div class="modal fade" id="viewModal" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="position: absolute;margin-left: 20%;">
                 <div id="view-data"></div>
             </div>
         </div>

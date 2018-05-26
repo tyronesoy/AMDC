@@ -39,7 +39,7 @@ if(isset($_REQUEST['id'])){
 <div id="printThis">
 <form class="form-horizontal" method="post">
                                   <div class="modal-dialog">
-                                    <div class="modal-content modal-lg">
+                                    <div class="modal-content modal-lg" style="width: 900px">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
@@ -179,7 +179,7 @@ if(isset($_REQUEST['id'])){
                                             <td width="100"><input type="text" name="total" class="form-control " min="0" style="width: 100px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="&#8369 <?php echo $row['total'] ?>" readonly/> </td>
                                             
 
-                                            <td width="250"><input type="text" name="notes" class="form-control " min="0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $row['notes'] ?>" readonly/> </td>
+                                            <td width="200"><input type="text" name="notes" class="form-control " min="0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $row['notes'] ?>" readonly/> </td>
                                             </tr>
 
                                             <?php 
