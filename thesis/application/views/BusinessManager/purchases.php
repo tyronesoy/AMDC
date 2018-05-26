@@ -1579,7 +1579,7 @@ if(isset($_POST['btnUpdate'])){
         mysqli_select_db($conn, "itproject");
         $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_id." status has been changed to ".$result_update."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
-        echo '<script>window.location.href="purchases"</script>';
+        echo '<script>window.location.href="deliveries"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
