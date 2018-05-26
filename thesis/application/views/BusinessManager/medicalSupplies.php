@@ -1038,7 +1038,7 @@ function onUserInactivity() {
                 messageBottom: null
             },
         'colvis'
-         ] //,
+         ], //,
         // columnDefs: [ {
         //     targets: -1,
         //     visible: false
