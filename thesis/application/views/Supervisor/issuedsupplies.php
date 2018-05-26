@@ -453,6 +453,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   ?>
                   <thead> 
                   <tr>
+                    <th style="display: none;">ID</th>
                     <th>Request Date</th>
                     <th>Issue Date</th>
                     <th>Department</th>
@@ -464,6 +465,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
+                      <td style="display: none;"><?php echo $row['inventory_order_id']; ?></td>
                       <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["issued_date"]; ?></td>
                       <td><?php echo $row["inventory_order_dept"]; ?></td>
@@ -478,6 +480,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   ?>
                 <tfoot>
                 <tr>
+                    <th style="display: none;"></th>
                     <th>Request Date</th>
                     <th>Issue Date</th>
                     <th>Department</th>
@@ -596,6 +599,7 @@ function onUserInactivity() {
     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
  
     $('#example').DataTable( {
+        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {

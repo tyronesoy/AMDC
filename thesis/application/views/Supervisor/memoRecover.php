@@ -430,6 +430,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 ?>
                 <thead>
                   <tr>
+                      <th style="display: none;">ID</th>
                       <th>Memo Date</th>
                       <th>Description</th>
                       <th>Status</th>
@@ -451,6 +452,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               $status = '<span class="label label-success">Finished</span>';
                           }
                       ?>
+                      <td style="display: none;"><?php echo $row['memo_id']; ?></td>
                       <td><?php echo $row["memo_date"]; ?></td>
                       <td><?php echo $row["memo_description"]; ?></td>
                       <td><?php echo $status; ?></td>
@@ -467,6 +469,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
+                      <th style="display: none;">ID</th>
                       <th>Memo Date</th>
                       <th>Description</th>
                       <th>Status</th>
@@ -598,7 +601,9 @@ function onUserInactivity() {
 
 <script>
       $(function () {
-        $('#example').DataTable()
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
         $('#example1').DataTable({
           'paging'      : true,
           'lengthChange': false,

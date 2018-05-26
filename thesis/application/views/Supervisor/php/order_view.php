@@ -1,5 +1,4 @@
  <link rel="stylesheet" href="../assets/orderedit/bootstrap.min.css" />
-    <script src="../assets/orderedit/bootstrap.min.js"></script>
 <?php
 /**
  for display full info. and edit data
@@ -23,10 +22,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-<div class="box-header"  id="printThis">
-    <form class="form-horizontal" method="post">
+<div class="box-header">
         <div class="modal-content">
-            <div class="modal-header">
+            <div id="printThis">
+                <div class="modal-header">
                  <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
@@ -111,17 +110,15 @@ if(isset($_REQUEST['id'])){
                         }?>
                         </table>
                     </div>
-                </form>
             </div>
-            <div>
+            </div>
             <div class="modal-footer">
                 <button id="btnPrint" type="button" class="btn btn-success" style="float:left;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>
         </div>
-    </form>
-        </div>
+        
 <?php
 }//end if
 ?>

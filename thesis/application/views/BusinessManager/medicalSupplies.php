@@ -1020,8 +1020,13 @@ function onUserInactivity() {
     $('#example').DataTable( {
         order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
+        lengthMenu:[
+         [10,25,50,-1],
+         ['10 rows', '25 rows', '50 rows', 'Show all']
+         ],
         buttons: [
-            {
+            {   
+
                 extend: 'print',
                 exportOptions: {
                     columns: ':visible'
@@ -1038,7 +1043,8 @@ function onUserInactivity() {
                 },
                 messageBottom: null
             },
-        'colvis'
+        extend: 'colvis'
+
          ] //,
         // columnDefs: [ {
         //     targets: -1,

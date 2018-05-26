@@ -46,9 +46,9 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+<form name="plus_name" id="plus_name">
 <div class="box-header">
         <div class="modal-content">
-            <form name="plus_name" id="plus_name">
                 <div class="modal-header">
                  <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
@@ -131,7 +131,7 @@ if(isset($_REQUEST['id'])){
                                 while($row = $result->fetch_assoc()) { 
                             ?>
                             <tr>
-                                <td style="display: none;" ><input class="form-control" id="IOSid" name="IOSid" value="<?php echo $row['inventory_order_supplies_id'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td style="display: none;" ><input class="form-control" id="id" name="id" value="<?php echo $row['inventory_order_supplies_id'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
 
 
@@ -139,7 +139,7 @@ if(isset($_REQUEST['id'])){
                                 </td>
 
                                 <td>
-                                    <select class="form-control select2" id="supply_name" name="supply_name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    <select class="form-control select2" id="supply" name="supply" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   <option><?php echo $row['supply_description'];?></option>
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
