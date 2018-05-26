@@ -963,6 +963,7 @@ if(isset($_POST['btnIssue'])){
     $date=date("Y-m-d");
     $cust_name=mysqli_real_escape_string($con,$_POST['custName']);
     $new_uniqid=mysqli_real_escape_string($con,$_POST['txtuniqid']);
+    $issue_name=mysqli_real_escape_string($con,$_POST['issueName']);
 
     $new_issue0=mysqli_real_escape_string($con,$_POST['txtissued0']);
     $new_quantity0=mysqli_real_escape_string($con,$_POST['txtquantity0']);
@@ -1066,7 +1067,7 @@ if(isset($_POST['btnIssue'])){
       $result_update9=mysqli_query($con,$sqlupdate9);
 
 
-    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Issued', inventory_order_remarks='The item has been issued to $cust_name', issued_date='$date' WHERE inventory_order_id='$new_id' ";
+    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Issued', inventory_order_remarks='$issue_name', issued_date='$date' WHERE inventory_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){

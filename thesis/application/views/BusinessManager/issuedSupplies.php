@@ -681,11 +681,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   ?>
                   <thead> 
                   <tr>
-                    <th style="display: none;">ID</th>
-                    <th>Request Date</th>
                     <th>Issue Date</th>
+                    <th>Request Date</th>
+                    
                     <th>Department</th>
                     <th>Supervisor Name</th>
+                    <th>Issuance Name</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -693,11 +694,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td style="display: none;"> <?php echo $row['inventory_order_id']; ?></td>
-                      <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["issued_date"]; ?></td>
+                      <td><?php echo $row["inventory_order_created_date"]; ?></td>
+                      
                       <td><?php echo $row["inventory_order_dept"]; ?></td>
                       <td><?php echo $row["inventory_order_name"]; ?></td>
+                      <td><?php echo $row["inventory_order_remarks"] ?></td>
                       <td><?php echo $row["inventory_order_status"]; ?></td>
                       <td><div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></td>
@@ -708,11 +710,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   ?>
                 <tfoot>
                 <tr>
-                    <th style="display: none;"></th>
+                  <th>Issue Date</th>
                     <th>Request Date</th>
-                    <th>Issue Date</th>
+                    
                     <th>Department</th>
                     <th>Supervisor Name</th>
+                    <th>Issuance Name</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -836,7 +839,7 @@ $(document).ready(function() {
     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
  
     $('#example').DataTable( {
-        order : [[ 0, 'desc' ]],
+        order: [[0, 'desc']],
         dom: 'Bfrtip',
         buttons: [
             {

@@ -52,7 +52,7 @@ if(isset($_REQUEST['id'])){
                 </div>
                 <div class="box-body">                                      
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Supervisor Name</label>
                                 <div class="input-group">
@@ -64,7 +64,7 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Request Date</label>
                                 <div class="input-group">
@@ -75,8 +75,21 @@ if(isset($_REQUEST['id'])){
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Issued To</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                <input type="text" class="form-control" id="txtissue" name="txtissue" value="<?php echo $per_remarks;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Issued Date</label>
                                 <div class="input-group">
@@ -86,7 +99,6 @@ if(isset($_REQUEST['id'])){
                                 <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_issueDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </div>
                         </div>
-                    </div>
                     </div>
                       <?php
                         $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND quantity !=0";

@@ -173,7 +173,7 @@ if(isset($_REQUEST['id'])){
                                     </td>
                                     <td width="50">
                                         <?php if($qty_ordered[$zero] < $qty_stock[$zero]){ ?>
-                                            <input type="number" class="form-control" id="qtyIssued" name="qtyIssued" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php print_r($qty_ordered[$zero]);?>">
+                                            <input type="number" class="form-control" id="qtyIssued" name="qtyIssued" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php print_r($qty_ordered[$zero]);?>" required>
                                         <?php } else { ?>
                                             <center>
                                                 <!-- <form class="form-horizontal" method="post">
@@ -192,6 +192,19 @@ if(isset($_REQUEST['id'])){
                                 }
                             }?>
                             </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Issuance Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="issueName" name="issueName" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
