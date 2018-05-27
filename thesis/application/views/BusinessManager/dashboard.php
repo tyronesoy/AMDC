@@ -134,7 +134,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                 $dtoday = date('Y\-m\-d\ H:i:s A');
                 $date_select = date('Y\-m\-d\ H:i:s A', strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%')";
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -156,7 +156,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -206,6 +206,18 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
 <!--            FLAG START-->
+            <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql32 = "SELECT value2 from defaults where attribute = 'expirerange' LIMIT 1";
+                        $result32 = $conn->query($sql32);
+                          if ($result32->num_rows > 0) {
+                            while($row = $result32->fetch_assoc()) {
+                                $daysvalue = strtotime($row['value2']);
+                                $num1 = 0;
+                            }
+                          }
+                    ?>
                   <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                
@@ -312,7 +324,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
                         $result3 = $conn->query($sql3);
                         $strdatetoday = strtotime(date("Y/m/d"));
-                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
+                        $strdatefuture = $strdatetoday + $daysvalue;//today + 30 days
                     ?>
                     <table id="exp" class="table table-bordered table-striped">
                     <small>
@@ -320,7 +332,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                               if ($result3->num_rows > 0) {
                                 while($row = $result3->fetch_assoc()) {
                                     $expdate = strtotime($row["expiration_date"]);
-                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
+                                    $expvalue = abs((($expdate - $strdatetoday) / $daysvalue)*100);
                                 if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
                             ?>
                                   <tr>
@@ -441,12 +453,72 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </li>
             </ul>
           </li>
+            <li>
+            <button type="submit" class="btn btn-default btn-flat" style="background-color:#00a65a; border:none;" data-toggle="modal" data-target="#editflag"><i class="glyphicon glyphicon-cog" style="font-size:40px"></i></button>
+          </li>
         </ul>
       </div>
     </nav>
   </header>
  <?php $identity =  $this->session->userdata('fname');?>
- 
+<div class="modal fade" id="editflag">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser2">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-md-2">
+                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Notification Parameters</b></h4></center>
+                                            </div>
+                                      </div>
+                <div class="box-body">
+                    
+                        <?php
+                          $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                          $date = date("Y/m/d");
+                          $sql = "SELECT * From defaults where attribute = 'expirerange'";
+                          $result = $conn->query($sql);    
+                        ?>
+                        <?php if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) { ?>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Day/s to expiration notice</label>
+                          <input type="text" class="form-control" name="days" id="days" value="<?php echo $row['value2'] ?>" required />
+                        </div>
+                          <?php 
+                              }
+                            }
+                          ?>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-primary" name="addUser2"><i class="glyphicon glyphicon-cog"></i> Update</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </form> 
+        </div> 
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
           <div class="modal-dialog">
@@ -1365,6 +1437,25 @@ function myFunction3(id) {
             $('#content-data').html('');
             $.ajax({
                 url:'dashboard/addUser',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+</script>
+<script>
+        $(document).on('click','#getAdd',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'dashboard/addUser2',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
