@@ -639,7 +639,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fa fa-truck"></i> <b>Deliveries</b>
+        <i class="fa fa-truck"></i> <b> Deliveries</b>
         <!-- <small>advanced tables</small> -->
       </h1>
         
@@ -738,7 +738,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="col-xs-1" style="float:left">
             <a href="deliveriesRecover" style="color:white;">
-              <button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover</button>
+              <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Deliveries</button>
             </a>
       </div>
       </div>

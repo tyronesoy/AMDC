@@ -641,14 +641,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fa fa-truck"></i> <b>Deliveries</b>
+        <i class="fa fa-truck"></i> <b>Archived Deliveries</b>
         <!-- <small>advanced tables</small> -->
       </h1>
         
      <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li><i class="fa fa-truck"></i> Deleted Deliveries</li>
-        <li class="active"><i class="fa fa-truck"></i> Deliveries</li>
+        <li><i class="fa fa-truck"></i> Deliveries</li>
+        <li class="active"><i class="fa fa-truck"></i> Archived Deliveries</li>
       </ol>
     </section>
 
@@ -659,7 +659,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Office Supplies</h3> -->
-                <a href="deliveries" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
+                <a href="deliveries" style="color:white;"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-arrow-left"></i>
               </button></a>
             </div>
             <!-- /.box-header -->
