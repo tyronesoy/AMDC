@@ -157,8 +157,8 @@ if(isset($_REQUEST['id'])){
                                 <span id="error"></span>
                                 <table class="table table-bordered" id="item_table">
                                     <tr>
-                                        <th>Item Description</th>
                                         <th>Quantity</th>
+                                        <th>Item Description</th>
                                     </tr>
                                     <?php 
                                         if($result->num_rows > 0){
@@ -187,30 +187,20 @@ if(isset($_REQUEST['id'])){
                                         
                                     ?>
                                     <tr>
-                                        <?php 
-                                            $count = count($order_id)-1;
-                                            for ($x=0; $x < $count; $x++) { 
-                                        ?>
-                                        
-                                        <td width="250px">
-                                            <select class="form-control select2" name="neym[<?php echo $x; ?>]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                <option value="<?php print_r($item_desc[$zero]);?>"><?php print_r($item_desc[$zero]);?></option>
-                                            </select>
-                                        </td>
-                                                
                                         <td width="100px">
-
-                                            <input type="number" id="number" name="number[<?php echo $x; ?>]" class="form-control " min="1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required> 
-
+                                            <input class="form-control" type="number" id="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                        </td>
+                                        <td width="250px">
+                                          <input type="text" class="form-control" id="supply" name="neym[]" value="<?php print_r($item_desc[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                         </td>
 
-                                        <td width="50" class="hidden">
+                                        <td class="hidden">
                                         <input type="hidden" class="form-control hidden" id="status" name="status" value="<?php print_r($status[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                    </td>
+                                        </td>
 
                                     </tr>
                                     <?php 
-                                        }
+                                        
                                     }?>
                                 </table>
                             </div>

@@ -162,7 +162,7 @@ if(isset($_REQUEST['id'])){
                     </div>
                   </div>
                 <?php
-                $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id";
+                $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id and order_quantity != 0";
                 $result = $con->query($sql);
 
                   $arrayPoId = '';
@@ -180,7 +180,6 @@ if(isset($_REQUEST['id'])){
                     <table class="table table-bordered" id="item_table">
                     <tr>
                       <th>Item Description</th>
-                      <th>Unit of Measure</th>
                       <th>Quantity</th>
                      </tr>
                      <?php if($result->num_rows > 0) {
@@ -207,25 +206,20 @@ if(isset($_REQUEST['id'])){
                       $countpoid = count($poid)-1;
                        for($x=0; $x < $countpoid; $x++){
                                  ?>
-                        <td class="hidden" width="100">
-                          <input class="form-control" id="txtpoid<?php echo $x; ?>" name="txtpoid<?php echo $x; ?>" value="<?php print_r($poid[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                        <td class="hidden">
+                          <input class="form-control hidden" id="txtpoid<?php echo $x; ?>" name="txtpoid<?php echo $x; ?>" value="<?php print_r($poid[$zero]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                          </td>
 
-                        <td width="250"><select class="form-control select2 inventory_order_supply_name" id="txtdesc<?php echo $x; ?>" name="txtdesc<?php echo $x; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
-                        <option value="<?php print_r($desc[$zero]);?>"><?php print_r($desc[$zero]);?></option>
-                         <?php echo supply_dropdown($connect);?>
-                         </select>
+                        <td width="200">
+                          <select class="form-control select2 inventory_order_supply_name" id="txtdesc<?php echo $x; ?>" name="txtdesc<?php echo $x; ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                            <option value="<?php print_r($desc[$zero]);?>"><?php print_r($desc[$zero]);?></option>
+                            <?php echo supply_dropdown($connect);?>
+                          </select>
                         </td>
 
-                        <td width="100"><select class="form-control select2" id="txtunit<?php echo $x; ?>" name="txtunit<?php echo $x; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
-                        <option value="<?php print_r($unit[$zero]);?>"><?php print_r($unit[$zero]);?></option>
-                        <?php echo unit_measure($connect);?>
-                        </select>
-                        </td>
+                        <td width="100"><input type="number" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]);?>" min="0"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" ></td>
 
-                        <td width="50"><input type="number" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]);?>" min="0"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" ></td>
-
-                        <td class="hidden" width="250"><input class="form-control" id="txtsupplier<?php echo $x; ?>" name="txtsupplier<?php echo $x; ?>" value="<?php print_r($supplier[$zero++]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                        <td class="hidden" width="250"><input class="form-control hidden" id="txtsupplier<?php echo $x; ?>" name="txtsupplier<?php echo $x; ?>" value="<?php print_r($supplier[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                          </td>
 
                          
