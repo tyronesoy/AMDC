@@ -772,7 +772,7 @@ function supplier($connect)
                                               </div>
 
                                               
-                                            <div class="col-md-6">
+                                           <div class="col-md-6">
                                               <div class="form-group">
                                                  <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
  
@@ -1334,6 +1334,7 @@ if(isset($_POST['medDelete'])){
 </script>
 
 
+    
         <script>
             $(function () {
                 $('#addopt').click(function () {

@@ -64,12 +64,31 @@ if(isset($_REQUEST['id'])){
                             </div>
                             </div>
 
-                            <div class="col-md-6">
-                            <div class="form-group">
-                            <label for="txtUnit">Unit</label>
-                                <input type="text" class="form-control" id="txtUnit" name="txtUnit" value="<?php echo $per_supplyUnit;?>">
-                        </div>
-                        </div>
+                                
+                                            <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
+                                       
+
+                                                      <label for="exampleInputEmail1">Unit</label>
+                                                       <select id="opt" name = "txtUnit" class="form-control select2">
+                                                       <option><?php echo $per_supplyUnit;?></option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                             $sql = "SELECT DISTINCT unit FROM supplies ORDER BY unit ASC";
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $txtUnit) { 
+                                                        ?>
+
+                                                        <option value="<?php echo $txtUnit["unit"]; ?>" name="txtUnit"><?php echo $txtUnit["unit"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>  
                         </div>
 
 
@@ -130,7 +149,30 @@ if(isset($_REQUEST['id'])){
 
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-
+<script>
+            $(function () {
+                $('#addopt').click(function () {
+                    var newopt = $('#newopt').val();
+                    if (newopt == '') {
+                        alert('Please enter something!');
+                        return;
+                    }
+ 
+                    //check if the option value is already in the select box
+                    $('#opt option').each(function (index) {
+                        if ($(this).val() == newopt) {
+                            alert('Duplicate option, Please enter new!');
+                        }
+                    })
+ 
+                    //add the new option to the select box
+                    $('#opt').append('<option value=' + newopt + '>' + newopt + '</option>');
+ 
+                    //select the new option (particular value)
+                    $('#opt option[value="' + newopt + '"]').prop('selected', true);
+                });
+            });
+        </script>
 <script>
  // date and time 
   $(function () {
@@ -144,3 +186,4 @@ if(isset($_REQUEST['id'])){
     })
   }) 
 </script>
+        
