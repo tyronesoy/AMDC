@@ -6,13 +6,13 @@ $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 function unit_measure($connect)
 { 
  $output = '';
- $query = "SELECT * FROM unit_of_measure ORDER BY unit_name ASC";
+ $query = "SELECT DISTINCT unit FROM supplies ORDER BY unit ASC";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output .= '<option value="'.$row["unit_name"].'">'.$row["unit_name"].'</option>';
+  $output .= '<option value="'.$row["unit"].'">'.$row["unit"].'</option>';
  }
  return $output;
 }
@@ -750,13 +750,16 @@ function supplier($connect)
                                               </div>
                                               </div>
 
-                                              <div class="col-md-6">
+                                                  <div class="col-md-6">
                                               <div class="form-group">
+                                                 <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
+ 
                                                   <label for="exampleInputEmail1">Unit</label>
-                                                  <select class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
+                                           
                                               </div>
                                               </div>
                                               </div>
@@ -1254,3 +1257,29 @@ if(isset($_POST['offDelete'])){
             });
         });
     </script>
+
+    
+        <script>
+            $(function () {
+                $('#addopt').click(function () {
+                    var newopt = $('#newopt').val();
+                    if (newopt == '') {
+                        alert('Please enter something!');
+                        return;
+                    }
+ 
+                    //check if the option value is already in the select box
+                    $('#opt option').each(function (index) {
+                        if ($(this).val() == newopt) {
+                            alert('Duplicate option, Please enter new!');
+                        }
+                    })
+ 
+                    //add the new option to the select box
+                    $('#opt').append('<option value=' + newopt + '>' + newopt + '</option>');
+ 
+                    //select the new option (particular value)
+                    $('#opt option[value="' + newopt + '"]').prop('selected', true);
+                });
+            });
+        </script>
