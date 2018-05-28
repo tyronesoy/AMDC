@@ -67,11 +67,11 @@ if(isset($_REQUEST['id'])){
                                 
                                             <div class="col-md-6">
                                                      <div class="form-group">
-                                                         <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
+                                                         <p>Add new unit if not exists <input type="text" id="newOPT"> <input type="button" value="Add New" id="addOPT" /></p>
                                        
 
                                                       <label for="exampleInputEmail1">Unit</label>
-                                                       <select id="opt" name = "txtUnit" class="form-control select2">
+                                                       <select id="OPT" name = "txtUnit" class="form-control select2">
                                                        <option><?php echo $per_supplyUnit;?></option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
@@ -151,25 +151,25 @@ if(isset($_REQUEST['id'])){
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script>
             $(function () {
-                $('#addopt').click(function () {
-                    var newopt = $('#newopt').val();
-                    if (newopt == '') {
+                $('#addOPT').click(function () {
+                    var newOPT = $('#newOPT').val();
+                    if (newOPT == '') {
                         alert('Please enter something!');
                         return;
                     }
  
                     //check if the option value is already in the select box
-                    $('#opt option').each(function (index) {
-                        if ($(this).val() == newopt) {
+                    $('#OPT option').each(function (index) {
+                        if ($(this).val() == newOPT) {
                             alert('Duplicate option, Please enter new!');
                         }
                     })
  
                     //add the new option to the select box
-                    $('#opt').append('<option value=' + newopt + '>' + newopt + '</option>');
+                    $('#OPT').append('<option value=' + newOPT + '>' + newOPT + '</option>');
  
                     //select the new option (particular value)
-                    $('#opt option[value="' + newopt + '"]').prop('selected', true);
+                    $('#OPT option[value="' + newOPT + '"]').prop('selected', true);
                 });
             });
         </script>
