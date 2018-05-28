@@ -789,7 +789,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio'";
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio' AND department_name != 'Managing Department'";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $dept_name) { 
