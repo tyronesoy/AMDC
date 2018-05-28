@@ -162,7 +162,6 @@ if(isset($_REQUEST['id'])){
                                                <th>Quantity Delivered</th>
                                                <th>Unit Price</th>
                                                <th>Total Amount</th>
-                                               <th>Notes</th>
                                               </tr>
                                               <?php if($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) { ?>
@@ -179,9 +178,6 @@ if(isset($_REQUEST['id'])){
 
                                             <td width="100"><input type="text" name="total" class="form-control " min="0" style="width: 100px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="&#8369 <?php echo $row['total'] ?>" readonly/> </td>
                                             
-
-                                            <td width="200"><input type="text" name="notes" class="form-control " min="0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $row['notes'] ?>" readonly/> </td>
-                                            </tr>
 
                                             <?php 
                               }
