@@ -141,10 +141,10 @@ if(isset($_REQUEST['id'])){
                                                 while($row = $result->fetch_assoc()) { ?>
                                             <tr>
 
-                                              <td width="250"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <td width="200px"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
                                             
-                                            <td width="75"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  </td>
+                                            <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  </td>
                                             </tr>
 
                                             <?php 
