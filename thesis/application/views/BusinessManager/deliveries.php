@@ -733,6 +733,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <div class="btn-group">
                               <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Archive</button>
                           </div>
+                          <div class="btn-group">
+                              <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
+                          </div>
                         <?php }else{?>
                           <div class="btn-group">
                               <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-check"></i> Check</button>
@@ -995,6 +998,11 @@ function onUserInactivity() {
             <div class="modal-dialog">
                 <div id="delete-data"></div>
             </div>
+        </div>
+        <div class="modal fade" id="returnModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="return-data"></div>
+            </div>
         </div>   
     <!--<script>
         $(document).ready(function(){
@@ -1066,6 +1074,26 @@ function onUserInactivity() {
                 $('#delete-data').html(data);
             }).final(function(){
                 $('#delete-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).on('click','#getReturn',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#return-data').html('');
+            $.ajax({
+                url:'deliveries/returnDelivery',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#return-data').html('');
+                $('#return-data').html(data);
+            }).final(function(){
+                $('#return-data').html('<p>Error</p>');
             });
         });
     </script>
