@@ -457,9 +457,8 @@ function supplier($connect)
               <li class="user-header">
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
-                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?><br>
+                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-      
         <small> Business Manager</small>
         </p>
                 </li>
@@ -467,10 +466,10 @@ function supplier($connect)
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo 'logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
                 </div>
               </li>
             </ul>
@@ -777,13 +776,12 @@ function supplier($connect)
                                                  <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
  
                                                   <label for="exampleInputEmail1">Unit</label>
-                                                  <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <select id="opt" class="form-control select2" name="Unit">
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
-                                           
                                               </div>
-                                              </div>
+                                            </div>
 
                                               <div class="row">
                                               <div class="col-md-6">
@@ -949,7 +947,7 @@ function supplier($connect)
       <div class="row no-print">
     <div class="col-xs-1" style="float:left">
           <a href="medicalSuppliesRecover" style="color:white;">
-            <button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover</button>
+            <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Medical Supplies </button>
           </a>
     </div>
       </div>

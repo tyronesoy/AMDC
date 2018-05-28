@@ -51,8 +51,8 @@ if(isset($_REQUEST['id'])){
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
+                            <div class="col-md-12">
+                            <div class="form-group">
                                 <label for="txtdesc">Description</label>
                                     <input type="text" class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $per_supplyDescription;?>" readonly>
                                 </div>

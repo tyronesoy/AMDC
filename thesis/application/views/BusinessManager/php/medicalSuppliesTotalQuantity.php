@@ -434,7 +434,7 @@ function supplier($connect)
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+              <span class="hidden-xs"> <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -442,6 +442,7 @@ function supplier($connect)
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                  <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
         <small> Business Manager</small>
         </p>
                 </li>
@@ -449,10 +450,10 @@ function supplier($connect)
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
                 </div>
               </li>
             </ul>
@@ -773,21 +774,23 @@ function supplier($connect)
                                               </div>
                                               </div>
 
-                                              <div class="col-md-6">
+                                            <div class="col-md-6">
                                               <div class="form-group">
+                                                 <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
+ 
                                                   <label for="exampleInputEmail1">Unit</label>
-                                                  <select class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <select id="opt" class="form-control select2" name="Unit">
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                               </div>
-                                              </div>
-                                              </div>
+                                            </div>
+
                                               <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit Price</label>
-                                                  <input type="number" class="form-control" id="priceUnit" name="priceUnit" min="0" required />
+                                                  <input type="number" class="form-control" id="priceUnit" min="0" name="priceUnit" required />
                                                 </div>
                                               </div>
                                               <!-- Date and Time -->
@@ -818,6 +821,32 @@ function supplier($connect)
                                                     </div>
                                                   </div>
                                                   </div>
+
+                                                   <div class="row">
+                                                    <div class="col-md-6">
+                                                     <div class="form-group">
+                                                      <label for="exampleInputEmail1">Department</label>
+                                                       <select name = "dep_name" class="form-control">
+                                                       <option value="">Select a Department</option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio'";
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $dep_name) { 
+                                                        ?>
+                                                        <option value="<?php echo $dep_name["department_name"]; ?>" name="dep_name"><?php echo $dep_name["department_name"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>
+                                                 </div>
+
+
+
                                                   </div>
 
                                         </div>

@@ -68,7 +68,6 @@ if(isset($_REQUEST['id'])){
                                           <div class="col-md-6">
                                                      <div class="form-group">
                                                          <p>Add new unit if not exists <input type="text" id="newOpt"> <input type="button" value="Add New" id="addOpt" /></p>
-                                       
 
                                                       <label for="exampleInputEmail1">Unit</label>
                                                        <select id="OPT" name = "txtUnit" class="form-control select2">

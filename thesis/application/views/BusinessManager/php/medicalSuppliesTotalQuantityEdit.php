@@ -13,6 +13,10 @@ if(isset($_REQUEST['id'])){
         $per_supplyExpirationDate=$row[9];
     }//end while
 ?>
+<div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post" action ="">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,24 +50,29 @@ if(isset($_REQUEST['id'])){
 							</div>
 						</div>
 
+                        <div class="row">
+                              <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="desc">Description</label>
-                                <div class="col-sm-6">
+                                <label class= for="desc">Description</label>
                                     <input type="text" class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $per_supplyDescription;?>" readonly>
                                 </div>
                             </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtReorderLevel">Old Reorder Level</label>
+                        </div>
+
+                        <div class="row">
                             <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txtReorderLevel">Old Reorder Level</label>
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                             </div>
 						</div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="txtReorderLevel">New Reorder Level</label>
-                            <div class="col-sm-6">
+                             <div class="col-sm-6">
+                            <label for="txtReorderLevel">New Reorder Level</label>
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel">
                             </div>
 						</div>
+                    </div>
 					</div>
                 </form>
 			</div>
