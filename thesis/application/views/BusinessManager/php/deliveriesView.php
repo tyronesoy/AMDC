@@ -36,6 +36,11 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+<div class="row">
+<div class="col-1200">
+<div class="box">
+<div class="box-header">
+
 <div id="printThis">
 <form class="form-horizontal" method="post">
                                   <div class="modal-dialog">

@@ -414,7 +414,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -422,6 +422,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                  <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
         <small> Business Manager</small>
         </p>
                 </li>
@@ -429,10 +430,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo 'logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
                 </div>
               </li>
             </ul>
