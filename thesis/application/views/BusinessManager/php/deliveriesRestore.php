@@ -31,6 +31,11 @@ if(isset($_REQUEST['id'])){
         $per_soft_deleted=$row[24];
     }//end while
 ?>
+<div class="row">
+<div class="col-xs-1200">
+<div class="box">
+<div class="box-header">
+
     <form class="form-horizontal" method="post" action ="">
         <div class="modal-content">
             <div class="modal-header">

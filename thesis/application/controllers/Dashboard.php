@@ -144,4 +144,8 @@ class Dashboard extends CI_Controller {
 		$this->load->view('Supervisor/php/userAdd');
 	}
     
+    public function addUser2(){
+		$this->load->view('BusinessManager/php/flagrange');
+	}
+    
 }

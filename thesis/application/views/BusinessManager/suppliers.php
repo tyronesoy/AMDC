@@ -108,7 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                 $dtoday = date('Y\-m\-d\ H:i:s A');
                 $date_select = date('Y\-m\-d\ H:i:s A', strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%')";
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -130,7 +130,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -180,6 +180,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
           <!--            FLAG START-->
+            <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql32 = "SELECT value2 from defaults where attribute = 'expirerange' LIMIT 1";
+                        $result32 = $conn->query($sql32);
+                          if ($result32->num_rows > 0) {
+                            while($row = $result32->fetch_assoc()) {
+                                $daysvalue = strtotime($row['value2']);
+                                $num1 = 0;
+                            }
+                          }
+                    ?>
                   <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                
@@ -286,7 +298,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
                         $result3 = $conn->query($sql3);
                         $strdatetoday = strtotime(date("Y/m/d"));
-                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
+                        $strdatefuture = $strdatetoday + $daysvalue;//today + 30 days
                     ?>
                     <table id="exp" class="table table-bordered table-striped">
                     <small>
@@ -294,7 +306,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               if ($result3->num_rows > 0) {
                                 while($row = $result3->fetch_assoc()) {
                                     $expdate = strtotime($row["expiration_date"]);
-                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
+                                    $expvalue = abs((($expdate - $strdatetoday) / $daysvalue)*100);
                                 if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
                             ?>
                                   <tr>
@@ -391,7 +403,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -399,6 +411,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                  <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
 				<small> Business Manager</small>
 				</p>
                 </li>
@@ -406,10 +419,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-danger "><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
                 </div>
               </li>
             </ul>

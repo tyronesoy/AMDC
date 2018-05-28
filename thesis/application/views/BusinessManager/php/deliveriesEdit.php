@@ -177,12 +177,12 @@ if(isset($_REQUEST['id'])){
                                                 <th class="hidden">ID</th>
                                                 
                                                <th>Item Name</th>
-                                               <th>Quantity</th>
+                                               <th>Quantity Ordered</th>
                                                <th>Quantity Delivered</th>
                                                <th>Unit Price</th>
-                                               <th>Notes</th>
                                                <th>Brand</th>
                                                <th>Expiration Date</th>
+                                               <th>Notes</th>
 
                                               </tr>
                                               <?php if($result->num_rows > 0) {
@@ -256,13 +256,14 @@ if(isset($_REQUEST['id'])){
                                             <td width="70px"><input type="text" id="unit_price<?php echo $x; ?>" name="unit_price<?php echo $x; ?>" class="form-control " value="&#8369 <?php print_r($unitPrice[$zero]); ?>" min="0" style="width: 75px; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
                                             </td>
 
-                                            <td width="30%"><input type="text" class="form-control" id="txtnotes<?php echo $x; ?>" name="txtnotes<?php echo $x; ?>" value="<?php echo($notes[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
-                                              </td>
 
                                               <td width="20%"><input type="text" class="form-control" id="txtbrand<?php echo $x; ?>" name="txtbrand<?php echo $x; ?>" value="<?php echo($brand[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
 
                                               <td width="20%"><input type="text" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php echo($expired[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;width: 100px" >
+                                              </td>
+
+                                              <td width="30%"><input type="text" class="form-control" id="txtnotes<?php echo $x; ?>" name="txtnotes<?php echo $x; ?>" value="<?php echo($notes[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
 
                                               <td class="hidden"><input type="text" class="form-control" id="txtexpire<?php echo $x; ?>" name="txtexpire<?php echo $x; ?>" value="<?php echo($exp[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >

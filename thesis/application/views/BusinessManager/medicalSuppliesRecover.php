@@ -137,7 +137,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                 $dtoday = date('Y\-m\-d\ H:i:s A');
                 $date_select = date('Y\-m\-d\ H:i:s A', strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%')";
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -159,7 +159,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -209,6 +209,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
           <!--            FLAG START-->
+            <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql32 = "SELECT value2 from defaults where attribute = 'expirerange' LIMIT 1";
+                        $result32 = $conn->query($sql32);
+                          if ($result32->num_rows > 0) {
+                            while($row = $result32->fetch_assoc()) {
+                                $daysvalue = strtotime($row['value2']);
+                                $num1 = 0;
+                            }
+                          }
+                    ?>
                   <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                
@@ -315,7 +327,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
                         $result3 = $conn->query($sql3);
                         $strdatetoday = strtotime(date("Y/m/d"));
-                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
+                        $strdatefuture = $strdatetoday + $daysvalue;//today + 30 days
                     ?>
                     <table id="exp" class="table table-bordered table-striped">
                     <small>
@@ -323,7 +335,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               if ($result3->num_rows > 0) {
                                 while($row = $result3->fetch_assoc()) {
                                     $expdate = strtotime($row["expiration_date"]);
-                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
+                                    $expvalue = abs((($expdate - $strdatetoday) / $daysvalue)*100);
                                 if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
                             ?>
                                   <tr>
@@ -613,7 +625,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="treeview-menu">
                 <li class="active treeview"><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
                 <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
+                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a>* ,.
                 </li>
               </ul>
             </li>
@@ -697,19 +709,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 ?>
           <thead>
             <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
+
                   <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
                   <th>Reorder Level</th>
                   <th> Action</th> 
             </tr>
         </thead>
-        
         <tbody>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
@@ -754,9 +763,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <!-- /.col -->
       </div>
-	   <div class="row no-print">
-			<div class="col-xs-1" style="float:right">
-        </div>
       <script>
         $('#print').click(function(){
           var printme = document.getElementById('example');
