@@ -22,13 +22,13 @@ $query2 = "INSERT INTO inventory_order (inventory_order_uniq_id, inventory_order
  for($count = 0; $count < count($_POST["number"]); $count++)
  {  
   $query = "INSERT INTO inventory_order_supplies
-  (inventory_order_uniq_id, supply_name, quantity) 
-  VALUES (:inventory_order_uniq_id, :supply_name, :quantity)";
+  (inventory_order_uniq_id, quantity, supply_name ) 
+  VALUES (:inventory_order_uniq_id, :quantity, :supply_name)";
   $statement = $connect->prepare($query);
   $statement->execute(
    array(
     ':inventory_order_uniq_id'   => $order_id,
-    ':quantity'  => $_POST["number"][$count], 
+    ':quantity'  => $_POST["number"][$count],
     ':supply_name' => $_POST["neym"][$count]
    )
   );
