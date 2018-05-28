@@ -83,7 +83,7 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Supervisor Name</label>
                                     <div class="input-group">
@@ -91,6 +91,18 @@ if(isset($_REQUEST['id'])){
                                             <i class="fa fa-user"></i>
                                         </div>
                                         <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Department Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-building"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="deptName" name="deptName" value="<?php echo $per_department;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                     </div>
                                 </div>
                             </div>

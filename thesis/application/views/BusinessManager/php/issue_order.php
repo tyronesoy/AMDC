@@ -100,6 +100,31 @@ if(isset($_REQUEST['id'])){
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Order Date</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="ordDate" name="ordDate" value="<?php echo $per_date;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Department Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-building"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="deptName" name="deptName" value="<?php echo $per_department;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <?php 
@@ -176,8 +201,8 @@ if(isset($_REQUEST['id'])){
                                             <input type="number" class="form-control" id="qtyIssued" name="qtyIssued" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php print_r($qty_ordered[$zero]);?>" required>
                                         <?php } else { ?>
                                             <center>
-                                                <input type="number" class="form-control" id="qtyIssued" name="qtyIssued" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php print_r($qty_ordered[$zero]);?>" readonly>
-                                                <!-- <button type="button" id="porder" name="porder" class="btn btn-success btn-xs" data-toggle="modal" data-target="#porderModal" data-id="<?php //print_r($order_id[$zero]);?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button> -->
+                                                
+                                                <button type="button" id="porder" name="porder" class="btn btn-success btn-xs" data-toggle="modal" data-target="#porderModal" data-id="<?php print_r($order_id[$zero]);?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button>
                                             </center>
                                         <?php } ?>
                                         
@@ -209,12 +234,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <?php if($per_supplyQuantity < $per_quantityStock){ ?>
-                    <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
-                <?php }else { ?>
-                    <button type="button" id="porder" name="porder" class="btn btn-success" data-toggle="modal" data-target="#porderModal" data-id="<?php echo $id;?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button>
-                    <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
-                <?php } ?>
+                <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
                 
             </div>
         </div>
