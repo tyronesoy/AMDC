@@ -282,7 +282,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }else{
                     ?>
                     <div>
-                    <small>No items to display</small>
+                    <center><h5 style="color:B11C1C">No items to display</h5></center>
                     </div>
                     <?php    
                     }
@@ -352,7 +352,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               }else{
                             ?>
                                 <div>
-                                <p>No items to display</p>
+                                <center><h5 style="color:B11C1C">No items to display</h5></center>
                                 </div>
                             <?php      
                               }
@@ -387,7 +387,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }else{
                             ?>
                             <div>
-                            <p>No items to display</p>
+                            <center><h5 style="color:B11C1C">No items to display</h5></center>
                             </div>
                             <?php
                             }

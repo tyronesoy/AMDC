@@ -328,7 +328,7 @@ function supplier($connect)
                     }else{
                     ?>
                     <div>
-                    <small>No items to display</small>
+                    <center><h5 style="color:B11C1C">No items to display</h5></center>
                     </div>
                     <?php    
                     }
@@ -398,7 +398,7 @@ function supplier($connect)
                               }else{
                             ?>
                                 <div>
-                                <p>No items to display</p>
+                                <center><h5 style="color:B11C1C">No items to display</h5></center>
                                 </div>
                             <?php      
                               }
@@ -433,7 +433,7 @@ function supplier($connect)
                             }else{
                             ?>
                             <div>
-                            <p>No items to display</p>
+                            <center><h5 style="color:B11C1C">No items to display</h5></center>
                             </div>
                             <?php
                             }

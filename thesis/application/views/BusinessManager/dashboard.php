@@ -308,7 +308,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     }else{
                     ?>
                     <div>
-                    <small>No items to display</small>
+                    <center><h5 style="color:B11C1C">No items to display</h5></center>
                     </div>
                     <?php    
                     }
@@ -378,7 +378,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                               }else{
                             ?>
                                 <div>
-                                <p>No items to display</p>
+                                <center><h5 style="color:B11C1C">No items to display</h5></center>
                                 </div>
                             <?php      
                               }
@@ -413,7 +413,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                             }else{
                             ?>
                             <div>
-                            <p>No items to display</p>
+                            <center><h5 style="color:B11C1C">No items to display</h5></center>
                             </div>
                             <?php
                             }
@@ -425,6 +425,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             </ul>
           </li>
 <!--          FLAG END-->
+            <li>
+            <button type="submit" class="btn btn-default btn-flat" style="background-color:#00a65a; border:none;" data-toggle="modal" data-target="#editflag"><i class="glyphicon glyphicon-cog" style="font-size:40px"></i></button>
+          </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -441,6 +444,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         <small> Business Manager</small>
         </p>
                 </li>
+                
               <!-- Menu Footer-->
               <li class="user-footer">
         
@@ -452,9 +456,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </div>
               </li>
             </ul>
-          </li>
-            <li>
-            <button type="submit" class="btn btn-default btn-flat" style="background-color:#00a65a; border:none;" data-toggle="modal" data-target="#editflag"><i class="glyphicon glyphicon-cog" style="font-size:40px"></i></button>
           </li>
         </ul>
       </div>
