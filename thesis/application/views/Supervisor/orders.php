@@ -10,7 +10,7 @@ function supply_dropdown($connect)
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-    $output .= '<option value="'.$row["supply_description"].'">'.$row["supply_description"].'</option>';
+    $output .= '<option value="'.$row["supply_id"].'">'.$row["supply_description"].'</option>';
  }
  return $output;
 }
@@ -835,8 +835,8 @@ if(!isset($_SESSION['first_run'])){
                               <th>Order Date</th>
                               <th>Supervisor Name</th>
                               <th>Department</th>
-                              <th>Remarks</th>
                               <th>Status</th>
+                              <th>Remarks</th>
                               <th>Action</th>
                           </tr>
                       </tfoot>

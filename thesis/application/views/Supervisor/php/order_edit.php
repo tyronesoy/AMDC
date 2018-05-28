@@ -15,13 +15,6 @@
  return $output;
 }
 ?>
-<script type="text/javascript">
-  $("select").on('focus', function () {
-    previous = this.value;
-    }).change(function() {
-         $("select[value="+$(this).val()+"]").not(this).val(previous);
-    });
-</script>
 <?php
 /**
  for display full info. and edit data
@@ -46,7 +39,7 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-<form name="plus_name" id="plus_name">
+
 <div class="box-header">
         <div class="modal-content">
                 <div class="modal-header">
@@ -67,6 +60,8 @@ if(isset($_REQUEST['id'])){
                                           <div class="margin">
                                               <center><h4><b>View Order Details</b></h4></center>
                                             </div>
+
+                        <form name="plus_name" id="plus_name">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-11">
@@ -102,7 +97,6 @@ if(isset($_REQUEST['id'])){
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-5">
                                 <div class="form-group">
                                     <label >Order UNIQ ID</label>
@@ -117,42 +111,46 @@ if(isset($_REQUEST['id'])){
                         $sql="SELECT * FROM inventory_order io JOIN inventory_order_supplies ios USING(inventory_order_uniq_id) JOIN supplies s ON s.supply_description=ios.supply_name WHERE inventory_order_id=$id AND quantity !=0";
                         $result = $con->query($sql);    
                       ?>
+
                       <div class="row">
                     <div class="table-responsive">
                         <span id="error"></span>
                         <table class="table table-bordered" id="dynamic_field">
                             <tr>
-                                <th style="display: none;">ID</th>
+                                <th width="14%">ID</th>
                                 <th width="10%"> Quantity </th>
                                 <th> Description </th>
                                 <th> Unit </th>
                             </tr>
+
                             <?php if($result->num_rows > 0) {
-                                while($row = $result->fetch_assoc()) { 
+                                    while($row =$result->fetch_assoc()) {
                             ?>
                             <tr>
-                                <td style="display: none;" ><input class="form-control" id="id" name="id" value="<?php echo $row['inventory_order_supplies_id'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td><input class="form-control" id="ID[]" name="ID[]" value="<?php echo $row["inventory_order_supplies_id"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                 </td>
 
-
-                                <td><input class="form-control" id="quantity" name="quantity" value="<?php echo $row['quantity'];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td><input class="form-control" id="qty[]" name="qty[]" value ="<?php echo $row["quantity"]?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
 
                                 <td>
-                                    <select class="form-control select2" id="supply" name="supply" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                  <option><?php echo $row['supply_description'];?></option>
+                                    <select class="form-control select2" id="supplyDesc[]" name="supplyDesc[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <option><?php echo $row["supply_name"]?></option>
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                 </td>
                                             
-                                <td width="20%"><input type="text" class="form-control" id="unit" name="unit" value="<?php echo $row['unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
-                            </tr>
-                                              </td>
-              <?php 
+                                <td>
+                                <input class="form-control" id="unitName[]" name="unitName[]" value ="<?php echo $row["unit"]?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
+                                </td>
+                                </tr>
+                            <?php 
+                                }
                             }
-                        }?>
+                            ?>
                         </table>
                     </div>
+                </div>
 
 
                     <div class="row">
@@ -184,15 +182,14 @@ if(isset($_REQUEST['id'])){
  
                         </table>
                     </div>
-
-            </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <button type="submit" class="btn btn-primary" name="update" id="update">Save</button>
             </div>
-        </form>
         </div>
+    </form>
         
 <?php
 }//end if

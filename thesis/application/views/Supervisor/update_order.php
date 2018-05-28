@@ -3,15 +3,16 @@ if(isset($_POST["number"]))
 {
  $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 
- for($count = 0; $count < count($_POST["quantity"]); $count++)
+ for($count = 0; $count < count($_POST["ID"]); $count++)
  {  
-  $query2 = "UPDATE inventory_order_supplies SET supply_name=:supply_name, quantity=:quantity WHERE inventory_order_supplies_id = :inventory_order_supplies_id ";
+  $query2 = "UPDATE inventory_order_supplies SET supply_name=:supply_name, quantity=:quantity, unit_name=:unit_name WHERE inventory_order_supplies_id=:inventory_order_supplies_id ";
   $statement2 = $connect->prepare($query2);
   $statement2->execute(
    array(
-    ':inventory_order_supplies_id' => $_POST["id"][$count],
-    ':supply_name' => $_POST["supply"][$count],
-    ':quantity'  => $_POST["quantity"][$count]
+    ':inventory_order_supplies_id' => $_POST["ID"][$count], 
+    ':supply_name' => $_POST["supplyDesc"][$count],
+    ':quantity'  => $_POST["qty"][$count],
+    ':unit_name'  => $_POST["unitName"][$count]
    )
   );
  }
@@ -24,9 +25,9 @@ if(isset($_POST["number"]))
   $statement = $connect->prepare($query);
   $statement->execute(
    array(
-    ':inventory_order_uniq_id'   => $_POST["uniq_ID"][$count], 
-    ':supply_name' => $_POST["neym"][$count],
-    ':quantity'  => $_POST["number"][$count]
+    ':inventory_order_uniq_id'   => $_POST["uniq_ID"],
+    ':quantity'  => $_POST["number"][$count], 
+    ':supply_name' => $_POST["neym"][$count]
    )
   );
  }
