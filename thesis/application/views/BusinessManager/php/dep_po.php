@@ -187,20 +187,24 @@ if(isset($_REQUEST['id'])){
                                         
                                     ?>
                                     <tr>
+                                        <?php 
+                                            $count = count($order_id)-1;
+                                            for ($x=0; $x < $count; $x++) { 
+                                        ?>
                                         <td width="100px">
                                             <input class="form-control" type="number" id="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
                                         </td>
                                         <td width="250px">
-                                          <input type="text" class="form-control" id="supply" name="neym[]" value="<?php print_r($item_desc[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            <input type="text" class="form-control" id="supply" name="neym[]" value="<?php print_r($item_desc[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                         </td>
 
                                         <td class="hidden">
-                                        <input type="hidden" class="form-control hidden" id="status" name="status" value="<?php print_r($status[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                            <input type="hidden" class="form-control hidden" id="status" name="status" value="<?php print_r($status[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                         </td>
 
                                     </tr>
                                     <?php 
-                                        
+                                     }   
                                     }?>
                                 </table>
                             </div>

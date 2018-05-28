@@ -176,10 +176,8 @@ if(isset($_REQUEST['id'])){
                                             <input type="number" class="form-control" id="qtyIssued" name="qtyIssued" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php print_r($qty_ordered[$zero]);?>" required>
                                         <?php } else { ?>
                                             <center>
-                                                <!-- <form class="form-horizontal" method="post">
-                                                    <input type="button" id="porder" class="btn btn-success" value="Order" onclick="document.location='addPurchases'">
-                                                </form> -->
-                                                <button type="button" id="porder" name="porder" class="btn btn-success btn-xs" data-toggle="modal" data-target="#porderModal" data-id="<?php print_r($order_id[$zero]);?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button>
+                                                <input type="number" class="form-control" id="qtyIssued" name="qtyIssued" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php print_r($qty_ordered[$zero]);?>" readonly>
+                                                <!-- <button type="button" id="porder" name="porder" class="btn btn-success btn-xs" data-toggle="modal" data-target="#porderModal" data-id="<?php //print_r($order_id[$zero]);?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button> -->
                                             </center>
                                         <?php } ?>
                                         
@@ -211,7 +209,13 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
+                <?php if($per_supplyQuantity < $per_quantityStock){ ?>
+                    <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
+                <?php }else { ?>
+                    <button type="button" id="porder" name="porder" class="btn btn-success" data-toggle="modal" data-target="#porderModal" data-id="<?php echo $id;?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button>
+                    <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
+                <?php } ?>
+                
             </div>
         </div>
     </form>
