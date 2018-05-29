@@ -72,4 +72,7 @@ class Purchases extends CI_Controller {
 	public function updatePurchases(){
 		$this->load->view('BusinessManager/update_purchase');
 	}
+    public function addUser2(){
+		$this->load->view('BusinessManager/php/flagrange');
+	}
 }
