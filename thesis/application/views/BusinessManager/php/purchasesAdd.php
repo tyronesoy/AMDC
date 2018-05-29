@@ -4,15 +4,16 @@
     $order_id = uniqid();
     $random = mt_rand();
 
-  $sql = "INSERT INTO purchase_order_bm (purchase_order_uniq_id, purchase_order_created_date, purchase_order_name, po_key) VALUES (:purchase_order_uniq_id, :purchase_order_created_date, :purchase_order_name,  :po_key)";  
+  $sql = "INSERT INTO purchase_order_bm (purchase_order_uniq_id, purchase_order_created_date, purchase_order_name, po_key) 
+                                VALUES (:purchase_order_uniq_id, :purchase_order_created_date, :purchase_order_name, :po_key)";  
 
   $statement2 = $connect->prepare($sql);
   $statement2->execute(
    array(
     ':purchase_order_uniq_id'   => $order_id,
-    ':po_key'     => $random,
+    ':purchase_order_created_date' => $_POST["orDate"],
     ':purchase_order_name' => $_POST["custName"],
-    ':purchase_order_created_date' => $_POST["orDate"]
+    ':po_key'     => $random
    )
   );
  

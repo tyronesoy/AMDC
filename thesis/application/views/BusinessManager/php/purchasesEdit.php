@@ -1,3 +1,4 @@
+ <link rel="stylesheet" href="../assets/orderedit/bootstrap.min.css" />
 <?php
 /**
  for display full info. and edit data
@@ -76,7 +77,7 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-<form class="form-horizontal" method="post">
+<form id="plus_name" name="plus_name" method="post">
     <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
@@ -162,74 +163,37 @@ if(isset($_REQUEST['id'])){
                     </div>
                   </div>
                 <?php
-                $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id and order_quantity != 0";
+                $sql="SELECT * FROM purchase_orders JOIN purchase_order_bm USING(purchase_order_uniq_id) WHERE purchase_order_id = $id AND order_quantity != 0";
                 $result = $con->query($sql);
-
-                  $arrayPoId = '';
-                  $arrayDesc = '';
-                  $arrayUnit = '';
-                  $arrayQuantity = '';   
-                  $arrayQuantityDelivered = '';
-                  $arraySupplier = ''; 
-                  $zero = 0;    
                 ?>
-
                   <div class="row">                 
                 <div class="table-responsive">
                   <span id="error"></span>
-                    <table class="table table-bordered" id="item_table">
+                    <table class="table table-bordered" id="dynamic">
                     <tr>
+                      <th>ID</th>
                       <th>Item Description</th>
                       <th>Quantity</th>
                      </tr>
                      <?php if($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) { 
-
-                           $arrayPoId .= $row['po_id'].', ';
-                           $arrayDesc .= $row['description'].', ';
-                           $arrayUnit .= $row['order_unit'].', ';
-                           $arrayQuantity .= $row['order_quantity'].', ';   
-                           $arrayQuantityDelivered .= $row['quantity_delivered'].', ';
-                           $arraySupplier .= $row['supplier'].', ';
-                           
-                           $poid = explode(", ", $arrayPoId);
-                           $desc = explode(", ", $arrayDesc);
-                           $unit = explode(", ", $arrayUnit);
-                           $quantity = explode(", ", $arrayQuantity);
-                           $quantityDelivered = explode(", ", $arrayQuantityDelivered);
-                           $supplier = explode(", ", $arraySupplier);
-                         }
-
                           ?>
                      <tr>
-                     <?php 
-                      $countpoid = count($poid)-1;
-                       for($x=0; $x < $countpoid; $x++){
-                                 ?>
-                        <td class="hidden">
-                          <input class="form-control hidden" id="txtpoid<?php echo $x; ?>" name="txtpoid<?php echo $x; ?>" value="<?php print_r($poid[$zero]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                        <td width="15pxc">
+                          <input class="form-control" id="txtpoid[]" name="txtpoid[]" value="<?php echo $row["po_id"]; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                          </td>
 
                         <td width="200">
-                          <select class="form-control select2 inventory_order_supply_name" id="txtdesc<?php echo $x; ?>" name="txtdesc<?php echo $x; ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
-                            <option value="<?php print_r($desc[$zero]);?>"><?php print_r($desc[$zero]);?></option>
+                          <select class="form-control select2" id="neym[]" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                            <option><?php echo $row["description"]; ?></option>
                             <?php echo supply_dropdown($connect);?>
                           </select>
                         </td>
 
-                        <td width="100"><input type="number" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]);?>" min="0"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" ></td>
-
-                        <td class="hidden" width="250"><input class="form-control hidden" id="txtsupplier<?php echo $x; ?>" name="txtsupplier<?php echo $x; ?>" value="<?php print_r($supplier[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                         </td>
-
-                         
-
+                        <td width="100"><input type="number" class="form-control" id="number[]" name="number[]" value="<?php echo $row["order_quantity"]; ?>" min="0"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" ></td>
                       </tr>
 
-                   <?php } ?>
-                                            <!-- end index 0 -->
-
-                    <?php 
+                   <?php } 
                        }       
                       ?>
                      </table>
@@ -237,7 +201,7 @@ if(isset($_REQUEST['id'])){
                   </div>
                   <div class="modal-footer">
                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                   <button type="submit" class="btn btn-primary" name="btnEdit"><i class="fa fa-edit"></i> Update</button>
+                   <button type="submit" class="btn btn-primary" name="purchEdit" id="purchEdit"><i class="fa fa-edit"></i> Update</button>
                 </div>
               </div>
               <!-- /.modal-content -->
@@ -250,3 +214,49 @@ if(isset($_REQUEST['id'])){
   }//end if
 
 ?>
+
+<!-- <script>
+$(document).ready(function(){
+  var postURL = "purchases/editPurchases";
+  // $('#dynamic');
+  // var supplyDrop = <?php // echo(json_encode(supply_dropdown($connect))); ?>;
+  // // var unitDrop = <?php // echo(json_encode(unit_measure($connect))); ?>;
+  // $('#plus').click(function(){
+  //   if (i < 10){
+  //     i++;
+  //     // document.getElementById('row'+i+'').setAttribute("class", " ");
+  //     $('#dynamic').append('<tr id="row'+i+'"></td> <td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td><td><input type="text" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
+  //   }
+
+  });
+  
+  // $(document).on('click', '.btn_remove', function(){
+  //   var button_id = $(this).attr("id"); 
+  //   document.getElementById('row'+button_id+'').setAttribute("class", "hidden");
+  //   i--;
+  //   // $('#row'+button_id+'').remove();
+  // });
+
+  // $(document).on('click', '.btn_remove', function(){
+  //       var button_id = $(this).attr("id"); 
+  //       $('#row'+button_id+'').remove();
+  //   });
+  
+  $('#submit').click(function(){    
+    $.ajax({
+      url: postURL,
+      method:"POST",
+      data:$('#plus_name').serialize(),
+      type: 'json',
+      success:function(data)
+      {
+          i=1;
+                  $('.dynamic-added').remove();
+                  $('#plus_name')[0].reset();
+            alert('Record Inserted Successfully.');
+      }
+    });
+  });
+  
+});
+</script> -->
