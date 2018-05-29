@@ -687,6 +687,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
               <table style="float:right;">
                     <tr>
+                    <button  type="submit" class="btn btn-default btn-flat" style="margin-left:20px;" data-toggle="modal" data-target="#printrep">Generate Report</button>
                       <th>
                         <a href="issueOrderSupplies">
                           <button type="submit" class="btn btn-primary btn-block btn-warning"><i class="fa fa-retweet"></i> Issue Supplies</button>
@@ -767,6 +768,85 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </section>
     <!-- /.content -->
   </div>
+<div id="printThis">
+<div class="modal fade" id="printrep">
+<form name="form42" id="user_form" method="post" action="purchases/addUser2">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-md-2">
+                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Departments Order Report</b></h4></center>
+                                            </div>
+                                      </div>
+                    <div class="box-body">
+
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $date = date("Y/m/d");
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name";
+                  $result = $conn->query($sql);    
+                ?>
+            <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                  <th>Supervisor</th>
+                  <th>Order Date</th>
+                  <th>Department</th>
+                  <th>Item Description</th>
+                  <th>Quantity</th>    
+              </tr>
+            </thead>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) {
+                    $supname = $row['inventory_order_name'];
+                    $iodate = $row['inventory_order_created_date'];
+                    $status = $row['inventory_order_status'];
+                    $desc = $row['supply_name'];
+                    $quant = $row['quantity'];
+                ?>
+                    <tr id="row0">
+                      <td><?php echo $supname; ?></td>
+                      <td><?php echo $iodate; ?></td>
+                      <td><?php echo $status; ?></td>
+                      <td><?php echo $desc; ?></td> 
+                      <td><?php echo $quant; ?></td> 
+                      </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </table>
+        </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button id="btnPrint" type="button" class="btn btn-success" style="float:right;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </form> 
+        </div>
+    </div>
   <!-- /.content-wrapper -->
  <footer class="main-footer">
     <div class="pull-right hidden-xs">
@@ -1043,6 +1123,52 @@ function onUserInactivity() {
 
 </body>
 </html>
+
+<script>
+document.getElementById("btnPrint").onclick = function () {
+printElement(document.getElementById("printThis"));
+
+window.print();
+}
+
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    
+    $printSection.appendChild(domClone);
+}
+</script>
+
+<style>
+@media screen {
+  #printSection {
+      display: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility:hidden;
+  }
+  #printSection, #printSection * {
+    visibility:visible;
+  }
+  #printSection {
+    position:absolute;
+    left:0;
+    top:0;
+  }
+}
+</style>
 
 <?php
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');

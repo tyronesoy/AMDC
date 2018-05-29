@@ -690,6 +690,7 @@ function unit_measure($connect)
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                 <table style="float:right;">
                     <tr>
+                        <button  type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#printrep">Generate Report</button>
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Purchase Order</i></button>
             
                     <form id="add_name" name="add_name">
@@ -1085,6 +1086,82 @@ function unit_measure($connect)
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+<div id="printThis">
+<div class="modal fade" id="printrep">
+<form name="form42" id="user_form" method="post" action="purchases/addUser2">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-md-2">
+                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Purchases Report</b></h4></center>
+                                            </div>
+                                      </div>
+                    <div class="box-body">
+
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $date = date("Y/m/d");
+                  $sql = "SELECT * FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != ''";
+                  $result = $conn->query($sql);    
+                ?>
+            <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                  <th>Purchase Order Date</th>
+                  <th>Status</th>
+                  <th>Description</th>
+                  <th>Quantity</th>    
+              </tr>
+            </thead>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) {
+                    $podate = $row['order_date']; 
+                    $status = $row['purchase_order_status'];
+                    $desc = $row['description'];
+                    $quant = $row['order_quantity'];
+                ?>
+                    <tr id="row0">
+                      <td><?php echo $podate; ?></td>
+                      <td><?php echo $status; ?></td>
+                      <td><?php echo $desc; ?></td>
+                      <td><?php echo $quant; ?></td>       
+                      </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </table>
+        </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button id="btnPrint" type="button" class="btn btn-success" style="float:right;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </form> 
+        </div>
+    </div>
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
@@ -1488,6 +1565,85 @@ if(isset($_POST['btnUpdate'])){
             });
         });
 </script>
+        
+<script>
+$(document).on('click','#getAdd',function(e){
+    e.preventDefault();
+    var per_id=$(this).data('id');
+    //alert(per_id);
+    $('#content-data').html('');
+    $.ajax({
+        url:'purchases/addUser2',
+        type:'POST',
+        data:'id='+per_id,
+        dataType:'html'
+    }).done(function(data){
+        $('#content-data').html('');
+        $('#content-data').html(data);
+    }).final(function(){
+        $('#content-data').html('<p>Error</p>');
+    });
+});
+</script>
+        
+<!--
+<script>
+ function printcontent(el){
+     var restorepage = document.body.innerHTML;
+     //var iframe2 = document.getElementById('getView').click().innerHTML;
+     var printcontent = document.getElementById(el).click().innerHTML;
+     document.body.innerHTML = printcontent;
+     window.print();
+     document.body.innerHTML = restorepage;
+ }
+</script>
+-->
+        
+<script>
+document.getElementById("btnPrint").onclick = function () {
+printElement(document.getElementById("printThis"));
+
+window.print();
+}
+
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    
+    $printSection.appendChild(domClone);
+}
+</script>
+
+<style>
+@media screen {
+  #printSection {
+      display: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility:hidden;
+  }
+  #printSection, #printSection * {
+    visibility:visible;
+  }
+  #printSection {
+    position:absolute;
+    left:0;
+    top:0;
+  }
+}
+</style>
     
 </body>
 </html>
