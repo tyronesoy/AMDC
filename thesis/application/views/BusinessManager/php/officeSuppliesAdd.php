@@ -4,15 +4,18 @@
                                 // OFFICE SUPPLY
   //CREATE or ADD OFFICE SUPPLY
   if (isset($_POST['addOffSupply'])) {
-      $sql = $connection->prepare("INSERT INTO supplies (supply_description, brand_name, suppliers_id, quantity_in_stock, unit, unit_price, supply_type, soft_deleted) VALUES (?, ?, ?, ?, ?, ?, 'Office','N')");  
+      $sql = $connection->prepare("INSERT INTO supplies (supply_description, brand_name, suppliers_id, quantity_in_stock, unit, unit_price, supply_type, soft_deleted, category, lot_no, item_name) VALUES (?, ?, ?, ?, ?, ?, 'Office','N', ?, ?, ?)");  
       $description=$_POST['Description'];
       $brandName= $_POST['brandname'];
       $supplier = $_POST['supplier'];
       $quantity = $_POST['Quantity'];
-      $unit= $_POST['Unit'];
-      $priceUnit= $_POST['priceUnit'];
+      $unit = $_POST['Unit'];
+      $priceUnit = $_POST['priceUnit'];
+      $category = $_POST['category'];
+      $lot_no = $_POST['lot_no'];
+      $item_name = $_POST['item_name'];
   
-      $sql->bind_param("ssssss", $description, $brandName, $supplier, $quantity, $unit, $priceUnit);
+      $sql->bind_param("sssssssss", $description, $brandName, $supplier, $quantity, $unit, $priceUnit, $category, $lot_no, $item_name);
       if($sql->execute()) {
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
