@@ -77,7 +77,7 @@ if(isset($_REQUEST['id'])){
                                             <div class="col-md-6">
                                                     <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Lot Number</label>
-                                                    <input type="text" class="form-control" id="txtlotNo" name="txtlotNo" value="<?php echo $per_lotNo;?>" readonly>
+                                                    <input type="text" class="form-control" id="txtlotNo"  maxlength="12" name="txtlotNo" value="<?php echo $per_lotNo;?>" readonly>
                                                 </div>
                                               </div>
                                                 

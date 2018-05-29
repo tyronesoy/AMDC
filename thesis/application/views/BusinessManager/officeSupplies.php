@@ -792,7 +792,7 @@ function category($connect)
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Lot Number</label>
-                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" required />
+                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" maxlength="12" required />
                                                 </div>
                                               </div>
                                                 

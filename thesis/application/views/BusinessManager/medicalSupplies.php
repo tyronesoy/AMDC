@@ -768,7 +768,7 @@ function category($connect)
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Lot Number</label>
-                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" required />
+                                                    <input type="text" class="form-control" id="lot_no"name="lot_no"  maxlength="12" required />
                                                 </div>
                                               </div>
                                                 
@@ -938,6 +938,7 @@ function category($connect)
             </div>
               
       <div class="box-body">
+          
         <table id="example" class="table table-bordered table-striped" style="width:100%">
           <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
@@ -960,7 +961,16 @@ function category($connect)
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
-               <th>Category</th>
+               <th>
+                <select name="category" id="category" class="form-control">
+         <option value="">Category</option>
+         <?php 
+         while($row = mysqli_fetch_array($result))
+         {
+          echo '<option value="'.$row["category"].'">'.$row["category"].'</option>';
+         }
+         ?>
+                   </select></th>
                 <th>For Department</th>
                   <th> Action</th> 
             </tr>
@@ -1470,3 +1480,43 @@ if(isset($_POST['medDelete'])){
                 });
             });
         </script>
+
+<script type="text/javascript" language="javascript" >
+$(document).ready(function(){
+ 
+ load_data();
+
+ function load_data(is_category)
+ {
+  var dataTable = $('#example').DataTable({
+   "processing":true,
+   "serverSide":true,
+   "order":[],
+   "ajax":{
+    url:"fetch.php",
+    type:"POST",
+    data:{is_category:is_category}
+   },
+   "columnDefs":[
+    {
+     "targets":[7],
+     "orderable":false,
+    },
+   ],
+  });
+ }
+
+ $(document).on('change', '#category', function(){
+  var category = $(this).val();
+  $('#example').DataTable().destroy();
+  if(category != '')
+  {
+   load_data(category);
+  }
+  else
+  {
+   load_data();
+  }
+ });
+});
+</script>
