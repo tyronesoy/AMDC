@@ -31,6 +31,20 @@ function supplier($connect)
  return $output;
 }
 
+function category($connect)
+{ 
+ $output = '';
+ $query = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL  ORDER BY category ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $output .= '<option value="'.$row["category"].'">'.$row["category"].'</option>';
+ }
+ return $output;
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -741,29 +755,75 @@ function supplier($connect)
                                               <center><h4><b>Add New Item</b></h4></center>
                                             </div>
                                         <div class="box-body">
+                                             <div class="form-group" style="width:100%;">
+                                                  <label for="exampleInputEmail1">Item Name</label>
+                                                  <input type="text" class="form-control" id="item_name" name="item_name" required />
+                                                </div>
                                             <div class="form-group" style="width:100%;">
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
-                                              <div class="row">
-                                              <div class="col-md-6">
+                                            
+                                             <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Lot Number</label>
+                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" required />
+                                                </div>
+                                              </div>
+                                                
+                                            <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Brand Name</label>
-                                                  <input type="text" class="form-control" id="brandname" min="0" name="brandname" required />
+                                                  <input type="text" class="form-control" id="brandname"name="brandname" required />
                                                 
                                               </div>
                                               </div>
-
-                                              <div class="col-md-6">
+                                            </div>
+                                            
+                                            
+                                            <div class="row">
+                                            <div class="col-md-6">
                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Supplier</label>
-                                                  <select class="form-control select2" name="supplier" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Unit' if not exists </label>
+                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Unit</label>
+                                                  <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                                     <option value=""></option>
-                                                    <?php echo supplier($connect);?>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                           
+                                              </div>
+                                              </div>
+                                            </div>
+                                            
+                                            
+                                            <div class="row">
+                                                  <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Category' if not exists </label>
+                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
+                                                </div>
+                                            </div>
+                                                    
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Category</label>
+                                                  <select id="cat" class="form-control select2" name="category" required style="width: 100%;">
+                                                    <option value=""></option>
+                                                    <?php echo category($connect);?>
                                                   </select>
                                               </div>
                                               </div>
-                                              </div>
+                                            </div>
+                                            
                                               <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
@@ -773,27 +833,16 @@ function supplier($connect)
                                               </div>
                                               </div>
 
-                                              
-                                           <div class="col-md-6">
-                                              <div class="form-group">
-                                                 <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
- 
-                                                  <label for="exampleInputEmail1">Unit</label>
-                                                  <select id="opt" class="form-control select2" name="Unit">
-                                                    <option value=""></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                              </div>
-                                            </div>
-
-                                              <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit Price</label>
                                                   <input type="number" class="form-control" id="priceUnit" min="0" name="priceUnit" required />
                                                 </div>
                                               </div>
-                                              <!-- Date and Time -->
+                                                  </div>
+                                            
+                                               <div class="row">
+                                            
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Expiration Date</label>
@@ -822,10 +871,10 @@ function supplier($connect)
                                                   </div>
                                                   </div>
 
-                                                   <div class="row">
+                                                  
                                                     <div class="col-md-6">
                                                      <div class="form-group">
-                                                      <label for="exampleInputEmail1">Department</label>
+                                                      <label for="exampleInputEmail1">For Department</label>
                                                        <select name = "dep_name" class="form-control">
                                                        <option value="">Select a Department</option>
                                                         <?php
@@ -844,9 +893,26 @@ function supplier($connect)
                                                      </div>
                                                    </div>
                                                  </div>
-
-
-
+                                            
+                                            <div class="row">
+                                                            
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Reorder Level</label>
+                                                  <input type="number" class="form-control" id="reorder_level" name="reorder_level" min="0"  />
+                                                
+                                              </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Supplier</label>
+                                                  <select class="form-control select2" name="supplier" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value=""></option>
+                                                    <?php echo supplier($connect);?>
+                                                  </select>
+                                              </div>
+                                              </div>
+                                            </div>
                                                   </div>
 
                                         </div>
@@ -878,22 +944,24 @@ function supplier($connect)
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Medical' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
-            <col width="auto">
-            <col width="10%">
-            <col width="auto">
-            <col width="5%">
-            <col width="auto">
+              <col width="auto">
+            <col width="50%">
+            <col width="50%">
+            <col width="50%">
             <col width="8%">
             <col width="22.5%">
           <thead>
             <tr>
                   <th style="display: none;"> ID </th>                
-                  <th>Department</th>
+                <th>Lot Number</th>
                   <th>Expiration Date</th> 
+                 <th>Item Name</th>
                   <th>Description</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
+               <th>Category</th>
+                <th>For Department</th>
                   <th> Action</th> 
             </tr>
         </thead>
@@ -902,12 +970,15 @@ function supplier($connect)
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <td style="display: none;"><?php echo $row["supply_id"];?></td>
-                      <td><?php echo $row["dep_name"]; ?></td>
+                      <td><?php echo $row["lot_no"]; ?></td>
                       <td><?php echo $row["expiration_date"]; ?></td>
+                        <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
+                        <td><?php echo $row["category"]; ?></td>
+                        <td><?php echo $row["dep_name"]; ?></td>
                       <td>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
@@ -929,12 +1000,15 @@ function supplier($connect)
         <tfoot>
            <tr>
                   <th style="display: none;">ID</th>
-                  <th>Department</th>
+                  <th>Lot Number</th>
                   <th>Expiration Date</th> 
+                 <th>Item Name</th>
                   <th>Description</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
+               <th>Category</th>
+                <th>For Department</th>
                   <th> Action</th> 
             </tr> 
         </tfoot>
@@ -1238,13 +1312,24 @@ if(isset($_POST['medEdit'])){
   $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    
+    $new_itemName=mysqli_real_escape_string($conn,$_POST['txtItemName']);
+   
+    $new_lotNo=mysqli_real_escape_string($conn,$_POST['txtlotNo']);
+    
+    $new_brandName=mysqli_real_escape_string($conn,$_POST['txtbrandName']);
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['unitPrice']);
+    
+     $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
     $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
     $new_supplyStock=mysqli_real_escape_string($conn,$_POST['addQty']);
+    
     $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
 
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+   $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
+    
+    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName', supply_description='$new_supplyDescription', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', unit='$new_supplyUnit', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
 
@@ -1357,6 +1442,31 @@ if(isset($_POST['medDelete'])){
  
                     //select the new option (particular value)
                     $('#opt option[value="' + newopt + '"]').prop('selected', true);
+                });
+            });
+        </script>
+
+     <script>
+            $(function () {
+                $('#addCat').click(function () {
+                    var newCat = $('#newCat').val();
+                    if (newCat == '') {
+                        alert('Please enter something!');
+                        return;
+                    }
+ 
+                    //check if the option value is already in the select box
+                    $('#cat option').each(function (index) {
+                        if ($(this).val() == newCat) {
+                            alert('Duplicate option, Please enter new!');
+                        }
+                    })
+ 
+                    //add the new option to the select box
+                    $('#cat').append('<option value=' + newCat + '>' + newCat + '</option>');
+ 
+                    //select the new option (particular value)
+                    $('#cat option[value="' + newCat + '"]').prop('selected', true);
                 });
             });
         </script>

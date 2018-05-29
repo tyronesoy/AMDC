@@ -804,27 +804,7 @@ function category($connect)
                                               </div>
                                               </div>
                                             </div>
-                                            
-                                            <div class="row">
-                                                  <div class="col-md-6">
-                                              <div class="form-group">
-                                                    
-                                                  <label for="exampleInputEmail1">Add new 'Category' if not exists </label>
-                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
-                                                </div>
-                                            </div>
-                                                    
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Category</label>
-                                                  <select id="cat" class="form-control select2" name="category" required style="width: 100%;">
-                                                    <option value=""></option>
-                                                    <?php echo category($connect);?>
-                                                  </select>
-                                              </div>
-                                              </div>
-                                            </div>
-                                            
+                                   
                                             <div class="row">
                                             <div class="col-md-6">
                                               <div class="form-group">
@@ -846,6 +826,25 @@ function category($connect)
                                               </div>
                                             </div>
                                             
+                                       <div class="row">
+                                                  <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Category' if not exists </label>
+                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
+                                                </div>
+                                            </div>
+                                                    
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Category</label>
+                                                  <select id="cat" class="form-control select2" name="category" required style="width: 100%;">
+                                                    <option value=""></option>
+                                                    <?php echo category($connect);?>
+                                                  </select>
+                                              </div>
+                                              </div>
+                                            </div>
                                         <div class="row">
                                         <div class="col-md-6">
                                               <div class="form-group">
@@ -861,7 +860,15 @@ function category($connect)
                                                 </div>
                                               </div>
                                         </div>
+                                            
                                              <div class="row">
+                                                  <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Reorder Level</label>
+                                                  <input type="number" class="form-control" id="reorder_level" name="reorder_level" min="0"  />
+                                                
+                                              </div>
+                                              </div>
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
@@ -1254,17 +1261,24 @@ if(isset($_POST['offAdd'])){
 //EDIT FOR OFFICE SUPPLIES
 if(isset($_POST['offEdit'])){
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-     $new_itemName=mysqli_real_escape_string($conn,$_POST['txtItemName']);
+    
+    $new_itemName=mysqli_real_escape_string($conn,$_POST['txtItemName']);
     
     $new_lotNo=mysqli_real_escape_string($conn,$_POST['txtlotNo']);
     
     $new_brandName=mysqli_real_escape_string($conn,$_POST['txtbrandName']);
+    
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
+    
     $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtAddQty']);
+    
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
+    
     $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
 
      $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
+    
+    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
     
     $sqlupdate="UPDATE supplies SET item_name = '$new_itemName',supply_description='$new_supplyDescription', unit='$new_supplyUnit', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
