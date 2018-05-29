@@ -878,6 +878,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Reorder Level</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -891,6 +892,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <td><?php echo $row["quantity_in_stock"]; ?></td>
                     <td><?php echo $row["unit"]; ?></td>
                     <td><?php echo $row["reorder_level"]; ?></td>
+                    <td>
+                      <input class="hidden" type="text" name="reorderSupp" id="reorderSupp" hidden value="<?php echo $row["supply_id"]; ?>">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reorderModal"><i class="fa fa-repeat"></i>Reorder </button>
+                    </td>
                     </tr>
                   <?php 
                       }
@@ -906,6 +911,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Reorder Level</th>
+                  <th>Action</th>
                 </tr> 
                 </tfoot>
               </table>
@@ -918,7 +924,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $sql = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
-                  $result = $conn->query($sql);    
+                  $result = $conn->query($sql);   
+                  $return_id = $row[0];
                 ?>
                 <thead>
                 <tr>
@@ -953,8 +960,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <td>
                           
                         
-                           <input class="hidden" type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
-                          <button type="submit" class="btn btn-xs btn-success">Returned </button>
+                           <input class="hidden" type="text" name="returnSupp" id="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
+                          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#returnModal"><i class="fa fa-undo"></i>Returned </button>
                         
                       </td>
                       </form> 
@@ -1080,7 +1087,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </table>
           </div>
         </div>
-        
 
         <section class="content">
           <div class="row">
@@ -1249,6 +1255,264 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       <!-- BAR CHARTS -->
       
   </div>
+      <div class="modal fade" id="reorderModal">
+        <form name="form1" id="user_form" method="post">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <div class="col-md-2">
+                  <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                </div>
+                <div class="col-md-8">
+                                                
+                  <div class="margin">
+                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                    <center><h6>Philippines</h6></center>
+                  </div>
+                </div>
+              </div>
+              <!-- end of modal header -->
+              <div class="modal-body">
+                <div class="box-header">
+                  <div class="margin">
+                    <center><h4><b>Reorder Supplies</b></h4></center>
+                  </div>
+                </div>
+              <div class="box-body">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $date = date("Y/m/d");
+                  $sql = "SELECT * FROM";
+                  $result = $conn->query($sql);    
+                ?>
+                <?php 
+                  if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) { ?>
+                      <div class="row hidden">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="col-sm-4 control-label hidden" for="txtid">Purchase Order ID</label>
+                            <div class="col-sm-6 hidden">
+                              <input type="hidden" class="form-control hidden" id="txtid" name="txtid" hidden value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">      
+                        <div class="col-md-5">
+                          <div class="form-group">
+                          <label for="exampleInputEmail1">Name</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                              </div>
+                              <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Supplier</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-group"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtname" name="txtname" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <label>Purchase Order Date</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <label for="txtstatus">Status</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-toggle-on"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <label>Delivery Date</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtddate" name="txtddate" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <?php }
+                    } ?>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-success" name="btnReturn"><i class="fa fa-undo"></i> Return</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+        <!-- /.modal-dialog -->
+        </form> 
+      </div>
+
+      <div class="modal fade" id="returnModal">
+        <form name="form1" id="user_form" method="post">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <div class="col-md-2">
+                  <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                </div>
+                <div class="col-md-8">
+                                                
+                  <div class="margin">
+                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                    <center><h6>Philippines</h6></center>
+                  </div>
+                </div>
+              </div>
+              <!-- end of modal header -->
+              <div class="modal-body">
+                <div class="box-header">
+                  <div class="margin">
+                    <center><h4><b>Returns</b></h4></center>
+                  </div>
+                </div>
+              <div class="box-body">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $date = date("Y/m/d");
+                  $sql = "SELECT * FROM";
+                  $result = $conn->query($sql);    
+                ?>
+                <?php 
+                  if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) { ?>
+                      <div class="row hidden">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="col-sm-4 control-label hidden" for="txtid">Purchase Order ID</label>
+                            <div class="col-sm-6 hidden">
+                              <input type="hidden" class="form-control hidden" id="txtid" name="txtid" hidden value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">      
+                        <div class="col-md-5">
+                          <div class="form-group">
+                          <label for="exampleInputEmail1">Name</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                              </div>
+                              <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Supplier</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-group"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtname" name="txtname" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <label>Purchase Order Date</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <label for="txtstatus">Status</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-toggle-on"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <label>Delivery Date</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtddate" name="txtddate" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <?php }
+                    } ?>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-success" name="btnReturn"><i class="fa fa-undo"></i> Return</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+        <!-- /.modal-dialog -->
+        </form> 
+      </div>
   <!-- /.content-wrapper -->
    <footer class="main-footer">
     <div class="pull-right hidden-xs">
