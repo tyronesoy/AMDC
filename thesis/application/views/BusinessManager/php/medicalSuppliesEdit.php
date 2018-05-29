@@ -12,6 +12,7 @@ if(isset($_REQUEST['id'])){
         $per_id=$row[0];
       //  $per_supplierName=$row[1];
         $per_supplyDescription=$row[2];
+        $per_brandName=$row[3];
         $per_supplyUnit=$row[4];
         $per_supplyQuantityInStock=$row[5];
         $per_supplyUnitPrice=$row[6];
@@ -19,12 +20,16 @@ if(isset($_REQUEST['id'])){
         $per_supplyExpirationDate=$row[9];
         $per_supplyGoodCondition=$row[10];
         $per_supplyDamaged=$row[11];
+        $per_itemName = $row[24];
+        $per_category = $row[22];
+        $per_deptName = $row[20];
+        $per_lotNo = $row[23];
 
     }//end while
 ?>
        <div class="row">
           <div class="col-xs-12">
-              <div class="box">
+     
             <div class="box-header">
     <form class="form-horizontal" method="post" action ="" >
         <div class="modal-content">
@@ -53,24 +58,49 @@ if(isset($_REQUEST['id'])){
                     <table style="float:right;">
                     <tr>
                     <div class="box-body">
-                             <div class="form-group">
+                        
+                             <div class="form-group" style="display:none;">
                             <label for="txtid">Supply ID</label>
                                 <input class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
                             </div>
-
-                            <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group" style="width:100%;">
+                        
+                              <div class="form-group" >
+                            <label for="txtItemName">Item Name</label>
+                                <input type="text" class="form-control" id="txtItemName" name="txtItemName" value="<?php echo $per_itemName;?>" >
+                            </div>
+                        
+                          <div class="form-group">
                             <label for="txtsupplyDescription">Description</label>
-                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" readonly>
+                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" >
                             </div>
-                            </div>
-                                          <div class="col-md-6">
-                                                     <div class="form-group">
-                                                         <p>Add new unit if not exists <input type="text" id="newOpt"> <input type="button" value="Add New" id="addOpt" /></p>
+                                   <div class="row">
+                                            <div class="col-md-6">
+                                                    <div class="form-group" style="width:100%">
+                                                  <label for="exampleInputEmail1">Lot Number</label>
+                                                    <input type="text" class="form-control" id="txtlotNo" name="txtlotNo" value="<?php echo $per_lotNo;?>" readonly>
+                                                </div>
+                                              </div>
+                                                
+                                                    <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Brand Name</label>
+                                                      <input type="text" class="form-control" id="txtbrandName" name="txtbrandName" value="<?php echo $per_brandName;?>" >
+                                                
+                                              </div>
+                                              </div>
+                                            </div>
 
-                                                      <label for="exampleInputEmail1">Unit</label>
-                                                       <select id="OPT" name = "txtUnit" class="form-control select2">
+                                            <div class="row">
+                                            <div class="col-md-6">
+                                                        <div class="form-group" style="width:100%">
+                                                  <label for="exampleInputEmail1">Add new 'Unit' if not exists </label>
+                                                  <input class="form-control" type="text" id="newOpt"/><input type="button" value="Add Unit" id="addOpt" style="float: right;" />
+                                                </div>
+                                                </div>
+                                        <div class="col-md-6">
+                                               <div class="form-group">
+                                                  <label for="exampleInputEmail1">Unit</label><br>
+                                                       <select id="OPT" name="txtUnit" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_supplyUnit;?></option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
@@ -87,9 +117,40 @@ if(isset($_REQUEST['id'])){
                                                           ?>
                                                       </select>
                                                      </div>
-                                                   </div>                     
-                        </div>
+                                                   </div>  
+                                                </div>
+                        
+              
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                        <div class="form-group" style="width:100%">
+                                                  <label for="exampleInputEmail1">Add new 'Category' if not exists </label>
+                                                  <input class="form-control" type="text" id="newCAT"/><input type="button" value="Add Category" id="addCAT" style="float: right;" />
+                                                </div>
+                                                </div>
+     
+                                        <div class="col-md-6">
+                                               <div class="form-group">
+                                                  <label for="exampleInputEmail1">Category</label><br>
+                                                       <select id="CAT" name="txtCategory" class="form-control select2" style="width: 100%;">
+                                                       <option><?php echo $per_category;?></option>
+                                                        <?php
+                                                          $conn = mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                             $sql = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL  ORDER BY category ASC";
+                                                            $results = mysqli_query($conn, $sql);
 
+                                                            foreach($results as $txtCategory) { 
+                                                        ?>
+
+                                                        <option value="<?php echo $txtCategory["category"]; ?>" name="txtCategory"><?php echo $txtCategory["category"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>  
+                                                </div>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -118,7 +179,7 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-6">
                             <div class="form-group" >
                             <label for="unitPrice">Unit Price</label>
-                                <input type="number" class="form-control" id="unitPrice" name="unitPrice" min="1" value="<?php echo $per_supplyUnitPrice;?>">
+                                <input type="number" class="form-control" id="unitPrice" name="unitPrice" step=".01" min="1" value="<?php echo $per_supplyUnitPrice;?>">
                         </div>
                         </div>
                         </div>
@@ -137,11 +198,33 @@ if(isset($_REQUEST['id'])){
 
                         </div>
                         </div>
-
-                           
-
                         </div>
+                        
+                        <div class="row">
+                                     <div class="col-md-6" style="width:45%;">
+                                                     <div class="form-group">
+                                                      <label for="exampleInputEmail1">For Department</label>
+                                                       <select name = "dep_name" class="form-control">
+                                                           <option><?php echo $per_deptName;?></option>
+                                                           <option></option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio'";
+                                                            $results = mysqli_query($conn, $sql);
 
+                                                            foreach($results as $dep_name) { 
+                                                        ?>
+                                                        <option value="<?php echo $dep_name["department_name"]; ?>" name="dep_name"><?php echo $dep_name["department_name"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>
+                        </div>
+                        
+                        
                         </tr>
                         </table>
                 </form>
@@ -194,6 +277,31 @@ if(isset($_REQUEST['id'])){
  
                     //select the new option (particular value)
                     $('#OPT option[value="' + newOpt + '"]').prop('selected', true);
+                });
+            });
+        </script>
+                
+                           <script>
+            $(function () {
+                $('#addCAT').click(function () {
+                    var newCAT = $('#newCAT').val();
+                    if (newCAT == '') {
+                        alert('Please enter something!');
+                        return;
+                    }
+ 
+                    //check if the option value is already in the select box
+                    $('#CAT option').each(function (index) {
+                        if ($(this).val() == newCAT) {
+                            alert('Duplicate option, Please enter new!');
+                        }
+                    })
+ 
+                    //add the new option to the select box
+                    $('#CAT').append('<option value=' + newCAT + '>' + newCAT + '</option>');
+ 
+                    //select the new option (particular value)
+                    $('#CAT option[value="' + newCAT + '"]').prop('selected', true);
                 });
             });
         </script>

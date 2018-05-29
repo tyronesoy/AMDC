@@ -60,14 +60,14 @@ if(isset($_REQUEST['id'])){
                                 <input class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
                             </div>
 
-                            <div class="form-group" style="width:100%">
+                            <div class="form-group" >
                             <label for="txtItemName">Item Name</label>
-                                <input type="text" class="form-control" id="txtItemName" name="txtItemName" value="<?php echo $per_itemName;?>" readonly>
+                                <input type="text" class="form-control" id="txtItemName" name="txtItemName" value="<?php echo $per_itemName;?>" >
                             </div>
                         
-                            <div class="form-group" style="width:100%">
+                            <div class="form-group">
                             <label for="txtsupplyDescription">Description</label>
-                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" readonly>
+                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" >
                             </div>
                                   <div class="row">
                                             <div class="col-md-6">
@@ -173,7 +173,7 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-6">
                             <div class="form-group">
                             <label for="txtUnitPrice">Unit Price</label>
-                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" min="1" >
+                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" step=".01" value="<?php echo $per_supplyUnitPrice;?>" min="1" >
                         </div>
                         </div>
                         </div>

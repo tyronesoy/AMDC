@@ -878,6 +878,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Reorder Level</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -891,6 +892,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <td><?php echo $row["quantity_in_stock"]; ?></td>
                     <td><?php echo $row["unit"]; ?></td>
                     <td><?php echo $row["reorder_level"]; ?></td>
+                    <td>
+                      <input class="hidden" type="text" name="reorderSupp" id="reorderSupp" hidden value="<?php echo $row["supply_id"]; ?>">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reorderModal"><i class="fa fa-repeat"></i>Reorder </button>
+                    </td>
                     </tr>
                   <?php 
                       }
@@ -906,6 +911,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Reorder Level</th>
+                  <th>Action</th>
                 </tr> 
                 </tfoot>
               </table>
