@@ -975,80 +975,79 @@ $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting 
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnIssue'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
     $date=date("Y-m-d");
     $cust_name=mysqli_real_escape_string($con,$_POST['custName']);
     $new_uniqid=mysqli_real_escape_string($con,$_POST['txtuniqid']);
     $issue_name=mysqli_real_escape_string($con,$_POST['issueName']);
 
-    $new_issue0=mysqli_real_escape_string($con,$_POST['txtissued0']);
-    $new_quantity0=mysqli_real_escape_string($con,$_POST['txtquantity0']);
-    $new_supply0=mysqli_real_escape_string($con,$_POST['txtsupply0']);
+    $new_issue0=mysqli_real_escape_string($con,$_POST['qtyIssued0']);
+    $new_quantity0=mysqli_real_escape_string($con,$_POST['qtyOrdered0']);
+    $new_supply0=mysqli_real_escape_string($con,$_POST['qtyStock0']);
     $new_supid0=mysqli_real_escape_string($con,$_POST['txtsupid0']);
-    $subtract0=mysqli_real_escape_string($con,$_POST['txtsupply0']) - mysqli_real_escape_string($con,$_POST['txtissued0']);
+    $subtract0=mysqli_real_escape_string($con,$_POST['qtyStock0']) - mysqli_real_escape_string($con,$_POST['qtyIssued0']);
     $inv_supid0=mysqli_real_escape_string($con,$_POST['inventorysupid0']);
 
-    $new_issue1=mysqli_real_escape_string($con,$_POST['txtissued1']);
-    $new_quantity1=mysqli_real_escape_string($con,$_POST['txtquantity1']);
-    $new_supply1=mysqli_real_escape_string($con,$_POST['txtsupply1']);
+    $new_issue1=mysqli_real_escape_string($con,$_POST['qtyIssued1']);
+    $new_quantity1=mysqli_real_escape_string($con,$_POST['qtyOrdered1']);
+    $new_supply1=mysqli_real_escape_string($con,$_POST['qtyStock1']);
     $new_supid1=mysqli_real_escape_string($con,$_POST['txtsupid1']);
-    $subtract1=mysqli_real_escape_string($con,$_POST['txtsupply1']) - mysqli_real_escape_string($con,$_POST['txtissued1']);
+    $subtract1=mysqli_real_escape_string($con,$_POST['qtyStock1']) - mysqli_real_escape_string($con,$_POST['qtyIssued1']);
     $inv_supid1=mysqli_real_escape_string($con,$_POST['inventorysupid1']);
 
-    $new_issue2=mysqli_real_escape_string($con,$_POST['txtissued2']);
-    $new_quantity2=mysqli_real_escape_string($con,$_POST['txtquantity2']);
-    $new_supply2=mysqli_real_escape_string($con,$_POST['txtsupply2']);
+    $new_issue2=mysqli_real_escape_string($con,$_POST['qtyIssued2']);
+    $new_quantity2=mysqli_real_escape_string($con,$_POST['qtyOrdered2']);
+    $new_supply2=mysqli_real_escape_string($con,$_POST['qtyStock2']);
     $new_supid2=mysqli_real_escape_string($con,$_POST['txtsupid2']);
-    $subtract2=mysqli_real_escape_string($con,$_POST['txtsupply2']) - mysqli_real_escape_string($con,$_POST['txtissued2']);
+    $subtract2=mysqli_real_escape_string($con,$_POST['qtyStock2']) - mysqli_real_escape_string($con,$_POST['qtyIssued2']);
     $inv_supid2=mysqli_real_escape_string($con,$_POST['inventorysupid2']);
 
-    $new_issue3=mysqli_real_escape_string($con,$_POST['txtissued3']);
-    $new_quantity3=mysqli_real_escape_string($con,$_POST['txtquantity3']);
-    $new_supply3=mysqli_real_escape_string($con,$_POST['txtsupply3']);
+    $new_issue3=mysqli_real_escape_string($con,$_POST['qtyIssued3']);
+    $new_quantity3=mysqli_real_escape_string($con,$_POST['qtyOrdered3']);
+    $new_supply3=mysqli_real_escape_string($con,$_POST['qtyStock3']);
     $new_supid3=mysqli_real_escape_string($con,$_POST['txtsupid3']);
-    $subtract3=mysqli_real_escape_string($con,$_POST['txtsupply3']) - mysqli_real_escape_string($con,$_POST['txtissued3']);
+    $subtract3=mysqli_real_escape_string($con,$_POST['qtyStock3']) - mysqli_real_escape_string($con,$_POST['qtyIssued3']);
     $inv_supid3=mysqli_real_escape_string($con,$_POST['inventorysupid3']);
 
-    $new_issue4=mysqli_real_escape_string($con,$_POST['txtissued4']);
-    $new_quantity4=mysqli_real_escape_string($con,$_POST['txtquantity4']);
-    $new_supply4=mysqli_real_escape_string($con,$_POST['txtsupply4']);
+    $new_issue4=mysqli_real_escape_string($con,$_POST['qtyIssued4']);
+    $new_quantity4=mysqli_real_escape_string($con,$_POST['qtyOrdered4']);
+    $new_supply4=mysqli_real_escape_string($con,$_POST['qtyStock4']);
     $new_supid4=mysqli_real_escape_string($con,$_POST['txtsupid4']);
-    $subtract4=mysqli_real_escape_string($con,$_POST['txtsupply4']) - mysqli_real_escape_string($con,$_POST['txtissued4']);
+    $subtract4=mysqli_real_escape_string($con,$_POST['qtyStock4']) - mysqli_real_escape_string($con,$_POST['qtyIssued4']);
     $inv_supid4=mysqli_real_escape_string($con,$_POST['inventorysupid4']);
 
-    $new_issue5=mysqli_real_escape_string($con,$_POST['txtissued5']);
-    $new_quantity5=mysqli_real_escape_string($con,$_POST['txtquantity5']);
-    $new_supply5=mysqli_real_escape_string($con,$_POST['txtsupply5']);
+    $new_issue5=mysqli_real_escape_string($con,$_POST['qtyIssued5']);
+    $new_quantity5=mysqli_real_escape_string($con,$_POST['qtyOrdered5']);
+    $new_supply5=mysqli_real_escape_string($con,$_POST['qtyStock5']);
     $new_supid5=mysqli_real_escape_string($con,$_POST['txtsupid5']);
-    $subtract5=mysqli_real_escape_string($con,$_POST['txtsupply5']) - mysqli_real_escape_string($con,$_POST['txtissued5']);
+    $subtract5=mysqli_real_escape_string($con,$_POST['qtyStock5']) - mysqli_real_escape_string($con,$_POST['qtyIssued5']);
     $inv_supid5=mysqli_real_escape_string($con,$_POST['inventorysupid5']);
 
-    $new_issue6=mysqli_real_escape_string($con,$_POST['txtissued6']);
-    $new_quantity6=mysqli_real_escape_string($con,$_POST['txtquantity6']);
-    $new_supply6=mysqli_real_escape_string($con,$_POST['txtsupply6']);
+    $new_issue6=mysqli_real_escape_string($con,$_POST['qtyIssued6']);
+    $new_quantity6=mysqli_real_escape_string($con,$_POST['qtyOrdered6']);
+    $new_supply6=mysqli_real_escape_string($con,$_POST['qtyStock6']);
     $new_supid6=mysqli_real_escape_string($con,$_POST['txtsupid6']);
-    $subtract6=mysqli_real_escape_string($con,$_POST['txtsupply6']) - mysqli_real_escape_string($con,$_POST['txtissued6']);
+    $subtract6=mysqli_real_escape_string($con,$_POST['qtyStock6']) - mysqli_real_escape_string($con,$_POST['qtyIssued6']);
     $inv_supid6=mysqli_real_escape_string($con,$_POST['inventorysupid6']);
 
-    $new_issue7=mysqli_real_escape_string($con,$_POST['txtissued7']);
-    $new_quantity7=mysqli_real_escape_string($con,$_POST['txtquantity7']);
-    $new_supply7=mysqli_real_escape_string($con,$_POST['txtsupply7']);
+    $new_issue7=mysqli_real_escape_string($con,$_POST['qtyIssued7']);
+    $new_quantity7=mysqli_real_escape_string($con,$_POST['qtyOrdered7']);
+    $new_supply7=mysqli_real_escape_string($con,$_POST['qtyStock7']);
     $new_supid7=mysqli_real_escape_string($con,$_POST['txtsupid7']);
-    $subtract7=mysqli_real_escape_string($con,$_POST['txtsupply7']) - mysqli_real_escape_string($con,$_POST['txtissued7']);
+    $subtract7=mysqli_real_escape_string($con,$_POST['qtyStock7']) - mysqli_real_escape_string($con,$_POST['qtyIssued7']);
     $inv_supid7=mysqli_real_escape_string($con,$_POST['inventorysupid7']);
 
-    $new_issue8=mysqli_real_escape_string($con,$_POST['txtissued8']);
-    $new_quantity8=mysqli_real_escape_string($con,$_POST['txtquantity8']);
-    $new_supply8=mysqli_real_escape_string($con,$_POST['txtsupply8']);
+    $new_issue8=mysqli_real_escape_string($con,$_POST['qtyIssued8']);
+    $new_quantity8=mysqli_real_escape_string($con,$_POST['qtyOrdered8']);
+    $new_supply8=mysqli_real_escape_string($con,$_POST['qtyStock8']);
     $new_supid8=mysqli_real_escape_string($con,$_POST['txtsupid8']);
-    $subtract8=mysqli_real_escape_string($con,$_POST['txtsupply8']) - mysqli_real_escape_string($con,$_POST['txtissued8']);
+    $subtract8=mysqli_real_escape_string($con,$_POST['qtyStock8']) - mysqli_real_escape_string($con,$_POST['qtyIssued8']);
     $inv_supid8=mysqli_real_escape_string($con,$_POST['inventorysupid8']);
 
-    $new_issue9=mysqli_real_escape_string($con,$_POST['txtissued9']);
-    $new_quantity9=mysqli_real_escape_string($con,$_POST['txtquantity9']);
-    $new_supply9=mysqli_real_escape_string($con,$_POST['txtsupply9']);
+    $new_issue9=mysqli_real_escape_string($con,$_POST['qtyIssued9']);
+    $new_quantity9=mysqli_real_escape_string($con,$_POST['qtyOrdered9']);
+    $new_supply9=mysqli_real_escape_string($con,$_POST['qtyStock9']);
     $new_supid9=mysqli_real_escape_string($con,$_POST['txtsupid9']);
-    $subtract9=mysqli_real_escape_string($con,$_POST['txtsupply9']) - mysqli_real_escape_string($con,$_POST['txtissued9']);
+    $subtract9=mysqli_real_escape_string($con,$_POST['qtyStock9']) - mysqli_real_escape_string($con,$_POST['qtyIssued9']);
     $inv_supid9=mysqli_real_escape_string($con,$_POST['inventorysupid9']);
 
 
