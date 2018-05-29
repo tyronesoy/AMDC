@@ -207,9 +207,18 @@ $(document).ready(function(){
       i++;
       // document.getElementById('row'+i+'').setAttribute("class", " ");
       $('#dynamic').append('<tr id="row'+i+'"></td> <td><input type="text" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
+
+      $("select.select2").change(function () {
+    $("select.select2 option[value='" + $(this).data('index') + "']").prop('disabled', false);
+    $(this).data('index', this.value);
+    $("select.select2 option[value='" + this.value + "']:not([value=''])").prop('disabled', true);
+    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('disabled', false);
+  });
     }
 
   });
+
+
   
   // $(document).on('click', '.btn_remove', function(){
   //   var button_id = $(this).attr("id"); 
@@ -235,9 +244,19 @@ $(document).ready(function(){
                   $('.dynamic-added').remove();
                   $('#plus_name')[0].reset();
             alert('Record Inserted Successfully.');
+            location.reload();
       }
     });
   });
   
 });
+</script>
+
+<script>
+  $("select.select2").change(function () {
+    $("select.select2 option[value='" + $(this).data('index') + "']").prop('disabled', false);
+    $(this).data('index', this.value);
+    $("select.select2 option[value='" + this.value + "']:not([value=''])").prop('disabled', true);
+    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('disabled', false);
+  }
 </script>

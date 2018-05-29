@@ -585,26 +585,14 @@ if(!isset($_SESSION['first_run'])){
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="dynamic_field">
                                             <tr>
-                                              <th width="10%"> Quantity </th>
-                                              <th> Description </th>
-                                              <th></th>
+                                              <th width="20%"> Quantity </th>
+                                              <th width="70%"> Description </th>
+                                              <th width="10%"><button type="button" name="add" id="add" class="btn btn-success">+</button></th>
 
                                               <!-- <th> Unit </th> -->
                                             
                                             </tr>
-                                            <tr>
-
-                                              <td><input id="quant" type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td>
-                                              <td><select class="preferenceSelect select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                              <option value=""></option>
-                                              <?php echo supply_dropdown($connect);?>
-                                            </select></td>
-                                           <!-- <td width="120px"><select class=" select2" name="unit[]" id="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                              <option value=""></option>
-                                              <?php // echo unit_measure($connect);?>
-                                            </select></td> -->
-                                      <th width="10%"><button type="button" name="add" id="add" class="btn btn-success">+</button> </th>
-                                            </tr>
+                                            
                                           </table>
                                        
                                         </div>
@@ -613,8 +601,8 @@ if(!isset($_SESSION['first_run'])){
                                       <div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                         <button type="submit"  class="btn btn-success sendbutton" name="submit" id="submit"><i class="fa fa-plus"></i> Add </button>
-                                          <script>
+                                         <button type="submit"  class="btn btn-success sendbutton" name="submit" id="submit" disabled="true"><i class="fa fa-plus"></i> Add </button>
+                                          <!-- <script>
                                             $(document).ready(function(){
                                                 $('.sendButton').attr('disabled',true);
                                                 $('#supply').change(function(){
@@ -649,7 +637,7 @@ if(!isset($_SESSION['first_run'])){
                                                         $('.sendButton').attr('disabled',true);
                                                 })
                                             });
-                                          </script>
+                                          </script> -->
                                         <!-- <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
@@ -859,14 +847,27 @@ $(document).ready(function(){
   var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
   // var unitDrop = <?php // echo(json_encode(unit_measure($connect))); ?>;
   $('#add').click(function(){
+  	// document.getElementById('submit').setAttribute("disabled", "false");
+  	if(i < 10){
     i++;
-    $('#dynamic_field').append('<tr id="row'+i+'"></td> <td><input type="text" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
+    $('#dynamic_field').append('<tr id="row'+i+'"></td> <td><input id="quant" type="text" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
+
+    $("select.select2").change(function () {
+    $("select.select2 option[value='" + $(this).data('index') + "']").prop('disabled', false);
+    $(this).data('index', this.value);
+    $("select.select2 option[value='" + this.value + "']:not([value=''])").prop('disabled', true);
+    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('disabled', false);
+  });
+}
 
   });
   
   $(document).on('click', '.btn_remove', function(){
     var button_id = $(this).attr("id"); 
     $('#row'+button_id+'').remove();
+  });
+  $(document).on('click', '#add', function(){
+    $('.sendButton').attr('disabled',false);
   });
   
   $('#submit').click(function(){    
@@ -881,12 +882,22 @@ $(document).ready(function(){
                   $('.dynamic-added').remove();
                   $('#add_name')[0].reset();
             alert('Record Inserted Successfully.');
+            location.reload();
       }
     });
   });
   
 });
-</script>					
+</script>	
+
+<script>
+  $("select.select2").change(function () {
+    $("select.select2 option[value='" + $(this).data('index') + "']").prop('disabled', false);
+    $(this).data('index', this.value);
+    $("select.select2 option[value='" + this.value + "']:not([value=''])").prop('disabled', true);
+    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('disabled', false);
+  });
+</script>				
 							
 <script>
 //date and time
