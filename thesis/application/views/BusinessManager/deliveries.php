@@ -677,7 +677,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="active"><i class="fa fa-truck"></i> Deliveries</li>
       </ol>
     </section>
-
     <!-- Main content -->
       <section class="content">
           <div class="row">
@@ -782,11 +781,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-xs-1" style="float:right">
           <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
         </div>
-        <div class="col-xs-1" style="float:left">
+        <div class="col-xs-1" style="float:left;">
             <a href="deliveriesRecover" style="color:white;">
               <button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover</button>
             </a>
       </div>
+    <button  type="submit" class="btn btn-default btn-flat pull-left" data-toggle="modal" data-target="#printrep">Generate Report</button>
       </div>
       <script>
         $('#print').click(function(){
@@ -804,6 +804,82 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+<div id="printThis">
+<div class="modal fade" id="printrep">
+<form name="form42" id="user_form" method="post" action="purchases/addUser2">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-md-2">
+                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Deliveries Report</b></h4></center>
+                                            </div>
+                                      </div>
+                    <div class="box-body">
+
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $date = date("Y/m/d");
+                  $sql = "SELECT * FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != ''";
+                  $result = $conn->query($sql);    
+                ?>
+            <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                  <th>Purchase Order Date</th>
+                  <th>Status</th>
+                  <th>Description</th>
+                  <th>Quantity</th>    
+              </tr>
+            </thead>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) {
+                    $podate = $row['order_date']; 
+                    $status = $row['purchase_order_status'];
+                    $desc = $row['description'];
+                    $quant = $row['order_quantity'];
+                ?>
+                    <tr id="row0">
+                      <td><?php echo $podate; ?></td>
+                      <td><?php echo $status; ?></td>
+                      <td><?php echo $desc; ?></td>
+                      <td><?php echo $quant; ?></td>       
+                      </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </table>
+        </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button id="btnPrint" type="button" class="btn btn-success" style="float:right;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </form> 
+        </div>
+    </div>
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
@@ -2055,3 +2131,49 @@ if(isset($_POST['btnReturn'])){
             });
         });
 </script>
+
+<script>
+document.getElementById("btnPrint").onclick = function () {
+printElement(document.getElementById("printThis"));
+
+window.print();
+}
+
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    
+    $printSection.appendChild(domClone);
+}
+</script>
+
+<style>
+@media screen {
+  #printSection {
+      display: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility:hidden;
+  }
+  #printSection, #printSection * {
+    visibility:visible;
+  }
+  #printSection {
+    position:absolute;
+    left:0;
+    top:0;
+  }
+}
+</style>
