@@ -109,7 +109,7 @@ if(isset($_REQUEST['id'])){
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Supplier</label>
                                     <div class="input-group">
@@ -134,7 +134,8 @@ if(isset($_REQUEST['id'])){
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Purchase Order Date</label>
                                     <div class="input-group">
