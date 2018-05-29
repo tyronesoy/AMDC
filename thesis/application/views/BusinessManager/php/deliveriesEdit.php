@@ -153,10 +153,10 @@ if(isset($_REQUEST['id'])){
                                                     <label>Unique ID</label>
                                                      <div class="input-group">
                                                       <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
+                                                        <i class="fa fa-key"></i>
                                                       </div>
 
-                                                      <input type="text" class="form-control" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_po_uniq_id;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                      <input type="text" class="form-control" id="txtuni" name="txtuni" value="<?php echo $per_po_uniq_id;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   </div>
                                                 </div>
                                               </div>
