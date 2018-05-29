@@ -865,7 +865,7 @@ function category($connect)
                                                   <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Reorder Level</label>
-                                                  <input type="number" class="form-control" id="reorder_level" name="reorder_level" min="0"  />
+                                                  <input type="number" class="form-control" id="reorder_level" name="reorder_level" step=".01" min="0"  />
                                                 
                                               </div>
                                               </div>

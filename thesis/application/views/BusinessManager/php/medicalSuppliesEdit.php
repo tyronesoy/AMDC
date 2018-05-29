@@ -179,7 +179,7 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-6">
                             <div class="form-group" >
                             <label for="unitPrice">Unit Price</label>
-                                <input type="number" class="form-control" id="unitPrice" name="unitPrice" min="1" value="<?php echo $per_supplyUnitPrice;?>">
+                                <input type="number" class="form-control" id="unitPrice" name="unitPrice" step=".01" min="1" value="<?php echo $per_supplyUnitPrice;?>">
                         </div>
                         </div>
                         </div>

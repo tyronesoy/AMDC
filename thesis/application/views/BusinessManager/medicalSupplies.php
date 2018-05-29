@@ -836,7 +836,7 @@ function category($connect)
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit Price</label>
-                                                  <input type="number" class="form-control" id="priceUnit" min="0" name="priceUnit" required />
+                                                  <input type="number" class="form-control" id="priceUnit" min="0" name="priceUnit" step=".01" required />
                                                 </div>
                                               </div>
                                                   </div>
