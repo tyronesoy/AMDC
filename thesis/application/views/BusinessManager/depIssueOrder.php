@@ -670,7 +670,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>Order Date</th>
                     <th>Supervisor Name</th>
                     <th>Department</th>
-                    <th>Item Description</th>
                     <th>Status</th>
                     <th>Remarks</th>
                     <th>Action</th>
@@ -684,7 +683,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["inventory_order_name"]; ?></td>
                       <td><?php echo $row["inventory_order_dept"]; ?></td>
-                      <td><?php echo $row['supply_name']; ?></td>
                       <td><?php echo $row["inventory_order_status"]; ?></td>
                       <td><?php echo $row["inventory_order_remarks"]; ?></td>
                       <td>
@@ -706,7 +704,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>Order Date</th>
                     <th>Supervisor Name</th>
                     <th>Department</th>
-                    <th>Item Description</th>
                     <th>Status</th>
                     <th>Remarks</th>
                     <th>Action</th>
