@@ -807,7 +807,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) as total FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
+                  $sql = "SELECT COUNT(*) as total FROM deliveries";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {

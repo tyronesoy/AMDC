@@ -290,7 +290,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     }else{
                     ?>
                     <div>
-                    <center><h5 style="color:B11C1C">No items to display</h5></center>
+                    <small>No items to display</small>
                     </div>
                     <?php    
                     }
@@ -360,7 +360,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                               }else{
                             ?>
                                 <div>
-                                <center><h5 style="color:B11C1C">No items to display</h5></center>
+                                <p>No items to display</p>
                                 </div>
                             <?php      
                               }
@@ -395,7 +395,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                             }else{
                             ?>
                             <div>
-                            <center><h5 style="color:B11C1C">No items to display</h5></center>
+                            <p>No items to display</p>
                             </div>
                             <?php
                             }
@@ -405,6 +405,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </ul>
               </li>
             </ul>
+          </li>
+          <li>
+            <button type="submit" class="btn btn-default btn-flat" style="background-color:#00a65a; border:none;" data-toggle="modal" data-target="#editflag"><i class="glyphicon glyphicon-cog" style="font-size:40px"></i>
+            </button>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
@@ -438,6 +442,64 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
     </nav>
   </header>
         <?php $identity =  $this->session->userdata('fname');?>
+        <div class="modal fade" id="editflag">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser2">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-md-2">
+                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Notification Parameters</b></h4></center>
+                                            </div>
+                                      </div>
+                <div class="box-body">
+                    
+                        <?php
+                          $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                          $date = date("Y/m/d");
+                          $sql = "SELECT * From defaults where attribute = 'expirerange'";
+                          $result = $conn->query($sql);    
+                        ?>
+                        <?php if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) { ?>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Day/s to expiration notice</label>
+                          <input type="text" class="form-control" name="days" id="days" value="<?php echo $row['value2'] ?>" required />
+                        </div>
+                          <?php 
+                              }
+                            }
+                          ?>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-primary" name="addUser2"><i class="glyphicon glyphicon-cog"></i> Update</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </form> 
+        </div> 
  
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
@@ -633,7 +695,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
@@ -653,14 +715,14 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <p>Reorder Supplies</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-bar-chart"></i>
             </div>
             <button onclick="myFunction('Demo1')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
         <!-- ./col -->
           
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
@@ -680,14 +742,41 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <p>Returned Supplies</p>
             </div>
             <div class="icon">
-              <i class="ion ion-cube"></i>
+              <i class="fa fa-cube"></i>
             </div>
             <button onclick="myFunction2('Demo2')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
         <!-- ./col -->
 
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-olive">
+            <div class="inner">
+              <?php
+                    $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $sql = "SELECT COUNT(*) as total FROM deliveries";
+                  $result = $conn->query($sql);    
+              ?>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <h3><?php echo $row["total"]; ?></h3>
+                  <?php 
+                      }
+                    }
+                  ?>
+
+              <p>Deliveries</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-truck"></i>
+            </div>
+            <button onclick="myFunction3('Demo3')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
+          </div>
+        </div>
+        <!-- ./col -->
+
+        <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
@@ -708,9 +797,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <p>Expired Supplies</p>
             </div>
             <div class="icon">
-              <i class="ion ion-alert-circled"></i>
+              <i class="fa fa-exclamation-triangle"></i>
             </div>
-            <button onclick="myFunction3('Demo3')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
+            <button onclick="myFunction4('Demo4')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
         <!-- ./col -->
@@ -796,20 +885,20 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                     <form action="<?php echo 'BusinessManager/returns'?>" method="get">
-                      <td class="hidden"><input type="hidden" name="supid" hidden value="<?php echo $row["supply_id"]; ?>"></td>
+                      <td class="hidden"><input class="hidden" type="hidden" name="supid" hidden value="<?php echo $row["supply_id"]; ?>"></td>
                       <td><?php echo $row["supply_type"]; ?></td>
                       <td><?php echo $row["return_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
                       <td><?php echo $row["company_name"]; ?></td>
                       <td><input type="text" class="form-control" name="qtyReturn" value="<?php echo $row["quantity_returned"]; ?>"  style="border: 0; outline: 0;  background: transparent;" readonly></td>
-                      <td class="hidden"><input type="hidden" hidden name="qty" value="<?php echo $row["quantity_in_stock"]; ?>" readonly></td>
+                      <td class="hidden"><input class="hiden" type="hidden" hidden name="qty" value="<?php echo $row["quantity_in_stock"]; ?>" readonly></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
                           
                         
-                           <input type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
+                           <input class="hidden" type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
                           <button type="submit" class="btn btn-xs btn-success">Returned </button>
                         
                       </td>
@@ -822,12 +911,14 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tbody>
                 <tfoot>
                   <tr>
+                    <th class="hidden"></th>
                     <th>Supply Type</th>
                     <th>Date Returned</th>
                     <th>Description</th>
                     <th>Brandname</th>
                     <th>Supplier</th>
                     <th>Quantity</th>
+                    <th class="hidden"></th>
                     <th>Unit</th>
                     <th>Reason</th>
                     <th></th>
@@ -835,9 +926,53 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tfoot>
               </table>
           </div>
-          <!-- TABLE FOR HIDDEN EXPIRED SUPPLIES TABLE ------>
+          <!-- TABLE FOR HIDDEN DELIVERIES SUPPLIES TABLE -->
           <div id="Demo3" class="box-body w3-hide">
               <table id="example5" class="table table-bordered table-striped">
+                  <center><h2>Deliveries</h2></center>
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                  $sql = "SELECT * FROM deliveries";
+                  $result = $conn->query($sql);    
+                ?>
+                <thead>
+                <tr>
+                  <th>PO Key</th>
+                  <th>Delivery Date</th>
+                  <th>Delivery Status</th>
+                  <th>Delivery Remarks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                    <form action="<?php echo 'BusinessManager/returns'?>" method="get">
+                      <td><?php echo $row["po_key"]; ?></td>
+                      <td><?php echo $row["delivery_date"]; ?></td>
+                      <td><?php echo $row["delivery_status"]; ?></td>
+                      <td><?php echo $row["delivery_remarks"]; ?></td>
+                      </form> 
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>PO Key</th>
+                    <th>Delivery Date</th>
+                    <th>Delivery Status</th>
+                    <th>Delivery Remarks</th>
+                  </tr> 
+                </tfoot>
+              </table>
+          </div>
+          <!-- TABLE FOR HIDDEN EXPIRED SUPPLIES TABLE ------>
+          <div id="Demo4" class="box-body w3-hide">
+              <table id="example7" class="table table-bordered table-striped">
                   <center><h2>Expired Supplies</h2></center>
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
@@ -1280,6 +1415,16 @@ function myFunction3(id) {
     }
 }
 </script>
+<script>
+function myFunction4(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
     
 <!-- DATA TABLES -->
 <script>
@@ -1305,6 +1450,15 @@ function myFunction3(id) {
     })
     $('#example5').DataTable()
     $('#example6').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+    $('#example7').DataTable()
+    $('#example8').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,

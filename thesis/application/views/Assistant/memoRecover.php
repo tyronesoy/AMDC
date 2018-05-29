@@ -111,7 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                 $dtoday = date('Y\-m\-d\ H:i:s A');
                 $date_select = date('Y\-m\-d\ H:i:s A', strtotime('-3 days') ) ;//minus three days
-                $sql6 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -278,7 +278,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }else{
                     ?>
                     <div>
-                    <center><h5 style="color:B11C1C">No items to display</h5></center>
+                    <small>No items to display</small>
                     </div>
                     <?php    
                     }
@@ -348,7 +348,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               }else{
                             ?>
                                 <div>
-                                <center><h5 style="color:B11C1C">No items to display</h5></center>
+                                <p>No items to display</p>
                                 </div>
                             <?php      
                               }
@@ -383,7 +383,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }else{
                             ?>
                             <div>
-                            <center><h5 style="color:B11C1C">No items to display</h5></center>
+                            <p>No items to display</p>
                             </div>
                             <?php
                             }
@@ -399,7 +399,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -589,7 +589,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
         </li>
         <!---------------------------------------------------- MEMO MENU -------------------------------------------------------------->
-        <li>
+        <li class="active">
           <a href="<?php echo 'memo'?>">
             <i class="fa fa-calendar"></i> <span>Memo</span>
           </a>
@@ -628,7 +628,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="box">
             <div class="box-header">
               <!-- <h3 class="box-title">Office Supplies</h3> -->
-                <a href="memo" style="color:white;"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i>
+                <a href="memo" style="color:white;"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-arrow-left"></i>
               </button></a>
             </div>
             <!-- /.box-header -->

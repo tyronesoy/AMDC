@@ -274,7 +274,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }else{
                     ?>
                     <div>
-                    <center><h5 style="color:B11C1C">No items to display</h5></center>
+                    <small>No items to display</small>
                     </div>
                     <?php    
                     }
@@ -344,7 +344,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               }else{
                             ?>
                                 <div>
-                                <center><h5 style="color:B11C1C">No items to display</h5></center>
+                                <p>No items to display</p>
                                 </div>
                             <?php      
                               }
@@ -379,7 +379,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }else{
                             ?>
                             <div>
-                            <center><h5 style="color:B11C1C">No items to display</h5></center>
+                            <p>No items to display</p>
                             </div>
                             <?php
                             }
@@ -395,7 +395,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
-               <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+               <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->

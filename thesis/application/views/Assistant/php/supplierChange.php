@@ -19,9 +19,15 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
                 <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
@@ -45,13 +51,13 @@ if(isset($_REQUEST['id'])){
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label class="col-sm-8 control-label" for="txtsupplierstatus"></label>
                             <div class="col-sm-1">
                                 <input type="hidden" class="form-control" id="txtsupplierstatus" name="txtsupplierstatus" hidden value="<?php echo $per_supplierStatus;?>" readonly>
                             </div>
                         </div>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -59,6 +65,7 @@ if(isset($_REQUEST['id'])){
                 <button type="submit" class="btn btn-warning" name="btnUpdate"> <i class="glyphicon glyphicon-random"></i> Change</button>
             </div>
         </div>
+    </div>
     </form>
 
 <?php

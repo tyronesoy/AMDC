@@ -287,7 +287,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }else{
                     ?>
                     <div>
-                    <center><h5 style="color:B11C1C">No items to display</h5></center>
+                    <small>No items to display</small>
                     </div>
                     <?php    
                     }
@@ -357,7 +357,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               }else{
                             ?>
                                 <div>
-                                <center><h5 style="color:B11C1C">No items to display</h5></center>
+                                <p>No items to display</p>
                                 </div>
                             <?php      
                               }
@@ -392,7 +392,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }else{
                             ?>
                             <div>
-                            <center><h5 style="color:B11C1C">No items to display</h5></center>
+                            <p>No items to display</p>
                             </div>
                             <?php
                             }
@@ -408,7 +408,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -644,7 +644,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- /.box-header -->
               
             <div class="box-body">
-              <table id="example" class="table table-bordered table-striped">
+              <table id="example" class="display nowrap" style="width:100%">
                   <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                     $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status='Issued' GROUP BY inventory_order_id";
@@ -654,8 +654,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   ?>
                   <thead> 
                   <tr>
-                    <th>Request Date</th>
                     <th>Issue Date</th>
+                    <th>Request Date</th>
+                    
                     <th>Department</th>
                     <th>Supervisor Name</th>
                     <th>Status</th>
@@ -665,8 +666,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["issued_date"]; ?></td>
+                      <td><?php echo $row["inventory_order_created_date"]; ?></td>
+                      
                       <td><?php echo $row["inventory_order_dept"]; ?></td>
                       <td><?php echo $row["inventory_order_name"]; ?></td>
                       <td><?php echo $row["inventory_order_status"]; ?></td>
@@ -679,8 +681,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   ?>
                 <tfoot>
                 <tr>
-                    <th>Request Date</th>
                     <th>Issue Date</th>
+                    <th>Request Date</th>
+                    
                     <th>Department</th>
                     <th>Supervisor Name</th>
                     <th>Status</th>
@@ -796,6 +799,7 @@ function onUserInactivity() {
     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
  
     $('#example').DataTable( {
+        order: [[0, 'desc']],
         dom: 'Bfrtip',
         buttons: [
             {
