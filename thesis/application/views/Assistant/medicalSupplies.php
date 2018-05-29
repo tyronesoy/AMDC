@@ -225,7 +225,10 @@ function supplier($connect)
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
-                                $daysvalue = strtotime($row['value2']);
+                                $daysval = $row["value2"];
+                                $datenow = strtotime(date("Y/m/d"));
+                                $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
+                                $daysvalue = $daysval2 - $datenow;
                                 $num1 = 0;
                             }
                           }
