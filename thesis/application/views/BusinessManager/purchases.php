@@ -230,7 +230,10 @@ function unit_measure($connect)
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
-                                $daysvalue = strtotime($row['value2']);
+                                $daysval = $row["value2"];
+                                $datenow = strtotime(date("Y/m/d"));
+                                $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
+                                $daysvalue = $daysval2 - $datenow;
                                 $num1 = 0;
                             }
                           }
@@ -779,7 +782,7 @@ function unit_measure($connect)
                                               <th></th>
                                             </tr>
                                             <tr id="row0">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                        <td><input id="quant" type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
                         </td>
                         <td>
                           <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
@@ -929,7 +932,43 @@ function unit_measure($connect)
                                       <div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="submit" id="submit"><i class="fa fa-plus"></i> Add </button>
+                                        <button type="submit" class="btn btn-success sendbutton" name="submit" id="submit"><i class="fa fa-plus"></i> Add </button>
+                                          <script>
+                                            $(document).ready(function(){
+                                                $('.sendButton').attr('disabled',true);
+                                                $('#supply').change(function(){
+                                                    if($(this).val().length !=0)
+                                                        $(document).ready(function(){
+                                                        $('.sendButton').attr('disabled',true);
+                                                        $('#quant').keyup(function(){
+                                                            if($(this).val().length !=0)
+                                                                $('.sendButton').attr('disabled', false);            
+                                                            else
+                                                                $('.sendButton').attr('disabled',true);
+                                                        })
+                                                    });            
+                                                    else
+                                                        $('.sendButton').attr('disabled',true);
+                                                })
+                                            });
+                                            $(document).ready(function(){
+                                                $('.sendButton').attr('disabled',true);
+                                                $('#quant').keyup(function(){
+                                                    if($(this).val().length !=0)
+                                                        $(document).ready(function(){
+                                                        $('.sendButton').attr('disabled',true);
+                                                        $('#supply').change(function(){
+                                                            if($(this).val().length !=0)
+                                                                $('.sendButton').attr('disabled', false);            
+                                                            else
+                                                                $('.sendButton').attr('disabled',true);
+                                                        })
+                                                    });            
+                                                    else
+                                                        $('.sendButton').attr('disabled',true);
+                                                })
+                                            });
+                                          </script>
                                         <!--  <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
@@ -1223,6 +1262,7 @@ $(document).ready(function(){
     var printCounter = 0;
 
     $('#example').DataTable( {
+        order: [[0, 'desc']],
         dom: 'Bfrtip',
         buttons: [
             {
@@ -1372,199 +1412,28 @@ $(document).ready(function(){
 <?php
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-if(isset($_POST['btnEdit'])){
+if(isset($_POST["purchEdit"]))
+{
+ $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 
+ for($count = 0; $count < count($_POST["txtpoid"]); $count++)
+ {  
+  $query2 = "UPDATE purchase_orders SET description=:description, order_quantity=:order_quantity WHERE po_id=:po_id ";
+  $statement2 = $connect->prepare($query2);
+  $statement2->execute(
+   array(
+    ':po_id' => $_POST["txtpoid"][$count], 
+    ':description' => $_POST["neym"][$count],
+    ':order_quantity'  => $_POST["number"][$count]
+   )
+  );
+ }
 
-    $new_uid=mysqli_real_escape_string($con,$_POST['txtuniqid']);
-    // $new_purchasesOrderDate=mysqli_real_escape_string($con,$_POST['orDate']);
-    // $new_purchasesSupplier=mysqli_real_escape_string($con,$_POST['txtsupplier']);
-    $new_purchasesDeliveryDate=mysqli_real_escape_string($con,$_POST['txtdeliverydate']);
-
-    $new_id=mysqli_real_escape_string($con,$_POST['txtpoid0']);
-    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus0']);
-    $new_quantity=mysqli_real_escape_string($con,$_POST['txtquantity0']);
-    $new_purchasesUnit=mysqli_real_escape_string($con,$_POST['txtunit0']);
-    $new_description=mysqli_real_escape_string($con,$_POST['txtdesc0']);
-    $new_purchasesUnitPrice=mysqli_real_escape_string($con,$_POST['unit_price0']);
-    $new_total = mysqli_real_escape_string($con,$_POST['txtquantity0']) * mysqli_real_escape_string($con,$_POST['unit_price0']);
-
-
-    $new_id1=mysqli_real_escape_string($con,$_POST['txtpoid1']);
-    $new_status1=mysqli_real_escape_string($con,$_POST['txtstatus1']);
-    $new_quantity1=mysqli_real_escape_string($con,$_POST['txtquantity1']);
-    $new_purchasesUnit1=mysqli_real_escape_string($con,$_POST['txtunit1']);
-    $new_description1=mysqli_real_escape_string($con,$_POST['txtdesc1']);
-    $new_purchasesUnitPrice1=mysqli_real_escape_string($con,$_POST['unit_price1']);
-    $new_total1 = mysqli_real_escape_string($con,$_POST['txtquantity1']) * mysqli_real_escape_string($con,$_POST['unit_price1']);
-
-
-    $new_id2=mysqli_real_escape_string($con,$_POST['txtpoid2']);
-    $new_status2=mysqli_real_escape_string($con,$_POST['txtstatus2']);
-    $new_quantity2=mysqli_real_escape_string($con,$_POST['txtquantity2']);
-    $new_purchasesUnit2=mysqli_real_escape_string($con,$_POST['txtunit2']);
-    $new_description2=mysqli_real_escape_string($con,$_POST['txtdesc2']);
-    $new_purchasesUnitPrice2=mysqli_real_escape_string($con,$_POST['unit_price2']);
-    $new_total2 = mysqli_real_escape_string($con,$_POST['txtquantity2']) * mysqli_real_escape_string($con,$_POST['unit_price2']);
-
-
-    $new_id3=mysqli_real_escape_string($con,$_POST['txtpoid3']);
-    $new_status3=mysqli_real_escape_string($con,$_POST['txtstatus3']);
-    $new_quantity3=mysqli_real_escape_string($con,$_POST['txtquantity3']);
-    $new_purchasesUnit3=mysqli_real_escape_string($con,$_POST['txtunit3']);
-    $new_description3=mysqli_real_escape_string($con,$_POST['txtdesc3']);
-    $new_purchasesUnitPrice3=mysqli_real_escape_string($con,$_POST['unit_price3']);
-    $new_total3 = mysqli_real_escape_string($con,$_POST['txtquantity3']) * mysqli_real_escape_string($con,$_POST['unit_price3']);
-
-
-    $new_id4=mysqli_real_escape_string($con,$_POST['txtpoid4']);
-    $new_status4=mysqli_real_escape_string($con,$_POST['txtstatus4']);
-    $new_quantity4=mysqli_real_escape_string($con,$_POST['txtquantity4']);
-    $new_purchasesUnit4=mysqli_real_escape_string($con,$_POST['txtunit4']);
-    $new_description4=mysqli_real_escape_string($con,$_POST['txtdesc4']);
-    $new_purchasesUnitPrice4=mysqli_real_escape_string($con,$_POST['unit_price4']);
-    $new_total4 = mysqli_real_escape_string($con,$_POST['txtquantity4']) * mysqli_real_escape_string($con,$_POST['unit_price4']);
-
-
-    $new_id5=mysqli_real_escape_string($con,$_POST['txtpoid5']);
-    $new_status5=mysqli_real_escape_string($con,$_POST['txtstatus5']);
-    $new_quantity5=mysqli_real_escape_string($con,$_POST['txtquantity5']);
-    $new_purchasesUnit5=mysqli_real_escape_string($con,$_POST['txtunit5']);
-    $new_description5=mysqli_real_escape_string($con,$_POST['txtdesc5']);
-    $new_purchasesUnitPrice5=mysqli_real_escape_string($con,$_POST['unit_price5']);
-    $new_total5 = mysqli_real_escape_string($con,$_POST['txtquantity5']) * mysqli_real_escape_string($con,$_POST['unit_price5']);
-
-
-    $new_id6=mysqli_real_escape_string($con,$_POST['txtpoid6']);
-    $new_status6=mysqli_real_escape_string($con,$_POST['txtstatus6']);
-    $new_quantity6=mysqli_real_escape_string($con,$_POST['txtquantity6']);
-    $new_purchasesUnit6=mysqli_real_escape_string($con,$_POST['txtunit6']);
-    $new_description6=mysqli_real_escape_string($con,$_POST['txtdesc6']);
-    $new_purchasesUnitPrice6=mysqli_real_escape_string($con,$_POST['unit_price6']);
-    $new_total6 = mysqli_real_escape_string($con,$_POST['txtquantity6']) * mysqli_real_escape_string($con,$_POST['unit_price6']);
-
-
-    $new_id7=mysqli_real_escape_string($con,$_POST['txtpoid7']);
-    $new_status7=mysqli_real_escape_string($con,$_POST['txtstatus7']);
-    $new_quantity7=mysqli_real_escape_string($con,$_POST['txtquantity7']);
-    $new_purchasesUnit7=mysqli_real_escape_string($con,$_POST['txtunit7']);
-    $new_description7=mysqli_real_escape_string($con,$_POST['txtdesc7']);
-    $new_purchasesUnitPrice7=mysqli_real_escape_string($con,$_POST['unit_price7']);
-    $new_total7 = mysqli_real_escape_string($con,$_POST['txtquantity7']) * mysqli_real_escape_string($con,$_POST['unit_price7']);
-
-
-    $new_id8=mysqli_real_escape_string($con,$_POST['txtpoid8']);
-    $new_status8=mysqli_real_escape_string($con,$_POST['txtstatus8']);
-    $new_quantity8=mysqli_real_escape_string($con,$_POST['txtquantity8']);
-    $new_purchasesUnit8=mysqli_real_escape_string($con,$_POST['txtunit8']);
-    $new_description8=mysqli_real_escape_string($con,$_POST['txtdesc8']);
-    $new_purchasesUnitPrice8=mysqli_real_escape_string($con,$_POST['unit_price8']);
-    $new_total8 = mysqli_real_escape_string($con,$_POST['txtquantity8']) * mysqli_real_escape_string($con,$_POST['unit_price8']);
-
-
-    $new_id9=mysqli_real_escape_string($con,$_POST['txtpoid9']);
-    $new_status9=mysqli_real_escape_string($con,$_POST['txtstatus9']);
-    $new_quantity9=mysqli_real_escape_string($con,$_POST['txtquantity9']);
-    $new_purchasesUnit9=mysqli_real_escape_string($con,$_POST['txtunit9']);
-    $new_description9=mysqli_real_escape_string($con,$_POST['txtdesc9']);
-    $new_purchasesUnitPrice9=mysqli_real_escape_string($con,$_POST['unit_price9']);
-    $new_total9 = mysqli_real_escape_string($con,$_POST['txtquantity9']) * mysqli_real_escape_string($con,$_POST['unit_price9']);
-
-
-
-    $new_total10 = (mysqli_real_escape_string($con,$_POST['txtquantity0']) * mysqli_real_escape_string($con,$_POST['unit_price0'])) + (mysqli_real_escape_string($con,$_POST['txtquantity1']) * mysqli_real_escape_string($con,$_POST['unit_price1'])) + (mysqli_real_escape_string($con,$_POST['txtquantity2']) * mysqli_real_escape_string($con,$_POST['unit_price2'])) + (mysqli_real_escape_string($con,$_POST['txtquantity3']) * mysqli_real_escape_string($con,$_POST['unit_price3'])) + (mysqli_real_escape_string($con,$_POST['txtquantity4']) * mysqli_real_escape_string($con,$_POST['unit_price4'])) + (mysqli_real_escape_string($con,$_POST['txtquantity5']) * mysqli_real_escape_string($con,$_POST['unit_price5'])) + (mysqli_real_escape_string($con,$_POST['txtquantity6']) * mysqli_real_escape_string($con,$_POST['unit_price6'])) + (mysqli_real_escape_string($con,$_POST['txtquantity7']) * mysqli_real_escape_string($con,$_POST['unit_price7'])) + (mysqli_real_escape_string($con,$_POST['txtquantity8']) * mysqli_real_escape_string($con,$_POST['unit_price8'])) + (mysqli_real_escape_string($con,$_POST['txtquantity9']) * mysqli_real_escape_string($con,$_POST['unit_price9']));
-
-
-
-  $sqlupdate="UPDATE purchase_orders SET order_quantity='$new_quantity', order_unit='$new_purchasesUnit', description='$new_description', unit_price='$new_purchasesUnitPrice', total='$new_total' WHERE po_id='$new_id' ";
-  $result_update=mysqli_query($con,$sqlupdate);
-// if($result_update){
-//         echo '<script>window.location.href="purchases"</script>';
-//     }
-//     else{
-//         echo '<script>alert("Update Failed")</script>';
-//     }
-  $sqlupdate1="UPDATE purchase_orders SET order_quantity='$new_quantity1', order_unit='$new_purchasesUnit1', description='$new_description1', unit_price='$new_purchasesUnitPrice1', total='$new_total1' WHERE po_id='$new_id1' ";
-  $result_update1=mysqli_query($con,$sqlupdate1);
-// if($result_update1){
-//         echo '<script>window.location.href="purchases"</script>';
-//     }
-//     else{
-//         echo '<script>alert("Update Failed")</script>';
-//     }
-    $sqlupdate2="UPDATE purchase_orders SET order_quantity='$new_quantity2', order_unit='$new_purchasesUnit2', description='$new_description2', unit_price='$new_purchasesUnitPrice2', total='$new_total2' WHERE po_id='$new_id2' ";
-  $result_update2=mysqli_query($con,$sqlupdate2);
-// if($result_update2){
-//         echo '<script>window.location.href="purchases"</script>';
-//     }
-//     else{
-//         echo '<script>alert("Update Failed")</script>';
-//     }
-    $sqlupdate3="UPDATE purchase_orders SET order_quantity='$new_quantity3', order_unit='$new_purchasesUnit3', description='$new_description3', unit_price='$new_purchasesUnitPrice3', total='$new_total3' WHERE po_id='$new_id3' ";
-  $result_update3=mysqli_query($con,$sqlupdate3);
-// if($result_update3){
-//         echo '<script>window.location.href="purchases"</script>';
-//     }
-//     else{
-//         echo '<script>alert("Update Failed")</script>';
-//     }
-    $sqlupdate4="UPDATE purchase_orders SET order_quantity='$new_quantity4', order_unit='$new_purchasesUnit4', description='$new_description4', unit_price='$new_purchasesUnitPrice4', total='$new_total4' WHERE po_id='$new_id4' ";
-  $result_update4=mysqli_query($con,$sqlupdate4);
-// if($result_update4){
-//         echo '<script>window.location.href="purchases"</script>';
-//     }
-//     else{
-//         echo '<script>alert("Update Failed")</script>';
-//     }
-    $sqlupdate5="UPDATE purchase_orders SET order_quantity='$new_quantity5', order_unit='$new_purchasesUnit5', description='$new_description5', unit_price='$new_purchasesUnitPrice5', total='$new_total5' WHERE po_id='$new_id5' ";
-  $result_update5=mysqli_query($con,$sqlupdate5);
-// if($result_update5){
-//         echo '<script>window.location.href="purchases"</script>';
-//     }
-//     else{
-//         echo '<script>alert("Update Failed")</script>';
-//     }
-    $sqlupdate6="UPDATE purchase_orders SET order_quantity='$new_quantity6', order_unit='$new_purchasesUnit6', description='$new_description6', unit_price='$new_purchasesUnitPrice6', total='$new_total6' WHERE po_id='$new_id6' ";
-  $result_update6=mysqli_query($con,$sqlupdate6);
-// if($result_update6){
-//         echo '<script>window.location.href="purchases"</script>';
-//     }
-//     else{
-//         echo '<script>alert("Update Failed")</script>';
-//     }
-    $sqlupdate7="UPDATE purchase_orders SET order_quantity='$new_quantity7', order_unit='$new_purchasesUnit7', description='$new_description7', unit_price='$new_purchasesUnitPrice7', total='$new_total7' WHERE po_id='$new_id7' ";
-  $result_update7=mysqli_query($con,$sqlupdate7);
-// if($result_update7){
-//         echo '<script>window.location.href="purchases"</script>';
-//     }
-//     else{
-//         echo '<script>alert("Update Failed")</script>';
-//     }
-    $sqlupdate8="UPDATE purchase_orders SET order_quantity='$new_quantity8', order_unit='$new_purchasesUnit8', description='$new_description8', unit_price='$new_purchasesUnitPrice8', total='$new_total8' WHERE po_id='$new_id8' ";
-  $result_update8=mysqli_query($con,$sqlupdate8);
-// if($result_update8){
-//         echo '<script>window.location.href="purchases"</script>';
-//     }
-//     else{
-//         echo '<script>alert("Update Failed")</script>';
-//     }
-    $sqlupdate9="UPDATE purchase_orders SET order_quantity='$new_quantity9', order_unit='$new_purchasesUnit9', description='$new_description9', unit_price='$new_purchasesUnitPrice9', total='$new_total9' WHERE po_id='$new_id9' ";
-  $result_update9=mysqli_query($con,$sqlupdate9);
-
-  $sqlupdate10="UPDATE purchase_order_bm SET purchase_order_grandtotal='$new_total10' WHERE po_key='$new_uid' ";
-  $result_update10=mysqli_query($con,$sqlupdate10);
-
-
-    if($result_update && $result_update1 && $result_update2 && $result_update3 && $result_update4 && $result_update5 && $result_update6 && $result_update7 && $result_update8 && $result_update9){
-        $conn =mysqli_connect("localhost","root","");
-        $datetoday = date('Y\-m\-d\ H:i:s A');
-        mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_id." has been edited','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
-        $result = $conn->query($notif);
-        echo '<script>window.location.href="purchases"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
+ $result = $statement->fetchAll();
+ if(isset($result))
+ {
+  echo '<script>alert("Record Inserted Successfully.");</script>';
+ }
 }
 
 if(isset($_POST['btnUpdate'])){

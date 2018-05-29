@@ -99,9 +99,9 @@ if(isset($_REQUEST['id'])){
                         </div>
                         <div class="col-md-5">
                                 <div class="form-group">
-                                    <label >Order UNIQ ID</label>
+                                    <label hidden>Order UNIQ ID</label>
                                     <div class="input-group">
-                                        <input  class="form-control" id="uniq_ID" name="uniq_ID" value="<?php echo $per_uniq_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                        <input  type="hidden" class="form-control" id="uniq_ID" name="uniq_ID" value="<?php echo $per_uniq_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                     </div>
                                 </div>
                         
@@ -117,7 +117,7 @@ if(isset($_REQUEST['id'])){
                         <span id="error"></span>
                         <table class="table table-bordered" id="dynamic_field">
                             <tr>
-                                <th width="14%">ID</th>
+                                <th width="14%" style="display: none;">ID</th>
                                 <th width="10%"> Quantity </th>
                                 <th> Description </th>
                                 <th> Unit </th>
@@ -127,7 +127,7 @@ if(isset($_REQUEST['id'])){
                                     while($row =$result->fetch_assoc()) {
                             ?>
                             <tr>
-                                <td><input class="form-control" id="ID[]" name="ID[]" value="<?php echo $row["inventory_order_supplies_id"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                <td style="display: none;"><input class="form-control" id="ID[]" name="ID[]" value="<?php echo $row["inventory_order_supplies_id"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                 </td>
 
                                 <td><input class="form-control" id="qty[]" name="qty[]" value ="<?php echo $row["quantity"]?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">

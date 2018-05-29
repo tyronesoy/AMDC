@@ -446,7 +446,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="table table-bordered table-striped">
                   <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies ios USING(inventory_order_uniq_id) JOIN users u ON ios.inventory_order_supplies_id=u.user_id WHERE inventory_order_status='Issued' AND u.fname='".$this->session->userdata('fname')."' AND u.lname='".$this->session->userdata('lname')."' GROUP BY inventory_order_id";
+                    $sql = "SELECT * FROM inventory_order io JOIN inventory_order_supplies ios USING(inventory_order_uniq_id) WHERE io.inventory_order_status='Issued' AND io.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') GROUP BY inventory_order_id";
                     $result = $conn->query($sql);
 
                     //  WHERE inventory_order_status='Issued'   

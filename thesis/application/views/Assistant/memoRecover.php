@@ -184,7 +184,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
-                                $daysvalue = strtotime($row['value2']);
+                                $daysval = $row["value2"];
+                                $datenow = strtotime(date("Y/m/d"));
+                                $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
+                                $daysvalue = $daysval2 - $datenow;
                                 $num1 = 0;
                             }
                           }
@@ -278,7 +281,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }else{
                     ?>
                     <div>
-                    <small>No items to display</small>
+                    <center><h5 style="color:B11C1C">No items to display</h5></center>
                     </div>
                     <?php    
                     }
@@ -348,7 +351,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               }else{
                             ?>
                                 <div>
-                                <p>No items to display</p>
+                                <center><h5 style="color:B11C1C">No items to display</h5></center>
                                 </div>
                             <?php      
                               }
@@ -383,7 +386,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }else{
                             ?>
                             <div>
-                            <p>No items to display</p>
+                            <center><h5 style="color:B11C1C">No items to display</h5></center>
                             </div>
                             <?php
                             }
