@@ -756,7 +756,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10";
+
+                  $sql = "SELECT (COUNT(*)/2) AS total FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10 OR quantity_in_stock = 0";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -866,8 +867,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
-                  $result = $conn->query($sql);    
+                  $sql = "SELECT supply_id, supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10 OR quantity_in_stock = 0 GROUP BY supply_description";
+                  $result = $conn->query($sql);
                 ?>
                 <thead> 
                 <tr>
@@ -883,7 +884,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </thead>
                 <tbody>
                 <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
+                  while($row = $result->fetch_assoc()) { 
+                    $reorder_id = $row["supply_id"];
+                    $desc = $row["supply_description"];
+                    ?>
                     <tr>
                     <td><?php echo $row["supply_type"]; ?></td>
                     <td><?php echo $row["brand_name"]; ?></td>
@@ -894,7 +898,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <td><?php echo $row["reorder_level"]; ?></td>
                     <td>
                       <input class="hidden" type="text" name="reorderSupp" id="reorderSupp" hidden value="<?php echo $row["supply_id"]; ?>">
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reorderModal"><i class="fa fa-repeat"></i>Reorder </button>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reorderModal"><i class="fa fa-repeat"></i> Reorder </button>
                     </td>
                     </tr>
                   <?php 
@@ -925,7 +929,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $sql = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
                   $result = $conn->query($sql);   
-                  $return_id = $row[0];
+                  
                 ?>
                 <thead>
                 <tr>
@@ -944,7 +948,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </thead>
                 <tbody>
                 <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
+                  while($row = $result->fetch_assoc()) {
+                    $return_id = $row[0];
+                   ?>
                     <tr>
                     <form action="<?php echo 'BusinessManager/returns'?>" method="get">
                       <td class="hidden"><input class="hidden" type="hidden" name="supid" hidden value="<?php echo $row["supply_id"]; ?>"></td>
@@ -1285,89 +1291,83 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT * FROM";
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name JOIN suppliers WHERE supply_description='$desc'";
                   $result = $conn->query($sql);    
                 ?>
                 <?php 
                   if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) { ?>
-                      <div class="row hidden">
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <label class="col-sm-4 control-label hidden" for="txtid">Purchase Order ID</label>
+                        <div class="form-group hidden">
+                            <label class="col-sm-4 control-label hidden" for="txtid">Order ID</label>
                             <div class="col-sm-6 hidden">
-                              <input type="hidden" class="form-control hidden" id="txtid" name="txtid" hidden value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $row['inventory_order_id'];?>" readonly>
                             </div>
-                          </div>
                         </div>
-                      </div>
+                        <div class="form-group hidden">
+                            <label class="col-sm-4 control-label hidden" for="txtuniqid">Order Unique ID</label>
+                            <div class="col-sm-6 hidden">
+                                <input type="hidden" class="form-control" id="txtuniqid" name="txtuniqid" hidden value="<?php echo $row['inventory_order_uniq_id'];?>" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group hidden">
+                            <label class="col-sm-8 control-label hidden" for="txtstatus"></label>
+                            <div class="col-sm-1 hidden">
+                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $row['inventory_order_status'];?>" readonly>
+                            </div>
+                        </div>
 
                       <div class="row">      
                         <div class="col-md-5">
-                          <div class="form-group">
-                          <label for="exampleInputEmail1">Name</label>
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-user"></i>
-                              </div>
-                              <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Supervisor Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $row['inventory_order_name'] ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
-                        <div class="col-md-1">
-                        </div>
-                        <div class="col-md-5">
-                          <div class="form-group">
-                            <label for="exampleInputEmail1">Supplier</label>
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-group"></i>
-                              </div>
-                              <input type="text" class="form-control" id="txtname" name="txtname" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Department Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-building"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="deptName" name="deptName" value="<?php echo $row['inventory_order_dept'];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
                       </div>
 
                       <div class="row">
                         <div class="col-md-5">
-                          <div class="form-group">
-                            <label>Purchase Order Date</label>
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                              </div>
-                              <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Supplier</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">       
+                                            <i class="fa fa-group"></i>
+                                        </div>
+                                        <input class="form-control" type="text" name="supp" id="supp" value="<?php echo $row['company_name'] ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
-                        <div class="col-md-1">
-                        </div>
-                        <div class="col-md-5">
-                          <div class="form-group">
-                            <label for="txtstatus">Status</label>
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-toggle-on"></i>
-                              </div>
-                              <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Purchase Order Date</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <?php $date = date("Y-m-d"); ?>
+                                        <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                    </div>
+                                                    <!-- /.input group -->
+                                </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-5">
-                          <div class="form-group">
-                            <label>Delivery Date</label>
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                              </div>
-                              <input type="text" class="form-control" id="txtddate" name="txtddate" value="<?php echo $row[''];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            </div>
-                          </div>
-                        </div>
                       </div>
                     <?php }
                     } ?>
