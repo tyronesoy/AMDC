@@ -782,7 +782,7 @@ function unit_measure($connect)
                                               <th></th>
                                             </tr>
                                             <tr id="row0">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                        <td><input id="quant" type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
                         </td>
                         <td>
                           <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
@@ -932,7 +932,43 @@ function unit_measure($connect)
                                       <div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="submit" id="submit"><i class="fa fa-plus"></i> Add </button>
+                                        <button type="submit" class="btn btn-success sendbutton" name="submit" id="submit"><i class="fa fa-plus"></i> Add </button>
+                                          <script>
+                                            $(document).ready(function(){
+                                                $('.sendButton').attr('disabled',true);
+                                                $('#supply').change(function(){
+                                                    if($(this).val().length !=0)
+                                                        $(document).ready(function(){
+                                                        $('.sendButton').attr('disabled',true);
+                                                        $('#quant').keyup(function(){
+                                                            if($(this).val().length !=0)
+                                                                $('.sendButton').attr('disabled', false);            
+                                                            else
+                                                                $('.sendButton').attr('disabled',true);
+                                                        })
+                                                    });            
+                                                    else
+                                                        $('.sendButton').attr('disabled',true);
+                                                })
+                                            });
+                                            $(document).ready(function(){
+                                                $('.sendButton').attr('disabled',true);
+                                                $('#quant').keyup(function(){
+                                                    if($(this).val().length !=0)
+                                                        $(document).ready(function(){
+                                                        $('.sendButton').attr('disabled',true);
+                                                        $('#supply').change(function(){
+                                                            if($(this).val().length !=0)
+                                                                $('.sendButton').attr('disabled', false);            
+                                                            else
+                                                                $('.sendButton').attr('disabled',true);
+                                                        })
+                                                    });            
+                                                    else
+                                                        $('.sendButton').attr('disabled',true);
+                                                })
+                                            });
+                                          </script>
                                         <!--  <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
