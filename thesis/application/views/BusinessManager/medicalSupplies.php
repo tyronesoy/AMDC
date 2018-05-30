@@ -961,16 +961,7 @@ function category($connect)
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
-               <th>
-                <select name="category" id="category" class="form-control">
-         <option value="">Category</option>
-         <?php 
-         while($row = mysqli_fetch_array($result))
-         {
-          echo '<option value="'.$row["category"].'">'.$row["category"].'</option>';
-         }
-         ?>
-                   </select></th>
+               <th>Category</th>
                 <th>For Department</th>
                   <th> Action</th> 
             </tr>
@@ -1481,42 +1472,3 @@ if(isset($_POST['medDelete'])){
             });
         </script>
 
-<script type="text/javascript" language="javascript" >
-$(document).ready(function(){
- 
- load_data();
-
- function load_data(is_category)
- {
-  var dataTable = $('#example').DataTable({
-   "processing":true,
-   "serverSide":true,
-   "order":[],
-   "ajax":{
-    url:"fetch.php",
-    type:"POST",
-    data:{is_category:is_category}
-   },
-   "columnDefs":[
-    {
-     "targets":[7],
-     "orderable":false,
-    },
-   ],
-  });
- }
-
- $(document).on('change', '#category', function(){
-  var category = $(this).val();
-  $('#example').DataTable().destroy();
-  if(category != '')
-  {
-   load_data(category);
-  }
-  else
-  {
-   load_data();
-  }
- });
-});
-</script>
