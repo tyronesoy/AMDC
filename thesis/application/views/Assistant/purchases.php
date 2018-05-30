@@ -598,12 +598,6 @@ function unit_measure($connect)
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-    <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'userAccounts' ?>">
-            <i class="fa fa-group"></i> <span>Manage Accounts</span>
-          </a>
-        </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="active treeview">
           <a href="#">
@@ -648,12 +642,6 @@ function unit_measure($connect)
        <li>
           <a href="<?php echo 'memo' ?>">
             <i class="fa fa-tasks"></i> <span>Memo</span>
-          </a>
-        </li>
-    <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'logs' ?>">
-            <i class="fa fa-list-alt"></i> <span>Logs</span>
           </a>
         </li>
     <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
