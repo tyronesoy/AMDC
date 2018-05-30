@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class DepartmentsOrder extends CI_Controller {
+class DeclineOrders extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,30 +20,30 @@ class DepartmentsOrder extends CI_Controller {
 	 */
 	public function index(){
 		// $check = $this->session->userdata('type');
-		// if($check == 'BusinessManager'){
+		// if($check == 'Assistant'){
 		// 	echo "<pre>";
 		// 		print_r ( $this->session->all_userdata());
 		// 		echo "</pre>";
 		// 	$this->load->model('db_model');
 		// 	$data['departments']=$this->db_model->getDepartments();
-		// 	$this->load->view('BusinessManager/departments', $data);
+		// 	$this->load->view('Assistant/departments', $data);
 
 		// }
 		$_SESSION['logged_in'] = 'True';
-		//$this->load->view('BusinessManager/dep_orders');
+		//$this->load->view('Assistant/dep_orders');
 		if($_SESSION['logged_in'] == 'True')  
       			{  
            			// echo 'dashboard';
-           			$this->load->view('Assistant/dep_orders');
+           			$this->load->view('Assistant/depDeclineOrder');
       			}  
       			else if ($_SESSION['logged_in'] != 'True')  
       			{  
-           			// echo "BusinessManager/lockscreen";
+           			// echo "Assistant/lockscreen";
            			$this->load->view('Assistant/lockscreen');
       			}
 		//$check = $this->session->userdata('stts');
-		//if($check == 'BusinessManager'){
-		//	$this->load->view('BusinessManager/departments');
+		//if($check == 'Assistant'){
+		//	$this->load->view('Assistant/departments');
 		//}else if($check == 'Assistant'){
 		//	$this->load->view('Assistant/departments');
 		//}else if($check == 'Supervisor'){
@@ -54,7 +54,7 @@ class DepartmentsOrder extends CI_Controller {
 		
 	}
 	// public function getDepartment(){
-	// 	$this->load->view('BusinessManager/php/departmentsFetch');
+	// 	$this->load->view('Assistant/php/departmentsFetch');
 	// }
 	public function editOrder(){
 		$this->load->view('Assistant/php/edit_order');
@@ -71,8 +71,8 @@ class DepartmentsOrder extends CI_Controller {
 	public function issueOrder(){
 		$this->load->view('Assistant/php/issue_order');
 	}
-	public function purchaseOrder(){
-		$this->load->view('Assistant/php/dep_po');
+    public function addUser(){
+		$this->load->view('Assistant/php/userAdd2');
 	}
 
 }
