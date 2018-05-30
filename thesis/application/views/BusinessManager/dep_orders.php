@@ -678,7 +678,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
                           <span class="caret"></span>
                         </button>
-                          <option value="departmentsOrder">Pending</option>
+                          <option value="departmentsOrder">All Orders</option>
+                          <option value="pendingOrders">Pending</option>
+                          <option value="acceptOrders">Accepted</option>
                           <option value="declineOrders">Declined</option>
                         </select>
                       </div></th>
@@ -701,7 +703,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Pending' GROUP BY inventory_order_id";
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status != '' GROUP BY inventory_order_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -1196,8 +1198,9 @@ if(isset($_POST['btnEdit'])){
 if(isset($_POST['btnAccept'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
+    $remarksAccept=mysqli_real_escape_string($con,$_POST['txtremarks']);
 
-    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Accepted', inventory_order_remarks = 'Ready for pick up' WHERE inventory_order_id='$new_id' ";
+    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Accepted', inventory_order_remarks = '$remarksAccept' WHERE inventory_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -1215,9 +1218,9 @@ if(isset($_POST['btnAccept'])){
 if(isset($_POST['btnDecline'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
-    $remarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
+    $remarksDecline=mysqli_real_escape_string($con,$_POST['txtremarks']);
 
-    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Declined', inventory_order_remarks = '$remarks' WHERE inventory_order_id='$new_id' ";
+    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Declined', inventory_order_remarks = '$remarksDecline' WHERE inventory_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){

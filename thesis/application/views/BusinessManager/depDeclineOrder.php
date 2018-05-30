@@ -678,7 +678,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <span class="caret"></span>
                         </button>
                           <option value="declineOrders">Declined</option>
-                          <option value="departmentsOrder">Pending</option>
+                          <option value="departmentsOrder">All Orders</option>
+                          <option value="pendingOrders">Pending</option>
+                          <option value="acceptOrders">Accepted</option>
+                          
                         </select>
                       </div></th>
                     </tr>

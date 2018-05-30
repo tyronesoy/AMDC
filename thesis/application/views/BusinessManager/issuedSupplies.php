@@ -690,7 +690,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="display nowrap" style="width:100%">
                   <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status='Issued' GROUP BY inventory_order_id";
+                    $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status='Fully Issued' GROUP BY inventory_order_id";
                     $result = $conn->query($sql);
 
                     //  WHERE inventory_order_status='Issued'   
@@ -702,8 +702,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                     <th>Department</th>
                     <th>Supervisor Name</th>
-                    <th>Issuance Name</th>
+                    <th>Issued To</th>
                     <th>Status</th>
+                    <th>Remarks</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -715,8 +716,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       
                       <td><?php echo $row["inventory_order_dept"]; ?></td>
                       <td><?php echo $row["inventory_order_name"]; ?></td>
-                      <td><?php echo $row["inventory_order_remarks"] ?></td>
+                      <td><?php echo $row["issued_to"] ?></td>
                       <td><?php echo $row["inventory_order_status"]; ?></td>
+                      <td><?php echo $row["inventory_order_remarks"] ?></td>
                       <td><div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></td>
                     </tr>
@@ -731,8 +733,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                     <th>Department</th>
                     <th>Supervisor Name</th>
-                    <th>Issuance Name</th>
+                    <th>Issued To</th>
                     <th>Status</th>
+                    <th>Remarks</th>
                     <th>Action</th>
                 </tr>
                 </tfoot>

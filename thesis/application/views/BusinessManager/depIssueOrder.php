@@ -661,7 +661,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE  inventory_order_status = 'Accepted' AND (quantity != '0' OR supply_name != '') GROUP BY inventory_order_id";
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE  (inventory_order_status = 'Accepted' OR inventory_order_status = 'Partially Issued') AND (quantity != '0' OR supply_name != '') GROUP BY inventory_order_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -976,6 +976,7 @@ if(isset($_POST['btnIssue'])){
     $cust_name=mysqli_real_escape_string($con,$_POST['custName']);
     $new_uniqid=mysqli_real_escape_string($con,$_POST['txtuniqid']);
     $issue_name=mysqli_real_escape_string($con,$_POST['issueName']);
+    $remarks=mysqli_real_escape_string($con,$_POST['remarks']);
 
     $new_issue0=mysqli_real_escape_string($con,$_POST['qtyIssued0']);
     $new_quantity0=mysqli_real_escape_string($con,$_POST['qtyOrdered0']);
@@ -983,6 +984,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid0=mysqli_real_escape_string($con,$_POST['txtsupid0']);
     $subtract0=mysqli_real_escape_string($con,$_POST['qtyStock0']) - mysqli_real_escape_string($con,$_POST['qtyIssued0']);
     $inv_supid0=mysqli_real_escape_string($con,$_POST['inventorysupid0']);
+    $quantity0=mysqli_real_escape_string($con,$_POST['qtyOrdered0']) - mysqli_real_escape_string($con,$_POST['qtyIssued0']);
 
     $new_issue1=mysqli_real_escape_string($con,$_POST['qtyIssued1']);
     $new_quantity1=mysqli_real_escape_string($con,$_POST['qtyOrdered1']);
@@ -990,6 +992,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid1=mysqli_real_escape_string($con,$_POST['txtsupid1']);
     $subtract1=mysqli_real_escape_string($con,$_POST['qtyStock1']) - mysqli_real_escape_string($con,$_POST['qtyIssued1']);
     $inv_supid1=mysqli_real_escape_string($con,$_POST['inventorysupid1']);
+    $quantity1=mysqli_real_escape_string($con,$_POST['qtyOrdered1']) - mysqli_real_escape_string($con,$_POST['qtyIssued1']);
 
     $new_issue2=mysqli_real_escape_string($con,$_POST['qtyIssued2']);
     $new_quantity2=mysqli_real_escape_string($con,$_POST['qtyOrdered2']);
@@ -997,6 +1000,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid2=mysqli_real_escape_string($con,$_POST['txtsupid2']);
     $subtract2=mysqli_real_escape_string($con,$_POST['qtyStock2']) - mysqli_real_escape_string($con,$_POST['qtyIssued2']);
     $inv_supid2=mysqli_real_escape_string($con,$_POST['inventorysupid2']);
+    $quantity2=mysqli_real_escape_string($con,$_POST['qtyOrdered2']) - mysqli_real_escape_string($con,$_POST['qtyIssued2']);
 
     $new_issue3=mysqli_real_escape_string($con,$_POST['qtyIssued3']);
     $new_quantity3=mysqli_real_escape_string($con,$_POST['qtyOrdered3']);
@@ -1004,6 +1008,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid3=mysqli_real_escape_string($con,$_POST['txtsupid3']);
     $subtract3=mysqli_real_escape_string($con,$_POST['qtyStock3']) - mysqli_real_escape_string($con,$_POST['qtyIssued3']);
     $inv_supid3=mysqli_real_escape_string($con,$_POST['inventorysupid3']);
+    $quantity3=mysqli_real_escape_string($con,$_POST['qtyOrdered3']) - mysqli_real_escape_string($con,$_POST['qtyIssued3']);
 
     $new_issue4=mysqli_real_escape_string($con,$_POST['qtyIssued4']);
     $new_quantity4=mysqli_real_escape_string($con,$_POST['qtyOrdered4']);
@@ -1011,6 +1016,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid4=mysqli_real_escape_string($con,$_POST['txtsupid4']);
     $subtract4=mysqli_real_escape_string($con,$_POST['qtyStock4']) - mysqli_real_escape_string($con,$_POST['qtyIssued4']);
     $inv_supid4=mysqli_real_escape_string($con,$_POST['inventorysupid4']);
+    $quantity4=mysqli_real_escape_string($con,$_POST['qtyOrdered4']) - mysqli_real_escape_string($con,$_POST['qtyIssued4']);
 
     $new_issue5=mysqli_real_escape_string($con,$_POST['qtyIssued5']);
     $new_quantity5=mysqli_real_escape_string($con,$_POST['qtyOrdered5']);
@@ -1018,6 +1024,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid5=mysqli_real_escape_string($con,$_POST['txtsupid5']);
     $subtract5=mysqli_real_escape_string($con,$_POST['qtyStock5']) - mysqli_real_escape_string($con,$_POST['qtyIssued5']);
     $inv_supid5=mysqli_real_escape_string($con,$_POST['inventorysupid5']);
+    $quantity5=mysqli_real_escape_string($con,$_POST['qtyOrdered5']) - mysqli_real_escape_string($con,$_POST['qtyIssued5']);
 
     $new_issue6=mysqli_real_escape_string($con,$_POST['qtyIssued6']);
     $new_quantity6=mysqli_real_escape_string($con,$_POST['qtyOrdered6']);
@@ -1025,6 +1032,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid6=mysqli_real_escape_string($con,$_POST['txtsupid6']);
     $subtract6=mysqli_real_escape_string($con,$_POST['qtyStock6']) - mysqli_real_escape_string($con,$_POST['qtyIssued6']);
     $inv_supid6=mysqli_real_escape_string($con,$_POST['inventorysupid6']);
+    $quantity6=mysqli_real_escape_string($con,$_POST['qtyOrdered6']) - mysqli_real_escape_string($con,$_POST['qtyIssued6']);
 
     $new_issue7=mysqli_real_escape_string($con,$_POST['qtyIssued7']);
     $new_quantity7=mysqli_real_escape_string($con,$_POST['qtyOrdered7']);
@@ -1032,6 +1040,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid7=mysqli_real_escape_string($con,$_POST['txtsupid7']);
     $subtract7=mysqli_real_escape_string($con,$_POST['qtyStock7']) - mysqli_real_escape_string($con,$_POST['qtyIssued7']);
     $inv_supid7=mysqli_real_escape_string($con,$_POST['inventorysupid7']);
+    $quantity7=mysqli_real_escape_string($con,$_POST['qtyOrdered7']) - mysqli_real_escape_string($con,$_POST['qtyIssued7']);
 
     $new_issue8=mysqli_real_escape_string($con,$_POST['qtyIssued8']);
     $new_quantity8=mysqli_real_escape_string($con,$_POST['qtyOrdered8']);
@@ -1039,6 +1048,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid8=mysqli_real_escape_string($con,$_POST['txtsupid8']);
     $subtract8=mysqli_real_escape_string($con,$_POST['qtyStock8']) - mysqli_real_escape_string($con,$_POST['qtyIssued8']);
     $inv_supid8=mysqli_real_escape_string($con,$_POST['inventorysupid8']);
+    $quantity8=mysqli_real_escape_string($con,$_POST['qtyOrdered8']) - mysqli_real_escape_string($con,$_POST['qtyIssued8']);
 
     $new_issue9=mysqli_real_escape_string($con,$_POST['qtyIssued9']);
     $new_quantity9=mysqli_real_escape_string($con,$_POST['qtyOrdered9']);
@@ -1046,41 +1056,46 @@ if(isset($_POST['btnIssue'])){
     $new_supid9=mysqli_real_escape_string($con,$_POST['txtsupid9']);
     $subtract9=mysqli_real_escape_string($con,$_POST['qtyStock9']) - mysqli_real_escape_string($con,$_POST['qtyIssued9']);
     $inv_supid9=mysqli_real_escape_string($con,$_POST['inventorysupid9']);
+    $quantity9=mysqli_real_escape_string($con,$_POST['qtyOrdered9']) - mysqli_real_escape_string($con,$_POST['qtyIssued9']);
 
 
-      $sqlupdate0="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract0', quantity_issued='$new_issue0' WHERE inventory_order_supplies_id='$inv_supid0' AND supply_id='$new_supid0'";
+      $sqlupdate0="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract0', quantity_issued='$new_issue0', quantity='$quantity0' WHERE inventory_order_supplies_id='$inv_supid0' AND supply_id='$new_supid0'";
       $result_update0=mysqli_query($con,$sqlupdate0);
 
-      $sqlupdate1="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract1', quantity_issued='$new_issue1' WHERE inventory_order_supplies_id='$inv_supid1' AND supply_id='$new_supid1'";
+      $sqlupdate1="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract1', quantity_issued='$new_issue1', quantity='$quantity1' WHERE inventory_order_supplies_id='$inv_supid1' AND supply_id='$new_supid1'";
       $result_update1=mysqli_query($con,$sqlupdate1);
 
-      $sqlupdate2="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract2', quantity_issued='$new_issue2' WHERE inventory_order_supplies_id='$inv_supid2' AND supply_id='$new_supid2'";
+      $sqlupdate2="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract2', quantity_issued='$new_issue2', quantity='$quantity2' WHERE inventory_order_supplies_id='$inv_supid2' AND supply_id='$new_supid2'";
       $result_update2=mysqli_query($con,$sqlupdate2);
 
-      $sqlupdate3="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract3', quantity_issued='$new_issue3' WHERE inventory_order_supplies_id='$inv_supid3' AND supply_id='$new_supid3'";
+      $sqlupdate3="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract3', quantity_issued='$new_issue3', quantity='$quantity3' WHERE inventory_order_supplies_id='$inv_supid3' AND supply_id='$new_supid3'";
       $result_update3=mysqli_query($con,$sqlupdate3);
 
-      $sqlupdate4="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract4', quantity_issued='$new_issue4' WHERE inventory_order_supplies_id='$inv_supid4' AND supply_id='$new_supid4'";
+      $sqlupdate4="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract4', quantity_issued='$new_issue4', quantity='$quantity4' WHERE inventory_order_supplies_id='$inv_supid4' AND supply_id='$new_supid4'";
       $result_update4=mysqli_query($con,$sqlupdate4);
 
-      $sqlupdate5="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract5', quantity_issued='$new_issue5' WHERE inventory_order_supplies_id='$inv_supid5' AND supply_id='$new_supid5'";
+      $sqlupdate5="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract5', quantity_issued='$new_issue5', quantity='$quantity5' WHERE inventory_order_supplies_id='$inv_supid5' AND supply_id='$new_supid5'";
       $result_update5=mysqli_query($con,$sqlupdate5);
 
-      $sqlupdate6="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract6', quantity_issued='$new_issue6' WHERE inventory_order_supplies_id='$inv_supid6' AND supply_id='$new_supid6'";
+      $sqlupdate6="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract6', quantity_issued='$new_issue6', quantity='$quantity6' WHERE inventory_order_supplies_id='$inv_supid6' AND supply_id='$new_supid6'";
       $result_update6=mysqli_query($con,$sqlupdate6);
 
-      $sqlupdate7="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract7', quantity_issued='$new_issue7' WHERE inventory_order_supplies_id='$inv_supid7' AND supply_id='$new_supid7'";
+      $sqlupdate7="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract7', quantity_issued='$new_issue7', quantity='$quantity7' WHERE inventory_order_supplies_id='$inv_supid7' AND supply_id='$new_supid7'";
       $result_update7=mysqli_query($con,$sqlupdate7);
 
-      $sqlupdate8="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract8', quantity_issued='$new_issue8' WHERE inventory_order_supplies_id='$inv_supid8' AND supply_id='$new_supid8'";
+      $sqlupdate8="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract8', quantity_issued='$new_issue8', quantity='$quantity8' WHERE inventory_order_supplies_id='$inv_supid8' AND supply_id='$new_supid8'";
       $result_update8=mysqli_query($con,$sqlupdate8);
 
-      $sqlupdate9="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract9', quantity_issued='$new_issue9' WHERE inventory_order_supplies_id='$inv_supid9' AND supply_id='$new_supid9'";
+      $sqlupdate9="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract9', quantity_issued='$new_issue9', quantity='$quantity9' WHERE inventory_order_supplies_id='$inv_supid9' AND supply_id='$new_supid9'";
       $result_update9=mysqli_query($con,$sqlupdate9);
 
-
-    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Issued', inventory_order_remarks='$issue_name', issued_date='$date' WHERE inventory_order_id='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
+      if($new_issue0 < $new_quantity0 || $new_issue1 < $new_quantity1 || $new_issue2 < $new_quantity2 || $new_issue3 < $new_quantity3 || $new_issue4 < $new_quantity4 || $new_issue5 < $new_quantity5 || $new_issue6 < $new_quantity6 || $new_issue7 < $new_quantity7 || $new_issue8 < $new_quantity8 || $new_issue9 < $new_quantity9){
+        $sqlupdate="UPDATE inventory_order SET inventory_order_status='Partially Issued', inventory_order_remarks='$remarks', issued_date='$date', issued_to='$issue_name' WHERE inventory_order_id='$new_id' ";
+        $result_update=mysqli_query($con,$sqlupdate);
+      }else {
+        $sqlupdate="UPDATE inventory_order SET inventory_order_status='Fully Issued', inventory_order_remarks='$remarks', issued_date='$date', issued_to='$issue_name' WHERE inventory_order_id='$new_id' ";
+        $result_update=mysqli_query($con,$sqlupdate);
+      }
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
