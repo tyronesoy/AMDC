@@ -364,30 +364,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          
         <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
 	      <li class="treeview">
-          <a href="#">
-            <i class="fa fa-cubes"></i> <span>Inventory</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="treeview">
-              <a href="#"><i class="fa fa-briefcase"></i> Supplies
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
-                <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
-                </li>
-              </ul>
-            </li>
-		  	<li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-		  <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+          <li class="treeview">
+            <a href="#"><i class="fa fa-briefcase"></i> Supplies
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+              <li class="treeview">
+                <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
+              </li>
+            </ul>
+          </li>
+          <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+          <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
-          </ul>
         </li>
 		
 	    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
@@ -413,7 +405,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       <i class="fa fa-tasks"></i> <b>Memo</b>
+       <i class="fa fa-tasks"></i> <b>Memo/Reminder/Note</b>
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
@@ -532,7 +524,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                     <tr>
                         <th style="display: none;">ID</th>
-                        <th>Memo User</th>
                         <th>Memo Date</th>
                         <th>Memo Title</th>
                         <th>Status</th>
@@ -555,7 +546,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           }
                       ?>
                       <td style="display: none;"><?php echo $row["memo_id"];?></td>
-                      <td><?php echo $row["memo_user"]; ?></td>
                       <td><?php echo $row["memo_date"]; ?></td>
                       <td><?php echo $row["memo_title"]; ?></td>
                       <td><?php echo $status; ?></td>
@@ -601,7 +591,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tfoot>
                   <tr>
                         <th style="display: none;">ID</th>
-                        <th>Memo User</th>
                     	  <th>Memo Date</th>
                         <th>Memo Title</th>
                         <th>Status</th>

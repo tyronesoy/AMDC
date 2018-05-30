@@ -361,32 +361,23 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         </li>
          
 		<!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-cubes"></i> <span>Inventory</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="treeview">
-              <a href="#"><i class="fa fa-briefcase"></i> Supplies
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="<?php echo 'Supervisor/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
-                <li class="treeview">
-                  <li><a href="<?php echo 'Supervisor/officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
-                </li>
-              </ul>
-            </li>
-		  	<li><a href="<?php echo 'Supervisor/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-		  <li><a href="<?php echo 'Supervisor/order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+          <li class="treeview">
+            <a href="#"><i class="fa fa-briefcase"></i> Supplies
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="<?php echo 'Supervisor/medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+              <li class="treeview">
+                <li><a href="<?php echo 'Supervisor/officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
+              </li>
+            </ul>
+          </li>
+          <li><a href="<?php echo 'Supervisor/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+          <li><a href="<?php echo 'Supervisor/order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
-          </ul>
         </li>
 
 
@@ -426,11 +417,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       <div class="row">
         <div class="col-lg-4 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-aqua">
+          <div class="small-box bg-olive">
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10";
+                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Fully Issued' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."')";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -441,10 +432,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     }
                   ?>
 
-              <p>Reorder Supplies</p>
+              <p>Completed Orders</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-check"></i>
+              <i class="fa fa-shopping-cart"></i>
             </div>
             <button onclick="myFunction('Demo1')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
           </div>
@@ -457,7 +449,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) as total FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
+                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Pending' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."')";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -468,10 +460,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     }
                   ?>
 
-              <p>Returned Supplies</p>
+              <p>Pending Orders</p>
             </div>
             <div class="icon">
-              <i class="ion ion-cube"></i>
+              <i class="fa fa-spinner fa-spin"></i>
+              <i class="fa fa-shopping-cart"></i>
             </div>
             <button onclick="myFunction2('Demo2')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
           </div>
@@ -485,7 +478,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
+                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Declined' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."')";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -496,10 +489,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     }
                   ?>
 
-              <p>Expired Supplies</p>
+              <p>Declined Orders</p>
             </div>
             <div class="icon">
-              <i class="ion ion-alert-circled"></i>
+              <i class="fa fa-times"></i>
+              <i class="fa fa-shopping-cart"></i>
             </div>
             <button onclick="myFunction3('Demo3')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
           </div>
@@ -509,102 +503,33 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           <!-- TABLE FOR HIDDEN REORDER SUPPLIES TABLE -->
           <div id="Demo1" class="box-body w3-hide">
                 <table id="example1" class="table table-bordered table-striped">
-                    <center><h2>Reorder Supplies</h2></center>
+                    <center><h2>Completed Orders</h2></center>
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
+                  $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Fully Issued' AND inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') GROUP BY inventory_order_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead> 
                 <tr>
-                  <th>Supply Type</th>
-                  <th>Brandname</th>
-                  <th>Description</th>
-                  <th>Supplier</th>
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Reorder Level</th>
+                  <th>Issued Date</th>
+                  <th>Order Date</th>
+                  <th>Supply Name</th>
+                  <th>Issued To</th>
+                  <th>Status</th>
+                  <th>Remarks</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                    <td><?php echo $row["supply_type"]; ?></td>
-                    <td><?php echo $row["brand_name"]; ?></td>
-                    <td><?php echo $row["supply_description"]; ?></td>
-                    <td><?php echo $row["company_name"]; ?></td>
-                    <td><?php echo $row["quantity_in_stock"]; ?></td>
-                    <td><?php echo $row["unit"]; ?></td>
-                    <td><?php echo $row["reorder_level"]; ?></td>
-                    </tr>
-                  <?php 
-                      }
-                    }
-                  ?>
-                </tbody>
-                <tfoot>
-                   <tr>
-                  <th>Supply Type</th>
-                  <th>Brandname</th>
-                  <th>Description</th>
-                  <th>Supplier</th>
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Reorder Level</th>
-                </tr> 
-                </tfoot>
-              </table>
-          </div>
-          <!-- TABLE FOR HIDDEN RETURNED SUPPLIES TABLE -->
-          <div id="Demo2" class="box-body w3-hide">
-              <table id="example3" class="table table-bordered table-striped">
-                  <center><h2>Returned Supplies</h2></center>
-                <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
-                  $result = $conn->query($sql);    
-                ?>
-                <thead>
-                <tr>
-                  <th class="hidden"></th>
-                  <th>Supply Type</th>
-                  <th>Date Returned</th>
-                  <th>Description</th>
-                  <th>Brandname</th>
-                  <th>Supplier</th>
-                  <th>Quantity</th>
-                  <th class="hidden"></th>
-                  <th>Unit</th>
-                  <th>Reason</th>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
-                    <tr>
-                    <form action="<?php echo 'BusinessManager/returns'?>" method="get">
-                      <td class="hidden"><input type="hidden" name="supid" hidden value="<?php echo $row["supply_id"]; ?>"></td>
-                      <td><?php echo $row["supply_type"]; ?></td>
-                      <td><?php echo $row["return_date"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["brand_name"]; ?></td>
-                      <td><?php echo $row["company_name"]; ?></td>
-                      <td><input type="text" class="form-control" name="qtyReturn" value="<?php echo $row["quantity_returned"]; ?>"  style="border: 0; outline: 0;  background: transparent;" readonly></td>
-                      <td class="hidden"><input type="hidden" hidden name="qty" value="<?php echo $row["quantity_in_stock"]; ?>" readonly></td>
-                      <td><?php echo $row["unit"]; ?></td>
-                      <td><?php echo $row["reason"]; ?></td>
-                      <td>
-                          
-                        
-                           <input type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
-                          <button type="submit" class="btn btn-xs btn-success">Returned </button>
-                        
-                      </td>
-                      </form> 
+                    <td><?php echo $row["issued_date"]; ?></td>
+                    <td><?php echo $row["inventory_order_created_date"]; ?></td>
+                    <td><?php echo $row["supply_name"]; ?></td>
+                    <td><?php echo $row["issued_to"]; ?></td>
+                    <td><?php echo $row["inventory_order_status"]; ?></td>
+                    <td><?php echo $row["inventory_order_remarks"]; ?></td>
                     </tr>
                   <?php 
                       }
@@ -613,15 +538,60 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Supply Type</th>
-                    <th>Date Returned</th>
-                    <th>Description</th>
-                    <th>Brandname</th>
-                    <th>Supplier</th>
-                    <th>Quantity</th>
-                    <th>Unit</th>
-                    <th>Reason</th>
-                    <th></th>
+                    <th>Issued Date</th>
+                    <th>Order Date</th>
+                    <th>Supply Name</th>
+                    <th>Issued To</th>
+                    <th>Status</th>
+                    <th>Remarks</th>
+                  </tr> 
+                </tfoot>
+              </table>
+          </div>
+          <!-- TABLE FOR HIDDEN RETURNED SUPPLIES TABLE -->
+          <div id="Demo2" class="box-body w3-hide">
+              <table id="example3" class="table table-bordered table-striped">
+                  <center><h2>Pending Orders</h2></center>
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Pending' AND inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') GROUP BY inventory_order_id";
+                  $result = $conn->query($sql);    
+                ?>
+                <thead> 
+                <tr>
+                  <th>Issued Date</th>
+                  <th>Order Date</th>
+                  <th>Supply Name</th>
+                  <th>Issued To</th>
+                  <th>Status</th>
+                  <th>Remarks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                    <td><?php echo $row["issued_date"]; ?></td>
+                    <td><?php echo $row["inventory_order_created_date"]; ?></td>
+                    <td><?php echo $row["supply_name"]; ?></td>
+                    <td><?php echo $row["issued_to"]; ?></td>
+                    <td><?php echo $row["inventory_order_status"]; ?></td>
+                    <td><?php echo $row["inventory_order_remarks"]; ?></td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>Issued Date</th>
+                    <th>Order Date</th>
+                    <th>Supply Name</th>
+                    <th>Issued To</th>
+                    <th>Status</th>
+                    <th>Remarks</th>
                   </tr> 
                 </tfoot>
               </table>
@@ -629,39 +599,33 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           <!-- TABLE FOR HIDDEN EXPIRED SUPPLIES TABLE ------>
           <div id="Demo3" class="box-body w3-hide">
               <table id="example5" class="table table-bordered table-striped">
-                  <center><h2>Expired Supplies</h2></center>
+                  <center><h2>Declined Orders</h2></center>
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, quantity_in_stock, unit, soft_deleted FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Declined' AND inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') GROUP BY inventory_order_id";
                   $result = $conn->query($sql);    
                 ?>
-                <thead>
+                <thead> 
                 <tr>
-                  <th>Expiration Date</th>
-                  <th>Description</th>
-                  <th>Brandname</th>
-                  <th>Quantity</th>
-                  <th>Unit</th>
-                  <th>Action</th>
+                  <th>Issued Date</th>
+                  <th>Order Date</th>
+                  <th>Supply Name</th>
+                  <th>Issued To</th>
+                  <th>Status</th>
+                  <th>Remarks</th>
                 </tr>
                 </thead>
                 <tbody>
-                  <?php if ($result->num_rows > 0) {
+                <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["expiration_date"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["brand_name"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
-                      <td><?php echo $row["unit"]; ?></td>
-                      <td>
-                         
-                        <form action="BusinessManager/dispose" method="get">
-                          <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
-                          <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
-                        </form> 
-                      </td>
+                    <td><?php echo $row["issued_date"]; ?></td>
+                    <td><?php echo $row["inventory_order_created_date"]; ?></td>
+                    <td><?php echo $row["supply_name"]; ?></td>
+                    <td><?php echo $row["issued_to"]; ?></td>
+                    <td><?php echo $row["inventory_order_status"]; ?></td>
+                    <td><?php echo $row["inventory_order_remarks"]; ?></td>
                     </tr>
                   <?php 
                       }
@@ -670,12 +634,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tbody>
                 <tfoot>
                   <tr>
-                      <th>Expiration Date</th>
-                      <th>Description</th>
-                      <th>Brandname</th>
-                      <th>Quantity</th>
-                      <th>Unit</th>
-                      <th>Action</th>
+                    <th>Issued Date</th>
+                    <th>Order Date</th>
+                    <th>Supply Name</th>
+                    <th>Issued To</th>
+                    <th>Status</th>
+                    <th>Remarks</th>
                   </tr> 
                 </tfoot>
               </table>
@@ -685,15 +649,16 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
         <section class="content">
           <div class="row">
-        <h3>Total Expenses per Department</h3>
+            <div class="col-lg-8 col-xs-6">
+        
         
           <!-- BAR CHART -->
           <div class="box box-primary">
+            
             <div class="box-header with-border">
-                Legend: <i class="fa fa-square text-red"></i> Medical Supplies
-                <i class="fa fa-square text-blue"></i> Office Supplies
-
-              <div class="box-tools pull-right">
+              <h3 class="box-title">Total Expenses per Department</h3>
+                
+              <div class="box-tools">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -753,11 +718,57 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   }
                 ?>
                 <canvas id="barChart" style="height:300px"></canvas>
+                Legend: <i class="fa fa-square text-red"></i> Medical Supplies
+                <i class="fa fa-square text-blue"></i> Office Supplies
               </div>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+        </div>
+          <div class="col-lg-4 col-xs-6">
+            
+            <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Today's List of Orders</h3>
+              <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                 <?php
+                    $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                    $today=date("Y/m/d");
+                    $sql = "SELECT supply_name, SUM(quantity), inventory_order_status FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_created_date = '$today' AND inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') GROUP BY supply_name LIMIT 7";
+                    $result = $conn->query($sql);    
+                  ?>
+                  
+                 <thead>
+                        <tr>
+                            <th>Supply Name</th>
+                            <th>Status</th>
+                        </tr>
+                 </thead>
+                    <tbody>
+                      <?php if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) { ?>
+                        <tr>
+                        <td><?php echo $row["supply_name"]; ?></td>
+                        <td><?php echo $row["inventory_order_status"]; ?></td>
+                        </tr>
+                      <?php 
+                          }
+                        } else { ?>
+                          <center><b><h3>No orders for today</h3></b></center>
+                    <?php } ?>
+                    </tbody>
+              </table>
+            </div>
+            </div>
+          </div>
         </div>
         <div class="row">
             <div class="col-md-6">

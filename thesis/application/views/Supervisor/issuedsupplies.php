@@ -364,31 +364,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
   
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-cubes"></i> <span>Inventory</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="treeview">
-              <a href="#"><i class="fa fa-briefcase"></i> Supplies
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
-                <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
-                </li>
-              </ul>
-            </li>
-            <li  class="active"><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-      <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i> Orders</a></li>
+        <li class="treeview">
+          <li class="treeview">
+            <a href="#"><i class="fa fa-briefcase"></i> Supplies
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+              <li class="treeview">
+                <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
+              </li>
+            </ul>
+          </li>
+          <li class="active"><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+          <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
-          </ul>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>

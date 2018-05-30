@@ -412,31 +412,23 @@ if(!isset($_SESSION['first_run'])){
           </a>
         </li>
 		<!-- SUPPLIES MENU -->
-     	<li class="active treeview">
-          <a href="#">
-            <i class="fa fa-cubes"></i> <span>Inventory</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="treeview">
-              <a href="#"><i class="fa fa-briefcase"></i> Supplies
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
-                <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
-                </li>
-              </ul>
-            </li>
-		  	<li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-		  <li class="active"><a href="<?php echo '' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+     	<li class="treeview">
+          <li class="treeview">
+            <a href="#"><i class="fa fa-briefcase"></i> Supplies
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+              <li class="treeview">
+                <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
+              </li>
+            </ul>
+          </li>
+          <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+          <li class="active"><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
 
-          </ul>
         </li>
     
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
@@ -484,8 +476,9 @@ if(!isset($_SESSION['first_run'])){
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                           <span class="caret"></span>
                         </button>
-                          <option><b>Accepted</b></option>
-                          <option value="order">Pending</option>
+                          <option value="orderAccepted">Accepted</option>
+                          <option value="orders">All Orders</option>
+                          <option value="ordersPending">Pending</option>
                           <option value="orderDeclined">Declined</option>
                         </select>
                       </div></th>
