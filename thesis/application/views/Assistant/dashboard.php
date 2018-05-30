@@ -722,7 +722,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10";
+
+                  $sql = "SELECT COUNT(*) AS total FROM supplies WHERE quantity_in_stock <= reorder_level+10 OR quantity_in_stock = 0";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -832,8 +833,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers ON supplies.suppliers_id = suppliers.supplier_id WHERE quantity_in_stock <= reorder_level+10 GROUP BY supply_description";
-                  $result = $conn->query($sql);    
+                  $sql = "SELECT supply_id, supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10 OR quantity_in_stock = 0 GROUP BY supply_description";
+                  $result = $conn->query($sql);
                 ?>
                 <thead> 
                 <tr>
@@ -844,11 +845,15 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Reorder Level</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
+                  while($row = $result->fetch_assoc()) { 
+                    $reorder_id = $row["supply_id"];
+                    $desc = $row["supply_description"];
+                    ?>
                     <tr>
                     <td><?php echo $row["supply_type"]; ?></td>
                     <td><?php echo $row["brand_name"]; ?></td>
@@ -857,6 +862,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <td><?php echo $row["quantity_in_stock"]; ?></td>
                     <td><?php echo $row["unit"]; ?></td>
                     <td><?php echo $row["reorder_level"]; ?></td>
+                    <td>
+                      <a href="Assistant/purchases">
+                        <input class="hidden" type="text" name="reorderSupp" id="reorderSupp" hidden value="<?php echo $row["supply_id"]; ?>">
+                        <button type="button" class="btn btn-primary"><i class="fa fa-repeat"></i> Reorder </button>
+                      </a>
+                    </td>
                     </tr>
                   <?php 
                       }
@@ -872,6 +883,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Reorder Level</th>
+                  <th>Action</th>
                 </tr> 
                 </tfoot>
               </table>
