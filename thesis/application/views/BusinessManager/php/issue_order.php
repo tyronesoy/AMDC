@@ -207,7 +207,7 @@ if(isset($_REQUEST['id'])){
                                         <input type="number" class="form-control" id="qtyOrdered<?php echo $x; ?>" name="qtyOrdered<?php echo $x; ?>" value="<?php print_r($qty_ordered[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
                                     </td>
                                     <td width="50">
-                                        <?php if($qty_stock[$zero] >= 0){ 
+                                        <?php if($qty_stock[$zero] > 0){ 
                                             if($qty_ordered[$zero] <= $qty_stock[$zero]){ ?>
                                             <input type="number" class="form-control" id="qtyIssued<?php echo $x; ?>" name="qtyIssued<?php echo $x; ?>" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" max="<?php print_r($qty_ordered[$zero]);?>" required>
                                             <?php }else { ?>
