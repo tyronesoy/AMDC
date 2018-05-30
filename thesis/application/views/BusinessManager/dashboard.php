@@ -429,7 +429,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </li>
 <!--          FLAG END-->
             <li>
-            <button type="submit" class="btn btn-default btn-flat" style="background-color:#00a65a; border:none;" data-toggle="modal" data-target="#editflag"><i class="glyphicon glyphicon-cog" style="font-size:40px"></i></button>
+            <button type="submit" class="btn btn-default btn-flat" style="background-color:#00a65a; border:none;" data-toggle="modal" data-target="#editflag"><i class="glyphicon glyphicon-cog" style="font-size:25px"></i></button>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
@@ -514,7 +514,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser2"><i class="glyphicon glyphicon-cog"></i> Update</button>
+                <button type="submit" class="btn btn-primary" name="addUser2"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -1174,7 +1174,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description join users on users.fname+users.lname = inventory_order.inventory_order_name WHERE inventory_order_status='Issued' AND supply_type='Medical' AND inventory_order_name = '".$_SESSION['fname']."' + '".$_SESSION['lname']."' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description join users on users.fname+users.lname = inventory_order.inventory_order_name WHERE inventory_order_status='Issued' AND supply_type='Medical' GROUP BY supply_name ORDER BY quantity DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -1219,9 +1219,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
-                 <?php
+                   <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description join users on users.fname+users.lname = inventory_order.inventory_order_name WHERE inventory_order_status='Issued' AND supply_type='Medical' AND inventory_order_name = '".$_SESSION['fname']."' + '".$_SESSION['lname']."' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description join users on users.fname+users.lname = inventory_order.inventory_order_name WHERE inventory_order_status='Issued' AND supply_type='Office' GROUP BY supply_name ORDER BY quantity DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>

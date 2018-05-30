@@ -449,25 +449,27 @@ function unit_measure($connect)
  <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
-                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                  <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                  <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
         <small> Business Manager</small>
         </p>
                 </li>
+                
               <!-- Menu Footer-->
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
                 </div>
               </li>
             </ul>
@@ -520,25 +522,47 @@ function unit_measure($connect)
                           <input type="text" class="hidden" name="prevname" id="prevname" value="<?php echo $identity; ?>" />
                         </div>
                     
+                       <div class="col-md-13">
                        <div class="form-group">
                           <label for="exampleInputEmail1">Username</label>
                           <input type="text" class="form-control" name="username" id="username" value="<?php echo $row['username'] ?>" required />
                         </div>
+                      </div>
 
-                        <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">First Name</label>
                           <input type="name" class="form-control" name="fname" id="fname" value="<?php echo $row['fname'] ?>" required />
                         </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Last Name</label>
                           <input type="name" class="form-control" name="lname" id="lname" value="<?php echo $row['lname'] ?>" required />
                         </div>
+                      </div>
+                      </div>
 
+                      <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group" style="width:100%">
+                          <label for="exampleInputEmail1">Email</label>
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
+                        </div>
+                      </div>
+                
+                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
                           <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
-                        <div class="form-group">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Password</label>
                           <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $row['password'] ?>" required />
 
@@ -554,16 +578,13 @@ function unit_measure($connect)
                         </script>
                             
                         </div>
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
-                        </div>
-                    
                           <?php 
                               }
                             }
                           ?>
                 </div>
+              </div>
+              </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
@@ -575,7 +596,7 @@ function unit_measure($connect)
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>                       
+        </div>                   
   <!-- Left side column. contains the logo and sidebar -->
  <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -672,7 +693,7 @@ function unit_measure($connect)
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-            <i class="fa fa-shopping-cart"></i><b>Purchase Orders</b>
+            <i class="fa fa-shopping-cart"></i> <b>Purchase Orders</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
@@ -690,7 +711,7 @@ function unit_measure($connect)
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                 <table style="float:right;">
                     <tr>
-                        <button  type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#printrep">Generate Report</button>
+                        <button  type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Purchase Order</i></button>
             
                     <form id="add_name" name="add_name">
