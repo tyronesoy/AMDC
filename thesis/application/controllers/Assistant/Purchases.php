@@ -69,5 +69,11 @@ class Purchases extends CI_Controller {
     public function addUser(){
 		$this->load->view('Assistant/php/userAdd2');
 	}
+	public function updatePurchases(){
+		$this->load->view('Assistant/update_purchase');
+	}
+    public function addUser2(){
+		$this->load->view('Assistant/php/flagrange');
+	}
 
 }
