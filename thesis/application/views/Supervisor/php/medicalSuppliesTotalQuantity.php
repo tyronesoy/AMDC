@@ -210,239 +210,17 @@ function supplier($connect)
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
-          <!--            FLAG START-->
-            <?php
-                        $conn =mysqli_connect("localhost","root","");
-                        mysqli_select_db($conn, "itproject");
-                        $sql32 = "SELECT value2 from defaults where attribute = 'expirerange' LIMIT 1";
-                        $result32 = $conn->query($sql32);
-                          if ($result32->num_rows > 0) {
-                            while($row = $result32->fetch_assoc()) {
-                                $daysval = $row["value2"];
-                                $datenow = strtotime(date("Y/m/d"));
-                                $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
-                                $daysvalue = $daysval2 - $datenow;
-                                $num1 = 0;
-                            }
-                          }
-                    ?>
-                  <li class="dropdown tasks-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-               
-                <?php
-                $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                $dtoday = date("Y/m/d");
-                $date_futr = date("Y-m-d", strtotime('+30 days') ) ;
-                $date_past = date("Y-m-d", strtotime('-1 year') ) ;
-                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql5 = "SELECT COUNT(*) AS total from supplies where accounted_for = 'N' group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
-                $number1 = $conn->query($sql5);
-                if ($number1->num_rows > 0) {
-                        while($row = $number1->fetch_assoc()) {
-                            $num1 = $row["total"];
-                        }
-                }
-                $sqlfive = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$dtoday."' AND '".$date_futr."')";
-                $number2 = $conn->query($sqlfive);
-                if ($number2->num_rows > 0) {
-                        while($row = $number2->fetch_assoc()) {
-                            $num2 = $row["total"];
-                        }
-                }
-                $sqlV = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$date_past."' AND '".$dtoday."') AND soft_deleted = 'N'";
-                $number3 = $conn->query($sqlV);
-                if ($number3->num_rows > 0) {
-                        while($row = $number3->fetch_assoc()) {
-                            $num3 = $row["total"];
-                        }
-                }
-                $flagtotal = $num1 + $num2 + $num3;
-                ?>
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger"><?php echo $flagtotal ?></span>
-            </a>
-            <ul class="dropdown-menu">
-               <?php
-                    $conn =mysqli_connect("localhost","root","");
-                    mysqli_select_db($conn, "itproject");
-                        $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder`,accounted_for as `expired` from supplies where accounted_for = 'N' group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
-                    $result2 = $conn->query($sql2);
-                  ?>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <!-- Task item reorder levels-->
-                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
-                    <h5 style="padding:3px;margin:3px;">Items below reorder level</h5>
-                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
-                    <li>
-                    <?php 
-                      if ($result2->num_rows > 0) {
-                        while($row = $result2->fetch_assoc()) { ?>
-                          <?php echo $row["supply_description"]; 
-                                $newvalue = $row["totalstock"] * 100;
-                                $percentage = $newvalue / $row["maximumreorder"];
-                          ?>
-                        <!--Reorder level meter-->
-                      <?php
-                      if($percentage < 25){
-                      ?>
-                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: <?php echo $percentage ?>%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                      </div>
-                      <?php
-                      }else if($percentage < 50){?>
-                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: <?php echo $percentage ?>%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                      </div>
-                      <?php
-                      }else if($percentage < 100){?>
-                      <small class="pull-right"><?php echo number_format($percentage) ?>%</small>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: <?php echo $percentage ?>%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                      </div>
-                    <?php
-                      }
-                    }
-                    }else{
-                    ?>
-                    <div>
-                    <center><h5 style="color:B11C1C">No items to display</h5></center>
-                    </div>
-                    <?php    
-                    }
-                    ?>
-                  </li>
-                  <!-- end task item expiration notification-->
-                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
-                    <h5 style="padding:3px;margin:3px;">Items nearing expiration</h5>
-                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
-                    <?php
-                        $conn =mysqli_connect("localhost","root","");
-                        mysqli_select_db($conn, "itproject");
-                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
-                        $result3 = $conn->query($sql3);
-                        $strdatetoday = strtotime(date("Y/m/d"));
-                        $strdatefuture = $strdatetoday + $daysvalue;//today + 30 days
-                    ?>
-                    <table id="exp" class="table table-bordered table-striped">
-                    <small>
-                            <?php 
-                              if ($result3->num_rows > 0) {
-                                while($row = $result3->fetch_assoc()) {
-                                    $expdate = strtotime($row["expiration_date"]);
-                                    $expvalue = abs((($expdate - $strdatetoday) / $daysvalue)*100);
-                                if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
-                            ?>
-                                  <tr>
-                                  <td><?php echo $row["supply_description"]; ?></td>
-                                  <td><?php echo $row["expiration_date"]; ?></td>
-                                  </tr>
-                                    <!--Expiration meter-->
-                                    <?php
-                                      if($expvalue < 25){
-                                    ?>
-                                    <tr>
-                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
-                                    <td><div class="progress xs">
-                                      <div class="progress-bar progress-bar-red" style="width: <?php echo $expvalue ?>%" role="progressbar"
-                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                      </div>
-                                    </div></td>
-                                    </tr>
-                                    <?php
-                                      }else if($expvalue < 50){?>
-                                    <tr>
-                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
-                                    <td><div class="progress xs">
-                                      <div class="progress-bar progress-bar-yellow" style="width: <?php echo $expvalue ?>%" role="progressbar"
-                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                      </div>
-                                    </div></td>
-                                    </tr>  
-                                    <?php
-                                      }else if($expvalue < 100){?>
-                                    <tr>
-                                    <td><small class="pull-left"><?php echo number_format($expvalue) . "% to Exp"?></small></td>
-                                    <td><div class="progress xs">
-                                      <div class="progress-bar progress-bar-green" style="width: <?php echo $expvalue ?>%" role="progressbar"
-                                           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                      </div>
-                                    </div></td>
-                                    </tr>
-                                    <?php
-                                    }
-                                    }
-                                }
-                              }else{
-                            ?>
-                                <div>
-                                <center><h5 style="color:B11C1C">No items to display</h5></center>
-                                </div>
-                            <?php      
-                              }
-                            ?>
-                    </small>
-                    </table>
-                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
-                    <h5 style="padding:3px;margin:3px;">Expired Items</h5>
-                    <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
-                    <?php
-                        $conn =mysqli_connect("localhost","root","");
-                        mysqli_select_db($conn, "itproject");
-                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
-                        $result4 = $conn->query($sql4);
-                        $strdatetoday = strtotime(date("Y/m/d"));
-                    ?>
-                    <table id="expdue" class="table table-bordered table-striped">
-                    <small>
-                            <?php 
-                              if ($result4->num_rows > 0) {
-                                while($row = $result4->fetch_assoc()) {
-                                    $expdate = strtotime($row["expiration_date"]);
-                                if($expdate < $strdatetoday){
-                            ?>
-                                  <tr class="danger">
-                                  <td><?php echo $row["supply_description"]; ?></td>
-                                  <td><?php echo $row["expiration_date"]; ?></td>
-                                  </tr>
-                            <?php
-                                }
-                              }
-                            }else{
-                            ?>
-                            <div>
-                            <center><h5 style="color:B11C1C">No items to display</h5></center>
-                            </div>
-                            <?php
-                            }
-                            ?>
-                    </small>
-                    </table>
-                </ul>
-              </li>
-            </ul>
-          </li>
-<!--          FLAG END-->
+          
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
+              <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
               <span class="hidden-xs"> <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
@@ -590,7 +368,7 @@ function supplier($connect)
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+          <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
@@ -605,52 +383,24 @@ function supplier($connect)
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
-              <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
-              </a>
-          </li>
-  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-cubes"></i> <span>Inventory</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active treeview">
-              <a href="#"><i class="fa fa-briefcase"></i> Supplies
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="active"><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
-                <li class="treeview">
-                  <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
-                </li>
-              </ul>
-            </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
-      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
-          </ul>
-        </li>
-    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'suppliers' ?>">
-            <i class="fa fa-user"></i> <span>Suppliers</span>
-          </a>
-        </li>
-    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'departments' ?>">
-            <i class="fa fa-building"></i> <span>Departments</span>
-          </a>
+        <li class="treeview">
+          <li class="treeview">
+            <a href="#"><i class="fa fa-briefcase"></i> Supplies
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu active">
+              <li class="active"><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+              <li class="treeview">
+                <li><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
+              </li>
+            </ul>
+          </li>
+          <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+          <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
@@ -658,14 +408,6 @@ function supplier($connect)
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-
-        <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'logs' ?>">
-            <i class="fa fa-list-alt"></i> <span>Logs</span>
-          </a>
-        </li>
-
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
