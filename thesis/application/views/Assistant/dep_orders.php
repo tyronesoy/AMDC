@@ -180,10 +180,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
-                                $daysval = $row["value2"];
-                                $datenow = strtotime(date("Y/m/d"));
-                                $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
-                                $daysvalue = $daysval2 - $datenow;
+                                $daysvalue = strtotime($row['value2']);
                                 $num1 = 0;
                             }
                           }
@@ -622,27 +619,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </ol>
     </section>
 
+
     <!-- Main content -->
       <section class="content">
           <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <!-- <h3 class="box-title">Office Supplies</h3> -->              
+              <!-- <h3 class="box-title">Office Supplies</h3> -->
+              <table style="float: left;">
+                    <tr>
+                        <th> <div class="dropdownButton">
+                        <select name="dropdown" class="form-group select2" style="width:100 %;" onchange="location=this.value;">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
+                          <span class="caret"></span>
+                        </button>
+                          <option value="departmentsOrder">Pending</option>
+                          <option value="declineOrders">Declined</option>
+                        </select>
+                      </div></th>
+                    </tr>
+                </table> 
+
+              <table style="float:right;">
+                    <tr>
+                      <th>
+                        <a href="issueOrderSupplies">
+                          <button type="submit" class="btn btn-primary btn-block btn-warning"><i class="fa fa-retweet"></i> Issue Supplies</button>
+                        </a>
+                      </th> 
+                    </tr>
+                </table>              
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) GROUP BY inventory_order_id";
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Pending' GROUP BY inventory_order_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
                   <tr>
                     <th>Order ID</th>
                     <th>Order Date</th>
-                    <th>Customer Name</th>
+                    <th>Supervisor Name</th>
                     <th>Department</th>
                     <th>Status</th>
                     <th>Remarks</th>
@@ -660,38 +681,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["inventory_order_status"]; ?></td>
                       <td><?php echo $row["inventory_order_remarks"]; ?></td>
                       <td>
-                        <!-- to show the update/edit button -->
-                        <?php if ($row["inventory_order_remarks"] == null && $row["inventory_order_status"] == 'Accepted') {?>
+                        <!-- if the status is declined or issued it will not show any button -->
+                        <?php if ($row["inventory_order_status"] == 'Pending') {?>
                           <div class="btn-group">
-                              <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
+                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
                           </div>
-                        <?php } ?>
-
-                        <!-- to show the issue button -->
-                        <?php if ($row["inventory_order_status"] == 'Accepted') {?>
-                          
-                          <div class="btn-group">
-                              <button type="button" id="issue" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#issueModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-retweet"></i> Issue</button>
-                          </div>
-
-                          <!-- if the status is declined or issued it will not show any button -->
-                        <?php }elseif ($row["inventory_order_status"] == 'Declined' || $row["inventory_order_status"] == 'Issued') {?>
-
                         <!-- the accept and decline button will be showed if the above statement will be false -->
-                        <?php }else {?>
-                          
-                          <div class="btn-group">
-                              <button type="button" id="accept" class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-ok"> Accept</i></button>
-                          </div>
-                          <div class="btn-group">
-                              <button type="button" id="decline" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#declineModal" data-id="<?php echo $row["inventory_order_id"]; ?>" ><i class="glyphicon glyphicon-remove"> Decline</i></button>
-                          </div>
-                        <?php } ?>
+                        <?php }?>
 
                         <!-- the view button will always show up -->
-                        <div class="btn-group">
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
-                        </div>
+                        
                       </td>
                     </tr>
                   <?php 
@@ -703,7 +702,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <tr>
                     <th>Order ID</th>
                     <th>Order Date</th>
-                    <th>Customer Name</th>
+                    <th>Supervisor Name</th>
                     <th>Department</th>
                     <th>Status</th>
                     <th>Remarks</th>
@@ -720,9 +719,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <!-- /.col -->
       </div>
-      <!-- /.row -->
-          
-    
+      <!-- /.row -->    
     </section>
     <!-- /.content -->
   </div>
@@ -852,6 +849,7 @@ function onUserInactivity() {
       //     'autoWidth'   : false
       //   })
       // })
+
       $(document).ready(function() {
     var printCounter = 0;
  
@@ -870,7 +868,7 @@ function onUserInactivity() {
                     printCounter++;
  
                     if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Department Orders</center></h4>';
+                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Departments Order</center></h4>';
                     }
                     
                 },
@@ -933,24 +931,6 @@ function onUserInactivity() {
                 <div id="decline-data"></div>
             </div>
         </div>
-        <div class="modal fade" id="issueModal" role="dialog">
-            <div class="modal-dialog">
-                <div id="issue-data"></div>
-            </div>
-        </div>
-   
-    <!-- <script>
-        $(document).ready(function(){
-            var dataTable=$('#example').DataTable({
-                "processing": true,
-                "serverSide":true,
-                "ajax":{
-                    url:"departments/getDepartment",
-                    type:"post"
-                }
-            });
-        });
-    </script> -->
 
     <!--script js for get edit data-->
 
@@ -994,25 +974,7 @@ function onUserInactivity() {
         });
     </script>
 
-    <script>
-        $(document).on('click','#accept',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#accept-data').html('');
-            $.ajax({
-                url:'departmentsOrder/acceptOrder',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#accept-data').html('');
-                $('#accept-data').html(data);
-            }).final(function(){
-                $('#accept-data').html('<p>Error</p>');
-            });
-        });
-    </script>
+    
 
     <script>
         $(document).on('click','#decline',function(e){
@@ -1030,26 +992,6 @@ function onUserInactivity() {
                 $('#decline-data').html(data);
             }).final(function(){
                 $('#decline-data').html('<p>Error</p>');
-            });
-        });
-    </script>
-
-    <script>
-        $(document).on('click','#issue',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#issue-data').html('');
-            $.ajax({
-                url:'departmentsOrder/issueOrder',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#issue-data').html('');
-                $('#issue-data').html(data);
-            }).final(function(){
-                $('#issue-data').html('<p>Error</p>');
             });
         });
     </script>
@@ -1085,7 +1027,7 @@ if(isset($_POST['btnAccept'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
 
-    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Accepted' WHERE inventory_order_id='$new_id' ";
+    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Accepted', inventory_order_remarks = 'Ready for pick up' WHERE inventory_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -1103,8 +1045,9 @@ if(isset($_POST['btnAccept'])){
 if(isset($_POST['btnDecline'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
+    $remarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
 
-    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Declined' WHERE inventory_order_id='$new_id' ";
+    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Declined', inventory_order_remarks = '$remarks' WHERE inventory_order_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
@@ -1119,136 +1062,5 @@ if(isset($_POST['btnDecline'])){
         echo '<script>alert("Update Failed")</script>';
     }
 }
-if(isset($_POST['btnIssue'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus']);
-    $date=date("Y-m-d");
-
-    $new_issue0=mysqli_real_escape_string($con,$_POST['txtissued0']);
-    $new_quantity0=mysqli_real_escape_string($con,$_POST['txtquantity0']);
-    $new_supply0=mysqli_real_escape_string($con,$_POST['txtsupply0']);
-    $new_supid0=mysqli_real_escape_string($con,$_POST['txtsupid0']);
-    $subtract0=mysqli_real_escape_string($con,$_POST['txtsupply0']) - mysqli_real_escape_string($con,$_POST['txtissued0']);
-
-    $new_issue1=mysqli_real_escape_string($con,$_POST['txtissued1']);
-    $new_quantity1=mysqli_real_escape_string($con,$_POST['txtquantity1']);
-    $new_supply1=mysqli_real_escape_string($con,$_POST['txtsupply1']);
-    $new_supid1=mysqli_real_escape_string($con,$_POST['txtsupid1']);
-    $subtract1=mysqli_real_escape_string($con,$_POST['txtsupply1']) - mysqli_real_escape_string($con,$_POST['txtissued1']);
-
-    $new_issue2=mysqli_real_escape_string($con,$_POST['txtissued2']);
-    $new_quantity2=mysqli_real_escape_string($con,$_POST['txtquantity2']);
-    $new_supply2=mysqli_real_escape_string($con,$_POST['txtsupply2']);
-    $new_supid2=mysqli_real_escape_string($con,$_POST['txtsupid2']);
-    $subtract2=mysqli_real_escape_string($con,$_POST['txtsupply2']) - mysqli_real_escape_string($con,$_POST['txtissued2']);
-
-    $new_issue3=mysqli_real_escape_string($con,$_POST['txtissued3']);
-    $new_quantity3=mysqli_real_escape_string($con,$_POST['txtquantity3']);
-    $new_supply3=mysqli_real_escape_string($con,$_POST['txtsupply3']);
-    $new_supid3=mysqli_real_escape_string($con,$_POST['txtsupid3']);
-    $subtract3=mysqli_real_escape_string($con,$_POST['txtsupply3']) - mysqli_real_escape_string($con,$_POST['txtissued3']);
-
-    $new_issue4=mysqli_real_escape_string($con,$_POST['txtissued4']);
-    $new_quantity4=mysqli_real_escape_string($con,$_POST['txtquantity4']);
-    $new_supply4=mysqli_real_escape_string($con,$_POST['txtsupply4']);
-    $new_supid4=mysqli_real_escape_string($con,$_POST['txtsupid4']);
-    $subtract4=mysqli_real_escape_string($con,$_POST['txtsupply4']) - mysqli_real_escape_string($con,$_POST['txtissued4']);
-
-    $new_issue5=mysqli_real_escape_string($con,$_POST['txtissued5']);
-    $new_quantity5=mysqli_real_escape_string($con,$_POST['txtquantity5']);
-    $new_supply5=mysqli_real_escape_string($con,$_POST['txtsupply5']);
-    $new_supid5=mysqli_real_escape_string($con,$_POST['txtsupid5']);
-    $subtract5=mysqli_real_escape_string($con,$_POST['txtsupply5']) - mysqli_real_escape_string($con,$_POST['txtissued5']);
-
-    $new_issue6=mysqli_real_escape_string($con,$_POST['txtissued6']);
-    $new_quantity6=mysqli_real_escape_string($con,$_POST['txtquantity6']);
-    $new_supply6=mysqli_real_escape_string($con,$_POST['txtsupply6']);
-    $new_supid6=mysqli_real_escape_string($con,$_POST['txtsupid6']);
-    $subtract6=mysqli_real_escape_string($con,$_POST['txtsupply6']) - mysqli_real_escape_string($con,$_POST['txtissued6']);
-
-    $new_issue7=mysqli_real_escape_string($con,$_POST['txtissued7']);
-    $new_quantity7=mysqli_real_escape_string($con,$_POST['txtquantity7']);
-    $new_supply7=mysqli_real_escape_string($con,$_POST['txtsupply7']);
-    $new_supid7=mysqli_real_escape_string($con,$_POST['txtsupid7']);
-    $subtract7=mysqli_real_escape_string($con,$_POST['txtsupply7']) - mysqli_real_escape_string($con,$_POST['txtissued7']);
-
-    $new_issue8=mysqli_real_escape_string($con,$_POST['txtissued8']);
-    $new_quantity8=mysqli_real_escape_string($con,$_POST['txtquantity8']);
-    $new_supply8=mysqli_real_escape_string($con,$_POST['txtsupply8']);
-    $new_supid8=mysqli_real_escape_string($con,$_POST['txtsupid8']);
-    $subtract8=mysqli_real_escape_string($con,$_POST['txtsupply8']) - mysqli_real_escape_string($con,$_POST['txtissued8']);
-
-    $new_issue9=mysqli_real_escape_string($con,$_POST['txtissued9']);
-    $new_quantity9=mysqli_real_escape_string($con,$_POST['txtquantity9']);
-    $new_supply9=mysqli_real_escape_string($con,$_POST['txtsupply9']);
-    $new_supid9=mysqli_real_escape_string($con,$_POST['txtsupid9']);
-    $subtract9=mysqli_real_escape_string($con,$_POST['txtsupply9']) - mysqli_real_escape_string($con,$_POST['txtissued9']);
-
-
-      $sqlupdate0="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract0', qty_issued='$new_issue0' WHERE supply_id ='$new_supid0' ";
-      $result_update0=mysqli_query($con,$sqlupdate0);
-
-      $sqlupdate1="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract1', qty_issued='$new_issue1' WHERE supply_id='$new_supid1' ";
-      $result_update1=mysqli_query($con,$sqlupdate1);
-
-      $sqlupdate2="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract2', qty_issued='$new_issue2' WHERE supply_id='$new_supid2' ";
-      $result_update2=mysqli_query($con,$sqlupdate2);
-
-      $sqlupdate3="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract3', qty_issued='$new_issue3' WHERE supply_id='$new_supid3' ";
-      $result_update3=mysqli_query($con,$sqlupdate3);
-
-      $sqlupdate4="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract4', qty_issued='$new_issue4' WHERE supply_id='$new_supid4' ";
-      $result_update4=mysqli_query($con,$sqlupdate4);
-
-      $sqlupdate5="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract5', qty_issued='$new_issue5' WHERE supply_id='$new_supid5' ";
-      $result_update5=mysqli_query($con,$sqlupdate5);
-
-      $sqlupdate6="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract6', qty_issued='$new_issue6' WHERE supply_id='$new_supid6' ";
-      $result_update6=mysqli_query($con,$sqlupdate6);
-
-      $sqlupdate7="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract7', qty_issued='$new_issue7' WHERE supply_id='$new_supid7' ";
-      $result_update7=mysqli_query($con,$sqlupdate7);
-
-      $sqlupdate8="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract8', qty_issued='$new_issue8' WHERE supply_id='$new_supid8' ";
-      $result_update8=mysqli_query($con,$sqlupdate8);
-
-      $sqlupdate9="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract9', qty_issued='$new_issue9' WHERE supply_id='$new_supid9' ";
-      $result_update9=mysqli_query($con,$sqlupdate9);
-
-
-    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Issued', inventory_order_remarks='The item has been issued', issued_date='$date' WHERE inventory_order_id='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
-
-    if($result_update){
-        $conn =mysqli_connect("localhost","root","");
-        $datetoday = date('Y\-m\-d\ H:i:s A');
-        mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Department order ID #".$new_id." has been issued','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
-        $result = $conn->query($notif);
-        echo '<script>window.location.href="departmentsOrder"</script>';
-    }
-    else{
-        echo '<script>alert("Update Failed")</script>';
-    }
-}
 
 ?>
-<script>
-        $(document).on('click','#getAdd',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#content-data').html('');
-            $.ajax({
-                url:'dashboard/addUser',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#content-data').html('');
-                $('#content-data').html(data);
-            }).final(function(){
-                $('#content-data').html('<p>Error</p>');
-            });
-        });
-</script>

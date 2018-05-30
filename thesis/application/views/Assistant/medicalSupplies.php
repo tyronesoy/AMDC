@@ -30,6 +30,21 @@ function supplier($connect)
  }
  return $output;
 }
+
+function category($connect)
+{ 
+ $output = '';
+ $query = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL  ORDER BY category ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $output .= '<option value="'.$row["category"].'">'.$row["category"].'</option>';
+ }
+ return $output;
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,8 +61,8 @@ function supplier($connect)
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
+  <!-- DataTables 
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -64,14 +79,14 @@ function supplier($connect)
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
   <!-- datatable lib -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
 
-    <script src="../assets/table/jquery-1.12.4.js"></script>
     <script src="../assets/table/jquery.dataTables.min.js"></script>
     <script src="../assets/table/dataTables.buttons.min.js"></script>
     <script src="../assets/table/buttons.flash.min.js"></script>
@@ -81,6 +96,7 @@ function supplier($connect)
     <script src="../assets/table/buttons.html5.min.js"></script>
     <script src="../assets/table/buttons.print.min.js"></script>
     <script src="../assets/table/buttons.colVis.min.js"></script>
+
  <style>
     .example-modal .modal {
       position: relative;
@@ -142,9 +158,10 @@ function supplier($connect)
                         </script>
                     </a>
                 </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-            <!--            BELL START-->
-            <li class="dropdown notifications-menu">
+
+<!-- Notifications: style can be found in dropdown.less -->
+<!--        BELL START-->
+         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
@@ -187,6 +204,10 @@ function supplier($connect)
                         if(strpos($logvalue, 'order') !== false) { ?>
                             <td><small><a display="block" style="color:black" href="<?php echo 'departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
+                        }else if(strpos($logvalue, 'profile') !== false){
+                        ?>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <?php
                         }else{
                         ?>
                             <td><small><?php echo $row["log_description"];?></small></td>
@@ -208,6 +229,7 @@ function supplier($connect)
                 </table>
                 </ul>
               </li>
+              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -217,7 +239,8 @@ function supplier($connect)
               </li>
             </ul>
           </li>
-                        <!--            FLAG START-->
+          <!-- Tasks: style can be found in dropdown.less -->
+          <!--            FLAG START-->
             <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -233,8 +256,9 @@ function supplier($connect)
                             }
                           }
                     ?>
-                    <li class="dropdown tasks-menu">
+                  <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -441,36 +465,37 @@ function supplier($connect)
 <!--          FLAG END-->
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
+              <span class="hidden-xs"> <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
+              <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
 
-                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
-        <small> Assistant</small>
+                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                  <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
+        <small> Business Manager</small>
         </p>
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
-                </div>
+        
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo 'logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
+                </div>
+                <div class="pull-left">
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
                 </div>
               </li>
             </ul>
           </li>
-          </ul>
+        </ul>
       </div>
     </nav>
   </header>
-        <?php $identity =  $this->session->userdata('fname');?>
-  
+    <?php $identity =  $this->session->userdata('fname');?>
+ 
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
           <div class="modal-dialog">
@@ -529,7 +554,7 @@ function supplier($connect)
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
+                          <input type="number" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -560,7 +585,7 @@ function supplier($connect)
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-success" name="addUser"><i class="fa fa-save"></i> Save</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -568,7 +593,7 @@ function supplier($connect)
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>   
+        </div> 
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -585,7 +610,7 @@ function supplier($connect)
       </div>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory Management System</li>
-	 <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -717,19 +742,154 @@ function supplier($connect)
                                               <center><h4><b>Add New Item</b></h4></center>
                                             </div>
                                         <div class="box-body">
+                                             <div class="form-group" style="width:100%;">
+                                                  <label for="exampleInputEmail1">Item Name</label>
+                                                  <input type="text" class="form-control" id="item_name" name="item_name" required />
+                                                </div>
                                             <div class="form-group" style="width:100%;">
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
+                                            
+                                             <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Lot Number</label>
+                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" required />
+                                                </div>
+                                              </div>
+                                                
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Brand Name</label>
+                                                  <input type="text" class="form-control" id="brandname"name="brandname" required />
+                                                
+                                              </div>
+                                              </div>
+                                            </div>
+                                            
+                                            
+                                            <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Unit' if not exists </label>
+                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Unit</label>
+                                                  <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                           
+                                              </div>
+                                              </div>
+                                            </div>
+                                            
+                                            
+                                            <div class="row">
+                                                  <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Category' if not exists </label>
+                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
+                                                </div>
+                                            </div>
+                                                    
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Category</label>
+                                                  <select id="cat" class="form-control select2" name="category" required style="width: 100%;">
+                                                    <option value=""></option>
+                                                    <?php echo category($connect);?>
+                                                  </select>
+                                              </div>
+                                              </div>
+                                            </div>
+                                            
                                               <div class="row">
                                               <div class="col-md-6">
                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Brand Name</label>
-                                                  <input type="text" class="form-control" id="brandname" name="brandname" required />
+                                                  <label for="exampleInputEmail1">Quantity</label>
+                                                  <input type="number" class="form-control" id="Quantity" min="0" name="Quantity" required />
                                                 
                                               </div>
                                               </div>
 
+                                              <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Unit Price</label>
+                                                  <input type="number" class="form-control" id="priceUnit" min="0" name="priceUnit" step=".01" required />
+                                                </div>
+                                              </div>
+                                                  </div>
+                                            
+                                               <div class="row">
+                                            
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Expiration Date</label>
+
+                                                    <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                      </div>
+                                                     <?php
+                                                        $datetoday = date('Y\-m\-d', strtotime('95 days') );
+                                                        ?>
+                                                      <input type="text" class="form-control pull-right datepicker" id="datepicker2" value="<?php echo $datetoday?>" name="expirationDate">
+                                                        <script>
+                                                        jQuery(function() {
+                                                          var datepicker = $('input.datepicker');
+
+                                                          if (datepicker.length > 0) {
+                                                            datepicker.datepicker({
+                                                              format: "yyyy-mm-dd",
+                                                              startDate: new Date()
+                                                            });
+                                                          }
+                                                        });
+                                                        </script>
+                                                    </div>
+                                                  </div>
+                                                  </div>
+
+                                                  
+                                                    <div class="col-md-6">
+                                                     <div class="form-group">
+                                                      <label for="exampleInputEmail1">For Department</label>
+                                                       <select name = "dep_name" class="form-control">
+                                                       <option value="">Select a Department</option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio'";
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $dep_name) { 
+                                                        ?>
+                                                        <option value="<?php echo $dep_name["department_name"]; ?>" name="dep_name"><?php echo $dep_name["department_name"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>
+                                                 </div>
+                                            
+                                            <div class="row">
+                                                            
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Reorder Level</label>
+                                                  <input type="number" class="form-control" id="reorder_level" name="reorder_level" min="0"  />
+                                                
+                                              </div>
+                                              </div>
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
@@ -739,57 +899,14 @@ function supplier($connect)
                                                   </select>
                                               </div>
                                               </div>
-                                              </div>
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" id="Quantity" min="1" name="Quantity" required />
-                                                
-                                              </div>
-                                              </div>
-
-                                               <div class="col-md-6">
-                                              <div class="form-group">
-                                                 <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
- 
-                                                  <label for="exampleInputEmail1">Unit</label>
-                                                  <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                           
-                                              </div>
-                                              </div>
-                                              </div>
-
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Unit Price</label>
-                                                  <input type="number" class="form-control" id="priceUnit" min="0" name="priceUnit" required />
-                                                </div>
-                                              </div>
-                                              <!-- Date and Time -->
-                                              <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Expiration Date</label>
-
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <input type="text" class="form-control pull-right" id="datepicker2" name="expirationDate">
-                                                    </div>
-                                                  </div>
-                                                  </div>
+                                            </div>
                                                   </div>
 
                                         </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"></i> Add</button>
+                                        <button type="submit" class="btn btn-success" class="btn btn-outline" name="addMedSupply"><i class="fa fa-plus"></i> Add</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -797,27 +914,6 @@ function supplier($connect)
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
-
-                                <div class="modal modal-default fade" id="modal-success">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <h3><center><b>Are you sure to add this item?</b></center></h3>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-primary" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
-
-                                        </div>
-                                      </div>
-                                      <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                  </div>
                                   <!-- /.modal -->
                                 </form>
                             </th> 
@@ -829,26 +925,30 @@ function supplier($connect)
             </div>
               
       <div class="box-body">
-        <table id="example" class="table table-bordered table-striped">
+        <table id="example" class="table table-bordered table-striped" style="width:100%">
           <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Medical' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
-            <col width="auto">
-            <col width="10%">
-            <col width="auto">
-            <col width="5%">
-            <col width="auto">
+              <col width="auto">
+            <col width="50%">
+            <col width="50%">
+            <col width="50%">
             <col width="8%">
             <col width="22.5%">
           <thead>
-            <tr>  <th>Department</th>
+            <tr>
+                  <th style="display: none;"> ID </th>                
+                <th>Lot Number</th>
                   <th>Expiration Date</th> 
+                 <th>Item Name</th>
                   <th>Description</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
+               <th>Category</th>
+                <th>For Department</th>
                   <th> Action</th> 
             </tr>
         </thead>
@@ -856,12 +956,16 @@ function supplier($connect)
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["dep_name"]; ?></td>
+                      <td style="display: none;"><?php echo $row["supply_id"];?></td>
+                      <td><?php echo $row["lot_no"]; ?></td>
                       <td><?php echo $row["expiration_date"]; ?></td>
+                        <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
+                        <td><?php echo $row["category"]; ?></td>
+                        <td><?php echo $row["dep_name"]; ?></td>
                       <td>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
@@ -881,13 +985,17 @@ function supplier($connect)
                 </tbody>
         
         <tfoot>
-           <tr> 
-                  <th>Department</th>
+           <tr>
+                  <th style="display: none;">ID</th>
+                  <th>Lot Number</th>
                   <th>Expiration Date</th> 
+                 <th>Item Name</th>
                   <th>Description</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
+               <th>Category</th>
+                <th>For Department</th>
                   <th> Action</th> 
             </tr> 
         </tfoot>
@@ -900,12 +1008,10 @@ function supplier($connect)
         <!-- /.col -->
       </div>
       <!-- /.row -->
-            <!--- PRINT AND PDF -->
- <div class="row no-print">
-      </script>
+      <div class="row no-print">
     <div class="col-xs-1" style="float:left">
           <a href="medicalSuppliesRecover" style="color:white;">
-            <button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover</button>
+            <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Medical Supplies </button>
           </a>
     </div>
       </div>
@@ -930,9 +1036,9 @@ function supplier($connect)
 
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables 
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> --> 
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -1001,16 +1107,19 @@ function onUserInactivity() {
                     if ( printCounter === 1 ) {
                         return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Medical Supplies</center></h4>';
                     }
-                    
+                    else {
+                        return 'You have printed this document '+printCounter+' times';
+                    }
                 },
                 messageBottom: null
             },
         'colvis'
-         ] //,
+         ], //,
         // columnDefs: [ {
         //     targets: -1,
         //     visible: false
         // } ]
+        order : [[ 0, 'desc' ]]
     } );
 } );
     </script>
@@ -1160,7 +1269,7 @@ $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 
 //ADD on table FOR MEDICAL SUPPLIES
-if(isset($_POST['medAdd'])){
+/*if(isset($_POST['medAdd'])){
   $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 
@@ -1181,9 +1290,8 @@ if(isset($_POST['medAdd'])){
     else{
         echo '<script>alert("Update Failed")</script>';
     }
-} // END OF MEDICAL Add on table
-?>
-
+} // END OF MEDICAL Add on table */
+?> 
 
 <?php
 //EDIT FOR MEDICAL SUPPLIES
@@ -1191,13 +1299,24 @@ if(isset($_POST['medEdit'])){
   $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    
+    $new_itemName=mysqli_real_escape_string($conn,$_POST['txtItemName']);
+   
+    $new_lotNo=mysqli_real_escape_string($conn,$_POST['txtlotNo']);
+    
+    $new_brandName=mysqli_real_escape_string($conn,$_POST['txtbrandName']);
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['unitPrice']);
+    
+     $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
     $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
     $new_supplyStock=mysqli_real_escape_string($conn,$_POST['addQty']);
+    
     $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
 
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+   $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
+    
+    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName', supply_description='$new_supplyDescription', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', unit='$new_supplyUnit', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
 
@@ -1285,7 +1404,8 @@ if(isset($_POST['medDelete'])){
                 $('#content-data').html('<p>Error</p>');
             });
         });
-    </script>
+</script>
+
 
     
         <script>
@@ -1309,6 +1429,31 @@ if(isset($_POST['medDelete'])){
  
                     //select the new option (particular value)
                     $('#opt option[value="' + newopt + '"]').prop('selected', true);
+                });
+            });
+        </script>
+
+     <script>
+            $(function () {
+                $('#addCat').click(function () {
+                    var newCat = $('#newCat').val();
+                    if (newCat == '') {
+                        alert('Please enter something!');
+                        return;
+                    }
+ 
+                    //check if the option value is already in the select box
+                    $('#cat option').each(function (index) {
+                        if ($(this).val() == newCat) {
+                            alert('Duplicate option, Please enter new!');
+                        }
+                    })
+ 
+                    //add the new option to the select box
+                    $('#cat').append('<option value=' + newCat + '>' + newCat + '</option>');
+ 
+                    //select the new option (particular value)
+                    $('#cat option[value="' + newCat + '"]').prop('selected', true);
                 });
             });
         </script>

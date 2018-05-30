@@ -30,6 +30,20 @@ function supplier($connect)
  }
  return $output;
 }
+
+function category($connect)
+{ 
+ $output = '';
+ $query = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL  ORDER BY category ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $output .= '<option value="'.$row["category"].'">'.$row["category"].'</option>';
+ }
+ return $output;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,7 +61,7 @@ function supplier($connect)
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -81,7 +95,7 @@ function supplier($connect)
     <script src="../assets/table/vfs_fonts.js"></script>
     <script src="../assets/table/buttons.html5.min.js"></script>
     <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>	
+    <script src="../assets/table/buttons.colVis.min.js"></script>
  <style>
     .example-modal .modal {
       position: relative;
@@ -120,7 +134,7 @@ function supplier($connect)
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+       <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -144,9 +158,9 @@ function supplier($connect)
                         </script>
                     </a>
                 </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-            <!--            BELL START-->
-            <li class="dropdown notifications-menu">
+          <!-- Notifications: style can be found in dropdown.less -->
+<!--        BELL START-->
+         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
@@ -189,6 +203,10 @@ function supplier($connect)
                         if(strpos($logvalue, 'order') !== false) { ?>
                             <td><small><a display="block" style="color:black" href="<?php echo 'departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
+                        }else if(strpos($logvalue, 'profile') !== false){
+                        ?>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <?php
                         }else{
                         ?>
                             <td><small><?php echo $row["log_description"];?></small></td>
@@ -210,6 +228,7 @@ function supplier($connect)
                 </table>
                 </ul>
               </li>
+              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -219,7 +238,8 @@ function supplier($connect)
               </li>
             </ul>
           </li>
-                        <!--            FLAG START-->
+          <!-- Tasks: style can be found in dropdown.less -->
+          <!--            FLAG START-->
             <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -235,8 +255,9 @@ function supplier($connect)
                             }
                           }
                     ?>
-                    <li class="dropdown tasks-menu">
+                  <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -443,36 +464,38 @@ function supplier($connect)
 <!--          FLAG END-->
           <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/assistant.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
+                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
-        <small> Assistant</small>
+                  <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
+        <small> Business Manager</small>
         </p>
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
-                </div>
+        
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo 'logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
+                </div>
+                <div class="pull-left">
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
                 </div>
               </li>
             </ul>
           </li>
-          </ul>
+        </ul>
       </div>
     </nav>
   </header>
-         <?php $identity =  $this->session->userdata('fname');?>
-  
+      <?php $identity =  $this->session->userdata('fname');?>
+ 
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser">
           <div class="modal-dialog">
@@ -515,25 +538,47 @@ function supplier($connect)
                           <input type="text" class="hidden" name="prevname" id="prevname" value="<?php echo $identity; ?>" />
                         </div>
                     
+                       <div class="col-md-13">
                        <div class="form-group">
                           <label for="exampleInputEmail1">Username</label>
                           <input type="text" class="form-control" name="username" id="username" value="<?php echo $row['username'] ?>" required />
                         </div>
+                      </div>
 
-                        <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">First Name</label>
                           <input type="name" class="form-control" name="fname" id="fname" value="<?php echo $row['fname'] ?>" required />
                         </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Last Name</label>
                           <input type="name" class="form-control" name="lname" id="lname" value="<?php echo $row['lname'] ?>" required />
                         </div>
+                      </div>
+                      </div>
 
+                      <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group" style="width:100%">
+                          <label for="exampleInputEmail1">Email</label>
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
+                        </div>
+                      </div>
+                
+                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
                           <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
-                        <div class="form-group">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Password</label>
                           <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $row['password'] ?>" required />
 
@@ -549,20 +594,17 @@ function supplier($connect)
                         </script>
                             
                         </div>
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
-                        </div>
-                    
                           <?php 
                               }
                             }
                           ?>
                 </div>
               </div>
+              </div>
+              </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -570,7 +612,7 @@ function supplier($connect)
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>   
+        </div>    
    <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -581,88 +623,100 @@ function supplier($connect)
           <img src="../assets/dist/img/assistant.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
+          <p>Assistant</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Active</a>
         </div>
       </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Inventory Management System</li>
-	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+        <li class="header">Inventory System</li>
+  <!-- DASHBOARD MENU -->
          <li>
-          <a href="<?php echo '../dashboard' ?>">
+          <a href="<?php echo 'dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-    <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
+    <!-- SUPPLIES MENU -->
         <li class="active treeview">
           <a href="#">
-            <i class="fa fa-cubes"></i> <span>Inventory</span>
+            <i class="fa fa-briefcase"></i> <span>Supplies</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active treeview">
-              <a href="#"><i class="fa fa-briefcase"></i> Supplies
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
-                <li class="treeview">
-                  <li class="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
-                </li>
-              </ul>
-            </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-      <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
-      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
+      <li><a href="<?php echo 'medicalSupplies' ?>"><i class= "fa fa-medkit"></i> Medical Supplies</a></li>
+      <li class ="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square-o"></i> Office Supplies</a></li>
           </ul>
         </li>
-    <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
+        <!-- PURCHASES -->
+          <li>
+              <a href="<?php echo 'purchases' ?>">
+                  <i class="fa fa-tags"></i><span>Purchases</span>  
+              </a>
+          </li>
+        <!-- ISSUED SUPPLIES -->
+            <li><a href="<?php echo 'issuedSupplies' ?>">
+                <i class="fa fa-truck"></i><span>Issued Supplies</span> 
+                </a>
+          </li>
+    <!--- SUPPLIERS MENU -->
         <li>
           <a href="<?php echo 'suppliers' ?>">
             <i class="fa fa-user"></i> <span>Suppliers</span>
           </a>
         </li>
-    <!---------------------------------------------------- DEPARTMENTS MENU -------------------------------------------------------------->
+    <!-- DEPARTMENTS MENU -->
         <li>
           <a href="<?php echo 'departments' ?>">
             <i class="fa fa-building"></i> <span>Departments</span>
           </a>
         </li>
-    <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
+    <!-- CALENDAR MENU -->
         <li>
-          <a href="<?php echo 'memo' ?>">
-            <i class="fa fa-tasks"></i> <span>Memo</span>
+          <a href="../calendar.html">
+            <i class="fa fa-calendar"></i> <span>Calendar</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-red">3</small>
+              <small class="label pull-right bg-blue">17</small>
+            </span>
           </a>
         </li>
-
-<!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
+<!-- LOCKSCREEN MENU -->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
             <i class="fa fa-lock"></i> <span>Lockscreen</span>
           </a>
         </li>
-        
       </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <i class="fa fa-pencil-square"></i> <b>Office Supplies</b>
-        <!-- <small>Supplies</small> -->
+        <b>Office Supplies</b>
+        <!-- <small>advanced tables</small> -->
       </h1>
+        
       <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li><i class="fa fa-briefcase"></i> Supplies</li>
-        <li class="active"><i class="fa fa-pencil-square"></i> Office Supplies</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Office Supplies</a></li>
+        <li class="active">Data tables</li>
       </ol>
     </section>
 
@@ -720,20 +774,99 @@ function supplier($connect)
                                         <div class="box-body">
 
                                           <!-- /.form group -->
+
                                             <div class="form-group" style="width:100%;">
+                                                  <label for="exampleInputEmail1">Item Name</label>
+                                                  <input type="text" class="form-control" id="item_name" name="item_name" required />
+                                                </div>
+
+                                            
+                                             <div class="form-group" style="width:100%;">
                                                   <label for="exampleInputEmail1">Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
                                             
-                                              <div class="row">
-                                              <div class="col-md-6">
+                                            <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Lot Number</label>
+                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" required />
+                                                </div>
+                                              </div>
+                                                
+                                                    <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Brand Name</label>
-                                                  <input type="text" class="form-control" id="brandname" name="brandname" required />
+                                                  <input type="text" class="form-control" id="brandname"name="brandname" required />
                                                 
                                               </div>
                                               </div>
-
+                                            </div>
+                                   
+                                            <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Unit' if not exists </label>
+                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Unit</label>
+                                                  <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                                    <option value=""></option>
+                                                    <?php echo unit_measure($connect);?>
+                                                  </select>
+                                           
+                                              </div>
+                                              </div>
+                                            </div>
+                                            
+                                       <div class="row">
+                                                  <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Category' if not exists </label>
+                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
+                                                </div>
+                                            </div>
+                                                    
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Category</label>
+                                                  <select id="cat" class="form-control select2" name="category" required style="width: 100%;">
+                                                    <option value=""></option>
+                                                    <?php echo category($connect);?>
+                                                  </select>
+                                              </div>
+                                              </div>
+                                            </div>
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Quantity</label>
+                                                  <input type="number" class="form-control" id="Quantity" name="Quantity" min="1" required />
+                                              </div>
+                                              </div>
+                                                
+                                        <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Unit Price</label>
+                                                  <input type="number" class="form-control" id="priceUnit" name="priceUnit" min="0" required />
+                                                </div>
+                                              </div>
+                                        </div>
+                                            
+                                             <div class="row">
+                                                  <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Reorder Level</label>
+                                                  <input type="number" class="form-control" id="reorder_level" name="reorder_level" step=".01" min="0"  />
+                                                
+                                              </div>
+                                              </div>
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Supplier</label>
@@ -743,45 +876,12 @@ function supplier($connect)
                                                   </select>
                                               </div>
                                               </div>
-                                              </div>
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" id="Quantity" min="1" name="Quantity" required />
-                                                
-                                              </div>
-                                              </div>
-
-                                                  <div class="col-md-6">
-                                              <div class="form-group">
-                                                 <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
- 
-                                                  <label for="exampleInputEmail1">Unit</label>
-                                                  <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                           
-                                              </div>
-                                              </div>
-                                              </div>
-
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Unit Price</label>
-                                                  <input type="number" class="form-control" id="priceUnit" name="priceUnit" min="0" required />
-                                                </div>
-                                              </div>
-                            
-                                                  </div>
-
-                                        </div>
+                                            </div>
+                                            
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"></i> Add</button>
+                                        <button type="submit" class="btn btn-success" name="addOffSupply"><i class="fa fa-plus"></i> Add</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -789,28 +889,6 @@ function supplier($connect)
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
-</div>
-                              <div class="modal modal-default fade" id="modal-success">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <h3><center><b>Are you sure to add this item?</b></center></h3>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-primary" name="addOffSupply"><i class="fa fa-check"></i> Yes</button>
-
-                                        </div>
-                                      </div>
-                                      <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                  </div>
-                                  <!-- /.modal -->
                                 </form>
                             </th> 
                               
@@ -826,19 +904,21 @@ function supplier($connect)
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Office' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
-            
-            <col width="auto">
-            <col width="5%">
-            <col width="10%">
+             <col width="auto">
+            <col width="50%">
+            <col width="50%">
             <col width="8%">
             <col width="22.5%">
           <thead>
             <tr>
-               
+                  <th style="display: none;">ID</th>
+                <th>Lot Number</th>
+                <th>Item Name</th>
                   <th>Description</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
+                <th>Category</th>
                   <th> Action</th> 
             </tr>
         </thead>
@@ -846,10 +926,15 @@ function supplier($connect)
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
+                      <td style="display: none;"><?php echo $row['supply_id']; ?></td>
+                         <td><?php echo $row["lot_no"]; ?></td>
+                         <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
+                       
                       <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
+                        <td><?php echo $row["category"]; ?></td>
                       <td>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
@@ -870,6 +955,9 @@ function supplier($connect)
         
         <tfoot>
            <tr>
+                  <th style="display: none;">ID</th>
+               <th>Lot Number</th>
+               <th>Item Name</th>
                   <th>Description</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
@@ -888,12 +976,12 @@ function supplier($connect)
       <!-- /.row -->
             <!--- PRINT AND PDF -->
              <div class="row no-print">
-      
-    <div class="col-xs-1" style="float:left">
-          <a href="officeSuppliesRecover" style="color:white;"><button type="button" class="btn btn-primary pull-left" style="margin-right: 1px;"><i class="fa fa-repeat"></i> Recover
+			
+	  <div class="col-xs-1" style="float:left">
+          <a href="officeSuppliesRecover" style="color:white;"><button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Office Supplies
           </a>
           </button>
-    </div>
+		</div>
       </div>
         <!-- END OF PRINT AND PDF -->
     </section>
@@ -913,10 +1001,9 @@ function supplier($connect)
 </div>
 <!-- ./wrapper -->
 
-
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables 
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
 <!-- SlimScroll -->
@@ -974,6 +1061,7 @@ function onUserInactivity() {
     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
  
     $('#example').DataTable( {
+        order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {
@@ -1171,12 +1259,26 @@ if(isset($_POST['offAdd'])){
 //EDIT FOR OFFICE SUPPLIES
 if(isset($_POST['offEdit'])){
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
+    
+    $new_itemName=mysqli_real_escape_string($conn,$_POST['txtItemName']);
+    
+    $new_lotNo=mysqli_real_escape_string($conn,$_POST['txtlotNo']);
+    
+    $new_brandName=mysqli_real_escape_string($conn,$_POST['txtbrandName']);
+    
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
-    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
+    
     $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtAddQty']);
+    
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
+    
+    $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
 
-    $sqlupdate="UPDATE supplies SET supply_description='$new_supplyDescription', unit='$new_supplyUnit', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+     $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
+    
+    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+    
+    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName',supply_description='$new_supplyDescription', unit='$new_supplyUnit', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
     if($result_update){
@@ -1240,7 +1342,6 @@ if(isset($_POST['offDelete'])){
 } // END OF SOFT DELETE OFFICE SUPPLIES
 
 ?>
-
 <script>
         $(document).on('click','#getAdd',function(e){
             e.preventDefault();
@@ -1259,9 +1360,9 @@ if(isset($_POST['offDelete'])){
                 $('#content-data').html('<p>Error</p>');
             });
         });
-    </script>
+</script>
 
-    
+
         <script>
             $(function () {
                 $('#addopt').click(function () {
@@ -1283,6 +1384,31 @@ if(isset($_POST['offDelete'])){
  
                     //select the new option (particular value)
                     $('#opt option[value="' + newopt + '"]').prop('selected', true);
+                });
+            });
+        </script>
+
+       <script>
+            $(function () {
+                $('#addCat').click(function () {
+                    var newCat = $('#newCat').val();
+                    if (newCat == '') {
+                        alert('Please enter something!');
+                        return;
+                    }
+ 
+                    //check if the option value is already in the select box
+                    $('#cat option').each(function (index) {
+                        if ($(this).val() == newCat) {
+                            alert('Duplicate option, Please enter new!');
+                        }
+                    })
+ 
+                    //add the new option to the select box
+                    $('#cat').append('<option value=' + newCat + '>' + newCat + '</option>');
+ 
+                    //select the new option (particular value)
+                    $('#cat option[value="' + newCat + '"]').prop('selected', true);
                 });
             });
         </script>
