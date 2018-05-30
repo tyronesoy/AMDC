@@ -191,7 +191,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
-               <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+               <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -362,12 +362,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-  <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
-              <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
-              </a>
-          </li>
   
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="active treeview">
@@ -446,7 +440,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="table table-bordered table-striped">
                   <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT * FROM inventory_order io JOIN inventory_order_supplies ios USING(inventory_order_uniq_id) WHERE io.inventory_order_status='Issued' AND io.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') GROUP BY inventory_order_id";
+                    $sql = "SELECT * FROM inventory_order io JOIN inventory_order_supplies ios USING(inventory_order_uniq_id) WHERE io.inventory_order_status='Fully Issued' AND io.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') GROUP BY inventory_order_id";
                     $result = $conn->query($sql);
 
                     //  WHERE inventory_order_status='Issued'   
@@ -456,9 +450,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th style="display: none;">ID</th>
                     <th>Request Date</th>
                     <th>Issue Date</th>
-                    <th>Department</th>
-                    <th>Customer Name</th>
                     <th>Status</th>
+                    <th>Remarks</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -468,9 +461,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td style="display: none;"><?php echo $row['inventory_order_id']; ?></td>
                       <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["issued_date"]; ?></td>
-                      <td><?php echo $row["inventory_order_dept"]; ?></td>
-                      <td><?php echo $row["inventory_order_name"]; ?></td>
                       <td><?php echo $row["inventory_order_status"]; ?></td>
+                      <td><?php echo $row["inventory_order_remarks"]; ?></td>
                       <td><div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></td>
                     </tr>
@@ -483,9 +475,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th style="display: none;"></th>
                     <th>Request Date</th>
                     <th>Issue Date</th>
-                    <th>Department</th>
-                    <th>Customer Name</th>
                     <th>Status</th>
+                    <th>Remarks</th>
                     <th>Action</th>
                 </tr>
                 </tfoot>
