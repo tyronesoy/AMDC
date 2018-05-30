@@ -477,8 +477,8 @@ if(!isset($_SESSION['first_run'])){
                           <span class="caret"></span>
                         </button>
                           <option value="orderAccepted">Accepted</option>
-                          <option value="orders">All Orders</option>
-                          <option value="ordersPending">Pending</option>
+                          <option value="order">All Orders</option>
+                          <option value="orderPending">Pending</option>
                           <option value="orderDeclined">Declined</option>
                         </select>
                       </div></th>

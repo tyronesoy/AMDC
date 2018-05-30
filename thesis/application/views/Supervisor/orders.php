@@ -477,8 +477,8 @@ if(!isset($_SESSION['first_run'])){
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                           <span class="caret"></span>
                         </button>
-                          <option value="orders">All Orders</option>
-                          <option value="ordersPending">Pending</option>
+                          <option value="order">All Orders</option>
+                          <option value="orderPending">Pending</option>
                           <option value="orderAccepted">Accepted</option>
                           <option value="orderDeclined">Declined</option>
                         </select>
@@ -652,7 +652,7 @@ if(!isset($_SESSION['first_run'])){
                    <table id="example" class="table table-bordered table-striped">
                       <?php
                         $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name ='".$this->session->userdata('fname').' '.$this->session->userdata('lname')."' AND inventory_order_status = 'Pending' GROUP BY inventory_order_id ";
+                        $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name ='".$this->session->userdata('fname').' '.$this->session->userdata('lname')."' AND inventory_order_status != '' GROUP BY inventory_order_id ";
                         $result = $conn->query($sql);    
                       ?>
                       <thead>
