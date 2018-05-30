@@ -494,7 +494,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" required />
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Password</label>
@@ -514,7 +514,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" placeholder="email@email.com" required />
                         </div>
                     
                           <?php 
