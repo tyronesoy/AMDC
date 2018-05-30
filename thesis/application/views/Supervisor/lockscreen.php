@@ -91,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <a href="<?php echo '../logout'?>"><u>Sign in as a Different User</u></a>
   </div>
     <div class="lockscreen-footer text-center"><b><font color="#737373">AMDC INVENTORY MANAGEMENT SYSTEM</font></b><br>
-    <font color="#737373">Copyright &copy; 2017-2018 </font><br/><b><a href="https://adminlte.io" class="text-black">
+    <font color="#737373">Copyright &copy; 2017-2018 </font><br/><b><a href=# class="text-black">
     <font color="#097627">All rights reserved</font>
   </div>
 </div>

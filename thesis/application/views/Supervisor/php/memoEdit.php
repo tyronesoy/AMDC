@@ -8,14 +8,14 @@ if(isset($_REQUEST['id'])){
     $sql="SELECT * FROM memo WHERE memo_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
-        $per_memoid=$row[0];
+       $per_memoid=$row[0];
         $per_memodate=$row[2];
         $per_memodesc=$row[3];
         $per_memostatus=$row[5];
         $per_memotitle=$row[6];
+
     }//end while
 ?>
-
        <div class="row">
           <div class="col-xs-12">
               <div class="box">
@@ -24,7 +24,7 @@ if(isset($_REQUEST['id'])){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <div class="col-md-2">
+                                       <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
                                             <div class="col-md-8">
@@ -51,7 +51,7 @@ if(isset($_REQUEST['id'])){
                                 </div>
                              </div>
 
-                                     <div class="form-group">
+                                 <div class="form-group">
                                                   <label for="txtmemodate">Memo Date</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">

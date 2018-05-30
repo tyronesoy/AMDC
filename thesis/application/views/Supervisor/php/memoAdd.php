@@ -8,7 +8,7 @@ $con=mysqli_connect('localhost','root','','itproject');
   $memo_date = $_POST['memo_date'];
   $memo_description = $_POST['memo_description'];
   $memo_title = $_POST['memo_title'];
-  
+
   $sql->bind_param("ssss", $memo_user, $memo_date, $memo_description, $memo_title);
 
   if($sql->execute()) {

@@ -52,7 +52,7 @@ if(isset($_REQUEST['id'])){
                 </div>
                 <div class="box-body">                                      
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Supervisor Name</label>
                                 <div class="input-group">
@@ -64,7 +64,7 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Request Date</label>
                                 <div class="input-group">
@@ -75,8 +75,21 @@ if(isset($_REQUEST['id'])){
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Issued To</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                <input type="text" class="form-control" id="txtissue" name="txtissue" value="<?php echo $per_remarks;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Issued Date</label>
                                 <div class="input-group">
@@ -87,7 +100,6 @@ if(isset($_REQUEST['id'])){
                                 </div>
                         </div>
                     </div>
-                    </div>
                       <?php
                         $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND quantity !=0";
                         $result = $con->query($sql);    
@@ -97,7 +109,7 @@ if(isset($_REQUEST['id'])){
                         <table class="table table-bordered" id="item_table">
                             <tr>
                                 <th>Item Description</th>
-                                <th>Quantity</th>
+                                <th>Quantity Issued</th>
                             </tr>
                             <?php if($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) { 
@@ -106,7 +118,7 @@ if(isset($_REQUEST['id'])){
                                 <td width="200px"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
                                             
-                                <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                                <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity_issued'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
                                 </td>
                             </tr>
                             <?php 
