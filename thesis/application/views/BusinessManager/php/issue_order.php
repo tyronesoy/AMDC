@@ -17,21 +17,22 @@ if(isset($_REQUEST['id'])){
         $per_status=$row[5];
         $per_remarks=$row[6];
         $per_issuedDate=$row[7];
-        $per_inventorySupid=$row[8];
-        $per_supplyName=$row[9];
-        $per_supplyUnit=$row[10];
-        $per_supplyQuantity=$row[11];
-        $per_quantityIssued=$row[12];
-        $per_supplyID=$row[13];
-        $per_supplyType=$row[14];
-        $per_supplyDesc=$row[15];
-        $per_brandName=$row[16];
-        $per_unit=$row[17];
-        $per_quantityStock=$row[18];
-        $per_unitPrice=$row[19];
-        $per_unitOrder=$row[20];
-        $per_reorderLevel=$row[21];
-        $per_expiration=$row[22];
+        $per_issuedTo=$row[8];
+        $per_inventorySupid=$row[9];
+        $per_supplyName=$row[10];
+        $per_supplyUnit=$row[11];
+        $per_supplyQuantity=$row[12];
+        $per_quantityIssued=$row[13];
+        $per_supplyID=$row[14];
+        $per_supplyType=$row[15];
+        $per_supplyDesc=$row[16];
+        $per_brandName=$row[17];
+        $per_unit=$row[18];
+        $per_quantityStock=$row[19];
+        $per_unitPrice=$row[20];
+        $per_unitOrder=$row[21];
+        $per_reorderLevel=$row[22];
+        $per_expiration=$row[23];
     }
     //end while
 ?>
@@ -195,18 +196,18 @@ if(isset($_REQUEST['id'])){
                                         <input type="hidden" class="form-control hidden" id="txtsupid<?php echo $x; ?>" name="txtsupid<?php echo $x; ?>" value="<?php print_r($supid[$zero]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                     </td>
 
-                                    <td width="50">
+                                    <td width="16.5%">
                                         <input type="text" class="form-control" id="qtyStock<?php echo $x; ?>" name="qtyStock<?php echo $x; ?>" value="<?php print_r($qty_stock[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                     </td>
 
-                                    <td width="150">
+                                    <td width="45%">
                                         <input type="text" class="form-control" id="supplyName<?php echo $x; ?>" name="supplyName<?php echo $x; ?>" value="<?php print_r($item_desc[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                     </td>
                                                 
-                                    <td width="50">
+                                    <td width="17.5%">
                                         <input type="number" class="form-control" id="qtyOrdered<?php echo $x; ?>" name="qtyOrdered<?php echo $x; ?>" value="<?php print_r($qty_ordered[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
                                     </td>
-                                    <td width="50">
+                                    <td width="21%">
                                         <?php if($qty_stock[$zero] > 0){ 
                                             if($qty_ordered[$zero] <= $qty_stock[$zero]){ ?>
                                             <input type="number" class="form-control" id="qtyIssued<?php echo $x; ?>" name="qtyIssued<?php echo $x; ?>" value="<?php print_r($qty_issued[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" max="<?php print_r($qty_ordered[$zero]);?>" required>
@@ -231,14 +232,26 @@ if(isset($_REQUEST['id'])){
                             </table>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Issuance Name</label>
+                                    <label for="exampleInputEmail1">Issued To</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
                                         <input type="text" class="form-control" id="issueName" name="issueName" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Remarks</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-comments-o"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="remarks" name="remarks" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                     </div>
                                 </div>
                             </div>

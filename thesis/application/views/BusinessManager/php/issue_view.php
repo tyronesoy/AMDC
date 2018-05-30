@@ -15,10 +15,12 @@ if(isset($_REQUEST['id'])){
         $per_department=$row[4];
         $per_status=$row[5];
         $per_remarks=$row[6];
-        $per_supplyName=$row[8];
-        $per_supplyUnit=$row[9];
-        $per_supplyQuantity=$row[10];
         $per_issueDate=$row[7];
+        $per_issueTo=$row[8];
+        $per_supplyName=$row[10];
+        $per_supplyUnit=$row[11];
+        $per_supplyQuantity=$row[12];
+        
 
     }//end while
 ?>
@@ -84,7 +86,7 @@ if(isset($_REQUEST['id'])){
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtissue" name="txtissue" value="<?php echo $per_remarks;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtissue" name="txtissue" value="<?php echo $per_issueTo;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </div>
                             </div>
                         </div>
@@ -101,7 +103,7 @@ if(isset($_REQUEST['id'])){
                         </div>
                     </div>
                       <?php
-                        $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND quantity !=0";
+                        $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND (quantity_issued !=0 OR quantity_issued IS NOT NULL)";
                         $result = $con->query($sql);    
                       ?>
                     <div class="row">
