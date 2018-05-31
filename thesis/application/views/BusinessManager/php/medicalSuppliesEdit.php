@@ -64,16 +64,7 @@ if(isset($_REQUEST['id'])){
                                 <input class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
                             </div>
                         
-                              <div class="form-group" >
-                            <label for="txtItemName">Item Name</label>
-                                <input type="text" class="form-control" id="txtItemName" name="txtItemName" value="<?php echo $per_itemName;?>" >
-                            </div>
-                        
-                          <div class="form-group">
-                            <label for="txtsupplyDescription">Description</label>
-                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" >
-                            </div>
-                                   <div class="row">
+                                 <div class="row">
                                             <div class="col-md-6">
                                                     <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Lot Number</label>
@@ -89,6 +80,16 @@ if(isset($_REQUEST['id'])){
                                               </div>
                                               </div>
                                             </div>
+                        
+                              <div class="form-group" >
+                            <label for="txtItemName">Item Name</label>
+                                <input type="text" class="form-control" id="txtItemName" name="txtItemName" value="<?php echo $per_itemName;?>" >
+                            </div>
+                        
+                          <div class="form-group">
+                            <label for="txtsupplyDescription">Description</label>
+                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" >
+                            </div>
 
                                             <div class="row">
                                             <div class="col-md-6">
@@ -200,30 +201,7 @@ if(isset($_REQUEST['id'])){
                         </div>
                         </div>
                         
-                        <div class="row">
-                                     <div class="col-md-6" style="width:45%;">
-                                                     <div class="form-group">
-                                                      <label for="exampleInputEmail1">For Department</label>
-                                                       <select name = "dep_name" class="form-control">
-                                                           <option><?php echo $per_deptName;?></option>
-                                                           <option></option>
-                                                        <?php
-                                                          $conn =mysqli_connect("localhost","root","");
-                                                           mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio'";
-                                                            $results = mysqli_query($conn, $sql);
-
-                                                            foreach($results as $dep_name) { 
-                                                        ?>
-                                                        <option value="<?php echo $dep_name["department_name"]; ?>" name="dep_name"><?php echo $dep_name["department_name"]; ?></option>
-                                                         <?php 
-                                                            }
-                                                          ?>
-                                                      </select>
-                                                     </div>
-                                                   </div>
-                        </div>
-                        
+          
                         
                         </tr>
                         </table>
