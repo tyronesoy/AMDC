@@ -6,13 +6,13 @@ $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 function unit_measure($connect)
 { 
  $output = '';
- $query = "SELECT * FROM unit_of_measure ORDER BY unit_name ASC";
+ $query = "SELECT DISTINCT unit FROM supplies ORDER BY unit ASC";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output .= '<option value="'.$row["unit_name"].'">'.$row["unit_name"].'</option>';
+  $output .= '<option value="'.$row["unit"].'">'.$row["unit"].'</option>';
  }
  return $output;
 }
@@ -20,13 +20,27 @@ function unit_measure($connect)
 function supplier($connect)
 { 
  $output = '';
- $query = "SELECT * FROM suppliers ORDER BY company_name ASC";
+ $query = "SELECT * FROM suppliers WHERE product = 'Medical' AND supplier_status = 'Active' ORDER BY company_name ASC";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
   $output .= '<option value="'.$row["supplier_id"].'">'.$row["company_name"].'</option>';
+ }
+ return $output;
+}
+
+function category($connect)
+{ 
+ $output = '';
+ $query = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL  ORDER BY category ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $output .= '<option value="'.$row["category"].'">'.$row["category"].'</option>';
  }
  return $output;
 }
@@ -747,63 +761,91 @@ function supplier($connect)
                                           <div class="margin">
                                               <center><h4><b>Add New Item</b></h4></center>
                                             </div>
-                                        <div class="box-body">
-                                            <div class="form-group" style="width:100%;">
-                                                  <label for="exampleInputEmail1">Description</label>
-                                                  <input type="text" class="form-control" id="Description" name="Description" required />
+                                                                   <div class="box-body">
+
+                                          <!-- /.form group -->
+                                                  <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Lot Number</label>
+                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" maxlength="12" required />
                                                 </div>
-               
-                                              <div class="row">
-                                              <div class="col-md-6">
+                                              </div>
+                                                
+                                                    <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Brand Name</label>
-                                                  <input type="text" class="form-control" id="brandname" ="brandname" required />
+                                                  <input type="text" class="form-control" id="brandname"name="brandname" required />
                                                 
                                               </div>
                                               </div>
+                                            </div>
 
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Supplier</label>
-                                                  <select class="form-control select2" name="supplier" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
-                                                    <?php echo supplier($connect);?>
-                                                  </select>
-                                              </div>
-                                              </div>
-                                              </div>
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" id="Quantity" min="1" name="Quantity" required />
-                                                
-                                              </div>
-                                              </div>
+                                            <div class="form-group" style="width:100%;">
+                                                  <label for="exampleInputEmail1">Item Name</label>
+                                                  <input type="text" class="form-control" id="item_name" name="item_name" required />
+                                                </div>
 
-                                              <div class="col-md-6">
+                                            
+                                             <div class="form-group" style="width:100%;">
+                                                  <label for="exampleInputEmail1">Item Description</label>
+                                                  <input type="text" class="form-control" id="Description" name="Description" required />
+                                                </div>
+                                            
+                                      
+                                   
+                                            <div class="row">
+                                            <div class="col-md-6">
                                               <div class="form-group">
-                                                 <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
- 
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Unit' </label>
+                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                              <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
-                                                  <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
                                            
                                               </div>
                                               </div>
-                                              <div class="row">
-                                              <div class="col-md-6">
+                                            </div>
+                                            
+                                       <div class="row">
+                                                  <div class="col-md-6">
                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Unit Price</label>
-                                                  <input type="number" class="form-control" id="priceUnit" name="priceUnit" min="0" required />
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Category' </label>
+                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
+                                                </div>
+                                            </div>
+                                                    
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Category</label>
+                                                  <select id="cat" class="form-control select2" name="category" required style="width: 100%;">
+                                                    <option value=""></option>
+                                                    <?php echo category($connect);?>
+                                                  </select>
+                                              </div>
+                                              </div>
+                                            </div>
+                                        <div class="row">
+                        
+                                        <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Reorder Level</label>
+                                                <input type="number" class="form-control" id="reorder_level" name="reorder_level" step=".01" min="0"  />
                                                 </div>
                                               </div>
-                                
-                                            </div>
-
                                         </div>
+                                            
+                                      
+                                            
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"> </i> Cancel</button>
@@ -1080,3 +1122,54 @@ if(isset($_POST['offTQEdit'])){
             });
         });
 </script>
+
+
+        <script>
+            $(function () {
+                $('#addopt').click(function () {
+                    var newopt = $('#newopt').val();
+                    if (newopt == '') {
+                        alert('Please enter something!');
+                        return;
+                    }
+ 
+                    //check if the option value is already in the select box
+                    $('#opt option').each(function (index) {
+                        if ($(this).val() == newopt) {
+                            alert('Duplicate option, Please enter new!');
+                        }
+                    })
+ 
+                    //add the new option to the select box
+                    $('#opt').append('<option value=' + newopt + '>' + newopt + '</option>');
+ 
+                    //select the new option (particular value)
+                    $('#opt option[value="' + newopt + '"]').prop('selected', true);
+                });
+            });
+        </script>
+
+       <script>
+            $(function () {
+                $('#addCat').click(function () {
+                    var newCat = $('#newCat').val();
+                    if (newCat == '') {
+                        alert('Please enter something!');
+                        return;
+                    }
+ 
+                    //check if the option value is already in the select box
+                    $('#cat option').each(function (index) {
+                        if ($(this).val() == newCat) {
+                            alert('Duplicate option, Please enter new!');
+                        }
+                    })
+ 
+                    //add the new option to the select box
+                    $('#cat').append('<option value=' + newCat + '>' + newCat + '</option>');
+ 
+                    //select the new option (particular value)
+                    $('#cat option[value="' + newCat + '"]').prop('selected', true);
+                });
+            });
+        </script>
