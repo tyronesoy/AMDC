@@ -1,7 +1,22 @@
+ <link rel="stylesheet" href="../assets/orderedit/bootstrap.min.css" />
 <?php
 $con=mysqli_connect('localhost','root','','itproject')
     or die("connection failed".mysqli_errno());
+$connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
 
+function remarks_desc($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM remarks WHERE category='Reconciliation'";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+    $output .= '<option value="'.$row["remarks"].'">'.$row["remarks"].'</option>';
+ }
+ return $output;
+}
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
     $sql="select * from supplies WHERE supply_id=$id";
@@ -61,7 +76,7 @@ if(isset($_REQUEST['id'])){
                           <div class="col-sm-6">
                              <div class="form-group" style="width:100%">
                             <label for="txtQuantityInStock">Logical Count</label>
-                                <input type="number" class="form-control" id="txtQuantityInStock" name="txtQuantityInStock" value="<?php echo $per_supplyQuantityInStock;?>" readonly>
+                                <input type="number" class="form-control" id="txtLogicalCount" name="txtLogicalCount" value="<?php echo $per_supplyQuantityInStock;?>" readonly>
                             </div>
                         </div>
                         
@@ -74,8 +89,10 @@ if(isset($_REQUEST['id'])){
 
                         <div class="col-sm-12">
                              <div class="form-group">
-                            <label for="txtsupplyRemarks">Remarks</label>
-                                <input type="text" class="form-control" id="txtsupplyRemarks" name="txtsupplyRemarks">
+                            <select class="form-control select2" id="remarks" name="remarks" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <option value=""></option>
+                                                  <?php echo remarks_desc($connect);?>
+                                                </select>
                             </div>
                         </div>
                 </form>

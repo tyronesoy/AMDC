@@ -646,7 +646,8 @@ function category($connect)
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+      <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Delivery</a></li>
@@ -946,9 +947,9 @@ function category($connect)
                   $result = $conn->query($sql);    
                 ?>
               <col width="auto">
-            <col width="50%">
-            <col width="50%">
-            <col width="50%">
+            <col width="15%">
+            <col width="20%">
+            <col width="0%">
             <col width="8%">
             <col width="22.5%">
           <thead>
@@ -1023,9 +1024,12 @@ function category($connect)
       </div>
       <!-- /.row -->
       <div class="row no-print">
-    <div class="col-xs-1" style="float:left">
+    <div class="col-xs-2" style="float:left">
           <a href="medicalSuppliesRecover" style="color:white;">
             <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Medical Supplies </button>
+          </a>
+          <a href="medicalSuppliesReconciliation" style="color:white;">
+            <button type="button" class="btn btn-info pull-left" style="margin-right: 1px;"><i class="glyphicon glyphicon-adjust"></i> Reconciled Medical Supplies </button>
           </a>
     </div>
       </div>
@@ -1046,7 +1050,6 @@ function category($connect)
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
 
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -1137,6 +1140,62 @@ function onUserInactivity() {
     } );
 } );
     </script>
+
+  <!--   <script type="text/javascript" language="javascript" >
+$(document).ready(function(){
+ var printCounter = 0;
+
+ load_data();
+
+ function load_data(is_category)
+ {
+  var dataTable = $('#example').DataTable({
+   "processing":true,
+   "serverSide":true,
+   "order":[],
+   "ajax":{
+    url:"medicalSupplies/category",
+    type:"POST",
+    data:{is_category:is_category}
+   },
+   "columnDefs":[
+    {
+     "targets":[7],
+     "orderable":false,
+     extend: 'print',
+                "exportOptions": {
+                    "columns": ':visible'
+                },
+                "messageTop": function () {
+                    printCounter++;
+ 
+                    if ( printCounter === 1 ) {
+                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Medical Supplies</center></h4>';
+                    }
+                    else {
+                        return 'You have printed this document '+printCounter+' times';
+                    }
+                },
+                messageBottom: null
+    },
+   ],
+  });
+ }
+
+ $(document).on('change', '#category', function(){
+  var category = $(this).val();
+  $('#example').DataTable().destroy();
+  if(category != '')
+  {
+   load_data(category);
+  }
+  else
+  {
+   load_data();
+  }
+ });
+});
+</script> -->
 
 <script>
  // date and time 
@@ -1354,12 +1413,21 @@ if(isset($_POST['medRecon'])){
   $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
-    $new_supplyRemarks=mysqli_real_escape_string($conn,$_POST['txtsupplyRemarks']);
+    $item=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
+    $logical=mysqli_real_escape_string($conn,$_POST['txtLogicalCount']);
+    $physical=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $remarks=mysqli_real_escape_string($conn,$_POST['remarks']);
+
+    date_default_timezone_set('Asia/Manila');
+    $date = date('Y/m/d h:i:s a', time());
 
     
-    $sqlupdate1="UPDATE supplies SET quantity_in_stock='$new_supplyQuantityInStock' , supply_remarks='$new_supplyRemarks' WHERE supply_id='$new_id' ";
+    $sqlupdate1="UPDATE supplies SET quantity_in_stock='$physical' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate1);
+
+    $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type) VALUES ('".$date."','The product  (".$item.") has changed from the logical count of ".$logical." to physical count of ".$physical." because ".$remarks.".' , 'Medical')  ";
+
+    $result_update2=mysqli_query($conn,$sqlinsert1);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");

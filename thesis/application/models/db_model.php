@@ -129,4 +129,9 @@ class Db_model extends CI_Model {
 		return $query->result();
 	}
 
+	public function getInventoryReconciliation(){
+		$query=$this->db->query("SELECT * FROM reconciliation");
+		return $query->result();
+	}
+
 }
