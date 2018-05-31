@@ -35,7 +35,7 @@ function supplier($connect)
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Business Manager | Office Supplies Total Quantity</title>
+  <title>Supervisor | Office Supplies Total Quantity</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
@@ -108,7 +108,7 @@ function supplier($connect)
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>AMDC</b> Inc.</span>
+      <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -133,16 +133,15 @@ function supplier($connect)
                     </a>
                 </li>
           <!-- Notifications: style can be found in dropdown.less -->
-         <!--        BELL START-->
          <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                $dtoday = date('Y\-m\-d\ H:i:s A');
-                $date_select = date('Y\-m\-d\ H:i:s A', strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
+                $dtoday = date("Y/m/d");
+                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%'";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -164,7 +163,7 @@ function supplier($connect)
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
+                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' order by log_id DESC";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -175,11 +174,7 @@ function supplier($connect)
                       <tr>
                         <?php
                         if(strpos($logvalue, 'order') !== false) { ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
-                        <?php
-                        }else if(strpos($logvalue, 'profile') !== false){
-                        ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'order' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
                         }else{
                         ?>
@@ -202,7 +197,6 @@ function supplier($connect)
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -226,7 +220,7 @@ function supplier($connect)
 
                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-        <small> Business Manager</small>
+        <small> Supervisor</small>
         </p>
                 </li>
               <!-- Menu Footer-->
@@ -387,13 +381,13 @@ function supplier($connect)
         </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="treeview">
-          <li class="treeview">
+          <li class="treeview active">
             <a href="#"><i class="fa fa-briefcase"></i> Supplies
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu active">
+            <ul class="treeview-menu">
               <li><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
               <li class="treeview">
                 <li class="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
@@ -401,7 +395,7 @@ function supplier($connect)
             </ul>
           </li>
           <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-          <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+          <li><a href="<?php echo 'order' ?>"><i class="fa fa-shopping-cart"></i><span>Orders</span></a></li>
 
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
@@ -449,7 +443,7 @@ function supplier($connect)
                     <tr>
                         <th> <div class="btn-group">
                         <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location =this.value;">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
                           <span class="caret"></span>
                         </button>
                           <option><b>Total Quantity</b></option>
@@ -459,111 +453,7 @@ function supplier($connect)
                     </tr>
                 </table> 
                 
-                <table style="float:right;">
-                    <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-plus"></i> Add New Item</button>
-                        
-                        <form name="addSupply" method="post" action="officesupplies/addOfficeSupplies">
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <div class="col-md-2">
-                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                                            </div>
-                                            <div class="col-md-8">
-                                                
-                                                <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
-                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                                                    <center><h6>Philippines</h6></center>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end of modal header -->
-                                        <div class="modal-body">
-                                        <div class="box-header">
-                                          <div class="margin">
-                                              <center><h4><b>Add New Item</b></h4></center>
-                                            </div>
-                                        <div class="box-body">
-                                            <div class="form-group" style="width:100%;">
-                                                  <label for="exampleInputEmail1">Description</label>
-                                                  <input type="text" class="form-control" id="Description" name="Description" required />
-                                                </div>
-               
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Brand Name</label>
-                                                  <input type="text" class="form-control" id="brandname" ="brandname" required />
-                                                
-                                              </div>
-                                              </div>
-
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Supplier</label>
-                                                  <select class="form-control select2" name="supplier" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
-                                                    <?php echo supplier($connect);?>
-                                                  </select>
-                                              </div>
-                                              </div>
-                                              </div>
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" id="Quantity" min="1" name="Quantity" required />
-                                                
-                                              </div>
-                                              </div>
-
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                 <p>Add new unit if not exists <input type="text" id="newopt"> <input type="button" value="Add New" id="addopt" /></p>
- 
-                                                  <label for="exampleInputEmail1">Unit</label>
-                                                  <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
-                                                    <?php echo unit_measure($connect);?>
-                                                  </select>
-                                           
-                                              </div>
-                                              </div>
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Unit Price</label>
-                                                  <input type="number" class="form-control" id="priceUnit" name="priceUnit" min="0" required />
-                                                </div>
-                                              </div>
-                                
-                                            </div>
-
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"> </i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="addMedSupply"> <i class="fa fa-plus"></i> Add</button>
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                    
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-</div>
-                                </form>
-                            </th> 
-                              
-                            <!--- END OF ADD -->
-                             <!-- /.modal --></th>
-                    </tr>
-                </table>      
+                
             </div>
               
             <div class="box-body">
@@ -575,36 +465,26 @@ function supplier($connect)
             FROM supplies WHERE (supply_type='Office' AND   (quantity_in_stock IS NOT NULL AND supply_description != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N'
             GROUP BY supply_description";
           $result = $conn->query($sql);  ?>
-            <col width="50%">
-            <col width="auto">
-            <col width="5%">
-            <col width="13%">
-            <col width="auto">
-            <col width="5%">
           <thead>
             <tr>
-                  <th>Description</th>
-                  <th>Total Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Total Amount </th>
-                  <th>Reorder Level</th>
-                  <th>Action</th>
+                  <th width="16%">Quantity in Stock</th>
+                  <th>Unit</th> 
+                  <th>Brand Name</th>
+                  <th width="20%">Item Name</th>
+                  <th width="20%">Item Description</th>
+                  <th>Category</th>
             </tr>
         </thead>
         <tbody>
         <?php
           while($row = $result->fetch_assoc()) { ?>
             <tr>
-            <td><?php echo $row["supply_description"]; ?></td>
-            <td align="right"><?php echo $row["Total Quantity"]; ?></td>
-            <td><?php echo $row["unit"]; ?></td>
-            <td align="right"><?php echo $row["Total Amount"]; ?></td>
-            <td align="right"><?php echo $row["reorder_level"]; ?></td>
-            <td>
-             <div class="btn-group">
-                <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
-            </div>  
-            </td>          
+                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><?php echo $row["unit"]; ?></td>
+                      <td><?php echo $row["brand_name"]; ?></td>
+                      <td><?php echo $row["item_name"]; ?></td>
+                      <td><?php echo $row["item_description"]; ?></td>
+                      <td><?php echo $row["category"]; ?></td>          
             </tr>
           <?php 
               }
@@ -612,12 +492,12 @@ function supplier($connect)
         </tbody>
         <tfoot>
            <tr>
-                  <th>Description</th>
-                  <th> Total Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Total Amount</th>
-                  <th>Reorder Level</th>
-                  <th>Action</th>
+                  <th>Quantity in Stock</th>
+                  <th>Unit</th> 
+                  <th>Brand Name</th>
+                  <th>Item Name</th>
+                  <th>Item Description</th>
+                  <th>Category</th>
         </tr> 
         </tfoot>
       </table>             

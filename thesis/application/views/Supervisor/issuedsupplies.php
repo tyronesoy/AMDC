@@ -200,16 +200,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <p>
                  <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
+                 <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
                   <small>Supervisor</small>
                 </p>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
              	<div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i>Edit Profile</button>
                 </div>
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i>Sign out</a>
                 </div>
               </li>
             </ul>
@@ -379,7 +380,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </ul>
           </li>
           <li class="active"><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-          <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+          <li><a href="<?php echo 'order' ?>"><i class="fa fa-shopping-cart"></i><span>Orders</span></a></li>
 
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->

@@ -241,7 +241,7 @@ if(!isset($_SESSION['first_run'])){
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>     
+              <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>     
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -250,16 +250,18 @@ if(!isset($_SESSION['first_run'])){
 
                 <p>
                  <span><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
+                 <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
+                 <small>Supervisor</small>
                 </p>
               </li>
               <!-- Menu Footer-->
               <!-- Menu Footer-->
               <li class="user-footer">
 				<div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"> <i class="fa fa-edit"></i>Edit Profile</button>
                 </div>
                 <div class="pull-right">
-                   <a href="<?php echo '../logout' ?>"  class="btn btn-default btn-flat">Sign out</a>
+                   <a href="<?php echo '../logout' ?>"  class="btn btn-danger"> <i class="fa fa-sign-out"></i>Sign out</a>
                 </div>
               </li>
             </ul>
@@ -427,7 +429,7 @@ if(!isset($_SESSION['first_run'])){
             </ul>
           </li>
           <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-          <li class="active"><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+          <li class="active"><a href="<?php echo 'order' ?>"><i class="fa fa-shopping-cart"></i><span>Orders</span></a></li>
 
         </li>
     
@@ -453,12 +455,12 @@ if(!isset($_SESSION['first_run'])){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-            <i class="fa fa-dollar"></i> <b>Orders</b>
+            <i class="fa fa-shopping-cart"></i> <b>Orders</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li class="active"><i class="fa fa-dollar"></i> Orders</li>
+        <li class="active"><i class="fa fa-shopping-cart"></i> Orders</li>
       </ol>
     </section>
 

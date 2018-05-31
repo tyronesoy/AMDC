@@ -193,6 +193,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <img src="assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
 				<p>
                  <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?>
+                 <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
                  <small>Supervisor</small>
                 </p>
               </li>
@@ -202,10 +203,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo 'logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo 'logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i>Sign out</a>
                 </div>
                 <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"> <i class="fa fa-edit"></i>Edit Profile</button>
                 </div>
               </li>
             </ul>
@@ -376,7 +377,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             </ul>
           </li>
           <li><a href="<?php echo 'Supervisor/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-          <li><a href="<?php echo 'Supervisor/order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+          <li><a href="<?php echo 'Supervisor/order' ?>"><i class="fa fa-shopping-cart"></i><span>Orders</span></a></li>
 
         </li>
 
@@ -649,7 +650,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
         <section class="content">
           <div class="row">
-            <div class="col-lg-8 col-xs-6">
+            <div class="col-lg-6 col-xs-6">
         
         
           <!-- BAR CHART -->
@@ -726,7 +727,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </div>
           <!-- /.box -->
         </div>
-          <div class="col-lg-4 col-xs-6">
+          <div class="col-lg-3 col-xs-6">
             
             <div class="box box-primary">
             <div class="box-header with-border">
@@ -747,10 +748,14 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   ?>
                   
                  <thead>
+                 	<?php if($result->num_rows > 0){ ?>
                         <tr>
                             <th>Supply Name</th>
                             <th>Status</th>
                         </tr>
+                    <?php }else { ?>
+                    	<center><b><h3>No orders for today</h3></b></center>
+                    <?php } ?>
                  </thead>
                     <tbody>
                       <?php if ($result->num_rows > 0) {
@@ -762,7 +767,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <?php 
                           }
                         } else { ?>
-                          <center><b><h3>No orders for today</h3></b></center>
+                          
                     <?php } ?>
                     </tbody>
               </table>

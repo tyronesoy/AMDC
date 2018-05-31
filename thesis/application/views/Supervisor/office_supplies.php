@@ -369,7 +369,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </ul>
           </li>
           <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-          <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+          <li><a href="<?php echo 'order' ?>"><i class="fa fa-shopping-cart"></i><span>Orders</span></a></li>
 
         </li>
 		
@@ -438,22 +438,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 ?>
           <thead>
             <tr>
-                  <th>Description</th>
                   <th>Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th> 
-                  <th>Reorder Level</th>
+                  <th>Unit</th> 
+                  <th>Brand Name</th>
+                  <th>Item Name</th>
+                  <th>Item Description</th>
+                  <th>Category</th>
             </tr>
         </thead>
         <tbody>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
-                      <td><?php echo $row["unit_price"]; ?></td>
-                      <td><?php echo $row["reorder_level"]; ?></td>
+                      <td><?php echo $row["brand_name"]; ?></td>
+                      <td><?php echo $row["item_name"]; ?></td>
+                      <td><?php echo $row["item_description"]; ?></td>
+                      <td><?php echo $row["category"]; ?></td>
                     </tr>
                   <?php 
                       }
@@ -462,11 +464,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
         <tfoot>
            <tr> 
-                  <th>Description</th>
                   <th>Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th> 
-                  <th>Reorder Level</th>
+                  <th>Unit</th> 
+                  <th>Brand Name</th>
+                  <th>Item Name</th>
+                  <th>Item Description</th>
+                  <th>Category</th>
             </tr>
         </tfoot>
       </table>              
