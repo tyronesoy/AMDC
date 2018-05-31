@@ -6,11 +6,11 @@ $con=mysqli_connect('localhost','root','','itproject')
 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="select * from supplies s JOIN suppliers su ON s.suppliers_id=su.supplier_id  WHERE supply_id=$id AND supply_type LIKE 'Office' AND soft_deleted='N'";
+    $sql="select * from supplies WHERE supply_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
-       $per_supplier=$row[26];
+      //  $per_supplierName=$row[1];
         $per_supplyDescription=$row[2];
         $per_brandName=$row[3];
         $per_supplyUnit=$row[4];
@@ -18,21 +18,24 @@ if(isset($_REQUEST['id'])){
         $per_supplyUnitPrice=$row[6];
         $per_supplyReorderLevel=$row[8];
         $per_supplyExpirationDate=$row[9];
-        $per_category = $row[22];
-        $per_lotNo = $row[23];
+        $per_supplyGoodCondition=$row[10];
+        $per_supplyDamaged=$row[11];
         $per_itemName = $row[24];
+        $per_category = $row[22];
+        $per_deptName = $row[20];
+        $per_lotNo = $row[23];
 
     }//end while
 ?>
-
        <div class="row">
           <div class="col-xs-12">
+     
             <div class="box-header">
-    <form class="form-horizontal" method="post" action ="">
+    <form class="form-horizontal" method="post" action ="" >
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                         <div class="col-md-2">
+                <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
                                             <div class="col-md-8">
@@ -50,30 +53,22 @@ if(isset($_REQUEST['id'])){
                                           <div class="margin">
                                               <center><h4><b>Update Supply Details</b></h4></center>
                                             </div>
+                                        </div>
                 <form class="form-horizontal" method="post">
                     <table style="float:right;">
                     <tr>
                     <div class="box-body">
-
+                        
                              <div class="form-group" style="display:none;">
                             <label for="txtid">Supply ID</label>
                                 <input class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
                             </div>
-
-                            <div class="form-group" >
-                            <label for="txtItemName">Item Name</label>
-                                <input type="text" class="form-control" id="txtItemName" name="txtItemName" value="<?php echo $per_itemName;?>" >
-                            </div>
                         
-                            <div class="form-group">
-                            <label for="txtsupplyDescription">Description</label>
-                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" >
-                            </div>
-                                  <div class="row">
+                                 <div class="row">
                                             <div class="col-md-6">
                                                     <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Lot Number</label>
-                                                    <input type="text" class="form-control" id="txtlotNo" name="txtlotNo"  maxlength="12" value="<?php echo $per_lotNo;?>" readonly>
+                                                    <input type="text" class="form-control" id="txtlotNo"  maxlength="12" name="txtlotNo" value="<?php echo $per_lotNo;?>" readonly>
                                                 </div>
                                               </div>
                                                 
@@ -85,11 +80,21 @@ if(isset($_REQUEST['id'])){
                                               </div>
                                               </div>
                                             </div>
+                        
+                              <div class="form-group" >
+                            <label for="txtItemName">Item Name</label>
+                                <input type="text" class="form-control" id="txtItemName" name="txtItemName" value="<?php echo $per_itemName;?>" >
+                            </div>
+                        
+                          <div class="form-group">
+                            <label for="txtsupplyDescription">Item Description</label>
+                                <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" >
+                            </div>
 
-                                   <div class="row">
+                                            <div class="row">
                                             <div class="col-md-6">
                                                         <div class="form-group" style="width:100%">
-                                                  <label for="exampleInputEmail1">Add new 'Unit' if not exists </label>
+                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
                                                   <input class="form-control" type="text" id="newOPT"/><input type="button" value="Add Unit" id="addOPT" style="float: right;" />
                                                 </div>
                                                 </div>
@@ -116,13 +121,15 @@ if(isset($_REQUEST['id'])){
                                                    </div>  
                                                 </div>
                         
-                                <div class="row">
+              
+                                        <div class="row">
                                             <div class="col-md-6">
                                                         <div class="form-group" style="width:100%">
-                                                  <label for="exampleInputEmail1">Add new 'Category' if not exists </label>
+                                                  <label for="exampleInputEmail1">Add new 'Category' </label>
                                                   <input class="form-control" type="text" id="newCAT"/><input type="button" value="Add Category" id="addCAT" style="float: right;" />
                                                 </div>
                                                 </div>
+     
                                         <div class="col-md-6">
                                                <div class="form-group">
                                                   <label for="exampleInputEmail1">Category</label><br>
@@ -145,70 +152,57 @@ if(isset($_REQUEST['id'])){
                                                      </div>
                                                    </div>  
                                                 </div>
-                        
+
                         <div class="row">
                             <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtQuantityInStock">Current Quantity In Stock</label>
-                                <input type="number" class="form-control" id="txtQuantityInStock" name="txtQuantityInStock" value="<?php echo $per_supplyQuantityInStock;?>" readonly>
+                            <div class="form-group" style="width:100%;">
+                            <label for="txtAddQuantity">Current Quantity In Stock</label>
+                                <input type="number" class="form-control"id="addQty" min="1" pattern="^[0-9]$" name="addQty" value="<?php echo $per_supplyQuantityInStock;?>" readonly>
                         </div>
                         </div>
 
                             <div class="col-md-6">
-                            <div class="form-group">
-                            <label>Update Quantity</label>
-                                <input type="number" id="txtAddQty" name="txtAddQty" value="<?php echo $per_supplyQuantityInStock;?>" min="1" class="form-control" >
+                            <div class="form-group" >
+                            <label for="txtAddQuantity">Update Quantity</label>
+                                <input type="number" class="form-control" id="addQty" min="1" pattern="^[0-9]$" name="addQty" value="<?php echo $per_supplyQuantityInStock;?>" >
                         </div>
                         </div>
                         </div>
 
                             <div class="row">
                                 <div class="col-md-6">
-                            <div class="form-group" style="width:100%">
-                            <label for="txtQuantityInStock">Current Unit Price</label>
-                                <input type="number" class="form-control"  value="<?php echo $per_supplyUnitPrice;?>" readonly>
+                            <div class="form-group" style="width:100%;">
+                            <label for="unitPrice">Current Unit Price</label>
+                                <input type="number" class="form-control" id="unitPrice" name="unitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
                             </div>
                             </div>
 
                             <div class="col-md-6">
-                            <div class="form-group">
-                            <label for="txtUnitPrice">Unit Price</label>
-                                <input type="number" class="form-control" id="txtUnitPrice" name="txtUnitPrice" step=".01" value="<?php echo $per_supplyUnitPrice;?>" min="1" >
+                            <div class="form-group" >
+                            <label for="unitPrice">Unit Price</label>
+                                <input type="number" class="form-control" id="unitPrice" name="unitPrice" step=".01" min="1" value="<?php echo $per_supplyUnitPrice;?>">
                         </div>
                         </div>
                         </div>
 
                         <div class="row">
                         <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
+                        <div class="form-group" style="width:100%;">
                             <label for="txtReorderLevel">Reorder Level</label>
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                         </div>
                         </div>
-                             <div class="col-md-6">
-                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Supplier</label><br>
-                                                       <select name="txtSupplier" class="form-control select2" style="width: 100%;">
-                                                       <option><?php echo $per_supplier;?></option>
-                                                        <option></option>   
-                                                        <?php
-                                                          $conn = mysqli_connect("localhost","root","");
-                                                           mysqli_select_db($conn, "itproject");
-                                                             $sql = "SELECT DISTINCT company_name FROM suppliers WHERE product = 'Office' AND supplier_status = 'Active' ORDER BY company_name ASC";
-                                                            $results = mysqli_query($conn, $sql);
+                            <div class="col-md-6">
+                            <div class="form-group">
+                            <label for="txtExpirationDate">Expiration Date</label>
+                                <input type="text" class="form-control" id="datepicker" name="txtExpirationDate" placeholder="yyyy-mm-dd" value="<?php echo $per_supplyExpirationDate; ?>">
 
-                                                            foreach($results as $txtSupplier) { 
-                                                        ?>
-
-                                                        <option value="<?php echo $txtSupplier["company_name"]; ?>" name="txtSupplier"><?php echo $txtSupplier["company_name"]; ?></option>
-                                                         <?php 
-                                                            }
-                                                          ?>
-                                                      </select>
-                                                     </div>
-                                                   </div>  
                         </div>
-
+                        </div>
+                        </div>
+                        
+          
+                        
                         </tr>
                         </table>
                 </form>
@@ -222,7 +216,7 @@ if(isset($_REQUEST['id'])){
 <?php
 }//end if
 ?>
-
+                
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script>

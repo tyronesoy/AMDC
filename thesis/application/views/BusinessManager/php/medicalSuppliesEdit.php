@@ -87,14 +87,14 @@ if(isset($_REQUEST['id'])){
                             </div>
                         
                           <div class="form-group">
-                            <label for="txtsupplyDescription">Description</label>
+                            <label for="txtsupplyDescription">Item Description</label>
                                 <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" >
                             </div>
 
                                             <div class="row">
                                             <div class="col-md-6">
                                                         <div class="form-group" style="width:100%">
-                                                  <label for="exampleInputEmail1">Add new 'Unit' if not exists </label>
+                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
                                                   <input class="form-control" type="text" id="newOpt"/><input type="button" value="Add Unit" id="addOpt" style="float: right;" />
                                                 </div>
                                                 </div>
@@ -125,7 +125,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="row">
                                             <div class="col-md-6">
                                                         <div class="form-group" style="width:100%">
-                                                  <label for="exampleInputEmail1">Add new 'Category' if not exists </label>
+                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
                                                   <input class="form-control" type="text" id="newCAT"/><input type="button" value="Add Category" id="addCAT" style="float: right;" />
                                                 </div>
                                                 </div>

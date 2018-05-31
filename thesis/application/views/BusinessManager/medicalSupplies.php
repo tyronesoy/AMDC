@@ -778,7 +778,7 @@ function category($connect)
                                                   <input type="text" class="form-control" id="item_name" name="item_name" required />
                                                 </div>
                                             <div class="form-group" style="width:100%;">
-                                                  <label for="exampleInputEmail1">Description</label>
+                                                  <label for="exampleInputEmail1">Item Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                             </div>
                                             
@@ -787,7 +787,7 @@ function category($connect)
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                     
-                                                  <label for="exampleInputEmail1">Add new 'Unit' if not exists </label>
+                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
                                                   <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
                                                 </div>
                                             </div>
@@ -809,7 +809,7 @@ function category($connect)
                                                   <div class="col-md-6">
                                               <div class="form-group">
                                                     
-                                                  <label for="exampleInputEmail1">Add new 'Category' if not exists </label>
+                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
                                                   <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
                                                 </div>
                                             </div>
@@ -885,7 +885,7 @@ function category($connect)
                   <th>Unit</th>
                   <th>Brand Name</th>
                  <th>Item Name</th>
-                  <th>Description</th>
+                  <th>Item Description</th>
                  <th>Category</th>
                   <th>Expiration Date</th> 
                   <th>Unit Price</th>
@@ -934,7 +934,7 @@ function category($connect)
                   <th>Unit</th>
                <th>Brand Name</th>
                  <th>Item Name</th>
-                  <th>Description</th>
+                  <th>Item Description</th>
                    <th>Category</th>
                 <th>Expiration Date</th> 
                   <th>Unit Price</th>
