@@ -188,7 +188,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-        <small> Business Manager</small>
+        <small> Supervisor</small>
         </p>
                 </li>
                 
@@ -365,7 +365,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </ul>
           </li>
           <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-          <li><a href="<?php echo 'order' ?>"><i class="fa fa-dollar"></i><span>Orders</span></a></li>
+          <li><a href="<?php echo 'order' ?>"><i class="fa fa-shopping-cart"></i><span>Orders</span></a></li>
 
         </li>
 		
