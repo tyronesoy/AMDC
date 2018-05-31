@@ -747,7 +747,7 @@ function category($connect)
                                                   <input type="text" class="form-control" id="item_name" name="item_name" required />
                                                 </div>
                                             <div class="form-group" style="width:100%;">
-                                                  <label for="exampleInputEmail1">Description</label>
+                                                  <label for="exampleInputEmail1">Item Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
                                             
@@ -773,7 +773,7 @@ function category($connect)
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                     
-                                                  <label for="exampleInputEmail1">Add new 'Unit' if not exists </label>
+                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
                                                   <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
                                                 </div>
                                             </div>
@@ -795,7 +795,7 @@ function category($connect)
                                                   <div class="col-md-6">
                                               <div class="form-group">
                                                     
-                                                  <label for="exampleInputEmail1">Add new 'Category' if not exists </label>
+                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
                                                   <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
                                                 </div>
                                             </div>
@@ -811,75 +811,6 @@ function category($connect)
                                               </div>
                                             </div>
                                             
-                                              <div class="row">
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Quantity</label>
-                                                  <input type="number" class="form-control" id="Quantity" min="0" name="Quantity" required />
-                                                
-                                              </div>
-                                              </div>
-
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Unit Price</label>
-                                                  <input type="number" class="form-control" id="priceUnit" min="0" name="priceUnit" step=".01" required />
-                                                </div>
-                                              </div>
-                                                  </div>
-                                            
-                                               <div class="row">
-                                            
-                                              <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Expiration Date</label>
-
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                     <?php
-                                                        $datetoday = date('Y\-m\-d', strtotime('95 days') );
-                                                        ?>
-                                                      <input type="text" class="form-control pull-right datepicker" id="datepicker2" value="<?php echo $datetoday?>" name="expirationDate">
-                                                        <script>
-                                                        jQuery(function() {
-                                                          var datepicker = $('input.datepicker');
-
-                                                          if (datepicker.length > 0) {
-                                                            datepicker.datepicker({
-                                                              format: "yyyy-mm-dd",
-                                                              startDate: new Date()
-                                                            });
-                                                          }
-                                                        });
-                                                        </script>
-                                                    </div>
-                                                  </div>
-                                                  </div>
-
-                                                  
-                                                    <div class="col-md-6">
-                                                     <div class="form-group">
-                                                      <label for="exampleInputEmail1">For Department</label>
-                                                       <select name = "dep_name" class="form-control">
-                                                       <option value="">Select a Department</option>
-                                                        <?php
-                                                          $conn =mysqli_connect("localhost","root","");
-                                                           mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio'";
-                                                            $results = mysqli_query($conn, $sql);
-
-                                                            foreach($results as $dep_name) { 
-                                                        ?>
-                                                        <option value="<?php echo $dep_name["department_name"]; ?>" name="dep_name"><?php echo $dep_name["department_name"]; ?></option>
-                                                         <?php 
-                                                            }
-                                                          ?>
-                                                      </select>
-                                                     </div>
-                                                   </div>
-                                                 </div>
                                             
                                             <div class="row">
                                                             
@@ -890,15 +821,7 @@ function category($connect)
                                                 
                                               </div>
                                               </div>
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Supplier</label>
-                                                  <select class="form-control select2" name="supplier" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                    <option value=""></option>
-                                                    <?php echo supplier($connect);?>
-                                                  </select>
-                                              </div>
-                                              </div>
+                                  
                                             </div>
                                                   </div>
 
@@ -931,24 +854,26 @@ function category($connect)
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Medical' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
-              <col width="auto">
+                   <col width="auto">
+              <col width="8%">
+            <col width="8%">
             <col width="50%">
-            <col width="50%">
-            <col width="50%">
+             <col width="50%">
+              <col width="50%">
             <col width="8%">
             <col width="22.5%">
           <thead>
             <tr>
                   <th style="display: none;"> ID </th>                
                 <th>Lot Number</th>
-                  <th>Expiration Date</th> 
-                 <th>Item Name</th>
-                  <th>Description</th>
-                  <th>Quantity In Stock</th>
+                <th>Quantity In Stock</th>
                   <th>Unit</th>
+                  <th>Brand Name</th>
+                 <th>Item Name</th>
+                  <th>Item Description</th>
+                 <th>Category</th>
+                  <th>Expiration Date</th> 
                   <th>Unit Price</th>
-               <th>Category</th>
-                <th>For Department</th>
                   <th> Action</th> 
             </tr>
         </thead>
@@ -958,14 +883,16 @@ function category($connect)
                     <tr>
                       <td style="display: none;"><?php echo $row["supply_id"];?></td>
                       <td><?php echo $row["lot_no"]; ?></td>
-                      <td><?php echo $row["expiration_date"]; ?></td>
+                         <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><?php echo $row["unit"]; ?></td>
+                      <td><?php echo $row["brand_name"]; ?></td>
                         <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
-                      <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
-                      <td><?php echo $row["unit"]; ?></td>
+                         <td><?php echo $row["category"]; ?></td>
+                      <td><?php echo $row["expiration_date"]; ?></td>
                       <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
-                        <td><?php echo $row["category"]; ?></td>
-                        <td><?php echo $row["dep_name"]; ?></td>
+                       
+    
                       <td>
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
@@ -988,14 +915,14 @@ function category($connect)
            <tr>
                   <th style="display: none;">ID</th>
                   <th>Lot Number</th>
-                  <th>Expiration Date</th> 
-                 <th>Item Name</th>
-                  <th>Description</th>
-                  <th>Quantity In Stock</th>
+                 <th>Quantity In Stock</th>
                   <th>Unit</th>
+               <th>Brand Name</th>
+                 <th>Item Name</th>
+                  <th>Item Description</th>
+                   <th>Category</th>
+                <th>Expiration Date</th> 
                   <th>Unit Price</th>
-               <th>Category</th>
-                <th>For Department</th>
                   <th> Action</th> 
             </tr> 
         </tfoot>

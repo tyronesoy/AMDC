@@ -22,7 +22,6 @@ if(isset($_REQUEST['id'])){
         $per_supplyDamaged=$row[11];
         $per_itemName = $row[24];
         $per_category = $row[22];
-        $per_deptName = $row[20];
         $per_lotNo = $row[23];
 
     }//end while
