@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../assets/orderedit/bootstrap.min.css" />
 <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <?php

@@ -1,4 +1,6 @@
 <!-- daterange picker -->
+
+<link rel="stylesheet" href="../assets/orderedit/bootstrap.min.css" />
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <?php
 $con=mysqli_connect('localhost','root','','itproject')
