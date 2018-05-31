@@ -130,7 +130,7 @@ if(isset($_REQUEST['id'])){
                                 <td style="display: none;"><input class="form-control" id="ID[]" name="ID[]" value="<?php echo $row["inventory_order_supplies_id"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                 </td>
 
-                                <td><input class="form-control" id="qty[]" name="qty[]" value ="<?php echo $row["quantity"]?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td><input type="number" class="form-control" id="qty[]" name="qty[]" value ="<?php echo $row["quantity"]?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$">
                                 </td>
 
                                 <td>
@@ -165,11 +165,11 @@ if(isset($_REQUEST['id'])){
 
                             <tr>
                                 
-                                <td><input class="form-control" id="number[]" name="number[]" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td><input type="number" class="form-control" id="number[]" name="number[]" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$">
                                 </td>
 
                                 <td>
-                                    <select class="form-control select2" id="neym[]" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                    <select class="form-control select2" id="neym[]" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                   <option value=""></option>
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
@@ -231,7 +231,7 @@ $(document).ready(function(){
         var button_id = $(this).attr("id"); 
         $('#row'+button_id+'').remove();
     });
-  
+
   $('#update').click(function(){    
     $.ajax({
       url: postURL,
@@ -248,6 +248,8 @@ $(document).ready(function(){
       }
     });
   });
+  
+  
   
 });
 </script>

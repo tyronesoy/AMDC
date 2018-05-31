@@ -450,7 +450,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Pending' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."')";
+                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Pending' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND supply_name != ''";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -561,24 +561,18 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 ?>
                 <thead> 
                 <tr>
-                  <th>Issued Date</th>
                   <th>Order Date</th>
                   <th>Supply Name</th>
-                  <th>Issued To</th>
                   <th>Status</th>
-                  <th>Remarks</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                    <td><?php echo $row["issued_date"]; ?></td>
                     <td><?php echo $row["inventory_order_created_date"]; ?></td>
                     <td><?php echo $row["supply_name"]; ?></td>
-                    <td><?php echo $row["issued_to"]; ?></td>
                     <td><?php echo $row["inventory_order_status"]; ?></td>
-                    <td><?php echo $row["inventory_order_remarks"]; ?></td>
                     </tr>
                   <?php 
                       }
@@ -587,12 +581,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Issued Date</th>
                     <th>Order Date</th>
                     <th>Supply Name</th>
-                    <th>Issued To</th>
                     <th>Status</th>
-                    <th>Remarks</th>
                   </tr> 
                 </tfoot>
               </table>
@@ -609,10 +600,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 ?>
                 <thead> 
                 <tr>
-                  <th>Issued Date</th>
                   <th>Order Date</th>
                   <th>Supply Name</th>
-                  <th>Issued To</th>
                   <th>Status</th>
                   <th>Remarks</th>
                 </tr>
@@ -621,10 +610,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                    <td><?php echo $row["issued_date"]; ?></td>
                     <td><?php echo $row["inventory_order_created_date"]; ?></td>
                     <td><?php echo $row["supply_name"]; ?></td>
-                    <td><?php echo $row["issued_to"]; ?></td>
                     <td><?php echo $row["inventory_order_status"]; ?></td>
                     <td><?php echo $row["inventory_order_remarks"]; ?></td>
                     </tr>
@@ -635,10 +622,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Issued Date</th>
                     <th>Order Date</th>
                     <th>Supply Name</th>
-                    <th>Issued To</th>
                     <th>Status</th>
                     <th>Remarks</th>
                   </tr> 
