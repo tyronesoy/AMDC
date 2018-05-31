@@ -1107,9 +1107,8 @@ function unit_measure($connect)
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-<div id="printThis">
 <div class="modal fade" id="printrep">
-<form name="form42" id="user_form" method="post" action="purchases/addUser2">
+<form name="form42" id="user_form" method="post" action="purchases/generated">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -1131,49 +1130,99 @@ function unit_measure($connect)
                                         <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
-                                              <center><h4><b>Purchases Report</b></h4></center>
+                                              <center><h4><b>Generate Purchase Order Report</b></h4></center>
                                             </div>
                                       </div>
-                    <div class="box-body">
+                        <div class="box-body">
+                
+                        <div class="row">
+                          <h4><b>Include dates within:</b></h4>
+                          <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Date 1</label>
+                            <?php
+                            $datetoday = date('Y\-m\-d', strtotime('-30 days') );
+                            ?>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="text" class="form-control pull-right datepicker2" name="date1" id="date1" value="">
+<!--
+                                <script>
+                                jQuery(function() {
+                                  var datepicker = $('input.datepicker2');
 
+                                  if (datepicker.length > 0) {
+                                    datepicker.datepicker({
+                                      format: "yyyy-mm-dd",
+                                      startDate: new Date()
+                                    });
+                                  }
+                                });
+                                </script>
+-->
+                            </div>
+                          </div>
+                          </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Date 2(Today)</label>
+
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <?php
+                                $deyto = date("Y/m/d");
+                              ?>
+                              <input type="text" class="form-control pull-right datepicker"  name="date2" id="date2" value="<?php echo $deyto?>">
+                            </div>
+                          </div>
+                          </div>
+                    <div class="col-md-6">
+                    <h4><b>Include:</b></h4>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="order_date" checked>Purchase Date
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="purchase_order_status" checked>Status
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="description" checked>Description
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="order_quantity" checked>Quantity
+                        </div>
+                      </div>
+                    </div>
+                     </div>   
+    
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
                   $sql = "SELECT * FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != ''";
                   $result = $conn->query($sql);    
                 ?>
-            <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                  <th>Purchase Order Date</th>
-                  <th>Status</th>
-                  <th>Description</th>
-                  <th>Quantity</th>    
-              </tr>
-            </thead>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) {
-                    $podate = $row['order_date']; 
-                    $status = $row['purchase_order_status'];
-                    $desc = $row['description'];
-                    $quant = $row['order_quantity'];
-                ?>
-                    <tr id="row0">
-                      <td><?php echo $podate; ?></td>
-                      <td><?php echo $status; ?></td>
-                      <td><?php echo $desc; ?></td>
-                      <td><?php echo $quant; ?></td>       
-                      </tr>
-                  <?php 
-                      }
-                    }
-                  ?>
-                </table>
-        </div>
+                        </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button id="btnPrint" type="button" class="btn btn-success" style="float:right;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
+                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-clone"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -1182,7 +1231,7 @@ function unit_measure($connect)
           <!-- /.modal-dialog -->
         </form> 
         </div>
-    </div>
+          </div>
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
@@ -1414,6 +1463,30 @@ $(document).ready(function(){
   })
 </script>
 
+<script>
+ // date and time 
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Date picker
+    $('#date1').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd'
+    })
+    //Date picker
+    $('#date2').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd'
+    })
+    //Timepicker
+   /* $('.timepicker').timepicker({
+      showInputs: false,
+      format    : '%h:%i:%s %p'
+    }) */
+  }) 
+</script>
+        
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="viewModal" role="dialog">
             <div class="modal-dialog">
@@ -1606,7 +1679,26 @@ $(document).on('click','#getAdd',function(e){
     });
 });
 </script>
-        
+
+<script>
+$(document).on('click','#getAdd',function(e){
+    e.preventDefault();
+    var per_id=$(this).data('id');
+    //alert(per_id);
+    $('#content-data').html('');
+    $.ajax({
+        url:'purchases/generated',
+        type:'POST',
+        data:'id='+per_id,
+        dataType:'html'
+    }).done(function(data){
+        $('#content-data').html('');
+        $('#content-data').html(data);
+    }).final(function(){
+        $('#content-data').html('<p>Error</p>');
+    });
+});
+</script>
 <!--
 <script>
  function printcontent(el){

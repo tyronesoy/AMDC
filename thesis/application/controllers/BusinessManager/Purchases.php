@@ -75,4 +75,8 @@ class Purchases extends CI_Controller {
     public function addUser2(){
 		$this->load->view('BusinessManager/php/flagrange');
 	}
+    
+    public function generated(){
+    $this->load->view('BusinessManager/php/generaterep');
+	}
 }
