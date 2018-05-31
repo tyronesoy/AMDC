@@ -154,9 +154,37 @@ if(isset($_REQUEST['id'])){
                                                   </div>
                                                 </div>
                                                 </div>
-
-
                                               </div>
+
+                                              <div class="row">
+                                <div class="col-md-5">
+                                              <div class="form-group">
+                                                    <label>Delivered By</label>
+                                                     <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-user"></i>
+                                                      </div>
+
+                                                      <input type="text" class="form-control" id="txtdelBy" name="txtdelBy" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-1">
+                                                </div>
+                                  <div class="col-md-5">
+                                              <div class="form-group">
+                                                    <label>Order No.</label>
+                                                     <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-hashtag"></i>
+                                                      </div>
+
+                                                      <input type="text" class="form-control" id="txtuni" name="txtuni" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                  </div>
+                                                </div>
+                                              </div>
+                            </div>
+
                                                <?php
                         $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join supplies on supplies.supply_description = purchase_orders.description where purchase_order_id='$id' AND order_quantity != 0";
                         $result = $con->query($sql);
@@ -187,10 +215,11 @@ if(isset($_REQUEST['id'])){
                                             <tr>
                                                 <th class="hidden">ID</th>
                                                 
-                                               <th>Item Name</th>
+                                                <th>Lot No.</th>
                                                 <th>Qty Delivered</th>
                                                 <th>Qty Ordered</th>
                                                 <th>Qty Returned</th>
+                                                <th>Item Name</th>
                                                 <th>Reason</th>
             
 
@@ -260,7 +289,7 @@ if(isset($_REQUEST['id'])){
                                               <input class="form-control" id="txtsupid<?php echo $x; ?>" name="txtsupid<?php echo $x; ?>" value="<?php print_r($supid[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
 
-                                              <td width="200px"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc<?php echo $x; ?>" value="<?php print_r($desc[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <td width="50px">
                                               </td>
 
                                               <td width="50px"><input type="text" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered<?php echo $x; ?>" value="<?php print_r($quantityDelivered[$zero]); ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >  </td>
@@ -269,6 +298,9 @@ if(isset($_REQUEST['id'])){
 
                                               <td width="50px">
                                                 <input type="text" class="form-control" id="txtreturn" name="txtreturn" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>  
+                                              </td>
+
+                                              <td width="200px"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc<?php echo $x; ?>" value="<?php print_r($desc[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
                                               
                                               <td width="150px">

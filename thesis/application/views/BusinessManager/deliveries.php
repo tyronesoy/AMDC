@@ -782,6 +782,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row no-print">
         <div class="col-xs-1" style="float:right">
           <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
+          <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
         </div>
         <div class="col-xs-1" style="float:left;">
             <a href="deliveriesRecover" style="color:white;">
@@ -791,7 +792,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       </div>
       <div>
-          <button  type="submit" class="btn btn-default btn-flat pull-left" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
+          <!-- <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button> -->
         </div>
       <script>
         $('#print').click(function(){
