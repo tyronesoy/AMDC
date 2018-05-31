@@ -482,7 +482,7 @@ function category($connect)
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo 'logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
                       <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
@@ -729,33 +729,25 @@ function category($connect)
                                             <div class="col-md-8">
                                                 
                                                 <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center </h5></center>
+                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
                                                     <center><h6>10 Assumption Rd., Baguio City</h6></center>
                                                     <center><h6>Philippines</h6></center>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- end of modal header -->
-                                        <div class="modal-body">
+                                         <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
                                               <center><h4><b>Add New Item</b></h4></center>
                                             </div>
                                         <div class="box-body">
-                                             <div class="form-group" style="width:100%;">
-                                                  <label for="exampleInputEmail1">Item Name</label>
-                                                  <input type="text" class="form-control" id="item_name" name="item_name" required />
-                                                </div>
-                                            <div class="form-group" style="width:100%;">
-                                                  <label for="exampleInputEmail1">Item Description</label>
-                                                  <input type="text" class="form-control" id="Description" name="Description" required />
-                                                </div>
-                                            
+                                                        
                                              <div class="row">
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Lot Number</label>
-                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" required />
+                                                    <input type="text" class="form-control" id="lot_no"name="lot_no"  maxlength="12" required />
                                                 </div>
                                               </div>
                                                 
@@ -766,6 +758,14 @@ function category($connect)
                                                 
                                               </div>
                                               </div>
+                                            </div>
+                                             <div class="form-group" style="width:100%;">
+                                                  <label for="exampleInputEmail1">Item Name</label>
+                                                  <input type="text" class="form-control" id="item_name" name="item_name" required />
+                                                </div>
+                                            <div class="form-group" style="width:100%;">
+                                                  <label for="exampleInputEmail1">Item Description</label>
+                                                  <input type="text" class="form-control" id="Description" name="Description" required />
                                             </div>
                                             
                                             
@@ -810,7 +810,7 @@ function category($connect)
                                               </div>
                                               </div>
                                             </div>
-                                            
+                          
                                             
                                             <div class="row">
                                                             
@@ -821,7 +821,7 @@ function category($connect)
                                                 
                                               </div>
                                               </div>
-                                  
+                                 
                                             </div>
                                                   </div>
 
@@ -829,7 +829,7 @@ function category($connect)
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" class="btn btn-outline" name="addMedSupply"><i class="fa fa-plus"></i> Add</button>
+                                        <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"></i> Add</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -837,14 +837,36 @@ function category($connect)
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
+
+                             <div class="modal modal-default fade" id="modal-success">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <h3><center><b>Are you sure to add this item?</b></center></h3>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
+                                          <button type="submit" class="btn btn-primary" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
+
+                                        </div>
+                                      </div>
+                                      <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                  </div>
                                   <!-- /.modal -->
                                 </form>
                             </th> 
                               
                             <!--- END OF ADD -->
-                        
+                        <!---  ISSUE BUTTON -->
+                        </th>
                     </tr>
-                </table>     
+                </table>    
             </div>
               
       <div class="box-body">

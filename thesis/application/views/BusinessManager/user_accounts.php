@@ -765,6 +765,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                   
                                                 </div>
                                               </div>
+                                                    
                                             </div>
 
                                             <div class="row">
@@ -804,7 +805,37 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                       </select>
                                                      </div>
                                                    </div>
-                                                 </div>
+                                         
+                                            
+                                             <div class="col-md-6">
+                                                <div class="form-group">
+                                                     <label for="exampleInputEmail1">Select image :</label>
+                                                    <form action="fileupload.php" enctype="multipart/form-data" method="post">
+                                                    
+                                                        <input type="file" name="file"><br/>
+                                                        <input type="submit" value="Upload" name="Submit1"> <br/>
+
+
+                                                        </form>
+                                                        <?php
+                                                        if(isset($_POST['Submit1']))
+                                                        { 
+                                                        $filepath = "images/" . $_FILES["file"]["name"];
+
+                                                        if(move_uploaded_file($_FILES["file"]["tmp_name"], $filepath)) 
+                                                        {
+                                                        echo "<img src=".$filepath." height=200 width=300 />";
+                                                        } 
+                                                        else 
+                                                        {
+                                                        echo "Error !!";
+                                                        }
+                                                        } 
+                                                        ?>
+                                                         </div>
+                                                    </div>
+                                                
+                                                        </div>
                                         </div>
                                       </div>
                                       <div class="modal-footer">
@@ -821,6 +852,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                             </th> 
                     <th>
                         <button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#defpass" style="margin-left:5px"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;Change default password</button>
+                        
+                        
                         
                         <form name="form3" id="user_form" method="post" action="userAccounts/passdef">
                         <div class="modal fade" id="defpass">
