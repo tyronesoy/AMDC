@@ -1,4 +1,3 @@
- <link rel="stylesheet" href="../assets/orderedit/bootstrap.min.css" />
 <?php
 /**
  for display full info. and edit data

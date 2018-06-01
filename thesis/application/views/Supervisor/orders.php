@@ -474,370 +474,332 @@ if(!isset($_SESSION['first_run'])){
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
 
               <table style="float: left;">
-                    <tr>
-                        <th> <div class="dropdownButton">
-                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
+                <tr>
+                  <th> 
+                    <div class="dropdownButton">
+                      <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                           <span class="caret"></span>
                         </button>
-                          <option value="order">All Orders</option>
-                          <option value="orderPending">Pending</option>
-                          <option value="orderAccepted">Accepted</option>
-                          <option value="orderDeclined">Declined</option>
-                        </select>
-                      </div></th>
-                    </tr>
-                </table>
+                        <option value="order">All Orders</option>
+                        <option value="orderPending">Pending</option>
+                        <option value="orderAccepted">Accepted</option>
+                        <option value="orderDeclined">Declined</option>
+                      </select>
+                    </div>
+                  </th>
+                </tr>
+              </table>
 
-                <table style="float:right;">
-                    <tr>
-                        <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Order</i></button>
-            
-                       <form id="add_name" name="add_name">
-                        <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                            <div class="col-md-2">
-                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                                            </div>
-                                            <div class="col-md-8">
-                                                
-                                                <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
-                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                                                    <center><h6>Philippines</h6></center>
-                                                </div>
-                                            </div>
-                                        </div>
-                                         <div class="modal-body">
-                                        <div class="box-header">
-                                          <div class="margin">
-                                              <center><h4><b>Add New Order</b></h4></center>
-                                            </div>
+              <table style="float:right;">
+                <tr>
+                  <th>
+                    <button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Order</i></button>
+                        <form name="form1" method="post" action="order/addItem" >
+                          <div class="modal fade" id="modal-info">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                  <div class="col-md-2">
+                                    <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="margin">
+                                      <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                      <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                      <center><h6>Philippines</h6></center>
+                                    </div>
+                                  </div>
+                                </div>
                                         <!-- end of modal header -->
-                                        <div class="box-body">
-                                          <div class="row">
-                                              <div class="col-md-8">
-                                              <div class="form-group">
-                                                   <label for="exampleInputEmail1">Department</label>
-                                                <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-institution"></i>
-                                                      </div>
-                                                       <?php
-                                                          $conn =mysqli_connect("localhost","root","");
-                                                          mysqli_select_db($conn, "itproject");
-                                                          $dept = "SELECT dept_name FROM users WHERE fname='".$this->session->userdata('fname')."' AND users.lname='".$this->session->userdata('lname')."'";
-                                                          $resulty = $conn->query($dept);
-                                                          ?>
-                                                          <?php 
-                                                            if ($resulty->num_rows > 0) {
-                                                             while($row = $resulty->fetch_assoc()) { 
-                                                          ?>
-                                                
-                                                <input type="text" class="form-control" id="department" name="department" value="<?php echo $row['dept_name']; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                                   <?php 
-                                                      }
-                                                    }
-                                                    ?>
-                                          </div>
-                                              </div>
+                                <div class="modal-body">
+                                  <div class="box-header">
+                                    <div class="margin">
+                                      <center><h4><b>Add New Supplier</b></h4></center>
+                                    </div>
+                                  </div>
+                                        <!-- end of modal header -->
+                                  <div class="box-body">
+                                    <div class="row">
+                                      <div class="col-md-8">
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">Department</label>
+                                          <div class="input-group">
+                                            <div class="input-group-addon">
+                                              <i class="fa fa-institution"></i>
                                             </div>
+                                            <?php
+                                              $conn=mysqli_connect("localhost","root","");
+                                                    mysqli_select_db($conn, "itproject");
+                                              $dept = "SELECT dept_name FROM users WHERE fname='".$this->session->userdata('fname')."' AND users.lname='".$this->session->userdata('lname')."'";
+                                              $resulty = $conn->query($dept);
+                                            ?>
+                                            <?php 
+                                              if ($resulty->num_rows > 0) {
+                                                while($row = $resulty->fetch_assoc()) { 
+                                            ?>
+                                                  <input type="text" class="form-control" id="department" name="department" value="<?php echo $row['dept_name']; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            <?php 
+                                                }
+                                              }
+                                            ?>
                                           </div>
-
-                                              <div class="row">
-                                              <div class="col-md-5">
-                                              <div class="form-group">
-                                                  <label for="exampleInputEmail1">Supervisor Name</label>
-                                                  <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-user"></i>
-                                                      </div>
-                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </div>
-                                              </div>
-                                              </div>
-
-                                              <div class="col-md-6">
-                                              <div class="form-group">
-                                                    <label>Order Date</label>
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                      <?php $date = date("Y-m-d"); ?>
-                                                      <input type="date" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                                    </div>
-                                                    <!-- /.input group -->
-                                                  </div>
-                                                </div>
-                                              </div>
-
-                                              <div class="row">
-                                                <div class="col-md-9">
-                                                  
-                                                </div>
-                                                <div class="col-md-3">
-                                                  <button type="button" name="add" id="add" class="btn btn-success">Add Another Item</button>
-                                                </div>
-                                              </div>
-                                        <div class="row">      
-                                        <div class="table-responsive">
-
-                                          <span id="error"></span>
-                                          <table class="table table-bordered" id="dynamic_field">
-                                            <tr>
-                                              <th width="16.5%"> Item Type </th>
-                                              <th width="53.5%"> Description </th>
-                                              <th width="20%"> Unit </th>
-                                              <th width="15%"> Quantity </th>
-                                            
-                                            </tr>
-                                            <tr id="row0">
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" id="supply" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" id="quant" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                                              </td>
-                                            </tr>
-
-                                            <tr id="row1" class="hidden">
-                                              <td>
-                                                <input class="form-control" type="text" name="type" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                                              </td>
-                                            </tr>
-
-                                            <tr id="row2" class="hidden">
-                                              <td>
-                                                <input class="form-control" type="text" name="type" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                                              </td>
-                                            </tr>
-
-                                            <tr id="row3" class="hidden">
-                                              <td>
-                                                <input class="form-control" type="text" name="type" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                                              </td>
-                                            </tr>
-
-                                            <tr id="row4" class="hidden">
-                                              <td>
-                                                <input class="form-control" type="text" name="type" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                                              </td>
-                                            </tr>
-
-                                            <tr id="row5" class="hidden">
-                                              <td>
-                                                <input class="form-control" type="text" name="type" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                                              </td>
-                                            </tr>
-
-                                            <tr id="row6" class="hidden">
-                                              <td>
-                                                <input class="form-control" type="text" name="type" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                                              </td>
-                                            </tr>
-
-                                            <tr id="row7" class="hidden">
-                                              <td>
-                                                <input class="form-control" type="text" name="type" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                                              </td>
-                                            </tr>
-
-                                            <tr id="row8" class="hidden">
-                                              <td>
-                                                <input class="form-control" type="text" name="type" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                                              </td>
-                                            </tr>
-
-                                            <tr id="row9" class="hidden">
-                                              <td>
-                                                <input class="form-control" type="text" name="type" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                                              </td>
-                                            </tr>
-                                            
-                                          </table>
-                                          
-                                       
                                         </div>
-                                      </div>
-                                          </div>
-                                        </div> <!-- BOX-BODY -->
-                                      <div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                         <button type="submit"  class="btn btn-success sendbutton" name="submit" id="submit"><i class="fa fa-plus"></i> Add Order</button>
-                                          <script>
-                                            $(document).ready(function(){
-                                                $('.sendButton').attr('disabled',true);
-                                                $('#supply').change(function(){
-                                                    if($(this).val().length !=0)
-                                                        $(document).ready(function(){
-                                                        $('.sendButton').attr('disabled',true);
-                                                        $('#quant').keyup(function(){
-                                                            if($(this).val().length !=0)
-                                                                $('.sendButton').attr('disabled', false);            
-                                                            else
-                                                                $('.sendButton').attr('disabled',true);
-                                                        })
-                                                    });            
-                                                    else
-                                                        $('.sendButton').attr('disabled',true);
-                                                })
-                                            });
-                                            $(document).ready(function(){
-                                                $('.sendButton').attr('disabled',true);
-                                                $('#quant').keyup(function(){
-                                                    if($(this).val().length !=0)
-                                                        $(document).ready(function(){
-                                                        $('.sendButton').attr('disabled',true);
-                                                        $('#supply').change(function(){
-                                                            if($(this).val().length !=0)
-                                                                $('.sendButton').attr('disabled', false);            
-                                                            else
-                                                                $('.sendButton').attr('disabled',true);
-                                                        })
-                                                    });            
-                                                    else
-                                                        $('.sendButton').attr('disabled',true);
-                                                })
-                                            });
-                                          </script>
-                                        <!-- <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
-                                    <!-- /.modal-content -->
+                                    <div class="row">
+                                      <div class="col-md-5">
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">Supervisor Name</label>
+                                          <div class="input-group">
+                                            <div class="input-group-addon">
+                                              <i class="fa fa-user"></i>
+                                            </div>
+                                            <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          <label>Order Date</label>
+                                          <div class="input-group">
+                                            <div class="input-group-addon">
+                                              <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <?php $date = date("Y-m-d"); ?>
+                                            <input type="date" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                          </div>
+                                        <!-- /.input group -->
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-9">
+                                      </div>
+                                      <div class="col-md-3">
+                                        <button type="button" name="add" id="add" class="btn btn-success">Add Another Row</button>
+                                      </div>
+                                    </div>
+                                    <div class="row">      
+                                      <div class="table-responsive">
+                                        <span id="error"></span>
+                                        <table class="table table-bordered" id="dynamic_field">
+                                          <tr>
+                                            <th width="15%"> Quantity </th>
+                                            <th width="52.5%"> Description </th>
+                                            <th width="16%"> Unit </th>
+                                            <th width="16.5%"> Item Type </th>
+                                          </tr>
+                                          <tr id="row0">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" required />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                                <option value=""></option> 
+                                                <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
+
+                                          <tr id="row1" class="hidden">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                <option value=""></option> 
+                                                <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
+
+                                          <tr id="row2" class="hidden">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                <option value=""></option> 
+                                                <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
+
+                                          <tr id="row3" class="hidden">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"min="1" pattern="^[0-9]$" />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                <option value=""></option> 
+                                                <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
+
+                                          <tr id="row4" class="hidden">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                <option value=""></option> 
+                                                <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
+
+                                          <tr id="row5" class="hidden">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                <option value=""></option> 
+                                                <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
+
+                                          <tr id="row6" class="hidden">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                <option value=""></option> 
+                                                <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
+
+                                          <tr id="row7" class="hidden">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                <option value=""></option> 
+                                                <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
+
+                                          <tr id="row8" class="hidden">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                <option value=""></option> 
+                                                <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
+
+                                          <tr id="row9" class="hidden">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
+                                            
+                                        </table>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <!-- /.modal-dialog -->
                                 </div>
-            <!-- end of Items FORM -->
-                            </div>
-              </form>
-              </th>
-                        
-              
-                    </tr>
-                </table>      
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"> </i> Cancel</button>
+                                  <button type="submit" class="btn btn-success" class="btn btn-success" name="addOrders"><i class="fa fa-plus"> </i> Add Order</button>
+                                </div>
+                              </div>
+                           </div>
+                          </div>
+                        </form>
+                  </th>
+                </tr>
+              </table>      
             </div>
             <!-- /.box-header -->
                    <div class="box-body">
@@ -851,8 +813,8 @@ if(!isset($_SESSION['first_run'])){
                           <tr>
                               <th style="display: none;">ID </th>
                               <th>Order Date</th>
-                              <th>Supervisor Name</th>
-                              <th>Department</th>
+                              <th>Issued Date</th>
+                              <th>Issued To</th>
                               <th>Status</th>
                               <th>Remarks</th>
                               <th>Action</th>
@@ -864,13 +826,15 @@ if(!isset($_SESSION['first_run'])){
                             <tr>
                               <td style="display: none;"><?php echo $row["inventory_order_supplies_id"];?></td>
                               <td><?php echo $row["inventory_order_created_date"]; ?></td>
-                              <td><?php echo $row["inventory_order_name"]; ?></td>
-                              <td><?php echo $row["inventory_order_dept"]; ?></td>
+                              <td><?php echo $row["issued_date"]; ?></td>
+                              <td><?php echo $row["issued_to"]; ?></td>
                               <td><?php echo $row["inventory_order_status"]; ?></td>
                               <td><?php echo $row["inventory_order_remarks"]; ?></td>
-                              <td><div class="btn-group">
+                              <td>
+                                <div class="btn-group">
+                                  <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                                </div> 
                             <?php if($row['inventory_order_status'] == 'Pending'){ ?>
-                            <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>  
                             <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-edit"></i> Update</button>
                             <?php } ?>
@@ -881,17 +845,6 @@ if(!isset($_SESSION['first_run'])){
                             }
                           ?>
                         </tbody>
-                      <tfoot>
-                        <tr>
-                              <th style="display: none;">ID</th>
-                              <th>Order Date</th>
-                              <th>Supervisor Name</th>
-                              <th>Department</th>
-                              <th>Remarks</th>
-                              <th>Status</th>
-                              <th>Action</th>
-                          </tr>
-                      </tfoot>
             </table>
             </div>
 
@@ -1026,12 +979,136 @@ function onUserInactivity() {
 
 <script>
 $(document).ready(function(){
-    $("#supply").change(function(){
-      var value = document.getElementById('supply');
+    $("#supply0").change(function(){
+      var value = document.getElementById('supply0');
       var value1 = value.options[value.selectedIndex].value;
-      $('#type').attr('value','Office');
-      $('#unit').attr('value','bottle/s');
-      alert(value1);
+
+      if (value1 == 'ECG PAPER'){
+        $('#type0').attr('value','Medical');
+        $('#unit0').attr('value','pack/s');
+      }else if(value1 == 'ELECTRODES'){
+        $('#type0').attr('value','Medical');
+        $('#unit0').attr('value','box/es');
+      }else {
+        $('#type0').attr('value','Office');
+      }
+    });
+    $("#supply1").change(function(){
+      var value = document.getElementById('supply1');
+      var value1 = value.options[value.selectedIndex].value;
+      if (value1 == 'ECG PAPER'){
+        $('#type1').attr('value','Medical');
+        $('#unit1').attr('value','pack/s');
+      }else if(value1 == 'ELECTRODES'){
+        $('#type1').attr('value','Medical');
+        $('#unit1').attr('value','box/es');
+      }else {
+        $('#type1').attr('value','Office');
+      }
+    });
+    $("#supply2").change(function(){
+      var value = document.getElementById('supply2');
+      var value1 = value.options[value.selectedIndex].value;
+      if (value1 == 'ECG PAPER'){
+        $('#type2').attr('value','Medical');
+        $('#unit2').attr('value','pack/s');
+      }else if(value1 == 'ELECTRODES'){
+        $('#type2').attr('value','Medical');
+        $('#unit2').attr('value','box/es');
+      }else {
+        $('#type2').attr('value','Office');
+      }
+    });
+    $("#supply3").change(function(){
+      var value = document.getElementById('supply3');
+      var value1 = value.options[value.selectedIndex].value;
+      if (value1 == 'ECG PAPER'){
+        $('#type3').attr('value','Medical');
+        $('#unit3').attr('value','pack/s');
+      }else if(value1 == 'ELECTRODES'){
+        $('#type3').attr('value','Medical');
+        $('#unit3').attr('value','box/es');
+      }else {
+        $('#type3').attr('value','Office');
+      }
+    });
+    $("#supply4").change(function(){
+      var value = document.getElementById('supply4');
+      var value1 = value.options[value.selectedIndex].value;
+      if (value1 == 'ECG PAPER'){
+        $('#type4').attr('value','Medical');
+        $('#unit4').attr('value','pack/s');
+      }else if(value1 == 'ELECTRODES'){
+        $('#type4').attr('value','Medical');
+        $('#unit4').attr('value','box/es');
+      }else {
+        $('#type4').attr('value','Office');
+      }
+    });
+    $("#supply5").change(function(){
+      var value = document.getElementById('supply5');
+      var value1 = value.options[value.selectedIndex].value;
+      if (value1 == 'ECG PAPER'){
+        $('#type5').attr('value','Medical');
+        $('#unit5').attr('value','pack/s');
+      }else if(value1 == 'ELECTRODES'){
+        $('#type5').attr('value','Medical');
+        $('#unit5').attr('value','box/es');
+      }else {
+        $('#type5').attr('value','Office');
+      }
+    });
+    $("#supply6").change(function(){
+      var value = document.getElementById('supply6');
+      var value1 = value.options[value.selectedIndex].value;
+      if (value1 == 'ECG PAPER'){
+        $('#type6').attr('value','Medical');
+        $('#unit6').attr('value','pack/s');
+      }else if(value1 == 'ELECTRODES'){
+        $('#type6').attr('value','Medical');
+        $('#unit6').attr('value','box/es');
+      }else {
+        $('#type6').attr('value','Office');
+      }
+    });
+    $("#supply7").change(function(){
+      var value = document.getElementById('supply7');
+      var value1 = value.options[value.selectedIndex].value;
+      if (value1 == 'ECG PAPER'){
+        $('#type7').attr('value','Medical');
+        $('#unit7').attr('value','pack/s');
+      }else if(value1 == 'ELECTRODES'){
+        $('#type7').attr('value','Medical');
+        $('#unit7').attr('value','box/es');
+      }else {
+        $('#type7').attr('value','Office');
+      }
+    });
+    $("#supply8").change(function(){
+      var value = document.getElementById('supply8');
+      var value1 = value.options[value.selectedIndex].value;
+      if (value1 == 'ECG PAPER'){
+        $('#type8').attr('value','Medical');
+        $('#unit8').attr('value','pack/s');
+      }else if(value1 == 'ELECTRODES'){
+        $('#type8').attr('value','Medical');
+        $('#unit8').attr('value','box/es');
+      }else {
+        $('#type8').attr('value','Office');
+      }
+    });
+    $("#supply9").change(function(){
+      var value = document.getElementById('supply9');
+      var value1 = value.options[value.selectedIndex].value;
+      if (value1 == 'ECG PAPER'){
+        $('#type9').attr('value','Medical');
+        $('#unit9').attr('value','pack/s');
+      }else if(value1 == 'ELECTRODES'){
+        $('#type9').attr('value','Medical');
+        $('#unit9').attr('value','box/es');
+      }else {
+        $('#type9').attr('value','Office');
+      }
     });
 });
 </script>
@@ -1047,6 +1124,9 @@ $(document).ready(function(){
   	if(i < 10){
     i++;
     document.getElementById('row'+i+'').setAttribute("class", " ");
+    document.getElementById('quant'+i+'').setAttribute("required", "true");
+    document.getElementById('supply'+i+'').setAttribute("required", "true");
+
   //   $('#dynamic_field').append('<tr id="row'+i+'"> <td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td> <td><input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly></td><td><input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td></tr>');
 
   //   $("select.select2").change(function () {
@@ -1064,22 +1144,22 @@ $(document).ready(function(){
     $('#row'+button_id+'').remove();
   });
   
-  $('#submit').click(function(){    
-    $.ajax({
-      url: postURL,
-      method:"POST",
-      data:$('#add_name').serialize(),
-      type: 'json',
-      success:function(data)
-      {
-          i=1;
-                  $('.dynamic-added').remove();
-                  $('#add_name')[0].reset();
-            alert('Record Inserted Successfully.');
-            location.reload();
-      }
-    });
-  });
+  // $('#submit').click(function(){    
+  //   $.ajax({
+  //     url: postURL,
+  //     method:"POST",
+  //     data:$('#add_name').serialize(),
+  //     type: 'json',
+  //     success:function(data)
+  //     {
+  //         i=1;
+  //                 $('.dynamic-added').remove();
+  //                 $('#add_name')[0].reset();
+  //           alert('Record Inserted Successfully.');
+  //           location.reload();
+  //     }
+  //   });
+  // });
   
 });
 </script>	
@@ -1220,54 +1300,6 @@ $(document).ready(function(){
     //     echo '<script>alert("Update Failed")</script>';
     // } // END OF MEDICAL EDIT
 ?> -->
-<?php 
-  $con=mysqli_connect('localhost','root','','itproject');
-  if(isset($_POST['update'])){
-       $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
-
-       for($count = 0; $count < count($_POST["ID"]); $count++)
-       {  
-        $query2 = "UPDATE inventory_order_supplies SET supply_name=:supply_name, quantity=:quantity, unit_name=:unit_name WHERE inventory_order_supplies_id=:inventory_order_supplies_id ";
-        $statement2 = $connect->prepare($query2);
-        $statement2->execute(
-         array(
-          ':inventory_order_supplies_id' => $_POST["ID"][$count], 
-          ':supply_name' => $_POST["supplyDesc"][$count],
-          ':quantity'  => $_POST["qty"][$count],
-          ':unit_name'  => $_POST["unitName"][$count]
-         )
-        );
-       }
-
-       for($count = 0; $count < count($_POST["number"]); $count++)
-       {  
-        $query = "INSERT INTO inventory_order_supplies
-        (inventory_order_uniq_id, supply_name, quantity) 
-        VALUES (:inventory_order_uniq_id, :supply_name, :quantity)";
-        $statement = $connect->prepare($query);
-        $statement->execute(
-         array(
-          ':inventory_order_uniq_id'   => $_POST["uniq_ID"],
-          ':quantity'  => $_POST["number"][$count], 
-          ':supply_name' => $_POST["neym"][$count]
-         )
-        );
-       }
-       $result = $statement->fetchAll();
-       $result2 = $statement2->fetchAll();
-       if($result && $result2){
-        echo '<script>window.location.href="orders"</script>';
-       }else {
-        echo '<script>alert("Update Failed")</script>';
-       }
-       $datetoday = date('Y\-m\-d\ H:i:s A');
-             $conn =mysqli_connect("localhost","root","");
-             mysqli_select_db($conn, "itproject");
-             $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')." has updated a request order','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
-             $res1 = $conn->query($notif1);
-      
-  }
-?>
 
 <script>
         $(document).on('click','#getAdd',function(e){

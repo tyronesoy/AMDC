@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="../assets/orderedit/bootstrap.min.css" />
+
  <?php 
  $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
  function supply_dropdown($connect)

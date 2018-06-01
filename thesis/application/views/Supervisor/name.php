@@ -39,5 +39,6 @@ $query2 = "INSERT INTO inventory_order (inventory_order_uniq_id, inventory_order
   echo 'ok';
  }
 }
+header("Location: ../order");
 ?>
 
