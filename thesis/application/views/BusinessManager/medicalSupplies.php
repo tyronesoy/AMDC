@@ -85,7 +85,10 @@ function category($connect)
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
+    <script src="../assets/table/colReorder.bootstrap.min.css"></script>
+    <script src="../assets/table/colReorder.dataTables.min.css"></script>
+    <script src="../assets/table/dataTables.colReorder.min.js"></script>
+    <!-- <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
 
     <script src="../assets/table/jquery.dataTables.min.js"></script>
     <script src="../assets/table/dataTables.buttons.min.js"></script>
@@ -95,7 +98,7 @@ function category($connect)
     <script src="../assets/table/vfs_fonts.js"></script>
     <script src="../assets/table/buttons.html5.min.js"></script>
     <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
+    <script src="../assets/table/buttons.colVis.min.js"></script> -->
 
  <style>
     .example-modal .modal {
@@ -716,7 +719,7 @@ function category($connect)
                 <table style="float: left;">
                     <tr>
                         <th> <div class="dropdownButton">
-                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
+                        <select name="dropdown" class="form-group select2" style="width:100%;" onchange="location=this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
                           <span class="caret"></span>
                         </button>
@@ -925,7 +928,7 @@ function category($connect)
                     }
                   ?>
                 </tbody>
-        
+<!--         
         <tfoot>
            <tr>
                   <th style="display: none;">ID</th>
@@ -940,7 +943,7 @@ function category($connect)
                   <th>Unit Price</th>
                   <th> Action</th> 
             </tr> 
-        </tfoot>
+        </tfoot> -->
       </table>              
             </div>
             <!-- /.box-body -->
@@ -1019,53 +1022,55 @@ function onUserInactivity() {
 </script>
  
 <script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : false
-      //   })
-      // })
+       $(function () {
+         $('#example').DataTable({
+            order : [[ 0, 'desc' ]]
+         })
+         $('#example1').DataTable({
+           'paging'      : true,
+           'colReorder'  : true,
+           'lengthChange': false,
+           'searching'   : false,
+           'info'        : true,
+           'autoWidth'   : false
+         })
+       })
 
-      $(document).ready(function() {
-    var printCounter = 0;
+//       $(document).ready(function() {
+//     var printCounter = 0;
  
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
+//     // Append a caption to the table before the DataTables initialisation
+//     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
+//  //'<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>' Bftip
+//     $('#example').DataTable( {
+//         dom: '<"top"lBf<"clear">>t<"bottom"ip<"clear">>',
+//         buttons: [
+//             {
+//                 extend: 'print',
+//                 exportOptions: {
+//                     columns: ':visible'
+//                 },
+//                 messageTop: function () {
+//                     printCounter++;
  
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Medical Supplies</center></h4>';
-                    }
-                    else {
-                        return 'You have printed this document '+printCounter+' times';
-                    }
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ], //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-        order : [[ 0, 'desc' ]]
-    } );
-} );
+//                     if ( printCounter === 1 ) {
+//                         return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Medical Supplies</center></h4>';
+//                     }
+//                     else {
+//                         return 'You have printed this document '+printCounter+' times';
+//                     }
+//                 },
+//                 messageBottom: null
+//             },
+//         'colvis'
+//          ], //,
+//         // columnDefs: [ {
+//         //     targets: -1,
+//         //     visible: false
+//         // } ]
+//         order : [[ 0, 'desc' ]]
+//     } );
+// } );
     </script>
 
   <!--   <script type="text/javascript" language="javascript" >
@@ -1338,23 +1343,27 @@ if(isset($_POST['medEdit'])){
 //RECONCILE FOR MEDICAL SUPPLIES
 if(isset($_POST['medRecon'])){
   $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+  $conn2=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
     $item=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
     $logical=mysqli_real_escape_string($conn,$_POST['txtLogicalCount']);
     $physical=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $logical1=mysqli_real_escape_string($conn,$_POST['txtLogicalCount']);
+    $physical1=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $difference = $logical1-$physical1;
     $remarks=mysqli_real_escape_string($conn,$_POST['remarks']);
 
     date_default_timezone_set('Asia/Manila');
     $date = date('Y/m/d h:i:s a', time());
 
-    
+  
+     $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type, quantity) VALUES ('".$date."', 'The product  (".$item.") has changed from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Medical', '".$difference."')  ";
+    $result_update2=mysqli_query($conn2,$sqlinsert1);
+
     $sqlupdate1="UPDATE supplies SET quantity_in_stock='$physical' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate1);
-
-    $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type) VALUES ('".$date."','The product  (".$item.") has changed from the logical count of ".$logical." to physical count of ".$physical." because ".$remarks.".' , 'Medical')  ";
-
-    $result_update2=mysqli_query($conn,$sqlinsert1);
+  
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");

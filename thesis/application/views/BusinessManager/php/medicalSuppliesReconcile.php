@@ -89,6 +89,7 @@ if(isset($_REQUEST['id'])){
 
                         <div class="col-sm-12">
                              <div class="form-group">
+                                <label for="txtRemarks">Remarks</label>
                             <select class="form-control select2" id="remarks" name="remarks" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   <option value=""></option>
                                                   <?php echo remarks_desc($connect);?>

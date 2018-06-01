@@ -664,7 +664,8 @@ function category($connect)
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+      <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
@@ -1281,12 +1282,27 @@ if(isset($_POST['offEdit'])){
 
 //RECONCILE FOR OFFICE SUPPLIES
 if(isset($_POST['offRecon'])){
+    $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+  $conn2=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+  $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
-    $new_supplyRemarks=mysqli_real_escape_string($conn,$_POST['txtsupplyRemarks']);
+    $item=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
+    $logical=mysqli_real_escape_string($conn,$_POST['txtLogicalCount']);
+    $physical=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $logical1=mysqli_real_escape_string($conn,$_POST['txtLogicalCount']);
+    $physical1=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $difference = $logical1-$physical1;
+    $remarks=mysqli_real_escape_string($conn,$_POST['remarks']);
 
-    $sqlupdate="UPDATE supplies SET quantity_in_stock='$new_supplyQuantityInStock', supply_remarks='$new_supplyRemarks' WHERE supply_id='$new_id' ";
-    $result_update=mysqli_query($conn,$sqlupdate);
+    date_default_timezone_set('Asia/Manila');
+    $date = date('Y/m/d h:i:s a', time());
+
+  
+     $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type, quantity) VALUES ('".$date."', 'The product  (".$item.") has changed from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Office', '".$difference."')  ";
+    $result_update2=mysqli_query($conn2,$sqlinsert1);
+
+    $sqlupdate1="UPDATE supplies SET quantity_in_stock='$physical' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate1);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
