@@ -18,7 +18,7 @@ if(isset($_REQUEST['id'])){
         $per_supplyQuantityInStock=$row[5];
         $per_supplyUnitPrice=$row[6];
         $per_supplyReorderLevel=$row[8];
-        $per_supplyExpirationDate=$row[9];
+     
         $per_supplyGoodCondition=$row[10];
         $per_supplyDamaged=$row[11];
         $per_itemName = $row[24];
@@ -193,13 +193,7 @@ if(isset($_REQUEST['id'])){
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                         </div>
                         </div>
-                            <div class="col-md-6">
-                            <div class="form-group">
-                            <label for="txtExpirationDate">Expiration Date</label>
-                                <input type="text" class="form-control" id="datepicker" name="txtExpirationDate" placeholder="yyyy-mm-dd" value="<?php echo $per_supplyExpirationDate; ?>">
-
-                        </div>
-                        </div>
+                 
                         </div>
                         
           
