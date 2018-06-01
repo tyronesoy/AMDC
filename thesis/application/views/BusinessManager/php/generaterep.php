@@ -112,55 +112,26 @@ $val = implode(",",$_POST['check_list']);
     </div>
     <div style="width:100%;height:auto;">
     <div>
-    <table class="top1 lower">
-    <thead>
-    <tr class="main">
-    <th class="main">Supplier Details</th>
-    <th class="main"></th>
-    </tr>
-    </thead>
+    <div class="div1">
+    <h4>Purchase Order Details</h4>
+    <table class="top1">
     <tr class="tr1">
-    <td class="td1"><b><h4>Vendor:</h4></b></td>
+    <td class="td1"><b><h4>Date Today:</h4></b></td>
     <td class="td11"><h4></h4></td>
     </tr>
     <tr class="tr1">
-    <td class="td1"><h4>Address:</h4></td>
+    <td class="td1"><h4>PO number:</h4></td>
     <td class="td11"><h4></h4></td>
     </tr>
     <tr class="tr1">
-    <td class="td1"><h4>Contact Number:</h4></td>
+    <td class="td1"><h4>PO reference:</h4></td>
     <td class="td11"><h4></h4></td>
     </tr>
     </table>
     </div>
-    <div>
+    <div class="div2">
+    <h4>Reciever Information</h4>
     <table class="top2">
-    <thead>
-    <tr class="main">
-    <th class="main">PO Details</th>
-    <th class="main"></th>
-    </tr>
-    </thead>
-    <tr class="tr2">
-    <td class="td2"><b><h4>Date Today:</h4></b></td>
-    <td class="td21"><h4></h4></td>
-    </tr>
-    <tr class="tr2">
-    <td class="td2"><h4>PO number:</h4></td>
-    <td class="td21"><h4></h4></td>
-    </tr>
-    <tr class="tr2">
-    <td class="td2"><h4>PO reference:</h4></td>
-    <td class="td21"><h4></h4></td>
-    </tr>
-    </table>
-    <table class="top2">
-    <thead>
-    <tr class="main">
-    <th class="main">Reciever Details</th>
-    <th class="main"></th>
-    </tr>
-    </thead>
     <tr class="tr2">
     <td class="td2"><b><h4>Ship To:</h4></b></td>
     <td class="td21"><h4></h4></td>
@@ -176,19 +147,15 @@ $val = implode(",",$_POST['check_list']);
     </table>
     </div>
     </div>
+    </div>
 <div>
 <table class="main">
             <thead>
               <tr class="main">
                   <?php
-                  if(in_array("order_date",$_POST['check_list']) == true ){
+                  if(in_array("order_quantity",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Purchase Order Date</th>
-                  <?php
-                  }
-                  if(in_array("purchase_order_status",$_POST['check_list']) == true ){
-                  ?>
-                  <th class="main">Status</th>
+                  <th class="main">Quantity</th>
                   <?php
                   }
                   if(in_array("description",$_POST['check_list']) == true ){
@@ -196,9 +163,14 @@ $val = implode(",",$_POST['check_list']);
                   <th class="main">Description</th>
                   <?php
                   }
-                  if(in_array("order_quantity",$_POST['check_list']) == true ){
+                  if(in_array("purchase_order_status",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Quantity</th> 
+                  <th class="main">Status</th>
+                  <?php
+                  }
+                  if(in_array("order_date",$_POST['check_list']) == true ){
+                  ?>
+                  <th class="main">Purchase Order Date</th>
                   <?php
                   }
                   ?>
@@ -221,14 +193,9 @@ $val = implode(",",$_POST['check_list']);
                 ?>
                     <tr class="main" id="row0">
                       <?php
-                      if(in_array("order_date",$_POST['check_list']) == true ){
+                      if(in_array("order_quantity",$_POST['check_list']) == true ){
                       ?>
-                      <td class="main" class="main"><?php echo $podate; ?></td>
-                      <?php
-                      }
-                      if(in_array("purchase_order_status",$_POST['check_list']) == true ){
-                      ?>
-                      <td class="main"><?php echo $status; ?></td>
+                      <td class="main"><?php echo $quant; ?></td>
                       <?php
                       }
                       if(in_array("description",$_POST['check_list']) == true ){
@@ -236,9 +203,14 @@ $val = implode(",",$_POST['check_list']);
                       <td class="main"><?php echo $desc; ?></td>
                       <?php
                       }
-                      if(in_array("order_quantity",$_POST['check_list']) == true ){
+                      if(in_array("purchase_order_status",$_POST['check_list']) == true ){
                       ?>
-                      <td class="main"><?php echo $quant; ?></td>
+                      <td class="main"><?php echo $status; ?></td>
+                      <?php
+                      }
+                      if(in_array("order_date",$_POST['check_list']) == true ){
+                      ?>
+                      <td class="main" class="main"><?php echo $podate; ?></td>
                       <?php
                       }
                       ?>
@@ -250,8 +222,8 @@ $val = implode(",",$_POST['check_list']);
 </table>
 </div>
 <div>
-<div class="foot1">
-    <table class="top1">
+<div class="foot1 div1">
+    <table class="top1 lasttab">
     <thead>
     <tr class="main">
     <th class="main">Remarks</th>
@@ -274,8 +246,8 @@ $val = implode(",",$_POST['check_list']);
     </tr>
     </table>
 </div>
-<div class="foot2">
-    <table class="top2">
+<div class="foot2 div2">
+    <table class="top2 lasttab">
     <thead>
     <tr class="main">
     <th class="main">Total</th>
@@ -298,11 +270,11 @@ $val = implode(",",$_POST['check_list']);
 </div>
 </div>
 <div>
-<div class="leftsign">
+<div class="div1 leftsign">
 <hr class="ending1">
 <h3 class="ending1title">Chief Executive</h3>    
 </div>
-<div class="rightsign">
+<div class="div2 rightsign">
 <hr class="ending2">
 <h3 class="ending2title">Business Manager</h3>
 </div>
@@ -333,46 +305,46 @@ window.print();
   //header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>
 <style>
+    html{
+        font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+    }
     table.main {
         width: 100%;
-        border:solid #4CAF50 2px;
+        border:solid black 2px;
         border-radius:6px;
         border-collapse: collapse;
     }
     th.main{
         height: 50%;
         text-align: left;
-        background-color: #4CAF50;
-        color: white;
+        background-color: white;
+        color: black;
     }
     th.main, td.main{
         padding: 10px;
-        text-align: left
     }
     td.main{
         border: 1px solid #ddd;
+        text-align: left;
     }
-    
+    th{
+        color: black;
+    }
     table.top1 {
-        width: 49%;
-        border:solid #4CAF50 2px;
-        border-radius:6px;
+        width: 100%;
         float: left;
         margin-bottom: 10px;
         border-collapse: collapse;
     }
     
     table.top2 {
-        width: 49%;
-        border:solid #4CAF50 2px;
-        border-radius:6px;
+        width: 100%;
         float: right;
         margin-bottom: 10px;
         border-collapse: collapse;
     }
     td.td1,td.td2{
-        width: 35%;
-        border: 1px solid #ddd;
+        width: 40%;
         text-align: left
     }
     td.td11,td.td21{
@@ -382,7 +354,7 @@ window.print();
     }
     h1.compname{
         font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
-        color: #4CAF50;
+        color: black;
         font-size:2em;
     }
     div.company{
@@ -393,7 +365,7 @@ window.print();
     margin-bottom: 10px;
     border-style: solid;
     border-width: 3px;
-    color: #4CAF50;
+    color: black;
     }
     div.id{
         width: 100%;
@@ -402,7 +374,7 @@ window.print();
     }
     h1.idtitle{
         font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
-        color: #4CAF50;
+        color: black;
         font-size:2em;
     }
     div.foot1, div.foot2{
@@ -435,7 +407,7 @@ window.print();
         margin-right: 20%;
     }
     div.leftsign,div.rightsign{
-        width: 50%;
+        width: 20%;
     }
     div.rightsign{
         float: right;
@@ -445,5 +417,20 @@ window.print();
     }
     .lower{
         margin-top: 178px;
+    }
+    h4{
+        color:black;
+        margin: none;
+    }
+    div.div1{
+        width: 49%;
+        float: left;
+    }
+    div.div2{
+        width: 49%;
+        float: right;
+    }
+    lasttab{
+        margin-bottom: 30px;
     }
 </style>
