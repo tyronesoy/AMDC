@@ -748,15 +748,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
-      <button  type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#printrep">Generate Report</button>
+      <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep">Generate Report</button>
     </section>
     <!-- /.content -->
   </div>
   
   <!-- /.content-wrapper -->
-  <div id="printThis">
-<div class="modal fade" id="printrep">
-<form name="form42" id="user_form" method="post" action="purchases/addUser2">
+  <div class="modal fade" id="printrep">
+<form name="form42" id="user_form" method="post" action="issuedsupplies/generated">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -778,52 +777,130 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
-                                              <center><h4><b>Issued Supplies Report</b></h4></center>
+                                              <center><h4><b>Generate Deliveries Report</b></h4></center>
                                             </div>
                                       </div>
-                    <div class="box-body">
+                        <div class="box-body">
+                
+                        <div class="row">
+                          <h4><b>Include dates within:</b></h4>
+                          <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <?php
+                            $datetoday = date('Y\-m\-d', strtotime('-30 days') );
+                            ?>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="date" class="form-control pull-right datepicker2" name="date1" id="date1" value="">
+<!--
+                                <script>
+                                jQuery(function() {
+                                  var datepicker = $('input.datepicker2');
 
+                                  if (datepicker.length > 0) {
+                                    datepicker.datepicker({
+                                      format: "yyyy-mm-dd",
+                                      startDate: new Date()
+                                    });
+                                  }
+                                });
+                                </script>
+-->
+                            </div>
+                          </div>
+                          </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label>End Date</label>
+
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <?php
+                                $deyto = date("Y/m/d");
+                              ?>
+                              <input type="text" class="form-control pull-right datepicker"  name="date2" id="date2" value="<?php echo $deyto?>">
+                            </div>
+                          </div>
+                          </div>
+                    <div class="col-md-6">
+                    <h4><b>Include:</b></h4>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="quantity" checked>Quantity Ordered
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="quantity_issued" checked>Quantity Issued
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="unit_name" checked>Unit
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="supply_name" checked>Item Name
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <h4><b>&nbsp;</b></h4>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="issued_date" checked>Issued Date
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="inventory_order_status" checked>Status
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="inventory_order_dept" checked>Department
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="inventory_order_created_date" checked>Date Requested
+                        </div>
+                      </div>
+                    </div>
+                     </div>   
+    
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
                   $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) where inventory_order_status = 'Delivered'";
                   $result = $conn->query($sql);    
                 ?>
-            <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                  <th>Supervisor</th>
-                  <th>Order Date</th>
-                  <th>Department</th>
-                  <th>Item Description</th>
-                  <th>Quantity</th>      
-              </tr>
-            </thead>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) {
-                    $supname = $row['inventory_order_name'];
-                    $iodate = $row['inventory_order_created_date'];
-                    $status = $row['inventory_order_status'];
-                    $desc = $row['supply_name'];
-                    $quant = $row['quantity'];
-                ?>
-                    <tr id="row0">
-                      <td><?php echo $supname; ?></td>
-                      <td><?php echo $iodate; ?></td>
-                      <td><?php echo $status; ?></td>
-                      <td><?php echo $desc; ?></td> 
-                      <td><?php echo $quant; ?></td>       
-                      </tr>
-                  <?php 
-                      }
-                    }
-                  ?>
-                </table>
-        </div>
+                        </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button id="btnPrint" type="button" class="btn btn-success" style="float:right;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
+                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-clone"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -832,7 +909,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- /.modal-dialog -->
         </form> 
         </div>
-    </div>
+          </div>
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
@@ -1051,6 +1128,26 @@ function printElement(elem) {
     
     $printSection.appendChild(domClone);
 }
+</script>
+
+<script>
+$(document).on('click','#getAdd',function(e){
+    e.preventDefault();
+    var per_id=$(this).data('id');
+    //alert(per_id);
+    $('#content-data').html('');
+    $.ajax({
+        url:'issuedsupplies/generated',
+        type:'POST',
+        data:'id='+per_id,
+        dataType:'html'
+    }).done(function(data){
+        $('#content-data').html('');
+        $('#content-data').html(data);
+    }).final(function(){
+        $('#content-data').html('<p>Error</p>');
+    });
+});
 </script>
 
 <style>
