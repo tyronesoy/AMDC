@@ -100,7 +100,7 @@ $val = implode(",",$_POST['check_list']);
 <body>
     <div class="theone">
     <div class="company">
-    <span class="logo-lg"><img src="../../../../assets/dist/img/amdc2.png" alt="User Image" ></span>
+    <span><img src="http://amdc.com.ph/wp-content/uploads/2017/10/AMDC-Header-1.png" alt="User Image" style="width:200px;height:100px;"></span>
     </div>
     </div>
     <div class="id">
@@ -285,15 +285,15 @@ $val = implode(",",$_POST['check_list']);
 <div>
 <div class="div1 leftsign">
 <hr class="ending1">
-<h3 class="ending1title">Section Head</h3>    
+<h4 class="ending1title">Section Head</h4>    
 </div>
 <div class="div2 rightsign">
 <hr class="ending2">
-<h3 class="ending2title">Purchasing Officer</h3>
+<h4 class="ending2title">Purchasing Officer</h4>
 </div>
 </div>
 <script>
-//window.print();
+window.print();
 </script>
 </body>
 </html>
@@ -334,7 +334,7 @@ $val = implode(",",$_POST['check_list']);
         color: black;
     }
     th.main, td.main{
-        padding: 10px;
+        padding: 5px;
     }
     td.main{
         border: 1px solid #ddd;
@@ -358,12 +358,12 @@ $val = implode(",",$_POST['check_list']);
     }
     td.td1,td.td2{
         width: 40%;
-        text-align: left
+        text-align: left;
     }
     td.td11,td.td21{
         width: auto;
         border: 1px solid #ddd;
-        text-align: left
+        text-align: left;
     }
     h1.compname{
         font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
@@ -388,7 +388,7 @@ $val = implode(",",$_POST['check_list']);
     h1.idtitle{
         font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
         color: black;
-        font-size:2em;
+        font-size:1.5em;
     }
     div.foot1, div.foot2{
         margin-top: 10px;

@@ -100,7 +100,7 @@ $val = implode(",",$_POST['check_list']);
 <body>
     <div class="theone">
     <div class="company">
-    <h1 class="compname">Assumption Medical Diagnostic Center</h1>
+    <span><img src="http://amdc.com.ph/wp-content/uploads/2017/10/AMDC-Header-1.png" alt="User Image" style="width:200px;height:100px;"></span>
     </div>
     </div>
     <div class="id">
@@ -321,7 +321,7 @@ window.print();
         color: black;
     }
     th.main, td.main{
-        padding: 10px;
+        padding: 5px;
     }
     td.main{
         border: 1px solid #ddd;
@@ -345,12 +345,12 @@ window.print();
     }
     td.td1,td.td2{
         width: 40%;
-        text-align: left
+        text-align: left;
     }
     td.td11,td.td21{
         width: auto;
         border: 1px solid #ddd;
-        text-align: left
+        text-align: left;
     }
     h1.compname{
         font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
@@ -375,7 +375,7 @@ window.print();
     h1.idtitle{
         font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
         color: black;
-        font-size:2em;
+        font-size:1.5em;
     }
     div.foot1, div.foot2{
         margin-top: 10px;
@@ -433,7 +433,7 @@ window.print();
     lasttab{
         margin-bottom: 20px;
     }
-    @media print {
+        @media print {
   @page { margin: 0; }
   body { margin: 1.6cm; }
 }
