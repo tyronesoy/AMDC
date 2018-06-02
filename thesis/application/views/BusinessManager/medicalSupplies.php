@@ -1024,15 +1024,26 @@ function onUserInactivity() {
 <script>
        $(function () {
          $('#example').DataTable({
-            order : [[ 0, 'desc' ]]
+            order : [[ 0, 'desc' ]],
+            "lengthMenu": [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
+            'colReorder'  : {
+              realtime: true,
+            },
+            stateSave: true,
+            stateSaveCallback: function(settings,data) {
+                localStorage.setItem( 'DataTables_' + settings.sInstance, JSON.stringify(data) )
+              },
+            stateLoadCallback: function(settings) {
+              return JSON.parse( localStorage.getItem( 'DataTables_' + settings.sInstance ) )
+              }
          })
          $('#example1').DataTable({
            'paging'      : true,
-           'colReorder'  : true,
            'lengthChange': false,
            'searching'   : false,
            'info'        : true,
-           'autoWidth'   : false
+           'autoWidth'   : false,
+           ' processing' : true
          })
        })
 
@@ -1355,10 +1366,11 @@ if(isset($_POST['medRecon'])){
     $remarks=mysqli_real_escape_string($conn,$_POST['remarks']);
 
     date_default_timezone_set('Asia/Manila');
-    $date = date('Y/m/d h:i:s a', time());
+    $time = time('h:i:s a');
+    $date = date('Y/m/d');
 
   
-     $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type, quantity) VALUES ('".$date."', 'The product  (".$item.") has changed from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Medical', '".$difference."')  ";
+     $sqlinsert1="INSERT INTO reconciliation (date, time, description, supply_type, quantity) VALUES ('".$date."', ('".$time."'),'The product  (".$item.") has changed from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Medical', '".$difference."')  ";
     $result_update2=mysqli_query($conn2,$sqlinsert1);
 
     $sqlupdate1="UPDATE supplies SET quantity_in_stock='$physical' WHERE supply_id='$new_id' ";
