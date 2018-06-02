@@ -689,7 +689,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
               <table style="float:right;">
                     <tr>
-                    <button  type="submit" class="btn btn-default btn-flat" style="margin-left:20px;" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
                       <th>
                         <a href="issueOrderSupplies">
                           <button type="submit" class="btn btn-primary btn-block btn-warning"><i class="fa fa-retweet"></i> Issue Supplies</button>
@@ -766,7 +765,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <!-- /.col -->
       </div>
-      <!-- /.row -->    
+      <!-- /.row -->  
+        <button  type="submit" class="btn btn-default btn-flat" style="margin-left:20px;" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
     </section>
     <!-- /.content -->
   </div>
