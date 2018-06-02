@@ -160,7 +160,7 @@ $val = implode(",",$_POST['check_list']);
                   }
                   if(in_array("description",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Description</th>
+                  <th class="main">Item Name</th>
                   <?php
                   }
                   if(in_array("purchase_order_status",$_POST['check_list']) == true ){
@@ -272,11 +272,11 @@ $val = implode(",",$_POST['check_list']);
 <div>
 <div class="div1 leftsign">
 <hr class="ending1">
-<h3 class="ending1title">Chief Executive</h3>    
+<h3 class="ending1title">Section Head</h3>    
 </div>
 <div class="div2 rightsign">
 <hr class="ending2">
-<h3 class="ending2title">Business Manager</h3>
+<h3 class="ending2title">Purchasing Officer</h3>
 </div>
 </div>
 <script>
@@ -431,6 +431,10 @@ window.print();
         float: right;
     }
     lasttab{
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
+    @media print {
+  @page { margin: 0; }
+  body { margin: 1.6cm; }
+}
 </style>

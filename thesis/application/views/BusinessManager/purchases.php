@@ -711,7 +711,7 @@ function unit_measure($connect)
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                 <table style="float:right;">
                     <tr>
-                        <button  type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
+                        
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Purchase Order</i></button>
             
                     <form id="add_name" name="add_name">
@@ -1103,6 +1103,7 @@ function unit_measure($connect)
         <!-- /.col -->
       </div>
       <!-- /.row -->
+              <button type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
     </section>
     <!-- /.content -->
   </div>
@@ -1139,7 +1140,7 @@ function unit_measure($connect)
                           <h4><b>Include dates within:</b></h4>
                           <div class="col-md-6">
                         <div class="form-group">
-                            <label>Date 1</label>
+                            <label>Start Date</label>
                             <?php
                             $datetoday = date('Y\-m\-d', strtotime('-30 days') );
                             ?>
@@ -1147,7 +1148,7 @@ function unit_measure($connect)
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input type="text" class="form-control pull-right datepicker2" name="date1" id="date1" value="">
+                              <input type="date" class="form-control pull-right datepicker2" name="date1" id="date1" value="">
 <!--
                                 <script>
                                 jQuery(function() {
@@ -1167,7 +1168,7 @@ function unit_measure($connect)
                           </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                            <label>Date 2(Today)</label>
+                            <label>End date</label>
 
                             <div class="input-group">
                               <div class="input-group-addon">
