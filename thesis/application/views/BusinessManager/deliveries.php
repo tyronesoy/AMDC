@@ -720,9 +720,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Archive</button>
-                        </div>
-                        <div class="btn-group">
                               <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
                           </div>
                         <?php }elseif ($row["item_delivery_remarks"] == 'Partial'){ ?>
@@ -735,9 +732,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                           </div>
                           <div class="btn-group">
-                              <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Archive</button>
-                          </div>
-                          <div class="btn-group">
                               <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
                           </div>
                         <?php }else{?>
@@ -747,8 +741,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <div class="btn-group">
                               <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                           </div>
-                          <div class="btn-group">
-                              <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Archive</button>
                         <?php }?>
                       </td>
                     </tr>
@@ -784,12 +776,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
           <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
         </div>
-        <div class="col-xs-1" style="float:left;">
-            <a href="deliveriesRecover" style="color:white;">
-              <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Deliveries</button>
-            </a>
-      </div>
-
       </div>
       <div>
         </div>
