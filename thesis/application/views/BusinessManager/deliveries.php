@@ -720,9 +720,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Archive</button>
-                        </div>
-                        <div class="btn-group">
                               <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
                           </div>
                         <?php }elseif ($row["item_delivery_remarks"] == 'Partial'){ ?>
@@ -735,9 +732,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                           </div>
                           <div class="btn-group">
-                              <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Archive</button>
-                          </div>
-                          <div class="btn-group">
                               <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
                           </div>
                         <?php }else{?>
@@ -747,8 +741,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <div class="btn-group">
                               <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                           </div>
-                          <div class="btn-group">
-                              <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-trash"></i> Archive</button>
                         <?php }?>
                       </td>
                     </tr>
@@ -784,15 +776,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
           <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
         </div>
-        <div class="col-xs-1" style="float:left;">
-            <a href="deliveriesRecover" style="color:white;">
-              <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Deliveries</button>
-            </a>
-      </div>
-
       </div>
       <div>
-          <!-- <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button> -->
         </div>
       <script>
         $('#print').click(function(){
@@ -810,9 +795,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-<div id="printThis">
-<div class="modal fade" id="printrep">
-<form name="form42" id="user_form" method="post" action="purchases/addUser2">
+    <div class="modal fade" id="printrep">
+<form name="form42" id="user_form" method="post" action="deliveries/generated">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -834,49 +818,106 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
-                                              <center><h4><b>Deliveries Report</b></h4></center>
+                                              <center><h4><b>Generate Deliveries Report</b></h4></center>
                                             </div>
                                       </div>
-                    <div class="box-body">
+                        <div class="box-body">
+                
+                        <div class="row">
+                          <h4><b>Include dates within:</b></h4>
+                          <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <?php
+                            $datetoday = date('Y\-m\-d', strtotime('-30 days') );
+                            ?>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="date" class="form-control pull-right datepicker2" name="date1" id="date1" value="">
+<!--
+                                <script>
+                                jQuery(function() {
+                                  var datepicker = $('input.datepicker2');
 
+                                  if (datepicker.length > 0) {
+                                    datepicker.datepicker({
+                                      format: "yyyy-mm-dd",
+                                      startDate: new Date()
+                                    });
+                                  }
+                                });
+                                </script>
+-->
+                            </div>
+                          </div>
+                          </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label>End Date</label>
+
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <?php
+                                $deyto = date("Y/m/d");
+                              ?>
+                              <input type="text" class="form-control pull-right datepicker"  name="date2" id="date2" value="<?php echo $deyto?>">
+                            </div>
+                          </div>
+                          </div>
+                    <div class="col-md-6">
+                    <h4><b>Include:</b></h4>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="order_date" checked>Purchase Date
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="purchase_order_status" checked>Status
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="description" checked>Description
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="order_quantity" checked>Quantity Ordered
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="quantity_delivered" checked>Quantity Delivered
+                        </div>
+                      </div>
+                    </div>
+                     </div>   
+    
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT * FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != ''";
+                  $sql = "SELECT * FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != '' AND po_remarks = 'Delivered'";
                   $result = $conn->query($sql);    
                 ?>
-            <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                  <th>Purchase Order Date</th>
-                  <th>Status</th>
-                  <th>Description</th>
-                  <th>Quantity</th>    
-              </tr>
-            </thead>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) {
-                    $podate = $row['order_date']; 
-                    $status = $row['purchase_order_status'];
-                    $desc = $row['description'];
-                    $quant = $row['order_quantity'];
-                ?>
-                    <tr id="row0">
-                      <td><?php echo $podate; ?></td>
-                      <td><?php echo $status; ?></td>
-                      <td><?php echo $desc; ?></td>
-                      <td><?php echo $quant; ?></td>       
-                      </tr>
-                  <?php 
-                      }
-                    }
-                  ?>
-                </table>
-        </div>
+                        </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button id="btnPrint" type="button" class="btn btn-success" style="float:right;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
+                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-clone"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -885,7 +926,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- /.modal-dialog -->
         </form> 
         </div>
-    </div>
+          </div>
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
@@ -2136,6 +2177,26 @@ if(isset($_POST['btnReturn'])){
                 $('#content-data').html('<p>Error</p>');
             });
         });
+</script>
+
+<script>
+$(document).on('click','#getAdd',function(e){
+    e.preventDefault();
+    var per_id=$(this).data('id');
+    //alert(per_id);
+    $('#content-data').html('');
+    $.ajax({
+        url:'deliveries/generated',
+        type:'POST',
+        data:'id='+per_id,
+        dataType:'html'
+    }).done(function(data){
+        $('#content-data').html('');
+        $('#content-data').html(data);
+    }).final(function(){
+        $('#content-data').html('<p>Error</p>');
+    });
+});
 </script>
 
 <script>

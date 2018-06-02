@@ -11,11 +11,11 @@ if(!empty($_POST['check_list'])) {
 $val = implode(",",$_POST['check_list']);
 }
     
-  $sql = $con->prepare("SELECT ".$val." FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != '' AND (order_date BETWEEN '".$date1."' AND '".$date2."')");
+  $sql = $con->prepare("SELECT ".$val." FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != '' AND po_remarks = 'Delivered' AND (order_date BETWEEN '".$date1."' AND '".$date2."')");
     
   $conn = mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
   $date = date("Y/m/d");
-  $sql2 = "SELECT ".$val." FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != '' AND (order_date BETWEEN '".$date1."' AND '".$date2."')";
+  $sql2 = "SELECT $val FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != '' AND po_remarks = 'Delivered'";
   $result = $conn->query($sql2);     
 ?>
 <html>
@@ -100,11 +100,11 @@ $val = implode(",",$_POST['check_list']);
 <body>
     <div class="theone">
     <div class="company">
-    <h1 class="compname">Assumption Medical Diagnostic Center</h1>
+    <span class="logo-lg"><img src="../../../../assets/dist/img/amdc2.png" alt="User Image" ></span>
     </div>
     </div>
     <div class="id">
-    <center><h1 class="idtitle">Purchase Order</h1></center>
+    <center><h1 class="idtitle">Deliveries Report</h1></center>
     </div>
     <div>
     <hr class="first">
@@ -113,7 +113,7 @@ $val = implode(",",$_POST['check_list']);
     <div style="width:100%;height:auto;">
     <div>
     <div class="div1">
-    <h4>Purchase Order Details</h4>
+    <h4>Delivery Details</h4>
     <table class="top1">
     <tr class="tr1">
     <td class="td1"><b><h4>Date Today:</h4></b></td>
@@ -155,7 +155,12 @@ $val = implode(",",$_POST['check_list']);
                   <?php
                   if(in_array("order_quantity",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Quantity</th>
+                  <th class="main">Quantity Ordered</th>
+                  <?php
+                  }
+                  if(in_array("quantity_delivered",$_POST['check_list']) == true ){
+                  ?>
+                  <th class="main">Quantity Delivered</th>
                   <?php
                   }
                   if(in_array("description",$_POST['check_list']) == true ){
@@ -163,14 +168,14 @@ $val = implode(",",$_POST['check_list']);
                   <th class="main">Item Name</th>
                   <?php
                   }
+                  if(in_array("order_date",$_POST['check_list']) == true ){
+                  ?>
+                  <th class="main" class="main">Purchase Order Date</th>
+                  <?php
+                  }
                   if(in_array("purchase_order_status",$_POST['check_list']) == true ){
                   ?>
                   <th class="main">Status</th>
-                  <?php
-                  }
-                  if(in_array("order_date",$_POST['check_list']) == true ){
-                  ?>
-                  <th class="main">Purchase Order Date</th>
                   <?php
                   }
                   ?>
@@ -190,6 +195,9 @@ $val = implode(",",$_POST['check_list']);
                     if(in_array("order_quantity",$_POST['check_list']) == true ){
                     $quant = $row['order_quantity'];
                     }
+                    if(in_array("quantity_delivered",$_POST['check_list']) == true ){
+                    $qdel = $row['quantity_delivered'];
+                    }
                 ?>
                     <tr class="main" id="row0">
                       <?php
@@ -198,19 +206,24 @@ $val = implode(",",$_POST['check_list']);
                       <td class="main"><?php echo $quant; ?></td>
                       <?php
                       }
+                      if(in_array("quantity_delivered",$_POST['check_list']) == true ){
+                      ?>
+                      <td class="main"><?php echo $qdel; ?></td>
+                      <?php
+                      }
                       if(in_array("description",$_POST['check_list']) == true ){
                       ?>
                       <td class="main"><?php echo $desc; ?></td>
                       <?php
                       }
-                      if(in_array("purchase_order_status",$_POST['check_list']) == true ){
-                      ?>
-                      <td class="main"><?php echo $status; ?></td>
-                      <?php
-                      }
                       if(in_array("order_date",$_POST['check_list']) == true ){
                       ?>
                       <td class="main" class="main"><?php echo $podate; ?></td>
+                      <?php
+                      }
+                      if(in_array("purchase_order_status",$_POST['check_list']) == true ){
+                      ?>
+                      <td class="main" class="main"><?php echo $status; ?></td>
                       <?php
                       }
                       ?>
@@ -280,7 +293,7 @@ $val = implode(",",$_POST['check_list']);
 </div>
 </div>
 <script>
-window.print();
+//window.print();
 </script>
 </body>
 </html>
@@ -289,7 +302,7 @@ window.print();
   $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Generated a report for Purchase Orders from ".$date1." to ".$date2."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Generated a report for Deliveries from ".$date1." to ".$date2."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $res1 = $conn->query($notif1);
         
   
@@ -433,7 +446,7 @@ window.print();
     lasttab{
         margin-bottom: 20px;
     }
-    @media print {
+        @media print {
   @page { margin: 0; }
   body { margin: 1.6cm; }
 }
