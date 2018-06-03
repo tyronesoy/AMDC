@@ -1,3 +1,4 @@
+
 <?php
 /**
  for display full info. and edit data
@@ -178,7 +179,7 @@ if(isset($_REQUEST['id'])){
                                                         <i class="fa fa-user"></i>
                                                       </div>
 
-                                                      <input type="text" class="form-control" id="txtdelBy" name="txtdelBy" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                      <input type="text" class="form-control" id="txtdelBy" name="txtdelBy" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                                   </div>
                                                 </div>
                                               </div>
@@ -192,7 +193,7 @@ if(isset($_REQUEST['id'])){
                                                         <i class="fa fa-hashtag"></i>
                                                       </div>
 
-                                                      <input type="text" class="form-control" id="txtuni" name="txtuni" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                                   </div>
                                                 </div>
                                               </div>
@@ -247,7 +248,7 @@ if(isset($_REQUEST['id'])){
                                               <?php if($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) { 
                                                   $arrayPoId .= $row['po_id'].', ';
-                                                  $arrayDesc .= $row['description'].', ';
+                                                  $arrayDesc .= $row['item_name'].', ';
                                                   $arrayUnit .= $row['order_unit'].', ';
                                                   $arrayQuantity .= $row['order_quantity'].', ';   
                                                   $arrayQuantityDelivered .= $row['quantity_delivered'].', ';   

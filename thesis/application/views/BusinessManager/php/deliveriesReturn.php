@@ -227,7 +227,7 @@ if(isset($_REQUEST['id'])){
                                               <?php if($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) { 
                                                   $arrayPoId .= $row['po_id'].', ';
-                                                  $arrayDesc .= $row['description'].', ';
+                                                  $arrayDesc .= $row['item_name'].', ';
                                                   $arrayUnit .= $row['order_unit'].', ';
                                                   $arrayQuantity .= $row['order_quantity'].', ';   
                                                   $arrayQuantityDelivered .= $row['quantity_delivered'].', ';   
