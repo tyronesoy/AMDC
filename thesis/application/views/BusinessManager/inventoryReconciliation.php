@@ -18,6 +18,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -37,6 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <script src="../assets/orderedit/range_dates.js"></script>
  <style>
     .example-modal .modal {
       position: relative;
@@ -701,12 +704,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="box-body">
         <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr style="float: left;">
-            <td>Minimum quantity:</td>
-            <td><input type="text" class="form-control" id="min" name="min"></td>
+            <td><input type="text" class="form-control" id="min" name="min" placeholder="Minimum Quantity"></td>
+            <td>-</td>
+            <td><input type="text" class="form-control" id="max" name="max" placeholder="Maximum Quantity"></td>
         </tr>
-        <tr style="float: right; margin-left: 5px;">
-            <td>Maximum quantity:</td>
-            <td><input type="text" class="form-control" id="max" name="max"></td>
+      <tr style="float: right; margin-left: 40px;">
+            <td><input type="text" class="form-control" id="mindate" name="mindate" placeholder="FROM"></td>
+            <td>-</td>
+            <td><input type="text" class="form-control" id="maxdate" name="maxdate" placeholder="Maximum Quantity"></td>
         </tr>
     </tbody></table>
     <br>
@@ -720,8 +725,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tr>
 
                   <th width="5%">ID</th> 
-                  <th width="15%">Date and Time</th>
-                  <th width="67%">Description</th>
+                  <th width="7%">Date</th>
+                  <th width="7%">Time</th>
+                  <th width="59%">Description</th>
                   <th width="5%">Quantity Loss/Gain</th>
                   <th width="8%">Supply Type</th>
                   
@@ -732,10 +738,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <td><?php echo $row["recon_id"]; ?></td>
-                      <td><?php echo $row["date_time"]; ?></td>
+                      <td><?php echo $row["date"]; ?></td>
+                      <td><?php echo $row["time"]; ?></td>
                       <td><?php echo $row["description"]; ?></td>
                       <td align="right"><?php if($row["quantity"] < 0) {
-                      echo $row["quantity"]; echo' gain';
+                      echo(abs($row["quantity"]));  echo' gain';
                       }else{ echo $row["quantity"]; echo' loss'; 
                        } ?></td>
                       <td><?php echo $row["supply_type"]; ?></td>
@@ -839,30 +846,48 @@ function onUserInactivity() {
 </script>
 
 <script>
+  $(document).ready(function () {
   $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         var min = parseInt( $('#min').val(), 10 );
         var max = parseInt( $('#max').val(), 10 );
-        var age = parseFloat( data[3] ) || 0; // use data for the age column
+        var quantity = parseFloat( data[4] ) || 0; // use data for the age column
  
         if ( ( isNaN( min ) && isNaN( max ) ) ||
              ( isNaN( min ) && age <= max ) ||
-             ( min <= age   && isNaN( max ) ) ||
-             ( min <= age   && age <= max ) )
+             ( min <= quantity   && isNaN( max ) ) ||
+             ( min <= quantity   && quantity <= max ) )
         {
             return true;
         }
         return false;
-    }
-);
 
-      $(document).ready(function () {
+        var min = $('#mindate').datepicker("getDate");
+        var max = $('#maxdate').datepicker("getDate");
+        var startDate = new Date(data[2]);
+        if (min == null && max == null) { return true; }
+        if (min == null && startDate <= max) { return true;}
+        if(max == null && startDate >= min) {return true;}
+        if (startDate <= max && startDate >= min) { return true; }
+        return false;
+    }
+
+);
+      $("#mindate").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true, format : 'yyyy-mm-dd', autoclose :true });
+      $("#maxdate").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true, format : 'yyyy-mm-dd', autoclose :true });
+
+      
         var table= $('#example').DataTable({
           order : [[0, 'desc']]
         });
-        $('#min, #max').keyup( function() {
+        $('#min, #max').keyup( function() { 
         table.draw();
     } );
+        $('#mindate, #maxdate').keyup( function() { 
+        table.draw();
+    } );
+        
+
         $('#example1').DataTable({
           'paging'      : true,
           'lengthChange': false,
@@ -873,7 +898,7 @@ function onUserInactivity() {
         })
 
 
-      })
+      });
     </script> 
    
     <!--<script>
