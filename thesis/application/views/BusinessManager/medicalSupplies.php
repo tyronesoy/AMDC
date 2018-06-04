@@ -958,7 +958,9 @@ function category($connect)
           <a href="medicalSuppliesRecover" style="color:white;">
             <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Medical Supplies </button>
           </a>
-          <a href="medicalSuppliesReconciliation" style="color:white;">
+    </div>
+    <div class="col-xs-2" style="float:right;">
+          <a href="medicalSuppliesReconciliation" style="color:white; float: right;">
             <button type="button" class="btn btn-info pull-left" style="margin-right: 1px;"><i class="glyphicon glyphicon-adjust"></i> Reconciled Medical Supplies </button>
           </a>
     </div>
