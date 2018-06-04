@@ -1051,14 +1051,12 @@ function unit_measure($connect)
                        <!-- <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php // echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div> -->
-                        
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
-                        </div>
-
+                              <button type="button" id="getDel" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-check"></i> Deliver</button>
+                          </div>
                         <?php }elseif($row['po_remarks'] == 'Delivered') { ?>
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
@@ -1504,6 +1502,11 @@ $(document).ready(function(){
                 <div id="data-content"></div>
             </div>
         </div>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog" style="position: absolute;margin-left: 15%;">
+                <div id="content-data"></div>
+            </div>
+        </div>
 
    
     <!--<script>
@@ -1536,6 +1539,25 @@ $(document).ready(function(){
                 $('#edit-data').html(data);
             }).fial(function(){
                 $('#edit-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click','#getDel',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'deliveries/editDelivery',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
             });
         });
     </script>
@@ -1609,34 +1631,632 @@ if(isset($_POST["purchEdit"]))
 }
 
 if(isset($_POST['btnUpdate'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_purchasesStatus=mysqli_real_escape_string($con,$_POST['txtstatus']);
+    $new_pid=mysqli_real_escape_string($con,$_POST['txtpID']);
+    $new_purchasesStatus=mysqli_real_escape_string($con,$_POST['txtstat']);
      $new_deliveryDate=mysqli_real_escape_string($con,$_POST['orDate']);
 
-    if($new_purchasesStatus == 'Pending' && $new_id == $new_id){
+    if($new_purchasesStatus == 'Pending' && $new_pid == $new_pid){
       $new_purchasesStatus = 'Delivered';
     }else{
       $new_purchasesStatus = 'Pending';
       $new_deliveryDate = NULL;
     }
 
-    $sqlupdate="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='$new_deliveryDate' WHERE po_key='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
+    $sqldel="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
+    $result_del=mysqli_query($con,$sqldel);
 
-       $sqlupdate2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='$new_deliveryDate' WHERE po_key='$new_id' ";
-    $result_update2=mysqli_query($con,$sqlupdate2);
+       $sqldel2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
+    $result_del2=mysqli_query($con,$sqldel2);
 
-    if($result_update && $sqlupdate2){
+    if($result_del && $sqldel2){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_id." status has been changed to ".$result_update."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_pid." status has been changed to ".$result_update."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="deliveries"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
     }
+}
+?>
+
+<?php
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+if(isset($_POST['btnEdit'])){
+
+    $new_pid=mysqli_real_escape_string($con,$_POST['txtpID']);
+    $new_purchasesStatus=mysqli_real_escape_string($con,$_POST['txtstat']);
+     $new_deliveryDate=mysqli_real_escape_string($con,$_POST['orDate']);
+
+    if($new_purchasesStatus == 'Pending' && $new_pid == $new_pid){
+      $new_purchasesStatus = 'Delivered';
+    }else{
+      $new_purchasesStatus = 'Pending';
+      $new_deliveryDate = NULL;
+    }
+
+    $sqldel="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
+    $result_del=mysqli_query($con,$sqldel);
+
+       $sqldel2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
+    $result_del2=mysqli_query($con,$sqldel2);
+
+    if($result_del && $sqldel2){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_pid." status has been changed to ".$result_update."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
+        echo '<script>window.location.href="deliveries"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+
+    $new_purchaseID=mysqli_real_escape_string($con,$_POST['txtid']);
+    $delBy=mysqli_real_escape_string($con,$_POST['txtdelBy']);
+    $ordrNo=mysqli_real_escape_string($con,$_POST['txtordr']);
+
+    $new_id=mysqli_real_escape_string($con,$_POST['txtpoid0']);
+    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus0']);
+    $new_quantity=mysqli_real_escape_string($con,$_POST['txtquantity0']);
+    $new_quantityDelivered=mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
+    $new_notes=mysqli_real_escape_string($con,$_POST['txtnotes0']);
+    $quantity_returned = mysqli_real_escape_string($con,$_POST['txtquantity0']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
+    $amount= mysqli_real_escape_string($con,$_POST['unit_price0']);
+    $total = $quantity_returned*$amount;
+    $supplierid=mysqli_real_escape_string($con,$_POST['txtsupplierid0']);
+    $suppliesid=mysqli_real_escape_string($con,$_POST['txtsuppliesid0']);
+    $addstock=mysqli_real_escape_string($con,$_POST['txtstock0']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
+    $new_supid=mysqli_real_escape_string($con,$_POST['txtsupid0']);
+    $new_pokey=mysqli_real_escape_string($con,$_POST['txtpokey0']);
+    $new_inputExp=mysqli_real_escape_string($con,$_POST['txtexpiration0']);
+    $new_OrigExp=mysqli_real_escape_string($con,$_POST['txtexpire0']);
+    $description=mysqli_real_escape_string($con,$_POST['txtdesc0']);
+    $brand=mysqli_real_escape_string($con,$_POST['txtbrand0']);
+    $unit=mysqli_real_escape_string($con,$_POST['txtunit0']);
+    $stock=mysqli_real_escape_string($con,$_POST['txtstock0']);
+    $date = date("Y-m-d"); 
+
+
+    // if for index 0
+    if($new_quantity == $new_quantityDelivered){
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered', notes='$new_notes' WHERE po_id='$new_id' ";
+      $result_update=mysqli_query($con,$sqlupdate);
+
+      $sqldeliveries="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes."', '".$new_id."', '".$supplierid."', '".$new_pokey."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery=mysqli_query($con,$sqldeliveries);
+
+      if($new_inputExp == $new_OrigExp){
+         $sqladd="UPDATE supplies SET quantity_in_stock='$addstock' WHERE supply_id='$new_supid' ";
+      $result_add=mysqli_query($con,$sqladd);
+      }else{
+        $sqlexp="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description, $brand, $unit, $stock, $amount, $new_inputExp, $new_purchaseID, $supplierid)";
+        $resultexp=mysqli_query($con,$sqlexp);
+      }
+    }else {
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered', notes='$new_notes' WHERE po_id='$new_id' ";
+      $result_update=mysqli_query($con,$sqlupdate);
+
+      $sqldeliveries="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key) VALUES (CURDATE(), 'Partial', '".$new_notes."', '".$new_id."', '".$supplierid."', '".$new_pokey."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery=mysqli_query($con,$sqldeliveries);
+      
+      if($new_inputExp == $new_OrigExp){
+        $sqladd="UPDATE supplies SET quantity_in_stock='$addstock' WHERE supply_id='$new_supid' ";
+        $result_add=mysqli_query($con,$sqladd);
+      }else{
+        $sqlexp="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description, $brand, $unit, $stock, $amount, $new_inputExp, $new_purchaseID, $supplierid)";
+        $resultexp=mysqli_query($con,$sqlexp);
+      }
+
+    }
+
+    $new_id1=mysqli_real_escape_string($con,$_POST['txtpoid1']);
+    $new_status1=mysqli_real_escape_string($con,$_POST['txtstatus1']);
+    $new_quantity1=mysqli_real_escape_string($con,$_POST['txtquantity1']);
+    $new_quantityDelivered1=mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
+    $new_notes1=mysqli_real_escape_string($con,$_POST['txtnotes1']);
+    $quantity_returned1 = mysqli_real_escape_string($con,$_POST['txtquantity1']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
+    $amount1= mysqli_real_escape_string($con,$_POST['unit_price1']);
+    $total1 = $quantity_returned1*$amount1;
+    $supplierid1=mysqli_real_escape_string($con,$_POST['txtsupplierid1']);
+    $suppliesid1=mysqli_real_escape_string($con,$_POST['txtsuppliesid1']);
+    $addstock1=mysqli_real_escape_string($con,$_POST['txtstock1']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
+    $new_supid1=mysqli_real_escape_string($con,$_POST['txtsupid1']);
+    $new_pokey1=mysqli_real_escape_string($con,$_POST['txtpokey1']);
+    $new_inputExp1=mysqli_real_escape_string($con,$_POST['txtexpiration1']);
+    $new_OrigExp1=mysqli_real_escape_string($con,$_POST['txtexpire1']);
+    $description1=mysqli_real_escape_string($con,$_POST['txtdesc1']);
+    $brand1=mysqli_real_escape_string($con,$_POST['txtbrand1']);
+    $unit1=mysqli_real_escape_string($con,$_POST['txtunit1']);
+    $stock1=mysqli_real_escape_string($con,$_POST['txtstock1']);
+    
+    // if for index 1
+    if($new_quantity1 == $new_quantityDelivered1){
+      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1' WHERE po_id='$new_id1' ";
+      $result_update1=mysqli_query($con,$sqlupdate1);
+
+      $sqldeliveries1="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key) VALUES (CURDATE(), 'Full', '".$new_notes1."', '".$new_id1."', '".$supplierid1."', '".$new_pokey1."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery1=mysqli_query($con,$sqldeliveries1);
+
+      if($new_inputExp1 == $new_OrigExp1){
+         $sqladd1="UPDATE supplies SET quantity_in_stock='$addstock1' WHERE supply_id='$new_supid1' ";
+      $result_add1=mysqli_query($con,$sqladd1);
+      }else{
+        $sqlexp1="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description1, $brand1, $unit1, $stock1, $amount1, $new_inputExp1, $new_purchaseID, $supplierid1)";
+        $resultexp1=mysqli_query($con,$sqlexp1);
+      }
+    }else {
+      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1' WHERE po_id='$new_id1' ";
+      $result_update1=mysqli_query($con,$sqlupdate1);
+
+      $sqldeliveries1="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes1."', '".$new_id1."', '".$supplierid1."', '".$new_pokey1."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery1=mysqli_query($con,$sqldeliveries1);
+
+      if($new_inputExp1 == $new_OrigExp1){
+         $sqladd1="UPDATE supplies SET quantity_in_stock='$addstock1' WHERE supply_id='$new_supid1' ";
+      $result_add1=mysqli_query($con,$sqladd1);
+      }else{
+        $sqlexp1="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description1, $brand1, $unit1, $stock1, $amount1, $new_inputExp1, $new_purchaseID, $supplierid1)";
+        $resultexp1=mysqli_query($con,$sqlexp1);
+      }
+
+    }
+
+    $new_id2=mysqli_real_escape_string($con,$_POST['txtpoid2']);
+    $new_status2=mysqli_real_escape_string($con,$_POST['txtstatus2']);
+    $new_quantity2=mysqli_real_escape_string($con,$_POST['txtquantity2']);
+    $new_quantityDelivered2=mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
+    $new_notes2=mysqli_real_escape_string($con,$_POST['txtnotes2']);
+    $quantity_returned2 = mysqli_real_escape_string($con,$_POST['txtquantity2']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
+    $amount2= mysqli_real_escape_string($con,$_POST['unit_price2']);
+    $total2 = $quantity_returned2*$amount2;
+    $supplierid2=mysqli_real_escape_string($con,$_POST['txtsupplierid2']);
+    $suppliesid2=mysqli_real_escape_string($con,$_POST['txtsuppliesid2']);
+    $addstock2=mysqli_real_escape_string($con,$_POST['txtstock2']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
+    $new_supid2=mysqli_real_escape_string($con,$_POST['txtsupid2']);
+    $new_pokey2=mysqli_real_escape_string($con,$_POST['txtpokey2']);
+    $new_inputExp2=mysqli_real_escape_string($con,$_POST['txtexpiration2']);
+    $new_OrigExp2=mysqli_real_escape_string($con,$_POST['txtexpire2']);
+    $description2=mysqli_real_escape_string($con,$_POST['txtdesc2']);
+    $brand2=mysqli_real_escape_string($con,$_POST['txtbrand2']);
+    $unit2=mysqli_real_escape_string($con,$_POST['txtunit2']);
+    $stock2=mysqli_real_escape_string($con,$_POST['txtstock2']);
+    
+    // if for index 2
+    if($new_quantity2 == $new_quantityDelivered2){
+      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2' WHERE po_id='$new_id2' ";
+      $result_update2=mysqli_query($con,$sqlupdate2);
+
+      $sqldeliveries2="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes2."', '".$new_id2."', '".$supplierid2."', '".$new_pokey2."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery2=mysqli_query($con,$sqldeliveries2);
+
+      
+      if($new_inputExp2 == $new_OrigExp2){
+        $sqladd2="UPDATE supplies SET quantity_in_stock='$addstock2' WHERE supply_id='$new_supid2' ";
+      $result_add2=mysqli_query($con,$sqladd2);
+      }else{
+        $sqlexp2="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description2, $brand2, $unit2, $stock2, $amount2, $new_inputExp2, $new_purchaseID, $supplierid2)";
+        $resultexp2=mysqli_query($con,$sqlexp2);
+      }
+    }else {
+      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2' WHERE po_id='$new_id2' ";
+      $result_update2=mysqli_query($con,$sqlupdate2);
+
+      $sqldeliveries2="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes2."', '".$new_id2."', '".$supplierid2."', '".$new_pokey2."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery2=mysqli_query($con,$sqldeliveries2);
+
+      if($new_inputExp2 == $new_OrigExp2){
+        $sqladd2="UPDATE supplies SET quantity_in_stock='$addstock2' WHERE supply_id='$new_supid2' ";
+      $result_add2=mysqli_query($con,$sqladd2);
+      }else{
+        $sqlexp2="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description2, $brand2, $unit2, $stock2, $amount2, $new_inputExp2, $new_purchaseID, $supplierid2)";
+        $resultexp2=mysqli_query($con,$sqlexp2);
+      }
+
+    }
+
+    $new_id3=mysqli_real_escape_string($con,$_POST['txtpoid3']);
+    $new_status3=mysqli_real_escape_string($con,$_POST['txtstatus3']);
+    $new_quantity3=mysqli_real_escape_string($con,$_POST['txtquantity3']);
+    $new_quantityDelivered3=mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
+    $new_notes3=mysqli_real_escape_string($con,$_POST['txtnotes3']);
+    $quantity_returned3 = mysqli_real_escape_string($con,$_POST['txtquantity3']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
+    $amount3= mysqli_real_escape_string($con,$_POST['unit_price3']);
+    $total3 = $quantity_returned3*$amount3;
+    $supplierid3=mysqli_real_escape_string($con,$_POST['txtsupplierid3']);
+    $suppliesid3=mysqli_real_escape_string($con,$_POST['txtsuppliesid3']);
+    $addstock3=mysqli_real_escape_string($con,$_POST['txtstock3']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
+    $new_supid3=mysqli_real_escape_string($con,$_POST['txtsupid3']);
+    $new_pokey3=mysqli_real_escape_string($con,$_POST['txtpokey3']);
+    $new_inputExp3=mysqli_real_escape_string($con,$_POST['txtexpiration3']);
+    $new_OrigExp3=mysqli_real_escape_string($con,$_POST['txtexpire3']);
+    $description3=mysqli_real_escape_string($con,$_POST['txtdesc3']);
+    $brand3=mysqli_real_escape_string($con,$_POST['txtbrand3']);
+    $unit3=mysqli_real_escape_string($con,$_POST['txtunit3']);
+    $stock3=mysqli_real_escape_string($con,$_POST['txtstock3']);
+    
+    // if for index 3
+    if($new_quantity3 == $new_quantityDelivered3){
+      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3' WHERE po_id='$new_id3' ";
+      $result_update3=mysqli_query($con,$sqlupdate3);
+
+      $sqldeliveries3="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes3."', '".$new_id3."', '".$supplierid3."', '".$new_pokey3."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery3=mysqli_query($con,$sqldeliveries3);
+      
+      if($new_inputExp3 == $new_OrigExp3){
+        $sqladd3="UPDATE supplies SET quantity_in_stock='$addstock3' WHERE supply_id='$new_supid3' ";
+      $result_add3=mysqli_query($con,$sqladd3);
+      }else{
+        $sqlexp3="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description3, $brand3, $unit3, $stock3, $amount3, $new_inputExp3, $new_purchaseID, $supplierid3)";
+        $resultexp3=mysqli_query($con,$sqlexp3);
+      }
+    }else {
+      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3' WHERE po_id='$new_id3' ";
+      $result_update3=mysqli_query($con,$sqlupdate3);
+
+      $sqldeliveries3="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes3."', '".$new_id3."', '".$supplierid3."', '".$new_pokey3."', '".$delBy."', '".$ordrNo."')";
+
+      if($new_inputExp3 == $new_OrigExp3){
+        $sqladd3="UPDATE supplies SET quantity_in_stock='$addstock3' WHERE supply_id='$new_supid3' ";
+      $result_add3=mysqli_query($con,$sqladd3);
+      }else{
+        $sqlexp3="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description3, $brand3, $unit3, $stock3, $amount3, $new_inputExp3, $new_purchaseID, $supplierid3)";
+        $resultexp3=mysqli_query($con,$sqlexp3);
+      }
+
+    }
+
+    $new_id4=mysqli_real_escape_string($con,$_POST['txtpoid4']);
+    $new_status4=mysqli_real_escape_string($con,$_POST['txtstatus4']);
+    $new_quantity4=mysqli_real_escape_string($con,$_POST['txtquantity4']);
+    $new_quantityDelivered4=mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
+    $new_notes4=mysqli_real_escape_string($con,$_POST['txtnotes4']);
+    $quantity_returned4 = mysqli_real_escape_string($con,$_POST['txtquantity4']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
+    $amount4= mysqli_real_escape_string($con,$_POST['unit_price4']);
+    $total4 = $quantity_returned4*$amount4;
+    $supplierid4=mysqli_real_escape_string($con,$_POST['txtsupplierid4']);
+    $suppliesid4=mysqli_real_escape_string($con,$_POST['txtsuppliesid4']);
+    $addstock4=mysqli_real_escape_string($con,$_POST['txtstock4']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
+    $new_supid4=mysqli_real_escape_string($con,$_POST['txtsupid4']);
+    $new_pokey4=mysqli_real_escape_string($con,$_POST['txtpokey4']);
+    $new_inputExp4=mysqli_real_escape_string($con,$_POST['txtexpiration4']);
+    $new_OrigExp4=mysqli_real_escape_string($con,$_POST['txtexpire4']);
+    $description4=mysqli_real_escape_string($con,$_POST['txtdesc4']);
+    $brand4=mysqli_real_escape_string($con,$_POST['txtbrand4']);
+    $unit4=mysqli_real_escape_string($con,$_POST['txtunit4']);
+    $stock4=mysqli_real_escape_string($con,$_POST['txtstock4']);
+    
+    // if for index 4
+    if($new_quantity4 == $new_quantityDelivered4){
+      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4' WHERE po_id='$new_id4' ";
+      $result_update4=mysqli_query($con,$sqlupdate4);
+
+      $sqldeliveries4="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes4."', '".$new_id4."', '".$supplierid4."', '".$new_pokey4."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery4=mysqli_query($con,$sqldeliveries4);
+      
+      if($new_inputExp4 == $new_OrigExp4){
+        $sqladd4="UPDATE supplies SET quantity_in_stock='$addstock4' WHERE supply_id='$new_supid4' ";
+      $result_add4=mysqli_query($con,$sqladd4);
+      }else{
+        $sqlexp4="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description4, $brand4, $unit4, $stock4, $amount4, $new_inputExp4, $new_purchaseID, $supplierid4)";
+        $resultexp4=mysqli_query($con,$sqlexp4);
+      }
+    }else {
+      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4' WHERE po_id='$new_id4' ";
+      $result_update4=mysqli_query($con,$sqlupdate4);
+
+      $sqldeliveries4="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes4."', '".$new_id4."', '".$supplierid4."', '".$new_pokey4."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery4=mysqli_query($con,$sqldeliveries4);
+
+      if($new_inputExp4 == $new_OrigExp4){
+        $sqladd4="UPDATE supplies SET quantity_in_stock='$addstock4' WHERE supply_id='$new_supid4' ";
+      $result_add4=mysqli_query($con,$sqladd4);
+      }else{
+        $sqlexp4="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description4, $brand4, $unit4, $stock4, $amount4, $new_inputExp4, $new_purchaseID, $supplierid4)";
+        $resultexp4=mysqli_query($con,$sqlexp4);
+      }
+
+    }
+
+    $new_id5=mysqli_real_escape_string($con,$_POST['txtpoid5']);
+    $new_status5=mysqli_real_escape_string($con,$_POST['txtstatus5']);
+    $new_quantity5=mysqli_real_escape_string($con,$_POST['txtquantity5']);
+    $new_quantityDelivered5=mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
+    $new_notes5=mysqli_real_escape_string($con,$_POST['txtnotes5']);
+    $quantity_returned5 = mysqli_real_escape_string($con,$_POST['txtquantity5']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
+    $amount5= mysqli_real_escape_string($con,$_POST['unit_price5']);
+    $total5 = $quantity_returned5*$amount5;
+    $supplierid5=mysqli_real_escape_string($con,$_POST['txtsupplierid5']);
+    $suppliesid5=mysqli_real_escape_string($con,$_POST['txtsuppliesid5']);
+    $addstock5=mysqli_real_escape_string($con,$_POST['txtstock5']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
+    $new_supid5=mysqli_real_escape_string($con,$_POST['txtsupid5']);
+    $new_pokey5=mysqli_real_escape_string($con,$_POST['txtpokey5']);
+    $new_inputExp5=mysqli_real_escape_string($con,$_POST['txtexpiration5']);
+    $new_OrigExp5=mysqli_real_escape_string($con,$_POST['txtexpire5']);
+    $description5=mysqli_real_escape_string($con,$_POST['txtdesc5']);
+    $brand5=mysqli_real_escape_string($con,$_POST['txtbrand5']);
+    $unit5=mysqli_real_escape_string($con,$_POST['txtunit5']);
+    $stock5=mysqli_real_escape_string($con,$_POST['txtstock5']);
+    // if for index 5
+    if($new_quantity5 == $new_quantityDelivered5){
+      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5' WHERE po_id='$new_id5' ";
+      $result_update5=mysqli_query($con,$sqlupdate5);
+
+      $sqldeliveries5="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes5."', '".$new_id5."', '".$supplierid5."', '".$new_pokey5."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery5=mysqli_query($con,$sqldeliveries5);
+      
+      if($new_inputExp5 == $new_OrigExp5){
+        $sqladd5="UPDATE supplies SET quantity_in_stock='$addstock5' WHERE supply_id='$new_supid5' ";
+      $result_add5=mysqli_query($con,$sqladd5);
+      }else{
+        $sqlexp5="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description5, $brand5, $unit5, $stock5, $amount5, $new_inputExp5, $new_purchaseID, $supplierid5)";
+        $resultexp5=mysqli_query($con,$sqlexp5);
+      }
+    }else {
+      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5' WHERE po_id='$new_id5' ";
+      $result_update5=mysqli_query($con,$sqlupdate5);
+
+       $sqldeliveries5="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes5."', '".$new_id5."', '".$supplierid5."', '".$new_pokey5."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery5=mysqli_query($con,$sqldeliveries5);
+
+      if($new_inputExp5 == $new_OrigExp5){
+        $sqladd5="UPDATE supplies SET quantity_in_stock='$addstock5' WHERE supply_id='$new_supid5' ";
+      $result_add5=mysqli_query($con,$sqladd5);
+      }else{
+        $sqlexp5="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description5, $brand5, $unit5, $stock5, $amount5, $new_inputExp5, $new_purchaseID, $supplierid5)";
+        $resultexp5=mysqli_query($con,$sqlexp5);
+      }
+
+    }
+
+    $new_id6=mysqli_real_escape_string($con,$_POST['txtpoid6']);
+    $new_status6=mysqli_real_escape_string($con,$_POST['txtstatus6']);
+    $new_quantity6=mysqli_real_escape_string($con,$_POST['txtquantity6']);
+    $new_quantityDelivered6=mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
+    $new_notes6=mysqli_real_escape_string($con,$_POST['txtnotes6']);
+    $quantity_returned6 = mysqli_real_escape_string($con,$_POST['txtquantity6']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
+    $amount6= mysqli_real_escape_string($con,$_POST['unit_price6']);
+    $total6 = $quantity_returned6*$amount6;
+    $supplierid6=mysqli_real_escape_string($con,$_POST['txtsupplierid6']);
+    $suppliesid6=mysqli_real_escape_string($con,$_POST['txtsuppliesid6']);
+    $addstock6=mysqli_real_escape_string($con,$_POST['txtstock6']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
+    $new_supid6=mysqli_real_escape_string($con,$_POST['txtsupid6']);
+    $new_pokey6=mysqli_real_escape_string($con,$_POST['txtpokey6']);
+    $new_inputExp6=mysqli_real_escape_string($con,$_POST['txtexpiration6']);
+    $new_OrigExp6=mysqli_real_escape_string($con,$_POST['txtexpire6']);
+    $description6=mysqli_real_escape_string($con,$_POST['txtdesc6']);
+    $brand6=mysqli_real_escape_string($con,$_POST['txtbrand6']);
+    $unit6=mysqli_real_escape_string($con,$_POST['txtunit6']);
+    $stock6=mysqli_real_escape_string($con,$_POST['txtstock6']);
+    
+    // if for index 6
+    if($new_quantity6 == $new_quantityDelivered6){
+      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6' WHERE po_id='$new_id6' ";
+      $result_update6=mysqli_query($con,$sqlupdate6);
+
+      $sqldeliveries6="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes6."', '".$new_id6."', '".$supplierid6."', '".$new_pokey6."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery6=mysqli_query($con,$sqldeliveries6);
+      
+      if($new_inputExp6 == $new_OrigExp6){
+        $sqladd6="UPDATE supplies SET quantity_in_stock='$addstock6' WHERE supply_id='$new_supid6' ";
+      $result_add6=mysqli_query($con,$sqladd6);
+      }else{
+        $sqlexp6="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description6, $brand6, $unit6, $stock6, $amount6, $new_inputExp6, $new_purchaseID, $supplierid6)";
+        $resultexp6=mysqli_query($con,$sqlexp6);
+      }
+    }else {
+      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6' WHERE po_id='$new_id6' ";
+      $result_update6=mysqli_query($con,$sqlupdate6);
+
+      $sqldeliveries6="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes6."', '".$new_id6."', '".$supplierid6."', '".$new_pokey6."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery6=mysqli_query($con,$sqldeliveries6);
+
+      if($new_inputExp6 == $new_OrigExp6){
+        $sqladd6="UPDATE supplies SET quantity_in_stock='$addstock6' WHERE supply_id='$new_supid6' ";
+      $result_add6=mysqli_query($con,$sqladd6);
+      }else{
+        $sqlexp6="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description6, $brand6, $unit6, $stock6, $amount6, $new_inputExp6, $new_purchaseID, $supplierid6)";
+        $resultexp6=mysqli_query($con,$sqlexp6);
+      }
+
+    }
+
+    $new_id7=mysqli_real_escape_string($con,$_POST['txtpoid7']);
+    $new_status7=mysqli_real_escape_string($con,$_POST['txtstatus7']);
+    $new_quantity7=mysqli_real_escape_string($con,$_POST['txtquantity7']);
+    $new_quantityDelivered7=mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
+    $new_notes7=mysqli_real_escape_string($con,$_POST['txtnotes7']);
+    $quantity_returned7 = mysqli_real_escape_string($con,$_POST['txtquantity7']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
+    $amount7= mysqli_real_escape_string($con,$_POST['unit_price7']);
+    $total7 = $quantity_returned7*$amount7;
+    $supplierid7=mysqli_real_escape_string($con,$_POST['txtsupplierid7']);
+    $suppliesid7=mysqli_real_escape_string($con,$_POST['txtsuppliesid7']);
+    $addstock7=mysqli_real_escape_string($con,$_POST['txtstock7']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
+    $new_supid7=mysqli_real_escape_string($con,$_POST['txtsupid7']);
+    $new_pokey7=mysqli_real_escape_string($con,$_POST['txtpokey7']);
+    $new_inputExp7=mysqli_real_escape_string($con,$_POST['txtexpiration7']);
+    $new_OrigExp7=mysqli_real_escape_string($con,$_POST['txtexpire7']);
+    $description7=mysqli_real_escape_string($con,$_POST['txtdesc7']);
+    $brand7=mysqli_real_escape_string($con,$_POST['txtbrand7']);
+    $unit7=mysqli_real_escape_string($con,$_POST['txtunit7']);
+    $stock7=mysqli_real_escape_string($con,$_POST['txtstock7']);
+    
+    // if for index 7
+    if($new_quantity7 == $new_quantityDelivered7){
+      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7' WHERE po_id='$new_id7' ";
+      $result_update7=mysqli_query($con,$sqlupdate7);
+
+      $sqldeliveries7="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes7."', '".$new_id7."', '".$supplierid7."', '".$new_pokey7."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery7=mysqli_query($con,$sqldeliveries7);
+      
+      if($new_inputExp7 == $new_OrigExp7){
+        $sqladd7="UPDATE supplies SET quantity_in_stock='$addstock7' WHERE supply_id='$new_supid7' ";
+      $result_add7=mysqli_query($con,$sqladd7);
+      }else{
+        $sqlexp7="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description7, $brand7, $unit7, $stock7, $amount7, $new_inputExp7, $new_purchaseID, $supplierid7)";
+        $resultexp7=mysqli_query($con,$sqlexp7);
+      }
+    }else {
+      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7' WHERE po_id='$new_id7' ";
+      $result_update7=mysqli_query($con,$sqlupdate7);
+
+      $sqldeliveries7="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes7."', '".$new_id7."', '".$supplierid7."', '".$new_pokey7."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery7=mysqli_query($con,$sqldeliveries7);
+
+      if($new_inputExp7 == $new_OrigExp7){
+        $sqladd7="UPDATE supplies SET quantity_in_stock='$addstock7' WHERE supply_id='$new_supid7' ";
+      $result_add7=mysqli_query($con,$sqladd7);
+      }else{
+        $sqlexp7="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description7, $brand7, $unit7, $stock7, $amount7, $new_inputExp7, $new_purchaseID, $supplierid7)";
+        $resultexp7=mysqli_query($con,$sqlexp7);
+      }
+
+    }
+
+    $new_id8=mysqli_real_escape_string($con,$_POST['txtpoid8']);
+    $new_status8=mysqli_real_escape_string($con,$_POST['txtstatus8']);
+    $new_quantity8=mysqli_real_escape_string($con,$_POST['txtquantity8']);
+    $new_quantityDelivered8=mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
+    $new_notes8=mysqli_real_escape_string($con,$_POST['txtnotes8']);
+    $quantity_returned8 = mysqli_real_escape_string($con,$_POST['txtquantity8']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
+    $amount8= mysqli_real_escape_string($con,$_POST['unit_price8']);
+    $total8 = $quantity_returned8*$amount8;
+    $supplierid8=mysqli_real_escape_string($con,$_POST['txtsupplierid8']);
+    $suppliesid8=mysqli_real_escape_string($con,$_POST['txtsuppliesid8']);
+    $addstock8=mysqli_real_escape_string($con,$_POST['txtstock8']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
+    $new_supid8=mysqli_real_escape_string($con,$_POST['txtsupid8']);
+    $new_pokey8=mysqli_real_escape_string($con,$_POST['txtpokey8']);
+    $new_inputExp8=mysqli_real_escape_string($con,$_POST['txtexpiration8']);
+    $new_OrigExp8=mysqli_real_escape_string($con,$_POST['txtexpire8']);
+    $description8=mysqli_real_escape_string($con,$_POST['txtdesc8']);
+    $brand8=mysqli_real_escape_string($con,$_POST['txtbrand8']);
+    $unit8=mysqli_real_escape_string($con,$_POST['txtunit8']);
+    $stock8=mysqli_real_escape_string($con,$_POST['txtstock8']);
+    
+    // if for index 8
+    if($new_quantity8 == $new_quantityDelivered8){
+      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered8', notes='$new_notes8' WHERE po_id='$new_id8' ";
+      $result_update8=mysqli_query($con,$sqlupdate8);
+
+      $sqldeliveries8="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes8."', '".$new_id8."', '".$supplierid8."', '".$new_pokey8."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery8=mysqli_query($con,$sqldeliveries8);
+      
+      if($new_inputExp8 == $new_OrigExp8){
+        $sqladd8="UPDATE supplies SET quantity_in_stock='$addstock8' WHERE supply_id='$new_supid8' ";
+      $result_add8=mysqli_query($con,$sqladd8);
+      }else{
+        $sqlexp8="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description8, $brand8, $unit8, $stock8, $amount8, $new_inputExp8, $new_purchaseID, $supplierid8)";
+        $resultexp8=mysqli_query($con,$sqlexp8);
+      }
+    }else {
+      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered8', notes='$new_notes' WHERE po_id='$new_id8' ";
+      $result_update8=mysqli_query($con,$sqlupdate8);
+
+      $sqldeliveries8="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes8."', '".$new_id8."', '".$supplierid8."', '".$new_pokey8."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery8=mysqli_query($con,$sqldeliveries8);
+
+      if($new_inputExp8 == $new_OrigExp8){
+        $sqladd8="UPDATE supplies SET quantity_in_stock='$addstock8' WHERE supply_id='$new_supid8' ";
+      $result_add8=mysqli_query($con,$sqladd8);
+      }else{
+        $sqlexp8="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description8, $brand8, $unit8, $stock8, $amount8, $new_inputExp8, $new_purchaseID, $supplierid8)";
+        $resultexp8=mysqli_query($con,$sqlexp8);
+      }
+
+    }
+
+    $new_id9=mysqli_real_escape_string($con,$_POST['txtpoid9']);
+    $new_status9=mysqli_real_escape_string($con,$_POST['txtstatus9']);
+    $new_quantity9=mysqli_real_escape_string($con,$_POST['txtquantity9']);
+    $new_quantityDelivered9=mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
+    $new_notes9=mysqli_real_escape_string($con,$_POST['txtnotes9']);
+    $quantity_returned9 = mysqli_real_escape_string($con,$_POST['txtquantity9']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
+    $amount9= mysqli_real_escape_string($con,$_POST['unit_price9']);
+    $total9 = $quantity_returned9*$amount9;
+    $supplierid9=mysqli_real_escape_string($con,$_POST['txtsupplierid9']);
+    $suppliesid9=mysqli_real_escape_string($con,$_POST['txtsuppliesid9']);
+    $addstock9=mysqli_real_escape_string($con,$_POST['txtstock9']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
+    $new_supid9=mysqli_real_escape_string($con,$_POST['txtsupid9']);
+    $new_pokey9=mysqli_real_escape_string($con,$_POST['txtpokey9']);
+    $new_inputExp9=mysqli_real_escape_string($con,$_POST['txtexpiration9']);
+    $new_OrigExp9=mysqli_real_escape_string($con,$_POST['txtexpire9']);
+    $description9=mysqli_real_escape_string($con,$_POST['txtdesc9']);
+    $brand9=mysqli_real_escape_string($con,$_POST['txtbrand9']);
+    $unit9=mysqli_real_escape_string($con,$_POST['txtunit9']);
+    $stock9=mysqli_real_escape_string($con,$_POST['txtstock9']);
+    
+    // if for index 9
+    if($new_quantity9 == $new_quantityDelivered9){
+      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9' WHERE po_id='$new_id9' ";
+      $result_update9=mysqli_query($con,$sqlupdate9);
+
+      $sqldeliveries9="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes9."', '".$new_id9."', '".$supplierid9."', '".$new_pokey9."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery9=mysqli_query($con,$sqldeliveries9);
+      
+      if($new_inputExp9 == $new_OrigExp9){
+        $sqladd9="UPDATE supplies SET quantity_in_stock='$addstock9' WHERE supply_id='$new_supid9' ";
+      $result_add9=mysqli_query($con,$sqladd9);
+      }else{
+        $sqlexp9="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description9, $brand9, $unit9, $stock9, $amount9, $new_inputExp9, $new_purchaseID, $supplierid9)";
+        $resultexp9=mysqli_query($con,$sqlexp9);
+      }
+    }else {
+      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9' WHERE po_id='$new_id9' ";
+      $result_update9=mysqli_query($con,$sqlupdate9);
+
+      $sqldeliveries9="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes9."', '".$new_id9."', '".$supplierid9."', '".$new_pokey9."', '".$delBy."', '".$ordrNo."')";
+      $sqldelivery9=mysqli_query($con,$sqldeliveries9);
+
+      if($new_inputExp9 == $new_OrigExp9){
+        $sqladd9="UPDATE supplies SET quantity_in_stock='$addstock9' WHERE supply_id='$new_supid9' ";
+      $result_add9=mysqli_query($con,$sqladd9);
+      }else{
+        $sqlexp9="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description9, $brand9, $unit9, $stock9, $amount9, $new_inputExp9, $new_purchaseID, $supplierid9)";
+        $resultexp9=mysqli_query($con,$sqlexp9);
+      }
+
+    }
+
+
+    
+  
+    if($new_quantity == $new_quantityDelivered && $new_quantity1 == $new_quantityDelivered1 && $new_quantity2 == $new_quantityDelivered2 && $new_quantity3 == $new_quantityDelivered3 && $new_quantity4 == $new_quantityDelivered4 && $new_quantity5 == $new_quantityDelivered5 && $new_quantity6 == $new_quantityDelivered6 && $new_quantity7 == $new_quantityDelivered7 && $new_quantity8 == $new_quantityDelivered8 && $new_quantity9 == $new_quantityDelivered9){
+
+      $query="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE purchase_order_id='$new_purchaseID' ";
+      $query_result=mysqli_query($con,$query);
+
+      if($query_result){
+          $conn =mysqli_connect("localhost","root","");
+          $datetoday = date('Y\-m\-d\ H:i:s A');
+          mysqli_select_db($conn, "itproject");
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status has been changed to Full','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $result = $conn->query($notif);
+          echo '<script>window.location.href="deliveries"</script>';
+      }
+      else{
+          echo '<script>alert("Update if Failed")</script>';
+      }
+    }else{
+      $query1="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE purchase_order_id='$new_purchaseID' ";
+      $query_result1=mysqli_query($con,$query1);
+
+      if($query_result1){
+          $conn =mysqli_connect("localhost","root","");
+          $datetoday = date('Y\-m\-d\ H:i:s A');
+          mysqli_select_db($conn, "itproject");
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status has been changed to Partial','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $result = $conn->query($notif);
+          echo '<script>window.location.href="deliveries"</script>';
+      }
+      else{
+          echo '<script>alert("Update else Failed")</script>';
+      }
+    }
+    
 }
 
 ?>

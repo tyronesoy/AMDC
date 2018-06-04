@@ -36,6 +36,7 @@ if(isset($_REQUEST['id'])){
         $per_gtotal=$row[21];
         $per_soft_deleted=$row[24];
         $per_sup_id=$row[25];
+        $date = date("Y-m-d");
 
 
     }//end while
@@ -75,6 +76,12 @@ if(isset($_REQUEST['id'])){
                                              <div class="form-group" style="width:100%">
                                                 <label class="hidden" for="txtid">Purchase ID</label>
                                                     <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_purch_id;?>" readonly>
+
+                                                    <input type="hidden" class="form-control" id="txtpID" name="txtpID" value="<?php echo $per_po_key;?>" readonly
+
+                                                    <input type="hidden" class="form-control" id="txtstat" name="txtstat" hidden value="<?php echo $per_purchOrderStatus;?>" readonly>
+
+                                                    <input type="hidden" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" />
                                               </div>      
                                               <div class="row">
                                               <div class="col-md-5">
@@ -148,7 +155,7 @@ if(isset($_REQUEST['id'])){
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
 
-                                                      <input type="text" class="form-control" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $per_deliveryDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                      <input type="text" class="form-control" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $date;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   </div>
                                                 </div>
                                               </div>
@@ -221,6 +228,7 @@ if(isset($_REQUEST['id'])){
                         $arrayType = '';
                         $arrayBrand = ''; 
                         $arraypokey = '';
+                        $arrayLot = '';
                         $zero = 0;
                       ?>
 
@@ -263,6 +271,7 @@ if(isset($_REQUEST['id'])){
                                                   $arrayType .= $row['supply_type'].', ';
                                                   $arrayBrand .= $row['brand_name'].', ';
                                                   $arraypokey .=  $row['po_key'].', ';
+                                                  $arrayLot .=  $row['lot_no'].', ';
                                                   
                                                   $poid = explode(", ", $arrayPoId);
                                                   $desc = explode(", ", $arrayDesc);
@@ -280,6 +289,7 @@ if(isset($_REQUEST['id'])){
                                                   $type = explode(", ", $arrayType);
                                                   $brand = explode(", ", $arrayBrand);
                                                   $pokey = explode(", ", $arraypokey);
+                                                  $lot = explode(", ", $arrayLot);
                                                   }
                                                   
                                               ?>
@@ -309,9 +319,9 @@ if(isset($_REQUEST['id'])){
                                               <td class="hidden">
                                               <input class="form-control" id="txtsupid<?php echo $x; ?>" name="txtsupid<?php echo $x; ?>" value="<?php print_r($supid[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
-
+                                             
                                               <td>
-                                              
+                                               <input class="form-control" id="txtlot<?php echo $x; ?>" name="txtlot<?php echo $x; ?>" value="<?php print_r($lot[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
 
                                               <?php if ($per_itemDeliveryRemarks == 'Partial' ) {?>

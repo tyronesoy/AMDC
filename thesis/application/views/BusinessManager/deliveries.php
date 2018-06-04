@@ -723,11 +723,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
                           </div>
                         <?php }elseif ($row["item_delivery_remarks"] == 'Partial'){ ?>
-                        <div class="btn-group">
+                        <!-- <div class="btn-group">
                               <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-plus-circle"></i> Add New Delivery</button>
                           </div>
 
-                          </div>
+                          </div> -->
                           <div class="btn-group">
                               <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                           </div>
@@ -735,11 +735,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
                           </div>
                         <?php }else{?>
-                          <div class="btn-group">
+                          <!-- <div class="btn-group">
                               <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-check"></i> Check</button>
-                          </div>
+                          </div> -->
                           <div class="btn-group">
                               <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
+                          </div>
+                          <div class="btn-group">
+                              <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
                           </div>
                         <?php }?>
                       </td>
