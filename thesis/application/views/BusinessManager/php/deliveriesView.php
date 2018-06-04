@@ -134,9 +134,12 @@ if(isset($_REQUEST['id'])){
                                         <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_purchOrderStatus;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                       </div>
                                 </div>
+                                </div>
                                 <?php
                             }
                             ?>
+                                              <div class="col-md-1">
+                                                </div>
 
                                                 <div class="col-md-5">
                                               <div class="form-group">
@@ -179,6 +182,7 @@ if(isset($_REQUEST['id'])){
                                               </div>
                             </div>
 
+                                              </div>
                                               </div>
                                                <?php
                         $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id AND order_quantity != 0";

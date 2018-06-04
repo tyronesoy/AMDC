@@ -216,8 +216,7 @@ if(isset($_REQUEST['id'])){
                                             <?php } ?>
                                         <?php } else { ?>
                                             <center>
-                                                <input type="number" class="form-control hidden" id="qtyIssued<?php echo $x; ?>" name="qtyIssued<?php echo $x; ?>" value="0" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="0" max="<?php print_r($qty_ordered[$zero]);?>" hidden required>
-                                                <button type="button" id="porder" name="porder" class="btn btn-success btn-xs" data-toggle="modal" data-target="#porderModal" data-id="<?php print_r($order_id[$zero]);?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button>
+                                                <input type="text" class="form-control" id="qtyIssued<?php echo $x; ?>" name="qtyIssued<?php echo $x; ?>" value="Out of Stock" style="border: 0; outline: 0;  background: transparent;" min="1" max="<?php print_r($qty_stock[$zero]);?>" readonly>
                                             </center>
                                         <?php } ?>
                                         
@@ -261,6 +260,13 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <?php 
+                if($per_quantityStock == 0 || $per_quantityStock     == ''){
+                ?>
+                <button type="button" id="porder" name="porder" class="btn btn-success" data-toggle="modal" data-target="#porderModal" data-id="<?php echo $per_id;?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button>
+                <?php
+                }
+                ?>
                 <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
                 
             </div>

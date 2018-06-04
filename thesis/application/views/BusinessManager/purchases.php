@@ -1678,10 +1678,10 @@ if(isset($_POST['btnEdit'])){
       $new_deliveryDate = NULL;
     }
 
-    $sqldel="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
+    $sqldel="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='CURDATE()' WHERE po_key='$new_pid' ";
     $result_del=mysqli_query($con,$sqldel);
 
-       $sqldel2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
+       $sqldel2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='CURDATE()' WHERE po_key='$new_pid' ";
     $result_del2=mysqli_query($con,$sqldel2);
 
     if($result_del && $sqldel2){
@@ -1727,6 +1727,9 @@ if(isset($_POST['btnEdit'])){
       $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered', notes='$new_notes' WHERE po_id='$new_id' ";
       $result_update=mysqli_query($con,$sqlupdate);
 
+      $sqlupd="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id' ";
+      $result_upd=mysqli_query($con,$sqlupd);
+
       $sqldeliveries="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes."', '".$new_id."', '".$supplierid."', '".$new_pokey."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery=mysqli_query($con,$sqldeliveries);
 
@@ -1738,8 +1741,11 @@ if(isset($_POST['btnEdit'])){
         $resultexp=mysqli_query($con,$sqlexp);
       }
     }else {
-      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered', notes='$new_notes' WHERE po_id='$new_id' ";
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered', notes='$new_notes' , quantity_remaining='$quantity_returned' WHERE po_id='$new_id' ";
       $result_update=mysqli_query($con,$sqlupdate);
+
+      $sqlupd="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id' ";
+      $result_upd=mysqli_query($con,$sqlupd);
 
       $sqldeliveries="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key) VALUES (CURDATE(), 'Partial', '".$new_notes."', '".$new_id."', '".$supplierid."', '".$new_pokey."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery=mysqli_query($con,$sqldeliveries);
@@ -1779,6 +1785,9 @@ if(isset($_POST['btnEdit'])){
       $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1' WHERE po_id='$new_id1' ";
       $result_update1=mysqli_query($con,$sqlupdate1);
 
+      $sqlupd1="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id1' ";
+      $result_upd1=mysqli_query($con,$sqlupd1);
+
       $sqldeliveries1="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key) VALUES (CURDATE(), 'Full', '".$new_notes1."', '".$new_id1."', '".$supplierid1."', '".$new_pokey1."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery1=mysqli_query($con,$sqldeliveries1);
 
@@ -1790,8 +1799,11 @@ if(isset($_POST['btnEdit'])){
         $resultexp1=mysqli_query($con,$sqlexp1);
       }
     }else {
-      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1' WHERE po_id='$new_id1' ";
+      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1', quantity_remaining='$quantity_returned1' WHERE po_id='$new_id1' ";
       $result_update1=mysqli_query($con,$sqlupdate1);
+
+      $sqlupd1="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id1' ";
+      $result_upd1=mysqli_query($con,$sqlupd1);
 
       $sqldeliveries1="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes1."', '".$new_id1."', '".$supplierid1."', '".$new_pokey1."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery1=mysqli_query($con,$sqldeliveries1);
@@ -1831,6 +1843,9 @@ if(isset($_POST['btnEdit'])){
       $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2' WHERE po_id='$new_id2' ";
       $result_update2=mysqli_query($con,$sqlupdate2);
 
+      $sqlupd2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id2' ";
+      $result_upd2=mysqli_query($con,$sqlupd2);
+
       $sqldeliveries2="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes2."', '".$new_id2."', '".$supplierid2."', '".$new_pokey2."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery2=mysqli_query($con,$sqldeliveries2);
 
@@ -1843,8 +1858,11 @@ if(isset($_POST['btnEdit'])){
         $resultexp2=mysqli_query($con,$sqlexp2);
       }
     }else {
-      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2' WHERE po_id='$new_id2' ";
+      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2', quantity_remaining='$quantity_returned2' WHERE po_id='$new_id2' ";
       $result_update2=mysqli_query($con,$sqlupdate2);
+
+      $sqlupd2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id2' ";
+      $result_upd2=mysqli_query($con,$sqlupd2);
 
       $sqldeliveries2="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes2."', '".$new_id2."', '".$supplierid2."', '".$new_pokey2."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery2=mysqli_query($con,$sqldeliveries2);
@@ -1884,6 +1902,9 @@ if(isset($_POST['btnEdit'])){
       $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3' WHERE po_id='$new_id3' ";
       $result_update3=mysqli_query($con,$sqlupdate3);
 
+      $sqlupd3="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id3' ";
+      $result_upd3=mysqli_query($con,$sqlupd3);
+
       $sqldeliveries3="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes3."', '".$new_id3."', '".$supplierid3."', '".$new_pokey3."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery3=mysqli_query($con,$sqldeliveries3);
       
@@ -1895,8 +1916,11 @@ if(isset($_POST['btnEdit'])){
         $resultexp3=mysqli_query($con,$sqlexp3);
       }
     }else {
-      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3' WHERE po_id='$new_id3' ";
+      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3', quantity_remaining='$quantity_returned3' WHERE po_id='$new_id3' ";
       $result_update3=mysqli_query($con,$sqlupdate3);
+
+      $sqlupd3="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id3' ";
+      $result_upd3=mysqli_query($con,$sqlupd3);
 
       $sqldeliveries3="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes3."', '".$new_id3."', '".$supplierid3."', '".$new_pokey3."', '".$delBy."', '".$ordrNo."')";
 
@@ -1935,6 +1959,9 @@ if(isset($_POST['btnEdit'])){
       $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4' WHERE po_id='$new_id4' ";
       $result_update4=mysqli_query($con,$sqlupdate4);
 
+      $sqlupd4="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id4' ";
+      $result_upd4=mysqli_query($con,$sqlupd4);
+
       $sqldeliveries4="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes4."', '".$new_id4."', '".$supplierid4."', '".$new_pokey4."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery4=mysqli_query($con,$sqldeliveries4);
       
@@ -1946,8 +1973,11 @@ if(isset($_POST['btnEdit'])){
         $resultexp4=mysqli_query($con,$sqlexp4);
       }
     }else {
-      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4' WHERE po_id='$new_id4' ";
+      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4', quantity_remaining='$quantity_returned4' WHERE po_id='$new_id4' ";
       $result_update4=mysqli_query($con,$sqlupdate4);
+
+      $sqlupd4="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id4' ";
+      $result_upd4=mysqli_query($con,$sqlupd4);
 
       $sqldeliveries4="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes4."', '".$new_id4."', '".$supplierid4."', '".$new_pokey4."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery4=mysqli_query($con,$sqldeliveries4);
@@ -1986,6 +2016,9 @@ if(isset($_POST['btnEdit'])){
       $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5' WHERE po_id='$new_id5' ";
       $result_update5=mysqli_query($con,$sqlupdate5);
 
+      $sqlupd5="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id5' ";
+      $result_upd5=mysqli_query($con,$sqlupd5);
+
       $sqldeliveries5="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes5."', '".$new_id5."', '".$supplierid5."', '".$new_pokey5."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery5=mysqli_query($con,$sqldeliveries5);
       
@@ -1997,8 +2030,11 @@ if(isset($_POST['btnEdit'])){
         $resultexp5=mysqli_query($con,$sqlexp5);
       }
     }else {
-      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5' WHERE po_id='$new_id5' ";
+      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5', quantity_remaining='$quantity_returned5' WHERE po_id='$new_id5' ";
       $result_update5=mysqli_query($con,$sqlupdate5);
+
+      $sqlupd5="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id5' ";
+      $result_upd5=mysqli_query($con,$sqlupd5);
 
        $sqldeliveries5="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes5."', '".$new_id5."', '".$supplierid5."', '".$new_pokey5."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery5=mysqli_query($con,$sqldeliveries5);
@@ -2038,6 +2074,9 @@ if(isset($_POST['btnEdit'])){
       $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6' WHERE po_id='$new_id6' ";
       $result_update6=mysqli_query($con,$sqlupdate6);
 
+      $sqlupd6="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id6' ";
+      $result_upd6=mysqli_query($con,$sqlupd6);
+
       $sqldeliveries6="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes6."', '".$new_id6."', '".$supplierid6."', '".$new_pokey6."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery6=mysqli_query($con,$sqldeliveries6);
       
@@ -2049,8 +2088,11 @@ if(isset($_POST['btnEdit'])){
         $resultexp6=mysqli_query($con,$sqlexp6);
       }
     }else {
-      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6' WHERE po_id='$new_id6' ";
+      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6', quantity_remaining='$quantity_returned6' WHERE po_id='$new_id6' ";
       $result_update6=mysqli_query($con,$sqlupdate6);
+
+      $sqlupd6="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id6' ";
+      $result_upd6=mysqli_query($con,$sqlupd6);
 
       $sqldeliveries6="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes6."', '".$new_id6."', '".$supplierid6."', '".$new_pokey6."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery6=mysqli_query($con,$sqldeliveries6);
@@ -2090,6 +2132,9 @@ if(isset($_POST['btnEdit'])){
       $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7' WHERE po_id='$new_id7' ";
       $result_update7=mysqli_query($con,$sqlupdate7);
 
+      $sqlupd7="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id7' ";
+      $result_upd7=mysqli_query($con,$sqlupd7);
+
       $sqldeliveries7="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes7."', '".$new_id7."', '".$supplierid7."', '".$new_pokey7."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery7=mysqli_query($con,$sqldeliveries7);
       
@@ -2101,8 +2146,11 @@ if(isset($_POST['btnEdit'])){
         $resultexp7=mysqli_query($con,$sqlexp7);
       }
     }else {
-      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7' WHERE po_id='$new_id7' ";
+      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7', quantity_remaining='$quantity_returned7' WHERE po_id='$new_id7' ";
       $result_update7=mysqli_query($con,$sqlupdate7);
+
+      $sqlupd7="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id7' ";
+      $result_upd7=mysqli_query($con,$sqlupd7);
 
       $sqldeliveries7="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes7."', '".$new_id7."', '".$supplierid7."', '".$new_pokey7."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery7=mysqli_query($con,$sqldeliveries7);
@@ -2142,6 +2190,9 @@ if(isset($_POST['btnEdit'])){
       $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered8', notes='$new_notes8' WHERE po_id='$new_id8' ";
       $result_update8=mysqli_query($con,$sqlupdate8);
 
+      $sqlupd8="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id8' ";
+      $result_upd8=mysqli_query($con,$sqlupd8);
+
       $sqldeliveries8="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes8."', '".$new_id8."', '".$supplierid8."', '".$new_pokey8."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery8=mysqli_query($con,$sqldeliveries8);
       
@@ -2153,8 +2204,11 @@ if(isset($_POST['btnEdit'])){
         $resultexp8=mysqli_query($con,$sqlexp8);
       }
     }else {
-      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered8', notes='$new_notes' WHERE po_id='$new_id8' ";
+      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered8', notes='$new_notes', quantity_remaining='$quantity_returned8' WHERE po_id='$new_id8' ";
       $result_update8=mysqli_query($con,$sqlupdate8);
+
+      $sqlupd8="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id8' ";
+      $result_upd8=mysqli_query($con,$sqlupd8);
 
       $sqldeliveries8="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes8."', '".$new_id8."', '".$supplierid8."', '".$new_pokey8."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery8=mysqli_query($con,$sqldeliveries8);
@@ -2194,6 +2248,9 @@ if(isset($_POST['btnEdit'])){
       $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9' WHERE po_id='$new_id9' ";
       $result_update9=mysqli_query($con,$sqlupdate9);
 
+      $sqlupd9="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id9' ";
+      $result_upd9=mysqli_query($con,$sqlupd9);
+
       $sqldeliveries9="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Full', '".$new_notes9."', '".$new_id9."', '".$supplierid9."', '".$new_pokey9."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery9=mysqli_query($con,$sqldeliveries9);
       
@@ -2205,8 +2262,11 @@ if(isset($_POST['btnEdit'])){
         $resultexp9=mysqli_query($con,$sqlexp9);
       }
     }else {
-      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9' WHERE po_id='$new_id9' ";
+      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9', quantity_remaining='$quantity_returned9' WHERE po_id='$new_id9' ";
       $result_update9=mysqli_query($con,$sqlupdate9);
+
+      $sqlupd9="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id9' ";
+      $result_upd9=mysqli_query($con,$sqlupd9);
 
       $sqldeliveries9="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id) VALUES (CURDATE(), 'Partial', '".$new_notes9."', '".$new_id9."', '".$supplierid9."', '".$new_pokey9."', '".$delBy."', '".$ordrNo."')";
       $sqldelivery9=mysqli_query($con,$sqldeliveries9);
