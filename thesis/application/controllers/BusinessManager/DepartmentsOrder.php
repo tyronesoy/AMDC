@@ -74,5 +74,8 @@ class DepartmentsOrder extends CI_Controller {
 	public function purchaseOrder(){
 		$this->load->view('BusinessManager/php/dep_po');
 	}
+    public function generated(){
+        $this->load->view('BusinessManager/php/generateordrep');
+    }
 
 }
