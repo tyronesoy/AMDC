@@ -11,11 +11,11 @@ if(!empty($_POST['check_list'])) {
 $val = implode(",",$_POST['check_list']);
 }
     
-  $sql = $con->prepare("SELECT ".$val." FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) where inventory_order_status = 'Delivered' AND (inventory_order_created_date BETWEEN '".$date1."' AND '".$date2."')");
+  $sql = $con->prepare("SELECT ".$val." FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE (inventory_order_created_date BETWEEN '".$date1."' AND '".$date2."')");
     
   $conn = mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
   $date = date("Y/m/d");
-  $sql2 = "SELECT ".$val." FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) where inventory_order_status = 'Delivered' AND (inventory_order_created_date BETWEEN '".$date1."' AND '".$date2."')";
+  $sql2 = "SELECT ".$val." FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE (inventory_order_created_date BETWEEN '".$date1."' AND '".$date2."')";
   $result = $conn->query($sql2);     
 ?>
 <html>
@@ -104,7 +104,7 @@ $val = implode(",",$_POST['check_list']);
     </div>
     </div>
     <div class="id">
-    <center><h1 class="idtitle">Issued Supplies</h1></center>
+    <center><h1 class="idtitle">Department Orders</h1></center>
     </div>
     <div>
     <hr class="first">
@@ -153,44 +153,29 @@ $val = implode(",",$_POST['check_list']);
             <thead>
               <tr class="main">
                   <?php
-                  if(in_array("quantity",$_POST['check_list']) == true ){
-                  ?>
-                  <th class="main">Quantity Ordered</th>
-                  <?php
-                  }
                   if(in_array("quantity_issued",$_POST['check_list']) == true ){
                   ?>
                   <th class="main">Quantity Issued</th>
                   <?php
                   }
-                  if(in_array("unit_name",$_POST['check_list']) == true ){
-                  ?>
-                  <th class="main">Unit</th>
-                  <?php
-                  }
                   if(in_array("supply_name",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main" class="main">Item Name</th>
+                  <th class="main">Item Name</th>
                   <?php
                   }
-                  if(in_array("issued_date",$_POST['check_list']) == true ){
+                  if(in_array("inventory_order_name",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Issued Date</th>
-                  <?php
-                  }
-                  if(in_array("inventory_order_status",$_POST['check_list']) == true ){
-                  ?>
-                  <th class="main">Status</th>
+                  <th class="main">Supervisor Name</th>
                   <?php
                   }
                   if(in_array("inventory_order_dept",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Department</th>
+                  <th class="main" class="main">Department</th>
                   <?php
                   }
                   if(in_array("inventory_order_created_date",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Date Requested</th>
+                  <th class="main">Issued Date</th>
                   <?php
                   }
                   ?>
@@ -198,23 +183,14 @@ $val = implode(",",$_POST['check_list']);
             </thead>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) {
-                    if(in_array("quantity",$_POST['check_list']) == true ){
-                    $quantfirst = $row['quantity'];
-                    }
                     if(in_array("quantity_issued",$_POST['check_list']) == true ){
-                    $quantsec = $row['quantity_issued'];
-                    }
-                    if(in_array("unit_name",$_POST['check_list']) == true ){
-                    $unit = $row['unit_name'];
+                    $quant = $row['quantity_issued'];
                     }
                     if(in_array("supply_name",$_POST['check_list']) == true ){
                     $suppname = $row['supply_name'];
                     }
-                    if(in_array("issued_date",$_POST['check_list']) == true ){
-                    $issueddate = $row['issued_date'];
-                    }
-                    if(in_array("inventory_order_status",$_POST['check_list']) == true ){
-                    $status = $row['inventory_order_status'];
+                    if(in_array("inventory_order_name",$_POST['check_list']) == true ){
+                    $supvname = $row['inventory_order_name'];
                     }
                     if(in_array("inventory_order_dept",$_POST['check_list']) == true ){
                     $dept = $row['inventory_order_dept'];
@@ -225,19 +201,9 @@ $val = implode(",",$_POST['check_list']);
                 ?>
                     <tr class="main" id="row0">
                       <?php
-                      if(in_array("quantity",$_POST['check_list']) == true ){
-                      ?>
-                      <td class="main"><?php echo $quantfirst; ?></td>
-                      <?php
-                      }
                       if(in_array("quantity_issued",$_POST['check_list']) == true ){
                       ?>
-                      <td class="main"><?php echo $quantsec; ?></td>
-                      <?php
-                      }
-                      if(in_array("unit_name",$_POST['check_list']) == true ){
-                      ?>
-                      <td class="main"><?php echo $unit; ?></td>
+                      <td class="main"><?php echo $quant; ?></td>
                       <?php
                       }
                       if(in_array("supply_name",$_POST['check_list']) == true ){
@@ -245,15 +211,9 @@ $val = implode(",",$_POST['check_list']);
                       <td class="main"><?php echo $suppname; ?></td>
                       <?php
                       }
-                      if(in_array("issued_date",$_POST['check_list']) == true ){
+                      if(in_array("supply_name",$_POST['check_list']) == true ){
                       ?>
-                      <td class="main"><?php echo $issuedate; ?></td>
-                      <?php
-                      }
-                      if(in_array("inventory_order_status",$_POST['check_list']) == true ){
-                      ?>
-                      ?>
-                      <td class="main"><?php echo $status; ?></td>
+                      <td class="main"><?php echo $supvname; ?></td>
                       <?php
                       }
                       if(in_array("inventory_order_dept",$_POST['check_list']) == true ){
