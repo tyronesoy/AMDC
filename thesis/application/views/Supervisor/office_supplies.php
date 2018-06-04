@@ -454,7 +454,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
                       <td><?php echo $row["item_name"]; ?></td>
-                      <td><?php echo $row["item_description"]; ?></td>
+                      <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["category"]; ?></td>
                     </tr>
                   <?php 
@@ -462,16 +462,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                   ?>
                 </tbody>
-        <tfoot>
-           <tr> 
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th> 
-                  <th>Brand Name</th>
-                  <th>Item Name</th>
-                  <th>Item Description</th>
-                  <th>Category</th>
-            </tr>
-        </tfoot>
       </table>              
             </div>
             <!-- /.box-body -->

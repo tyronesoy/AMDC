@@ -459,50 +459,34 @@ function supplier($connect)
          <?php // RETRIEVE or Display Medical Supplies
          $conn =mysqli_connect("localhost","root","");
           mysqli_select_db($conn, "itproject");
-          $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
+          $sql = "SELECT supply_id, item_name, category, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
             FROM supplies WHERE (supply_type='Medical' AND   (quantity_in_stock IS NOT NULL AND supply_description != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N' AND soft_deleted = 'N'
             GROUP BY supply_description";
           $result = $conn->query($sql);  ?>
           
           <thead>
             <tr>
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th> 
-                  <th>Brand Name</th>
+                  <th width="16%">Quantity in Stock</th>
+                  <th> Total Amount</th>
+                  <th>Unit</th>
                   <th width="20%">Item Name</th>
-                  <th width="20%">Item Description</th>
                   <th>Category</th>
-                  <th>Expiration Date</th>
             </tr>
         </thead>
         <tbody>
         <?php
           while($row = $result->fetch_assoc()) { ?>
             <tr>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td><?php echo $row["Total Quantity"]; ?></td>
+                      <td><?php echo $row["Total Amount"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
-                      <td><?php echo $row["brand_name"]; ?></td>
                       <td><?php echo $row["item_name"]; ?></td>
-                      <td><?php echo $row["item_description"]; ?></td>
-                      <td><?php echo $row["category"]; ?></td>
-                      <td><?php echo $row["epiration_date"]; ?></td>         
+                      <td><?php echo $row["category"]; ?></td>        
             </tr>
           <?php 
               }
           ?>
         </tbody>
-        <tfoot>
-           <tr>
-          
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th> 
-                  <th>Brand Name</th>
-                  <th>Item Name</th>
-                  <th>Item Description</th>
-                  <th>Category</th>
-                  <th>Expiration Date</th>
-        </tr> 
-        </tfoot>
       </table>             
             </div>
             <!-- /.box-body -->

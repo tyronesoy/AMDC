@@ -464,15 +464,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                   ?>
                 <tfoot>
-                <tr>
-                    <th style="display: none;"></th>
-                    <th>Request Date</th>
-                    <th>Issue Date</th>
-                    <th>Status</th>
-                    <th>Remarks</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->

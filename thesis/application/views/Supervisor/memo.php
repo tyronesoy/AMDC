@@ -588,15 +588,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                   ?>
                 </tbody>
-                <tfoot>
-                  <tr>
-                        <th style="display: none;">ID</th>
-                    	  <th>Memo Date</th>
-                        <th>Memo Title</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                  </tr>
-                </tfoot>
             </table>
 
             </div>
