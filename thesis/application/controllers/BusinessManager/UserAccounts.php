@@ -22,7 +22,7 @@ class UserAccounts extends CI_Controller {
 		$check = $this->session->userdata('type');
 		if($check == 'BusinessManager'){
 			$_SESSION['logged_in'] = 'True';
-			echo "<pre class = 'hidden'>";
+			echo "<pre class = 'show'>";
 				print_r ( $this->session->all_userdata());
 				echo "</pre>";
 		$this->load->model('db_model');

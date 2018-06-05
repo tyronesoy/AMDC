@@ -23,6 +23,7 @@ class Db_model extends CI_Model {
 					'type'	   => $row->user_type,
 					'stts'	   => $row->user_status,
                     'dept_name'   => $row->dept_name,
+                    'image'   => $row->image,
 					);
 
 					$this->session->set_userdata($sess);
