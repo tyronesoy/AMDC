@@ -63,6 +63,9 @@ if(isset($_REQUEST['id'])){
                                 <div class="form-group">
                                     <label for="txtid">Order ID</label>
                                     <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-id-badge"></i>
+                                        </div>
                                         <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                     </div>
                                 </div>
