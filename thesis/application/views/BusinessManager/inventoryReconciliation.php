@@ -709,9 +709,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td><input type="text" class="form-control" id="max" name="max" placeholder="Maximum Quantity"></td>
         </tr>
       <tr style="float: right; margin-left: 40px;">
-            <td><input type="text" class="form-control" id="mindate" name="mindate" placeholder="FROM"></td>
+            <td><input type="text" class="form-control" id="mindate" name="mindate" placeholder="Min Date"></td>
             <td>-</td>
-            <td><input type="text" class="form-control" id="maxdate" name="maxdate" placeholder="Maximum Quantity"></td>
+            <td><input type="text" class="form-control" id="maxdate" name="maxdate" placeholder="Max Date"></td>
         </tr>
     </tbody></table>
     <br>
@@ -725,8 +725,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tr>
 
                   <th width="5%">ID</th> 
-                  <th width="7%">Date</th>
-                  <th width="7%">Time</th>
+                  <th width="15%">Date and Time</th><!-- 
+                  <th width="7%">Time</th> -->
                   <th width="59%">Description</th>
                   <th width="5%">Quantity Loss/Gain</th>
                   <th width="8%">Supply Type</th>
@@ -738,8 +738,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <td><?php echo $row["recon_id"]; ?></td>
-                      <td><?php echo $row["date"]; ?></td>
-                      <td><?php echo $row["time"]; ?></td>
+                      <td><?php echo $row["date_time"]; ?></td>
                       <td><?php echo $row["description"]; ?></td>
                       <td align="right"><?php if($row["quantity"] < 0) {
                       echo(abs($row["quantity"]));  echo' gain';
@@ -866,13 +865,13 @@ function onUserInactivity() {
         }
         return false;
 
-        var min = $('#mindate').datepicker("getDate");
-        var max = $('#maxdate').datepicker("getDate");
+        var minn = $('#mindate').datepicker("getDate");
+        var maxx = $('#maxdate').datepicker("getDate");
         var startDate = new Date(data[2]);
-        if (min == null && max == null) { return true; }
-        if (min == null && startDate <= max) { return true;}
-        if(max == null && startDate >= min) {return true;}
-        if (startDate <= max && startDate >= min) { return true; }
+        if (minn == null && maxx == null) { return true; }
+        if (minn == null && startDate <= maxx) { return true;}
+        if(maxx == null && startDate >= minn) {return true;}
+        if (startDate <= maxx && startDate >= minn) { return true; }
         return false;
     }
 

@@ -868,6 +868,7 @@ function category($connect)
             <col width="5%">
           <thead>
             <tr>
+                  <th style="display: none;">ID</th>
                   <th>Item Name</th>
                   <th>Total Quantity in Stock</th>
                   <th>Unit</th>
@@ -880,6 +881,7 @@ function category($connect)
         <?php
           while($row = $result->fetch_assoc()) { ?>
             <tr>
+            <td style="display: none;"><?php echo $row["supply_id"]?></td>
             <td><?php echo $row["item_name"]; ?></td>
             <td align="right"><?php echo $row["Total Quantity"]; ?></td>
             <td><?php echo $row["unit"]; ?></td>
@@ -973,7 +975,10 @@ function category($connect)
 
  <script>
       $(function () {
-        $('#example').DataTable()
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]],
+          "lengthMenu": [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
+        })
         $('#example1').DataTable({
           'paging'      : true,
           'lengthChange': false,
@@ -1041,8 +1046,9 @@ $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['offTQEdit'])){
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
     $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+    $textDesc=mysqli_real_escape_string($conn,$_POST['txtdesc']);
 
-    $sqlupdate="UPDATE supplies SET reorder_level='$new_supplyReorderLevel' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET reorder_level='$new_supplyReorderLevel' WHERE item_name='$textDesc' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
     if($result_update){

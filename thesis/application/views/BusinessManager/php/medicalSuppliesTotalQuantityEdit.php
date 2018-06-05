@@ -3,7 +3,7 @@ $con=mysqli_connect('localhost','root','','itproject');
 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="select * from supplies WHERE supply_id=$id";
+    $sql="select * from supplies WHERE supply_id IN ($id)";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
@@ -43,9 +43,9 @@ if(isset($_REQUEST['id'])){
                     <div class="box-body">
                         <div class="form-group">
                             <div class="form-group">
-								<label hidden="true" class="col-sm-4 control-label" for="txtid">Supply ID</label>
+								<label  class="col-sm-4 control-label" for="txtid">Supply ID</label>
 								<div class="col-sm-6">
-									<input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+									<input class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
 								</div>
 							</div>
 						</div>
