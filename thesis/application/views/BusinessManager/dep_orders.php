@@ -1036,6 +1036,7 @@ function onUserInactivity() {
     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
  
     $('#example').DataTable( {
+      order : [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: [
             {

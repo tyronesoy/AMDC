@@ -134,17 +134,31 @@ if(isset($_REQUEST['id'])){
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="item_table">
                                             <tr>
-                                               <th>Item Description</th>
-                                               <th>Quantity</th>
-                                              </tr>
+                                                <th width="15%"> Quantity </th>
+                                                <th width="52.5%"> Description </th>
+                                                <th width="16%"> Unit </th>
+                                                <th width="16.5%"> Item Type </th>
+                                            </tr>
                                               <?php if($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) { ?>
                                             <tr>
 
-                                              <td width="200px"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <td>
+                                                <input type="number" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  
+                                              </td>
+
+                                              <td>
+                                                <input type="text" class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+
+                                              <td>
+                                                <input type="text" class="form-control" id="txtunit" name="txtunit" value="<?php echo $row['order_unit'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  
+                                              </td>
+
+                                              <td>
+                                                <input type="text" class="form-control" id="txttype" name="txttype" value="<?php echo $row['supply_type'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
                                             
-                                            <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>  </td>
                                             </tr>
 
                                             <?php 

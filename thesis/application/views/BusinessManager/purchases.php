@@ -714,7 +714,7 @@ function unit_measure($connect)
                         
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Purchase Order</i></button>
             
-                    <form id="add_name" name="add_name">
+                    <form id="add_name" name="add_name" method="post" action="purchases/addPurchases">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -761,7 +761,7 @@ function unit_measure($connect)
                                                       <div class="input-group-addon">       
                                                         <i class="fa fa-group"></i>
                                                       </div>
-                                                  <select class="form-group select2" name="supp" style="width:100%" required>
+                                                  <select class="form-control" name="supp" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                                 <option value="">Select a Supplier</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
@@ -794,158 +794,229 @@ function unit_measure($connect)
                                                 </div>
                                               </div>
 
+                                          <div class="row">
+                                            <div class="col-md-6 pull-right">
+                                              <button type="button" name="plus" id="plus" class="btn btn-info pull-right"><i class="fa fa-plus"></i> Add Row</button>
+                                            </div>
+                                          </div>
+
                                       
                                         <div class="table-responsive">
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="dynamic_field">
                                             <tr>
-                                              <th width="10%"> Quantity </th>
-                                              <th> Description </th>
-                                              <th></th>
+                                              <th width="15%"> Quantity </th>
+                                              <th width="52.5%"> Description </th>
+                                              <th width="16%"> Unit </th>
+                                              <th width="16.5%"> Item Type </th>
                                             </tr>
                                             <tr id="row0">
-                        <td><input id="quant" type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td width="50px"><button type="button" name="add" id="add" class="btn btn-success">+</button> </td>        
-                      </tr>
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" required />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row1" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="1" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row1" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row2" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="2" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row2" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row3" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="3" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row3" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row4" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="4" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row4" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row5" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="5" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row5" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row6" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="6" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row6" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row7" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="7" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row7" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row8" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="8" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row8" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row9" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="9" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
-
-                      <tr id="row10" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="10" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
-
-                      <tr id="row11" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="11" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row9" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                    <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
+                                            <tr id="row10" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                    <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
                                           </table>
                                        
@@ -955,43 +1026,6 @@ function unit_measure($connect)
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                                         <button type="submit" class="btn btn-success sendbutton" name="submit" id="submit"><i class="fa fa-plus"></i> Add </button>
-                                          <script>
-                                            $(document).ready(function(){
-                                                $('.sendButton').attr('disabled',true);
-                                                $('#supply').change(function(){
-                                                    if($(this).val().length !=0)
-                                                        $(document).ready(function(){
-                                                        $('.sendButton').attr('disabled',true);
-                                                        $('#quant').keyup(function(){
-                                                            if($(this).val().length !=0)
-                                                                $('.sendButton').attr('disabled', false);            
-                                                            else
-                                                                $('.sendButton').attr('disabled',true);
-                                                        })
-                                                    });            
-                                                    else
-                                                        $('.sendButton').attr('disabled',true);
-                                                })
-                                            });
-                                            $(document).ready(function(){
-                                                $('.sendButton').attr('disabled',true);
-                                                $('#quant').keyup(function(){
-                                                    if($(this).val().length !=0)
-                                                        $(document).ready(function(){
-                                                        $('.sendButton').attr('disabled',true);
-                                                        $('#supply').change(function(){
-                                                            if($(this).val().length !=0)
-                                                                $('.sendButton').attr('disabled', false);            
-                                                            else
-                                                                $('.sendButton').attr('disabled',true);
-                                                        })
-                                                    });            
-                                                    else
-                                                        $('.sendButton').attr('disabled',true);
-                                                })
-                                            });
-                                          </script>
-                                        <!--  <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -1221,7 +1255,7 @@ function unit_measure($connect)
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-clone"></i> Generate</button>
+                <button type="submit" class="btn btn-primary" name="generated" id=""><i class="fa fa-clone"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -1355,10 +1389,12 @@ $(document).ready(function(){
   var i=1;
   var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
   // var unitDrop = <?php //echo(json_encode(unit_measure($connect))); ?>;
-  $('#add').click(function(){
+  $('#plus').click(function(){
     if(i < 10){
       i++;
       document.getElementById('row'+i+'').setAttribute("class", " ");
+      document.getElementById('quant'+i+'').setAttribute("required", "true");
+      document.getElementById('supply'+i+'').setAttribute("required", "true");
         // $('#dynamic_field').append('<tr id="row'+i+'"> <td><input type="text" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="select2" id="supply'+i+'" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td> <td><select class="select2" id="unit'+i+'" name="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+unitDrop+' </select></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
         // $('#dynamic_field').append('<tr id="row'+i+'"><td width="10px"><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td width="250px"><select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+supplyDrop+'</select></td><td width="120px"><select class=" select2" name="unit[]" id="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+unitDrop+'</select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
     }
@@ -1372,23 +1408,6 @@ $(document).ready(function(){
     document.getElementById('row'+button_id+'').setAttribute("class", "hidden");
     i--;
     // $('#row'+button_id+'').remove();
-  });
-  
-  $('#submit').click(function(){    
-    $.ajax({
-      url: postURL,
-      method:"POST",
-      data:$('#add_name').serialize(),
-      type: 'json',
-      success:function(data)
-      {
-          i=1;
-                  $('.dynamic-added').remove();
-                  $('#add_name')[0].reset();
-            alert('Record Inserted Successfully.');
-            location.reload();
-      }
-    });
   });
   
 });
