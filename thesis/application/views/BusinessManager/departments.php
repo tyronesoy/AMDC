@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
-  <!-- Tell the browser to be responsive to screen width -->
+<!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -16,8 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -38,19 +38,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
 
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <?php
@@ -602,6 +591,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+               <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
 			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
 			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
@@ -704,10 +694,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="box-body">
                                           <table class="table table-bordered table-striped">
                                             <tbody>
+                                                
                                               <div class="col-md-6">
                                                   <div class="form-group">
                                                   <label for="exampleInputEmail1">Branch Location</label>
-                                                       <select name = "branch" class="form-control" required="">
+                                                       <select id="opt" name = "branch" class="form-control" required="">
                                                        <option value="">Select Branch Location</option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
@@ -724,17 +715,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       </select>
                                                   </div> 
                                                 </div>
+                                                <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Branch Location'  </label>
+                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add" id="addopt" style="float: right;" />
+                                                </div>
+                                            </div>
                                                   </div>
                                             <tr>
-                                              <div class="col-md-6">
-                                              <div class="form-group">
+
+                                            </div>
+                                              <div class="col-md-12">
+                                              <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Department Name</label>
                                                   <input type="text" class="form-control" name="depName" required />
                                                 </div>
                                             </tr>         
                                             </tbody>
                                           </table>
-                                        </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"> </i> Cancel</button>
@@ -760,6 +759,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   $sql = "SELECT * FROM departments";
                   $result = $conn->query($sql);    
                 ?>
+                  <col width="30%">
+              <col width="30%">
+            <col width="10%">
+            <col width="18%">
                 <thead>
                     <tr>
                         <th style="display: none;">ID</th>
@@ -812,10 +815,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tfoot>
                   <tr>
                         <th style="display: none;">ID</th>
-						            <th>Department Name</th>
-                        <th>Branch Location</th>
-						            <th>Status</th>
-                        <th>Action</th>
+						            <th></th>
+                        <th></th>
+						            <th></th>
+                        <th></th>
                   </tr>
                 </tfoot>
             </table>
@@ -907,11 +910,13 @@ input:checked + .slider:before {
   border-radius: 50%;
 }    
 </style>
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -937,6 +942,7 @@ input:checked + .slider:before {
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 
+
 <script>
 setTimeout(onUserInactivity, 1000 * 1800)
 function onUserInactivity() {
@@ -948,52 +954,20 @@ function onUserInactivity() {
 </script>
 
 <script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : true
-      //   })
-      // })
+       $(function () {
+        $('#example').DataTable({
+            order : [[ 0, 'desc' ]]})
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
-     $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        order : [[ 0, 'desc' ]],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Departments</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} ); 
-    </script>
+      })
+            </script>
 
 <script>
 <!-- date and time -->
@@ -1178,3 +1152,28 @@ if(isset($_POST['depDelete'])){
             });
         });
 </script>
+
+ <script>
+            $(function () {
+                $('#addopt').click(function () {
+                    var newopt = $('#newopt').val();
+                    if (newopt == '') {
+                        alert('Please enter something!');
+                        return;
+                    }
+ 
+                    //check if the option value is already in the select box
+                    $('#opt option').each(function (index) {
+                        if ($(this).val() == newopt) {
+                            alert('Duplicate option, Please enter new!');
+                        }
+                    })
+ 
+                    //add the new option to the select box
+                    $('#opt').append('<option value=' + newopt + '>' + newopt + '</option>');
+ 
+                    //select the new option (particular value)
+                    $('#opt option[value="' + newopt + '"]').prop('selected', true);
+                });
+            });
+        </script>

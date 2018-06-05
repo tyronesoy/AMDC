@@ -52,7 +52,7 @@ function category($connect)
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <!-- Tell the browser to be responsive to screen width -->
+   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -60,8 +60,8 @@ function category($connect)
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables 
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -81,19 +81,6 @@ function category($connect)
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-<link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
-
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
  <style>
     .example-modal .modal {
       position: relative;
@@ -648,6 +635,7 @@ function category($connect)
                 </li>
               </ul>
             </li>
+            <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
@@ -890,11 +878,12 @@ function category($connect)
          <?php // RETRIEVE or Display Medical Supplies
          $conn =mysqli_connect("localhost","root","");
           mysqli_select_db($conn, "itproject");
-          $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
-            FROM supplies WHERE (supply_type='Medical' AND   (quantity_in_stock IS NOT NULL AND supply_description != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N' AND soft_deleted = 'N'
-            GROUP BY supply_description";
+          $sql = "SELECT supply_id, item_name, brand_name, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
+            FROM supplies WHERE (supply_type='Medical' AND (quantity_in_stock IS NOT NULL AND item_name != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N' AND soft_deleted = 'N'
+            GROUP BY item_name";
           $result = $conn->query($sql);  ?>
           <col width="50%">
+            <col width="auto">
             <col width="auto">
             <col width="5%">
             <col width="13%">
@@ -902,7 +891,8 @@ function category($connect)
             <col width="5%">
           <thead>
             <tr>
-                  <th>Description</th>
+                  <th>Item Name</th>
+                  <th>Brandname</th>
                   <th>Total Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Total Amount </th>
@@ -914,7 +904,8 @@ function category($connect)
         <?php
           while($row = $result->fetch_assoc()) { ?>
             <tr>
-            <td><?php echo $row["supply_description"]; ?></td>
+            <td><?php echo $row["item_name"]; ?></td>
+            <td><?php echo $row["brand_name"]; ?></td>
             <td align="right"><?php echo $row["Total Quantity"]; ?></td>
             <td><?php echo $row["unit"]; ?></td>
             <td align="right"><?php echo $row["Total Amount"]; ?></td>
@@ -932,12 +923,13 @@ function category($connect)
         <tfoot>
            <tr>
           
-                  <th>Description</th>
-                  <th>Total Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Total Amount</th>
-                  <th>Reorder Level</th>
-                  <th>Action</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
         </tr> 
         </tfoot>
       </table>             
@@ -967,11 +959,13 @@ function category($connect)
 </div>
 <!-- ./wrapper -->
 
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables 
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -1003,54 +997,23 @@ function category($connect)
             </div>
         </div>
 
-<script>
-  // $(function () {
-  //   $('#example1').DataTable()
-  //   $('#example2').DataTable({
-  //     'paging'      : true,
-  //     'lengthChange': false,
-  //     'searching'   : false,
-  //     'ordering'    : true,
-  //     'info'        : true,
-  //     'autoWidth'   : false
-  //   })
-  // })
+ <script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
-  $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h2><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Medical Supplies Total Quantity</center></h2>';
-                    }
-                    else {
-                        return 'You have printed this document '+printCounter+' times';
-                    }
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+
+      })
     </script>
+
+ 
 <script>
 //date and time
   $(function () {

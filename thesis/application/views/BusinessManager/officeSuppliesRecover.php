@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
- <!-- Tell the browser to be responsive to screen width -->
+   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -452,7 +452,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo 'logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
                       <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
@@ -615,7 +615,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </li>
   
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
-        <li class="active treeview">
+         <li class="active treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
             <span class="pull-right-container">
@@ -623,20 +623,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class=" active treeview">
+            <li class="active treeview">
               <a href="#"><i class="fa fa-briefcase"></i> Supplies
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="treeview"><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
-                <li class="active treeview">
-                  <a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a>
+                <li ><a href="<?php echo 'medicalSupplies' ?>"><i class="fa fa-medkit"></i>Medical Supplies</a></li>
+                <li class="treeview">
+                  <li class="active"><a href="<?php echo 'officeSupplies' ?>"><i class="fa fa-pencil-square"></i>Office Supplies</a></li>
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+            <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
@@ -718,7 +719,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              <!-- <th>Date Received</th>
                   <th>Time Received</th> -->
                   <th>Expiration Date</th> 
-                  <th>Description</th>
+                  <th>Item Name</th>
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
@@ -732,7 +733,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <td><?php echo $row["expiration_date"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
+                      <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["unit_price"]; ?></td>
@@ -749,16 +750,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
         <tfoot>
            <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
-                  <th>Expiration Date</th> 
-                  <th>Description</th>
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
-                  <th>Reorder Level</th>
-                  <th> Action</th> 
+
+                  <th></th> 
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th> 
             </tr> 
         </tfoot>
       </table>             
@@ -797,7 +796,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 <!-- ./wrapper -->
 
-
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -828,6 +826,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- page script -->
  
  <script>
 setTimeout(onUserInactivity, 1000 * 1800)
@@ -846,19 +845,21 @@ function onUserInactivity() {
             </div>
         </div>
    
-    <!-- <script>
-        $(document).ready(function(){
-            var dataTable=$('#example').DataTable({
-                'autoWidth' : false,
-                "processing": true,
-                "serverSide": true,
-                "ajax":{
-                    url:"officesuppliesRecover/getOfficeSuppliesRecover",
-                    type:"post"
-                }
-            });
-        });
-    </script> -->
+    <script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
+      })
+    </script>
 
     <!--script js for release data-->
     <script>

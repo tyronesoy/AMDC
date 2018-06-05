@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="../assets/orderedit/bootstrap.min.css" />
+
 <?php
 $con=mysqli_connect('localhost','root','','itproject')
     or die("connection failed".mysqli_errno());
@@ -58,6 +58,9 @@ if(isset($_REQUEST['id'])){
                                               <center><h4><b>Inventory Reconciliation</b></h4></center>
                                             </div>
                 <form class="form-horizontal" method="post">
+                                    <form class="form-horizontal" method="post">
+                      <table style="float:right;">
+                    <tr>
                     <div class="box-body">
                         <div class="form-group">
                              <div class="form-group">
@@ -73,6 +76,7 @@ if(isset($_REQUEST['id'])){
                                 <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" readonly/>
                             </div>
 
+                            <div class="row">
                           <div class="col-sm-6">
                              <div class="form-group" style="width:100%">
                             <label for="txtQuantityInStock">Logical Count</label>
@@ -86,9 +90,11 @@ if(isset($_REQUEST['id'])){
                                 <input type="number" class="form-control" id="txtPhysicalCount" name="txtPhysicalCount" min="0">
                             </div>
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col-sm-12">
-                             <div class="form-group">
+                             <div class="form-group" >
                                 <label for="txtRemarks">Remarks</label>
                             <select class="form-control select2" id="remarks" name="remarks" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   <option value=""></option>
@@ -96,6 +102,9 @@ if(isset($_REQUEST['id'])){
                                                 </select>
                             </div>
                         </div>
+                        </div>
+                            </tr>
+                        </table>
                 </form>
             </div>
             <div class="modal-footer">

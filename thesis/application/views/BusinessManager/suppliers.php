@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
- <!-- Tell the browser to be responsive to screen width -->
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -16,8 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -38,19 +38,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
-
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -603,6 +590,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+               <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
@@ -701,6 +689,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                         <!-- end of modal header -->
                                         <div class="box-body">
+                                               <div class="form-group">
+                                              <label for="exampleInputEmail1">Proprietor</label>
+                                              <input type="text" class="form-control" name="prop" placeholder="Last Name, First Name" required />
+                                            </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Company Name</label>
                                               <input type="text" class="form-control" name="suppName" required />
@@ -759,6 +751,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                     <tr>
                         <th style="display: none;">ID</th>
+                        <th>Proprietor</th>
                         <th>Company Name</th>
                         <th>Contact Number</th>
                         <th>Address</th>
@@ -784,6 +777,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           }
                       ?>
                       <td style="display: none;"><?php echo $row['supplier_id']; ?></td>
+                       <td><?php echo $row["sole_proprietor"]; ?></td>
                       <td><?php echo $row["company_name"]; ?></td>
                       <td><?php echo $row["supplier_contact"]; ?></td>
                       <td><?php echo $row["address"]; ?></td>
@@ -812,14 +806,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th style="display: none;"></th>
-                    <th>Company Name</th>
-                    <th>Contact Number</th>
-                    <th>Address</th>
-                    <th>Product Type</th>
-                    <th>Status</th>
-                    <th>Remarks</th>
-                    <th>Action</th>
+                    <th style="display: none;">ID</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </tfoot>
             </table>
@@ -911,11 +906,14 @@ input:checked + .slider:before {
   border-radius: 50%;
 }    
 </style>
+
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -951,54 +949,24 @@ function onUserInactivity() {
 }
 </script>
 
-<script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : true
-      //   })
+ <script>
+      $(function () {
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
 
-      // })
-      $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        order : [[ 0, 'desc' ]],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Suppliers</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+      })
     </script>
+    
 
 <script>
 <!-- date and time -->
@@ -1101,13 +1069,14 @@ function onUserInactivity() {
 $con=mysqli_connect('localhost','root','','itproject');
 if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $new_soleProprietor=mysqli_real_escape_string($con,$_POST['txtsoleprop']);
     $new_supplierName=mysqli_real_escape_string($con,$_POST['txtsuppliername']);
     $new_supplierContact=mysqli_real_escape_string($con,$_POST['txtcontactno']);
     $new_supplierAddress=mysqli_real_escape_string($con,$_POST['txtaddress']);
     $new_supplierProduct=mysqli_real_escape_string($con,$_POST['txtprodtype']);
     $new_supplierRemarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
 
-    $sqlupdate="UPDATE suppliers SET company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
+    $sqlupdate="UPDATE suppliers SET sole_proprietor='$new_soleProprietor', company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){

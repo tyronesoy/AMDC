@@ -53,7 +53,7 @@ function category($connect)
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <!-- Tell the browser to be responsive to screen width -->
+<!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -61,15 +61,16 @@ function category($connect)
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables 
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
 <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
@@ -79,27 +80,11 @@ function category($connect)
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
   <!-- datatable lib -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-    <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <script src="../assets/table/colReorder.bootstrap.min.css"></script>
-    <script src="../assets/table/colReorder.dataTables.min.css"></script>
-    <script src="../assets/table/dataTables.colReorder.min.js"></script>
-    <!-- <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
-
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script> -->
-
+  <script src="../assets/orderedit/range_dates.js"></script>
  <style>
     .example-modal .modal {
       position: relative;
@@ -787,15 +772,7 @@ function category($connect)
                                             
                                             
                                             <div class="row">
-                                            <div class="col-md-6">
-                                              <div class="form-group">
-                                                    
-                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
-                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
+                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
                                                   <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
@@ -805,18 +782,18 @@ function category($connect)
                                            
                                               </div>
                                               </div>
+
+                                               <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
+                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
+                                                </div>
+                                            </div>
                                             </div>
                                             
                                             
                                             <div class="row">
-                                                  <div class="col-md-6">
-                                              <div class="form-group">
-                                                    
-                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
-                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
-                                                </div>
-                                            </div>
-                                                    
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Category</label>
@@ -826,6 +803,14 @@ function category($connect)
                                                   </select>
                                               </div>
                                               </div>
+
+                                               <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
+                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
+                                                </div>
+                                            </div>
                                             </div>
                           
                                             
@@ -928,22 +913,22 @@ function category($connect)
                     }
                   ?>
                 </tbody>
-<!--         
+      
         <tfoot>
            <tr>
                   <th style="display: none;">ID</th>
-                  <th>Lot Number</th>
-                 <th>Quantity In Stock</th>
-                  <th>Unit</th>
-               <th>Brand Name</th>
-                 <th>Item Name</th>
-                  <th>Item Description</th>
-                   <th>Category</th>
-                <th>Expiration Date</th> 
-                  <th>Unit Price</th>
-                  <th> Action</th> 
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th> 
+                  <th></th>
+                  <th></th> 
             </tr> 
-        </tfoot> -->
+        </tfoot>
       </table>              
             </div>
             <!-- /.box-body -->
@@ -957,11 +942,6 @@ function category($connect)
     <div class="col-xs-2" style="float:left">
           <a href="medicalSuppliesRecover" style="color:white;">
             <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Medical Supplies </button>
-          </a>
-    </div>
-    <div class="col-xs-2" style="float:right;">
-          <a href="medicalSuppliesReconciliation" style="color:white; float: right;">
-            <button type="button" class="btn btn-info pull-left" style="margin-right: 1px;"><i class="glyphicon glyphicon-adjust"></i> Reconciled Medical Supplies </button>
           </a>
     </div>
       </div>
@@ -983,11 +963,13 @@ function category($connect)
 </div>
 <!-- ./wrapper -->
 
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables 
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> --> 
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->

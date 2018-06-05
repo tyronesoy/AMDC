@@ -752,15 +752,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                   ?>
                 </tbody>
+                        <tfoot>
+           <tr>
+                  <th style="display: none;">ID</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+            </tr> 
+        </tfoot>
       </table>              
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-     
       <!-- /.row -->
     </section>
     <!-- /.content -->
@@ -778,7 +783,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
 
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>

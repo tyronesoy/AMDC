@@ -7,17 +7,13 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
 //session_start();
 ?>-->
 
- 
 <!DOCTYPE html>
 <html>
 <head>
   <title>Business Manager | User Accounts</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+ 
  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -417,43 +413,13 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-             <?php
-
-                        $con = mysqli_connect("localhost","root","","itproject");
-                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
-                        $result = $con->query($q);
-
-                        while($row = $result->fetch_assoc()){
-                   
-                                if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='../assets/dist/img/default.jpg' alt='Default Profile Pic'>";
-                                } else {
-                                        echo "<img width='100' height='100'  class='user-image' src='../assets/dist/img/".$row['image']."' alt='Profile Pic'>";
-                                }
-                              
-                        }
-                ?>
+              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
               <span class="hidden-xs"> <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <?php
-
-                        $con = mysqli_connect("localhost","root","","itproject");
-                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
-                        $result = $con->query($q);
-
-                        while($row = $result->fetch_assoc()){
-                   
-                                if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../assets/dist/img/default.jpg' alt='Default Profile Pic'>";
-                                } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='../assets/dist/img/".$row['image']."' alt='Profile Pic'>";
-                                }
-                                echo "<br>";
-                        }
-                ?>
+                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
@@ -479,8 +445,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
     <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
-
+<form name="form1" id="user_form" method="post" action="dashboard/addUser">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -583,27 +548,6 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                           ?>
                 </div>
               </div>
-               
-               <?php
-
-                        $con = mysqli_connect("localhost","root","","itproject");
-                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
-                        $result = $con->query($q);
-
-                        while($row = $result->fetch_assoc()){
-                   
-                                if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../assets/dist/img/default.jpg' alt='Default Profile Pic'>";
-                                } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='../assets/dist/img/".$row['image']."' alt='Profile Pic'>";
-                                }
-                                echo "<br>";
-                        }
-                ?>
-                <input type="file" name="file">
-
-
-
               </div>
               </div>
               <div class="modal-footer">
@@ -624,22 +568,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-           <?php
-
-                        $con = mysqli_connect("localhost","root","","itproject");
-                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
-                        $result = $con->query($q);
-
-                        while($row = $result->fetch_assoc()){
-                   
-                                if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../assets/dist/img/default.jpg' alt='Default Profile Pic'>";
-                                } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='../assets/dist/img/".$row['image']."' alt='Profile Pic'>";
-                                }
-                                echo "<br>";
-                        }
-                ?>
+          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
@@ -682,6 +611,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 </li>
               </ul>
             </li>
+              <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
@@ -790,7 +720,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT * FROM role WHERE role_type = 'Assistant' OR role_type='Supervisor' GROUP BY role_type" ;
+                                                            $sql = "SELECT DISTINCT role_type FROM role GROUP BY role_type" ;
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $role) { 
@@ -873,6 +803,35 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                       </select>
                                                      </div>
                                                    </div>
+                                         
+                                            
+                                             <div class="col-md-6">
+                                                <div class="form-group">
+                                                     <label for="exampleInputEmail1">Select image :</label>
+                                                    <form action="fileupload.php" enctype="multipart/form-data" method="post">
+                                                    
+                                                        <input type="file" name="file"><br/>
+                                                        <input type="submit" value="Upload" name="Submit1"> <br/>
+
+
+                                                        </form>
+                                                        <?php
+                                                        if(isset($_POST['Submit1']))
+                                                        { 
+                                                        $filepath = "images/" . $_FILES["file"]["name"];
+
+                                                        if(move_uploaded_file($_FILES["file"]["tmp_name"], $filepath)) 
+                                                        {
+                                                        echo "<img src=".$filepath." height=200 width=300 />";
+                                                        } 
+                                                        else 
+                                                        {
+                                                        echo "Error !!";
+                                                        }
+                                                        } 
+                                                        ?>
+                                                         </div>
+                                                    </div>
                                                 
                                                         </div>
                                         </div>
@@ -890,7 +849,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                 </form>
                             </th> 
                     <th>
-                        <button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#defpass" style="margin-left:5px"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;Change default password</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-warning" data-toggle="modal" data-target="#defpass" style="margin-left:5px"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;Change Default Password</button>
                         
                         
                         
@@ -993,7 +952,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="passdef"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp; Change</button>
+                                        <button type="submit" class="btn btn-warning" name="passdef"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp; Change</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -1077,16 +1036,16 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
             </tbody>
             <tfoot>
             <tr>
-                <th>Role</th>
-                <th>User Name</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Contact Number</th>
-                <th width="20%">Email</th>
-                <th>Department</th>
-                <th>Status</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th width="20%"></th>
+                <th></th>
+                <th></th>
                <!-- <th>Reset Password</th> -->
-                <th width="30%">Action</th>
+                <th width="30%"></th>
                 
 
             </tr>
@@ -1174,7 +1133,6 @@ input:checked + .slider:before {
 }    
 </style>
         
-
 <!-- jQuery 3 -->
 <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -1394,6 +1352,7 @@ if(isset($_POST['btnUpdate'])){
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
+        date_default_timezone_set('Asia/Manila');
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
         $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A user account has been changed to ".$new_userstatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";

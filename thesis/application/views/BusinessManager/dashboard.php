@@ -691,6 +691,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </li>
               </ul>
             </li>
+            <li><a href="<?php echo 'BusinessManager/inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
       <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>

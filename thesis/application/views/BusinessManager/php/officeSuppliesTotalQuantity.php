@@ -61,8 +61,8 @@ function category($connect)
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -82,20 +82,6 @@ function category($connect)
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  
-<link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
-
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
 
  <style>
     .example-modal .modal {
@@ -253,7 +239,7 @@ function category($connect)
                 $date_futr = date("Y-m-d", strtotime('+30 days') ) ;
                 $date_past = date("Y-m-d", strtotime('-1 year') ) ;
                 $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql5 = "SELECT COUNT(*) AS total from supplies where accounted_for = 'N' group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
+                $sql5 = "SELECT COUNT(*) AS total from supplies where accounted_for = 'N' group by item_name having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
                 $number1 = $conn->query($sql5);
                 if ($number1->num_rows > 0) {
                         while($row = $number1->fetch_assoc()) {
@@ -283,7 +269,7 @@ function category($connect)
                <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                        $sql2 = "select supply_description,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder`,accounted_for as `expired` from supplies where accounted_for = 'N' group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
+                        $sql2 = "select item_name,SUM(quantity_in_stock) as `totalstock`,MAX(reorder_level) as `maximumreorder`,accounted_for as `expired` from supplies where accounted_for = 'N' group by item_name having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
                     $result2 = $conn->query($sql2);
                   ?>
               <li>
@@ -297,7 +283,7 @@ function category($connect)
                     <?php 
                       if ($result2->num_rows > 0) {
                         while($row = $result2->fetch_assoc()) { ?>
-                          <?php echo $row["supply_description"]; 
+                          <?php echo $row["item_name"]; 
                                 $newvalue = $row["totalstock"] * 100;
                                 $percentage = $newvalue / $row["maximumreorder"];
                           ?>
@@ -346,7 +332,7 @@ function category($connect)
                     <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
+                        $sql3 = "SELECT item_name,expiration_date from supplies where expiration_date > 0 order by expiration_date";
                         $result3 = $conn->query($sql3);
                         $strdatetoday = strtotime(date("Y/m/d"));
                         $strdatefuture = $strdatetoday + $daysvalue;//today + 30 days
@@ -361,7 +347,7 @@ function category($connect)
                                 if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
                             ?>
                                   <tr>
-                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["item_name"]; ?></td>
                                   <td><?php echo $row["expiration_date"]; ?></td>
                                   </tr>
                                     <!--Expiration meter-->
@@ -416,7 +402,7 @@ function category($connect)
                     <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
+                        $sql4 = "SELECT item_name,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
                         $result4 = $conn->query($sql4);
                         $strdatetoday = strtotime(date("Y/m/d"));
                     ?>
@@ -429,7 +415,7 @@ function category($connect)
                                 if($expdate < $strdatetoday){
                             ?>
                                   <tr class="danger">
-                                  <td><?php echo $row["supply_description"]; ?></td>
+                                  <td><?php echo $row["item_name"]; ?></td>
                                   <td><?php echo $row["expiration_date"]; ?></td>
                                   </tr>
                             <?php
@@ -651,6 +637,7 @@ function category($connect)
                 </li>
               </ul>
             </li>
+            <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
@@ -797,14 +784,6 @@ function category($connect)
                                             <div class="row">
                                             <div class="col-md-6">
                                               <div class="form-group">
-                                                    
-                                                  <label for="exampleInputEmail1">Add new 'Unit' </label>
-                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
-                                              <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
                                                   <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                                     <option value=""></option>
@@ -813,17 +792,16 @@ function category($connect)
                                            
                                               </div>
                                               </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Unit' </label>
+                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
+                                                </div>
+                                            </div>
                                             </div>
                                             
                                        <div class="row">
-                                                  <div class="col-md-6">
-                                              <div class="form-group">
-                                                    
-                                                  <label for="exampleInputEmail1">Add new 'Category' </label>
-                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
-                                                </div>
-                                            </div>
-                                                    
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Category</label>
@@ -833,6 +811,13 @@ function category($connect)
                                                   </select>
                                               </div>
                                               </div>
+                                              <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Category' </label>
+                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
+                                                </div>
+                                            </div>
                                             </div>
                                         <div class="row">
                         
@@ -872,19 +857,18 @@ function category($connect)
          <?php // RETRIEVE or Display Medical Supplies
          $conn =mysqli_connect("localhost","root","");
           mysqli_select_db($conn, "itproject");
-          $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
-            FROM supplies WHERE (supply_type='Office' AND   (quantity_in_stock IS NOT NULL AND supply_description != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N'
-            GROUP BY supply_description";
+          $sql = "SELECT supply_id, item_name, brand_name, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
+            FROM supplies WHERE (supply_type='Office' AND   (quantity_in_stock IS NOT NULL AND item_name != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N'
+            GROUP BY item_name";
           $result = $conn->query($sql);  ?>
             <col width="50%">
-            <col width="auto">
             <col width="5%">
             <col width="13%">
             <col width="auto">
             <col width="5%">
           <thead>
             <tr>
-                  <th>Description</th>
+                  <th>Item Name</th>
                   <th>Total Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Total Amount </th>
@@ -896,7 +880,7 @@ function category($connect)
         <?php
           while($row = $result->fetch_assoc()) { ?>
             <tr>
-            <td><?php echo $row["supply_description"]; ?></td>
+            <td><?php echo $row["item_name"]; ?></td>
             <td align="right"><?php echo $row["Total Quantity"]; ?></td>
             <td><?php echo $row["unit"]; ?></td>
             <td align="right"><?php echo $row["Total Amount"]; ?></td>
@@ -913,12 +897,11 @@ function category($connect)
         </tbody>
         <tfoot>
            <tr>
-                  <th>Description</th>
-                  <th> Total Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Total Amount</th>
-                  <th>Reorder Level</th>
-                  <th>Action</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
         </tr> 
         </tfoot>
       </table>             
@@ -950,10 +933,13 @@ function category($connect)
 
 
 <!-- Bootstrap 3.3.7 -->
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -985,51 +971,21 @@ function category($connect)
             </div>
         </div>
 
-<script>
-  // $(function () {
-  //   $('#example1').DataTable()
-  //   $('#example2').DataTable({
-  //     'paging'      : true,
-  //     'lengthChange': false,
-  //     'searching'   : false,
-  //     'ordering'    : true,
-  //     'info'        : true,
-  //     'autoWidth'   : false
-  //   })
-  // })
+ <script>
+      $(function () {
+        $('#example').DataTable()
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
-  $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Office Supplies Total Quantity</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+
+      })
+    </script>
     </script>
 <script>
 <!-- date and time -->

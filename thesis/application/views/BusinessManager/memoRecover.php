@@ -608,6 +608,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+             <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
 			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
 			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
@@ -722,10 +723,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                      <th>Memo Date</th>
-                      <th>Description</th>
-                      <th>Status</th>
-                      <th>Action</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
                   </tr>
                 </tfoot>
               </table>
@@ -840,6 +841,9 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- page script -->
+
+
 
 <script>
 setTimeout(onUserInactivity, 1000 * 1800)
@@ -853,14 +857,16 @@ function onUserInactivity() {
 
 <script>
       $(function () {
-        $('#example').DataTable()
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
         $('#example1').DataTable({
           'paging'      : true,
           'lengthChange': false,
           'searching'   : false,
           'ordering'    : true,
           'info'        : true,
-          'autoWidth'   : true
+          'autoWidth'   : false
         })
 
 
