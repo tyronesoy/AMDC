@@ -4,8 +4,7 @@
  
  //CREATE or ADD User Account
   if (isset($_POST['addUser'])) { 
-    $move="../assets/dist/img/".$_FILES['file']['name'];
-    move_uploaded_file($_FILES['file']['tmp_name'], $move); 
+    move_uploaded_file($_FILES['file']['tmp_name'],"images/".$_FILES['file']['name']); 
   $con=mysqli_connect('localhost','root','','itproject'); 
 
   $username = $_POST['username'];
