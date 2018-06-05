@@ -4,7 +4,7 @@
  function supply_dropdown($connect)
 { 
  $output = '';
- $query = "SELECT * FROM supplies WHERE soft_deleted= 'N' ORDER BY supply_description ASC";
+ $query = "SELECT * FROM supplies WHERE soft_deleted= 'N' AND supply_description != '' AND (dep_name = '".$_SESSION['dept_name']."' OR dep_name = '') ORDER BY supply_description ASC";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
@@ -58,10 +58,10 @@ if(isset($_REQUEST['id'])){
                                          <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
-                                              <center><h4><b>View Order Details</b></h4></center>
+                                              <center><h4><b>Edit Order Details</b></h4></center>
                                             </div>
 
-                        <form name="plus_name" id="plus_name">
+                        <form name="plus_name" id="plus_name" method="post" action="order/updateItem">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-11">
@@ -107,9 +107,20 @@ if(isset($_REQUEST['id'])){
                         
                             </div>
                         </div>
+                        
+
+                        
                         <?php
                         $sql="SELECT * FROM inventory_order io JOIN inventory_order_supplies ios USING(inventory_order_uniq_id) JOIN supplies s ON s.supply_description=ios.supply_name WHERE inventory_order_id=$id AND quantity !=0";
                         $result = $con->query($sql);    
+
+                        $arrayOrdId = '';
+                        $arrayQuantity = '';
+                        $arrayName = '';
+                        $arrayUnit = '';
+                        $arrayType = '';
+                        $arrayRemarks = '';
+                        $zero = 0;
                       ?>
 
                       <div class="row">
@@ -117,76 +128,102 @@ if(isset($_REQUEST['id'])){
                         <span id="error"></span>
                         <table class="table table-bordered" id="dynamic_field">
                             <tr>
-                                <th width="14%" style="display: none;">ID</th>
-                                <th width="10%"> Quantity </th>
-                                <th> Description </th>
-                                <th> Unit </th>
+                                <th style="display: none;">ID</th>
+                                <th width="15%"> Quantity </th>
+                                <th width="52.5%"> Item Name </th>
+                                <th width="16%"> Unit </th>
+                                <th width="16.5%"> Item Type </th>
                             </tr>
 
                             <?php if($result->num_rows > 0) {
                                     while($row =$result->fetch_assoc()) {
+                                      $arrayOrdId .= $row['inventory_order_supplies_id'].', ';
+                                      $arrayQuantity .= $row['quantity'].', ';
+                                      $arrayName .= $row['supply_name'].', ';
+                                      $arrayUnit .= $row['unit'].', ';
+                                      $arrayType .= $row['supply_type'].', ';
+                                      $arrayRemarks.= $row['supply_remarks'].', ';
+
+
+                                      $order_id = explode(", ", $arrayOrdId);
+                                      $quantity = explode(", ", $arrayQuantity);
+                                      $item_name = explode(", ", $arrayName);
+                                      $unit = explode(", ", $arrayUnit);
+                                      $item_type = explode(", ", $arrayType);
+                                      $remarks = explode(", ", $arrayRemarks);
+                                    }
                             ?>
                             <tr>
-                                <td style="display: none;"><input class="form-control" id="ID[]" name="ID[]" value="<?php echo $row["inventory_order_supplies_id"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                              <?php 
+                                        $count = count($order_id)-1;
+                                        for ($x=0; $x < $count; $x++) { 
+                                    ?>
+                                <td style="display: none;"><input class="form-control" id="ID[]" name="ID[]" value="<?php print_r($order_id[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                 </td>
 
-                                <td><input type="number" class="form-control" id="qty[]" name="qty[]" value ="<?php echo $row["quantity"]?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$">
+                                <td><input type="number" class="form-control" id="qty[]" name="qty[]" value ="<?php print_r($quantity[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$">
                                 </td>
 
                                 <td>
-                                    <select class="form-control select2" id="supplyDesc[]" name="supplyDesc[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                                  <option><?php echo $row["supply_name"]?></option>
+                                    <select class="form-control filter" id="supplyDesc[]" name="supplyDesc[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <option><?php print_r($item_name[$zero]);?></option>
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                 </td>
                                             
                                 <td>
-                                <input class="form-control" id="unitName[]" name="unitName[]" value ="<?php echo $row["unit"]?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
+                                  <input type="text" class="form-control" id="unitName[]" name="unitName[]" value ="<?php print_r($unit[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
                                 </td>
-                                </tr>
+
+                                <td>
+                                  <input type="text" class="form-control" id="type[]" name="type[]" value ="<?php print_r($item_type[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
+                                </td>
+
+                                <td class="hidden">
+                                  <input type="hidden" class="form-control hidden" id="remarks[]" name="remarks[]" value ="<?php print_r($remarks[$zero++]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" hidden readonly> 
+                                </td>
+                            </tr>
                             <?php 
                                 }
                             }
                             ?>
                         </table>
+
                     </div>
                 </div>
+                      <?php
+                        $sql="SELECT * FROM inventory_order io JOIN inventory_order_supplies ios USING(inventory_order_uniq_id) JOIN supplies s ON s.supply_description=ios.supply_name WHERE inventory_order_id=$id AND quantity !=0";
+                        $result = $con->query($sql); 
+                        $arrayOrdId = '';   
 
+                        if($result->num_rows > 0) {
+                          while($row =$result->fetch_assoc()) {
+                            $arrayOrdId .= $row['inventory_order_supplies_id'].', ';
+                            $order_id = explode(", ", $arrayOrdId);
+                          }
+                          $count = count($order_id)-1;
+
+                          if($count == 9){ ?>
+
+                          <?php }else{ ?>
+                            <div class="row">
+                              <button type="button" name="plus" id="plus" class="btn btn-info pull-right"><i class="fa fa-plus"></i> Add Row</button>
+                            </div>
+                          <?php } 
+                        }?>
 
                     <div class="row">
                     <div class="table-responsive">
                         <span id="error"></span>
                         <table class="table table-bordered" id="dynamic">
-                            <tr>
-                                <th width="10%"> Quantity </th>
-                                <th> Description </th>
-                                <th> Unit </th>
-                            </tr>
-
-                            <tr>
-                                
-                                <td><input type="number" class="form-control" id="number[]" name="number[]" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$">
-                                </td>
-
-                                <td>
-                                    <select class="form-control select2" id="neym[]" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
-                                                  <option value=""></option>
-                                                  <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                </td>
-                                            
-                                <td width="50px">
-                                              <button type="button" name="plus" id="plus" class="btn btn-success">+</button> 
-                                            </td>
-                                </tr>
- 
                         </table>
                     </div>
                 </div>
+              
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
-                <button type="submit" class="btn btn-primary" name="update" id="update">Save</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
+                <button type="submit" class="btn btn-success" name="update" id="update"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
     </form>
@@ -199,20 +236,22 @@ if(isset($_REQUEST['id'])){
 <script>
 $(document).ready(function(){
   var postURL = "order/updateItem";
-  var i=1;
+  var i=0;
   var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
+  var limit = <?php echo(json_encode($count)); ?>;
   // var unitDrop = <?php // echo(json_encode(unit_measure($connect))); ?>;
   $('#plus').click(function(){
-    if (i < 10){
+    if (i < (10-limit) && limit != 10){
+
       i++;
       // document.getElementById('row'+i+'').setAttribute("class", " ");
-      $('#dynamic').append('<tr id="row'+i+'"></td> <td><input type="text" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
+      $('#dynamic').append('<tr id="row'+i+'"> <td width="15%"><input class="form-control" type="number" name="number[]" id="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" required /></td><td width="52.5%"><select class="form-control filter" name="neym[]" id="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select><td width="16%"><input class="form-control" type="text" name="unit" id="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly></td><td width="16.5%"><input class="form-control" type="text" name="type" id="type[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly></td></tr>');
 
-      $("select.select2").change(function () {
-    $("select.select2 option[value='" + $(this).data('index') + "']").prop('disabled', false);
+      $("select.filter").change(function () {
+    $("select.filter option[value='" + $(this).data('index') + "']").prop('hidden', false);
     $(this).data('index', this.value);
-    $("select.select2 option[value='" + this.value + "']:not([value=''])").prop('disabled', true);
-    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('disabled', false);
+    $("select.filter option[value='" + this.value + "']:not([value=''])").prop('hidden', true);
+    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('hidden', false);
   });
     }
 
@@ -232,22 +271,22 @@ $(document).ready(function(){
         $('#row'+button_id+'').remove();
     });
 
-  $('#update').click(function(){    
-    $.ajax({
-      url: postURL,
-      method:"POST",
-      data:$('#plus_name').serialize(),
-      type: 'json',
-      success:function(data)
-      {
-          i=1;
-                  $('.dynamic-added').remove();
-                  $('#plus_name')[0].reset();
-            alert('Record Inserted Successfully.');
-            location.reload();
-      }
-    });
-  });
+  // $('#update').click(function(){    
+  //   $.ajax({
+  //     url: postURL,
+  //     method:"POST",
+  //     data:$('#plus_name').serialize(),
+  //     type: 'json',
+  //     success:function(data)
+  //     {
+  //         i=1;
+  //                 $('.dynamic-added').remove();
+  //                 $('#plus_name')[0].reset();
+  //           alert('Record Inserted Successfully.');
+  //           location.reload();
+  //     }
+  //   });
+  // });
   
   
   
@@ -255,10 +294,10 @@ $(document).ready(function(){
 </script>
 
 <script>
-  $("select.select2").change(function () {
-    $("select.select2 option[value='" + $(this).data('index') + "']").prop('disabled', false);
+  $("select.filter").change(function () {
+    $("select.filter option[value='" + $(this).data('index') + "']").prop('hidden', false);
     $(this).data('index', this.value);
-    $("select.select2 option[value='" + this.value + "']:not([value=''])").prop('disabled', true);
-    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('disabled', false);
+    $("select.filter option[value='" + this.value + "']:not([value=''])").prop('hidden', true);
+    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('hidden', false);
   }
 </script>

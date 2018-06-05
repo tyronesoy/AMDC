@@ -777,7 +777,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
-                                              <center><h4><b>Generate Deliveries Report</b></h4></center>
+                                              <center><h4><b>Generate Issued Supplies Report</b></h4></center>
                                             </div>
                                       </div>
                         <div class="box-body">

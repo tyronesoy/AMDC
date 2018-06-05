@@ -690,7 +690,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example1"  class="table table-bordered table-striped" >
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM purchase_orders JOIN purchase_order_bm USING(purchase_order_uniq_id) WHERE po_remarks = 'Delivered' AND soft_deleted='N' GROUP BY purchase_order_uniq_id";
+                  $sql = "SELECT * FROM purchase_orders JOIN purchase_order_bm USING(purchase_order_uniq_id) WHERE soft_deleted='N' GROUP BY purchase_order_uniq_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -723,11 +723,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
                           </div>
                         <?php }elseif ($row["item_delivery_remarks"] == 'Partial'){ ?>
-                        <div class="btn-group">
+                        <!-- <div class="btn-group">
                               <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-plus-circle"></i> Add New Delivery</button>
                           </div>
 
-                          </div>
+                          </div> -->
                           <div class="btn-group">
                               <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
                           </div>
@@ -735,11 +735,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
                           </div>
                         <?php }else{?>
-                          <div class="btn-group">
+                          <!-- <div class="btn-group">
                               <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-check"></i> Check</button>
-                          </div>
+                          </div> -->
                           <div class="btn-group">
                               <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-search"></i> View</button>
+                          </div>
+                          <div class="btn-group">
+                              <button type="button" id="getReturn" class="btn btn-success btn-xs" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-undo"></i> Return</button>
                           </div>
                         <?php }?>
                       </td>

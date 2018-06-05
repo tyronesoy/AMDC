@@ -15,6 +15,34 @@ function supply_dropdown($connect)
  }
  return $output;
 }
+function supply_medical($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM supplies WHERE soft_deleted= 'N' AND supply_description != '' AND supply_type = 'Medical' AND (dep_name = '".$_SESSION['dept_name']."' OR dep_name = '') ORDER BY supply_description ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $value = $row["supply_description"];
+    $output .= "'".$value."' || ";
+ }
+ return $output;
+}
+function supply_office($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM supplies WHERE soft_deleted= 'N' AND supply_description != '' AND supply_type = 'Office' AND (dep_name = '".$_SESSION['dept_name']."' OR dep_name = '') ORDER BY supply_description ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $value = $row["supply_description"];
+    $output .= "'".$value."' || ";
+ }
+ return $output;
+}
 
 // function unit_measure($connect)
 // { 
@@ -518,13 +546,27 @@ if(!isset($_SESSION['first_run'])){
                                 <div class="modal-body">
                                   <div class="box-header">
                                     <div class="margin">
-                                      <center><h4><b>Add New Supplier</b></h4></center>
+                                      <center><h4><b>Add New Order / Request</b></h4></center>
                                     </div>
                                   </div>
                                         <!-- end of modal header -->
                                   <div class="box-body">
                                     <div class="row">
-                                      <div class="col-md-8">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">Supervisor Name</label>
+                                          <div class="input-group">
+                                            <div class="input-group-addon">
+                                              <i class="fa fa-user"></i>
+                                            </div>
+                                            <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                          </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-6">
                                         <div class="form-group">
                                           <label for="exampleInputEmail1">Department</label>
                                           <div class="input-group">
@@ -549,19 +591,6 @@ if(!isset($_SESSION['first_run'])){
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-md-5">
-                                        <div class="form-group">
-                                          <label for="exampleInputEmail1">Supervisor Name</label>
-                                          <div class="input-group">
-                                            <div class="input-group-addon">
-                                              <i class="fa fa-user"></i>
-                                            </div>
-                                            <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                          </div>
-                                        </div>
-                                      </div>
 
                                       <div class="col-md-6">
                                         <div class="form-group">
@@ -578,11 +607,7 @@ if(!isset($_SESSION['first_run'])){
                                       </div>
                                     </div>
                                     <div class="row">
-                                      <div class="col-md-9">
-                                      </div>
-                                      <div class="col-md-3">
-                                        <button type="button" name="add" id="add" class="btn btn-success">Add Another Row</button>
-                                      </div>
+                                        <button type="button" name="add" id="add" class="btn btn-info pull-right"><i class="fa fa-plus"></i> Add Row</button>
                                     </div>
                                     <div class="row">      
                                       <div class="table-responsive">
@@ -783,6 +808,24 @@ if(!isset($_SESSION['first_run'])){
                                               <input class="form-control" type="text" name="type" id="type9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                             </td>
                                           </tr>
+                                          <tr id="row10" class="hidden">
+                                            <td>
+                                              <input class="form-control" type="number" name="number[]" id="quant10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                            </td>
+                                            <td>
+                                              <select class="form-control filter" name="neym[]" id="supply10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                              </select>
+                                            </td>
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                              
+                                            <td>
+                                              <input class="form-control" type="text" name="type" id="type10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            </td>
+                                          </tr>
                                             
                                         </table>
                                       </div>
@@ -791,7 +834,7 @@ if(!isset($_SESSION['first_run'])){
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"> </i> Cancel</button>
-                                  <button type="submit" class="btn btn-success" class="btn btn-success" name="addOrders"><i class="fa fa-plus"> </i> Add Order</button>
+                                  <button type="submit" class="btn btn-success" class="btn btn-success" name="addOrders"><i class="fa fa-shopping-cart"> </i> Order / Request</button>
                                 </div>
                               </div>
                            </div>
@@ -979,134 +1022,106 @@ function onUserInactivity() {
 
 <script>
 $(document).ready(function(){
+  var medSupp = <?php echo(json_encode(supply_medical($connect))); ?>;
+  var offSupp = <?php echo(json_encode(supply_office($connect))); ?>;
+
     $("#supply0").change(function(){
       var value = document.getElementById('supply0');
       var value1 = value.options[value.selectedIndex].value;
 
-      if (value1 == 'ECG PAPER'){
+      if (value1 == medSupp){
         $('#type0').attr('value','Medical');
-        $('#unit0').attr('value','pack/s');
-      }else if(value1 == 'ELECTRODES'){
-        $('#type0').attr('value','Medical');
-        $('#unit0').attr('value','box/es');
-      }else {
+      }else if(value1 == offSupp){
         $('#type0').attr('value','Office');
       }
     });
     $("#supply1").change(function(){
       var value = document.getElementById('supply1');
       var value1 = value.options[value.selectedIndex].value;
-      if (value1 == 'ECG PAPER'){
-        $('#type1').attr('value','Medical');
-        $('#unit1').attr('value','pack/s');
-      }else if(value1 == 'ELECTRODES'){
-        $('#type1').attr('value','Medical');
-        $('#unit1').attr('value','box/es');
-      }else {
-        $('#type1').attr('value','Office');
+      
+      if (value1 == medSupp){
+        $('#type0').attr('value','Medical');
+      }else if(value1 == offSupp){
+        $('#type0').attr('value','Office');
       }
     });
     $("#supply2").change(function(){
       var value = document.getElementById('supply2');
       var value1 = value.options[value.selectedIndex].value;
-      if (value1 == 'ECG PAPER'){
-        $('#type2').attr('value','Medical');
-        $('#unit2').attr('value','pack/s');
-      }else if(value1 == 'ELECTRODES'){
-        $('#type2').attr('value','Medical');
-        $('#unit2').attr('value','box/es');
-      }else {
+      
+      if (value1 == medSupp){
+        $('#type0').attr('value','Medical');
+      }else if(value1 == offSupp){
         $('#type2').attr('value','Office');
       }
     });
     $("#supply3").change(function(){
       var value = document.getElementById('supply3');
       var value1 = value.options[value.selectedIndex].value;
-      if (value1 == 'ECG PAPER'){
+      
+      if (value1 == medSupp){
         $('#type3').attr('value','Medical');
-        $('#unit3').attr('value','pack/s');
-      }else if(value1 == 'ELECTRODES'){
-        $('#type3').attr('value','Medical');
-        $('#unit3').attr('value','box/es');
-      }else {
+      }else if(value1 == offSupp){
         $('#type3').attr('value','Office');
       }
     });
     $("#supply4").change(function(){
       var value = document.getElementById('supply4');
       var value1 = value.options[value.selectedIndex].value;
-      if (value1 == 'ECG PAPER'){
+      
+      if (value1 == medSupp){
         $('#type4').attr('value','Medical');
-        $('#unit4').attr('value','pack/s');
-      }else if(value1 == 'ELECTRODES'){
-        $('#type4').attr('value','Medical');
-        $('#unit4').attr('value','box/es');
-      }else {
+      }else if(value1 == offSupp){
         $('#type4').attr('value','Office');
       }
     });
     $("#supply5").change(function(){
       var value = document.getElementById('supply5');
       var value1 = value.options[value.selectedIndex].value;
-      if (value1 == 'ECG PAPER'){
+      if (value1 == medSupp){
         $('#type5').attr('value','Medical');
-        $('#unit5').attr('value','pack/s');
-      }else if(value1 == 'ELECTRODES'){
-        $('#type5').attr('value','Medical');
-        $('#unit5').attr('value','box/es');
-      }else {
+      }else if(value1 == offSupp){
         $('#type5').attr('value','Office');
       }
+
     });
     $("#supply6").change(function(){
       var value = document.getElementById('supply6');
       var value1 = value.options[value.selectedIndex].value;
-      if (value1 == 'ECG PAPER'){
+      
+      if (value1 == medSupp){
         $('#type6').attr('value','Medical');
-        $('#unit6').attr('value','pack/s');
-      }else if(value1 == 'ELECTRODES'){
-        $('#type6').attr('value','Medical');
-        $('#unit6').attr('value','box/es');
-      }else {
+      }else if(value1 == offSupp){
         $('#type6').attr('value','Office');
       }
     });
     $("#supply7").change(function(){
       var value = document.getElementById('supply7');
       var value1 = value.options[value.selectedIndex].value;
-      if (value1 == 'ECG PAPER'){
+      
+      if (value1 == medSupp){
         $('#type7').attr('value','Medical');
-        $('#unit7').attr('value','pack/s');
-      }else if(value1 == 'ELECTRODES'){
-        $('#type7').attr('value','Medical');
-        $('#unit7').attr('value','box/es');
-      }else {
+      }else if(value1 == offSupp){
         $('#type7').attr('value','Office');
       }
     });
     $("#supply8").change(function(){
       var value = document.getElementById('supply8');
       var value1 = value.options[value.selectedIndex].value;
-      if (value1 == 'ECG PAPER'){
+      
+      if (value1 == medSupp){
         $('#type8').attr('value','Medical');
-        $('#unit8').attr('value','pack/s');
-      }else if(value1 == 'ELECTRODES'){
-        $('#type8').attr('value','Medical');
-        $('#unit8').attr('value','box/es');
-      }else {
+      }else if(value1 == offSupp){
         $('#type8').attr('value','Office');
       }
     });
     $("#supply9").change(function(){
       var value = document.getElementById('supply9');
       var value1 = value.options[value.selectedIndex].value;
-      if (value1 == 'ECG PAPER'){
+      
+      if (value1 == medSupp){
         $('#type9').attr('value','Medical');
-        $('#unit9').attr('value','pack/s');
-      }else if(value1 == 'ELECTRODES'){
-        $('#type9').attr('value','Medical');
-        $('#unit9').attr('value','box/es');
-      }else {
+      }else if(value1 == offSupp){
         $('#type9').attr('value','Office');
       }
     });
@@ -1116,12 +1131,12 @@ $(document).ready(function(){
 <script>
 $(document).ready(function(){
   var postURL = "order/addItem";
-  var i=1;
+  var i=0;
   var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
   // var unitDrop = <?php // echo(json_encode(unit_measure($connect))); ?>;
   $('#add').click(function(){
   	// document.getElementById('submit').setAttribute("disabled", "false");
-  	if(i < 10){
+  	if(i < 11){
     i++;
     document.getElementById('row'+i+'').setAttribute("class", " ");
     document.getElementById('quant'+i+'').setAttribute("required", "true");

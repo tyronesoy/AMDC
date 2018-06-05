@@ -422,7 +422,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Fully Issued' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."')";
+                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Fully Issued' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND supply_name != ''";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -450,7 +450,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Accepted' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."')";
+                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Accepted' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND supply_name != ''";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -506,7 +506,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Partially Issued' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."')";
+                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Partially Issued' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND supply_name != ''";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -534,7 +534,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Declined' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."')";
+                  $sql = "SELECT COUNT(*) AS total FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Declined' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND supply_name != ''";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -562,9 +562,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
-                  $sql1 = "SELECT COUNT(*) AS total1 FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Fully Issued' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."')";
+                  $sql1 = "SELECT COUNT(*) AS total1 FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Fully Issued' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND supply_name != ''";
                   $result1 = $conn->query($sql1);
-                  $sql2 = "SELECT COUNT(*) AS total2 FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status = 'Pending' AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND supply_name != ''";
+                  $sql2 = "SELECT COUNT(*) AS total2 FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE (inventory_order_status = 'Pending' OR inventory_order_status = 'Accepted' OR inventory_order_status LIKE '%Issue%') AND inventory_order.inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND supply_name != ''";
                   $result2 = $conn->query($sql2);    
                 ?>
                 <?php 
@@ -585,7 +585,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <p>Orders Completed</p>
             </div>
             <div class="icon">
-              <i class="fa fa-times"></i>
+              <i class="fa fa-percent"></i>
               <i class="fa fa-shopping-cart"></i>
             </div>
           </div>
@@ -596,14 +596,14 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
         <section class="content">
           <div class="row">
-            <div class="col-lg-6 col-xs-6">
+            <div class="col-lg-4 col-xs-6">
         
         
           <!-- BAR CHART -->
           <div class="box box-primary">
             
             <div class="box-header with-border">
-              <h3 class="box-title">Total Expenses of <?php echo $_SESSION['dept_name']; ?></h3>
+              <h3 class="box-title">Expenses of <?php echo $_SESSION['dept_name']; ?></h3>
                 
               <div class="box-tools">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -673,7 +673,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </div>
           <!-- /.box -->
         </div>
-          <div class="col-lg-6 col-xs-6">
+          <div class="col-lg-8 col-xs-6">
             
             <div class="box box-primary">
             <div class="box-header with-border">
@@ -689,7 +689,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                     $today=date("Y/m/d");
-                    $sql = "SELECT inventory_order_created_date, item_name, SUM(quantity), quantity_issued, inventory_order_status FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_created_date = '$today' AND inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') GROUP BY supply_name";
+                    $sql = "SELECT inventory_order_created_date, supply_name, SUM(quantity), quantity_issued, inventory_order_status FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND quantity != 0 GROUP BY supply_name";
                     $result = $conn->query($sql);    
                   ?>
                   
@@ -707,7 +707,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         while($row = $result->fetch_assoc()) { ?>
                         <tr>
                         <td><?php echo $row["inventory_order_created_date"]; ?></td>
-                        <td><?php echo $row["item_name"]; ?></td>
+                        <td><?php echo $row["supply_name"]; ?></td>
                         <td><?php echo $row["SUM(quantity)"]; ?></td>
                         <td><?php echo $row["quantity_issued"]; ?></td>
                         <td><?php echo $row["inventory_order_status"]; ?></td>

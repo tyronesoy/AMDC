@@ -458,27 +458,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
                       <td><?php echo $row["item_name"]; ?></td>
-                      <td><?php echo $row["item_description"]; ?></td>
+                      <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["category"]; ?></td>
-                      <td><?php echo $row["epiration_date"]; ?></td>
+                      <td><?php echo $row["expiration_date"]; ?></td>
                     </tr>
                   <?php 
                       }
                     }
                   ?>
                 </tbody>
-        
-        <tfoot>
-			<tr>
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th> 
-                  <th>Brand Name</th>
-                  <th>Item Name</th>
-                  <th>Item Description</th>
-                  <th>Category</th>
-                  <th>Expiration Date</th>
-			</tr> 
-        </tfoot>
       </table>              
             </div>
             <!-- /.box-body -->
