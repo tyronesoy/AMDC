@@ -1,4 +1,4 @@
-<?php
+<?ph
 $conn=mysqli_connect('localhost','root','','itproject')
     or die("connection failed".mysqli_errno());
 
@@ -8,6 +8,7 @@ if(isset($_REQUEST['id'])){
     $run_sql=mysqli_query($conn,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
+        $supply_description=$row[24];
     }//end while
 ?>
 <div class="row">
@@ -31,9 +32,9 @@ if(isset($_REQUEST['id'])){
                                             </div>
                                         </div>
                                         <!-- end of modal header -->
-                                        <div class="modal-body">
+                                         <div class="modal-body">
                                         <div class="box-header">
-                 <center><h3 class="modal-title"><b>Do you want to restore this item?</b></h3></center>
+                 <center><h2 class="modal-title"><b>Are you sure to restore </b> <br><center> <u> <?php echo $supply_description; ?> ? </u></h2></center>
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <div class="form-group">

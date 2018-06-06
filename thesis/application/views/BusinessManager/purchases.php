@@ -38,7 +38,7 @@ function unit_measure($connect)
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-   <!-- Tell the browser to be responsive to screen width -->
+ <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -46,15 +46,15 @@ function unit_measure($connect)
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-  <!-- <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <!- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -67,19 +67,7 @@ function unit_measure($connect)
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
 
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
  <style>
     .example-modal .modal {
       position: relative;
@@ -647,9 +635,10 @@ function unit_measure($connect)
                 </li>
               </ul>
             </li>
+             <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li class="active"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li class="active"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -1116,12 +1105,12 @@ function unit_measure($connect)
                         </tbody>
                       <tfoot>
                         <tr>
-                              <th>Purchase ID</th>
-                              <th>Supplier</th>
-                              <th>Order Date</th>
-                              <th>Delivery Date</th>
-                              <th>Status</th>
-                              <th>Action</th>
+                              <th style="display: none;">ID</th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
                           </tr>
                       </tfoot>
             </table>
@@ -1343,11 +1332,13 @@ table#addItem, tr.no_border td {
 }
 </style>
 
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -1382,78 +1373,24 @@ function onUserInactivity() {
    <?php } ?>
 }
 </script>
-
 <script>
-$(document).ready(function(){
-  var postURL = "purchases/addPurchases";
-  var i=1;
-  var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
-  // var unitDrop = <?php //echo(json_encode(unit_measure($connect))); ?>;
-  $('#plus').click(function(){
-    if(i < 10){
-      i++;
-      document.getElementById('row'+i+'').setAttribute("class", " ");
-      document.getElementById('quant'+i+'').setAttribute("required", "true");
-      document.getElementById('supply'+i+'').setAttribute("required", "true");
-        // $('#dynamic_field').append('<tr id="row'+i+'"> <td><input type="text" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="select2" id="supply'+i+'" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td> <td><select class="select2" id="unit'+i+'" name="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+unitDrop+' </select></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
-        // $('#dynamic_field').append('<tr id="row'+i+'"><td width="10px"><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td width="250px"><select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+supplyDrop+'</select></td><td width="120px"><select class=" select2" name="unit[]" id="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+unitDrop+'</select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
-    }
+      $(function () {
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
 
-
-  });
-  
-  $(document).on('click', '.btn_remove', function(){
-    var button_id = $(this).attr("id"); 
-    document.getElementById('row'+button_id+'').setAttribute("class", "hidden");
-    i--;
-    // $('#row'+button_id+'').remove();
-  });
-  
-});
-</script>
-
-<script>
-  $("select.select2").change(function () {
-    $("select.select2 option[value='" + $(this).data('index') + "']").prop('disabled', false);
-    $(this).data('index', this.value);
-    $("select.select2 option[value='" + this.value + "']:not([value=''])").prop('disabled', true);
-    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('disabled', false);
-  });
-</script>
-
-<script>
-      $(document).ready(function() {
-    var printCounter = 0;
-
-    $('#example').DataTable( {
-        order: [[0, 'desc']],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Purchases</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+      })
     </script>
+
 
 <script>
 // date and time

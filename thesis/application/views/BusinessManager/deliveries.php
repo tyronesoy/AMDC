@@ -620,9 +620,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+            <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li class="active"><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -754,13 +755,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                        <th>Purchase ID</th>
-                        <th>Supplier</th>
-                        <th>Order Date</th>
-                        <th>Delivery Date</th>
-                        <th>Status</th>
-                        <th>Remarks</th>
-                        <th>Action</th>
+                        <th style="display: none;">ID</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                   </tr>
                 </tfoot>
             </table>

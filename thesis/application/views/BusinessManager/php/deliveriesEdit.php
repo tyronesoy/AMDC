@@ -41,11 +41,6 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-<div class="row">
-<div class="col-lg-1200">
-<div class="box">
-<div class="box-header">
-
 <form class="form-horizontal" method="post">
                                   <div class="modal-dialog">
                                     <div class="modal-content modal-lg" style="width: 990px">
@@ -69,7 +64,7 @@ if(isset($_REQUEST['id'])){
                                       <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
-                                              <center><h4><b>Check Deliveries</b></h4></center>
+                                              <center><h4><b>Delivery Form</b></h4></center>
                                             </div>
                                         </div>
                                         <div class="box-body">                   
@@ -116,11 +111,12 @@ if(isset($_REQUEST['id'])){
 
                                               <div class="col-md-5">
                                               <div class="form-group">
+                                                  <label>Purchase Order Date</label>
                                                  <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                    <label>Purchase Order Date</label>
+                                                  
                                                       <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                     </div>
                                                   </div>
@@ -148,7 +144,7 @@ if(isset($_REQUEST['id'])){
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
-                                              <div class="form-group">
+                                              <div class="form-group" style="width:100%">
                                                     <label>Delivery Date</label>
                                                      <div class="input-group">
                                                       <div class="input-group-addon">
@@ -209,7 +205,9 @@ if(isset($_REQUEST['id'])){
                             // }
                             ?>
                                                <?php
-                        $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join supplies on supplies.supply_description = purchase_orders.description where purchase_order_id='$id' AND order_quantity != 0";
+                        $sql="SELECT * FROM supplies join suppliers on supplies.suppliers_id = suppliers.supplier_id join purchase_orders on purchase_orders.supplier = suppliers.company_name join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_uniq_id='$per_po_uniq_id' AND purchase_order_id='$id' AND order_quantity != 0";
+                        //SELECT * FROM supplies join suppliers on supplies.suppliers_id = suppliers.supplier_id join purchase_orders on purchase_orders.supplier = suppliers.company_name join purchase_order_bm USING(purchase_order_uniq_id)
+                        //SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join supplies on supplies.supply_description = purchase_orders.description where purchase_order_uniq_id='$per_po_uniq_id' AND purchase_order_id='$id' AND order_quantity != 0
                         $result = $con->query($sql);
                         
                         $arrayPoId = '';
@@ -341,7 +339,7 @@ if(isset($_REQUEST['id'])){
                                             <td width="100px"><input type="text" id="unit_price<?php echo $x; ?>" name="unit_price<?php echo $x; ?>" class="form-control " value="&#8369 <?php print_r($unitPrice[$zero]); ?>" min="0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"> 
                                             </td>
 
-                                              <td width="100px"><input type="text" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value=""  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <td width="100px"><input type="text" min="<?php date('d/m/Y', strtotime('+2 months')); ?>" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value=""  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
                                                
                                                <?php }elseif ($per_itemDeliveryRemarks == '') {?>

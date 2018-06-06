@@ -638,7 +638,7 @@ function category($connect)
             <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -884,16 +884,14 @@ function category($connect)
           $result = $conn->query($sql);  ?>
           <col width="50%">
             <col width="auto">
-            <col width="auto">
             <col width="5%">
-            <col width="13%">
+            <col width="13% ">
             <col width="auto">
             <col width="5%">
           <thead>
             <tr>
                   <th style="display: none;">ID</th>
                   <th>Item Name</th>
-                  <th>Brandname</th>
                   <th>Total Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Total Amount </th>
@@ -907,7 +905,6 @@ function category($connect)
             <tr>
             <td style="display: none;"><?php echo $row["supply_id"]?></td>
             <td><?php echo $row["item_name"]; ?></td>
-            <td><?php echo $row["brand_name"]; ?></td>
             <td align="right"><?php echo $row["Total Quantity"]; ?></td>
             <td><?php echo $row["unit"]; ?></td>
             <td align="right"><?php echo $row["Total Amount"]; ?></td>
@@ -925,7 +922,6 @@ function category($connect)
         <tfoot>
            <tr>
           
-                  <th></th>
                   <th></th>
                   <th></th>
                   <th></th>

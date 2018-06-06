@@ -1,4 +1,4 @@
-<?php
+<?ph
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!--<?php
@@ -680,7 +680,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
               <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -1102,7 +1102,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
             </tbody>
             <tfoot>
             <tr>
-                <th></th>
+                <th style="display: none;">ID</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -1240,10 +1240,11 @@ function onUserInactivity() {
    <?php } ?>
 }
 </script>
- 
- <script>
+<script>
       $(function () {
-        $('#example').DataTable()
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
         $('#example1').DataTable({
           'paging'      : true,
           'lengthChange': false,
@@ -1256,6 +1257,7 @@ function onUserInactivity() {
 
       })
     </script>
+
       
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">

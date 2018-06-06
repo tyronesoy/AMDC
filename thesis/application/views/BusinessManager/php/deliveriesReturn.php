@@ -36,10 +36,9 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-<div id="printThis">
   <form class="form-horizontal" method="post">
                                   <div class="modal-dialog">
-                                    <div class="modal-content modal-lg" style="width: 990px">
+                                    <div class="modal-content modal-lg" style="width: 980px">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span></button>
@@ -186,7 +185,7 @@ if(isset($_REQUEST['id'])){
                             </div>
 
                                                <?php
-                        $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join supplies on supplies.supply_description = purchase_orders.description where purchase_order_id='$id' AND order_quantity != 0";
+                        $sql="SELECT * FROM supplies join suppliers on supplies.suppliers_id = suppliers.supplier_id join purchase_orders on purchase_orders.supplier = suppliers.company_name join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_uniq_id='$per_po_uniq_id' AND purchase_order_id='$id' AND order_quantity != 0";
                         $result = $con->query($sql);
                         
                         $arrayPoId = '';
@@ -211,7 +210,7 @@ if(isset($_REQUEST['id'])){
                                           <div class="row">
                                         <div class="table-responsive">
                                           <span id="error"></span>
-                                          <table class="table table-bordered" id="item_table" style="width:990px">
+                                          <table class="table table-bordered" id="item_table" style="width:980px">
                                             <tr>
                                                 <th class="hidden">ID</th>
                                                 
@@ -327,7 +326,6 @@ if(isset($_REQUEST['id'])){
                       </div>
                     </div> <!-- BOX-BODY -->
                     <div class="modal-footer">
-                      <button id="btnPrint" type="button" class="btn btn-danger" style="float:left;"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
                       <button type="submit" class="btn btn-success" name="btnReturn"><i class="fa fa-undo"></i> Return</button>
                       <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
                     </div>

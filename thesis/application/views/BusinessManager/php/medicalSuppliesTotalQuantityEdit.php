@@ -41,25 +41,19 @@ if(isset($_REQUEST['id'])){
                                             </div>
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <div class="form-group">
+                          <div class="form-group">
                             <div class="form-group">
-								<label  class="col-sm-4 control-label" for="txtid">Supply ID</label>
-								<div class="col-sm-6">
-									<input class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly>
+                                <label hidden="true" class="col-sm-4 control-label" for="txtid">Supply ID</label>
+									<input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
 								</div>
 							</div>
 						</div>
-
-                        <div class="row">
                               <div class="col-sm-12">
                             <div class="form-group">
-                                <label class= for="desc">Description</label>
+                                <label for="desc">Item Name</label>
                                     <input type="text" class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $per_supplyDescription;?>" readonly>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-sm-6">
                         <div class="form-group">
                             <label for="txtReorderLevel">Old Reorder Level</label>
@@ -71,7 +65,6 @@ if(isset($_REQUEST['id'])){
                             <label for="txtReorderLevel">New Reorder Level</label>
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel">
                             </div>
-						</div>
                     </div>
 					</div>
                 </form>

@@ -36,12 +36,6 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-<div class="row">
-<div class="col-1200">
-<div class="box">
-<div class="box-header">
-
-<div id="printThis">
 <form class="form-horizontal" method="post">
                                   <div class="modal-dialog">
                                     <div class="modal-content modal-lg" style="width: 900px">
@@ -154,21 +148,20 @@ if(isset($_REQUEST['id'])){
                                                 </div>
 
                                                  <div class="row">
-                                <div class="col-md-5">
-                                              <div class="form-group">
+                                                   <div class="col-md-5">
+                                                    <div class="form-group">
                                                     <label>Delivered By</label>
                                                      <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-user"></i>
                                                       </div>
-
                                                       <input type="text" class="form-control" id="txtdelBy" name="txtdelBy" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                   </div>
                                                 </div>
                                               </div>
                                               <div class="col-md-1">
                                                 </div>
-                                  <div class="col-md-5">
+                                           <div class="col-md-5">
                                               <div class="form-group">
                                                     <label>Order No.</label>
                                                      <div class="input-group">
@@ -180,8 +173,7 @@ if(isset($_REQUEST['id'])){
                                                   </div>
                                                 </div>
                                               </div>
-                            </div>
-
+                                              </div>
                                               </div>
                                               </div>
                                                <?php
@@ -194,8 +186,8 @@ if(isset($_REQUEST['id'])){
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="item_table">
                                             <tr>
-                                               <th>Quantity Ordered</th>
-                                               <th>Quantity Delivered</th>
+                                               <th>Qty Ordered</th>
+                                               <th>Qty Delivered</th>
                                                <th>Item Name</th>
                                                <th>Unit Price</th>
                                                <th>Total Amount</th>
@@ -220,8 +212,6 @@ if(isset($_REQUEST['id'])){
                               }
                             }
                           ?>
-
-
                                           </table>
                                        <div class="row" >
                                        <div class="col-md-7">
@@ -241,7 +231,7 @@ if(isset($_REQUEST['id'])){
                                           </div>
                                         </div> <!-- BOX-BODY -->
                                         <div class="modal-footer">
-                                            <button id="btnPrint" type="button" class="btn btn-success" style="float:left;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
+                                          
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>

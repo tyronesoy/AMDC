@@ -10,16 +10,15 @@ if(isset($_REQUEST['id'])){
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
       //  $per_supplierName=$row[1];
-        $per_supplyDescription=$row[2];
+        $per_supplyDescription=$row[24];
         $per_brandName=$row[3];
         $per_supplyUnit=$row[4];
         $per_supplyQuantityInStock=$row[5];
         $per_supplyUnitPrice=$row[6];
         $per_supplyReorderLevel=$row[8];
-     
         $per_supplyGoodCondition=$row[10];
         $per_supplyDamaged=$row[11];
-        $per_itemName = $row[24];
+        $per_itemName = $row[2];
         $per_category = $row[22];
         $per_deptName = $row[20];
         $per_lotNo = $row[23];

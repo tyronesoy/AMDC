@@ -639,7 +639,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -715,16 +715,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   $result = $conn->query($sql);    
                 ?>
           <thead>
-            <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
-                  <th>Expiration Date</th> 
-                  <th>Item Name</th>
-                  <th>Quantity in Stock</th>
+            <tr> 
+                  <th>Lot Number</th>
+                  <th>Quantity</th>
                   <th>Unit</th>
+                  <th>BrandName</th>
+                  <th>Item Name</th>
+                  <th>Item Description</th>
+                  <th>Category</th>
                   <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
-                  <th>Reorder Level</th>
                   <th> Action</th> 
             </tr>
         </thead>
@@ -732,12 +731,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["expiration_date"]; ?></td>
-                      <td><?php echo $row["item_name"]; ?></td>
+                      <td><?php echo $row["lot_no"]; ?></td>
                       <td><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
+                      <td><?php echo $row["brand_name"]; ?></td>
+                      <td><?php echo $row["item_name"]; ?></td>
+                      <td><?php echo $row["supply_description"]; ?></td>
+                      <td><?php echo $row["category"]; ?></td>
                       <td><?php echo $row["unit_price"]; ?></td>
-                      <td><?php echo $row["reorder_level"]; ?></td>
                       <td>
                         <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-repeat"></i> Restore</button>
                         </div>
@@ -751,13 +752,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <tfoot>
            <tr>
 
-                  <th></th> 
+                 <th style="display: none;">ID</th> 
                   <th></th>
                   <th></th>
                   <th></th>
                   <th></th>
                   <th></th>
-                  <th></th> 
+                  <th></th>
+                  <th></th>
+                  <th></th>
             </tr> 
         </tfoot>
       </table>             
@@ -845,9 +848,11 @@ function onUserInactivity() {
             </div>
         </div>
    
-    <script>
+   <script>
       $(function () {
-        $('#example').DataTable()
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
         $('#example1').DataTable({
           'paging'      : true,
           'lengthChange': false,
@@ -860,6 +865,7 @@ function onUserInactivity() {
 
       })
     </script>
+
 
     <!--script js for release data-->
     <script>

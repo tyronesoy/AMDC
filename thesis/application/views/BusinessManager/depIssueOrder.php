@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html
 <html>
 <head>
   <title>Business Manager | Departments Issue Order</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
-   <!-- Tell the browser to be responsive to screen width -->
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -16,15 +16,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -38,19 +38,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
-
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <?php
@@ -587,7 +574,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li class="active"><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -700,13 +687,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Order ID</th>
-                    <th>Order Date</th>
-                    <th>Supervisor Name</th>
-                    <th>Department</th>
-                    <th>Status</th>
-                    <th>Remarks</th>
-                    <th>Action</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </tfoot>
               </table>
@@ -797,11 +784,13 @@ input:checked + .slider:before {
   border-radius: 50%;
 }    
 </style>
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -827,6 +816,7 @@ input:checked + .slider:before {
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 
+
 <script>
 setTimeout(onUserInactivity, 1000 * 1800)
 function onUserInactivity() {
@@ -838,50 +828,21 @@ function onUserInactivity() {
 </script>
 
 <script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : false
-      //   })
-      // })
+      $(function () {
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
-      $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Departments Order</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+
+      })
     </script>
 
 <script>
