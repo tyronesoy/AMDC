@@ -3,19 +3,22 @@ $con=mysqli_connect('localhost','root','','itproject');
 
  //CREATE or ADD User Account
   if (isset($_POST['generated'])) { 
-  $date1 = $_POST['date1'];
-  $date2 = $_POST['date2'];
   $arr = $_POST['check_list'];
+  $div = $_POST['dep_list'];
       
 if(!empty($_POST['check_list'])) {
 $val = implode(",",$_POST['check_list']);
 }
-    
-  $sql = $con->prepare("SELECT ".$val." FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) where inventory_order_status = 'Delivered' AND (inventory_order_created_date BETWEEN '".$date1."' AND '".$date2."')");
+$count = 0;
+if(!empty($_POST['dep_list'])) {
+$wer = implode(",",$_POST['dep_list']);
+$count++; 
+}
+  $sql = $con->prepare("SELECT ".$val." FROM supplies WHERE supply_type LIKE 'Office' AND soft_deleted='N' AND dep_name = '".$wer."'");
     
   $conn = mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
   $date = date("Y/m/d");
-  $sql2 = "SELECT ".$val." FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) where inventory_order_status = 'Delivered' AND (inventory_order_created_date BETWEEN '".$date1."' AND '".$date2."')";
+  $sql2 = "SELECT ".$val." FROM supplies WHERE supply_type LIKE 'Office' AND soft_deleted='N' AND dep_name = '".$wer."'";
   $result = $conn->query($sql2);     
 ?>
 <html>
@@ -153,44 +156,39 @@ $val = implode(",",$_POST['check_list']);
             <thead>
               <tr class="main">
                   <?php
-                  if(in_array("quantity",$_POST['check_list']) == true ){
+                  if(in_array("quantity_in_stock",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Quantity Ordered</th>
+                  <th class="main">Stock Quantity</th>
                   <?php
                   }
-                  if(in_array("quantity_issued",$_POST['check_list']) == true ){
+                  if(in_array("item_name",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Quantity Issued</th>
+                  <th class="main">Item Name</th>
                   <?php
                   }
-                  if(in_array("unit_name",$_POST['check_list']) == true ){
+                  if(in_array("unit",$_POST['check_list']) == true ){
                   ?>
                   <th class="main">Unit</th>
                   <?php
                   }
-                  if(in_array("supply_name",$_POST['check_list']) == true ){
+                  if(in_array("unit_price",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main" class="main">Item Name</th>
+                  <th class="main" class="main">Unit Price</th>
                   <?php
                   }
-                  if(in_array("issued_date",$_POST['check_list']) == true ){
+                  if(in_array("lot_no",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Issued Date</th>
+                  <th class="main">Lot No.</th>
                   <?php
                   }
-                  if(in_array("inventory_order_status",$_POST['check_list']) == true ){
-                  ?>
-                  <th class="main">Status</th>
-                  <?php
-                  }
-                  if(in_array("inventory_order_dept",$_POST['check_list']) == true ){
+                  if(in_array("dep_name",$_POST['check_list']) == true ){
                   ?>
                   <th class="main">Department</th>
                   <?php
                   }
-                  if(in_array("inventory_order_created_date",$_POST['check_list']) == true ){
+                  if(in_array("expiration_date",$_POST['check_list']) == true ){
                   ?>
-                  <th class="main">Date Requested</th>
+                  <th class="main">Expiration Date</th>
                   <?php
                   }
                   ?>
@@ -198,72 +196,63 @@ $val = implode(",",$_POST['check_list']);
             </thead>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) {
-                    if(in_array("quantity",$_POST['check_list']) == true ){
-                    $quantfirst = $row['quantity'];
+                    if(in_array("quantity_in_stock",$_POST['check_list']) == true ){
+                    $qis = $row['quantity_in_stock'];
                     }
-                    if(in_array("quantity_issued",$_POST['check_list']) == true ){
-                    $quantsec = $row['quantity_issued'];
+                    if(in_array("item_name",$_POST['check_list']) == true ){
+                    $name = $row['item_name'];
                     }
-                    if(in_array("unit_name",$_POST['check_list']) == true ){
-                    $unit = $row['unit_name'];
+                    if(in_array("unit",$_POST['check_list']) == true ){
+                    $unit = $row['unit'];
                     }
-                    if(in_array("supply_name",$_POST['check_list']) == true ){
-                    $suppname = $row['supply_name'];
+                    if(in_array("unit_price",$_POST['check_list']) == true ){
+                    $unitp = $row['unit_price'];
                     }
-                    if(in_array("issued_date",$_POST['check_list']) == true ){
-                    $issueddate = $row['issued_date'];
+                    if(in_array("lot_no",$_POST['check_list']) == true ){
+                    $lot = $row['lot_no'];
                     }
-                    if(in_array("inventory_order_status",$_POST['check_list']) == true ){
-                    $status = $row['inventory_order_status'];
+                    if(in_array("dep_name",$_POST['check_list']) == true ){
+                    $dept = $row['dep_name'];
                     }
-                    if(in_array("inventory_order_dept",$_POST['check_list']) == true ){
-                    $dept = $row['inventory_order_dept'];
-                    }
-                    if(in_array("inventory_order_created_date",$_POST['check_list']) == true ){
-                    $createddate = $row['inventory_order_created_date'];
+                    if(in_array("expiration_date",$_POST['check_list']) == true ){
+                    $exp = $row['expiration_date'];
                     }
                 ?>
                     <tr class="main" id="row0">
                       <?php
-                      if(in_array("quantity",$_POST['check_list']) == true ){
+                      if(in_array("quantity_in_stock",$_POST['check_list']) == true ){
                       ?>
-                      <td class="main"><?php echo $quantfirst; ?></td>
+                      <td class="main"><?php echo $qis; ?></td>
                       <?php
                       }
-                      if(in_array("quantity_issued",$_POST['check_list']) == true ){
+                      if(in_array("item_name",$_POST['check_list']) == true ){
                       ?>
-                      <td class="main"><?php echo $quantsec; ?></td>
+                      <td class="main"><?php echo $name; ?></td>
                       <?php
                       }
-                      if(in_array("unit_name",$_POST['check_list']) == true ){
+                      if(in_array("unit",$_POST['check_list']) == true ){
                       ?>
                       <td class="main"><?php echo $unit; ?></td>
                       <?php
                       }
-                      if(in_array("supply_name",$_POST['check_list']) == true ){
+                      if(in_array("unit_price",$_POST['check_list']) == true ){
                       ?>
-                      <td class="main"><?php echo $suppname; ?></td>
+                      <td class="main"><?php echo $unitp; ?></td>
                       <?php
                       }
-                      if(in_array("issued_date",$_POST['check_list']) == true ){
+                      if(in_array("lot_no",$_POST['check_list']) == true ){
                       ?>
-                      <td class="main"><?php echo $issuedate; ?></td>
+                      <td class="main"><?php echo $lot; ?></td>
                       <?php
                       }
-                      if(in_array("inventory_order_status",$_POST['check_list']) == true ){
-                      ?>
-                      ?>
-                      <td class="main"><?php echo $status; ?></td>
-                      <?php
-                      }
-                      if(in_array("inventory_order_dept",$_POST['check_list']) == true ){
+                      if(in_array("dep_name",$_POST['check_list']) == true ){
                       ?>
                       <td class="main"><?php echo $dept; ?></td>
                       <?php
                       }
-                      if(in_array("inventory_order_created_date",$_POST['check_list']) == true ){
+                      if(in_array("expiration_date",$_POST['check_list']) == true ){
                       ?>
-                      <td class="main"><?php echo $createddate; ?></td>
+                      <td class="main"><?php echo $exp; ?></td>
                       <?php
                       }
                       ?>
@@ -342,7 +331,7 @@ window.print();
   $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Generated a report for Issued Supplies from ".$date1." to ".$date2."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Generated a report for Office Supplies','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $res1 = $conn->query($notif1);
         
   
