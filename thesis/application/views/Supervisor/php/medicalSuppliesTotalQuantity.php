@@ -449,17 +449,16 @@ function supplier($connect)
          $conn =mysqli_connect("localhost","root","");
           mysqli_select_db($conn, "itproject");
           $sql = "SELECT supply_id, item_name, category, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
-            FROM supplies WHERE (supply_type='Medical' AND   (quantity_in_stock IS NOT NULL AND supply_description != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N' AND soft_deleted = 'N'
-            GROUP BY supply_description";
+            FROM supplies WHERE (supply_type='Medical' AND   (quantity_in_stock IS NOT NULL AND item_name != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N' AND soft_deleted = 'N'
+             AND dep_name='".$this->session->userdata('dept_name')."' ";
           $result = $conn->query($sql);  ?>
           
           <thead>
             <tr>
-                  <th width="16%">Quantity in Stock</th>
-                  <th> Total Amount</th>
-                  <th>Unit</th>
-                  <th width="20%">Item Name</th>
-                  <th>Category</th>
+                 <th width="16%">Total Quantity in Stock</th>
+                  <th width="15%">Unit</th>
+                  <th width="30%">Item Name</th>
+                  <th width="18%%">Category</th>
             </tr>
         </thead>
         <tbody>
@@ -467,7 +466,6 @@ function supplier($connect)
           while($row = $result->fetch_assoc()) { ?>
             <tr>
                       <td><?php echo $row["Total Quantity"]; ?></td>
-                      <td><?php echo $row["Total Amount"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["category"]; ?></td>        
@@ -481,8 +479,7 @@ function supplier($connect)
           <th></th>
           <th></th>
           <th></th>
-          <th></th>
-          
+
       </table>             
             </div>
             <!-- /.box-body -->

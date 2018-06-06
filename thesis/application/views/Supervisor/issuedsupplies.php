@@ -427,9 +427,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   ?>
                   <thead> 
                   <tr>
-                    <th style="display: none;">ID</th>
+                    <th>Order ID</th>
                     <th>Request Date</th>
                     <th>Issue Date</th>
+                    <th>Issued To</th>
                     <th>Status</th>
                     <th>Remarks</th>
                     <th>Action</th>
@@ -438,9 +439,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td style="display: none;"><?php echo $row['inventory_order_id']; ?></td>
+                      <td><?php echo $row['inventory_order_id']; ?></td>
                       <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["issued_date"]; ?></td>
+                      <td><?php echo $row["issued_to"]; ?></td>
                       <td><?php echo $row["inventory_order_status"]; ?></td>
                       <td><?php echo $row["inventory_order_remarks"]; ?></td>
                       <td><div class="btn-group">
@@ -451,7 +453,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                   ?>
                 <tfoot>
-                    <th style="display: none;">ID</th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>

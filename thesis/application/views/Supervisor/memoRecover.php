@@ -424,8 +424,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                   <tr>
                       <th style="display: none;">ID</th>
-                      <th>Memo Date</th>
-                      <th>Description</th>
+                      <th>Date & Time Created</th>
+                      <th>Memo Title</th>
                       <th>Status</th>
                       <th>Action</th>
                   </tr>
@@ -447,7 +447,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       ?>
                       <td style="display: none;"><?php echo $row['memo_id']; ?></td>
                       <td><?php echo $row["memo_date"]; ?></td>
-                      <td><?php echo $row["memo_description"]; ?></td>
+                      <td><?php echo $row["memo_title"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
@@ -460,6 +460,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                   ?>
                 </tbody>
+                <tfoot>
+                   <th style="display: none;">ID</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                </tfoot>
               </table>
 
             </div>

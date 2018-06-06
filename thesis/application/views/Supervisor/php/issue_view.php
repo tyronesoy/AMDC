@@ -102,24 +102,34 @@ if(isset($_REQUEST['id'])){
                         </div>
                     </div>
                       <?php
-                        $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_id=$id AND (quantity_issued !=0 OR quantity_issued IS NOT NULL)";
+                        $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supply_description=supply_name WHERE   inventory_order_id=$id AND (quantity_issued !=0 OR quantity_issued IS NOT NULL)";
                         $result = $con->query($sql);    
                       ?>
                         <span id="error"></span>
                         <table class="table table-bordered" id="item_table">
                             <tr>
-                                <th>Item Description</th>
-                                <th>Quantity Issued</th>
+                                 <th width="15%">Quantity Ordered</th>
+                                 <th width="13%">Quantity Issued</th>
+                                 <th width="16%">Unit</th>
+                                <th width="52.5%">Item Description</th>
+                               
                             </tr>
                             <?php if($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) { 
                             ?>
                             <tr>
+                                <td><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                </td>
+
+                                <td width="30%"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity_issued'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                                </td>
+
+                               <td><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit_name'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                                </td>
+
                                 <td width="70%"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
-                                            
-                                <td width="30%"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity_issued'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
-                                </td>
+                               
                             </tr>
                             <?php 
                             }
@@ -127,7 +137,6 @@ if(isset($_REQUEST['id'])){
                         </table>
                 </div>   
                 <div class="modal-footer">
-                <button id="btnPrint" type="button" class="btn btn-success" style="float:left;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>

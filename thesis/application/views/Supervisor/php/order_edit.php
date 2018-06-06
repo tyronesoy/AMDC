@@ -43,6 +43,8 @@ if(isset($_REQUEST['id'])){
 <div class="box-header">
         <div class="modal-content">
                 <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
                  <div class="col-md-2">
                                                 <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                                             </div>
@@ -58,7 +60,7 @@ if(isset($_REQUEST['id'])){
                                          <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
-                                              <center><h4><b>Edit Order Details</b></h4></center>
+                                              <center><h4><b>Update Order Details</b></h4></center>
                                             </div>
 
                         <form name="plus_name" id="plus_name" method="post" action="order/updateItem">
@@ -80,7 +82,10 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="txtid">Order ID</label>
-                                    <div class="input-group">
+                                       <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-id-badge"></i>
+                                        </div>
                                         <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                     </div>
                                 </div>
@@ -130,8 +135,8 @@ if(isset($_REQUEST['id'])){
                             <tr>
                                 <th style="display: none;">ID</th>
                                 <th width="15%"> Quantity </th>
-                                <th width="52.5%"> Item Name </th>
                                 <th width="16%"> Unit </th>
+                                <th width="52.5%"> Item Name </th>
                                 <th width="16.5%"> Item Type </th>
                             </tr>
 
@@ -139,16 +144,16 @@ if(isset($_REQUEST['id'])){
                                     while($row =$result->fetch_assoc()) {
                                       $arrayOrdId .= $row['inventory_order_supplies_id'].', ';
                                       $arrayQuantity .= $row['quantity'].', ';
-                                      $arrayName .= $row['supply_name'].', ';
                                       $arrayUnit .= $row['unit'].', ';
+                                      $arrayName .= $row['supply_name'].', ';
                                       $arrayType .= $row['supply_type'].', ';
                                       $arrayRemarks.= $row['supply_remarks'].', ';
 
 
                                       $order_id = explode(", ", $arrayOrdId);
                                       $quantity = explode(", ", $arrayQuantity);
-                                      $item_name = explode(", ", $arrayName);
                                       $unit = explode(", ", $arrayUnit);
+                                      $item_name = explode(", ", $arrayName);
                                       $item_type = explode(", ", $arrayType);
                                       $remarks = explode(", ", $arrayRemarks);
                                     }
@@ -164,15 +169,16 @@ if(isset($_REQUEST['id'])){
                                 <td><input type="number" class="form-control" id="qty[]" name="qty[]" value ="<?php print_r($quantity[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$">
                                 </td>
 
+                                            
                                 <td>
+                                  <input type="text" class="form-control" id="unitName[]" name="unitName[]" value ="<?php print_r($unit[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
+                                </td>
+
+                                 <td>
                                     <select class="form-control filter" id="supplyDesc[]" name="supplyDesc[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   <option><?php print_r($item_name[$zero]);?></option>
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
-                                </td>
-                                            
-                                <td>
-                                  <input type="text" class="form-control" id="unitName[]" name="unitName[]" value ="<?php print_r($unit[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
                                 </td>
 
                                 <td>
@@ -223,7 +229,7 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
-                <button type="submit" class="btn btn-success" name="update" id="update"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" name="update" id="update"><i class="fa fa-edit"></i> Update</button>
             </div>
         </div>
     </form>

@@ -93,8 +93,8 @@ if(isset($_REQUEST['id'])){
                         <table class="table table-bordered" id="item_table">
                             <tr>
                                 <th width="15%"> Quantity </th>
-                                <th width="52.5%"> Description </th>
                                 <th width="16%"> Unit </th>
+                                <th width="52.5%"> Description </th>
                                 <th width="16.5%"> Item Type </th>
                             </tr>
                             <?php if($result->num_rows > 0) {
@@ -103,12 +103,13 @@ if(isset($_REQUEST['id'])){
                             <tr>
                                 <td><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
-
-                                <td><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $row['supply_name'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                                </td>
                                             
                                 <td><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
                                 </td>
+
+                                <td><input class="form-control" id="txtunit" name="txtunit" value="<?php echo $row['supply_name'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                </td>
+
                                 <td><input type="text" class="form-control" id="txttype" name="txttype" value="<?php echo $row['supply_type'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
                                 </td>
                             </tr>
@@ -120,7 +121,6 @@ if(isset($_REQUEST['id'])){
             </div>
             </div>
             <div class="modal-footer">
-                <button id="btnPrint" type="button" class="btn btn-success" style="float:left;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>

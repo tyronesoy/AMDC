@@ -16,10 +16,6 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
-       <div class="row">
-          <div class="col-xs-12">
-              <div class="box">
-            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
@@ -52,12 +48,12 @@ if(isset($_REQUEST['id'])){
                              </div>
 
                                  <div class="form-group">
-                                                  <label for="txtmemodate">Memo Date</label>
+                                                  <label for="txtmemodate">Date & Time Created</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="txtmemodate" name="txtmemodate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $per_memodate;?>">
+                                                  <input type="text" class="form-control" id="txtmemodate" name="txtmemodate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $per_memodate;?>" readonly>
                                               </div>
                                               </div>
 

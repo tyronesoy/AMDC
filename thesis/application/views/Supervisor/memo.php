@@ -453,12 +453,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               </div>
 
                                                   <div class="form-group">
-                                                    <label>Memo Date</label>
+                                                    <label>Date & Time Created</label>
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <?php $date = date("Y-m-d"); ?>
+                                                      <?php $date = date('Y-m-d H:i:s'); ?>
                                                       <input type="text" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
@@ -513,7 +513,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                     <tr>
                         <th style="display: none;">ID</th>
-                        <th>Memo Date</th>
+                        <th>Date & Time Created</th>
                         <th>Memo Title</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -577,6 +577,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                   ?>
                 </tbody>
+                  <tfoot>
+                   <th style="display: none;">ID</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                </tfoot>
+              </table>
             </table>
 
             </div>
