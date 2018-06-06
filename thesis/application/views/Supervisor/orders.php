@@ -85,7 +85,7 @@ if(!isset($_SESSION['first_run'])){
    <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-   <!-- Tell the browser to be responsive to screen width -->
+<!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -93,42 +93,27 @@ if(!isset($_SESSION['first_run'])){
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
-  <!-- datatable lib
+  <!-- datatable lib -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
- 
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
-
-      <!-- Bootstrap 3.3.7 -->
-  <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <!--   <script src="../assets/table/jquery-1.12.4.js"></script> -->
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
  <style>
     .example-modal .modal {
       position: relative;
@@ -854,7 +839,7 @@ if(!isset($_SESSION['first_run'])){
                       ?>
                       <thead>
                           <tr>
-                              <th style="display: none;">ID </th>
+                              <th>Order ID</th>
                               <th>Order Date</th>
                               <th>Issued Date</th>
                               <th>Issued To</th>
@@ -867,7 +852,7 @@ if(!isset($_SESSION['first_run'])){
                         <?php if ($result->num_rows > 0) {
                           while($row = $result->fetch_assoc()) { ?>
                             <tr>
-                              <td style="display: none;"><?php echo $row["inventory_order_supplies_id"];?></td>
+                              <td><?php echo $row["inventory_order_id"];?></td>
                               <td><?php echo $row["inventory_order_created_date"]; ?></td>
                               <td><?php echo $row["issued_date"]; ?></td>
                               <td><?php echo $row["issued_to"]; ?></td>
@@ -888,6 +873,14 @@ if(!isset($_SESSION['first_run'])){
                             }
                           ?>
                         </tbody>
+                        <tfoot>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
             </table>
             </div>
 
@@ -980,11 +973,13 @@ table#addItem, tr.no_border td {
   border: 0;
 }
 </style>
-<!-- jQuery 3
--->
-<!-- DataTables
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -1008,7 +1003,7 @@ table#addItem, tr.no_border td {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-
+<!-- page script -->
 <!--lockscreen							-->
 <script>
  setTimeout(onUserInactivity, 1000 * 1800)
@@ -1019,6 +1014,25 @@ function onUserInactivity() {
    <?php } ?>
 } 
 </script>
+
+<script>
+      $(function () {
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
+      })
+    </script>
+
 
 <script>
 $(document).ready(function(){
@@ -1203,49 +1217,6 @@ $(document).ready(function(){
   })
 </script>
 
-<script>
-      $(document).ready(function() {
-    var printCounter = 0;
-
-    // $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-    //     $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-    // } );
-     
-    // $('table.table').DataTable( {
-    //     scrollY:        200,
-    //     scrollCollapse: true,
-    //     paging:         false
-    // } );
- 
-    $('#example').DataTable( {
-        order : [[ 0, 'desc' ]],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Order</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-
-} );
-    </script>
 
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">

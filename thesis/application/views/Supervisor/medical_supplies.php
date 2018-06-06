@@ -467,6 +467,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                   ?>
                 </tbody>
+                <tfoot>
+                  <th></th>
+                  <th></th> 
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tfoot>
       </table>              
             </div>
             <!-- /.box-body -->
