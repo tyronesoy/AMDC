@@ -849,32 +849,44 @@ function category($connect)
                 </table>     
             </div>
               
+
+              <div style="background-color: #f9f4f4; color: black;">
+                 <h4 style="margin-left: 15px; margin-top: 15px;">Filter Quantity</h4>
+                <table border="0" cellspacing="5" cellpadding="5">
+        <tbody>
+          <tr style="float: left; margin-left: 15px;">
+            <td><input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty"></td>
+            <td>-</td>
+            <td><input type="text" class="form-control" id="max" name="max" placeholder="Maximum Quantity"></td>
+          </tr>
+          <!-- <tr style="float: right; margin-left: 40px;">
+            <td><input type="text" class="form-control" id="mindate" name="mindate" placeholder="Min Date"></td>
+            <td>-</td>
+            <td><input type="text" class="form-control" id="maxdate" name="maxdate" placeholder="Max Date"></td>
+          </tr> -->
+    </tbody>
+  </table>
+          </br>
+          </div>
+
       <div class="box-body">
-          
-        <table id="example" class="table table-bordered table-striped" style="width:100%">
+        <table id="example" class="table table-bordered table-striped display" style="width:100%">
           <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Medical' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
-              <col width="auto">
-              <col width="8%">
-            <col width="8%">
-            <col width="50%">
-             <col width="50%">
-              <col width="50%">
-            <col width="8%">
-            <col width="22.5%">
+              
           <thead>
             <tr>
                   <th style="display: none;"> ID </th>                
-                <th>Lot Number</th>
-                <th>Quantity In Stock</th>
+                  <th>Lot Number</th>
+                  <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Brand Name</th>
-                 <th>Item Name</th>
+                  <th>Item Name</th>
                   <th>Item Description</th>
-                 <th>Category</th>
+                  <th>Category</th>
                   <th>Expiration Date</th> 
                   <th>Unit Price</th>
                   <th> Action</th> 
@@ -886,17 +898,17 @@ function category($connect)
                     <tr>
                       <td style="display: none;"><?php echo $row["supply_id"];?></td>
                       <td><?php echo $row["lot_no"]; ?></td>
-                         <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
-                        <td><?php echo $row["item_name"]; ?></td>
+                      <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
-                         <td><?php echo $row["category"]; ?></td>
+                      <td><?php echo $row["category"]; ?></td>
                       <td><?php echo $row["expiration_date"]; ?></td>
                       <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
                        
     
-                      <td>
+                      <td width="50px">
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
                         </div>
@@ -916,17 +928,17 @@ function category($connect)
       
         <tfoot>
            <tr>
-                  <th style="display: none;">ID</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th> 
-                  <th></th>
-                  <th></th> 
+                  <th style="display: none;"> ID </th>                
+                  <th class="srch">Lot Number</th>
+                  <th class="srch">Quantity In Stock</th>
+                  <th class="srch">Unit</th>
+                  <th class="srch">Brand Name</th>
+                  <th class="srch">Item Name</th>
+                  <th class="srch">Item Description</th>
+                  <th class="srch">Category</th>
+                  <th class="srch">Expiration Date</th> 
+                  <th class="srch">Unit Price</th>
+                  <th> </th> 
             </tr> 
         </tfoot>
       </table>              
@@ -944,130 +956,8 @@ function category($connect)
             <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Medical Supplies </button>
           </a>
     </div>
-          <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep">Generate Report</button>
       </div>
         <!-- END OF PRINT AND PDF -->
-    <div class="modal fade" id="printrep">
-<form name="form42" id="user_form" method="post" action="medicalsupplies/generated">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                  <div class="col-md-2">
-                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                            </div>
-                                <div class="col-md-8">
-                                                
-                                                <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
-                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                                                    <center><h6>Philippines</h6></center>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end of modal header -->
-                                        <div class="modal-body">
-                                        <div class="box-header">
-                                          <div class="margin">
-                                              <center><h4><b>Generate Medical Supplies Report</b></h4></center>
-                                            </div>
-                                      </div>
-                        <div class="box-body">
-                
-                        <div class="row">
-                    <div class="col-md-6">
-                    <h4><b>Include:</b></h4>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="quantity_in_stock" checked>Stock Quantity
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="item_name" checked>Item Name
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="unit" checked>Unit
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="unit_price" checked>Unit Price
-                        </div>
-                      </div>
-                    </div>
-                        <h4><b>Department:</b></h4>
-                    <div class="form-group" style="width:100%;">
-                            <input type="checkbox" name="dep_list[]" value="Imaging Department">Imaging
-                        </div>
-                        <div class="form-group" style="width:100%;">
-                            <input type="checkbox" name="dep_list[]" value="Clinical Laboratory Department">Clinical Laboratory
-                        </div>
-                        <div class="form-group" style="width:100%;">
-                            <input type="checkbox" name="dep_list[]" value="Cardiology Department">Cardiology
-                        </div>
-                        <div class="form-group" style="width:100%;">
-                            <input type="checkbox" name="dep_list[]" value="Endoscopy Department">Endoscopy
-                        </div>
-                        <div class="form-group" style="width:100%;">
-                            <input type="checkbox" name="dep_list[]" value="Managing Department">Managing
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                    <h4><b>&nbsp;</b></h4>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="lot_no" checked>Lot No.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="dep_name" checked>Department
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="expiration_date" checked>Expiration
-                        </div>
-                      </div>
-                    </div>
-                     </div>   
-    
-                <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $date = date("Y/m/d");
-                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) where inventory_order_status = 'Delivered'";
-                  $result = $conn->query($sql);    
-                ?>
-                        </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-clone"></i> Generate</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-
-          </div>
-          <!-- /.modal-dialog -->
-        </form> 
-        </div>
-          </div>
     </section>
     <!-- /.content -->
   </div>
@@ -1128,30 +1018,58 @@ function onUserInactivity() {
 </script>
  
 <script>
-       $(function () {
-         $('#example').DataTable({
-            order : [[ 0, 'desc' ]],
-            "lengthMenu": [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
-            'colReorder'  : {
-              realtime: true,
-            },
-            stateSave: true,
-            stateSaveCallback: function(settings,data) {
-                localStorage.setItem( 'DataTables_' + settings.sInstance, JSON.stringify(data) )
-              },
-            stateLoadCallback: function(settings) {
-              return JSON.parse( localStorage.getItem( 'DataTables_' + settings.sInstance ) )
-              }
-         })
-         $('#example1').DataTable({
-           'paging'      : true,
-           'lengthChange': false,
-           'searching'   : false,
-           'info'        : true,
-           'autoWidth'   : false,
-           ' processing' : true
-         })
-       })
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example tfoot th.srch').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+    // filtering
+    $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = parseInt( $('#min').val(), 10 );
+        var max = parseInt( $('#max').val(), 10 );
+        var quantity = parseFloat( data[2] ) || 0; // use data for the age column
+ 
+        if ( ( isNaN( min ) && isNaN( max ) ) ||
+             ( isNaN( min ) && age <= max ) ||
+             ( min <= quantity   && isNaN( max ) ) ||
+             ( min <= quantity   && quantity <= max ) )
+        {
+            return true;
+        }
+        return false;
+    }
+
+    );// for filtering
+
+ 
+    // DataTable
+    var table = $('#example').DataTable({
+      order : [[ 0, 'desc' ]],
+      "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
+      "scrollX": true
+    });    
+    // Apply the search in table footer
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
+    // id's for filtering
+   $('#min, #max').keyup( function() { 
+        table.draw();
+    } );
+} ); // end of document ready
+
 
 //       $(document).ready(function() {
 //     var printCounter = 0;
@@ -1476,7 +1394,7 @@ if(isset($_POST['medRecon'])){
     $date = date('Y/m/d');
 
   
-     $sqlinsert1="INSERT INTO reconciliation (date, time, description, supply_type, quantity) VALUES ('".$date."', ('".$time."'),'The product  (".$item.") has changed from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Medical', '".$difference."')  ";
+     $sqlinsert1="INSERT INTO reconciliation (date, time, description, supply_type, quantity) VALUES ('".$date."', ('".$time."'),'The product  (".$item.") has reconciled from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Medical', '".$difference."')  ";
     $result_update2=mysqli_query($conn2,$sqlinsert1);
 
     $sqlupdate1="UPDATE supplies SET quantity_in_stock='$physical' WHERE supply_id='$new_id' ";
@@ -1594,22 +1512,3 @@ if(isset($_POST['medDelete'])){
             });
         </script>
 
-<script>
-$(document).on('click','#getAdd',function(e){
-    e.preventDefault();
-    var per_id=$(this).data('id');
-    //alert(per_id);
-    $('#content-data').html('');
-    $.ajax({
-        url:'medicalsupplies/generated',
-        type:'POST',
-        data:'id='+per_id,
-        dataType:'html'
-    }).done(function(data){
-        $('#content-data').html('');
-        $('#content-data').html(data);
-    }).final(function(){
-        $('#content-data').html('<p>Error</p>');
-    });
-});
-</script>

@@ -8,9 +8,7 @@ if(isset($_REQUEST['id'])){
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
         $per_supplyDescription=$row[2];
-        $per_supplyQuantityInStock=$row[5];
         $per_supplyReorderLevel=$row[8];
-        $per_supplyExpirationDate=$row[9];
     }//end while
 ?>
        <div class="row">
@@ -22,7 +20,7 @@ if(isset($_REQUEST['id'])){
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                         <div class="col-md-2">
-                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                                                <img src="../assets/dist/img/user3-128x128.png" alt="User Image"style="width:80px;height:80px;">
                                             </div>
                                             <div class="col-md-8">
                                                 
