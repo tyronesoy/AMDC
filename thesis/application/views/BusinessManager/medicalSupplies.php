@@ -933,30 +933,34 @@ function category($connect)
             </div>
               
 
-              <div style="background-color: #f9f4f4; color: black;">
-                 <h4 style="margin-left: 15px; margin-top: 15px;">Filter Quantity</h4>
-                <table border="0" cellspacing="5" cellpadding="5">
-        <tbody>
-          <tr style="float: left; margin-left: 15px;">
-            <td><input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty"></td>
-            <td>-</td>
-            <td><input type="text" class="form-control" id="max" name="max" placeholder="Maximum Quantity"></td>
+        <table>
+          <tr>
+          <th>Filter by a Range of Quantity</th>
+          <th style="padding-left: 20px;">Filter by a Range of Price</th>
+          <th style="padding-left: 20px;">Filter by a Range of Date</th>
           </tr>
 
-          <tr style="float: left; margin-left: 15px;">
-            <td><input type="text" class="form-control select" id="minPrice" name="minPrice" placeholder="Min Price"></td>
-            <td>-</td>
-            <td><input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="Max Price"></td>
+          <tr>
+            <td><div class="input-group input-daterange">
+          <input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty">
+          <div class="input-group-addon">to</div>
+          <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
+        </div></td>
+
+          <td><div class="input-group input-daterange" style="padding-left: 20px;">
+            <input type="text" class="form-control select" id="minPrice" name="minPrice" placeholder="Min Price">
+            <div class="input-group-addon">to</div>
+            <input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="Max Price">
+          </div></td>
+
+          <td><div class="input-group input-daterange" style="padding-left: 20px;">
+            <input type="text" class="form-control" id="startdate" placeholder="Min Date">
+            <div class="input-group-addon">to</div>
+            <input type="text" class="form-control" id="enddate" placeholder="Max Date">
+          </div></td>
           </tr>
-          <!-- <tr style="float: right; margin-left: 40px;">
-            <td><input type="text" class="form-control" id="mindate" name="mindate" placeholder="Min Date"></td>
-            <td>-</td>
-            <td><input type="text" class="form-control" id="maxdate" name="maxdate" placeholder="Max Date"></td>
-          </tr> -->
-    </tbody>
-  </table>
-          </br>
-          </div>
+        </table>
+
 
       <div class="box-body">
         <table id="example" class="table table-bordered table-striped display" style="width:100%">
@@ -993,8 +997,9 @@ function category($connect)
                       <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["category"]; ?></td>
-                      <td><?php echo $row["expiration_date"]; ?></td>
-                      <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
+                      <td><?php $date=date_create($row["expiration_date"]);
+                      echo date_format($date, "m/d/Y"); ?></td>
+                      <td align="right" value="#&8369"><?php echo $row["unit_price"]; ?></td>
                        
     
                       <td width="50px">
@@ -1120,29 +1125,36 @@ $(document).ready(function() {
         var min = parseInt( $('#min').val(), 10 );
         var max = parseInt( $('#max').val(), 10 );
         var quantity = parseFloat( data[2] ) || 0; // use data for the QTY column
-        var minPrice = parseInt( $('#minPrice').val(), 10 );
-        var maxPrice = parseInt( $('#maxPrice').val(), 10 );
-        var price = parseFloat( data[9] ) || 0;
- 
+
         if ( ( isNaN( min ) && isNaN( max ) ) ||
              ( isNaN( min ) && quantity <= max ) ||
-             ( min <= quantity   && isNaN( max ) ) ||
-             ( min <= quantity   && quantity <= max ) )
-        {
-            return true;
-        }else if ( ( isNaN( minPrice ) && isNaN( maxPrice ) ) ||
-             ( isNaN( minPrice ) && price <= maxPrice ) ||
-             ( minPrice <= price   && isNaN( maxPrice ) ) ||
-             ( minPrice <= price   && price <= maxPrice ) )
+             ( min <= quantity && isNaN( max ) ) ||
+             ( min <= quantity && quantity <= max ) )
         {
             return true;
         }
         return false;
       }
     );// for filtering
-        
- 
-        
+
+    // filtering
+    $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var minPrice = parseInt( $('#minPrice').val(), 10 );
+        var maxPrice = parseInt( $('#maxPrice').val(), 10 );
+        var price = parseFloat( data[9] ) || 0; 
+
+        if ( ( isNaN( minPrice ) && isNaN( maxPrice ) ) ||
+             ( isNaN( minPrice ) && price <= maxPrice ) ||
+             ( minPrice <= price && isNaN( maxPrice ) ) ||
+             ( minPrice <= price && price <= maxPrice ) )
+        {
+            return true;
+        }
+        return false;
+      }
+    );// for filtering
+               
  
     // DataTable
     var table = $('#example').DataTable({
@@ -1162,6 +1174,69 @@ $(document).ready(function() {
             }
         } );
     } );
+
+     $("#startdate").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      dateFormat: "dd/mm/yyyy",
+      "onSelect": function (date)
+      {
+        minDateFilter = new Date(date).getTime();
+        table.draw();
+      }
+    }).keyup(function ()
+    {
+      minDateFilter = new Date(this.value).getTime();
+      table.draw();
+    });
+
+    $("#enddate").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      dateFormat: "dd/mm/yyyy",
+      "onSelect": function (date)
+      {
+        maxDateFilter = new Date(date).getTime();
+        table.draw();
+      }
+    }).keyup(function ()
+    {
+      maxDateFilter = new Date(this.value).getTime();
+      table.draw();
+    });
+
+
+
+// Date range filter
+  minDateFilter = "";
+  maxDateFilter = "";
+
+  $.fn.dataTableExt.afnFiltering.push(
+    function (oSettings, aData, iDataIndex)
+    {
+      if (typeof aData._date == 'undefined')
+      {
+        aData._date = new Date(aData[8]).getTime();
+      }
+
+      if (minDateFilter && !isNaN(minDateFilter))
+      {
+        if (aData._date < minDateFilter)
+        {
+          return false;
+        }
+      }
+
+      if (maxDateFilter && !isNaN(maxDateFilter))
+      {
+        if (aData._date > maxDateFilter)
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+  );
 
     // id's for filtering
    $('#min, #max').keyup( function() { 

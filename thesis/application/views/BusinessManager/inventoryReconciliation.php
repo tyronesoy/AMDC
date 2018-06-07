@@ -702,19 +702,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-xs-12">
               
       <div class="box-body">
-        <table border="0" cellspacing="5" cellpadding="5">
-        <tbody><tr style="float: left;">
-            <td><input type="text" class="form-control" id="min" name="min" placeholder="Minimum Quantity"></td>
-            <td>-</td>
-            <td><input type="text" class="form-control" id="max" name="max" placeholder="Maximum Quantity"></td>
-        </tr>
-      <tr style="float: right; margin-left: 40px;">
-            <td><input type="text" class="form-control" id="mindate" name="mindate" placeholder="Min Date"></td>
-            <td>-</td>
-            <td><input type="text" class="form-control" id="maxdate" name="maxdate" placeholder="Max Date"></td>
-        </tr>
-    </tbody></table>
-    <br>
+        <table>
+          <tr>
+          <th>Filter by a Range of Quantity</th>
+          <th style="padding-left: 20px;">Filter by a Range of Date</th>
+          </tr>
+
+          <tr>
+            <td><div class="input-group input-daterange">
+          <input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty">
+          <div class="input-group-addon">to</div>
+          <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
+        </div></td>
+
+          <td><div class="input-group input-daterange" style="padding-left: 20px;">
+            <input type="text" class="form-control" id="startdate" placeholder="Min Date">
+            <div class="input-group-addon">to</div>
+            <input type="text" class="form-control" id="enddate" placeholder="Max Date">
+          </div></td>
+          </tr>
+        </table>
+
+      <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
          <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
@@ -738,7 +747,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <td><?php echo $row["recon_id"]; ?></td>
-                      <td><?php echo $row["date_time"]; ?></td>
+                      <td><?php $date=date_create($row["date_time"]);
+                      echo date_format($date,"m/d/Y H:i:s");?></td>
                       <td><?php echo $row["description"]; ?></td>
                       <td align="right"><?php if($row["quantity"] < 0) {
                       echo(abs($row["quantity"]));  echo' gain';
@@ -753,11 +763,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                         <tfoot>
            <tr>
-                  <th style="display: none;">ID</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
+                  <th class="srch">ID</th> 
+                  <th class="srch">Date and Time</th><!-- 
+                  <th width="7%">Time</th> -->
+                  <th class="srch">Description</th>
+                  <th class="srch">Quantity Loss/Gain</th>
+                  <th class="srch">Supply Type</th>
             </tr> 
         </tfoot>
       </table>              
@@ -850,6 +861,13 @@ function onUserInactivity() {
 
 <script>
   $(document).ready(function () {
+
+  // Setup - add a text input to each footer cell
+    $('#example tfoot th.srch').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" style="width: 100%;" placeholder="Search '+title+'" />' );
+    } );
+
   $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         var min = parseInt( $('#min').val(), 10 );
@@ -864,44 +882,97 @@ function onUserInactivity() {
             return true;
         }
         return false;
-
-        var minn = $('#mindate').datepicker("getDate");
-        var maxx = $('#maxdate').datepicker("getDate");
-        var startDate = new Date(data[2]);
-        if (minn == null && maxx == null) { return true; }
-        if (minn == null && startDate <= maxx) { return true;}
-        if(maxx == null && startDate >= minn) {return true;}
-        if (startDate <= maxx && startDate >= minn) { return true; }
-        return false;
     }
 
 );
-      $("#mindate").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true, format : 'yyyy-mm-dd', autoclose :true });
-      $("#maxdate").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true, format : 'yyyy-mm-dd', autoclose :true });
 
       
         var table= $('#example').DataTable({
-          order : [[0, 'desc']]
+          order : [[0, 'desc']],
+          "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
         });
+
+        // Apply the search in table footer
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
+        $("#startdate").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      dateFormat: "dd/mm/yyyy",
+      "onSelect": function (date)
+      {
+        minDateFilter = new Date(date).getTime();
+        table.draw();
+      }
+    }).keyup(function ()
+    {
+      minDateFilter = new Date(this.value).getTime();
+      table.draw();
+    });
+
+    $("#enddate").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      dateFormat: "dd/mm/yyyy",
+      "onSelect": function (date)
+      {
+        maxDateFilter = new Date(date).getTime();
+        table.draw();
+      }
+    }).keyup(function ()
+    {
+      maxDateFilter = new Date(this.value).getTime();
+      table.draw();
+    });
+
+
+
+// Date range filter
+  minDateFilter = "";
+  maxDateFilter = "";
+
+  $.fn.dataTableExt.afnFiltering.push(
+    function (oSettings, aData, iDataIndex)
+    {
+      if (typeof aData._date == 'undefined')
+      {
+        aData._date = new Date(aData[1]).getTime();
+      }
+
+      if (minDateFilter && !isNaN(minDateFilter))
+      {
+        if (aData._date < minDateFilter)
+        {
+          return false;
+        }
+      }
+
+      if (maxDateFilter && !isNaN(maxDateFilter))
+      {
+        if (aData._date > maxDateFilter)
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+  );
+
         $('#min, #max').keyup( function() { 
         table.draw();
     } );
-        $('#mindate, #maxdate').keyup( function() { 
-        table.draw();
-    } );
-        
-
-        $('#example1').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : false,
-          'ordering'    : true,
-          'info'        : true,
-          'autoWidth'   : false
-        })
-
-
-      });
+      
+});
     </script> 
    
     <!--<script>

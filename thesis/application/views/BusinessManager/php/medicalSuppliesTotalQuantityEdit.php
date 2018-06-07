@@ -1,9 +1,32 @@
+<!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+  <!-- Bootstrap 3.3.7 -->
+<script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- Select2 -->
+<script src="../assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 <?php
 $con=mysqli_connect('localhost','root','','itproject');
+$connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
+
+function remarks_desc($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM remarks WHERE category='ReorderLevel'";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+    $output .= '<option value="'.$row["remarks"].'">'.$row["remarks"].'</option>';
+ }
+ return $output;
+}
 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="select * from supplies WHERE supply_id IN ($id)";
+    $sql="SELECT * FROM supplies WHERE supply_id IN ($id)";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
@@ -66,6 +89,16 @@ if(isset($_REQUEST['id'])){
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel">
                             </div>
                     </div>
+                     <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="desc">Remarks</label>
+                                <select class="form-control select2" id="remarks" name="remarks" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <option value=""></option>
+                                                  <?php echo remarks_desc($connect);?>
+                                                </select>
+                                </div>
+                            </div>
+
 					</div>
                 </form>
 			</div>

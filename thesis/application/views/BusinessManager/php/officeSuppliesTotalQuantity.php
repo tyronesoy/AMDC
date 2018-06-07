@@ -1050,6 +1050,7 @@ if(isset($_POST['offTQEdit'])){
 
     $sqlupdate="UPDATE supplies SET reorder_level='$new_supplyReorderLevel' WHERE item_name='$textDesc' ";
     $result_update=mysqli_query($conn,$sqlupdate);
+    
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");

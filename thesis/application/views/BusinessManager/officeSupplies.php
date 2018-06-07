@@ -928,24 +928,18 @@ function category($connect)
                 </table>      
             </div>
 
-        <div style="background-color: #f9f4f4; color: black;">
-                 <h4 style="margin-left: 15px; margin-top: 15px;">Filter Quantity</h4>
-                <table border="0" cellspacing="5" cellpadding="5">
-        <tbody>
-          <tr style="float: left; margin-left: 15px;">
-            <td><input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty"></td>
-            <td>-</td>
-            <td><input type="text" class="form-control" id="max" name="max" placeholder="Maximum Quantity"></td>
+       <table>
+          <tr>
+          <th>Filter by a Range of Quantity</th>
           </tr>
-          <!-- <tr style="float: right; margin-left: 40px;">
-            <td><input type="text" class="form-control" id="mindate" name="mindate" placeholder="Min Date"></td>
-            <td>-</td>
-            <td><input type="text" class="form-control" id="maxdate" name="maxdate" placeholder="Max Date"></td>
-          </tr> -->
-    </tbody>
-  </table>
-          </br>
-          </div>
+
+          <tr>
+            <td><div class="input-group input-daterange">
+          <input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty">
+          <div class="input-group-addon">to</div>
+          <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
+        </div></td></tr>
+        </table>
 
         <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
