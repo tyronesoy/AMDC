@@ -292,9 +292,6 @@ $val = implode(",",$_POST['check_list']);
 <h4 class="ending2title">Purchasing Officer</h4>
 </div>
 </div>
-<script>
-window.print();
-</script>
 </body>
 </html>
 <?php
@@ -451,3 +448,8 @@ window.print();
   body { margin: 1.6cm; }
 }
 </style>
+
+<script>
+window.print();
+history.go(-2);
+</script>

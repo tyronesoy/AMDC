@@ -281,6 +281,7 @@ $val = implode(",",$_POST['check_list']);
 </div>
 <script>
 window.print();
+history.go(-2);
 </script>
 </body>
 </html>

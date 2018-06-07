@@ -323,6 +323,7 @@ $count++;
 </div>
 <script>
 window.print();
+history.go(-2);
 </script>
 </body>
 </html>
