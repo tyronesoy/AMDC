@@ -75,7 +75,7 @@ class Dashboard extends CI_Controller {
 				}
 				else if ($_SESSION['logged_in'] != 'True') 
 				{
-					$this->load->view('login_view');
+					$this->load->view('Assistant/lockscreen');
 				}
 			}
 			
@@ -92,7 +92,7 @@ class Dashboard extends CI_Controller {
 				}
 				else if ($_SESSION['logged_in'] != 'True') 
 				{
-					$this->load->view('login_view');
+					$this->load->view('Supervisor/lockscreen');
 				}
 			}
 				
@@ -138,6 +138,10 @@ class Dashboard extends CI_Controller {
         }
         return TRUE;
     }
+	}
+
+	public function viewList(){
+		$this->load->view('Supervisor/php/dashboard_list');
 	}
     
     public function addUser(){
