@@ -1425,7 +1425,7 @@ if(isset($_POST['offAdd'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','An office supply has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','An office supply has been added with ".$addQty." status in good condition is ".$addGC."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="officeSupplies"</script>';
         } else {
@@ -1462,7 +1462,7 @@ if(isset($_POST['offEdit'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply ".$new_supplyDescription." has been edited','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply ".$new_supplyDescription." has been edited with ".$new_supplyUnitPrice." unit price,".$new_supplyReorderLevel." reorder level,".$new_supplyExpirationDate." expiration date,".$new_supplyStock." supply stock,".$new_supplyUnit." unit and ".$new_category." category','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="officeSupplies"</script>';
     }
@@ -1500,7 +1500,7 @@ if(isset($_POST['offRecon'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply has been reconciled','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply ".$item." has been reconciled with logical count of ".$logical." and physical count of ".$physical." to logical count of ".$logical1." to physical count of ".$physical1." with the difference of ".$difference." and remarked with ".$remarks."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="officeSupplies"</script>';
     }
@@ -1524,7 +1524,7 @@ if(isset($_POST['offDelete'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','An office supply has been removed','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','An office supply with id# ".$new_id." has been removed','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="officeSupplies"</script>';
     }

@@ -1608,7 +1608,7 @@ if(isset($_POST['btnUpdate'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_pid." status has been changed to ".$result_update."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_pid." status has been changed to ".$new_purchaseStatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="deliveries"</script>';
     }
@@ -1644,7 +1644,7 @@ if(isset($_POST['btnEdit'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_pid." status has been changed to ".$result_update."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_pid." status has been changed to ".$new_purchasesStatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="deliveries"</script>';
     }
@@ -2289,7 +2289,7 @@ if(isset($_POST['btnEdit'])){
           $conn =mysqli_connect("localhost","root","");
           $datetoday = date('Y\-m\-d\ H:i:s A');
           mysqli_select_db($conn, "itproject");
-          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status has been changed to Full','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status with id# ".$new_purchaseID." has been changed to Full','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
           $result = $conn->query($notif);
           echo '<script>window.location.href="deliveries"</script>';
       }
@@ -2304,7 +2304,7 @@ if(isset($_POST['btnEdit'])){
           $conn =mysqli_connect("localhost","root","");
           $datetoday = date('Y\-m\-d\ H:i:s A');
           mysqli_select_db($conn, "itproject");
-          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status has been changed to Partial','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status with id# ".$new_purchaseID." has been changed to Partial','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
           $result = $conn->query($notif);
           echo '<script>window.location.href="deliveries"</script>';
       }

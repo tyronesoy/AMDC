@@ -1149,7 +1149,7 @@ if(isset($_POST['btnEdit'])){
         date_default_timezone_set('Asia/Manila');
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo has been edited','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo with id#".$new_id." and title ".$new_memotitle." has been edited with status ".$new_memostatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="memo"</script>';
     }
@@ -1177,7 +1177,7 @@ if(isset($_POST['btnUpdate'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo status has been changed to ".$new_memostatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo with id# ".$new_id." status has been changed to ".$new_memostatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="memo"</script>';
     }
@@ -1196,7 +1196,7 @@ if(isset($_POST['memDelete'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo has been archived','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo with id# ".$new_id." has been archived','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="memo"</script>';
     }

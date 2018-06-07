@@ -1774,7 +1774,7 @@ if(isset($_POST['btnEdit'])){
           $conn =mysqli_connect("localhost","root","");
           $datetoday = date('Y\-m\-d\ H:i:s A');
           mysqli_select_db($conn, "itproject");
-          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status has been changed to Full','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery with id# ".$new_purchaseID." status has been changed to Full','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
           $result = $conn->query($notif);
           echo '<script>window.location.href="deliveries"</script>';
       }
@@ -1789,7 +1789,7 @@ if(isset($_POST['btnEdit'])){
           $conn =mysqli_connect("localhost","root","");
           $datetoday = date('Y\-m\-d\ H:i:s A');
           mysqli_select_db($conn, "itproject");
-          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status has been changed to Partial','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery with id# ".$new_purchaseID." status has been changed to Partial','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
           $result = $conn->query($notif);
           echo '<script>window.location.href="deliveries"</script>';
       }
@@ -1810,7 +1810,7 @@ if(isset($_POST['btnDelete'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery record has been archived','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery record with id# ".$new_id." has been archived','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="deliveries"</script>';
     }
@@ -2138,7 +2138,7 @@ if(isset($_POST['btnReturn'])){
           $conn =mysqli_connect("localhost","root","");
           $datetoday = date('Y\-m\-d\ H:i:s A');
           mysqli_select_db($conn, "itproject");
-          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status has been changed to Full','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery with id# ".$new_purchaseID." status has been changed to Full','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
           $result = $conn->query($notif);
           echo '<script>window.location.href="deliveries"</script>';
       }
@@ -2153,7 +2153,7 @@ if(isset($_POST['btnReturn'])){
           $conn =mysqli_connect("localhost","root","");
           $datetoday = date('Y\-m\-d\ H:i:s A');
           mysqli_select_db($conn, "itproject");
-          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status has been changed to Partial','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery with id# ".$new_purchaseID." status has been changed to Partial','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
           $result = $conn->query($notif);
           echo '<script>window.location.href="deliveries"</script>';
       }
