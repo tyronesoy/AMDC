@@ -942,6 +942,12 @@ function category($connect)
             <td>-</td>
             <td><input type="text" class="form-control" id="max" name="max" placeholder="Maximum Quantity"></td>
           </tr>
+
+          <tr style="float: left; margin-left: 15px;">
+            <td><input type="text" class="form-control select" id="minPrice" name="minPrice" placeholder="Min Price"></td>
+            <td>-</td>
+            <td><input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="Max Price"></td>
+          </tr>
           <!-- <tr style="float: right; margin-left: 40px;">
             <td><input type="text" class="form-control" id="mindate" name="mindate" placeholder="Min Date"></td>
             <td>-</td>
@@ -1113,20 +1119,30 @@ $(document).ready(function() {
     function( settings, data, dataIndex ) {
         var min = parseInt( $('#min').val(), 10 );
         var max = parseInt( $('#max').val(), 10 );
-        var quantity = parseFloat( data[2] ) || 0; // use data for the age column
+        var quantity = parseFloat( data[2] ) || 0; // use data for the QTY column
+        var minPrice = parseInt( $('#minPrice').val(), 10 );
+        var maxPrice = parseInt( $('#maxPrice').val(), 10 );
+        var price = parseFloat( data[9] ) || 0;
  
         if ( ( isNaN( min ) && isNaN( max ) ) ||
-             ( isNaN( min ) && age <= max ) ||
+             ( isNaN( min ) && quantity <= max ) ||
              ( min <= quantity   && isNaN( max ) ) ||
              ( min <= quantity   && quantity <= max ) )
         {
             return true;
+        }else if ( ( isNaN( minPrice ) && isNaN( maxPrice ) ) ||
+             ( isNaN( minPrice ) && price <= maxPrice ) ||
+             ( minPrice <= price   && isNaN( maxPrice ) ) ||
+             ( minPrice <= price   && price <= maxPrice ) )
+        {
+            return true;
         }
         return false;
-    }
-
+      }
     );// for filtering
-
+        
+ 
+        
  
     // DataTable
     var table = $('#example').DataTable({
@@ -1149,6 +1165,9 @@ $(document).ready(function() {
 
     // id's for filtering
    $('#min, #max').keyup( function() { 
+        table.draw();
+    } );
+   $('#minPrice, #maxPrice').keyup( function() { 
         table.draw();
     } );
 } ); // end of document ready
