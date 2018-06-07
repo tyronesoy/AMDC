@@ -45,7 +45,7 @@ if($confirmpassword == $password){
   $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Added new user ".$user_email."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Added new user ".$username."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $res1 = $conn->query($notif1);
         ?>
   <script type="text/javascript">alert("Added Successfully");history.go(-1);</script>

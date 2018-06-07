@@ -303,7 +303,7 @@ history.go(-2);
   $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Generated a report for Deliveries from ".$date1." to ".$date2."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Generated a report for Purchase Orders from ".$date1." to ".$date2."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $res1 = $conn->query($notif1);
         
   

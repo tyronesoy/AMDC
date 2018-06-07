@@ -9,7 +9,7 @@ $con=mysqli_connect('localhost','root','','itproject');
   $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Altered notification parameters to Expiration range = ".$expirationdays." day/s','".$this->session->userdata('type')."')";
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Altered notification parameters to Expiration range ".$expirationdays." day/s','".$this->session->userdata('type')."')";
         $res1 = $conn->query($notif1);
   header('Location: ' . $_SERVER['HTTP_REFERER']);          
   } else {
