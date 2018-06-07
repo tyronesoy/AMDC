@@ -11,11 +11,6 @@ $con=mysqli_connect('localhost','root','','itproject');
   $user_contact = $_POST['user_contact'];
   $password = $_POST['password'];
   $user_email = $_POST['user_email'];
-  if($_POST['roletype']=='Assistant'){
-    $dept_name = 'Managing Department';
-  }else{
-    $dept_name = $_POST['dept_name'];
-  }
   $dept_name = $_POST['dept_name'];
   $confirmpassword = $_POST['confirmpassword'];
   $addUser= $_POST['addUser'];
