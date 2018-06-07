@@ -461,7 +461,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
