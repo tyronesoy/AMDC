@@ -1,4 +1,4 @@
-<?ph
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!--<?php
@@ -422,9 +422,9 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='../assets/dist/img/default.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='user-image' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
-                                        echo "<img width='100' height='100'  class='user-image' src='../assets/dist/img/".$row['image']."' alt='Profile Pic'>";
+                                        echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
                               
                         }
@@ -443,9 +443,9 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../assets/dist/img/default.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='../assets/dist/img/".$row['image']."' alt='Profile Pic'>";
+                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
                                 echo "<br>";
                         }
@@ -501,7 +501,26 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                             </div>
                                       </div>
                 <div class="box-body">
-                    
+                                  <center>
+                                  <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                                echo "<br>";
+                        }
+                ?>
+                <br />
+                <input type="file" name="file">
+                   <br /></center>
                         <?php
                           $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                           $date = date("Y/m/d");
@@ -580,23 +599,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
               </div>
 
                 
-               <?php
-
-                        $con = mysqli_connect("localhost","root","","itproject");
-                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
-                        $result = $con->query($q);
-
-                        while($row = $result->fetch_assoc()){
-                   
-                                if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../assets/dist/img/default.jpg' alt='Default Profile Pic'>";
-                                } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='../assets/dist/img/".$row['image']."' alt='Profile Pic'>";
-                                }
-                                echo "<br>";
-                        }
-                ?>
-                <input type="file" name="file">
+ 
 
 
               </div>
@@ -628,9 +631,9 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../assets/dist/img/default.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='../assets/dist/img/".$row['image']."' alt='Profile Pic'>";
+                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
                                 echo "<br>";
                         }
