@@ -687,7 +687,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                   <tr>
                       <th>Memo Date</th>
-                      <th>Description</th>
+                      <th>Memo Title</th>
                       <th>Status</th>
                       <th>Action</th>
                   </tr>
@@ -708,7 +708,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           }
                       ?>
                       <td><?php echo $row["memo_date"]; ?></td>
-                      <td><?php echo $row["memo_description"]; ?></td>
+                      <td><?php echo $row["memo_title"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">

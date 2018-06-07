@@ -927,6 +927,26 @@ function category($connect)
                     </tr>
                 </table>      
             </div>
+
+        <div style="background-color: #f9f4f4; color: black;">
+                 <h4 style="margin-left: 15px; margin-top: 15px;">Filter Quantity</h4>
+                <table border="0" cellspacing="5" cellpadding="5">
+        <tbody>
+          <tr style="float: left; margin-left: 15px;">
+            <td><input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty"></td>
+            <td>-</td>
+            <td><input type="text" class="form-control" id="max" name="max" placeholder="Maximum Quantity"></td>
+          </tr>
+          <!-- <tr style="float: right; margin-left: 40px;">
+            <td><input type="text" class="form-control" id="mindate" name="mindate" placeholder="Min Date"></td>
+            <td>-</td>
+            <td><input type="text" class="form-control" id="maxdate" name="maxdate" placeholder="Max Date"></td>
+          </tr> -->
+    </tbody>
+  </table>
+          </br>
+          </div>
+
         <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
           <?php
@@ -934,24 +954,16 @@ function category($connect)
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Office' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
-             <col width="auto">
-            <col width="8%">
-            <col width="8%">
-            <col width="20%">
-             <col width="35%">
-            <col width="40%">
-            <col width="8%">
-            <col width="22.5%">
           <thead>
             <tr>
-                  <th style="display: none;">ID</th>
-                <th>Lot Number</th>
-                 <th>Quantity In Stock</th>
+                 <th style="display: none;"> ID </th>            
+                  <th>Lot Number</th>
+                  <th>Quantity In Stock</th>
                   <th>Unit</th>
-                <th>Brand Name</th>
-                <th>Item Name</th>
+                  <th>Brand Name</th>
+                  <th>Item Name</th>
                   <th>Item Description</th>
-                    <th>Category</th>
+                  <th>Category</th>
                   <th>Unit Price</th>
                   <th> Action</th> 
             </tr>
@@ -990,15 +1002,15 @@ function category($connect)
         
         <tfoot>
            <tr>
-                  <th style="display: none;">ID</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th> </th> 
+                  <th style="display: none;"> ID </th>             
+                  <th class="srch">Lot Number</th>
+                  <th class="srch">Quantity In Stock</th>
+                  <th class="srch">Unit</th>
+                  <th class="srch">Brand Name</th>
+                  <th class="srch">Item Name</th>
+                  <th class="srch">Item Description</th>
+                  <th class="srch">Category</th> 
+                  <th class="srch">Unit Price</th>
                   <th> </th>
             </tr> 
         </tfoot>
@@ -1203,22 +1215,57 @@ function onUserInactivity() {
 </script>
  
 <script>
-      $(function () {
-        $('#example').DataTable({
-          order : [[ 0, 'desc' ]],
-          "lengthMenu": [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
-        })
-        $('#example1').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : false,
-          'ordering'    : true,
-          'info'        : true,
-          'autoWidth'   : false
-        })
+    $(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example tfoot th.srch').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
 
+    // filtering
+    $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = parseInt( $('#min').val(), 10 );
+        var max = parseInt( $('#max').val(), 10 );
+        var quantity = parseFloat( data[2] ) || 0; // use data for the age column
+ 
+        if ( ( isNaN( min ) && isNaN( max ) ) ||
+             ( isNaN( min ) && age <= max ) ||
+             ( min <= quantity   && isNaN( max ) ) ||
+             ( min <= quantity   && quantity <= max ) )
+        {
+            return true;
+        }
+        return false;
+    }
 
-      })
+    );// for filtering
+
+ 
+    // DataTable
+    var table = $('#example').DataTable({
+      order : [[ 0, 'desc' ]],
+      "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
+      "scrollX": true
+    });    
+    // Apply the search in table footer
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
+    // id's for filtering
+   $('#min, #max').keyup( function() { 
+        table.draw();
+    } );
+} ); // end of document ready
     </script>
 
 <script>

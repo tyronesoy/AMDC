@@ -15,6 +15,7 @@ if(isset($_REQUEST['id'])){
         $per_memodescription=$row[3];
         $per_memosoft=$row[4];
         $per_memostatus=$row[5];
+        $memo_title=$row[6];
 
     }//end while
 ?>
@@ -43,7 +44,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <center><h3 class="modal-title"><b>Are you sure to change the status of this memo?</h3><h2></b></h2></b></center>
+                          <center><h3 class="modal-title"><b>Are you sure to change the status of this memo entitled</b> <br><center> <u> <?php echo $memo_title; ?> ? </u></h3></center>
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Memo ID</label>
                             <div class="col-sm-6">

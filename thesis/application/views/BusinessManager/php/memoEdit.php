@@ -52,12 +52,12 @@ if(isset($_REQUEST['id'])){
                              </div>
 
                                  <div class="form-group">
-                                                  <label for="txtmemodate">Memo Date</label>
+                                                  <label for="txtmemodate">Date & Time Created</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="txtmemodate" name="txtmemodate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $per_memodate;?>">
+                                                  <input type="text" class="form-control" id="txtmemodate" name="txtmemodate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $per_memodate;?>" readonly>
                                               </div>
                                               </div>
 
