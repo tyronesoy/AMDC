@@ -196,7 +196,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
-                                $daysvalue = strtotime($row['value2']);
+                                $daysval = strtotime($row['value2']);
+                                $datenow = strtotime(date("Y/m/d"));
+                                $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
+                                $daysvalue = $daysval2 - $datenow;
                                 $num1 = 0;
                             }
                           }
@@ -406,6 +409,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </li>
             </ul>
           </li>
+        <!--          FLAG END-->
           <li>
             <button type="submit" class="btn btn-default btn-flat" style="background-color:#00a65a; border:none;" data-toggle="modal" data-target="#editflag"><i class="glyphicon glyphicon-cog" style="font-size:25px"></i>
             </button>
