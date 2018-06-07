@@ -40,7 +40,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                       <center><h3 class="modal-title"><b>Are you sure to change the stastus of this memo entitled</b> <br><center> <u> <?php echo $memo_title; ?> ? </u></h3></center>
+                       <center><h3 class="modal-title"><b>Are you sure to finish the memo entitled</b> <br><center> <u> <?php echo $memo_title;?></u>?</h3></center>
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Memo ID</label>
                             <div class="col-sm-6">
@@ -56,7 +56,7 @@ if(isset($_REQUEST['id'])){
                 </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-warning" name="btnUpdate"><i class="glyphicon glyphicon-random"></i> Change</button>
+                <button type="submit" class="btn btn-success" name="btnUpdate"><i class="fa fa-flag-checkered"></i> Finish</button>
             </div>
         </div>
     </form>

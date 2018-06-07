@@ -102,7 +102,7 @@ if(isset($_REQUEST['id'])){
                         </div>
                     </div>
                       <?php
-                        $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supply_description=supply_name WHERE   inventory_order_id=$id AND (quantity_issued !=0 OR quantity_issued IS NOT NULL)";
+                        $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supply_description=supply_name WHERE inventory_order_id=$id AND (quantity_issued !=0 OR quantity_issued IS NOT NULL)";
                         $result = $con->query($sql);    
                       ?>
                         <span id="error"></span>
@@ -124,7 +124,7 @@ if(isset($_REQUEST['id'])){
                                 <td width="30%"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity_issued'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
                                 </td>
 
-                               <td><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit_name'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                               <td><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
                                 </td>
 
                                 <td width="70%"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">

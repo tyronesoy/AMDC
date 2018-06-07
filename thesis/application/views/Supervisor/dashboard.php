@@ -517,7 +517,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     }
                   ?>
 
-              <p>Ongoing Orders</p>
+              <p>Partially Issued Orders</p>
             </div>
             <div class="icon">
               <i class="fa fa-star-half-o"></i>
@@ -545,7 +545,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     }
                   ?>
 
-              <p>Not Approved Orders</p>
+              <p>Disapproved Orders</p>
             </div>
             <div class="icon">
               <i class="fa fa-thumbs-down"></i>
@@ -614,30 +614,38 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                     $today=date("Y/m/d");
                     $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND inventory_order_status != 'Fully Issued' AND inventory_order_status != '' AND quantity != 0 GROUP BY inventory_order_id";
-                    $result = $conn->query($sql);    
+                    $result = $conn->query($sql); 
+
+                    $arrayName = '';   
                   ?>
                   
                  <thead>
                         <tr>
-                            <th>Order ID</th>
+                            <!-- <th>Order ID</th> -->
                             <th>Order Date</th>
-                            <th>Item Name</th>
-                            <th>Quantity Ordered</th>
-                            <th>Quantity Issued</th>
+                            <th>Item Name/s</th>
                             <th>Status</th>
                             <th>Remarks</th>
                             <th></th>
                         </tr>
                  </thead>
                     <tbody>
-                      <?php if ($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) { ?>
+                      	<?php if ($result->num_rows > 0) {
+                        	while($row = $result->fetch_assoc()) {
+                        	$arrayName .= $row['supply_name'].', ';
+                        	$item_name = explode(", ", $arrayName);
+                        	$count = count($item_name); 
+                      	?>
+
                         <tr>
-                          <td><?php echo $row["inventory_order_id"]; ?></td>
+                          <!-- <td><?php //echo $row["inventory_order_id"]; ?></td> -->
                           <td><?php echo $row["inventory_order_created_date"]; ?></td>
-                          <td><?php echo $row["supply_name"]; ?></td>
-                          <td><?php echo $row["quantity"]; ?></td>
-                          <td><?php echo $row["quantity_issued"]; ?></td>
+                          <td>
+                          	<?php echo $row["supply_name"]; ?>
+                          		<?php if ($row["supply_name"] > 1){ ?>
+                          			and <?php echo $count; ?> more item/s
+                          		<?php } ?>
+                          	</td>
                           <td><?php echo $row["inventory_order_status"]; ?></td>
                           <td><?php echo $row["inventory_order_remarks"]; ?></td>
                           <td>
@@ -651,9 +659,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         } ?>
                     </tbody>
                     <tfoot>
-                            <th></th>
-                            <th></th>
-                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -759,7 +764,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_name, SUM(quantity), supply_type FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description join users on users.fname+users.lname = inventory_order.inventory_order_name WHERE inventory_order_status='Fully Issued'  AND inventory_order_name = '".$_SESSION['fname']."' + '".$_SESSION['lname']."' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity), supply_type FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description join users on users.fname+users.lname = inventory_order.inventory_order_name WHERE inventory_order_status='Fully Issued'  AND inventory_order_name = '".$_SESSION['fname']."' + '".$_SESSION['lname']."' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 5";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>

@@ -25,10 +25,11 @@ function supply_medical($connect)
  foreach($result as $row)
  {
   $value = $row["supply_description"];
-    $output .= "'".$value."' || ";
+    $output .= $value.", ";
  }
  return $output;
 }
+$medSplit = explode(", ", supply_medical($connect));
 function supply_office($connect)
 { 
  $output = '';
@@ -39,7 +40,7 @@ function supply_office($connect)
  foreach($result as $row)
  {
   $value = $row["supply_description"];
-    $output .= "'".$value."' || ";
+    $output .= "'".$value."'";
  }
  return $output;
 }
@@ -510,7 +511,7 @@ if(!isset($_SESSION['first_run'])){
                     <button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Order</i></button>
                         <form name="form1" method="post" action="order/addItem" >
                           <div class="modal fade" id="modal-info">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog" >
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -528,7 +529,7 @@ if(!isset($_SESSION['first_run'])){
                                   </div>
                                 </div>
                                         <!-- end of modal header -->
-                                <div class="modal-body">
+                                <div class="modal-body" style="overflow-y: scroll; max-height:50%;  margin-top: 50px; margin-bottom:50px;">
                                   <div class="box-header">
                                     <div class="margin">
                                       <center><h4><b>Add New Order / Request</b></h4></center>
@@ -544,7 +545,7 @@ if(!isset($_SESSION['first_run'])){
                                             <div class="input-group-addon">
                                               <i class="fa fa-user"></i>
                                             </div>
-                                            <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                           </div>
                                         </div>
                                         
@@ -568,7 +569,7 @@ if(!isset($_SESSION['first_run'])){
                                               if ($resulty->num_rows > 0) {
                                                 while($row = $resulty->fetch_assoc()) { 
                                             ?>
-                                                  <input type="text" class="form-control" id="department" name="department" value="<?php echo $row['dept_name']; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                  <input type="text" class="form-control" id="department" name="department" value="<?php echo $row['dept_name']; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             <?php 
                                                 }
                                               }
@@ -585,14 +586,14 @@ if(!isset($_SESSION['first_run'])){
                                               <i class="fa fa-calendar"></i>
                                             </div>
                                             <?php $date = date("Y-m-d"); ?>
-                                            <input type="date" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            <input type="date" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                           </div>
                                         <!-- /.input group -->
                                         </div>
                                       </div>
                                     </div>
                                     <div class="row">
-                                        <button type="button" name="add" id="add" class="btn btn-info pull-right"><i class="fa fa-plus"></i> Add Row</button>
+                                        <button type="button" name="add" id="add" class="btn btn-info pull-right addRow"><i class="fa fa-plus"></i> Add Row</button>
                                     </div>
                                     <div class="row">      
                                       <div class="table-responsive">
@@ -615,11 +616,11 @@ if(!isset($_SESSION['first_run'])){
                                               </select>
                                             </td>
                                             <td>
-                                              <input class="form-control" type="text" name="unit" id="unit0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="unit" id="unit0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
-                                              <input class="form-control" type="text" name="type" id="type0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="type" id="type0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                           </tr>
 
@@ -634,11 +635,11 @@ if(!isset($_SESSION['first_run'])){
                                               </select>
                                             </td>
                                             <td>
-                                              <input class="form-control" type="text" name="unit" id="unit1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="unit" id="unit1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
-                                              <input class="form-control" type="text" name="type" id="type1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="type" id="type1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                           </tr>
 
@@ -653,11 +654,11 @@ if(!isset($_SESSION['first_run'])){
                                               </select>
                                             </td>
                                             <td>
-                                              <input class="form-control" type="text" name="unit" id="unit2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="unit" id="unit2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
-                                              <input class="form-control" type="text" name="type" id="type2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="type" id="type2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                           </tr>
 
@@ -672,11 +673,11 @@ if(!isset($_SESSION['first_run'])){
                                               </select>
                                             </td>
                                             <td>
-                                              <input class="form-control" type="text" name="unit" id="unit3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="unit" id="unit3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
-                                              <input class="form-control" type="text" name="type" id="type3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="type" id="type3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                           </tr>
 
@@ -691,11 +692,11 @@ if(!isset($_SESSION['first_run'])){
                                               </select>
                                             </td>
                                             <td>
-                                              <input class="form-control" type="text" name="unit" id="unit4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="unit" id="unit4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
-                                              <input class="form-control" type="text" name="type" id="type4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="type" id="type4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                           </tr>
 
@@ -710,11 +711,11 @@ if(!isset($_SESSION['first_run'])){
                                               </select>
                                             </td>
                                             <td>
-                                              <input class="form-control" type="text" name="unit" id="unit5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="unit" id="unit5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
-                                              <input class="form-control" type="text" name="type" id="type5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="type" id="type5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                           </tr>
 
@@ -729,11 +730,11 @@ if(!isset($_SESSION['first_run'])){
                                               </select>
                                             </td>
                                             <td>
-                                              <input class="form-control" type="text" name="unit" id="unit6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="unit" id="unit6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
-                                              <input class="form-control" type="text" name="type" id="type6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="type" id="type6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                           </tr>
 
@@ -748,11 +749,11 @@ if(!isset($_SESSION['first_run'])){
                                               </select>
                                             </td>
                                             <td>
-                                              <input class="form-control" type="text" name="unit" id="unit7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="unit" id="unit7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
-                                              <input class="form-control" type="text" name="type" id="type7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="type" id="type7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                           </tr>
 
@@ -767,11 +768,11 @@ if(!isset($_SESSION['first_run'])){
                                               </select>
                                             </td>
                                             <td>
-                                              <input class="form-control" type="text" name="unit" id="unit8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="unit" id="unit8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
-                                              <input class="form-control" type="text" name="type" id="type8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="type" id="type8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                           </tr>
 
@@ -786,34 +787,52 @@ if(!isset($_SESSION['first_run'])){
                                               </select>
                                             </td>
                                             <td>
-                                              <input class="form-control" type="text" name="unit" id="unit9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="unit" id="unit9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
-                                              <input class="form-control" type="text" name="type" id="type9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                            </td>
-                                          </tr>
-                                          <tr id="row10" class="hidden">
-                                            <td>
-                                              <input class="form-control" type="number" name="number[]" id="quant10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
-                                            </td>
-                                            <td>
-                                              <select class="form-control filter" name="neym[]" id="supply10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
-                                                <option value=""></option> 
-                                                  <?php echo supply_dropdown($connect);?>
-                                              </select>
-                                            </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                            </td>
-                                              
-                                            <td>
-                                              <input class="form-control" type="text" name="type" id="type10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" type="text" name="type" id="type9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                           </tr>
                                             
                                         </table>
                                       </div>
+                                      <!-- <script>
+                                        $(document).ready(function(){
+                                          $('.addRow').attr('disabled',true);
+                                          $('#supply0').change(function(){
+                                            if($(this).val().length !=0)
+                                              $(document).ready(function(){
+                                                $('.addRow').attr('disabled',true);
+                                                $('#quant0').keyup(function(){
+                                                  if($(this).val().length !=0)
+                                                    $('.addRow').attr('disabled', false);            
+                                                  else
+                                                  $('.addRow').attr('disabled',true);
+                                                })
+                                              });            
+                                            else
+                                            $('.addRow').attr('disabled',true);
+                                          })
+                                        });
+                                        $(document).ready(function(){
+                                          $('.addRow').attr('disabled',true);
+                                          $('#quant0').keyup(function(){
+                                            if($(this).val().length !=0)
+                                              $(document).ready(function(){
+                                                $('.addRow').attr('disabled',true);
+                                                $('#supply0').change(function(){
+                                                  if($(this).val().length !=0)
+                                                    $('.addRow').attr('disabled', false);            
+                                                  else
+                                                    $('.addRow').attr('disabled',true);
+                                                })
+                                              });            
+                                            else
+                                              $('.addRow').attr('disabled',true);
+                                          })
+                                        });
+                                      </script> -->
                                     </div>
                                   </div>
                                 </div>
@@ -1038,11 +1057,12 @@ function onUserInactivity() {
 $(document).ready(function(){
   var medSupp = <?php echo(json_encode(supply_medical($connect))); ?>;
   var offSupp = <?php echo(json_encode(supply_office($connect))); ?>;
+  var medSplit = <?php echo(json_encode($medSplit)); ?>;
 
     $("#supply0").change(function(){
       var value = document.getElementById('supply0');
       var value1 = value.options[value.selectedIndex].value;
-
+      // alert(medSplit);
       if (value1 == medSupp){
         $('#type0').attr('value','Medical');
       }else if(value1 == offSupp){
