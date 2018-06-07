@@ -716,7 +716,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               </div>
 
                                                   <div class="form-group">
-                                                    <label>Memo Date</label>
+                                                    <label>Date & Time Created</label>
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>

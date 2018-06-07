@@ -110,17 +110,26 @@ if(isset($_REQUEST['id'])){
                         <span id="error"></span>
                         <table class="table table-bordered" id="item_table">
                             <tr>
-                                <th>Item Description</th>
-                                <th>Quantity Issued</th>
+                                <th width="15%">Quantity Ordered</th>
+                                 <th width="13%">Quantity Issued</th>
+                                 <th width="16%">Unit</th>
+                                <th width="52%">Item Description</th>
+                                
                             </tr>
                             <?php if($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) { 
                             ?>
                             <tr>
-                                <td width="200px"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                  <td><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
-                                            
-                                <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity_issued'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+
+                                <td width="15%"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity_issued'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                                </td>
+
+                               <td><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit_name'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                                </td>
+
+                                <td width="70%"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </td>
                             </tr>
                             <?php 
@@ -130,7 +139,6 @@ if(isset($_REQUEST['id'])){
                     </div>
                 </div>   
                 <div class="modal-footer">
-                <button id="btnPrint" type="button" class="btn btn-success" style="float:left;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
                 <!-- <button type="submit" class="btn btn-primary" name="">Save</button> -->
             </div>

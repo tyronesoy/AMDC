@@ -8,6 +8,7 @@ if(isset($_REQUEST['id'])){
     $run_sql=mysqli_query($conn,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
+        $memo_title=$row[6];
     }//end while
 ?>
        <div class="row">
@@ -32,7 +33,7 @@ if(isset($_REQUEST['id'])){
                                         </div>
                                         <!-- end of modal header -->
                 <div class="modal-body">
-                 <center><h3 class="modal-title"><b>Do you want to archive this item?</b></h3></center>
+                 <center><h3 class="modal-title"><b>Are you sure to archive this memo entitled</b> <br><center> <u> <?php echo $memo_title; ?> ? </u></h3></center>
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <div class="form-group">

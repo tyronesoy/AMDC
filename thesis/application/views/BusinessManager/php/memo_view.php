@@ -48,7 +48,7 @@ if(isset($_REQUEST['id'])){
                     <div class="box-body">
                         <div class="form-group">
                                     
-                                <label for="exampleInputEmail1">Memo Date</label>
+                                <label for="exampleInputEmail1">Date & Time Created</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
