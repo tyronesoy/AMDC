@@ -781,9 +781,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div></td>
 
           <td><div class="input-group input-daterange" style="padding-left: 20px;">
-            <input type="text" class="form-control" id="startdate" placeholder="Min Date">
+            <input type="text" class="form-control" id="startdate" placeholder="Start Date">
             <div class="input-group-addon">to</div>
-            <input type="text" class="form-control" id="enddate" placeholder="Max Date">
+            <input type="text" class="form-control" id="enddate" placeholder="End Date">
           </div></td>
           </tr>
         </table>

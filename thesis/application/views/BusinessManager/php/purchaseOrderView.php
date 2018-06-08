@@ -136,6 +136,8 @@ if(isset($_REQUEST['id'])){
                                             <tr>
                                                <th>Item Description</th>
                                                <th>Quantity</th>
+                                               <th>Unit</th>
+                                               <th>Item Type</th>
                                               </tr>
                                               <?php if($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) { ?>
@@ -145,6 +147,9 @@ if(isset($_REQUEST['id'])){
                                               </td>
                                             
                                             <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
+
+                                             <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_unit'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
+                                              <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['supply_type'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
                                             </tr>
 
                                             <?php 

@@ -17,15 +17,16 @@ if(isset($_REQUEST['id'])){
         $per_remarks=$row[6];
         $per_issueDate=$row[7];
         $per_issueTo=$row[8];
-        $per_supplyName=$row[10];
-        $per_supplyUnit=$row[11];
-        $per_supplyQuantity=$row[12];
+        $per_orderID=$row[9];
+        $per_supplyName=$row[11];
+        $per_supplyUnit=$row[12];
+        $per_supplyQuantity=$row[13];
 
     }//end while
 ?>
 <div class="row">
     <div class="col-xs-12">
-        <div class="box">
+        <div class="box" style="overflow-y: scroll; max-height:85%;">
             <div class="box-header">
 <div id="printThis">
     <form class="form-horizontal" method="post">
@@ -53,54 +54,67 @@ if(isset($_REQUEST['id'])){
                 </div>
                 <div class="box-body">                                      
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Supervisor Name</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Request Date</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Issued To</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtissue" name="txtissue" value="<?php echo $per_issueTo;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtissue" name="txtissue" value="<?php echo $per_issueTo;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Issued Date</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_issueDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_issueDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
                                 </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Order ID</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-id-badge"></i>
+                                    </div>
+                                <input type="text" class="form-control" id="txtorder" name="txtorder" value="<?php echo $per_orderID;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                       <?php
                         $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supply_description=supply_name WHERE inventory_order_id=$id AND (quantity_issued !=0 OR quantity_issued IS NOT NULL)";
                         $result = $con->query($sql);    
@@ -118,16 +132,16 @@ if(isset($_REQUEST['id'])){
                                 while($row = $result->fetch_assoc()) { 
                             ?>
                             <tr>
-                                <td><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
                                 </td>
 
-                                <td width="30%"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity_issued'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                                <td width="30%"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity_issued'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">  
                                 </td>
 
-                               <td><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                               <td><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">  
                                 </td>
 
-                                <td width="70%"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td width="70%"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
                                 </td>
                                
                             </tr>
