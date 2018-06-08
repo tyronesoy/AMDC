@@ -11,7 +11,7 @@ function supply_dropdown($connect)
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output .= '<option value="'.$row["item_name"].'">'.$row["supply_description"].'</option>';
+  $output .= '<option value="'.$row["supply_description"].'">'.$row["supply_description"].'</option>';
  }
  return $output;
 }
