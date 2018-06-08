@@ -28,14 +28,16 @@ if(isset($_REQUEST['id'])){
         $per_quantityDelivered=$row[13];
         $per_itemDeliveryRemarks=$row[14];
         $per_notes=$row[15];
-        $per_purch_id=$row[16];
-        $per_orderCreateDate=$row[17];        
-        $per_purchOrderName=$row[18];
-        $per_purchOrderStatus=$row[19];
-        $per_purchOrderRemarks=$row[20];
-        $per_gtotal=$row[21];
-        $per_soft_deleted=$row[24];
-        $per_sup_id=$row[25];
+        $qtyRem=$row[16];
+        $ordrNo=$row[17];        
+        $per_purch_id=$row[18];
+        $per_orderCreateDate=$row[19];        
+        $per_purchOrderName=$row[20];
+        $per_purchOrderStatus=$row[21];
+        $per_purchOrderRemarks=$row[22];
+        $per_gtotal=$row[23];
+        $per_soft_deleted=$row[26];
+        $per_sup_id=$row[28];
         $date = date("Y-m-d");
 
 
@@ -72,7 +74,7 @@ if(isset($_REQUEST['id'])){
                                                 <label class="hidden" for="txtid">Purchase ID</label>
                                                     <input type="hidden" class="form-control" id="txtid" name="txtid" value="<?php echo $per_purch_id;?>" readonly>
 
-                                                    <input type="hidden" class="form-control" id="txtpID" name="txtpID" value="<?php echo $per_po_key;?>" readonly
+                                                    <input type="hidden" class="form-control" id="txtpID" name="txtpID" value="<?php echo $per_po_key;?>" readonly>
 
                                                     <input type="hidden" class="form-control" id="txtstat" name="txtstat" hidden value="<?php echo $per_purchOrderStatus;?>" readonly>
 
@@ -152,6 +154,30 @@ if(isset($_REQUEST['id'])){
                                               </div>
                                               <div class="col-md-1">
                                                 </div>
+                                  <?php
+                                    $sqldelby="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join deliveries using (po_id) WHERE purchase_order_id=$id";
+                                    $run_sqldelby=mysqli_query($con,$sqldelby);
+                                    while($row=mysqli_fetch_array($run_sqldelby)){
+                                        $per_courier=$row[43];
+                                    }//end while
+    
+                                    if($per_courier != ''){
+                                  ?>
+                                  <div class="col-md-5">
+                                              <div class="form-group">
+                                                    <label>Delivered By</label>
+                                                     <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-user"></i>
+                                                      </div>
+
+                                                      <input type="text" class="form-control" id="txtdelBy" name="txtdelBy" value="<?php echo $per_courier;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" required>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                  <?php
+                            }else{
+                            ?>
                                   <div class="col-md-5">
                                               <div class="form-group">
                                                     <label>Delivered By</label>
@@ -164,11 +190,33 @@ if(isset($_REQUEST['id'])){
                                                   </div>
                                                 </div>
                                               </div>
-                            </div>
-                            <?php
-                            // if(){
+                                  
+                                  <?php
+                            }
                             ?>
+                            </div>
+                            
                             <div class="row">
+                                <?php
+                             if($ordrNo != ''){
+                            ?>
+                                <div class="col-md-5">
+                                              <div class="form-group">
+                                                    <label>Order No.</label>
+                                                     <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                        <i class="fa fa-hashtag"></i>
+                                                      </div>
+
+                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value="<?php echo $ordrNo;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" required>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-1">
+                                                </div>
+                                <?php
+                            }else{
+                            ?>
                                 <div class="col-md-5">
                                               <div class="form-group">
                                                     <label>Order No.</label>
@@ -183,6 +231,9 @@ if(isset($_REQUEST['id'])){
                                               </div>
                                               <div class="col-md-1">
                                                 </div>
+                                <?php
+                            }
+                            ?>
                                   
                                               <?php
                             if($per_quantityDelivered != ''){
@@ -201,9 +252,7 @@ if(isset($_REQUEST['id'])){
                             }
                             ?>
                             </div>
-                            <?php
-                            // }
-                            ?>
+                            
 
                             </div>
                                                                            <?php
@@ -249,7 +298,7 @@ if(isset($_REQUEST['id'])){
                                                <th width="5%">Qty Delivered</th>
                                                <th width="20%">Supply Description</th>
                                                <th width="8%">Brand</th>
-                                               <th width="8%">Unit Price &#8369 </th>
+                                               <th width="8%">Unit Price &#8369; </th>
                                                <th width="8%">Expiration Date</th>
             
 
@@ -328,9 +377,9 @@ if(isset($_REQUEST['id'])){
                                               </td>
 
                                               <?php if ($per_itemDeliveryRemarks == 'Partial' ) {?>
-                                               <td width="100px"><input type="text" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($rem[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
+                                               <td width="100px"><input type="text" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]-$quantityDelivered[$zero]); ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
 
-                                               <td width="100px"><input type="number" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered<?php echo $x; ?>" value="<?php print_r($quantityDelivered[$zero]); ?>" min="1" max="<?php print_r($rem[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  </td>
+                                               <td width="100px"><input type="number" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered<?php echo $x; ?>" value="<?php print_r($quantityDelivered[$zero]); ?>" min="1" max="<?php print_r($quantity[$zero]-$quantityDelivered[$zero]); ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  </td>
 
                                                <td width="200px"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc<?php echo $x; ?>" value="<?php print_r($desc[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                               </td>
@@ -341,7 +390,7 @@ if(isset($_REQUEST['id'])){
                                             <td width="100px"><input type="text" id="unit_price<?php echo $x; ?>" name="unit_price<?php echo $x; ?>" class="form-control " value="<?php print_r($unitPrice[$zero]); ?>" min="0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"> 
                                             </td>
 
-                                              <td width="100px"><input type="text" min="<?php date('d/m/Y', strtotime('+2 months')); ?>" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value=""  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <td width="100px"><input type="text" min="<?php date('Y-m-d', strtotime('+2 months')); ?>" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value=""  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
                                                
                                                <?php }elseif ($per_itemDeliveryRemarks == '') {?>
@@ -397,6 +446,7 @@ if(isset($_REQUEST['id'])){
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
+    </div>
             <!-- end of Items FORM -->
               </form>
               <?php

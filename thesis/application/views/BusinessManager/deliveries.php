@@ -697,6 +697,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                   <tr>
                         <th>Purchase ID</th>
+                        <th>Item name/s</th>
                         <th>Supplier</th>
                         <th>Order Date</th>
                         <th>Delivery Date</th>
@@ -710,6 +711,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <td><?php echo $row["purchase_order_uniq_id"]; ?></td>
+                      <td><?php echo $row["description"]?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
                       <td><?php echo $row["delivery_date"]; ?></td>

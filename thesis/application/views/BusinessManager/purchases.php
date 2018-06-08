@@ -686,7 +686,7 @@ function unit_measure($connect)
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="<?php echo '../dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active"><i class="fa fa-shopping-cart"></i> Purchases</li>
       </ol>
     </section>
@@ -1041,6 +1041,7 @@ function unit_measure($connect)
                       <thead>
                           <tr>
                               <th>Purchase ID</th>
+                              <th>Item name/s</th>
                               <th>Supplier</th>
                               <th>Order Date</th>
                               <th>Delivery Date</th>
@@ -1063,7 +1064,8 @@ function unit_measure($connect)
                               $status = '<span class="label label-success">Delivered</span>';
                           }
                       ?>
-                      <td><?php echo $row["purchase_order_id"]; ?></td>
+                      <td><?php echo $row["purchase_order_uniq_id"]; ?></td>
+                      <td><?php echo $row["description"]?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
                       <td><?php echo $row["delivery_date"]; ?></td>
@@ -1634,10 +1636,10 @@ if(isset($_POST['btnEdit'])){
       $new_deliveryDate = NULL;
     }
 
-    $sqldel="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='CURDATE()' WHERE po_key='$new_pid' ";
+    $sqldel="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
     $result_del=mysqli_query($con,$sqldel);
 
-       $sqldel2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='CURDATE()' WHERE po_key='$new_pid' ";
+       $sqldel2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
     $result_del2=mysqli_query($con,$sqldel2);
 
     if($result_del && $sqldel2){
