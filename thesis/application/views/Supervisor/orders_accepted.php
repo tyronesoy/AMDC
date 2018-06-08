@@ -255,13 +255,43 @@ if(!isset($_SESSION['first_run'])){
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user5-128x128.png" class="user-image" alt="User Image">
+               <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='user-image' height='100' src='../upload/default3.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                              
+                        }
+                ?>
               <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>     
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
+                 <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default3.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                              
+                        }
+                ?>
 
                 <p>
                  <span><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
@@ -288,7 +318,7 @@ if(!isset($_SESSION['first_run'])){
              <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -314,7 +344,26 @@ if(!isset($_SESSION['first_run'])){
                                             </div>
                                       </div>
                 <div class="box-body">
-                    
+                                  <center>
+                                  <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default3.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                                echo "<br>";
+                        }
+                ?>
+                <br />
+                <input type="file" name="file">
+                   <br /></center>
                         <?php
                           $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                           $date = date("Y/m/d");
@@ -355,14 +404,14 @@ if(!isset($_SESSION['first_run'])){
                       <div class="col-md-6">
                       <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" placeholder="email@email.com" required />
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
                         </div>
                       </div>
                 
                        <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
                       </div>
                     </div>
@@ -391,6 +440,11 @@ if(!isset($_SESSION['first_run'])){
                           ?>
                 </div>
               </div>
+
+                
+ 
+
+
               </div>
               </div>
               <div class="modal-footer">
@@ -411,7 +465,22 @@ if(!isset($_SESSION['first_run'])){
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user5-128x128.png" class="img-circle" alt="User Image">
+           <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default3.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                              
+                        }
+                ?>
         </div>
         <div class="pull-left info">
            <p><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></p>
