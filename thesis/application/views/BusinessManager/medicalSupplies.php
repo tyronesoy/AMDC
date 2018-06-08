@@ -955,9 +955,9 @@ function category($connect)
           </div></td>
 
           <td><div class="input-group input-daterange" style="padding-left: 20px;">
-            <input type="text" class="form-control" id="startdate" placeholder="Min Date">
+            <input type="text" class="form-control" id="startdate" placeholder="Start Date">
             <div class="input-group-addon">to</div>
-            <input type="text" class="form-control" id="enddate" placeholder="Max Date">
+            <input type="text" class="form-control" id="enddate" placeholder="End Date">
           </div></td>
           </tr>
         </table>
@@ -974,7 +974,7 @@ function category($connect)
           <thead>
             <tr>
                   <th style="display: none;"> ID </th>                
-                  <th>Lot Number</th>
+                  <th style="width:15%">Lot Number</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Brand Name</th>
@@ -1024,8 +1024,8 @@ function category($connect)
         <tfoot>
            <tr>
                   <th style="display: none;"> ID </th>                
-                  <th class="srch">Lot Number</th>
-                  <th class="srch">Quantity In Stock</th>
+                  <th class="srch">Lot No</th>
+                  <th class="srch">Qty In Stock</th>
                   <th class="srch">Unit</th>
                   <th class="srch">Brand Name</th>
                   <th class="srch">Item Name</th>
@@ -1117,7 +1117,7 @@ $(document).ready(function() {
     // Setup - add a text input to each footer cell
     $('#example tfoot th.srch').each( function () {
         var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        $(this).html( '<input type="text" style="width:100%;" placeholder="Search '+title+'" />' );
     } );
 
     // filtering

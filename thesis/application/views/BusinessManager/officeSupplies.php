@@ -961,7 +961,7 @@ function category($connect)
           <thead>
             <tr>
                  <th style="display: none;"> ID </th>            
-                  <th>Lot Number</th>
+                  <th style="width:15%;">Lot No</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Brand Name</th>
@@ -1035,7 +1035,7 @@ function category($connect)
           </a>
           </button>
 		</div>
-                 <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep">Generate Report</button>
+                 <button  type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
       </div>
         <!-- END OF PRINT AND PDF -->
         <div class="modal fade" id="printrep">
@@ -1149,7 +1149,7 @@ function category($connect)
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-clone"></i> Generate</button>
+                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-copy"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -1223,7 +1223,7 @@ function onUserInactivity() {
     // Setup - add a text input to each footer cell
     $('#example tfoot th.srch').each( function () {
         var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        $(this).html( '<input type="text" style="width:100%;" placeholder="Search '+title+'" />' );
     } );
 
     // filtering
