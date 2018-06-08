@@ -11,7 +11,7 @@ function supply_dropdown($connect)
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output .= '<option value="'.$row["item_name"].'">'.$row["supply_description"].'</option>';
+  $output .= '<option value="'.$row["supply_description"].'">'.$row["supply_description"].'</option>';
  }
  return $output;
 }
@@ -436,43 +436,13 @@ function unit_measure($connect)
           <!-- User Account: style can be found in dropdown.less -->
  <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                          <?php
-
-                        $con = mysqli_connect("localhost","root","","itproject");
-                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
-                        $result = $con->query($q);
-
-                        while($row = $result->fetch_assoc()){
-                   
-                                if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
-                                } else {
-                                        echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
-                                }
-                              
-                        }
-                ?>
+              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                            <?php
-
-                        $con = mysqli_connect("localhost","root","","itproject");
-                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
-                        $result = $con->query($q);
-
-                        while($row = $result->fetch_assoc()){
-                   
-                                if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
-                                } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
-                                }
-                              
-                        }
-                ?>
+                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
 
                   <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
@@ -499,7 +469,7 @@ function unit_measure($connect)
     <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -524,27 +494,8 @@ function unit_measure($connect)
                                               <center><h4><b>Update Profile</b></h4></center>
                                             </div>
                                       </div>
-               <div class="box-body">
-                                              <center>
-                                  <?php
-
-                        $con = mysqli_connect("localhost","root","","itproject");
-                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
-                        $result = $con->query($q);
-
-                        while($row = $result->fetch_assoc()){
-                   
-                                if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
-                                } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
-                                }
-                                echo "<br>";
-                        }
-                ?>
-                <br />
-                <input type="file" name="file">
-                   <br /></center>
+                <div class="box-body">
+                    
                         <?php
                           $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                           $date = date("Y/m/d");
@@ -641,22 +592,7 @@ function unit_measure($connect)
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-                     <?php
-
-                        $con = mysqli_connect("localhost","root","","itproject");
-                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
-                        $result = $con->query($q);
-
-                        while($row = $result->fetch_assoc()){
-                   
-                                if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
-                                } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
-                                }
-                              
-                        }
-                ?>
+          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
@@ -700,7 +636,6 @@ function unit_measure($connect)
               </ul>
             </li>
              <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
-             <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li class="active"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
@@ -796,12 +731,12 @@ function unit_measure($connect)
                                               <div class="row">
                                               <div class="col-md-12">
                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Name</label>
+                                                  <label for="exampleInputEmail1">Purchasing Officer</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-user"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
+                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" margin="0px auto" readonly>
                                               </div>
                                               </div>
                                               </div>
@@ -841,7 +776,7 @@ function unit_measure($connect)
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                       <?php $date = date("Y-m-d"); ?>
-                                                      <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                      <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
@@ -1151,7 +1086,7 @@ function unit_measure($connect)
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
                         </div>
-                        <?php }else{ ?>
+                        <?php }elseif($row['po_remarks'] == 'Delivered'){ ?>
                           <!-- <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php // echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div> -->
@@ -1182,14 +1117,16 @@ function unit_measure($connect)
                       </tfoot>
             </table>
 
+            </div>
+
+            <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->
-              <button type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
-            </div>
+              <button type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
     </section>
     <!-- /.content -->
   </div>
@@ -1309,7 +1246,7 @@ function unit_measure($connect)
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="generated" id=""><i class="fa fa-copy"></i> Generate</button>
+                <button type="submit" class="btn btn-primary" name="generated" id=""><i class="fa fa-clone"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -1694,10 +1631,11 @@ if(isset($_POST['btnEdit'])){
 
     if($new_purchasesStatus == 'Pending' && $new_pid == $new_pid){
       $new_purchasesStatus = 'Delivered';
-    }else{
-      $new_purchasesStatus = 'Pending';
-      $new_deliveryDate = NULL;
     }
+//    }else{
+//      $new_purchasesStatus = 'Pending';
+//      $new_deliveryDate = NULL;
+//    }
 
     $sqldel="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
     $result_del=mysqli_query($con,$sqldel);
