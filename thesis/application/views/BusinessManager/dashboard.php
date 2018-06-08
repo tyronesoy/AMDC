@@ -494,64 +494,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
     </nav>
   </header>
  <?php $identity =  $this->session->userdata('fname');?>
-<div class="modal fade" id="editflag">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                  <div class="col-md-2">
-                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                            </div>
-                                <div class="col-md-8">
-                                                
-                                                <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
-                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                                                    <center><h6>Philippines</h6></center>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end of modal header -->
-                                        <div class="modal-body">
-                                        <div class="box-header">
-                                          <div class="margin">
-                                              <center><h4><b>Update Notification Parameters</b></h4></center>
-                                            </div>
-                                      </div>
-                <div class="box-body">
-
-                        <?php
-                          $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                          $date = date("Y/m/d");
-                          $sql = "SELECT * From defaults where attribute = 'expirerange'";
-                          $result = $conn->query($sql);    
-                        ?>
-                        <?php if ($result->num_rows > 0) {
-                          while($row = $result->fetch_assoc()) { ?>
-
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Day/s to expiration notice</label>
-                          <input type="text" class="form-control" name="days" id="days" value="<?php echo $row['value2'] ?>" required />
-                        </div>
-                          <?php 
-                              }
-                            }
-                          ?>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-
-          </div>
-          <!-- /.modal-dialog -->
-        </form> 
-        </div> 
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
@@ -578,8 +520,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                                               <center><h4><b>Update Profile</b></h4></center>
                                             </div>
                                       </div>
-                <div class="box-body">
-                      <center>
+                 <div class="box-body">
+                                  <center>
                                   <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
@@ -589,10 +531,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='
-                                        upload/default.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='upload/default3.jpg' alt='Default Profile Pic'>";
                                 } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='./upload/".$row['image']."' alt='Profile Pic'>";
+                                        echo "<img width='100' height='100'  class='img-circle' src='upload/".$row['image']."' alt='Profile Pic'>";
                                 }
                                 echo "<br>";
                         }
@@ -676,11 +617,16 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                           ?>
                 </div>
               </div>
+
+                
+ 
+
+
               </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser" id="addUser"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -688,7 +634,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>            
+        </div>   
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
