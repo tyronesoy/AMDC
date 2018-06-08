@@ -19,6 +19,10 @@ if(isset($_REQUEST['id'])){
 
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
@@ -40,7 +44,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                       <center><h3 class="modal-title"><b>Are you sure to finish the memo entitled</b> <br><center> <u> <?php echo $memo_title;?></u>?</h3></center>
+                      <center><h2 class="modal-title"><b>Are you sure to mark this memo entitled</b> <br><center> <u> <b><?php echo $memo_title; ?></u> <br><b> finish? </b></h2></center> 
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Memo ID</label>
                             <div class="col-sm-6">

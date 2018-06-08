@@ -453,7 +453,7 @@ function supplier($connect)
           </li>
           <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
           <li><a href="<?php echo 'order' ?>"><i class="fa fa-shopping-cart"></i><span>Orders</span></a></li>
-
+          <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
         </li>
     <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
         <li>
@@ -518,8 +518,7 @@ function supplier($connect)
          $conn =mysqli_connect("localhost","root","");
           mysqli_select_db($conn, "itproject");
           $sql = "SELECT supply_id, item_name, category, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
-            FROM supplies WHERE (supply_type='Medical' AND   (quantity_in_stock IS NOT NULL AND item_name != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N' AND soft_deleted = 'N'
-             AND dep_name='".$this->session->userdata('dept_name')."' ";
+            FROM supplies WHERE (supply_type='Medical' AND   (quantity_in_stock IS NOT NULL AND item_name != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N' AND soft_deleted = 'N' AND dep_name = '".$_SESSION['dept_name']."' GROUP BY item_name ";
           $result = $conn->query($sql);  ?>
           
           <thead>

@@ -11,6 +11,10 @@ if(isset($_REQUEST['id'])){
         $memo_title=$row[6];
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post" action ="">
         <div class="modal-content">
             <div class="modal-header">
@@ -29,7 +33,7 @@ if(isset($_REQUEST['id'])){
                                         </div>
                                         <!-- end of modal header -->
                 <div class="modal-body">
-                <center><h3 class="modal-title"><b>Are you sure to archive this memo entitled</b> <br><center> <u> <?php echo $memo_title; ?> ? </u></h3></center>
+                <center><h2 class="modal-title"><b>Are you sure to archive this memo entitled <br><center> <u> <?php echo $memo_title; ?></u> ? </b></h2></center>
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <div class="form-group">
