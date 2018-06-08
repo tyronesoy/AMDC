@@ -420,13 +420,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/dist/img/user2-128x128.png" class="user-image" alt="User Image">
+               <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='user-image' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                              
+                        }
+                ?>
               <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+                 <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                              
+                        }
+                ?>
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
@@ -453,7 +483,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -478,8 +508,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <center><h4><b>Update Profile</b></h4></center>
                                             </div>
                                       </div>
-                <div class="box-body">
-                    
+               <div class="box-body">
+                                  <center>
+                                  <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                                echo "<br>";
+                        }
+                ?>
+                <br />
+                <input type="file" name="file">
+                   <br /></center>
                         <?php
                           $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                           $date = date("Y/m/d");
@@ -556,6 +605,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           ?>
                 </div>
               </div>
+
+                
+ 
+
+
               </div>
               </div>
               <div class="modal-footer">
@@ -576,7 +630,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../assets/dist/img/user2-128x128.png" class="img-circle" alt="User Image">
+           <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                              
+                        }
+                ?>
         </div>
         <div class="pull-left info">
           <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></p>
@@ -775,30 +844,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      </div>
-      <!-- /.row -->
-          <div class="row no-print">
-        <div class="col-xs-1" style="float:right">
-          <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
-          <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
+        <button  type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
+        
         </div>
-
-      </div>
-      <div>
-          <!-- <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button> -->
-        </div>
-      <script>
-        $('#print').click(function(){
-          var printme = document.getElementById('example1');
-          var wme = window.open("","","width=900,height=700");
-          wme.document.write(printme.outerHTML);
-          wme.document.close();
-          wme.focus();
-          wme.print();
-          wme.close();
-        })
-      </script>
-    
     </section>
     <!-- /.content -->
   </div>
@@ -925,7 +973,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-clone"></i> Generate</button>
+                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-copy"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->
