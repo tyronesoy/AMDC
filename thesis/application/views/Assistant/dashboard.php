@@ -1208,7 +1208,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description join users on users.fname+users.lname = inventory_order.inventory_order_name WHERE inventory_order_status='Issued' AND supply_type='Medical' AND inventory_order_name = '".$_SESSION['fname']."' + '".$_SESSION['lname']."' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Issued' AND supply_type='Medical' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -1255,7 +1255,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description join users on users.fname+users.lname = inventory_order.inventory_order_name WHERE inventory_order_status='Issued' AND supply_type='Medical' AND inventory_order_name = '".$_SESSION['fname']."' + '".$_SESSION['lname']."' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_descriptionWHERE inventory_order_status='Issued' AND supply_type='Medical' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
