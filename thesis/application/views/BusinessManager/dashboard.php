@@ -495,7 +495,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
   </header>
  <?php $identity =  $this->session->userdata('fname');?>
 <div class="modal fade" id="editflag">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser2" enctype="multipart/form-data">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -543,7 +543,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser2"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -553,7 +553,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         </form> 
         </div> 
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser2" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -592,7 +592,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                                         echo "<img width='100' class='img-circle' height='100' src='
                                         upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='upload/".$row['image']."' alt='Profile Pic'>";
+                                        echo "<img width='100' height='100'  class='img-circle' src='./upload/".$row['image']."' alt='Profile Pic'>";
                                 }
                                 echo "<br>";
                         }
@@ -680,7 +680,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-primary" name="addUser" id="addUser"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -756,7 +756,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </ul>
             </li>
             <li><a href="<?php echo 'BusinessManager/inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
-            <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+            <li><a href="<?php echo 'BusinessManager/reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
             <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
       <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
@@ -1752,6 +1752,7 @@ function myFunction4(id) {
             });
         });
 </script>
+
 <script>
         $(document).on('click','#getAdd',function(e){
             e.preventDefault();
@@ -1771,6 +1772,7 @@ function myFunction4(id) {
             });
         });
 </script>
+
 <script>
         $(document).on('click','#getEdit',function(e){
             e.preventDefault();
