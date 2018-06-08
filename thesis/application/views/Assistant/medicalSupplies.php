@@ -1037,8 +1037,130 @@ function category($connect)
             <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Medical Supplies </button>
           </a>
     </div>
+    <button  type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
       </div>
         <!-- END OF PRINT AND PDF -->
+        <div class="modal fade" id="printrep">
+<form name="form42" id="user_form" method="post" action="medicalsupplies/generated">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-md-2">
+                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Generate Medical Supplies Report</b></h4></center>
+                                            </div>
+                                      </div>
+                        <div class="box-body">
+                
+                        <div class="row">
+                    <div class="col-md-6">
+                    <h4><b>Include:</b></h4>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="quantity_in_stock" checked>Stock Quantity
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">,
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="item_name" checked>Item Name
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="unit" checked>Unit
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="unit_price" checked>Unit Price
+                        </div>
+                      </div>
+                    </div>
+                        <h4><b>Department:</b></h4>
+                    <div class="form-group" style="width:100%;">
+                            <input type="checkbox" name="dep_list[]" value="Imaging Department">Imaging
+                        </div>
+                        <div class="form-group" style="width:100%;">
+                            <input type="checkbox" name="dep_list[]" value="Clinical Laboratory Department">Clinical Laboratory
+                        </div>
+                        <div class="form-group" style="width:100%;">
+                            <input type="checkbox" name="dep_list[]" value="Cardiology Department">Cardiology
+                        </div>
+                        <div class="form-group" style="width:100%;">
+                            <input type="checkbox" name="dep_list[]" value="Endoscopy Department">Endoscopy
+                        </div>
+                        <div class="form-group" style="width:100%;">
+                            <input type="checkbox" name="dep_list[]" value="Managing Department">Managing
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    <h4><b>&nbsp;</b></h4>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="lot_no" checked>Lot No.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="dep_name" checked>Department
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="expiration_date" checked>Expiration
+                        </div>
+                      </div>
+                    </div>
+                     </div>   
+    
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $date = date("Y/m/d");
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) where inventory_order_status = 'Delivered'";
+                  $result = $conn->query($sql);    
+                ?>
+                        </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-copy"></i> Generate</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </form> 
+        </div>
+      </div>
     </section>
     <!-- /.content -->
   </div>
@@ -1520,7 +1642,7 @@ if(isset($_POST['medEdit'])){
 
    $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
 
-   
+
     $new_dep=mysqli_real_escape_string($conn,$_POST['txtDep']);
 
      $new_supplier=mysqli_real_escape_string($conn,$_POST['txtSupplier']);
@@ -1679,4 +1801,25 @@ if(isset($_POST['medDelete'])){
                 });
             });
         </script>
+
+
+<script>
+$(document).on('click','#getAdd',function(e){
+    e.preventDefault();
+    var per_id=$(this).data('id');
+    //alert(per_id);
+    $('#content-data').html('');
+    $.ajax({
+        url:'medicalsupplies/generated',
+        type:'POST',
+        data:'id='+per_id,
+        dataType:'html'
+    }).done(function(data){
+        $('#content-data').html('');
+        $('#content-data').html(data);
+    }).final(function(){
+        $('#content-data').html('<p>Error</p>');
+    });
+});
+</script>
 
