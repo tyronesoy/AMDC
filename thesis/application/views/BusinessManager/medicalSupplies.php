@@ -999,7 +999,7 @@ function category($connect)
                       <td><?php echo $row["category"]; ?></td>
                       <td><?php $date=date_create($row["expiration_date"]);
                       echo date_format($date, "m/d/Y"); ?></td>
-                      <td align="right" value="#&8369"><?php echo $row["unit_price"]; ?></td>
+                      <td align="right" value="'&#8369 ';"><?php  echo $row["unit_price"]; ?></td>
                        
     
                       <td width="50px">
@@ -1567,11 +1567,10 @@ if(isset($_POST['medRecon'])){
     $remarks=mysqli_real_escape_string($conn,$_POST['remarks']);
 
     date_default_timezone_set('Asia/Manila');
-    $time = time('h:i:s a');
-    $date = date('Y/m/d');
+    $date = date('Y/m/d h:i:s a', time());
 
   
-     $sqlinsert1="INSERT INTO reconciliation (date, time, description, supply_type, quantity) VALUES ('".$date."', ('".$time."'),'The product  (".$item.") has reconciled from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Medical', '".$difference."')  ";
+     $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type, quantity) VALUES ('".$date."', The product  (".$item.") has reconciled from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Medical', '".$difference."')  ";
     $result_update2=mysqli_query($conn2,$sqlinsert1);
 
     $sqlupdate1="UPDATE supplies SET quantity_in_stock='$physical' WHERE supply_id='$new_id' ";

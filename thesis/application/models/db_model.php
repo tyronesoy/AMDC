@@ -134,5 +134,9 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM reconciliation");
 		return $query->result();
 	}
+	public function getReorderUpdate(){
+		$query=$this->db->query("SELECT * FROM reorderlevelupdate");
+		return $query->result();
+	}
 
 }

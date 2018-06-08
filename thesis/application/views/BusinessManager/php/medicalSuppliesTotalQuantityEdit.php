@@ -71,6 +71,15 @@ if(isset($_REQUEST['id'])){
 								</div>
 							</div>
 						</div>
+
+                        <div class="box-body">
+                          <div class="form-group">
+                            <div class="form-group">
+                                <label hidden class="col-sm-4 control-label" for="user">user</label>
+                                    <input type="hidden" class="form-control" id="user" name="user" value="<?php echo ($this->session->userdata('fname')); echo ' '; echo ($this->session->userdata('lname'))?>" readonly>
+                                </div>
+                            </div>
+                        </div>
                               <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="desc">Item Name</label>
@@ -80,13 +89,13 @@ if(isset($_REQUEST['id'])){
                             <div class="col-sm-6">
                         <div class="form-group">
                             <label for="txtReorderLevel">Old Reorder Level</label>
-                                <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
+                                <input type="number" class="form-control" id="oldLevel" name="oldLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                             </div>
 						</div>
                         <div class="form-group">
                              <div class="col-sm-6">
                             <label for="txtReorderLevel">New Reorder Level</label>
-                                <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel">
+                                <input type="number" class="form-control" id="newLevel" name="newLevel">
                             </div>
                     </div>
                      <div class="col-sm-12">

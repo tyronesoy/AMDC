@@ -636,6 +636,7 @@ function category($connect)
               </ul>
             </li>
             <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+            <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Updates</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
@@ -1064,15 +1065,26 @@ function category($connect)
 
 <?php 
 $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$conn2=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 
 if(isset($_POST['medTQEdit'])){
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+    $oldReorderLevel=mysqli_real_escape_string($conn,$_POST['oldLevel']);
+    $newReorderLevel=mysqli_real_escape_string($conn,$_POST['newLevel']);
     $textDesc=mysqli_real_escape_string($conn,$_POST['txtdesc']);
+    $remarks=mysqli_real_escape_string($conn,$_POST['remarks']);
+    $user=mysqli_real_escape_string($conn,$_POST['user']);
 
-    $sqlupdate="UPDATE supplies SET reorder_level='$new_supplyReorderLevel' WHERE item_name='$textDesc' ";
+    date_default_timezone_set('Asia/Manila');
+    $date = date('Y/m/d h:i:s a', time());
+
+
+    $sqlupdate="UPDATE supplies SET reorder_level='$newReorderLevel' WHERE item_name='$textDesc' ";
     $result_update=mysqli_query($conn,$sqlupdate);
+
+    $sqlinsert1="INSERT INTO reorderlevelupdate (date_time, description, supply_type, user) VALUES ('".$date."', 'The product  (".$textDesc.") has changed its reorder level from the Old Reorder Level of  <".$oldReorderLevel.">  to the New Reorder Level of  <".$newReorderLevel.">  because ".$remarks."' , 'Medical', '".$user."')  ";
+    $result_update2=mysqli_query($conn2,$sqlinsert1);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
