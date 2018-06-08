@@ -689,11 +689,7 @@ function category($connect)
             </a>
         </li>
   <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
-              <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
-              </a>
-          </li>
+       
   
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="active treeview">
@@ -743,12 +739,7 @@ function category($connect)
         </li>
 
         <!---------------------------------------------------- INVOICE MENU -------------------------------------------------------------->
-        <li>
-          <a href="<?php echo 'logs' ?>">
-            <i class="fa fa-list-alt"></i> <span>Logs</span>
-          </a>
-        </li>
-
+        
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
