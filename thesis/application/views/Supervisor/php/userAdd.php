@@ -1,4 +1,6 @@
 <?php
+ move_uploaded_file($_FILES['file']['tmp_name'],"./upload/".$_FILES['file']['name']); 
+
 $con=mysqli_connect('localhost','root','','itproject');  
 
  //CREATE or ADD User Account
@@ -16,7 +18,7 @@ $con=mysqli_connect('localhost','root','','itproject');
   $_SESSION['username'] = $username;
   $_SESSION['user_email'] = $user_email;
   $_SESSION['password'] = $password;
-  $sql = $con->prepare("UPDATE users SET username='".$username."',fname='".$fname."',lname='".$lname."',user_contact='".$user_contact."',password='".$password."',user_email='".$user_email."' where user_id = ".$this->session->userdata('id')."");
+  $sql = $con->prepare("UPDATE users SET username='".$username."',fname='".$fname."',lname='".$lname."',user_contact='".$user_contact."',password='".$password."', image = '".$_FILES['file']['name']."', user_email='".$user_email."' where user_id = ".$this->session->userdata('id')."");
 
   if($sql->execute()) {
   $conn =mysqli_connect("localhost","root","");
