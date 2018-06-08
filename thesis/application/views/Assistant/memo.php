@@ -1182,11 +1182,11 @@ if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
     $new_memodate=mysqli_real_escape_string($con,$_POST['txtmemodate']);
     $new_memodescription=mysqli_real_escape_string($con,$_POST['txtmemodescription']);
-    $new_memostatus=mysqli_real_escape_string($con,$_POST['txtmemostatus']);
+  
     $new_memotitle=mysqli_real_escape_string($con,$_POST['txtmemotitle']);
 
 
-    $sqlupdate="UPDATE memo SET memo_date ='$new_memodate',memo_description='$new_memodescription', memo_status='$new_memostatus', memo_title='$new_memotitle' WHERE memo_id='$new_id' ";
+    $sqlupdate="UPDATE memo SET memo_date ='$new_memodate',memo_description='$new_memodescription', memo_title='$new_memotitle' WHERE memo_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){

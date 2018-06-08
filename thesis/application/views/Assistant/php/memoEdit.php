@@ -11,7 +11,7 @@ if(isset($_REQUEST['id'])){
        $per_memoid=$row[0];
         $per_memodate=$row[2];
         $per_memodesc=$row[3];
-        $per_memostatus=$row[5];
+        
         $per_memotitle=$row[6];
 
     }//end while
