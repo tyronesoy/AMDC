@@ -495,7 +495,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
   </header>
  <?php $identity =  $this->session->userdata('fname');?>
 <div class="modal fade" id="editflag">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser2">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser2" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">

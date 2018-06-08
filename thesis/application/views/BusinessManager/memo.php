@@ -472,7 +472,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -498,7 +498,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                       </div>
                 <div class="box-body">
-                    
+                                              <center>
+                                  <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                                echo "<br>";
+                        }
+                ?>
+                <br />
+                <input type="file" name="file">
+                   <br /></center>
                         <?php
                           $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                           $date = date("Y/m/d");
