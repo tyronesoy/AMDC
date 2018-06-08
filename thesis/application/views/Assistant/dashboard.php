@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-if(!isset($_SESSION['first_run'])){
-    $_SESSION['first_run'] = 1;
-        $datetoday = date('Y\-m\-d\ H:i:s A');
-        $conn =mysqli_connect("localhost","root","");
-        mysqli_select_db($conn, "itproject");
-        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')." has logged in','".$this->session->userdata('username')."','".$this->session->userdata('type')."')";
-        $res1 = $conn->query($notif1);
-}
+?>
+<!--REMOVE EXPIRED ITEMS-->
+<?php
+    $conn =mysqli_connect("localhost","root","");
+    mysqli_select_db($conn, "itproject");
+    $datetoday = date("Y/m/d");
+    $sql1 = "UPDATE supplies SET accounted_for = 'Y' where (expiration_date < '".$datetoday."' AND soft_deleted = 'N') AND accounted_for = 'N'";
+    $result1 = $conn->query($sql1);
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,18 +56,29 @@ if(!isset($_SESSION['first_run'])){
   <link rel="stylesheet" href="https://cdnjs.cloudfare.com/ajax/libs/morris.js/0.5.1/morris.css">
   <script src="https://cdnjs.cloudfare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <script>
     history.forward();
   </script>
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+   <style>
+    .example-modal .modal {
+      position: relative;
+      top: auto;
+      bottom: auto;
+      right: auto;
+      left: auto;
+      display: block;
+      z-index: 1;
+    }
+
+    .example-modal .modal {
+      background: transparent !important;
+    }
+  </style>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <?php 
@@ -84,14 +95,13 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       ?>
 
 <div class="wrapper">
-
   <header class="main-header">
     <!-- Logo -->
     <a href="<?php echo 'dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
+      <span class="logo-lg"><img src="assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -113,9 +123,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </a>
             </li>
           <!-- Messages: style can be found in dropdown.less-->
-          
-          <!-- Tasks: style can be found in dropdown.less -->
-            <li class="dropdown notifications-menu">
+                   
+          <!-- Notifications: style can be found in dropdown.less -->
+          <!--            BELL START-->
+          <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
@@ -158,6 +169,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         if(strpos($logvalue, 'order') !== false) { ?>
                             <td><small><a display="block" style="color:black" href="<?php echo 'Assistant/departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
+                        }else if(strpos($logvalue, 'profile') !== false){
+                        ?>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'Assistant/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <?php
                         }else{
                         ?>
                             <td><small><?php echo $row["log_description"];?></small></td>
@@ -188,7 +203,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </li>
             </ul>
           </li>
-            <!--            FLAG START-->
+          <!-- Tasks: style can be found in dropdown.less -->
+<!--            FLAG START-->
             <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -196,7 +212,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
-                                $daysval = strtotime($row['value2']);
+                                $daysval = $row["value2"];
                                 $datenow = strtotime(date("Y/m/d"));
                                 $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
                                 $daysvalue = $daysval2 - $datenow;
@@ -206,6 +222,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     ?>
                   <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -409,35 +426,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </li>
             </ul>
           </li>
-        <!--          FLAG END-->
-          <li>
-            <button type="submit" class="btn btn-default btn-flat" style="background-color:#00a65a; border:none;" data-toggle="modal" data-target="#editflag"><i class="glyphicon glyphicon-cog" style="font-size:25px"></i>
-            </button>
+<!--          FLAG END-->
+            <li>
+            <button type="submit" class="btn btn-default btn-flat" style="background-color:#00a65a; border:none;" data-toggle="modal" data-target="#editflag"><i class="glyphicon glyphicon-cog" style="font-size:25px"></i></button>
           </li>
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
+   <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <?php
-
-                        $con = mysqli_connect("localhost","root","","itproject");
-                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
-                        $result = $con->query($q);
-
-                        while($row = $result->fetch_assoc()){
-                   
-                                if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='upload/default2.jpg' alt='Default Profile Pic'>";
-                                } else {
-                                        echo "<img width='100' height='100'  class='user-image' src='upload/".$row['image']."' alt='Profile Pic'>";
-                                }
-                              
-                        }
-                ?>
-              <span class="hidden-xs">Hi! <?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
                <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
@@ -447,17 +441,38 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='user-image' height='100' src='upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='upload/".$row['image']."' alt='Profile Pic'>";
+                                        echo "<img width='100' height='100'  class='user-image' src='upload/".$row['image']."' alt='Profile Pic'>";
                                 }
                               
                         }
                 ?>
+              <span class="hidden-xs"> <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                 <?php
 
-               <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='img-circle' height='100' src='upload/default.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='img-circle' src='upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                                echo "<br>";
+                        }
+                ?>
+
+                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-        <small> Assistant</small>
+        <small>Assistant</small>
         </p>
                 </li>
                 
@@ -473,13 +488,70 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </li>
             </ul>
           </li>
-          </ul>
+        </ul>
       </div>
     </nav>
   </header>
-        <?php $identity =  $this->session->userdata('fname');?>
-       
-        <div class="modal fade" id="editprof">
+ <?php $identity =  $this->session->userdata('fname');?>
+<div class="modal fade" id="editflag">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-md-2">
+                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Notification Parameters</b></h4></center>
+                                            </div>
+                                      </div>
+                <div class="box-body">
+
+                        <?php
+                          $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                          $date = date("Y/m/d");
+                          $sql = "SELECT * From defaults where attribute = 'expirerange'";
+                          $result = $conn->query($sql);    
+                        ?>
+                        <?php if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) { ?>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Day/s to expiration notice</label>
+                          <input type="text" class="form-control" name="days" id="days" value="<?php echo $row['value2'] ?>" required />
+                        </div>
+                          <?php 
+                              }
+                            }
+                          ?>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </form> 
+        </div> 
+<div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -505,8 +577,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                                               <center><h4><b>Update Profile</b></h4></center>
                                             </div>
                                       </div>
-                 <div class="box-body">
-                                  <center>
+                <div class="box-body">
+                      <center>
                                   <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
@@ -516,9 +588,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='upload/default3.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='
+                                        upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
-                                        echo "<img width='100' height='100'  class='img-circle' src='upload/".$row['image']."' alt='Profile Pic'>";
+                                        echo "<img width='100' height='100'  class='img-circle' src='./upload/".$row['image']."' alt='Profile Pic'>";
                                 }
                                 echo "<br>";
                         }
@@ -602,16 +675,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                           ?>
                 </div>
               </div>
-
-                
- 
-
-
               </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-primary" name="addUser" id="addUser"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -619,7 +687,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>          
+        </div>            
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -627,7 +695,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <?php
+           <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -636,11 +704,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='upload/".$row['image']."' alt='Profile Pic'>";
                                 }
-                              
+                                echo "<br>";
                         }
                 ?>
         </div>
@@ -658,6 +726,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
+          
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
          <li class="treeview">
           <a href="#">
@@ -680,8 +749,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </li>
               </ul>
             </li>
+            <li><a href="<?php echo 'Assistant/inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+            <li><a href="<?php echo 'Assistant/reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
             <li><a href="<?php echo 'Assistant/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-      <li><a href="<?php echo 'Assistant/departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
+      <li><a href="<?php echo 'Assistant/departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
       <li><a href="<?php echo 'Assistant/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
       <li><a href="<?php echo 'Assistant/deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
@@ -727,7 +798,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
       </ol>
     </section>
-   <!-- Main content -->
+
+    <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
@@ -911,7 +983,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                   $sql = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
-                  $result = $conn->query($sql);    
+                  $result = $conn->query($sql);   
+                  
                 ?>
                 <thead>
                 <tr>
@@ -930,10 +1003,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </thead>
                 <tbody>
                 <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
+                  while($row = $result->fetch_assoc()) {
+                   ?>
                     <tr>
-                    <form action="<?php echo 'BusinessManager/returns'?>" method="get">
+                    <form action="<?php echo 'Assistant/returns'?>" method="get">
                       <td class="hidden"><input class="hidden" type="hidden" name="supid" hidden value="<?php echo $row["supply_id"]; ?>"></td>
+                      <td class="hidden"><?php $return_id = $row['return_id']; ?></td>
                       <td><?php echo $row["supply_type"]; ?></td>
                       <td><?php echo $row["return_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
@@ -944,10 +1019,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
-                          
-                        
-                           <input class="hidden" type="text" name="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
-                          <button type="submit" class="btn btn-xs btn-success">Returned </button>
+                          <input class="hidden" type="text" name="returnSupp" id="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
+                          <button type="button" id="getEdit" class="btn btn-success" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["return_id"]; ?>"><i class="fa fa-undo"></i>Returned </button>
                         
                       </td>
                       </form> 
@@ -996,7 +1069,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                    <form action="<?php echo 'BusinessManager/returns'?>" method="get">
+                    <form action="<?php echo 'Assistant/returns'?>" method="get">
                       <td><?php echo $row["po_key"]; ?></td>
                       <td><?php echo $row["delivery_date"]; ?></td>
                       <td><?php echo $row["delivery_status"]; ?></td>
@@ -1049,7 +1122,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <td><?php echo $row["unit"]; ?></td>
                       <td>
                          
-                        <form action="BusinessManager/dispose" method="get">
+                        <form action="Assistant/dispose" method="get">
                           <input type="text" name="disposeSupp" hidden value="<?php echo $row["supply_id"]; ?>">
                           <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;</i>Dispose</button>
                         </form> 
@@ -1073,7 +1146,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </table>
           </div>
         </div>
-        
 
         <section class="content">
           <div class="row">
@@ -1155,7 +1227,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Issued' AND supply_type='Medical' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Fully Issued' AND supply_type='Medical' GROUP BY supply_name ORDER BY quantity DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -1200,9 +1272,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
-                 <?php
+                   <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Issued' AND supply_type='Medical' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Fully Issued' AND supply_type='Office' GROUP BY supply_name ORDER BY quantity DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -1242,6 +1314,129 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       <!-- BAR CHARTS -->
       
   </div>
+      <div class="modal fade" id="reorderModal">
+        <form name="form1" id="user_form" method="post">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <div class="col-md-2">
+                  <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                </div>
+                <div class="col-md-8">
+                                                
+                  <div class="margin">
+                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                    <center><h6>Philippines</h6></center>
+                  </div>
+                </div>
+              </div>
+              <!-- end of modal header -->
+              <div class="modal-body">
+                <div class="box-header">
+                  <div class="margin">
+                    <center><h4><b>Reorder Supplies</b></h4></center>
+                  </div>
+                </div>
+              <div class="box-body">
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $date = date("Y/m/d");
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name JOIN suppliers WHERE supply_description='$desc'";
+                  $result = $conn->query($sql);    
+                ?>
+                <?php 
+                  if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) { ?>
+                        <div class="form-group hidden">
+                            <label class="col-sm-4 control-label hidden" for="txtid">Order ID</label>
+                            <div class="col-sm-6 hidden">
+                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $row['inventory_order_id'];?>" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group hidden">
+                            <label class="col-sm-4 control-label hidden" for="txtuniqid">Order Unique ID</label>
+                            <div class="col-sm-6 hidden">
+                                <input type="hidden" class="form-control" id="txtuniqid" name="txtuniqid" hidden value="<?php echo $row['inventory_order_uniq_id'];?>" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group hidden">
+                            <label class="col-sm-8 control-label hidden" for="txtstatus"></label>
+                            <div class="col-sm-1 hidden">
+                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $row['inventory_order_status'];?>" readonly>
+                            </div>
+                        </div>
+
+                      <div class="row">      
+                        <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Supervisor Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $row['inventory_order_name'] ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Department Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-building"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="deptName" name="deptName" value="<?php echo $row['inventory_order_dept'];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Supplier</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">       
+                                            <i class="fa fa-group"></i>
+                                        </div>
+                                        <input class="form-control" type="text" name="supp" id="supp" value="<?php echo $row['company_name'] ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Purchase Order Date</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <?php $date = date("Y-m-d"); ?>
+                                        <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                    </div>
+                                                    <!-- /.input group -->
+                                </div>
+                            </div>
+                      </div>
+                    <?php }
+                    } ?>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-success" name="btnReturn"><i class="fa fa-undo"></i> Return</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+        <!-- /.modal-dialog -->
+        </form> 
+      </div>
+
   <!-- /.content-wrapper -->
    <footer class="main-footer">
     <div class="pull-right hidden-xs">
@@ -1308,7 +1503,7 @@ setTimeout(onUserInactivity, 1000 * 1800)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "BusinessManager/lockscreen"
+    window.location.href = "Assistant/lockscreen"
    <?php } ?>
 }
 </script>
@@ -1316,7 +1511,7 @@ function onUserInactivity() {
 <!-- <script type="text/javascript">
 setTimeout(onUserInactivity, 1000 * 120)
 function onUserInactivity() {
-   window.location.href = "<?php //echo 'BusinessManager/lockscreen'?>"
+   window.location.href = "<?php //echo 'Assistant/lockscreen'?>"
 }
 </script> -->
 <!-- <?php
@@ -1325,7 +1520,7 @@ function onUserInactivity() {
 //if($time<$time_check) {
 //  $_SESSION['login'] = 'False';
 //  if($_SESSION['login'] == 'False'){
-//    echo '<script>window.location.href="<?php echo "BusinessManager/lockscreen" ?>"</script>';
+//    echo '<script>window.location.href="<?php echo "Assistant/lockscreen" ?>"</script>';
   }
 }
   ?> -->
@@ -1518,6 +1713,13 @@ function myFunction4(id) {
   })
 </script>
 
+
+<div class="modal fade" id="returnModal" role="dialog">
+            <div class="modal-dialog" style="position: absolute;margin-left: 20%;">
+                <div id="return-data"></div>
+            </div>
+        </div>  
+
 <script>
         $(document).on('click','#getAdd',function(e){
             e.preventDefault();
@@ -1537,5 +1739,45 @@ function myFunction4(id) {
             });
         });
 </script>
+
+<script>
+        $(document).on('click','#getAdd',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'dashboard/addUser',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+</script>
+
+<script>
+        $(document).on('click','#getEdit',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#return-data').html('');
+            $.ajax({
+                url:'deliveries/returnDashboard',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#return-data').html('');
+                $('#return-data').html(data);
+            }).final(function(){
+                $('#return-data').html('<p>Error</p>');
+            });
+        });
+    </script>
 </body>
 </html>

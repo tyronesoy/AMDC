@@ -1,4 +1,4 @@
- <?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
@@ -194,7 +194,7 @@ function category($connect)
                         <?php
                         }else if(strpos($logvalue, 'profile') !== false){
                         ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'Assistant/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
                         }else{
                         ?>
@@ -217,7 +217,6 @@ function category($connect)
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -463,7 +462,7 @@ function category($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='user-image' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -475,7 +474,7 @@ function category($connect)
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-              <?php
+                <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -484,7 +483,7 @@ function category($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -494,7 +493,7 @@ function category($connect)
 
                  <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-        <small> Business Manager</small>
+        <small>Assistant</small>
         </p>
                 </li>
               <!-- Menu Footer-->
@@ -541,7 +540,7 @@ function category($connect)
                                               <center><h4><b>Update Profile</b></h4></center>
                                             </div>
                                       </div>
-                      <div class="box-body">
+                              <div class="box-body">
                      <center>
                                   <?php
 
@@ -552,7 +551,7 @@ function category($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -667,7 +666,7 @@ function category($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -682,7 +681,7 @@ function category($connect)
       </div>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Inventory Management System</li>
-   <!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
+	<!---------------------------------------------------- DASHBOARD MENU -------------------------------------------------------------->
          <li>
           <a href="<?php echo '../dashboard' ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -715,7 +714,7 @@ function category($connect)
       <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
       <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -737,7 +736,6 @@ function category($connect)
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
-
 
 <!-- LOCKSCREEN MENU -->
         <li>
@@ -776,7 +774,7 @@ function category($connect)
                 <table style="float: left;">
                     <tr>
                         <th> <div class="dropdownButton">
-                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
+                        <select name="dropdown" class="form-group select2" style="width:100%;" onchange="location=this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
                           <span class="caret"></span>
                         </button>
@@ -803,14 +801,14 @@ function category($connect)
                                             <div class="col-md-8">
                                                 
                                                 <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center, Inc.</h5></center>
+                                                    <center><h5>Assumption Medical Diagnostic Center </h5></center>
                                                     <center><h6>10 Assumption Rd., Baguio City</h6></center>
                                                     <center><h6>Philippines</h6></center>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- end of modal header -->
-                                         <div class="modal-body">
+                                        <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
                                               <center><h4><b>Add New Item</b></h4></center>
@@ -844,15 +842,7 @@ function category($connect)
                                             
                                             
                                             <div class="row">
-                                            <div class="col-md-6">
-                                              <div class="form-group">
-                                                    
-                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
-                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
+                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
                                                   <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
@@ -862,18 +852,18 @@ function category($connect)
                                            
                                               </div>
                                               </div>
+
+                                               <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
+                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
+                                                </div>
+                                            </div>
                                             </div>
                                             
                                             
                                             <div class="row">
-                                                  <div class="col-md-6">
-                                              <div class="form-group">
-                                                    
-                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
-                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
-                                                </div>
-                                            </div>
-                                                    
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Category</label>
@@ -883,6 +873,14 @@ function category($connect)
                                                   </select>
                                               </div>
                                               </div>
+
+                                               <div class="col-md-6">
+                                              <div class="form-group">
+                                                    
+                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
+                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
+                                                </div>
+                                            </div>
                                             </div>
                           
                                             
@@ -903,7 +901,7 @@ function category($connect)
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"></i> Add</button>
+                                        <button type="submit" class="btn btn-success" class="btn btn-outline" name="addMedSupply"><i class="fa fa-plus"></i> Add</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -911,39 +909,18 @@ function category($connect)
                                   </div>
                                   <!-- /.modal-dialog -->
                                 </div>
-
-                             <div class="modal modal-default fade" id="modal-success">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <h3><center><b>Are you sure to add this item?</b></center></h3>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-primary" name="addMedSupply"><i class="fa fa-check"></i> Yes</button>
-
-                                        </div>
-                                      </div>
-                                      <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                  </div>
                                   <!-- /.modal -->
                                 </form>
                             </th> 
                               
                             <!--- END OF ADD -->
-                        <!---  ISSUE BUTTON -->
-                        </th>
+                        
                     </tr>
-                </table>    
+                </table>     
             </div>
               
-      <table>
+
+        <table>
           <tr>
           <th>Filter by a Range of Quantity</th>
           <th style="padding-left: 20px;">Filter by a Range of Price</th>
@@ -964,9 +941,9 @@ function category($connect)
           </div></td>
 
           <td><div class="input-group input-daterange" style="padding-left: 20px;">
-            <input type="text" class="form-control" id="startdate" placeholder="Min Date">
+            <input type="text" class="form-control" id="startdate" placeholder="Start Date">
             <div class="input-group-addon">to</div>
-            <input type="text" class="form-control" id="enddate" placeholder="Max Date">
+            <input type="text" class="form-control" id="enddate" placeholder="End Date">
           </div></td>
           </tr>
         </table>
@@ -983,7 +960,7 @@ function category($connect)
           <thead>
             <tr>
                   <th style="display: none;"> ID </th>                
-                  <th>Lot Number</th>
+                  <th style="width:15%">Lot Number</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Brand Name</th>
@@ -1033,8 +1010,8 @@ function category($connect)
         <tfoot>
            <tr>
                   <th style="display: none;"> ID </th>                
-                  <th class="srch">Lot Number</th>
-                  <th class="srch">Quantity In Stock</th>
+                  <th class="srch">Lot No</th>
+                  <th class="srch">Qty In Stock</th>
                   <th class="srch">Unit</th>
                   <th class="srch">Brand Name</th>
                   <th class="srch">Item Name</th>
@@ -1126,7 +1103,7 @@ $(document).ready(function() {
     // Setup - add a text input to each footer cell
     $('#example tfoot th.srch').each( function () {
         var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        $(this).html( '<input type="text" style="width:100%;" placeholder="Search '+title+'" />' );
     } );
 
     // filtering
@@ -1697,3 +1674,4 @@ if(isset($_POST['medDelete'])){
                 });
             });
         </script>
+

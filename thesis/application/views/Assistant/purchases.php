@@ -11,7 +11,7 @@ function supply_dropdown($connect)
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output .= '<option value="'.$row["supply_description"].'">'.$row["supply_description"].'</option>';
+  $output .= '<option value="'.$row["item_name"].'">'.$row["supply_description"].'</option>';
  }
  return $output;
 }
@@ -38,7 +38,7 @@ function unit_measure($connect)
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-   <!-- Tell the browser to be responsive to screen width -->
+ <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -46,15 +46,15 @@ function unit_measure($connect)
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
-  <!-- <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <!- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
+  <script src="../assets/jquery/jquery-1.12.4.js"></script>
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -67,19 +67,7 @@ function unit_measure($connect)
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
 
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
  <style>
     .example-modal .modal {
       position: relative;
@@ -211,7 +199,6 @@ function unit_measure($connect)
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -448,7 +435,7 @@ function unit_measure($connect)
           <!-- User Account: style can be found in dropdown.less -->
  <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <?php
+                          <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -457,7 +444,7 @@ function unit_measure($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='user-image' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -469,7 +456,7 @@ function unit_measure($connect)
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-               <?php
+                            <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -478,7 +465,7 @@ function unit_measure($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -486,18 +473,20 @@ function unit_measure($connect)
                         }
                 ?>
 
-                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                  <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                  <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
         <small> Assistant</small>
         </p>
                 </li>
+                
               <!-- Menu Footer-->
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
                 </div>
               </li>
             </ul>
@@ -534,8 +523,8 @@ function unit_measure($connect)
                                               <center><h4><b>Update Profile</b></h4></center>
                                             </div>
                                       </div>
-                             <div class="box-body">
-                                  <center>
+               <div class="box-body">
+                                              <center>
                                   <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
@@ -545,7 +534,7 @@ function unit_measure($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -631,11 +620,6 @@ function unit_measure($connect)
                           ?>
                 </div>
               </div>
-
-                
- 
-
-
               </div>
               </div>
               <div class="modal-footer">
@@ -648,7 +632,7 @@ function unit_measure($connect)
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>                       
+        </div>                   
   <!-- Left side column. contains the logo and sidebar -->
  <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -656,7 +640,7 @@ function unit_measure($connect)
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-         <?php
+                     <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -665,7 +649,7 @@ function unit_measure($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -708,9 +692,11 @@ function unit_measure($connect)
                 </li>
               </ul>
             </li>
+             <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+             <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li class="active"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li class="active"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -748,11 +734,11 @@ function unit_measure($connect)
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-            <i class="fa fa-shopping-cart"></i><b>Purchase Orders</b>
+            <i class="fa fa-shopping-cart"></i> <b>Purchase Orders</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
-        <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="<?php echo '../dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active"><i class="fa fa-shopping-cart"></i> Purchases</li>
       </ol>
     </section>
@@ -766,10 +752,10 @@ function unit_measure($connect)
               <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                 <table style="float:right;">
                     <tr>
-                        <button  type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#printrep">Generate Report</button>
+                        
                         <th><button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Purchase Order</i></button>
             
-                    <form id="add_name" name="add_name">
+                    <form id="add_name" name="add_name" method="post" action="purchases/addPurchases">
                         <div class="modal fade" id="modal-info">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
@@ -816,7 +802,7 @@ function unit_measure($connect)
                                                       <div class="input-group-addon">       
                                                         <i class="fa fa-group"></i>
                                                       </div>
-                                                  <select class="form-group select2" name="supp" style="width:100%" required>
+                                                  <select class="form-control" name="supp" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                                 <option value="">Select a Supplier</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
@@ -849,158 +835,229 @@ function unit_measure($connect)
                                                 </div>
                                               </div>
 
+                                          <div class="row">
+                                            <div class="col-md-6 pull-right">
+                                              <button type="button" name="plus" id="plus" class="btn btn-info pull-right"><i class="fa fa-plus"></i> Add Row</button>
+                                            </div>
+                                          </div>
+
                                       
                                         <div class="table-responsive">
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="dynamic_field">
                                             <tr>
-                                              <th width="10%"> Quantity </th>
-                                              <th> Description </th>
-                                              <th></th>
+                                              <th width="15%"> Quantity </th>
+                                              <th width="52.5%"> Description </th>
+                                              <th width="16%"> Unit </th>
+                                              <th width="16.5%"> Item Type </th>
                                             </tr>
                                             <tr id="row0">
-                        <td><input id="quant" type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td width="50px"><button type="button" name="add" id="add" class="btn btn-success">+</button> </td>        
-                      </tr>
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" required />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row1" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="1" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row1" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row2" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="2" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row2" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row3" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="3" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row3" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row4" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="4" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row4" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row5" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="5" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row5" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row6" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="6" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row6" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row7" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="7" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row7" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row8" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="8" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row8" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                  <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
-                      <tr id="row9" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="9" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
-
-                      <tr id="row10" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="10" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
-
-                      <tr id="row11" class="hidden">
-                        <td><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
-                        </td>
-                        <td>
-                          <select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
-                            <option value=""></option>
-                            <?php echo supply_dropdown($connect);?>
-                          </select>
-                        </td>
-                        <td><button type="button" name="remove" id="11" class="btn btn-danger btn_remove">x</button></td>        
-                      </tr>
+                                            <tr id="row9" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                    <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
+                                            <tr id="row10" class="hidden">
+                                              <td>
+                                                <input class="form-control" type="number" name="number[]" id="quant10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
+                                              </td>
+                                              <td>
+                                                <select class="form-control filter" name="neym[]" id="supply10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <option value=""></option> 
+                                                    <?php echo supply_dropdown($connect);?>
+                                                </select>
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                                
+                                              <td>
+                                                <input class="form-control" type="text" name="type" id="type10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              </td>
+                                            </tr>
 
                                           </table>
                                        
@@ -1010,43 +1067,6 @@ function unit_measure($connect)
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
                                         <button type="submit" class="btn btn-success sendbutton" name="submit" id="submit"><i class="fa fa-plus"></i> Add </button>
-                                          <script>
-                                            $(document).ready(function(){
-                                                $('.sendButton').attr('disabled',true);
-                                                $('#supply').change(function(){
-                                                    if($(this).val().length !=0)
-                                                        $(document).ready(function(){
-                                                        $('.sendButton').attr('disabled',true);
-                                                        $('#quant').keyup(function(){
-                                                            if($(this).val().length !=0)
-                                                                $('.sendButton').attr('disabled', false);            
-                                                            else
-                                                                $('.sendButton').attr('disabled',true);
-                                                        })
-                                                    });            
-                                                    else
-                                                        $('.sendButton').attr('disabled',true);
-                                                })
-                                            });
-                                            $(document).ready(function(){
-                                                $('.sendButton').attr('disabled',true);
-                                                $('#quant').keyup(function(){
-                                                    if($(this).val().length !=0)
-                                                        $(document).ready(function(){
-                                                        $('.sendButton').attr('disabled',true);
-                                                        $('#supply').change(function(){
-                                                            if($(this).val().length !=0)
-                                                                $('.sendButton').attr('disabled', false);            
-                                                            else
-                                                                $('.sendButton').attr('disabled',true);
-                                                        })
-                                                    });            
-                                                    else
-                                                        $('.sendButton').attr('disabled',true);
-                                                })
-                                            });
-                                          </script>
-                                        <!--  <input type="submit" class="btn btn-primary" name="addOrder" value="Add Order" />
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -1073,6 +1093,7 @@ function unit_measure($connect)
                       <thead>
                           <tr>
                               <th>Purchase ID</th>
+                              <th>Item name/s</th>
                               <th>Supplier</th>
                               <th>Order Date</th>
                               <th>Delivery Date</th>
@@ -1095,7 +1116,8 @@ function unit_measure($connect)
                               $status = '<span class="label label-success">Delivered</span>';
                           }
                       ?>
-                      <td><?php echo $row["purchase_order_id"]; ?></td>
+                      <td><?php echo $row["purchase_order_uniq_id"]; ?></td>
+                      <td><?php echo $row["description"]?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
                       <td><?php echo $row["delivery_date"]; ?></td>
@@ -1103,25 +1125,23 @@ function unit_measure($connect)
                       <td>
 
                       <?php if($row['po_remarks'] == 'Pending') {?>
-                       <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
-                        </div>
-                        
+                       <!-- <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php // echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
+                        </div> -->
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
-                        </div>
-
+                              <button type="button" id="getDel" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-check"></i> Deliver</button>
+                          </div>
                         <?php }elseif($row['po_remarks'] == 'Delivered') { ?>
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
                         </div>
                         <?php }else{ ?>
-                          <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
-                        </div>
+                          <!-- <div class="btn-group">
+                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php // echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
+                        </div> -->
                         
                         <div class="btn-group">
                             <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["purchase_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
@@ -1139,32 +1159,30 @@ function unit_measure($connect)
                         </tbody>
                       <tfoot>
                         <tr>
-                              <th>Purchase ID</th>
-                              <th>Supplier</th>
-                              <th>Order Date</th>
-                              <th>Delivery Date</th>
-                              <th>Status</th>
-                              <th>Action</th>
+                              <th style="display: none;">ID</th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
                           </tr>
                       </tfoot>
             </table>
 
-            </div>
-
-            <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->
+              <button type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
+            </div>
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-<div id="printThis">
 <div class="modal fade" id="printrep">
-<form name="form42" id="user_form" method="post" action="purchases/addUser2">
+<form name="form42" id="user_form" method="post" action="purchases/generated">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -1186,49 +1204,99 @@ function unit_measure($connect)
                                         <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
-                                              <center><h4><b>Purchases Report</b></h4></center>
+                                              <center><h4><b>Generate Purchase Order Report</b></h4></center>
                                             </div>
                                       </div>
-                    <div class="box-body">
+                        <div class="box-body">
+                
+                        <div class="row">
+                          <h4><b>Include dates within:</b></h4>
+                          <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <?php
+                            $datetoday = date('Y\-m\-d', strtotime('-30 days') );
+                            ?>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="date" class="form-control pull-right datepicker2" name="date1" id="date1" value="">
+<!--
+                                <script>
+                                jQuery(function() {
+                                  var datepicker = $('input.datepicker2');
 
+                                  if (datepicker.length > 0) {
+                                    datepicker.datepicker({
+                                      format: "yyyy-mm-dd",
+                                      startDate: new Date()
+                                    });
+                                  }
+                                });
+                                </script>
+-->
+                            </div>
+                          </div>
+                          </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label>End date</label>
+
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <?php
+                                $deyto = date("Y/m/d");
+                              ?>
+                              <input type="text" class="form-control pull-right datepicker"  name="date2" id="date2" value="<?php echo $deyto?>">
+                            </div>
+                          </div>
+                          </div>
+                    <div class="col-md-6">
+                    <h4><b>Include:</b></h4>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="order_date" checked>Purchase Date
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="purchase_order_status" checked>Status
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="description" checked>Description
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="order_quantity" checked>Quantity
+                        </div>
+                      </div>
+                    </div>
+                     </div>   
+    
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $date = date("Y/m/d");
                   $sql = "SELECT * FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != ''";
                   $result = $conn->query($sql);    
                 ?>
-            <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                  <th>Purchase Order Date</th>
-                  <th>Status</th>
-                  <th>Description</th>
-                  <th>Quantity</th>    
-              </tr>
-            </thead>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) {
-                    $podate = $row['order_date']; 
-                    $status = $row['purchase_order_status'];
-                    $desc = $row['description'];
-                    $quant = $row['order_quantity'];
-                ?>
-                    <tr id="row0">
-                      <td><?php echo $podate; ?></td>
-                      <td><?php echo $status; ?></td>
-                      <td><?php echo $desc; ?></td>
-                      <td><?php echo $quant; ?></td>       
-                      </tr>
-                  <?php 
-                      }
-                    }
-                  ?>
-                </table>
-        </div>
+                        </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button id="btnPrint" type="button" class="btn btn-success" style="float:right;"><i class="glyphicon glyphicon-print"></i>&nbsp;Print</button>
+                <button type="submit" class="btn btn-primary" name="generated" id=""><i class="fa fa-copy"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -1237,7 +1305,7 @@ function unit_measure($connect)
           <!-- /.modal-dialog -->
         </form> 
         </div>
-    </div>
+          </div>
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
@@ -1316,11 +1384,13 @@ table#addItem, tr.no_border td {
 }
 </style>
 
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -1355,93 +1425,24 @@ function onUserInactivity() {
    <?php } ?>
 }
 </script>
-
 <script>
-$(document).ready(function(){
-  var postURL = "purchases/addPurchases";
-  var i=1;
-  var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
-  // var unitDrop = <?php //echo(json_encode(unit_measure($connect))); ?>;
-  $('#add').click(function(){
-    if(i < 10){
-      i++;
-      document.getElementById('row'+i+'').setAttribute("class", " ");
-        // $('#dynamic_field').append('<tr id="row'+i+'"> <td><input type="text" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td><select class="select2" id="supply'+i+'" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td> <td><select class="select2" id="unit'+i+'" name="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+unitDrop+' </select></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
-        // $('#dynamic_field').append('<tr id="row'+i+'"><td width="10px"><input type="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td><td width="250px"><select class="form-control select2" id="supply" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+supplyDrop+'</select></td><td width="120px"><select class=" select2" name="unit[]" id="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option>'+unitDrop+'</select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></td></tr>');
-    }
+      $(function () {
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
 
-
-  });
-  
-  $(document).on('click', '.btn_remove', function(){
-    var button_id = $(this).attr("id"); 
-    document.getElementById('row'+button_id+'').setAttribute("class", "hidden");
-    i--;
-    // $('#row'+button_id+'').remove();
-  });
-  
-  $('#submit').click(function(){    
-    $.ajax({
-      url: postURL,
-      method:"POST",
-      data:$('#add_name').serialize(),
-      type: 'json',
-      success:function(data)
-      {
-          i=1;
-                  $('.dynamic-added').remove();
-                  $('#add_name')[0].reset();
-            alert('Record Inserted Successfully.');
-            location.reload();
-      }
-    });
-  });
-  
-});
-</script>
-
-<script>
-  $("select.select2").change(function () {
-    $("select.select2 option[value='" + $(this).data('index') + "']").prop('disabled', false);
-    $(this).data('index', this.value);
-    $("select.select2 option[value='" + this.value + "']:not([value=''])").prop('disabled', true);
-    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('disabled', false);
-  });
-</script>
-
-<script>
-      $(document).ready(function() {
-    var printCounter = 0;
-
-    $('#example').DataTable( {
-        order: [[0, 'desc']],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Purchases</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+      })
     </script>
+
 
 <script>
 // date and time
@@ -1469,6 +1470,30 @@ $(document).ready(function(){
   })
 </script>
 
+<script>
+ // date and time 
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Date picker
+    $('#date1').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd'
+    })
+    //Date picker
+    $('#date2').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd'
+    })
+    //Timepicker
+   /* $('.timepicker').timepicker({
+      showInputs: false,
+      format    : '%h:%i:%s %p'
+    }) */
+  }) 
+</script>
+        
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="viewModal" role="dialog">
             <div class="modal-dialog">
@@ -1483,6 +1508,11 @@ $(document).ready(function(){
           <div class="modal fade" id="modalUpdate" role="dialog">
             <div class="modal-dialog">
                 <div id="data-content"></div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog" style="position: absolute;margin-left: 15%;">
+                <div id="content-data"></div>
             </div>
         </div>
 
@@ -1517,6 +1547,25 @@ $(document).ready(function(){
                 $('#edit-data').html(data);
             }).fial(function(){
                 $('#edit-data').html('<p>Error</p>');
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click','#getDel',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'deliveries/editDelivery',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
             });
         });
     </script>
@@ -1590,34 +1639,732 @@ if(isset($_POST["purchEdit"]))
 }
 
 if(isset($_POST['btnUpdate'])){
-    $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $new_purchasesStatus=mysqli_real_escape_string($con,$_POST['txtstatus']);
+    $new_pid=mysqli_real_escape_string($con,$_POST['txtpID']);
+    $new_purchasesStatus=mysqli_real_escape_string($con,$_POST['txtstat']);
      $new_deliveryDate=mysqli_real_escape_string($con,$_POST['orDate']);
 
-    if($new_purchasesStatus == 'Pending' && $new_id == $new_id){
+    if($new_purchasesStatus == 'Pending' && $new_pid == $new_pid){
       $new_purchasesStatus = 'Delivered';
     }else{
       $new_purchasesStatus = 'Pending';
-      $new_deliveryDate = NULL;
+      // $new_deliveryDate = NULL;
     }
 
-    $sqlupdate="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='$new_deliveryDate' WHERE po_key='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
+    $sqldel="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='CURDATE()' WHERE po_key='$new_pid' ";
+    $result_del=mysqli_query($con,$sqldel);
 
-       $sqlupdate2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='$new_deliveryDate' WHERE po_key='$new_id' ";
-    $result_update2=mysqli_query($con,$sqlupdate2);
+       $sqldel2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='CURDATE()' WHERE po_key='$new_pid' ";
+    $result_del2=mysqli_query($con,$sqldel2);
 
-    if($result_update && $sqlupdate2){
+    if($result_del && $sqldel2){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_id." status has been changed to ".$result_update."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_pid." status has been changed to ".$new_purchaseStatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="deliveries"</script>';
     }
     else{
         echo '<script>alert("Update Failed")</script>';
     }
+}
+?>
+
+<?php
+$con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+$pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+if(isset($_POST['btnEdit'])){
+
+    $new_pid=mysqli_real_escape_string($con,$_POST['txtpID']);
+    $new_purchasesStatus=mysqli_real_escape_string($con,$_POST['txtstat']);
+     $new_deliveryDate=mysqli_real_escape_string($con,$_POST['orDate']);
+
+    if($new_purchasesStatus == 'Pending' && $new_pid == $new_pid){
+      $new_purchasesStatus = 'Delivered';
+    }else{
+      $new_purchasesStatus = 'Pending';
+      $new_deliveryDate = NULL;
+    }
+
+    $sqldel="UPDATE purchase_order_bm SET purchase_order_bm.purchase_order_status='$new_purchasesStatus', purchase_order_created_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
+    $result_del=mysqli_query($con,$sqldel);
+
+       $sqldel2="UPDATE purchase_orders SET purchase_orders.po_remarks='$new_purchasesStatus', purchase_orders.delivery_date='$new_deliveryDate' WHERE po_key='$new_pid' ";
+    $result_del2=mysqli_query($con,$sqldel2);
+
+    if($result_del && $sqldel2){
+        $conn =mysqli_connect("localhost","root","");
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        mysqli_select_db($conn, "itproject");
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Purchase ID #".$new_pid." status has been changed to ".$new_purchasesStatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $result = $conn->query($notif);
+        echo '<script>window.location.href="deliveries"</script>';
+    }
+    else{
+        echo '<script>alert("Update Failed")</script>';
+    }
+
+    $new_purchaseID=mysqli_real_escape_string($con,$_POST['txtid']);
+    $delBy=mysqli_real_escape_string($con,$_POST['txtdelBy']);
+    $ordrNo=mysqli_real_escape_string($con,$_POST['txtordr']);
+
+    $new_id=mysqli_real_escape_string($con,$_POST['txtpoid0']);
+    $new_status=mysqli_real_escape_string($con,$_POST['txtstatus0']);
+    $new_quantity=mysqli_real_escape_string($con,$_POST['txtquantity0']);
+    $new_quantityDelivered=mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
+    $new_notes=mysqli_real_escape_string($con,$_POST['txtnotes0']);
+    $quantity_returned = mysqli_real_escape_string($con,$_POST['txtquantity0']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
+    $amount= mysqli_real_escape_string($con,$_POST['unit_price0']);
+    $total = $quantity_returned*$amount;
+    $supplierid=mysqli_real_escape_string($con,$_POST['txtsupplierid0']);
+    $suppliesid=mysqli_real_escape_string($con,$_POST['txtsuppliesid0']);
+    $addstock=mysqli_real_escape_string($con,$_POST['txtstock0']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
+    $new_supid=mysqli_real_escape_string($con,$_POST['txtsupid0']);
+    $new_pokey=mysqli_real_escape_string($con,$_POST['txtpokey0']);
+    $new_inputExp=mysqli_real_escape_string($con,$_POST['txtexpiration0']);
+    $new_OrigExp=mysqli_real_escape_string($con,$_POST['txtexpire0']);
+    $description=mysqli_real_escape_string($con,$_POST['txtdesc0']);
+    $brand=mysqli_real_escape_string($con,$_POST['txtbrand0']);
+    $unit=mysqli_real_escape_string($con,$_POST['txtunit0']);
+    $stock=mysqli_real_escape_string($con,$_POST['txtstock0']);
+    $date = date("Y-m-d"); 
+
+
+    // if for index 0
+    if($new_quantity == $new_quantityDelivered){
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered', notes='$new_notes', order_no='$ordrNo' WHERE po_id='$new_id' ";
+      $result_update=mysqli_query($con,$sqlupdate);
+
+      $sqlupd="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id' ";
+      $result_upd=mysqli_query($con,$sqlupd);
+
+      if($description != "" || $new_quantityDelivered != ""){
+        $sqldeliveries="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes."', '".$new_id."', '".$supplierid."', '".$new_pokey."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery=mysqli_query($con,$sqldeliveries);
+      }
+
+      if($new_inputExp == $new_OrigExp){
+         $sqladd="UPDATE supplies SET quantity_in_stock='$addstock' WHERE supply_id='$new_supid' ";
+      $result_add=mysqli_query($con,$sqladd);
+      }else{
+        $sqlexp="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description, $brand, $unit, $stock, $amount, $new_inputExp, $new_purchaseID, $supplierid)";
+        $resultexp=mysqli_query($con,$sqlexp);
+      }
+    }else {
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered', notes='$new_notes' , quantity_remaining='$quantity_returned', order_no='$ordrNo' WHERE po_id='$new_id' ";
+      $result_update=mysqli_query($con,$sqlupdate);
+
+      $sqlupd="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id' ";
+      $result_upd=mysqli_query($con,$sqlupd);
+
+      if($description != "" || $new_quantityDelivered != ""){
+      $sqldeliveries="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Partial', '".$new_notes."', '".$new_id."', '".$supplierid."', '".$new_pokey."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery=mysqli_query($con,$sqldeliveries);
+      }
+      
+      if($new_inputExp == $new_OrigExp){
+        $sqladd="UPDATE supplies SET quantity_in_stock='$addstock' WHERE supply_id='$new_supid' ";
+        $result_add=mysqli_query($con,$sqladd);
+      }else{
+        $sqlexp="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description, $brand, $unit, $stock, $amount, $new_inputExp, $new_purchaseID, $supplierid)";
+        $resultexp=mysqli_query($con,$sqlexp);
+      }
+
+    }
+
+    $new_id1=mysqli_real_escape_string($con,$_POST['txtpoid1']);
+    $new_status1=mysqli_real_escape_string($con,$_POST['txtstatus1']);
+    $new_quantity1=mysqli_real_escape_string($con,$_POST['txtquantity1']);
+    $new_quantityDelivered1=mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
+    $new_notes1=mysqli_real_escape_string($con,$_POST['txtnotes1']);
+    $quantity_returned1 = mysqli_real_escape_string($con,$_POST['txtquantity1']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
+    $amount1= mysqli_real_escape_string($con,$_POST['unit_price1']);
+    $total1 = $quantity_returned1*$amount1;
+    $supplierid1=mysqli_real_escape_string($con,$_POST['txtsupplierid1']);
+    $suppliesid1=mysqli_real_escape_string($con,$_POST['txtsuppliesid1']);
+    $addstock1=mysqli_real_escape_string($con,$_POST['txtstock1']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
+    $new_supid1=mysqli_real_escape_string($con,$_POST['txtsupid1']);
+    $new_pokey1=mysqli_real_escape_string($con,$_POST['txtpokey1']);
+    $new_inputExp1=mysqli_real_escape_string($con,$_POST['txtexpiration1']);
+    $new_OrigExp1=mysqli_real_escape_string($con,$_POST['txtexpire1']);
+    $description1=mysqli_real_escape_string($con,$_POST['txtdesc1']);
+    $brand1=mysqli_real_escape_string($con,$_POST['txtbrand1']);
+    $unit1=mysqli_real_escape_string($con,$_POST['txtunit1']);
+    $stock1=mysqli_real_escape_string($con,$_POST['txtstock1']);
+    
+    // if for index 1
+    if($new_quantity1 == $new_quantityDelivered1){
+      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1', order_no='$ordrNo' WHERE po_id='$new_id1' ";
+      $result_update1=mysqli_query($con,$sqlupdate1);
+
+      $sqlupd1="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id1' ";
+      $result_upd1=mysqli_query($con,$sqlupd1);
+
+      if($description1 != "" || $new_quantityDelivered1 != ""){
+      $sqldeliveries1="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes1."', '".$new_id1."', '".$supplierid1."', '".$new_pokey1."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery1=mysqli_query($con,$sqldeliveries1);
+      }
+
+      if($new_inputExp1 == $new_OrigExp1){
+         $sqladd1="UPDATE supplies SET quantity_in_stock='$addstock1' WHERE supply_id='$new_supid1' ";
+      $result_add1=mysqli_query($con,$sqladd1);
+      }else{
+        $sqlexp1="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description1, $brand1, $unit1, $stock1, $amount1, $new_inputExp1, $new_purchaseID, $supplierid1)";
+        $resultexp1=mysqli_query($con,$sqlexp1);
+      }
+    }else {
+      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1', quantity_remaining='$quantity_returned1', order_no='$ordrNo' WHERE po_id='$new_id1' ";
+      $result_update1=mysqli_query($con,$sqlupdate1);
+
+      $sqlupd1="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id1' ";
+      $result_upd1=mysqli_query($con,$sqlupd1);
+
+      if($description1 != "" || $new_quantityDelivered1 != ""){
+      $sqldeliveries1="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Partial', '".$new_notes1."', '".$new_id1."', '".$supplierid1."', '".$new_pokey1."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery1=mysqli_query($con,$sqldeliveries1);
+      }
+
+      if($new_inputExp1 == $new_OrigExp1){
+         $sqladd1="UPDATE supplies SET quantity_in_stock='$addstock1' WHERE supply_id='$new_supid1' ";
+      $result_add1=mysqli_query($con,$sqladd1);
+      }else{
+        $sqlexp1="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description1, $brand1, $unit1, $stock1, $amount1, $new_inputExp1, $new_purchaseID, $supplierid1)";
+        $resultexp1=mysqli_query($con,$sqlexp1);
+      }
+
+    }
+
+    $new_id2=mysqli_real_escape_string($con,$_POST['txtpoid2']);
+    $new_status2=mysqli_real_escape_string($con,$_POST['txtstatus2']);
+    $new_quantity2=mysqli_real_escape_string($con,$_POST['txtquantity2']);
+    $new_quantityDelivered2=mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
+    $new_notes2=mysqli_real_escape_string($con,$_POST['txtnotes2']);
+    $quantity_returned2 = mysqli_real_escape_string($con,$_POST['txtquantity2']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
+    $amount2= mysqli_real_escape_string($con,$_POST['unit_price2']);
+    $total2 = $quantity_returned2*$amount2;
+    $supplierid2=mysqli_real_escape_string($con,$_POST['txtsupplierid2']);
+    $suppliesid2=mysqli_real_escape_string($con,$_POST['txtsuppliesid2']);
+    $addstock2=mysqli_real_escape_string($con,$_POST['txtstock2']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
+    $new_supid2=mysqli_real_escape_string($con,$_POST['txtsupid2']);
+    $new_pokey2=mysqli_real_escape_string($con,$_POST['txtpokey2']);
+    $new_inputExp2=mysqli_real_escape_string($con,$_POST['txtexpiration2']);
+    $new_OrigExp2=mysqli_real_escape_string($con,$_POST['txtexpire2']);
+    $description2=mysqli_real_escape_string($con,$_POST['txtdesc2']);
+    $brand2=mysqli_real_escape_string($con,$_POST['txtbrand2']);
+    $unit2=mysqli_real_escape_string($con,$_POST['txtunit2']);
+    $stock2=mysqli_real_escape_string($con,$_POST['txtstock2']);
+    
+    // if for index 2
+    if($new_quantity2 == $new_quantityDelivered2){
+      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2', order_no='$ordrNo' WHERE po_id='$new_id2' ";
+      $result_update2=mysqli_query($con,$sqlupdate2);
+
+      $sqlupd2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id2' ";
+      $result_upd2=mysqli_query($con,$sqlupd2);
+
+      if($description2 != "" || $new_quantityDelivered2 != ""){
+      $sqldeliveries2="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes2."', '".$new_id2."', '".$supplierid2."', '".$new_pokey2."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery2=mysqli_query($con,$sqldeliveries2);
+      }
+
+      
+      if($new_inputExp2 == $new_OrigExp2){
+        $sqladd2="UPDATE supplies SET quantity_in_stock='$addstock2' WHERE supply_id='$new_supid2' ";
+      $result_add2=mysqli_query($con,$sqladd2);
+      }else{
+        $sqlexp2="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description2, $brand2, $unit2, $stock2, $amount2, $new_inputExp2, $new_purchaseID, $supplierid2)";
+        $resultexp2=mysqli_query($con,$sqlexp2);
+      }
+    }else {
+      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2', quantity_remaining='$quantity_returned2', order_no='$ordrNo' WHERE po_id='$new_id2' ";
+      $result_update2=mysqli_query($con,$sqlupdate2);
+
+      $sqlupd2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id2' ";
+      $result_upd2=mysqli_query($con,$sqlupd2);
+
+      if($description2 != "" || $new_quantityDelivered2 != ""){
+      $sqldeliveries2="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Partial', '".$new_notes2."', '".$new_id2."', '".$supplierid2."', '".$new_pokey2."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery2=mysqli_query($con,$sqldeliveries2);
+      }
+
+      if($new_inputExp2 == $new_OrigExp2){
+        $sqladd2="UPDATE supplies SET quantity_in_stock='$addstock2' WHERE supply_id='$new_supid2' ";
+      $result_add2=mysqli_query($con,$sqladd2);
+      }else{
+        $sqlexp2="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description2, $brand2, $unit2, $stock2, $amount2, $new_inputExp2, $new_purchaseID, $supplierid2)";
+        $resultexp2=mysqli_query($con,$sqlexp2);
+      }
+
+    }
+
+    $new_id3=mysqli_real_escape_string($con,$_POST['txtpoid3']);
+    $new_status3=mysqli_real_escape_string($con,$_POST['txtstatus3']);
+    $new_quantity3=mysqli_real_escape_string($con,$_POST['txtquantity3']);
+    $new_quantityDelivered3=mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
+    $new_notes3=mysqli_real_escape_string($con,$_POST['txtnotes3']);
+    $quantity_returned3 = mysqli_real_escape_string($con,$_POST['txtquantity3']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
+    $amount3= mysqli_real_escape_string($con,$_POST['unit_price3']);
+    $total3 = $quantity_returned3*$amount3;
+    $supplierid3=mysqli_real_escape_string($con,$_POST['txtsupplierid3']);
+    $suppliesid3=mysqli_real_escape_string($con,$_POST['txtsuppliesid3']);
+    $addstock3=mysqli_real_escape_string($con,$_POST['txtstock3']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
+    $new_supid3=mysqli_real_escape_string($con,$_POST['txtsupid3']);
+    $new_pokey3=mysqli_real_escape_string($con,$_POST['txtpokey3']);
+    $new_inputExp3=mysqli_real_escape_string($con,$_POST['txtexpiration3']);
+    $new_OrigExp3=mysqli_real_escape_string($con,$_POST['txtexpire3']);
+    $description3=mysqli_real_escape_string($con,$_POST['txtdesc3']);
+    $brand3=mysqli_real_escape_string($con,$_POST['txtbrand3']);
+    $unit3=mysqli_real_escape_string($con,$_POST['txtunit3']);
+    $stock3=mysqli_real_escape_string($con,$_POST['txtstock3']);
+    
+    // if for index 3
+    if($new_quantity3 == $new_quantityDelivered3){
+      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3', order_no='$ordrNo' WHERE po_id='$new_id3' ";
+      $result_update3=mysqli_query($con,$sqlupdate3);
+
+      $sqlupd3="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id3' ";
+      $result_upd3=mysqli_query($con,$sqlupd3);
+
+      if($description3 != "" || $new_quantityDelivered3 != ""){
+      $sqldeliveries3="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes3."', '".$new_id3."', '".$supplierid3."', '".$new_pokey3."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery3=mysqli_query($con,$sqldeliveries3);
+      }
+      
+      if($new_inputExp3 == $new_OrigExp3){
+        $sqladd3="UPDATE supplies SET quantity_in_stock='$addstock3' WHERE supply_id='$new_supid3' ";
+      $result_add3=mysqli_query($con,$sqladd3);
+      }else{
+        $sqlexp3="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description3, $brand3, $unit3, $stock3, $amount3, $new_inputExp3, $new_purchaseID, $supplierid3)";
+        $resultexp3=mysqli_query($con,$sqlexp3);
+      }
+    }else {
+      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3', quantity_remaining='$quantity_returned3', order_no='$ordrNo' WHERE po_id='$new_id3' ";
+      $result_update3=mysqli_query($con,$sqlupdate3);
+
+      $sqlupd3="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id3' ";
+      $result_upd3=mysqli_query($con,$sqlupd3);
+
+      if($description3 != "" || $new_quantityDelivered3 != ""){
+      $sqldeliveries3="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Partial', '".$new_notes3."', '".$new_id3."', '".$supplierid3."', '".$new_pokey3."', '".$ordrNo."', '".$delBy."')";
+      }
+
+      if($new_inputExp3 == $new_OrigExp3){
+        $sqladd3="UPDATE supplies SET quantity_in_stock='$addstock3' WHERE supply_id='$new_supid3' ";
+      $result_add3=mysqli_query($con,$sqladd3);
+      }else{
+        $sqlexp3="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description3, $brand3, $unit3, $stock3, $amount3, $new_inputExp3, $new_purchaseID, $supplierid3)";
+        $resultexp3=mysqli_query($con,$sqlexp3);
+      }
+
+    }
+
+    $new_id4=mysqli_real_escape_string($con,$_POST['txtpoid4']);
+    $new_status4=mysqli_real_escape_string($con,$_POST['txtstatus4']);
+    $new_quantity4=mysqli_real_escape_string($con,$_POST['txtquantity4']);
+    $new_quantityDelivered4=mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
+    $new_notes4=mysqli_real_escape_string($con,$_POST['txtnotes4']);
+    $quantity_returned4 = mysqli_real_escape_string($con,$_POST['txtquantity4']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
+    $amount4= mysqli_real_escape_string($con,$_POST['unit_price4']);
+    $total4 = $quantity_returned4*$amount4;
+    $supplierid4=mysqli_real_escape_string($con,$_POST['txtsupplierid4']);
+    $suppliesid4=mysqli_real_escape_string($con,$_POST['txtsuppliesid4']);
+    $addstock4=mysqli_real_escape_string($con,$_POST['txtstock4']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
+    $new_supid4=mysqli_real_escape_string($con,$_POST['txtsupid4']);
+    $new_pokey4=mysqli_real_escape_string($con,$_POST['txtpokey4']);
+    $new_inputExp4=mysqli_real_escape_string($con,$_POST['txtexpiration4']);
+    $new_OrigExp4=mysqli_real_escape_string($con,$_POST['txtexpire4']);
+    $description4=mysqli_real_escape_string($con,$_POST['txtdesc4']);
+    $brand4=mysqli_real_escape_string($con,$_POST['txtbrand4']);
+    $unit4=mysqli_real_escape_string($con,$_POST['txtunit4']);
+    $stock4=mysqli_real_escape_string($con,$_POST['txtstock4']);
+    
+    // if for index 4
+    if($new_quantity4 == $new_quantityDelivered4){
+      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4', order_no='$ordrNo' WHERE po_id='$new_id4' ";
+      $result_update4=mysqli_query($con,$sqlupdate4);
+
+      $sqlupd4="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id4' ";
+      $result_upd4=mysqli_query($con,$sqlupd4);
+
+      if($description4 != "" || $new_quantityDelivered4 != ""){
+      $sqldeliveries4="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes4."', '".$new_id4."', '".$supplierid4."', '".$new_pokey4."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery4=mysqli_query($con,$sqldeliveries4);
+      }
+      
+      if($new_inputExp4 == $new_OrigExp4){
+        $sqladd4="UPDATE supplies SET quantity_in_stock='$addstock4' WHERE supply_id='$new_supid4' ";
+      $result_add4=mysqli_query($con,$sqladd4);
+      }else{
+        $sqlexp4="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description4, $brand4, $unit4, $stock4, $amount4, $new_inputExp4, $new_purchaseID, $supplierid4)";
+        $resultexp4=mysqli_query($con,$sqlexp4);
+      }
+    }else {
+      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4', quantity_remaining='$quantity_returned4', order_no='$ordrNo' WHERE po_id='$new_id4' ";
+      $result_update4=mysqli_query($con,$sqlupdate4);
+
+      $sqlupd4="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id4' ";
+      $result_upd4=mysqli_query($con,$sqlupd4);
+
+      if($description4 != "" || $new_quantityDelivered4 != ""){
+      $sqldeliveries4="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Partial', '".$new_notes4."', '".$new_id4."', '".$supplierid4."', '".$new_pokey4."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery4=mysqli_query($con,$sqldeliveries4);
+      }
+
+      if($new_inputExp4 == $new_OrigExp4){
+        $sqladd4="UPDATE supplies SET quantity_in_stock='$addstock4' WHERE supply_id='$new_supid4' ";
+      $result_add4=mysqli_query($con,$sqladd4);
+      }else{
+        $sqlexp4="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description4, $brand4, $unit4, $stock4, $amount4, $new_inputExp4, $new_purchaseID, $supplierid4)";
+        $resultexp4=mysqli_query($con,$sqlexp4);
+      }
+
+    }
+
+    $new_id5=mysqli_real_escape_string($con,$_POST['txtpoid5']);
+    $new_status5=mysqli_real_escape_string($con,$_POST['txtstatus5']);
+    $new_quantity5=mysqli_real_escape_string($con,$_POST['txtquantity5']);
+    $new_quantityDelivered5=mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
+    $new_notes5=mysqli_real_escape_string($con,$_POST['txtnotes5']);
+    $quantity_returned5 = mysqli_real_escape_string($con,$_POST['txtquantity5']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
+    $amount5= mysqli_real_escape_string($con,$_POST['unit_price5']);
+    $total5 = $quantity_returned5*$amount5;
+    $supplierid5=mysqli_real_escape_string($con,$_POST['txtsupplierid5']);
+    $suppliesid5=mysqli_real_escape_string($con,$_POST['txtsuppliesid5']);
+    $addstock5=mysqli_real_escape_string($con,$_POST['txtstock5']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
+    $new_supid5=mysqli_real_escape_string($con,$_POST['txtsupid5']);
+    $new_pokey5=mysqli_real_escape_string($con,$_POST['txtpokey5']);
+    $new_inputExp5=mysqli_real_escape_string($con,$_POST['txtexpiration5']);
+    $new_OrigExp5=mysqli_real_escape_string($con,$_POST['txtexpire5']);
+    $description5=mysqli_real_escape_string($con,$_POST['txtdesc5']);
+    $brand5=mysqli_real_escape_string($con,$_POST['txtbrand5']);
+    $unit5=mysqli_real_escape_string($con,$_POST['txtunit5']);
+    $stock5=mysqli_real_escape_string($con,$_POST['txtstock5']);
+    // if for index 5
+    if($new_quantity5 == $new_quantityDelivered5){
+      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5', order_no='$ordrNo' WHERE po_id='$new_id5' ";
+      $result_update5=mysqli_query($con,$sqlupdate5);
+
+      $sqlupd5="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id5' ";
+      $result_upd5=mysqli_query($con,$sqlupd5);
+
+      if($description5 != "" || $new_quantityDelivered5 != ""){
+      $sqldeliveries5="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes5."', '".$new_id5."', '".$supplierid5."', '".$new_pokey5."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery5=mysqli_query($con,$sqldeliveries5);
+      }
+      
+      if($new_inputExp5 == $new_OrigExp5){
+        $sqladd5="UPDATE supplies SET quantity_in_stock='$addstock5' WHERE supply_id='$new_supid5' ";
+      $result_add5=mysqli_query($con,$sqladd5);
+      }else{
+        $sqlexp5="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description5, $brand5, $unit5, $stock5, $amount5, $new_inputExp5, $new_purchaseID, $supplierid5)";
+        $resultexp5=mysqli_query($con,$sqlexp5);
+      }
+    }else {
+      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5', quantity_remaining='$quantity_returned5', order_no='$ordrNo' WHERE po_id='$new_id5' ";
+      $result_update5=mysqli_query($con,$sqlupdate5);
+
+      $sqlupd5="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id5' ";
+      $result_upd5=mysqli_query($con,$sqlupd5);
+
+      if($description5 != "" || $new_quantityDelivered5 != ""){
+       $sqldeliveries5="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Partial', '".$new_notes5."', '".$new_id5."', '".$supplierid5."', '".$new_pokey5."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery5=mysqli_query($con,$sqldeliveries5);
+      }
+
+      if($new_inputExp5 == $new_OrigExp5){
+        $sqladd5="UPDATE supplies SET quantity_in_stock='$addstock5' WHERE supply_id='$new_supid5' ";
+      $result_add5=mysqli_query($con,$sqladd5);
+      }else{
+        $sqlexp5="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description5, $brand5, $unit5, $stock5, $amount5, $new_inputExp5, $new_purchaseID, $supplierid5)";
+        $resultexp5=mysqli_query($con,$sqlexp5);
+      }
+
+    }
+
+    $new_id6=mysqli_real_escape_string($con,$_POST['txtpoid6']);
+    $new_status6=mysqli_real_escape_string($con,$_POST['txtstatus6']);
+    $new_quantity6=mysqli_real_escape_string($con,$_POST['txtquantity6']);
+    $new_quantityDelivered6=mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
+    $new_notes6=mysqli_real_escape_string($con,$_POST['txtnotes6']);
+    $quantity_returned6 = mysqli_real_escape_string($con,$_POST['txtquantity6']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
+    $amount6= mysqli_real_escape_string($con,$_POST['unit_price6']);
+    $total6 = $quantity_returned6*$amount6;
+    $supplierid6=mysqli_real_escape_string($con,$_POST['txtsupplierid6']);
+    $suppliesid6=mysqli_real_escape_string($con,$_POST['txtsuppliesid6']);
+    $addstock6=mysqli_real_escape_string($con,$_POST['txtstock6']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
+    $new_supid6=mysqli_real_escape_string($con,$_POST['txtsupid6']);
+    $new_pokey6=mysqli_real_escape_string($con,$_POST['txtpokey6']);
+    $new_inputExp6=mysqli_real_escape_string($con,$_POST['txtexpiration6']);
+    $new_OrigExp6=mysqli_real_escape_string($con,$_POST['txtexpire6']);
+    $description6=mysqli_real_escape_string($con,$_POST['txtdesc6']);
+    $brand6=mysqli_real_escape_string($con,$_POST['txtbrand6']);
+    $unit6=mysqli_real_escape_string($con,$_POST['txtunit6']);
+    $stock6=mysqli_real_escape_string($con,$_POST['txtstock6']);
+    
+    // if for index 6
+    if($new_quantity6 == $new_quantityDelivered6){
+      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6', order_no='$ordrNo' WHERE po_id='$new_id6' ";
+      $result_update6=mysqli_query($con,$sqlupdate6);
+
+      $sqlupd6="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id6' ";
+      $result_upd6=mysqli_query($con,$sqlupd6);
+
+      if($description6 != "" || $new_quantityDelivered6 != ""){
+      $sqldeliveries6="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes6."', '".$new_id6."', '".$supplierid6."', '".$new_pokey6."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery6=mysqli_query($con,$sqldeliveries6);
+      }
+      
+      if($new_inputExp6 == $new_OrigExp6){
+        $sqladd6="UPDATE supplies SET quantity_in_stock='$addstock6' WHERE supply_id='$new_supid6' ";
+      $result_add6=mysqli_query($con,$sqladd6);
+      }else{
+        $sqlexp6="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description6, $brand6, $unit6, $stock6, $amount6, $new_inputExp6, $new_purchaseID, $supplierid6)";
+        $resultexp6=mysqli_query($con,$sqlexp6);
+      }
+    }else {
+      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6', quantity_remaining='$quantity_returned6', order_no='$ordrNo' WHERE po_id='$new_id6' ";
+      $result_update6=mysqli_query($con,$sqlupdate6);
+
+      $sqlupd6="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id6' ";
+      $result_upd6=mysqli_query($con,$sqlupd6);
+
+      if($description6 != "" || $new_quantityDelivered6 != ""){
+      $sqldeliveries6="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Partial', '".$new_notes6."', '".$new_id6."', '".$supplierid6."', '".$new_pokey6."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery6=mysqli_query($con,$sqldeliveries6);
+      }
+
+      if($new_inputExp6 == $new_OrigExp6){
+        $sqladd6="UPDATE supplies SET quantity_in_stock='$addstock6' WHERE supply_id='$new_supid6' ";
+      $result_add6=mysqli_query($con,$sqladd6);
+      }else{
+        $sqlexp6="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description6, $brand6, $unit6, $stock6, $amount6, $new_inputExp6, $new_purchaseID, $supplierid6)";
+        $resultexp6=mysqli_query($con,$sqlexp6);
+      }
+
+    }
+
+    $new_id7=mysqli_real_escape_string($con,$_POST['txtpoid7']);
+    $new_status7=mysqli_real_escape_string($con,$_POST['txtstatus7']);
+    $new_quantity7=mysqli_real_escape_string($con,$_POST['txtquantity7']);
+    $new_quantityDelivered7=mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
+    $new_notes7=mysqli_real_escape_string($con,$_POST['txtnotes7']);
+    $quantity_returned7 = mysqli_real_escape_string($con,$_POST['txtquantity7']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
+    $amount7= mysqli_real_escape_string($con,$_POST['unit_price7']);
+    $total7 = $quantity_returned7*$amount7;
+    $supplierid7=mysqli_real_escape_string($con,$_POST['txtsupplierid7']);
+    $suppliesid7=mysqli_real_escape_string($con,$_POST['txtsuppliesid7']);
+    $addstock7=mysqli_real_escape_string($con,$_POST['txtstock7']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
+    $new_supid7=mysqli_real_escape_string($con,$_POST['txtsupid7']);
+    $new_pokey7=mysqli_real_escape_string($con,$_POST['txtpokey7']);
+    $new_inputExp7=mysqli_real_escape_string($con,$_POST['txtexpiration7']);
+    $new_OrigExp7=mysqli_real_escape_string($con,$_POST['txtexpire7']);
+    $description7=mysqli_real_escape_string($con,$_POST['txtdesc7']);
+    $brand7=mysqli_real_escape_string($con,$_POST['txtbrand7']);
+    $unit7=mysqli_real_escape_string($con,$_POST['txtunit7']);
+    $stock7=mysqli_real_escape_string($con,$_POST['txtstock7']);
+    
+    // if for index 7
+    if($new_quantity7 == $new_quantityDelivered7){
+      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7', order_no='$ordrNo' WHERE po_id='$new_id7' ";
+      $result_update7=mysqli_query($con,$sqlupdate7);
+
+      $sqlupd7="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id7' ";
+      $result_upd7=mysqli_query($con,$sqlupd7);
+
+      if($description7 != "" || $new_quantityDelivered7 != ""){
+      $sqldeliveries7="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes7."', '".$new_id7."', '".$supplierid7."', '".$new_pokey7."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery7=mysqli_query($con,$sqldeliveries7);
+      }
+      
+      if($new_inputExp7 == $new_OrigExp7){
+        $sqladd7="UPDATE supplies SET quantity_in_stock='$addstock7' WHERE supply_id='$new_supid7' ";
+      $result_add7=mysqli_query($con,$sqladd7);
+      }else{
+        $sqlexp7="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description7, $brand7, $unit7, $stock7, $amount7, $new_inputExp7, $new_purchaseID, $supplierid7)";
+        $resultexp7=mysqli_query($con,$sqlexp7);
+      }
+    }else {
+      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7', quantity_remaining='$quantity_returned7', order_no='$ordrNo' WHERE po_id='$new_id7' ";
+      $result_update7=mysqli_query($con,$sqlupdate7);
+
+      $sqlupd7="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id7' ";
+      $result_upd7=mysqli_query($con,$sqlupd7);
+
+      if($description7 != "" || $new_quantityDelivered7 != ""){
+      $sqldeliveries7="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Partial', '".$new_notes7."', '".$new_id7."', '".$supplierid7."', '".$new_pokey7."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery7=mysqli_query($con,$sqldeliveries7);
+      }
+
+      if($new_inputExp7 == $new_OrigExp7){
+        $sqladd7="UPDATE supplies SET quantity_in_stock='$addstock7' WHERE supply_id='$new_supid7' ";
+      $result_add7=mysqli_query($con,$sqladd7);
+      }else{
+        $sqlexp7="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description7, $brand7, $unit7, $stock7, $amount7, $new_inputExp7, $new_purchaseID, $supplierid7)";
+        $resultexp7=mysqli_query($con,$sqlexp7);
+      }
+
+    }
+
+    $new_id8=mysqli_real_escape_string($con,$_POST['txtpoid8']);
+    $new_status8=mysqli_real_escape_string($con,$_POST['txtstatus8']);
+    $new_quantity8=mysqli_real_escape_string($con,$_POST['txtquantity8']);
+    $new_quantityDelivered8=mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
+    $new_notes8=mysqli_real_escape_string($con,$_POST['txtnotes8']);
+    $quantity_returned8 = mysqli_real_escape_string($con,$_POST['txtquantity8']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
+    $amount8= mysqli_real_escape_string($con,$_POST['unit_price8']);
+    $total8 = $quantity_returned8*$amount8;
+    $supplierid8=mysqli_real_escape_string($con,$_POST['txtsupplierid8']);
+    $suppliesid8=mysqli_real_escape_string($con,$_POST['txtsuppliesid8']);
+    $addstock8=mysqli_real_escape_string($con,$_POST['txtstock8']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
+    $new_supid8=mysqli_real_escape_string($con,$_POST['txtsupid8']);
+    $new_pokey8=mysqli_real_escape_string($con,$_POST['txtpokey8']);
+    $new_inputExp8=mysqli_real_escape_string($con,$_POST['txtexpiration8']);
+    $new_OrigExp8=mysqli_real_escape_string($con,$_POST['txtexpire8']);
+    $description8=mysqli_real_escape_string($con,$_POST['txtdesc8']);
+    $brand8=mysqli_real_escape_string($con,$_POST['txtbrand8']);
+    $unit8=mysqli_real_escape_string($con,$_POST['txtunit8']);
+    $stock8=mysqli_real_escape_string($con,$_POST['txtstock8']);
+    
+    // if for index 8
+    if($new_quantity8 == $new_quantityDelivered8){
+      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered8', notes='$new_notes8', order_no='$ordrNo' WHERE po_id='$new_id8' ";
+      $result_update8=mysqli_query($con,$sqlupdate8);
+
+      $sqlupd8="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id8' ";
+      $result_upd8=mysqli_query($con,$sqlupd8);
+
+      if($description8 != "" || $new_quantityDelivered8 != ""){
+      $sqldeliveries8="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes8."', '".$new_id8."', '".$supplierid8."', '".$new_pokey8."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery8=mysqli_query($con,$sqldeliveries8);
+      }
+      
+      if($new_inputExp8 == $new_OrigExp8){
+        $sqladd8="UPDATE supplies SET quantity_in_stock='$addstock8' WHERE supply_id='$new_supid8' ";
+      $result_add8=mysqli_query($con,$sqladd8);
+      }else{
+        $sqlexp8="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description8, $brand8, $unit8, $stock8, $amount8, $new_inputExp8, $new_purchaseID, $supplierid8)";
+        $resultexp8=mysqli_query($con,$sqlexp8);
+      }
+    }else {
+      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered8', notes='$new_notes', quantity_remaining='$quantity_returned8', order_no='$ordrNo' WHERE po_id='$new_id8' ";
+      $result_update8=mysqli_query($con,$sqlupdate8);
+
+      $sqlupd8="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id8' ";
+      $result_upd8=mysqli_query($con,$sqlupd8);
+
+      if($description8 != "" || $new_quantityDelivered8 != ""){
+      $sqldeliveries8="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Partial', '".$new_notes8."', '".$new_id8."', '".$supplierid8."', '".$new_pokey8."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery8=mysqli_query($con,$sqldeliveries8);
+      }
+
+      if($new_inputExp8 == $new_OrigExp8){
+        $sqladd8="UPDATE supplies SET quantity_in_stock='$addstock8' WHERE supply_id='$new_supid8' ";
+      $result_add8=mysqli_query($con,$sqladd8);
+      }else{
+        $sqlexp8="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description8, $brand8, $unit8, $stock8, $amount8, $new_inputExp8, $new_purchaseID, $supplierid8)";
+        $resultexp8=mysqli_query($con,$sqlexp8);
+      }
+
+    }
+
+    $new_id9=mysqli_real_escape_string($con,$_POST['txtpoid9']);
+    $new_status9=mysqli_real_escape_string($con,$_POST['txtstatus9']);
+    $new_quantity9=mysqli_real_escape_string($con,$_POST['txtquantity9']);
+    $new_quantityDelivered9=mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
+    $new_notes9=mysqli_real_escape_string($con,$_POST['txtnotes9']);
+    $quantity_returned9 = mysqli_real_escape_string($con,$_POST['txtquantity9']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
+    $amount9= mysqli_real_escape_string($con,$_POST['unit_price9']);
+    $total9 = $quantity_returned9*$amount9;
+    $supplierid9=mysqli_real_escape_string($con,$_POST['txtsupplierid9']);
+    $suppliesid9=mysqli_real_escape_string($con,$_POST['txtsuppliesid9']);
+    $addstock9=mysqli_real_escape_string($con,$_POST['txtstock9']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
+    $new_supid9=mysqli_real_escape_string($con,$_POST['txtsupid9']);
+    $new_pokey9=mysqli_real_escape_string($con,$_POST['txtpokey9']);
+    $new_inputExp9=mysqli_real_escape_string($con,$_POST['txtexpiration9']);
+    $new_OrigExp9=mysqli_real_escape_string($con,$_POST['txtexpire9']);
+    $description9=mysqli_real_escape_string($con,$_POST['txtdesc9']);
+    $brand9=mysqli_real_escape_string($con,$_POST['txtbrand9']);
+    $unit9=mysqli_real_escape_string($con,$_POST['txtunit9']);
+    $stock9=mysqli_real_escape_string($con,$_POST['txtstock9']);
+    
+    // if for index 9
+    if($new_quantity9 == $new_quantityDelivered9){
+      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9', order_no='$ordrNo' WHERE po_id='$new_id9' ";
+      $result_update9=mysqli_query($con,$sqlupdate9);
+
+      $sqlupd9="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id9' ";
+      $result_upd9=mysqli_query($con,$sqlupd9);
+
+      if($description9 != "" || $new_quantityDelivered9 != ""){
+      $sqldeliveries9="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Full', '".$new_notes9."', '".$new_id9."', '".$supplierid9."', '".$new_pokey9."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery9=mysqli_query($con,$sqldeliveries9);
+      }
+      
+      if($new_inputExp9 == $new_OrigExp9){
+        $sqladd9="UPDATE supplies SET quantity_in_stock='$addstock9' WHERE supply_id='$new_supid9' ";
+      $result_add9=mysqli_query($con,$sqladd9);
+      }else{
+        $sqlexp9="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description9, $brand9, $unit9, $stock9, $amount9, $new_inputExp9, $new_purchaseID, $supplierid9)";
+        $resultexp9=mysqli_query($con,$sqlexp9);
+      }
+    }else {
+      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9', quantity_remaining='$quantity_returned9', order_no='$ordrNo' WHERE po_id='$new_id9' ";
+      $result_update9=mysqli_query($con,$sqlupdate9);
+
+      $sqlupd9="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id9' ";
+      $result_upd9=mysqli_query($con,$sqlupd9);
+
+      if($description9 != "" || $new_quantityDelivered9 != ""){
+      $sqldeliveries9="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name) VALUES (CURDATE(), 'Partial', '".$new_notes9."', '".$new_id9."', '".$supplierid9."', '".$new_pokey9."', '".$ordrNo."', '".$delBy."')";
+      $sqldelivery9=mysqli_query($con,$sqldeliveries9);
+      }
+
+      if($new_inputExp9 == $new_OrigExp9){
+        $sqladd9="UPDATE supplies SET quantity_in_stock='$addstock9' WHERE supply_id='$new_supid9' ";
+      $result_add9=mysqli_query($con,$sqladd9);
+      }else{
+        $sqlexp9="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description9, $brand9, $unit9, $stock9, $amount9, $new_inputExp9, $new_purchaseID, $supplierid9)";
+        $resultexp9=mysqli_query($con,$sqlexp9);
+      }
+
+    }
+
+
+    
+  
+    if($new_quantity == $new_quantityDelivered && $new_quantity1 == $new_quantityDelivered1 && $new_quantity2 == $new_quantityDelivered2 && $new_quantity3 == $new_quantityDelivered3 && $new_quantity4 == $new_quantityDelivered4 && $new_quantity5 == $new_quantityDelivered5 && $new_quantity6 == $new_quantityDelivered6 && $new_quantity7 == $new_quantityDelivered7 && $new_quantity8 == $new_quantityDelivered8 && $new_quantity9 == $new_quantityDelivered9){
+
+      $query="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE purchase_order_id='$new_purchaseID' ";
+      $query_result=mysqli_query($con,$query);
+
+      if($query_result){
+          $conn =mysqli_connect("localhost","root","");
+          $datetoday = date('Y\-m\-d\ H:i:s A');
+          mysqli_select_db($conn, "itproject");
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status with id# ".$new_purchaseID." has been changed to Full','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $result = $conn->query($notif);
+          echo '<script>window.location.href="deliveries"</script>';
+      }
+      else{
+          echo '<script>alert("Update if Failed")</script>';
+      }
+    }else{
+      $query1="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE purchase_order_id='$new_purchaseID' ";
+      $query_result1=mysqli_query($con,$query1);
+
+      if($query_result1){
+          $conn =mysqli_connect("localhost","root","");
+          $datetoday = date('Y\-m\-d\ H:i:s A');
+          mysqli_select_db($conn, "itproject");
+          $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A delivery status with id# ".$new_purchaseID." has been changed to Partial','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+          $result = $conn->query($notif);
+          echo '<script>window.location.href="deliveries"</script>';
+      }
+      else{
+          echo '<script>alert("Update else Failed")</script>';
+      }
+    }
+    
 }
 
 ?>
@@ -1661,7 +2408,26 @@ $(document).on('click','#getAdd',function(e){
     });
 });
 </script>
-        
+
+<script>
+$(document).on('click','#getAdd',function(e){
+    e.preventDefault();
+    var per_id=$(this).data('id');
+    //alert(per_id);
+    $('#content-data').html('');
+    $.ajax({
+        url:'purchases/generated',
+        type:'POST',
+        data:'id='+per_id,
+        dataType:'html'
+    }).done(function(data){
+        $('#content-data').html('');
+        $('#content-data').html(data);
+    }).final(function(){
+        $('#content-data').html('<p>Error</p>');
+    });
+});
+</script>
 <!--
 <script>
  function printcontent(el){

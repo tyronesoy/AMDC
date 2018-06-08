@@ -190,7 +190,7 @@ function category($connect)
                         <?php
                         }else if(strpos($logvalue, 'profile') !== false){
                         ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'BusinessManager/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'Assistant/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
                         }else{
                         ?>
@@ -213,7 +213,6 @@ function category($connect)
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -449,7 +448,7 @@ function category($connect)
 <!--          FLAG END-->
           <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
-             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
@@ -459,7 +458,7 @@ function category($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='user-image' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -471,7 +470,7 @@ function category($connect)
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-               <?php
+                <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -480,7 +479,7 @@ function category($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -490,7 +489,7 @@ function category($connect)
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-        <small> Business Manager</small>
+        <small> Assistant</small>
         </p>
                 </li>
               <!-- Menu Footer-->
@@ -538,7 +537,7 @@ function category($connect)
                                             </div>
                                       </div>
                 <div class="box-body">
-                    <center>
+                     <center>
                                   <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
@@ -548,7 +547,7 @@ function category($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -598,14 +597,14 @@ function category($connect)
                       <div class="col-md-6">
                       <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" placeholder="email@email.com" required />
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
                         </div>
                       </div>
                 
                        <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
                       </div>
                     </div>
@@ -648,7 +647,6 @@ function category($connect)
         </form> 
         </div>    
    <!-- Left side column. contains the logo and sidebar -->
-  <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -664,7 +662,7 @@ function category($connect)
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -685,7 +683,7 @@ function category($connect)
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
- 
+  
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
         <li class="active treeview">
           <a href="#">
@@ -712,7 +710,7 @@ function category($connect)
        <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
       <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -735,8 +733,6 @@ function category($connect)
           </a>
         </li>
 
-        
-
 <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
@@ -748,20 +744,18 @@ function category($connect)
     </section>
     <!-- /.sidebar -->
   </aside>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <b>Office Supplies</b>
-        <!-- <small>advanced tables</small> -->
+          <i class="fa fa-pencil-square"></i> <b>Office Supplies</b>
+        <!-- <small>Supplies</small> -->
       </h1>
-        
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Office Supplies</a></li>
-        <li class="active">Data tables</li>
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li><i class="fa fa-briefcase"></i> Supplies</li>
+        <li class="active"><i class="fa fa-pencil-square"></i> Office Supplies</li>
       </ol>
     </section>
 
@@ -819,11 +813,11 @@ function category($connect)
                                         <div class="box-body">
 
                                           <!-- /.form group -->
-                                            <div class="row">
+                                                  <div class="row">
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Lot Number</label>
-                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" required />
+                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" maxlength="12" required />
                                                 </div>
                                               </div>
                                                 
@@ -846,6 +840,8 @@ function category($connect)
                                                   <label for="exampleInputEmail1">Item Description</label>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
+                                            
+                                      
                                    
                                             <div class="row">
                                             <div class="col-md-6">
@@ -887,17 +883,17 @@ function category($connect)
                                               </div>
                                               </div>
                                             </div>
-             
-                                             <div class="row">
-                                                  <div class="col-md-6">
+                                        <div class="row">
+                        
+                                        <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Reorder Level</label>
-                                                  <input type="number" class="form-control" id="reorder_level" name="reorder_level" step=".01" min="0"  />
-                                                
+                                                <input type="number" class="form-control" id="reorder_level" name="reorder_level" step=".01" min="0"  />
+                                                </div>
                                               </div>
-                                              </div>
-                            
-                                            </div>
+                                        </div>
+                                            
+                                      
                                             
                                       </div>
                                       <div class="modal-footer">
@@ -918,7 +914,8 @@ function category($connect)
                     </tr>
                 </table>      
             </div>
-        <table>
+
+       <table>
           <tr>
           <th>Filter by a Range of Quantity</th>
           <th style="padding-left: 20px;">Filter by a Range of Price</th>
@@ -950,7 +947,7 @@ function category($connect)
           <thead>
             <tr>
                  <th style="display: none;"> ID </th>            
-                  <th>Lot Number</th>
+                  <th style="width:15%;">Lot No</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Brand Name</th>
@@ -1018,13 +1015,13 @@ function category($connect)
       <!-- /.row -->
             <!--- PRINT AND PDF -->
              <div class="row no-print">
-      
-    <div class="col-xs-1" style="float:left">
+			
+	  <div class="col-xs-1" style="float:left">
           <a href="officeSuppliesRecover" style="color:white;"><button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Office Supplies
           </a>
           </button>
-    </div>
-                 <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep">Generate Report</button>
+		</div>
+                 <button  type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
       </div>
         <!-- END OF PRINT AND PDF -->
         <div class="modal fade" id="printrep">
@@ -1138,7 +1135,7 @@ function category($connect)
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-clone"></i> Generate</button>
+                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-copy"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -1212,7 +1209,7 @@ function onUserInactivity() {
     // Setup - add a text input to each footer cell
     $('#example tfoot th.srch').each( function () {
         var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        $(this).html( '<input type="text" style="width:100%;" placeholder="Search '+title+'" />' );
     } );
 
     // filtering

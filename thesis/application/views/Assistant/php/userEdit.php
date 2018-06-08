@@ -17,9 +17,14 @@ if(isset($_REQUEST['id'])){
         $per_email=$row[7];
          $per_status=$row[8];
          $per_deptname=$row[9];
+         $per_type=$row[1];
 
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
             <div class="modal-header">
@@ -51,48 +56,55 @@ if(isset($_REQUEST['id'])){
                                 </div>
                              </div>
 
+                             <div class="col-sm-13">
                              <div class="form-group">
-                                     <label class="col-sm-4 control-label" for="txtusername">Username</label>
-                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="txtusername" name="txtusername" value="<?php echo $per_username;?>">
+                                     <label for="txtusername">Username</label>
+                                    <input type="text" minlength=6 class="form-control" id="txtusername" name="txtusername" value="<?php echo $per_username;?>">
                                 </div>
                             </div>
 
-                             <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="txtlname">Last Name</label>
-                                <div class="col-sm-6">
+                            <div class="row">
+                           <div class="col-sm-6">
+                             <div class="form-group" style="width:100%">
+                                    <label for="txtlname">Last Name</label>
                                     <input type="text" class="form-control" id="txtlname" name="txtlname" value="<?php echo $per_lname;?>">
                                 </div>
                             </div>
 
+                            <div class="col-sm-6">
                             <div class="form-group">
-                                     <label class="col-sm-4 control-label" for="txtfname">First Name</label>
-                                <div class="col-sm-6">
+                                     <label for="txtfname">First Name</label>
                                     <input type="text" class="form-control" id="txtfname" name="txtfname" value="<?php echo $per_fname;?>">
                                 </div>
                             </div>
+                          </div>
 
-                            <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="txtuser_contact">Contact Number</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="txtuser_contact" name="txtuser_contact" value="<?php echo $per_usercontact;?>" pattern="^[0-9]{11}$">
+                          <div class="row">
+                         <div class="col-sm-6">
+                            <div class="form-group" style="width:100%">
+                                    <label for="txtuser_contact">Contact Number</label>
+                                    <input type="text" class="form-control" id="txtuser_contact" name="txtuser_contact" value="<?php echo $per_usercontact;?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$">
                                 </div>
                             </div>
 
+                            <div class="col-sm-6">
                             <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="txtemail">Email</label>
-                                <div class="col-sm-6">
-                                    <input type="email" class="form-control" id="txtemail" name="txtemail" value="<?php echo $per_email;?>">
+                                    <label for="txtemail">Email</label>
+                                    <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="email@email.com" value="<?php echo $per_email;?>">
                                 </div>
                             </div>
-                       
-                                    <div class="form-group">
-                                                      <label class="col-sm-4 control-label" for="txtdeptname">Department</label>
-                                        <div class="col-sm-6">
-                                                       <select name = "txtdeptname" class="form-control">
-                                                       <option value=""><?php echo $per_deptname;?></option>
+                        </div>
+                                    
+                              <div class="row">
+                                     <div class="col-sm-6">
+                                    <div class="form-group" style="width:100%">
+                                      <?php if($per_type != 'Assistant'){ ?>
+                                                      <label for="txtdeptname">Department</label>
+                                                      
+                                                       <select name = "txtdeptname" id="txtdeptname" class="form-control" value="<?php echo $per_deptname;?>">
+                                                       <option><?php echo $per_deptname;?></option>
                                                         <?php
-                                                          $conn =mysqli_connect("localhost","root","");
+                                                          $conn = mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
                                                             $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City'";
                                                             $results = mysqli_query($conn, $sql);
@@ -104,12 +116,16 @@ if(isset($_REQUEST['id'])){
                                                             }
                                                           ?>
                                                       </select>
+                                                      <?php } else { ?>
+                                                      <label for="txtdeptname">Department</label>
+                                                      <input type="text" name="txtdeptname" id="txtdeptname" class="form-control" value="<?php echo $per_deptname;?>" readonly>
+                                                      
+                                                       
+                                                      <?php } ?>
                                         </div>
                                                      </div>
-                        
-                            
                     </div>
-                </form>
+            
             </div>
 
             <div class="modal-footer">
