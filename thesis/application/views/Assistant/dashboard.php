@@ -479,7 +479,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
   </header>
         <?php $identity =  $this->session->userdata('fname');?>
         <div class="modal fade" id="editflag">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser2">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser2" >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -538,7 +538,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         </div> 
  
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser"  enctype="multipart/form-data">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser"  >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -574,7 +574,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='upload/assistant.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='upload/default2.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='upload/".$row['image']."' alt='Profile Pic'>";
                                 }
