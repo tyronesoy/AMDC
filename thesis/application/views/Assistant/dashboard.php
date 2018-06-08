@@ -457,7 +457,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-        <small> Business Manager</small>
+        <small> Assistant</small>
         </p>
                 </li>
                 
