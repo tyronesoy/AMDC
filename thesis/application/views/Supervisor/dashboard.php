@@ -30,7 +30,7 @@ if(!isset($_SESSION['first_run'])){
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
   <!-- Morris chart -->
   <link rel="stylesheet" href="assets/bower_components/chart.js/chart.css">
   <!-- jvectormap -->
@@ -682,12 +682,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                     $today=date("Y/m/d");
-                    $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND inventory_order_status != 'Fully Issued' AND inventory_order_status != '' AND quantity != 0 GROUP BY inventory_order_id";
+                    $sql = "SELECT CONCAT(supply_name, ' and ', COUNT(supply_name)-1, ' other items.') AS 'Description', inventory_order_uniq_id, inventory_order_supplies_id, supply_name, unit_name, quantity, quantity_issued, inventory_order_id, inventory_order_created_date, inventory_order_name, inventory_order_dept, inventory_order_status, inventory_order_remarks, issued_date, issued_to FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND inventory_order_status != 'Fully Issued' AND inventory_order_status != '' AND quantity != 0 GROUP BY inventory_order_uniq_id";
                     $result = $conn->query($sql); 
 
-                    $arrayName = '';  
-                    $arrayStatus = '';
-                    $zero = 0; 
+                    // $arrayName = '';  
+                    // $arrayStatus = '';
+                    // $zero = 0; 
                   ?>
                   
                  <thead>
@@ -704,30 +704,14 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <tbody>
                       	<?php if ($result->num_rows > 0) {
                         	while($row = $result->fetch_assoc()) {
-                        	$arrayName .= $row['supply_name'].', ';
-                        	$arrayStatus .= $row['inventory_order_status'].', ';
-                        	$item_name = explode(", ", $arrayName);
-                        	$item_status = explode(", ", $arrayStatus);
-                        	$count = count($item_name); 
                       	?>
 
                         <tr>
-                          <!-- <td><?php //echo $row["inventory_order_id"]; ?></td> -->
-                          <td><?php echo $row["inventory_order_created_date"]; ?></td>
-                          <td>
-                          		<?php if ($row["supply_name"] > 1){ 
-                          			print_r($item_name[$zero]);
-                          		?>
-                          			and <?php echo $count-1; ?> more item/s
-                          		<?php }else{ 
-                          			echo $row["supply_name"];
-                          		} ?>
-                          	</td>
+                          <td><?php echo $row["inventory_order_created_date"];?></td>
+                          <td><?php echo $row["Description"];?></td>
                           <td><?php echo $row["inventory_order_status"]; ?></td>
-                          <td><?php echo $row["inventory_order_remarks"]; ?></td>
-                          <td class="hidden"><?php print_r($status[$zero++]); ?></td>
+                          <td><?php echo $row["inventory_order_remarks"]?></td>
                           <td>
-                          	
                             <div class="btn-group">
                                   <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
                                 </div>
