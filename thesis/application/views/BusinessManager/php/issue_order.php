@@ -18,28 +18,29 @@ if(isset($_REQUEST['id'])){
         $per_remarks=$row[6];
         $per_issuedDate=$row[7];
         $per_issuedTo=$row[8];
-        $per_inventorySupid=$row[9];
-        $per_supplyName=$row[10];
-        $per_supplyUnit=$row[11];
-        $per_supplyQuantity=$row[12];
-        $per_quantityIssued=$row[13];
-        $ordrID=$row[14];
-        $per_supplyID=$row[15];
-        $per_supplyType=$row[16];
-        $per_supplyDesc=$row[17];
-        $per_brandName=$row[18];
-        $per_unit=$row[19];
-        $per_quantityStock=$row[20];
-        $per_unitPrice=$row[21];
-        $per_unitOrder=$row[22];
-        $per_reorderLevel=$row[23];
-        $per_expiration=$row[24];
+        $per_orderID=$row[9];
+        $per_inventorySupid=$row[10];
+        $per_supplyName=$row[11];
+        $per_supplyUnit=$row[12];
+        $per_supplyQuantity=$row[13];
+        $per_quantityIssued=$row[14];
+        $per_quatntiyRemaining=$row[15];
+        $per_supplyID=$row[16];
+        $per_supplyType=$row[17];
+        $per_supplyDesc=$row[18];
+        $per_brandName=$row[19];
+        $per_unit=$row[20];
+        $per_quantityStock=$row[21];
+        $per_unitPrice=$row[22];
+        $per_unitOrder=$row[23];
+        $per_reorderLevel=$row[24];
+        $per_expiration=$row[25];
     }
     //end while
 ?>
 <div class="row">
     <div class="col-xs-12">
-        <div class="box">
+        <div class="box" style="overflow-y: scroll; max-height:85%;">
             <div class="box-header">
     <form class="form-horizontal" method="post">
         <div class="modal-content">
@@ -98,7 +99,32 @@ if(isset($_REQUEST['id'])){
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Department Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-building"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="deptName" name="deptName" value="<?php echo $per_department;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Order ID</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-id-badge"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="ordid" name="ordid" value="<?php echo $per_orderID;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -110,20 +136,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="ordDate" name="ordDate" value="<?php echo $per_date;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Department Name</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-building"></i>
-                                        </div>
-                                        <input type="text" class="form-control" id="deptName" name="deptName" value="<?php echo $per_department;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="ordDate" name="ordDate" value="<?php echo $per_date;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -144,6 +157,7 @@ if(isset($_REQUEST['id'])){
                                 $arrayInventory = '';
                                 $arraySupid = '';
                                 $arrayUnit = '';
+                                $arrayRemaining = '';
                                 $zero = 0;
                         ?>
                         <div class="row">
@@ -155,7 +169,11 @@ if(isset($_REQUEST['id'])){
                                     <th width="12%">Qty in Stock</th>
                                     <th width="45%">Item Description</th>
                                     <th width="17%">Unit</th>
+                                    <?php if($per_status != 'Partially Issued'){ ?>
                                     <th width="12%">Qty Ordered</th>
+                                <?php }else{ ?>
+                                    <th width="12%">Outstanding Balance</th>
+                                <?php } ?>
                                     <th width="14%">Qty to be Issued</th>
                                     <th class="hidden">Status</th>
                                 </tr>
@@ -173,6 +191,7 @@ if(isset($_REQUEST['id'])){
                                             $arrayInventory .= $row['inventory_order_supplies_id'].', ';
                                             $arraySupid .= $row['supply_id'].', ';
                                             $arrayUnit .= $row['unit'].', ';
+                                            $arrayRemaining .= $row['quantity_remaining'].', ';
 
                                             $order_id = explode(", ", $arrayOrdId);
                                             $order_uniqid = explode(", ", $arrayOrdUniqId);
@@ -185,6 +204,7 @@ if(isset($_REQUEST['id'])){
                                             $inventory_supid = explode(", ", $arrayInventory);
                                             $supid = explode(", ", $arraySupid);
                                             $unit = explode(", ", $arrayUnit);
+                                            $qty_remaining = explode(", ", $arrayRemaining);
 
                                         }
                                     
@@ -202,19 +222,23 @@ if(isset($_REQUEST['id'])){
                                     </td>
 
                                     <td>
-                                        <input type="text" class="form-control" id="qtyStock<?php echo $x; ?>" name="qtyStock<?php echo $x; ?>" value="<?php print_r($qty_stock[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="qtyStock<?php echo $x; ?>" name="qtyStock<?php echo $x; ?>" value="<?php print_r($qty_stock[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                     </td>
 
                                     <td>
-                                        <input type="text" class="form-control" id="supplyName<?php echo $x; ?>" name="supplyName<?php echo $x; ?>" value="<?php print_r($item_desc[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="supplyName<?php echo $x; ?>" name="supplyName<?php echo $x; ?>" value="<?php print_r($item_desc[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                     </td>
 
                                     <td>
-                                        <input type="text" class="form-control" id="unit<?php echo $x; ?>" name="unit<?php echo $x; ?>" value="<?php print_r($unit[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="unit<?php echo $x; ?>" name="unit<?php echo $x; ?>" value="<?php print_r($unit[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                     </td>
                                                 
                                     <td>
-                                        <input type="number" class="form-control" id="qtyOrdered<?php echo $x; ?>" name="qtyOrdered<?php echo $x; ?>" value="<?php print_r($qty_ordered[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
+                                        <?php if($status[$zero] != 'Partially Issued'){ ?>
+                                        <input type="number" class="form-control" id="qtyOrdered<?php echo $x; ?>" name="qtyOrdered<?php echo $x; ?>" value="<?php print_r($qty_ordered[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly> 
+                                    <?php }else{ ?>
+                                        <input type="number" class="form-control" id="qtyOrdered<?php echo $x; ?>" name="qtyOrdered<?php echo $x; ?>" value="<?php print_r($qty_remaining[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly> 
+                                    <?php } ?>
                                     </td>
                                     <td>
                                         <?php if($qty_stock[$zero] > 0){ 

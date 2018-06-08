@@ -754,16 +754,16 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <div class="chart">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $query="SELECT SUM(supplies.unit_price*inventory_order_supplies.quantity) AS 'Total Expense', supplies.supply_type AS 'Type', inventory_order.inventory_order_dept AS 'Department' FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name GROUP BY inventory_order_dept";
+                  $query="SELECT SUM(supplies.unit_price*inventory_order_supplies.quantity) AS 'Total Expense', supplies.supply_type AS 'Type', inventory_order.inventory_order_dept AS 'Department' FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE inventory_order.inventory_order_dept = (select dept_name from users where fname = '".$this->session->userdata('fname')."' AND lname = '".$this->session->userdata('lname')."') GROUP BY inventory_order_dept LIMIT 1";
                   $query_result=$conn->query($query);
 
-                  $sql = "SELECT SUM(supplies.unit_price*inventory_order_supplies.quantity) AS 'Total Expense', supplies.supply_type AS 'Type', inventory_order.inventory_order_dept AS 'Department' FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE supply_type = 'Medical' GROUP BY inventory_order_dept";
+                  $sql = "SELECT SUM(supplies.unit_price*inventory_order_supplies.quantity) AS 'Total Expense', supplies.supply_type AS 'Type', inventory_order.inventory_order_dept AS 'Department' FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE supply_type = 'Medical' AND inventory_order.inventory_order_dept = (select dept_name from users where fname = '".$this->session->userdata('fname')."' AND lname = '".$this->session->userdata('lname')."') GROUP BY inventory_order_dept LIMIT 1";
                   $result = $conn->query($sql);
 
-                  $sql2 = "SELECT SUM(supplies.unit_price*inventory_order_supplies.quantity) AS 'Total Expense', supplies.supply_type AS 'Type', inventory_order.inventory_order_dept AS 'Department' FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE supply_type = 'Office' GROUP BY inventory_order_dept";
+                  $sql2 = "SELECT SUM(supplies.unit_price*inventory_order_supplies.quantity) AS 'Total Expense', supplies.supply_type AS 'Type', inventory_order.inventory_order_dept AS 'Department' FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE supply_type = 'Office' AND inventory_order.inventory_order_dept = (select dept_name from users where fname = '".$this->session->userdata('fname')."' AND lname = '".$this->session->userdata('lname')."') GROUP BY inventory_order_dept LIMIT 1";
                   $result2 = $conn->query($sql2);
                   
-                  $sql3 = "select * from users join departments on users.dept_name = departments.department_name where fname = '".$this->session->userdata('fname')."' and lname = '".$this->session->userdata('lname')."'";
+                  $sql3 = "select * from users join departments on users.dept_name = departments.department_name where fname = '".$this->session->userdata('fname')."' and lname = '".$this->session->userdata('lname')."' LIMIT 1";
                   $result3 = $conn->query($sql3);
                   
                   $dept = '';

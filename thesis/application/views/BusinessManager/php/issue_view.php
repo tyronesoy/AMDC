@@ -69,12 +69,12 @@ if(isset($_REQUEST['id'])){
                         <div class="col-md-1"></div>
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label>Request Date</label>
+                                <label>Department Name</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
+                                        <i class="fa fa-building"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_department;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </div>
                             </div>
                         </div>
@@ -82,12 +82,12 @@ if(isset($_REQUEST['id'])){
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label>Issued To</label>
+                                <label>Request Date</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-calendar"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtissue" name="txtissue" value="<?php echo $per_issueTo;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                 </div>
                             </div>
                         </div>
@@ -105,6 +105,18 @@ if(isset($_REQUEST['id'])){
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Issued To</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                <input type="text" class="form-control" id="txtissue" name="txtissue" value="<?php echo $per_issueTo;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label>Order ID</label>
