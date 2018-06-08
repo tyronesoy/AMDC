@@ -60,15 +60,14 @@ function category($connect)
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
 <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
@@ -82,20 +81,6 @@ function category($connect)
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-	
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
-
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
  <style>
     .example-modal .modal {
       position: relative;
@@ -723,7 +708,9 @@ function category($connect)
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+       <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+      <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
@@ -931,6 +918,28 @@ function category($connect)
                     </tr>
                 </table>      
             </div>
+        <table>
+          <tr>
+          <th>Filter by a Range of Quantity</th>
+          <th style="padding-left: 20px;">Filter by a Range of Price</th>
+          </tr>
+
+          <tr>
+            <td><div class="input-group input-daterange">
+          <input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty">
+          <div class="input-group-addon">to</div>
+          <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
+        </div></td>
+            
+            <td><div class="input-group input-daterange" style="padding-left: 20px;">
+            <input type="text" class="form-control select" id="minPrice" name="minPrice" placeholder="Min Price">
+            <div class="input-group-addon">to</div>
+            <input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="Max Price">
+          </div></td>
+
+          </tr>
+        </table>
+
         <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
           <?php
@@ -938,25 +947,17 @@ function category($connect)
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Office' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
-     <col width="auto">
-            <col width="8%">
-            <col width="8%">
-            <col width="50%">
-             <col width="50%">
-            <col width="50%">
-            <col width="8%">
-            <col width="22.5%">
           <thead>
             <tr>
-                  <th style="display: none;">ID</th>
-                <th>Lot Number</th>
-                 <th>Quantity In Stock</th>
+                 <th style="display: none;"> ID </th>            
+                  <th>Lot Number</th>
+                  <th>Quantity In Stock</th>
                   <th>Unit</th>
-                <th>Brand Name</th>
-                <th>Item Name</th>
+                  <th>Brand Name</th>
+                  <th>Item Name</th>
                   <th>Item Description</th>
-                    <th>Category</th>
-                  <th>Unit Price</th>
+                  <th>Category</th>
+                  <th>Unit Price (&#8369;)</th>
                   <th> Action</th> 
             </tr>
         </thead>
@@ -972,7 +973,7 @@ function category($connect)
                          <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                              <td><?php echo $row["category"]; ?></td>
-                      <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
+                      <td align="right" ><?php echo $row["unit_price"]; ?></td>
                    
                       <td>
                         <div class="btn-group">
@@ -994,15 +995,16 @@ function category($connect)
         
         <tfoot>
            <tr>
-                  <th style="display: none;">ID</th>
-               <th>Lot Number</th>
-               <th>Quantity In Stock</th>
-                  <th>Unit</th>
-               <th>Item Name</th>
-                  <th>Item Description</th>
-                <th>Category</th>
-                  <th>Unit Price</th>
-                  <th> Action</th> 
+                  <th style="display: none;"> ID </th>             
+                  <th class="srch">Lot Number</th>
+                  <th class="srch">Quantity In Stock</th>
+                  <th class="srch">Unit</th>
+                  <th class="srch">Brand Name</th>
+                  <th class="srch">Item Name</th>
+                  <th class="srch">Item Description</th>
+                  <th class="srch">Category</th> 
+                  <th class="srch">Unit Price</th>
+                  <th> </th>
             </tr> 
         </tfoot>
       </table>              
@@ -1016,14 +1018,136 @@ function category($connect)
       <!-- /.row -->
             <!--- PRINT AND PDF -->
              <div class="row no-print">
-			
-	  <div class="col-xs-1" style="float:left">
+      
+    <div class="col-xs-1" style="float:left">
           <a href="officeSuppliesRecover" style="color:white;"><button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Office Supplies
           </a>
           </button>
-		</div>
+    </div>
+                 <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep">Generate Report</button>
       </div>
         <!-- END OF PRINT AND PDF -->
+        <div class="modal fade" id="printrep">
+<form name="form42" id="user_form" method="post" action="officesupplies/generated">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <div class="col-md-2">
+                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Generate Medical Supplies Report</b></h4></center>
+                                            </div>
+                                      </div>
+                        <div class="box-body">
+                
+                        <div class="row">
+                    <div class="col-md-6">
+                    <h4><b>Include:</b></h4>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="quantity_in_stock" checked>Stock Quantity
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="item_name" checked>Item Name
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="unit" checked>Unit
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="unit_price" checked>Unit Price
+                        </div>
+                      </div>
+                    </div>
+                        <h4><b>Department:</b></h4>
+                    <div class="form-group" style="width:100%;">
+                            <input type="checkbox" name="dep_list[]" value="Imaging Department">Imaging
+                        </div>
+                        <div class="form-group" style="width:100%;">
+                            <input type="checkbox" name="dep_list[]" value="Clinical Laboratory Department">Clinical Laboratory
+                        </div>
+                        <div class="form-group" style="width:100%;">
+                            <input type="checkbox" name="dep_list[]" value="Cardiology Department">Cardiology
+                        </div>
+                        <div class="form-group" style="width:100%;">
+                            <input type="checkbox" name="dep_list[]" value="Endoscopy Department">Endoscopy
+                        </div>
+                        <div class="form-group" style="width:100%;">
+                            <input type="checkbox" name="dep_list[]" value="Managing Department">Managing
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    <h4><b>&nbsp;</b></h4>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="lot_no" checked>Lot No.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="dep_name" checked>Department
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
+                            <input type="checkbox" name="check_list[]" value="expiration_date" checked>Expiration
+                        </div>
+                      </div>
+                    </div>
+                     </div>   
+    
+                <?php
+                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  $date = date("Y/m/d");
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) where inventory_order_status = 'Delivered'";
+                  $result = $conn->query($sql);    
+                ?>
+                        </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-clone"></i> Generate</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+
+          </div>
+          <!-- /.modal-dialog -->
+        </form> 
+        </div>
+          </div>
     </section>
     <!-- /.content -->
   </div>
@@ -1041,11 +1165,13 @@ function category($connect)
 </div>
 <!-- ./wrapper -->
 
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables 
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -1081,52 +1207,79 @@ function onUserInactivity() {
 }
 </script>
  
- <script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : false
-      //   })
-      // })
-
-      $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        order : [[ 0, 'desc' ]],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Office Supplies</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
+<script>
+    $(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example tfoot th.srch').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
     } );
-} );
+
+    // filtering
+    $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = parseInt( $('#min').val(), 10 );
+        var max = parseInt( $('#max').val(), 10 );
+        var quantity = parseFloat( data[2] ) || 0; // use data for the age column
+ 
+        if ( ( isNaN( min ) && isNaN( max ) ) ||
+             ( isNaN( min ) && age <= max ) ||
+             ( min <= quantity   && isNaN( max ) ) ||
+             ( min <= quantity   && quantity <= max ) )
+        {
+            return true;
+        }
+        return false;
+    }
+
+    );// for filtering
+
+    // filtering
+    $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var minPrice = parseInt( $('#minPrice').val(), 10 );
+        var maxPrice = parseInt( $('#maxPrice').val(), 10 );
+        var price = parseFloat( data[8] ) || 0; 
+
+        if ( ( isNaN( minPrice ) && isNaN( maxPrice ) ) ||
+             ( isNaN( minPrice ) && price <= maxPrice ) ||
+             ( minPrice <= price && isNaN( maxPrice ) ) ||
+             ( minPrice <= price && price <= maxPrice ) )
+        {
+            return true;
+        }
+        return false;
+      }
+    );// for filtering
+
+ 
+    // DataTable
+    var table = $('#example').DataTable({
+      order : [[ 0, 'desc' ]],
+      "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
+      "scrollX": true
+    });    
+    // Apply the search in table footer
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
+    // id's for filtering
+   $('#min, #max').keyup( function() { 
+        table.draw();
+    } );
+   $('#minPrice, #maxPrice').keyup( function() { 
+        table.draw();
+    } );
+} ); // end of document ready
     </script>
 
 <script>
@@ -1301,31 +1454,29 @@ if(isset($_POST['offEdit'])){
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
     
     $new_itemName=mysqli_real_escape_string($conn,$_POST['txtItemName']);
-    
+   
     $new_lotNo=mysqli_real_escape_string($conn,$_POST['txtlotNo']);
     
     $new_brandName=mysqli_real_escape_string($conn,$_POST['txtbrandName']);
-    
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
+    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['unitPrice']);
     
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtAddQty']);
-    
-    $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['txtUnitPrice']);
+     $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+    $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
+    $new_supplyStock=mysqli_real_escape_string($conn,$_POST['addQty']);
     
     $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
 
-     $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
+   $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
     
-    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
-    
-    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName',supply_description='$new_supplyDescription', unit='$new_supplyUnit', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', quantity_in_stock='$new_supplyQuantityInStock', unit_price='$new_supplyUnitPrice', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName', supply_description='$new_supplyDescription', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', unit='$new_supplyUnit', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply ".$new_supplyDescription." has been edited with ".$new_supplyUnitPrice." unit price,".$new_supplyReorderLevel." reorder level,".$new_supplyExpirationDate." expiration date,".$new_supplyQuantityInStock." supply stock,".$new_supplyUnit." unit and ".$new_category." category','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply ".$new_supplyDescription." has been edited with ".$new_supplyUnitPrice." unit price,".$new_supplyReorderLevel." reorder level,".$new_supplyExpirationDate." expiration date,".$new_supplyStock." supply stock,".$new_supplyUnit." unit and ".$new_category." category','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="officeSupplies"</script>';
     }
@@ -1337,18 +1488,33 @@ if(isset($_POST['offEdit'])){
 
 //RECONCILE FOR OFFICE SUPPLIES
 if(isset($_POST['offRecon'])){
+    $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+  $conn2=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+  $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
-    $new_supplyRemarks=mysqli_real_escape_string($conn,$_POST['txtsupplyRemarks']);
+    $item=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
+    $logical=mysqli_real_escape_string($conn,$_POST['txtLogicalCount']);
+    $physical=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $logical1=mysqli_real_escape_string($conn,$_POST['txtLogicalCount']);
+    $physical1=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $difference = $logical1-$physical1;
+    $remarks=mysqli_real_escape_string($conn,$_POST['remarks']);
 
-    $sqlupdate="UPDATE supplies SET quantity_in_stock='$new_supplyQuantityInStock', supply_remarks='$new_supplyRemarks' WHERE supply_id='$new_id' ";
-    $result_update=mysqli_query($conn,$sqlupdate);
+    date_default_timezone_set('Asia/Manila');
+    $date = date('Y/m/d h:i:s a', time());
+
+  
+     $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type, quantity) VALUES ('".$date."', 'The product  (".$item.") has changed from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Office', '".$difference."')  ";
+    $result_update2=mysqli_query($conn2,$sqlinsert1);
+
+    $sqlupdate1="UPDATE supplies SET quantity_in_stock='$physical' WHERE supply_id='$new_id' ";
+    $result_update=mysqli_query($conn,$sqlupdate1);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply with id# ".$new_id." has been reconciled with new quantity of ".$new_supplyQuantityInStock." and remarks ".$new_supplyRemarks."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply ".$item." has been reconciled with logical count of ".$logical." and physical count of ".$physical." to logical count of ".$logical1." to physical count of ".$physical1." with the difference of ".$difference." and remarked with ".$remarks."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="officeSupplies"</script>';
     }
@@ -1452,3 +1618,23 @@ if(isset($_POST['offDelete'])){
                 });
             });
         </script>
+
+<script>
+$(document).on('click','#getAdd',function(e){
+    e.preventDefault();
+    var per_id=$(this).data('id');
+    //alert(per_id);
+    $('#content-data').html('');
+    $.ajax({
+        url:'officesupplies/generated',
+        type:'POST',
+        data:'id='+per_id,
+        dataType:'html'
+    }).done(function(data){
+        $('#content-data').html('');
+        $('#content-data').html(data);
+    }).final(function(){
+        $('#content-data').html('<p>Error</p>');
+    });
+});
+</script>

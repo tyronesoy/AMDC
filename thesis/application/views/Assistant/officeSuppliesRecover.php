@@ -726,13 +726,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <i class="fa fa-pencil-square"></i> <b>Deleted Office Supplies</b>
+          <i class="fa fa-pencil-square"></i> <b>Archived Office Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
      <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
          <li><i class="fa fa-pencil-square"></i> Office Supplies</a></li>
-        <li class="active"><i class="fa fa-pencil-square"></i> Deleted Office Supplies</li>
+        <li class="active"><i class="fa fa-pencil-square"></i> Archived Office Supplies</li>
       </ol>
     </section>
 
@@ -758,14 +758,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 ?>
           <thead>
             <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
-                  <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
                   <th>Reorder Level</th>
                   <th> Action</th> 
             </tr>
@@ -774,7 +770,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["expiration_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
@@ -792,14 +787,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
         <tfoot>
            <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
-                  <th>Expiration Date</th> 
                   <th>Description</th>
                   <th>Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
                   <th>Reorder Level</th>
                   <th> Action</th> 
             </tr> 

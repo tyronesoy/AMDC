@@ -927,24 +927,24 @@ function category($connect)
                 </table>      
             </div>
               
-            <div class="box-body">
+           <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
          <?php // RETRIEVE or Display Medical Supplies
          $conn =mysqli_connect("localhost","root","");
           mysqli_select_db($conn, "itproject");
-          $sql = "SELECT supply_id, supply_description, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
-            FROM supplies WHERE (supply_type='Office' AND   (quantity_in_stock IS NOT NULL AND supply_description != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N'
-            GROUP BY supply_description";
+          $sql = "SELECT supply_id, item_name, brand_name, unit, FORMAT(SUM(quantity_in_stock),0) AS 'Total Quantity', CONCAT('₱', FORMAT(SUM(quantity_in_stock * unit_price), 2)) AS 'Total Amount', reorder_level
+            FROM supplies WHERE (supply_type='Office' AND   (quantity_in_stock IS NOT NULL AND item_name != ' ' AND (unit_price IS NOT NULL AND unit_price != 0))) AND accounted_for = 'N' AND soft_deleted = 'N'
+            GROUP BY item_name";
           $result = $conn->query($sql);  ?>
             <col width="50%">
-            <col width="auto">
             <col width="5%">
             <col width="13%">
             <col width="auto">
             <col width="5%">
           <thead>
             <tr>
-                  <th>Description</th>
+                  <th style="display: none;">ID</th>
+                  <th>Item Name</th>
                   <th>Total Quantity in Stock</th>
                   <th>Unit</th>
                   <th>Total Amount </th>
@@ -956,7 +956,8 @@ function category($connect)
         <?php
           while($row = $result->fetch_assoc()) { ?>
             <tr>
-            <td><?php echo $row["supply_description"]; ?></td>
+            <td style="display: none;"><?php echo $row["supply_id"]?></td>
+            <td><?php echo $row["item_name"]; ?></td>
             <td align="right"><?php echo $row["Total Quantity"]; ?></td>
             <td><?php echo $row["unit"]; ?></td>
             <td align="right"><?php echo $row["Total Amount"]; ?></td>
@@ -973,12 +974,11 @@ function category($connect)
         </tbody>
         <tfoot>
            <tr>
-                  <th>Description</th>
-                  <th> Total Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Total Amount</th>
-                  <th>Reorder Level</th>
-                  <th>Action</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
         </tr> 
         </tfoot>
       </table>             
@@ -1010,10 +1010,13 @@ function category($connect)
 
 
 <!-- Bootstrap 3.3.7 -->
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -1045,51 +1048,24 @@ function category($connect)
             </div>
         </div>
 
-<script>
-  // $(function () {
-  //   $('#example1').DataTable()
-  //   $('#example2').DataTable({
-  //     'paging'      : true,
-  //     'lengthChange': false,
-  //     'searching'   : false,
-  //     'ordering'    : true,
-  //     'info'        : true,
-  //     'autoWidth'   : false
-  //   })
-  // })
+ <script>
+      $(function () {
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]],
+          "lengthMenu": [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
+        })
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
-  $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Office Supplies Total Quantity</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+
+      })
+    </script>
     </script>
 <script>
 <!-- date and time -->
@@ -1144,10 +1120,22 @@ $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 
 if(isset($_POST['offTQEdit'])){
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+    $oldReorderLevel=mysqli_real_escape_string($conn,$_POST['oldLevel']);
+    $newReorderLevel=mysqli_real_escape_string($conn,$_POST['newLevel']);
+    $textDesc=mysqli_real_escape_string($conn,$_POST['txtdesc']);
+    $remarks=mysqli_real_escape_string($conn,$_POST['remarks']);
+    $user=mysqli_real_escape_string($conn,$_POST['user']);
 
-    $sqlupdate="UPDATE supplies SET reorder_level='$new_supplyReorderLevel' WHERE supply_id='$new_id' ";
+    date_default_timezone_set('Asia/Manila');
+    $date = date('Y/m/d h:i:s a', time());
+
+
+    $sqlupdate="UPDATE supplies SET reorder_level='$newReorderLevel' WHERE item_name='$textDesc' ";
     $result_update=mysqli_query($conn,$sqlupdate);
+
+    $sqlinsert1="INSERT INTO reorderlevelupdate (date_time, description, supply_type, user) VALUES ('".$date."', 'The product  (".$textDesc.") has changed its reorder level from the Old Reorder Level of  <".$oldReorderLevel.">  to the New Reorder Level of  <".$newReorderLevel.">  because ".$remarks."' , 'Office', '".$user."')  ";
+    $result_update2=mysqli_query($conn2,$sqlinsert1);
+
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");

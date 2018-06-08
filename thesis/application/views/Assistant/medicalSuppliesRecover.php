@@ -726,13 +726,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <i class="fa fa-medkit"></i> <b>Deleted Medical Supplies</b>
+          <i class="fa fa-medkit"></i> <b>Archived Medical Supplies</b>
         <!-- <small>Supplies</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
          <li><i class="fa fa-medkit"></i> Medical Supplies</a></li>
-        <li class="active"><i class="fa fa-medkit"></i> Deleted Medical Supplies</li>
+        <li class="active"><i class="fa fa-medkit"></i> Archived Medical Supplies</li>
       </ol>
     </section>
 
@@ -757,29 +757,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 ?>
           <thead>
             <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
-                  <th>Expiration Date</th> 
-                  <th>Description</th>
-                  <th>Quantity in Stock</th>
+
+                  <th>Lot Number</th>
+                  <th>Quantity</th>
                   <th>Unit</th>
-                  <th>Unit Price</th>
-             <!-- <th>Total Amount</th> -->
-                  <th>Reorder Level</th>
+                  <th>BrandName</th>
+                  <th>Item Name</th>
+                  <th>Item Description</th>
+                  <th>Category</th>
+                  <th>Expiration</th>
+                  <th>Unit Price </th>
                   <th> Action</th> 
             </tr>
         </thead>
-        
         <tbody>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["expiration_date"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
+                      <td><?php echo $row["lot_no"]; ?></td>
                       <td><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
+                      <td><?php echo $row["brand_name"]; ?></td>
+                      <td><?php echo $row["item_name"]; ?></td>
+                      <td><?php echo $row["supply_description"]; ?></td>
+                      <td><?php echo $row["category"]; ?></td>
+                      <td><?php echo $row["expiration_date"]; ?></td>
                       <td><?php echo $row["unit_price"]; ?></td>
-                      <td><?php echo $row["reorder_level"]; ?></td>
                       <td>
                         <div class="btn-group">
                             <button type="button" id="getRestore" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-repeat"></i> Restore</button>
@@ -795,15 +798,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <tfoot>
            <tr>
-             <!-- <th>Date Received</th>
-                  <th>Time Received</th> -->
-                  <th>Expiration Date</th> 
-                  <th>Description</th>
-                  <th>Quantity in Stock</th>
-                  <th>Unit</th>
-                  <th>Unit Price</th>
-                  <th>Reorder Level</th>
-                  <th> Action</th> 
+
+                  <th style="display: none;">ID</th> 
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th> </th> 
+                  <th></th>
+                  <th></th>
+                  <th> </th> 
             </tr> 
         </tfoot>
       </table>             
@@ -814,6 +819,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <!-- /.col -->
       </div>
+      <script>
+        $('#print').click(function(){
+          var printme = document.getElementById('example');
+          var wme = window.open("","","width=900,height=700");
+          wme.document.write(printme.outerHTML);
+          wme.document.close();
+          wme.focus();
+          wme.print();
+          wme.close();
+        })
+      </script>
       <!-- /.row -->
     </section>
     <!-- /.content -->
@@ -876,7 +892,9 @@ function onUserInactivity() {
 
 <script>
       $(function () {
-        $('#example').DataTable()
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
         $('#example1').DataTable({
           'paging'      : true,
           'lengthChange': false,
@@ -888,7 +906,7 @@ function onUserInactivity() {
 
 
       })
-    </script> 
+    </script>
 
 <!--create modal dialog for display detail info for edit on button cell click-->
         <div class="modal fade" id="myModal" role="dialog">
@@ -948,7 +966,7 @@ if(isset($_POST['medRestore'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A medical supply with id# ".$new_id." has been recovered','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Medical supply id# ".$new_id." has been recovered','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="medicalSupplies"</script>';
     }
@@ -958,7 +976,6 @@ if(isset($_POST['medRestore'])){
 } // END OF SOFT DELETE MEDICAL SUPPLIES
 
 ?>
-
 <script>
         $(document).on('click','#getAdd',function(e){
             e.preventDefault();
@@ -977,4 +994,4 @@ if(isset($_POST['medRestore'])){
                 $('#content-data').html('<p>Error</p>');
             });
         });
-    </script>
+</script>

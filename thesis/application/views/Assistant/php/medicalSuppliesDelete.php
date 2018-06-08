@@ -8,8 +8,13 @@ if(isset($_REQUEST['id'])){
     $run_sql=mysqli_query($conn,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
+        $supply_description=$row[24];
     }//end while
 ?>
+       <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
     <form class="form-horizontal" method="post" action ="">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,7 +33,7 @@ if(isset($_REQUEST['id'])){
                                         </div>
                                         <!-- end of modal header -->
                                         <div class="modal-body">
-                 <center><h3 class="modal-title"><b>Do you want to archive this item?</b></h3></center>
+                 <center><h2 class="modal-title"><b>Are you sure to archive</b> <br><center> <u> <?php echo $supply_description; ?> ? </u></h2></center>
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <div class="form-group">

@@ -53,7 +53,7 @@ function category($connect)
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <!-- Tell the browser to be responsive to screen width -->
+<!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -61,15 +61,16 @@ function category($connect)
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables 
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
 <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
@@ -79,24 +80,11 @@ function category($connect)
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
   <!-- datatable lib -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-    <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
-
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
-
+  <script src="../assets/orderedit/range_dates.js"></script>
  <style>
     .example-modal .modal {
       position: relative;
@@ -723,7 +711,9 @@ function category($connect)
                 </li>
               </ul>
             </li>
-            <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+      <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+      <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
@@ -953,33 +943,55 @@ function category($connect)
                 </table>    
             </div>
               
+      <table>
+          <tr>
+          <th>Filter by a Range of Quantity</th>
+          <th style="padding-left: 20px;">Filter by a Range of Price</th>
+          <th style="padding-left: 20px;">Filter by a Range of Date</th>
+          </tr>
+
+          <tr>
+            <td><div class="input-group input-daterange">
+          <input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty">
+          <div class="input-group-addon">to</div>
+          <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
+        </div></td>
+
+          <td><div class="input-group input-daterange" style="padding-left: 20px;">
+            <input type="text" class="form-control select" id="minPrice" name="minPrice" placeholder="Min Price">
+            <div class="input-group-addon">to</div>
+            <input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="Max Price">
+          </div></td>
+
+          <td><div class="input-group input-daterange" style="padding-left: 20px;">
+            <input type="text" class="form-control" id="startdate" placeholder="Min Date">
+            <div class="input-group-addon">to</div>
+            <input type="text" class="form-control" id="enddate" placeholder="Max Date">
+          </div></td>
+          </tr>
+        </table>
+
+
       <div class="box-body">
-        <table id="example" class="table table-bordered table-striped" style="width:100%">
+        <table id="example" class="table table-bordered table-striped display" style="width:100%">
           <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $sql = "SELECT * FROM supplies WHERE supply_type LIKE 'Medical' AND soft_deleted='N' ";
                   $result = $conn->query($sql);    
                 ?>
-                   <col width="auto">
-              <col width="8%">
-            <col width="8%">
-            <col width="50%">
-             <col width="50%">
-              <col width="50%">
-            <col width="8%">
-            <col width="22.5%">
+              
           <thead>
             <tr>
                   <th style="display: none;"> ID </th>                
-                <th>Lot Number</th>
-                <th>Quantity In Stock</th>
+                  <th>Lot Number</th>
+                  <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Brand Name</th>
-                 <th>Item Name</th>
+                  <th>Item Name</th>
                   <th>Item Description</th>
-                 <th>Category</th>
+                  <th>Category</th>
                   <th>Expiration Date</th> 
-                  <th>Unit Price</th>
+                  <th>Unit Price (&#8369;)</th>
                   <th> Action</th> 
             </tr>
         </thead>
@@ -989,17 +1001,18 @@ function category($connect)
                     <tr>
                       <td style="display: none;"><?php echo $row["supply_id"];?></td>
                       <td><?php echo $row["lot_no"]; ?></td>
-                         <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
+                      <td align="right"><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
-                        <td><?php echo $row["item_name"]; ?></td>
+                      <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
-                         <td><?php echo $row["category"]; ?></td>
-                      <td><?php echo $row["expiration_date"]; ?></td>
-                      <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
+                      <td><?php echo $row["category"]; ?></td>
+                      <td><?php $date=date_create($row["expiration_date"]);
+                      echo date_format($date, "m/d/Y"); ?></td>
+                      <td align="right"><?php  echo $row["unit_price"]; ?></td>
                        
     
-                      <td>
+                      <td width="50px">
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
                         </div>
@@ -1016,20 +1029,20 @@ function category($connect)
                     }
                   ?>
                 </tbody>
-        
+      
         <tfoot>
            <tr>
-                  <th style="display: none;">ID</th>
-                  <th>Lot Number</th>
-                 <th>Quantity In Stock</th>
-                  <th>Unit</th>
-               <th>Brand Name</th>
-                 <th>Item Name</th>
-                  <th>Item Description</th>
-                   <th>Category</th>
-                <th>Expiration Date</th> 
-                  <th>Unit Price</th>
-                  <th> Action</th> 
+                  <th style="display: none;"> ID </th>                
+                  <th class="srch">Lot Number</th>
+                  <th class="srch">Quantity In Stock</th>
+                  <th class="srch">Unit</th>
+                  <th class="srch">Brand Name</th>
+                  <th class="srch">Item Name</th>
+                  <th class="srch">Item Description</th>
+                  <th class="srch">Category</th>
+                  <th class="srch">Expiration Date</th> 
+                  <th class="srch">Unit Price</th>
+                  <th> </th> 
             </tr> 
         </tfoot>
       </table>              
@@ -1042,7 +1055,7 @@ function category($connect)
       </div>
       <!-- /.row -->
       <div class="row no-print">
-    <div class="col-xs-1" style="float:left">
+    <div class="col-xs-2" style="float:left">
           <a href="medicalSuppliesRecover" style="color:white;">
             <button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Medical Supplies </button>
           </a>
@@ -1066,12 +1079,13 @@ function category($connect)
 </div>
 <!-- ./wrapper -->
 
-
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables 
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> --> 
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -1108,33 +1122,205 @@ function onUserInactivity() {
 </script>
  
 <script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : false
-      //   })
-      // })
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example tfoot th.srch').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
 
-      $(document).ready(function() {
-    var printCounter = 0;
+    // filtering
+    $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = parseInt( $('#min').val(), 10 );
+        var max = parseInt( $('#max').val(), 10 );
+        var quantity = parseFloat( data[2] ) || 0; // use data for the QTY column
+
+        if ( ( isNaN( min ) && isNaN( max ) ) ||
+             ( isNaN( min ) && quantity <= max ) ||
+             ( min <= quantity && isNaN( max ) ) ||
+             ( min <= quantity && quantity <= max ) )
+        {
+            return true;
+        }
+        return false;
+      }
+    );// for filtering
+
+    // filtering
+    $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var minPrice = parseInt( $('#minPrice').val(), 10 );
+        var maxPrice = parseInt( $('#maxPrice').val(), 10 );
+        var price = parseFloat( data[9] ) || 0; 
+
+        if ( ( isNaN( minPrice ) && isNaN( maxPrice ) ) ||
+             ( isNaN( minPrice ) && price <= maxPrice ) ||
+             ( minPrice <= price && isNaN( maxPrice ) ) ||
+             ( minPrice <= price && price <= maxPrice ) )
+        {
+            return true;
+        }
+        return false;
+      }
+    );// for filtering
+               
  
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
+    // DataTable
+    var table = $('#example').DataTable({
+      order : [[ 0, 'desc' ]],
+      "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
+      "scrollX": true
+    });    
+    // Apply the search in table footer
+    table.columns().every( function () {
+        var that = this;
  
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
+     $("#startdate").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      dateFormat: "dd/mm/yyyy",
+      "onSelect": function (date)
+      {
+        minDateFilter = new Date(date).getTime();
+        table.draw();
+      }
+    }).keyup(function ()
+    {
+      minDateFilter = new Date(this.value).getTime();
+      table.draw();
+    });
+
+    $("#enddate").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      dateFormat: "dd/mm/yyyy",
+      "onSelect": function (date)
+      {
+        maxDateFilter = new Date(date).getTime();
+        table.draw();
+      }
+    }).keyup(function ()
+    {
+      maxDateFilter = new Date(this.value).getTime();
+      table.draw();
+    });
+
+
+
+// Date range filter
+  minDateFilter = "";
+  maxDateFilter = "";
+
+  $.fn.dataTableExt.afnFiltering.push(
+    function (oSettings, aData, iDataIndex)
+    {
+      if (typeof aData._date == 'undefined')
+      {
+        aData._date = new Date(aData[8]).getTime();
+      }
+
+      if (minDateFilter && !isNaN(minDateFilter))
+      {
+        if (aData._date < minDateFilter)
+        {
+          return false;
+        }
+      }
+
+      if (maxDateFilter && !isNaN(maxDateFilter))
+      {
+        if (aData._date > maxDateFilter)
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+  );
+
+    // id's for filtering
+   $('#min, #max').keyup( function() { 
+        table.draw();
+    } );
+   $('#minPrice, #maxPrice').keyup( function() { 
+        table.draw();
+    } );
+} ); // end of document ready
+
+
+//       $(document).ready(function() {
+//     var printCounter = 0;
+ 
+//     // Append a caption to the table before the DataTables initialisation
+//     //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
+//  //'<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>' Bftip
+//     $('#example').DataTable( {
+//         dom: '<"top"lBf<"clear">>t<"bottom"ip<"clear">>',
+//         buttons: [
+//             {
+//                 extend: 'print',
+//                 exportOptions: {
+//                     columns: ':visible'
+//                 },
+//                 messageTop: function () {
+//                     printCounter++;
+ 
+//                     if ( printCounter === 1 ) {
+//                         return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Medical Supplies</center></h4>';
+//                     }
+//                     else {
+//                         return 'You have printed this document '+printCounter+' times';
+//                     }
+//                 },
+//                 messageBottom: null
+//             },
+//         'colvis'
+//          ], //,
+//         // columnDefs: [ {
+//         //     targets: -1,
+//         //     visible: false
+//         // } ]
+//         order : [[ 0, 'desc' ]]
+//     } );
+// } );
+    </script>
+
+  <!--   <script type="text/javascript" language="javascript" >
+$(document).ready(function(){
+ var printCounter = 0;
+
+ load_data();
+
+ function load_data(is_category)
+ {
+  var dataTable = $('#example').DataTable({
+   "processing":true,
+   "serverSide":true,
+   "order":[],
+   "ajax":{
+    url:"medicalSupplies/category",
+    type:"POST",
+    data:{is_category:is_category}
+   },
+   "columnDefs":[
+    {
+     "targets":[7],
+     "orderable":false,
+     extend: 'print',
+                "exportOptions": {
+                    "columns": ':visible'
                 },
-                messageTop: function () {
+                "messageTop": function () {
                     printCounter++;
  
                     if ( printCounter === 1 ) {
@@ -1145,17 +1331,25 @@ function onUserInactivity() {
                     }
                 },
                 messageBottom: null
-            },
-        'colvis'
-         ], //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-        order : [[ 0, 'desc' ]]
-    } );
-} );
-    </script>
+    },
+   ],
+  });
+ }
+
+ $(document).on('change', '#category', function(){
+  var category = $(this).val();
+  $('#example').DataTable().destroy();
+  if(category != '')
+  {
+   load_data(category);
+  }
+  else
+  {
+   load_data();
+  }
+ });
+});
+</script> -->
 
 <script>
  // date and time 
@@ -1371,20 +1565,33 @@ if(isset($_POST['medEdit'])){
 //RECONCILE FOR MEDICAL SUPPLIES
 if(isset($_POST['medRecon'])){
   $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+  $conn2=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    $new_supplyQuantityInStock=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
-    $new_supplyRemarks=mysqli_real_escape_string($conn,$_POST['txtsupplyRemarks']);
+    $item=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
+    $logical=mysqli_real_escape_string($conn,$_POST['txtLogicalCount']);
+    $physical=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $logical1=mysqli_real_escape_string($conn,$_POST['txtLogicalCount']);
+    $physical1=mysqli_real_escape_string($conn,$_POST['txtPhysicalCount']);
+    $difference = $logical1-$physical1;
+    $remarks=mysqli_real_escape_string($conn,$_POST['remarks']);
 
-    
-    $sqlupdate1="UPDATE supplies SET quantity_in_stock='$new_supplyQuantityInStock' , supply_remarks='$new_supplyRemarks' WHERE supply_id='$new_id' ";
+    date_default_timezone_set('Asia/Manila');
+    $date = date('Y/m/d h:i:s a', time());
+
+  
+     $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type, quantity) VALUES ('".$date."', The product  (".$item.") has reconciled from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Medical', '".$difference."')  ";
+    $result_update2=mysqli_query($conn2,$sqlinsert1);
+
+    $sqlupdate1="UPDATE supplies SET quantity_in_stock='$physical' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate1);
+  
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Medical supply with id# ".$new_id." has been reconciled with remarks ".$new_supplyRemarks."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$date."', 'The product  (".$item.") has changed from the logical count of  <".$logical.">  to physical count of  <".$physical.">  because ".$remarks."' , 'Office', '".$difference."')  ";
         $result = $conn->query($notif);
         echo '<script>window.location.href="medicalSupplies"</script>';
     }
@@ -1408,7 +1615,7 @@ if(isset($_POST['medDelete'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A medical supply with id# ". $new_id." has been removed','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A medical supply with id# ".$new_i." has been removed','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="medicalSupplies"</script>';
     }

@@ -4,7 +4,7 @@
                                 // OFFICE SUPPLY
   //CREATE or ADD OFFICE SUPPLY
   if (isset($_POST['addOffSupply'])) {
-      $sql = $connection->prepare("INSERT INTO supplies (supply_description, brand_name, unit, reorder_level,  supply_type, soft_deleted, category, lot_no, item_name) VALUES (?, ?, ?, ?, 'Office','N', ?, ?, ?)");  
+      $sql = $connection->prepare("INSERT INTO supplies (supply_description, brand_name, unit,  reorder_level ,  supply_type, soft_deleted, category, lot_no, item_name) VALUES (?, ?, ?, ?, 'Office','N', ?, ?, ?)");  
       $description=$_POST['Description'];
       $brandName= $_POST['brandname'];
       $unit = $_POST['Unit'];
@@ -13,12 +13,12 @@
       $lot_no = $_POST['lot_no'];
       $item_name = $_POST['item_name'];
   
-      $sql->bind_param("sssssss", $description, $brandName,  $unit, $reorder_level, $category, $lot_no, $item_name);
+      $sql->bind_param("sssssss", $description, $brandName, $unit, $reorder_level,  $category, $lot_no, $item_name);
       if($sql->execute()) {
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply ".$description." with brandname ".$brandName." and quantity ".$quantity." has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Office supply ".$description." with quantity ".$quantity." has been added','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         $success_message = "Added Successfully";
         } else {

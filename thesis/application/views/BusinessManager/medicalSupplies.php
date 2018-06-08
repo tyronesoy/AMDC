@@ -982,7 +982,7 @@ function category($connect)
                   <th>Item Description</th>
                   <th>Category</th>
                   <th>Expiration Date</th> 
-                  <th>Unit Price</th>
+                  <th>Unit Price (&#8369;)</th>
                   <th> Action</th> 
             </tr>
         </thead>
@@ -1000,7 +1000,7 @@ function category($connect)
                       <td><?php echo $row["category"]; ?></td>
                       <td><?php $date=date_create($row["expiration_date"]);
                       echo date_format($date, "m/d/Y"); ?></td>
-                      <td align="right" value="'&#8369 ';"><?php  echo $row["unit_price"]; ?></td>
+                      <td align="right"><?php  echo $row["unit_price"]; ?></td>
                        
     
                       <td width="50px">

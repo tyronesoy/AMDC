@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../assets/orderedit/bootstrap.min.css" />
 <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <?php
@@ -12,7 +11,7 @@ if(isset($_REQUEST['id'])){
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
       //  $per_supplierName=$row[1];
-        $per_supplyDescription=$row[2];
+        $per_supplyDescription=$row[24];
         $per_brandName=$row[3];
         $per_supplyUnit=$row[4];
         $per_supplyQuantityInStock=$row[5];
@@ -21,15 +20,15 @@ if(isset($_REQUEST['id'])){
         $per_supplyExpirationDate=$row[9];
         $per_supplyGoodCondition=$row[10];
         $per_supplyDamaged=$row[11];
-        $per_itemName = $row[24];
+        $per_itemName = $row[2];
         $per_category = $row[22];
         $per_lotNo = $row[23];
 
     }//end while
 ?>
-       <div class="row">
+        <div class="row">
           <div class="col-xs-12">
-     
+              <div class="box">
             <div class="box-header">
     <form class="form-horizontal" method="post" action ="" >
         <div class="modal-content">
@@ -92,14 +91,9 @@ if(isset($_REQUEST['id'])){
                             </div>
 
                                             <div class="row">
-                                            <div class="col-md-6">
-                                                        <div class="form-group" style="width:100%">
-                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
-                                                  <input class="form-control" type="text" id="newOpt"/><input type="button" value="Add Unit" id="addOpt" style="float: right;" />
-                                                </div>
-                                                </div>
+                                            
                                         <div class="col-md-6">
-                                               <div class="form-group">
+                                               <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Unit</label><br>
                                                        <select id="OPT" name="txtUnit" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_supplyUnit;?></option>
@@ -119,19 +113,19 @@ if(isset($_REQUEST['id'])){
                                                       </select>
                                                      </div>
                                                    </div>  
+                                                   <div class="col-md-6">
+                                                        <div class="form-group">
+                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
+                                                  <input class="form-control" type="text" id="newOpt"/><input type="button" value="Add Unit" id="addOpt" style="float: right;" />
+                                                </div>
+                                                </div>
                                                 </div>
                         
               
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                        <div class="form-group" style="width:100%">
-                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
-                                                  <input class="form-control" type="text" id="newCAT"/><input type="button" value="Add Category" id="addCAT" style="float: right;" />
-                                                </div>
-                                                </div>
-     
+                                           
                                         <div class="col-md-6">
-                                               <div class="form-group">
+                                               <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Category</label><br>
                                                        <select id="CAT" name="txtCategory" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_category;?></option>
@@ -151,6 +145,13 @@ if(isset($_REQUEST['id'])){
                                                       </select>
                                                      </div>
                                                    </div>  
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" >
+                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
+                                                  <input class="form-control" type="text" id="newCAT"/><input type="button" value="Add Category" id="addCAT" style="float: right;" />
+                                                </div>
+                                                </div>
+     
                                                 </div>
 
                         <div class="row">
@@ -216,7 +217,6 @@ if(isset($_REQUEST['id'])){
 <?php
 }//end if
 ?>
-
 
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>

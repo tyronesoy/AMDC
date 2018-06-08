@@ -788,7 +788,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th>Item Description</th>
                   <th>Category</th>
                   <th>Expiration</th>
-                  <th>Unit Price</th>
+                  <th>Unit Price </th>
                   <th> Action</th> 
             </tr>
         </thead>

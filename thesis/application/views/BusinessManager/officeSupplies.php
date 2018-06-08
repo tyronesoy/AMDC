@@ -932,6 +932,7 @@ function category($connect)
        <table>
           <tr>
           <th>Filter by a Range of Quantity</th>
+          <th style="padding-left: 20px;">Filter by a Range of Price</th>
           </tr>
 
           <tr>
@@ -939,7 +940,15 @@ function category($connect)
           <input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty">
           <div class="input-group-addon">to</div>
           <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
-        </div></td></tr>
+        </div></td>
+            
+            <td><div class="input-group input-daterange" style="padding-left: 20px;">
+            <input type="text" class="form-control select" id="minPrice" name="minPrice" placeholder="Min Price">
+            <div class="input-group-addon">to</div>
+            <input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="Max Price">
+          </div></td>
+
+          </tr>
         </table>
 
         <div class="box-body">
@@ -959,7 +968,7 @@ function category($connect)
                   <th>Item Name</th>
                   <th>Item Description</th>
                   <th>Category</th>
-                  <th>Unit Price</th>
+                  <th>Unit Price (&#8369;)</th>
                   <th> Action</th> 
             </tr>
         </thead>
@@ -975,7 +984,7 @@ function category($connect)
                          <td><?php echo $row["item_name"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                              <td><?php echo $row["category"]; ?></td>
-                      <td align="right" ><?php echo '&#8369 '; echo $row["unit_price"]; ?></td>
+                      <td align="right" ><?php echo $row["unit_price"]; ?></td>
                    
                       <td>
                         <div class="btn-group">
@@ -1236,6 +1245,24 @@ function onUserInactivity() {
 
     );// for filtering
 
+    // filtering
+    $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var minPrice = parseInt( $('#minPrice').val(), 10 );
+        var maxPrice = parseInt( $('#maxPrice').val(), 10 );
+        var price = parseFloat( data[8] ) || 0; 
+
+        if ( ( isNaN( minPrice ) && isNaN( maxPrice ) ) ||
+             ( isNaN( minPrice ) && price <= maxPrice ) ||
+             ( minPrice <= price && isNaN( maxPrice ) ) ||
+             ( minPrice <= price && price <= maxPrice ) )
+        {
+            return true;
+        }
+        return false;
+      }
+    );// for filtering
+
  
     // DataTable
     var table = $('#example').DataTable({
@@ -1258,6 +1285,9 @@ function onUserInactivity() {
 
     // id's for filtering
    $('#min, #max').keyup( function() { 
+        table.draw();
+    } );
+   $('#minPrice, #maxPrice').keyup( function() { 
         table.draw();
     } );
 } ); // end of document ready
