@@ -509,9 +509,10 @@ if(!isset($_SESSION['first_run'])){
                 <tr>
                   <th>
                     <button type="submit" class="btn btn-primary btn-block btn-success" data-toggle="modal" data-target="#modal-info"><i class=" fa fa-plus">Add Order</i></button>
+
                         <form name="form1" method="post" action="order/addItem" >
                           <div class="modal fade" id="modal-info">
-                            <div class="modal-dialog" >
+                            <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;">
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -529,7 +530,7 @@ if(!isset($_SESSION['first_run'])){
                                   </div>
                                 </div>
                                         <!-- end of modal header -->
-                                <div class="modal-body" style="overflow-y: scroll; max-height:50%;  margin-top: 50px; margin-bottom:50px;">
+                                <div class="modal-body">
                                   <div class="box-header">
                                     <div class="margin">
                                       <center><h4><b>Add New Order / Request</b></h4></center>
@@ -538,7 +539,7 @@ if(!isset($_SESSION['first_run'])){
                                         <!-- end of modal header -->
                                   <div class="box-body">
                                     <div class="row">
-                                      <div class="col-md-12">
+                                      <div class="col-md-6">
                                         <div class="form-group">
                                           <label for="exampleInputEmail1">Supervisor Name</label>
                                           <div class="input-group">
@@ -548,10 +549,7 @@ if(!isset($_SESSION['first_run'])){
                                             <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                           </div>
                                         </div>
-                                        
                                       </div>
-                                    </div>
-                                    <div class="row">
                                       <div class="col-md-6">
                                         <div class="form-group">
                                           <label for="exampleInputEmail1">Department</label>
@@ -577,6 +575,40 @@ if(!isset($_SESSION['first_run'])){
                                           </div>
                                         </div>
                                       </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          <label>Order ID</label>
+                                          <div class="input-group">
+                                            <div class="input-group-addon">
+                                              <i class="fa fa-id-badge"></i>
+                                            </div>
+                                            <?php 
+                                              $conn=mysqli_connect("localhost","root","");
+                                                    mysqli_select_db($conn, "itproject");
+                                              $query_ord = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) GROUP BY inventory_order_id";
+                                              $resulty = $conn->query($query_ord);
+
+                                              date_default_timezone_set('Asia/Manila');
+                                              $date = date("mdY");
+                                              $counter = 0 ;
+
+                                              if ($resulty->num_rows > 0) {
+                                                while($row = $resulty->fetch_assoc()) {
+                                                  $order = $row["order_id"];
+                                                  $order2 = $row["inventory_order_id"];
+                                                }
+                                                  $counter1 = $order2+1; 
+                                            ?>
+                                            <input type="text" class="form-control pull-right" name="ordid" id="ordid" value="<?php echo $date.'-'.$counter1;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                          <?php
+                                          
+                                          } ?>
+                                          </div>
+                                        <!-- /.input group -->
+                                        </div>
+                                      </div>
 
                                       <div class="col-md-6">
                                         <div class="form-group">
@@ -585,7 +617,9 @@ if(!isset($_SESSION['first_run'])){
                                             <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                            <?php $date = date("Y-m-d"); ?>
+                                            <?php
+                                            date_default_timezone_set('Asia/Manila'); 
+                                            $date = date("Y-m-d"); ?>
                                             <input type="date" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                           </div>
                                         <!-- /.input group -->
@@ -600,23 +634,25 @@ if(!isset($_SESSION['first_run'])){
                                         <span id="error"></span>
                                         <table class="table table-bordered" id="dynamic_field">
                                           <tr>
-                                            <th width="15%"> Quantity </th>
-                                            <th width="52.5%"> Description </th>
-                                            <th width="16%"> Unit </th>
-                                            <th width="16.5%"> Item Type </th>
+                                            <th width="15%"> Qty </th>
+                                            <th width="18%"> Unit </th>
+                                            <th width="50%"> Item Name </th>
+                                            <th width="17%"> Item Type </th>
                                           </tr>
                                           <tr id="row0">
                                             <td>
                                               <input class="form-control" type="number" name="number[]" id="quant0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" required />
                                             </td>
+
+                                            <td>
+                                              <input class="form-control" type="text" name="unit" id="unit0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            </td>
+
                                             <td>
                                               <select class="form-control filter" name="neym[]" id="supply0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                                 <option value=""></option> 
                                                 <?php echo supply_dropdown($connect);?>
                                               </select>
-                                            </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                             </td>
                                               
                                             <td>
@@ -629,14 +665,15 @@ if(!isset($_SESSION['first_run'])){
                                               <input class="form-control" type="number" name="number[]" id="quant1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                             </td>
                                             <td>
+                                              <input class="form-control" type="text" name="unit" id="unit1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            </td>
+                                            <td>
                                               <select class="form-control filter" name="neym[]" id="supply1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                 <option value=""></option> 
                                                 <?php echo supply_dropdown($connect);?>
                                               </select>
                                             </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                            </td>
+                                            
                                               
                                             <td>
                                               <input class="form-control" type="text" name="type" id="type1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
@@ -648,14 +685,15 @@ if(!isset($_SESSION['first_run'])){
                                               <input class="form-control" type="number" name="number[]" id="quant2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                             </td>
                                             <td>
+                                              <input class="form-control" type="text" name="unit" id="unit2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            </td>
+                                            <td>
                                               <select class="form-control filter" name="neym[]" id="supply2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                 <option value=""></option> 
                                                 <?php echo supply_dropdown($connect);?>
                                               </select>
                                             </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                            </td>
+                                            
                                               
                                             <td>
                                               <input class="form-control" type="text" name="type" id="type2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
@@ -667,14 +705,15 @@ if(!isset($_SESSION['first_run'])){
                                               <input class="form-control" type="number" name="number[]" id="quant3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"min="1" pattern="^[0-9]$" />
                                             </td>
                                             <td>
+                                              <input class="form-control" type="text" name="unit" id="unit3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            </td>
+                                            <td>
                                               <select class="form-control filter" name="neym[]" id="supply3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                 <option value=""></option> 
                                                 <?php echo supply_dropdown($connect);?>
                                               </select>
                                             </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                            </td>
+                                            
                                               
                                             <td>
                                               <input class="form-control" type="text" name="type" id="type3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
@@ -686,14 +725,15 @@ if(!isset($_SESSION['first_run'])){
                                               <input class="form-control" type="number" name="number[]" id="quant4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                             </td>
                                             <td>
+                                              <input class="form-control" type="text" name="unit" id="unit4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            </td>
+                                            <td>
                                               <select class="form-control filter" name="neym[]" id="supply4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                 <option value=""></option> 
                                                 <?php echo supply_dropdown($connect);?>
                                               </select>
                                             </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                            </td>
+                                            
                                               
                                             <td>
                                               <input class="form-control" type="text" name="type" id="type4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
@@ -705,14 +745,15 @@ if(!isset($_SESSION['first_run'])){
                                               <input class="form-control" type="number" name="number[]" id="quant5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                             </td>
                                             <td>
+                                              <input class="form-control" type="text" name="unit" id="unit5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            </td>
+                                            <td>
                                               <select class="form-control filter" name="neym[]" id="supply5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                 <option value=""></option> 
                                                 <?php echo supply_dropdown($connect);?>
                                               </select>
                                             </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                            </td>
+                                            
                                               
                                             <td>
                                               <input class="form-control" type="text" name="type" id="type5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
@@ -724,14 +765,15 @@ if(!isset($_SESSION['first_run'])){
                                               <input class="form-control" type="number" name="number[]" id="quant6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                             </td>
                                             <td>
+                                              <input class="form-control" type="text" name="unit" id="unit6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            </td>
+                                            <td>
                                               <select class="form-control filter" name="neym[]" id="supply6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                 <option value=""></option> 
                                                 <?php echo supply_dropdown($connect);?>
                                               </select>
                                             </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                            </td>
+                                            
                                               
                                             <td>
                                               <input class="form-control" type="text" name="type" id="type6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
@@ -743,14 +785,15 @@ if(!isset($_SESSION['first_run'])){
                                               <input class="form-control" type="number" name="number[]" id="quant7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                             </td>
                                             <td>
+                                              <input class="form-control" type="text" name="unit" id="unit7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            </td>
+                                            <td>
                                               <select class="form-control filter" name="neym[]" id="supply7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                 <option value=""></option> 
                                                 <?php echo supply_dropdown($connect);?>
                                               </select>
                                             </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                            </td>
+                                            
                                               
                                             <td>
                                               <input class="form-control" type="text" name="type" id="type7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
@@ -762,14 +805,15 @@ if(!isset($_SESSION['first_run'])){
                                               <input class="form-control" type="number" name="number[]" id="quant8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                             </td>
                                             <td>
+                                              <input class="form-control" type="text" name="unit" id="unit8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            </td>
+                                            <td>
                                               <select class="form-control filter" name="neym[]" id="supply8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                 <option value=""></option> 
                                                 <?php echo supply_dropdown($connect);?>
                                               </select>
                                             </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                            </td>
+                                            
                                               
                                             <td>
                                               <input class="form-control" type="text" name="type" id="type8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
@@ -781,14 +825,15 @@ if(!isset($_SESSION['first_run'])){
                                               <input class="form-control" type="number" name="number[]" id="quant9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                             </td>
                                             <td>
+                                              <input class="form-control" type="text" name="unit" id="unit9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            </td>
+                                            <td>
                                               <select class="form-control filter" name="neym[]" id="supply9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                 <option value=""></option> 
                                                   <?php echo supply_dropdown($connect);?>
                                               </select>
                                             </td>
-                                            <td>
-                                              <input class="form-control" type="text" name="unit" id="unit9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                            </td>
+                                            
                                               
                                             <td>
                                               <input class="form-control" type="text" name="type" id="type9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
@@ -871,7 +916,7 @@ if(!isset($_SESSION['first_run'])){
                         <?php if ($result->num_rows > 0) {
                           while($row = $result->fetch_assoc()) { ?>
                             <tr>
-                              <td><?php echo $row["inventory_order_id"];?></td>
+                              <td><?php echo $row["order_id"];?></td>
                               <td><?php echo $row["inventory_order_created_date"]; ?></td>
                               <td><?php echo $row["issued_date"]; ?></td>
                               <td><?php echo $row["issued_to"]; ?></td>

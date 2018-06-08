@@ -616,7 +616,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_name LIKE CONCAT('".$this->session->userdata('fname')."', ' ' ,'".$this->session->userdata('lname')."') AND inventory_order_status != 'Fully Issued' AND inventory_order_status != '' AND quantity != 0 GROUP BY inventory_order_id";
                     $result = $conn->query($sql); 
 
-                    $arrayName = '';   
+                    $arrayName = '';  
+                    $arrayStatus = '';
+                    $zero = 0; 
                   ?>
                   
                  <thead>
@@ -626,6 +628,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                             <th>Item Name/s</th>
                             <th>Status</th>
                             <th>Remarks</th>
+                            <th class="hidden"></th>
                             <th></th>
                         </tr>
                  </thead>
@@ -633,7 +636,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       	<?php if ($result->num_rows > 0) {
                         	while($row = $result->fetch_assoc()) {
                         	$arrayName .= $row['supply_name'].', ';
+                        	$arrayStatus .= $row['inventory_order_status'].', ';
                         	$item_name = explode(", ", $arrayName);
+                        	$item_status = explode(", ", $arrayStatus);
                         	$count = count($item_name); 
                       	?>
 
@@ -641,14 +646,19 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                           <!-- <td><?php //echo $row["inventory_order_id"]; ?></td> -->
                           <td><?php echo $row["inventory_order_created_date"]; ?></td>
                           <td>
-                          	<?php echo $row["supply_name"]; ?>
-                          		<?php if ($row["supply_name"] > 1){ ?>
-                          			and <?php echo $count; ?> more item/s
-                          		<?php } ?>
+                          		<?php if ($row["supply_name"] > 1){ 
+                          			print_r($item_name[$zero]);
+                          		?>
+                          			and <?php echo $count-1; ?> more item/s
+                          		<?php }else{ 
+                          			echo $row["supply_name"];
+                          		} ?>
                           	</td>
                           <td><?php echo $row["inventory_order_status"]; ?></td>
                           <td><?php echo $row["inventory_order_remarks"]; ?></td>
+                          <td class="hidden"><?php print_r($status[$zero++]); ?></td>
                           <td>
+                          	
                             <div class="btn-group">
                                   <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
                                 </div>
@@ -663,6 +673,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th class="hidden"></th>
                             <th></th>
                    </tfoot>
               </table>
@@ -764,7 +775,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_name, SUM(quantity), supply_type FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description join users on users.fname+users.lname = inventory_order.inventory_order_name WHERE inventory_order_status='Fully Issued'  AND inventory_order_name like '".$_SESSION['fname']."%' AND fname LIKE '".$_SESSION['fname']."%' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 5";
+                    $sql = "SELECT supply_name, SUM(quantity), supply_type FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description join users on users.fname+users.lname = inventory_order.inventory_order_name WHERE inventory_order_status='Fully Issued' AND fname LIKE '".$_SESSION['fname']."' GROUP BY inventory_order_id ORDER BY quantity DESC LIMIT 5";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>

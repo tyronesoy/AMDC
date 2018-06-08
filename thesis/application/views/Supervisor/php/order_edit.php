@@ -33,15 +33,13 @@ if(isset($_REQUEST['id'])){
         $per_department=$row[4];
         $per_status=$row[5];
         $per_remarks=$row[6];
-        $per_supplyName=$row[8];
-        $per_supplyUnit=$row[9];
-        $per_supplyQuantity=$row[10];
+        $per_orderID=$row[9];
 
     }//end while
 ?>
-<div class="row">
+<div class="row" >
     <div class="col-xs-12">
-        <div class="box">
+        <div class="box" style="overflow-y: scroll; max-height:85%;">
             <div class="box-header">
 <form name="plus_name" id="plus_name" method="post" action="order/updateItem">
 <div class="box-header">
@@ -61,7 +59,7 @@ if(isset($_REQUEST['id'])){
                                                 </div>
                                             </div>
                                         </div>
-                                         <div class="modal-body" style="overflow-y: scroll; max-height:40%;  margin-top: 50px; margin-bottom:50px;">
+                                         <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
                                               <center><h4><b>Update Order Details</b></h4></center>
@@ -91,7 +89,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="input-group-addon">
                                             <i class="fa fa-id-badge"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
+                                        <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_orderID;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
                                     </div>
                                 </div>
                         
@@ -139,10 +137,10 @@ if(isset($_REQUEST['id'])){
                         <table class="table table-bordered" id="dynamic_field">
                             <tr>
                                 <th style="display: none;">ID</th>
-                                <th width="15%"> Quantity </th>
-                                <th width="52.5%"> Item Name </th>
-                                <th width="16%"> Unit </th>
-                                <th width="16.5%"> Item Type </th>
+                                <th width="15%"> Qty </th>
+                                <th width="18%"> Unit </th>
+                                <th width="50%"> Item Name </th>
+                                <th width="17%"> Item Type </th>
                             </tr>
 
                             <?php if($result->num_rows > 0) {
@@ -174,15 +172,15 @@ if(isset($_REQUEST['id'])){
                                 <td><input type="number" class="form-control" id="qty[]" name="qty[]" value ="<?php print_r($quantity[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$">
                                 </td>
 
+                                <td>
+                                  <input type="text" class="form-control" id="unitName[]" name="unitName[]" value ="<?php print_r($unit[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly> 
+                                </td>
+
                                  <td>
                                     <select class="form-control filter" id="supplyDesc[]" name="supplyDesc[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   <option><?php print_r($item_name[$zero]);?></option>
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
-                                </td>
-
-                                <td>
-                                  <input type="text" class="form-control" id="unitName[]" name="unitName[]" value ="<?php print_r($unit[$zero]);?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly> 
                                 </td>
 
                                 <td>
@@ -225,9 +223,9 @@ if(isset($_REQUEST['id'])){
                                   <table class="table table-bordered" id="dynamic">
                                     <tr>
                                       <th width="15%">  </th>
-                                      <th width="52.5%">   </th>
-                                      <th width="16%">  </th>
-                                      <th width="16.5%">   </th>
+                                      <th width="18%">  </th>
+                                      <th width="50%">  </th>
+                                      <th width="17%">  </th>
                                     </tr>
                                   </table>
                               </div>

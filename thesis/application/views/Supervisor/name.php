@@ -8,14 +8,15 @@ if(isset($_POST["number"]))
         mysqli_select_db($conn, "itproject");
         $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')." has made a request order','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $res1 = $conn->query($notif1);
-$query2 = "INSERT INTO inventory_order (inventory_order_uniq_id, inventory_order_created_date, inventory_order_name, inventory_order_dept) VALUES (:inventory_order_uniq_id, :inventory_order_created_date, :inventory_order_name, :inventory_order_dept)";
+$query2 = "INSERT INTO inventory_order (inventory_order_uniq_id, inventory_order_created_date, inventory_order_name, inventory_order_dept, order_id) VALUES (:inventory_order_uniq_id, :inventory_order_created_date, :inventory_order_name, :inventory_order_dept, :order_id)";
   $statement = $connect->prepare($query2);
   $statement->execute(
    array(
     ':inventory_order_uniq_id'       => $order_id,
     ':inventory_order_created_date'  => $_POST["orDate"], 
     ':inventory_order_name' => $_POST["custName"],
-    ':inventory_order_dept' => $_POST["department"]
+    ':inventory_order_dept' => $_POST["department"],
+    ':order_id' => $_POST["ordid"]
    )
   );
 

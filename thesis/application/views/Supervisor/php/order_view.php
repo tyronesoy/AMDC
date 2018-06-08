@@ -10,20 +10,19 @@ if(isset($_REQUEST['id'])){
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[1];
+        $per_uniq_id=$row[0];
         $per_date=$row[2];
         $per_name=$row[3]; 
         $per_department=$row[4];
         $per_status=$row[5];
         $per_remarks=$row[6];
-        $per_supplyName=$row[8];
-        $per_supplyUnit=$row[9];
-        $per_supplyQuantity=$row[10];
+        $per_orderID=$row[9];
 
     }//end while
 ?>
 <div class="row">
     <div class="col-xs-12">
-        <div class="box">
+        <div class="box" style="overflow-y: scroll; max-height:85%;">
             <div class="box-header">
 <div class="box-header">
         <div class="modal-content">
@@ -43,7 +42,7 @@ if(isset($_REQUEST['id'])){
                                                 </div>
                                             </div>
                                         </div>
-                                         <div class="modal-body" style="overflow-y: scroll; max-height:40%;  margin-top: 50px; margin-bottom:50px;">
+                                         <div class="modal-body">
                                         <div class="box-header">
                                           <div class="margin">
                                               <center><h4><b>View Order Details</b></h4></center>
@@ -51,7 +50,7 @@ if(isset($_REQUEST['id'])){
                                         </div>
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-11">
+                            <div class="col-md-12">
                                     <div class="form-group">
                                 <label for="exampleInputEmail1">Supervisor Name</label>
                                 <div class="input-group">
@@ -64,14 +63,14 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="txtid">Order ID</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-id-badge"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;  background-color: #f1f1f1;">
+                                        <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_orderID;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;  background-color: #f1f1f1;">
                                     </div>
                                 </div>
                         
@@ -97,10 +96,10 @@ if(isset($_REQUEST['id'])){
                         <span id="error"></span>
                         <table class="table table-bordered" id="item_table">
                             <tr>
-                                <th width="15%"> Quantity </th>
-                                <th width="16%"> Unit </th>
-                                <th width="52.5%"> Description </th>
-                                <th width="16.5%"> Item Type </th>
+                                <th width="15%"> Qty </th>
+                                <th width="18%"> Unit </th>
+                                <th width="50%"> Item Name </th>
+                                <th width="17%"> Item Type </th>
                             </tr>
                             <?php if($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) { 
