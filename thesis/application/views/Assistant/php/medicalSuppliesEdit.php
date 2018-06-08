@@ -23,6 +23,8 @@ if(isset($_REQUEST['id'])){
         $per_itemName = $row[2];
         $per_category = $row[22];
         $per_lotNo = $row[23];
+        $per_supplier = $row[15];
+        $per_dep = $row[20];
 
     }//end while
 ?>
@@ -202,6 +204,57 @@ if(isset($_REQUEST['id'])){
                         </div>
                         </div>
                         
+                                  <div class="row">
+
+                              <div class="col-md-6">
+                                               <div class="form-group" style="width:100%">
+                                                  <label for="exampleInputEmail1">Supplier</label><br>
+                                                       <select name="txtSupplier" class="form-control select2" style="width: 100%;">
+                                                       <option><?php echo $per_supplier;?></option>
+                                                       <option></option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                             $sql = "SELECT DISTINCT company_name FROM suppliers WHERE product = 'Medical' ORDER BY company_name ASC";
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $txtSupplier) { 
+                                                        ?>
+
+                                                        <option value="<?php echo $txtSupplier["company_name"]; ?>" name="txtSupplier"><?php echo $txtSupplier["company_name"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>  
+                                             
+                                            
+                                        <div class="col-md-6">
+                                               <div class="form-group" style="width:100%">
+                                                  <label for="exampleInputEmail1">Department</label><br>
+                                                       <select name="txtDep" class="form-control select2" style="width: 100%;">
+                                                       <option><?php echo $per_dep;?></option>
+                                                       <option></option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                             $sql = "SELECT DISTINCT department_name FROM departments ORDER BY department_name ASC";
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $txtDep) { 
+                                                        ?>
+
+                                                        <option value="<?php echo $txtDep["department_name"]; ?>" name="txtDep"><?php echo $txtDep["department_name"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>  
+
+                                              
+                                                </div>
           
                         
                         </tr>
