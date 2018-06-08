@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html
 <html>
 <head>
   <title>Assistant | Departments Issue Order</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
-   <!-- Tell the browser to be responsive to screen width -->
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -16,15 +16,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
   <script src="../assets/jquery/jquery-1.12.4.js"></script>
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
   <!-- daterange picker -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- Bootstrap time Picker -->
@@ -38,19 +38,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
-
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <?php
@@ -145,7 +132,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php
                         }else if(strpos($logvalue, 'profile') !== false){
                         ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'Assstant/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'Assistant/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
                         }else{
                         ?>
@@ -168,7 +155,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table>
                 </ul>
               </li>
-              <li class="footer"><a href="<?php echo 'logs' ?>">View all Logs</a></li>
               <li>
               <center>
               <form action="deleteall" method="post">
@@ -405,7 +391,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
          <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <?php
+               <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -414,7 +400,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='user-image' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -426,7 +412,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <?php
+                 <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -435,7 +421,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -445,14 +431,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-        <small> Assistant</small>
+        <small>Assistant</small>
         </p>
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
+                  <a href="<?php echo 'logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
                       <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
@@ -491,9 +477,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                           <div class="margin">
                                               <center><h4><b>Update Profile</b></h4></center>
                                             </div>
-                                          </div>
-                             <div class="box-body">
-                                  <center>
+                                      </div>
+                 <div class="box-body">
+                                              <center>
                                   <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
@@ -503,7 +489,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -589,11 +575,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           ?>
                 </div>
               </div>
-
-                
- 
-
-
               </div>
               </div>
               <div class="modal-footer">
@@ -614,7 +595,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <?php
+           <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -623,7 +604,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -667,9 +648,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+              <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+            <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li class="active"><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -736,7 +719,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE  inventory_order_status = 'Accepted' AND (quantity != '0' OR supply_name != '') GROUP BY inventory_order_id";
+                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE  (inventory_order_status = 'Accepted' OR inventory_order_status = 'Partially Issued') AND (quantity != '0' OR supply_name != '') GROUP BY inventory_order_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -775,13 +758,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Order ID</th>
-                    <th>Order Date</th>
-                    <th>Supervisor Name</th>
-                    <th>Department</th>
-                    <th>Status</th>
-                    <th>Remarks</th>
-                    <th>Action</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </tfoot>
               </table>
@@ -872,11 +855,13 @@ input:checked + .slider:before {
   border-radius: 50%;
 }    
 </style>
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -902,6 +887,7 @@ input:checked + .slider:before {
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- page script -->
 
+
 <script>
 setTimeout(onUserInactivity, 1000 * 1800)
 function onUserInactivity() {
@@ -913,50 +899,21 @@ function onUserInactivity() {
 </script>
 
 <script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : false
-      //   })
-      // })
+      $(function () {
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
-      $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Departments Order</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+
+      })
     </script>
 
 <script>
@@ -1051,6 +1008,7 @@ if(isset($_POST['btnIssue'])){
     $cust_name=mysqli_real_escape_string($con,$_POST['custName']);
     $new_uniqid=mysqli_real_escape_string($con,$_POST['txtuniqid']);
     $issue_name=mysqli_real_escape_string($con,$_POST['issueName']);
+    $remarks=mysqli_real_escape_string($con,$_POST['remarks']);
 
     $new_issue0=mysqli_real_escape_string($con,$_POST['qtyIssued0']);
     $new_quantity0=mysqli_real_escape_string($con,$_POST['qtyOrdered0']);
@@ -1058,6 +1016,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid0=mysqli_real_escape_string($con,$_POST['txtsupid0']);
     $subtract0=mysqli_real_escape_string($con,$_POST['qtyStock0']) - mysqli_real_escape_string($con,$_POST['qtyIssued0']);
     $inv_supid0=mysqli_real_escape_string($con,$_POST['inventorysupid0']);
+    $quantity0=mysqli_real_escape_string($con,$_POST['qtyOrdered0']) - mysqli_real_escape_string($con,$_POST['qtyIssued0']);
 
     $new_issue1=mysqli_real_escape_string($con,$_POST['qtyIssued1']);
     $new_quantity1=mysqli_real_escape_string($con,$_POST['qtyOrdered1']);
@@ -1065,6 +1024,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid1=mysqli_real_escape_string($con,$_POST['txtsupid1']);
     $subtract1=mysqli_real_escape_string($con,$_POST['qtyStock1']) - mysqli_real_escape_string($con,$_POST['qtyIssued1']);
     $inv_supid1=mysqli_real_escape_string($con,$_POST['inventorysupid1']);
+    $quantity1=mysqli_real_escape_string($con,$_POST['qtyOrdered1']) - mysqli_real_escape_string($con,$_POST['qtyIssued1']);
 
     $new_issue2=mysqli_real_escape_string($con,$_POST['qtyIssued2']);
     $new_quantity2=mysqli_real_escape_string($con,$_POST['qtyOrdered2']);
@@ -1072,6 +1032,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid2=mysqli_real_escape_string($con,$_POST['txtsupid2']);
     $subtract2=mysqli_real_escape_string($con,$_POST['qtyStock2']) - mysqli_real_escape_string($con,$_POST['qtyIssued2']);
     $inv_supid2=mysqli_real_escape_string($con,$_POST['inventorysupid2']);
+    $quantity2=mysqli_real_escape_string($con,$_POST['qtyOrdered2']) - mysqli_real_escape_string($con,$_POST['qtyIssued2']);
 
     $new_issue3=mysqli_real_escape_string($con,$_POST['qtyIssued3']);
     $new_quantity3=mysqli_real_escape_string($con,$_POST['qtyOrdered3']);
@@ -1079,6 +1040,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid3=mysqli_real_escape_string($con,$_POST['txtsupid3']);
     $subtract3=mysqli_real_escape_string($con,$_POST['qtyStock3']) - mysqli_real_escape_string($con,$_POST['qtyIssued3']);
     $inv_supid3=mysqli_real_escape_string($con,$_POST['inventorysupid3']);
+    $quantity3=mysqli_real_escape_string($con,$_POST['qtyOrdered3']) - mysqli_real_escape_string($con,$_POST['qtyIssued3']);
 
     $new_issue4=mysqli_real_escape_string($con,$_POST['qtyIssued4']);
     $new_quantity4=mysqli_real_escape_string($con,$_POST['qtyOrdered4']);
@@ -1086,6 +1048,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid4=mysqli_real_escape_string($con,$_POST['txtsupid4']);
     $subtract4=mysqli_real_escape_string($con,$_POST['qtyStock4']) - mysqli_real_escape_string($con,$_POST['qtyIssued4']);
     $inv_supid4=mysqli_real_escape_string($con,$_POST['inventorysupid4']);
+    $quantity4=mysqli_real_escape_string($con,$_POST['qtyOrdered4']) - mysqli_real_escape_string($con,$_POST['qtyIssued4']);
 
     $new_issue5=mysqli_real_escape_string($con,$_POST['qtyIssued5']);
     $new_quantity5=mysqli_real_escape_string($con,$_POST['qtyOrdered5']);
@@ -1093,6 +1056,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid5=mysqli_real_escape_string($con,$_POST['txtsupid5']);
     $subtract5=mysqli_real_escape_string($con,$_POST['qtyStock5']) - mysqli_real_escape_string($con,$_POST['qtyIssued5']);
     $inv_supid5=mysqli_real_escape_string($con,$_POST['inventorysupid5']);
+    $quantity5=mysqli_real_escape_string($con,$_POST['qtyOrdered5']) - mysqli_real_escape_string($con,$_POST['qtyIssued5']);
 
     $new_issue6=mysqli_real_escape_string($con,$_POST['qtyIssued6']);
     $new_quantity6=mysqli_real_escape_string($con,$_POST['qtyOrdered6']);
@@ -1100,6 +1064,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid6=mysqli_real_escape_string($con,$_POST['txtsupid6']);
     $subtract6=mysqli_real_escape_string($con,$_POST['qtyStock6']) - mysqli_real_escape_string($con,$_POST['qtyIssued6']);
     $inv_supid6=mysqli_real_escape_string($con,$_POST['inventorysupid6']);
+    $quantity6=mysqli_real_escape_string($con,$_POST['qtyOrdered6']) - mysqli_real_escape_string($con,$_POST['qtyIssued6']);
 
     $new_issue7=mysqli_real_escape_string($con,$_POST['qtyIssued7']);
     $new_quantity7=mysqli_real_escape_string($con,$_POST['qtyOrdered7']);
@@ -1107,6 +1072,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid7=mysqli_real_escape_string($con,$_POST['txtsupid7']);
     $subtract7=mysqli_real_escape_string($con,$_POST['qtyStock7']) - mysqli_real_escape_string($con,$_POST['qtyIssued7']);
     $inv_supid7=mysqli_real_escape_string($con,$_POST['inventorysupid7']);
+    $quantity7=mysqli_real_escape_string($con,$_POST['qtyOrdered7']) - mysqli_real_escape_string($con,$_POST['qtyIssued7']);
 
     $new_issue8=mysqli_real_escape_string($con,$_POST['qtyIssued8']);
     $new_quantity8=mysqli_real_escape_string($con,$_POST['qtyOrdered8']);
@@ -1114,6 +1080,7 @@ if(isset($_POST['btnIssue'])){
     $new_supid8=mysqli_real_escape_string($con,$_POST['txtsupid8']);
     $subtract8=mysqli_real_escape_string($con,$_POST['qtyStock8']) - mysqli_real_escape_string($con,$_POST['qtyIssued8']);
     $inv_supid8=mysqli_real_escape_string($con,$_POST['inventorysupid8']);
+    $quantity8=mysqli_real_escape_string($con,$_POST['qtyOrdered8']) - mysqli_real_escape_string($con,$_POST['qtyIssued8']);
 
     $new_issue9=mysqli_real_escape_string($con,$_POST['qtyIssued9']);
     $new_quantity9=mysqli_real_escape_string($con,$_POST['qtyOrdered9']);
@@ -1121,47 +1088,52 @@ if(isset($_POST['btnIssue'])){
     $new_supid9=mysqli_real_escape_string($con,$_POST['txtsupid9']);
     $subtract9=mysqli_real_escape_string($con,$_POST['qtyStock9']) - mysqli_real_escape_string($con,$_POST['qtyIssued9']);
     $inv_supid9=mysqli_real_escape_string($con,$_POST['inventorysupid9']);
+    $quantity9=mysqli_real_escape_string($con,$_POST['qtyOrdered9']) - mysqli_real_escape_string($con,$_POST['qtyIssued9']);
 
 
-      $sqlupdate0="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract0', quantity_issued='$new_issue0' WHERE inventory_order_supplies_id='$inv_supid0' AND supply_id='$new_supid0'";
+      $sqlupdate0="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract0', quantity_issued='$new_issue0', quantity='$quantity0' WHERE inventory_order_supplies_id='$inv_supid0' AND supply_id='$new_supid0'";
       $result_update0=mysqli_query($con,$sqlupdate0);
 
-      $sqlupdate1="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract1', quantity_issued='$new_issue1' WHERE inventory_order_supplies_id='$inv_supid1' AND supply_id='$new_supid1'";
+      $sqlupdate1="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract1', quantity_issued='$new_issue1', quantity='$quantity1' WHERE inventory_order_supplies_id='$inv_supid1' AND supply_id='$new_supid1'";
       $result_update1=mysqli_query($con,$sqlupdate1);
 
-      $sqlupdate2="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract2', quantity_issued='$new_issue2' WHERE inventory_order_supplies_id='$inv_supid2' AND supply_id='$new_supid2'";
+      $sqlupdate2="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract2', quantity_issued='$new_issue2', quantity='$quantity2' WHERE inventory_order_supplies_id='$inv_supid2' AND supply_id='$new_supid2'";
       $result_update2=mysqli_query($con,$sqlupdate2);
 
-      $sqlupdate3="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract3', quantity_issued='$new_issue3' WHERE inventory_order_supplies_id='$inv_supid3' AND supply_id='$new_supid3'";
+      $sqlupdate3="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract3', quantity_issued='$new_issue3', quantity='$quantity3' WHERE inventory_order_supplies_id='$inv_supid3' AND supply_id='$new_supid3'";
       $result_update3=mysqli_query($con,$sqlupdate3);
 
-      $sqlupdate4="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract4', quantity_issued='$new_issue4' WHERE inventory_order_supplies_id='$inv_supid4' AND supply_id='$new_supid4'";
+      $sqlupdate4="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract4', quantity_issued='$new_issue4', quantity='$quantity4' WHERE inventory_order_supplies_id='$inv_supid4' AND supply_id='$new_supid4'";
       $result_update4=mysqli_query($con,$sqlupdate4);
 
-      $sqlupdate5="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract5', quantity_issued='$new_issue5' WHERE inventory_order_supplies_id='$inv_supid5' AND supply_id='$new_supid5'";
+      $sqlupdate5="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract5', quantity_issued='$new_issue5', quantity='$quantity5' WHERE inventory_order_supplies_id='$inv_supid5' AND supply_id='$new_supid5'";
       $result_update5=mysqli_query($con,$sqlupdate5);
 
-      $sqlupdate6="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract6', quantity_issued='$new_issue6' WHERE inventory_order_supplies_id='$inv_supid6' AND supply_id='$new_supid6'";
+      $sqlupdate6="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract6', quantity_issued='$new_issue6', quantity='$quantity6' WHERE inventory_order_supplies_id='$inv_supid6' AND supply_id='$new_supid6'";
       $result_update6=mysqli_query($con,$sqlupdate6);
 
-      $sqlupdate7="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract7', quantity_issued='$new_issue7' WHERE inventory_order_supplies_id='$inv_supid7' AND supply_id='$new_supid7'";
+      $sqlupdate7="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract7', quantity_issued='$new_issue7', quantity='$quantity7' WHERE inventory_order_supplies_id='$inv_supid7' AND supply_id='$new_supid7'";
       $result_update7=mysqli_query($con,$sqlupdate7);
 
-      $sqlupdate8="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract8', quantity_issued='$new_issue8' WHERE inventory_order_supplies_id='$inv_supid8' AND supply_id='$new_supid8'";
+      $sqlupdate8="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract8', quantity_issued='$new_issue8', quantity='$quantity8' WHERE inventory_order_supplies_id='$inv_supid8' AND supply_id='$new_supid8'";
       $result_update8=mysqli_query($con,$sqlupdate8);
 
-      $sqlupdate9="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract9', quantity_issued='$new_issue9' WHERE inventory_order_supplies_id='$inv_supid9' AND supply_id='$new_supid9'";
+      $sqlupdate9="UPDATE supplies, inventory_order_supplies, inventory_order SET quantity_in_stock='$subtract9', quantity_issued='$new_issue9', quantity='$quantity9' WHERE inventory_order_supplies_id='$inv_supid9' AND supply_id='$new_supid9'";
       $result_update9=mysqli_query($con,$sqlupdate9);
 
-
-    $sqlupdate="UPDATE inventory_order SET inventory_order_status='Issued', inventory_order_remarks='$issue_name', issued_date='$date' WHERE inventory_order_id='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
+      if($new_issue0 < $new_quantity0 || $new_issue1 < $new_quantity1 || $new_issue2 < $new_quantity2 || $new_issue3 < $new_quantity3 || $new_issue4 < $new_quantity4 || $new_issue5 < $new_quantity5 || $new_issue6 < $new_quantity6 || $new_issue7 < $new_quantity7 || $new_issue8 < $new_quantity8 || $new_issue9 < $new_quantity9){
+        $sqlupdate="UPDATE inventory_order SET inventory_order_status='Partially Issued', inventory_order_remarks='$remarks', issued_date='$date', issued_to='$issue_name' WHERE inventory_order_id='$new_id' ";
+        $result_update=mysqli_query($con,$sqlupdate);
+      }else {
+        $sqlupdate="UPDATE inventory_order SET inventory_order_status='Fully Issued', inventory_order_remarks='$remarks', issued_date='$date', issued_to='$issue_name' WHERE inventory_order_id='$new_id' ";
+        $result_update=mysqli_query($con,$sqlupdate);
+      }
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Department order ID #".$new_id." has been issued with remarks ".$issue_name."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Department order ID #".$new_id." has been issued','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="departmentsOrder"</script>';
     }

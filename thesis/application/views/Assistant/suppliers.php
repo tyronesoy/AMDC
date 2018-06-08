@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  
- <!-- Tell the browser to be responsive to screen width -->
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -16,8 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -38,19 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
 
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <?php
@@ -73,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+       <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -97,9 +85,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                     </a>
                 </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-            <!--            BELL START-->
-            <li class="dropdown notifications-menu">
+          <!-- Notifications: style can be found in dropdown.less -->
+            <!--        BELL START-->
+         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
@@ -142,6 +130,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         if(strpos($logvalue, 'order') !== false) { ?>
                             <td><small><a display="block" style="color:black" href="<?php echo 'departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
+                        }else if(strpos($logvalue, 'profile') !== false){
+                        ?>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'Assistant/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <?php
                         }else{
                         ?>
                             <td><small><?php echo $row["log_description"];?></small></td>
@@ -172,7 +164,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
             </ul>
           </li>
-                        <!--            FLAG START-->
+          <!-- Tasks: style can be found in dropdown.less -->
+          <!--            FLAG START-->
             <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -180,7 +173,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
-                                $daysval = strtotime($row['value2']);
+                                $daysval = $row["value2"];
                                 $datenow = strtotime(date("Y/m/d"));
                                 $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
                                 $daysvalue = $daysval2 - $datenow;
@@ -188,8 +181,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }
                           }
                     ?>
-                    <li class="dropdown tasks-menu">
+                  <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -397,7 +391,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <?php
+                          <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -406,7 +400,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='user-image' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -418,7 +412,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-               <?php
+                            <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -427,24 +421,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
                               
                         }
                 ?>
- <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+
+                <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-        <small> Business Manager</small>
-        </p>
+				<small>Assistant</small>
+				</p>
                 </li>
-                
               <!-- Menu Footer-->
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo '../logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-danger "><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
                       <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
@@ -452,14 +446,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
             </ul>
           </li>
-          </ul>
+        </ul>
       </div>
     </nav>
   </header>
-       <?php $identity =  $this->session->userdata('fname');?>
+ <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data"> 
+<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -484,8 +478,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <center><h4><b>Update Profile</b></h4></center>
                                             </div>
                                       </div>
-                              <div class="box-body">
-                                  <center>
+              <div class="box-body">
+                                              <center>
                                   <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
@@ -495,7 +489,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -581,11 +575,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           ?>
                 </div>
               </div>
-
-                
- 
-
-
               </div>
               </div>
               <div class="modal-footer">
@@ -598,7 +587,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div>       
+        </div>    
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -606,7 +595,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <?php
+                      <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -615,7 +604,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -636,6 +625,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
+  
     <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
@@ -657,9 +647,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+               <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+               <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -681,6 +673,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <i class="fa fa-tasks"></i> <span>Memo</span>
           </a>
         </li>
+    
           <!---------------------------------------------------- LOCKSCREEN MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'lockscreen' ?>">
@@ -698,13 +691,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fa fa-user"></i> <b>Suppliers</b>
-        <!-- <small>advanced tables</small> -->
+       <i class="fa fa-user"></i>  <b>Suppliers</b>
+
       </h1>
         
        <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active"><i class="fa fa-user"></i>  Suppliers</li>
+        <li class="active"><i class="fa fa-user"></i> Suppliers</li>
       </ol>
     </section>
 
@@ -748,7 +741,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                         <!-- end of modal header -->
                                         <div class="box-body">
-                                        	  <div class="form-group">
+                                               <div class="form-group">
                                               <label for="exampleInputEmail1">Proprietor</label>
                                               <input type="text" class="form-control" name="prop" placeholder="Enter Proprietor's Name" required />
                                             </div>
@@ -757,8 +750,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <input type="text" class="form-control" name="suppName" placeholder="Enter Company Name" required />
                                             </div>
                                             <div class="form-group">
-                                              <label for="exampleInputEmail1">Contact No.</label>
-                                              <input type="text" class="form-control" name="suppContact" pattern="^[0-9]{11}$" maxlength="11" placeholder="09XXXXXXXXX" required />
+                                              <label for="exampleInputEmail1">Contact Number</label>
+                                              <input type="text" class="form-control" name="suppContact" value="" placeholder="09XXXXXXXXX" maxlength="11" pattern="^[0-9]{11}$" required />
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Address</label>
@@ -771,12 +764,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <option value="">Select Product Type</option>
                                                   <?php
                                                     $conn=mysqli_connect("localhost", "root", "", "itproject");
-                                                    $sql = "SELECT product FROM suppliers GROUP BY product";
+                                                    $sql = "SELECT DISTINCT supply_type FROM supplies WHERE supply_type='Medical' OR supply_type='Office' ";
                                                     $result = mysqli_query($conn, $sql);
 
                                                     foreach($result as $row){
                                                       ?>
-                                                      <option value="<?php echo $row["product"]; ?>" name="suppProduct"><?php echo $row["product"]; ?></option>
+                                                      <option value="<?php echo $row["supply_type"]; ?>" name="suppProduct"><?php echo $row["supply_type"]; ?></option>
                                                     <?php
                                                     }
                                                     ?>
@@ -787,31 +780,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"> </i> Cancel</button>
-                                        <button type="button" class="btn btn-success" class="btn btn-success" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus"> </i> Add</button>
+                                        <button type="submit" class="btn btn-success" class="btn btn-success" name="addSuppliers"><i class="fa fa-plus"> </i> Add</button>
                                       </div>
                                     </div>
-                                   </div>
+									                 </div>
                                     </div>
-                  
-                                <div class="modal modal-default" id="modal-success">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <center><h3><b>Are you sure to add this supplier?</b></h3></center>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i> No</button>
-                                          <button type="submit" class="btn btn-primary" name="addSuppliers"><i class="fa fa-check"></i> Yes</button>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                </div>
-                </div>
                               </form>
                               </th>
                         
@@ -829,14 +802,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 ?>
                 <thead>
                     <tr>
-                        <th style="display: none;"></th>
+                        <th style="display: none;">ID</th>
+                        <th>Proprietor</th>
                         <th>Company Name</th>
-                        <th>Contact No.</th>
+                        <th>Contact Number</th>
                         <th>Address</th>
-                        <th>Product Type</th>
+                        <th style="width:10%">Product Type</th>
                         <th>Status</th>
                         <th>Remarks</th>
-                        <th>Action</th>
+                        <th style="width:18%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -855,6 +829,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           }
                       ?>
                       <td style="display: none;"><?php echo $row['supplier_id']; ?></td>
+                       <td><?php echo $row["sole_proprietor"]; ?></td>
                       <td><?php echo $row["company_name"]; ?></td>
                       <td><?php echo $row["supplier_contact"]; ?></td>
                       <td><?php echo $row["address"]; ?></td>
@@ -883,14 +858,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th style="display: none;"></th>
-                    <th>Company Name</th>
-                    <th>Contact No.</th>
-                    <th>Address</th>
-                    <th>Product Type</th>
-                    <th>Status</th>
-                    <th>Remarks</th>
-                    <th>Action</th>
+                    <th style="display: none;">ID</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </tfoot>
             </table>
@@ -904,6 +880,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.col -->
       </div>
       <!-- /.row -->
+              
     </section>
     <!-- /.content -->
   </div>
@@ -981,12 +958,14 @@ input:checked + .slider:before {
   border-radius: 50%;
 }    
 </style>
-<
+
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -1022,56 +1001,27 @@ function onUserInactivity() {
 }
 </script>
 
-<script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : true
-      //   })
-      // })
+ <script>
+      $(function () {
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
-      $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        order : [[ 0, 'desc' ]],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Suppliers</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+
+      })
     </script>
+    
 
 <script>
-//date and time
+<!-- date and time -->
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
@@ -1171,20 +1121,23 @@ function onUserInactivity() {
 $con=mysqli_connect('localhost','root','','itproject');
 if(isset($_POST['btnEdit'])){
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
+    $new_soleProprietor=mysqli_real_escape_string($con,$_POST['txtsoleprop']);
     $new_supplierName=mysqli_real_escape_string($con,$_POST['txtsuppliername']);
     $new_supplierContact=mysqli_real_escape_string($con,$_POST['txtcontactno']);
     $new_supplierAddress=mysqli_real_escape_string($con,$_POST['txtaddress']);
     $new_supplierProduct=mysqli_real_escape_string($con,$_POST['txtprodtype']);
     $new_supplierRemarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
+    $new_soleProprietor=mysqli_real_escape_string($con,$_POST['txtsoleproprietor']);
 
-    $sqlupdate="UPDATE suppliers SET company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
+
+    $sqlupdate="UPDATE suppliers SET sole_proprietor='$new_soleProprietor', company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Supplier ".$new_supplierName." has been edited with ".$new_supplierContact." contact #,".$new_supplierAddress." address and ".$new_supplierRemarks." remarks','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','Supplier ".$new_supplierName." has been edited with ".$new_soleProprietor." propreitor,".$new_supplierContact." contact address,".$new_supplierAddress." supplier address,".$new_supplierProduct." supplier product and remarked with ".$new_supplierRemarks."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="suppliers"</script>';
     }
@@ -1220,7 +1173,6 @@ if(isset($_POST['btnUpdate'])){
 }
 
 ?>
-
 <script>
         $(document).on('click','#getAdd',function(e){
             e.preventDefault();
@@ -1239,4 +1191,4 @@ if(isset($_POST['btnUpdate'])){
                 $('#content-data').html('<p>Error</p>');
             });
         });
-    </script>
+</script>

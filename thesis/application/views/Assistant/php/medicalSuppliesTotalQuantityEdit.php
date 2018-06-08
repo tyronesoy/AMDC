@@ -1,11 +1,11 @@
-<!-- Bootstrap 3.3.7 -->
+<!-- Bootstrap 3.3.7
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Select2 -->
+ 
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
-  <!-- Bootstrap 3.3.7 -->
+
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <!-- Select2 -->
-<script src="../assets/bower_components/select2/dist/js/select2.full.min.js"></script>
+  <!-- Select2 
+<script src="../assets/bower_components/select2/dist/js/select2.full.min.js"></script> -->
 <?php
 $con=mysqli_connect('localhost','root','','itproject');
 $connect = new PDO("mysql:host=localhost;dbname=itproject", "root", "");
@@ -62,15 +62,15 @@ if(isset($_REQUEST['id'])){
                                           <div class="margin">
                                               <center><h4><b>Update Supply Details</b></h4></center>
                                             </div>
-                <form class="form-horizontal" method="post">
-                    <div class="box-body">
+                <form class="form-horizontal" method="post" hidden>
+                    <div class="box-body" hidden>
                           <div class="form-group">
                             <div class="form-group">
                                 <label hidden="true" class="col-sm-4 control-label" for="txtid">Supply ID</label>
-                                    <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
-                                </div>
-                            </div>
-                        </div>
+									<input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
+								</div>
+							</div>
+						</div>
 
                         <div class="box-body">
                           <div class="form-group">
@@ -91,7 +91,7 @@ if(isset($_REQUEST['id'])){
                             <label for="txtReorderLevel">Old Reorder Level</label>
                                 <input type="number" class="form-control" id="oldLevel" name="oldLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                             </div>
-                        </div>
+						</div>
                         <div class="form-group">
                              <div class="col-sm-6">
                             <label for="txtReorderLevel">New Reorder Level</label>
@@ -108,13 +108,13 @@ if(isset($_REQUEST['id'])){
                                 </div>
                             </div>
 
-                    </div>
+					</div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="medTQEdit"><i class="fa fa-edit"></i> Update</button>
-            </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+				<button type="submit" class="btn btn-primary" name="medTQEdit"><i class="fa fa-edit"></i> Update</button>
+			</div>
         </div>
         </div>
     </form>

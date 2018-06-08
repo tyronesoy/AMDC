@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+       <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -101,9 +101,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                     </a>
                 </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-            <!--            BELL START-->
-            <li class="dropdown notifications-menu">
+          <!-- Notifications: style can be found in dropdown.less -->
+          <!--        BELL START-->
+         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
@@ -133,7 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
                     $result7 = $conn->query($sql7);
                     ?>
                     <?php 
@@ -145,6 +145,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php
                         if(strpos($logvalue, 'order') !== false) { ?>
                             <td><small><a display="block" style="color:black" href="<?php echo 'departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <?php
+                        }else if(strpos($logvalue, 'profile') !== false){
+                        ?>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'Assistant/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
                         }else{
                         ?>
@@ -176,7 +180,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
             </ul>
           </li>
-                        <!--            FLAG START-->
+          <!-- Tasks: style can be found in dropdown.less -->
+          <!--            FLAG START-->
             <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -184,13 +189,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
-                                $daysvalue = strtotime($row['value2']);
+                                $daysval = $row["value2"];
+                                $datenow = strtotime(date("Y/m/d"));
+                                $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
+                                $daysvalue = $daysval2 - $datenow;
                                 $num1 = 0;
                             }
                           }
                     ?>
-                    <li class="dropdown tasks-menu">
+                  <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -398,7 +407,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <?php
+                          <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -407,7 +416,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='user-image' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -419,7 +428,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <?php
+                           <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -428,7 +437,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -436,12 +445,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                 ?>
 
-              <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
+                <p>
+                  <?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
                   <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-        <small> Business Manager</small>
-        </p>
-                </li>
-                
+                <small>Assistant</small>
+                </p>
+              </li>
               <!-- Menu Footer-->
               <li class="user-footer">
         
@@ -454,11 +463,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
             </ul>
           </li>
-          </ul>
+        </ul>
       </div>
     </nav>
   </header>
-        <?php $identity =  $this->session->userdata('fname');?>
+   <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
@@ -486,8 +495,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <center><h4><b>Update Profile</b></h4></center>
                                             </div>
                                       </div>
-                <div class="box-body">
-                    <center>
+                 <div class="box-body">
+                                              <center>
                                   <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
@@ -497,7 +506,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -547,14 +556,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <div class="col-md-6">
                       <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" placeholder="email@email.com" required />
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
                         </div>
                       </div>
                 
                        <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
                       </div>
                     </div>
@@ -595,7 +604,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div> 
+        </div>    
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -603,7 +612,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-           <?php
+                      <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -612,7 +621,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -655,10 +664,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+             <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+             <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
-      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
+			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
+			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
+			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
         <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
@@ -727,7 +738,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                   <tr>
                       <th>Memo Date</th>
-                      <th>Description</th>
+                      <th>Memo Title</th>
                       <th>Status</th>
                       <th>Action</th>
                   </tr>
@@ -748,7 +759,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           }
                       ?>
                       <td><?php echo $row["memo_date"]; ?></td>
-                      <td><?php echo $row["memo_description"]; ?></td>
+                      <td><?php echo $row["memo_title"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <div class="btn-group">
@@ -763,10 +774,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                      <th>Memo Date</th>
-                      <th>Description</th>
-                      <th>Status</th>
-                      <th>Action</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
                   </tr>
                 </tfoot>
               </table>
@@ -881,6 +892,9 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- page script -->
+
+
 
 <script>
 setTimeout(onUserInactivity, 1000 * 1800)
@@ -894,14 +908,16 @@ function onUserInactivity() {
 
 <script>
       $(function () {
-        $('#example').DataTable()
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
         $('#example1').DataTable({
           'paging'      : true,
           'lengthChange': false,
           'searching'   : false,
           'ordering'    : true,
           'info'        : true,
-          'autoWidth'   : true
+          'autoWidth'   : false
         })
 
 
@@ -966,7 +982,7 @@ if(isset($_POST['memRestore'])){
         $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
-        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo with id# ".$new_id."  has been restored','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
+        $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo with id# ".$new_id." has been restored','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
         $result = $conn->query($notif);
         echo '<script>window.location.href="memoRecover"</script>';
     }
@@ -994,4 +1010,4 @@ if(isset($_POST['memRestore'])){
                 $('#content-data').html('<p>Error</p>');
             });
         });
-    </script>
+</script>

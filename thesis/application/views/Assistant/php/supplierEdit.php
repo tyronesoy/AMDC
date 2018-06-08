@@ -16,6 +16,7 @@ if(isset($_REQUEST['id'])){
         $per_supplierProduct=$row[5];
         $per_supplierStatus=$row[4];
         $per_supplierRemarks=$row[6];
+        $per_soleProprietor=$row[7];
 
     }//end while
 ?>
@@ -54,6 +55,14 @@ if(isset($_REQUEST['id'])){
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
+                        <div class="row">
+                        <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="txtsoleproprietor">Proprietor</label>
+                                <input type="text" class="form-control" id="txtsoleproprietor" name="txtsoleproprietor" value="<?php echo $per_soleProprietor;?>">
+                            </div>
+                        </div>
+                    </div>
                         <div class="row">
                         <div class="col-sm-6">
                         <div class="form-group" style="width:100%;">

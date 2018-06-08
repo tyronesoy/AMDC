@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <title>Assistant | Lockscreen</title>
+ <title>Business Manager | Lockscreen</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
    <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -51,13 +51,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
-     <center><img src="../assets/dist/img/AMDC.png" alt="User Image" style="width:300px;height:100px;"></center>
+      <center><img src="../assets/dist/img/AMDC.png" alt="User Image" style="width:300px;height:100px;"></center>
   </div>
   <!-- User name -->
   <div class="lockscreen-name">
-    <p>
+   <p>
 	<center><font color="#737373"><?php echo ( $this->session->userdata('fname'));?>  <?php echo ( $this->session->userdata('lname'));?></font>
-	<br><font color="#737373"><small>Assistant</small></font></center>
+	<br><font color="#737373"><small>Supervisor</small></font></center>
 	</p>
   </div>
 
@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="lockscreen-item">
     <!-- lockscreen image -->
     <div class="lockscreen-image">
-      <img src="../assets/dist/img/amdc2.png" alt="User Image">
+      <img src="../assets/dist/img/user2-128x128.png" alt="User Image">
     </div>
     <!-- /.lockscreen-image -->
 
@@ -92,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="text-center">
     <a href="<?php echo '../logout'?>"><u>Sign in as a Different User</u></a>
   </div>
-     <div class="lockscreen-footer text-center"><b><font color="#737373">AMDC INVENTORY MANAGEMENT SYSTEM</font></b><br>
+    <div class="lockscreen-footer text-center"><b><font color="#737373">AMDC INVENTORY MANAGEMENT SYSTEM</font></b><br>
     <font color="#737373">Copyright &copy; 2017-2018 </font><br/><b><a href="https://adminlte.io" class="text-black">
     <font color="#097627">All rights reserved</font>
   </div>

@@ -116,7 +116,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="input-group-addon">       
                                             <i class="fa fa-group"></i>
                                         </div>
-                                        <select class="form-group select2" name="supp" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                        <select class="form-control select2" name="supp" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                             <option value="">Select a Supplier</option>
                                                 <?php
                                                 $conn =mysqli_connect("localhost","root","");
@@ -160,9 +160,8 @@ if(isset($_REQUEST['id'])){
                                 $arraySupervisor = '';   
                                 $arrayQtyStock = '';   
                                 $arrayDesc = '';
-                                $arrayQtyOrdered = '';
-                                $arrayQtyIssued = '';
-                                $arrayInventory = '';
+                                $arrayUnit = '';
+                                $arrayType = '';
                                 $zero = 0;
                         ?>
                         <div class="row">
@@ -170,8 +169,10 @@ if(isset($_REQUEST['id'])){
                                 <span id="error"></span>
                                 <table class="table table-bordered" id="item_table">
                                     <tr>
-                                        <th>Quantity</th>
-                                        <th>Item Description</th>
+                                        <th width="15%"> Quantity </th>
+                                              <th width="52.5%"> Description </th>
+                                              <th width="16%"> Unit </th>
+                                              <th width="16.5%"> Item Type </th>
                                     </tr>
                                     <?php 
                                         if($result->num_rows > 0){
@@ -182,9 +183,8 @@ if(isset($_REQUEST['id'])){
                                                 $arraySupervisor .= $row['inventory_order_name'].', ';   
                                                 $arrayQtyStock .= $row['quantity_in_stock'].', ';   
                                                 $arrayDesc .= $row['supply_name'].', ';
-                                                $arrayQtyOrdered .= $row['quantity'].', ';
-                                                $arrayQtyIssued .= $row['quantity_issued'].', ';
-                                                $arrayInventory .= $row['inventory_order_supplies_id'].', ';
+                                                $arrayUnit .= $row['unit'].', ';
+                                                $arrayType .= $row['supply_type'].', ';
 
                                                 $order_id = explode(", ", $arrayOrdId);
                                                 $order_uniqid = explode(", ", $arrayOrdUniqId);
@@ -192,9 +192,8 @@ if(isset($_REQUEST['id'])){
                                                 $supervisor = explode(", ", $arraySupervisor);
                                                 $qty_stock = explode(", ", $arrayQtyStock);
                                                 $item_desc = explode(", ", $arrayDesc);
-                                                $qty_ordered = explode(", ", $arrayQtyOrdered);
-                                                $qty_issued = explode(", ", $arrayQtyIssued);
-                                                $inventory_supid = explode(", ", $arrayInventory);
+                                                $unit = explode(", ", $arrayUnit);
+                                                $type = explode(", ", $arrayType);
 
                                             }
                                         
@@ -204,11 +203,18 @@ if(isset($_REQUEST['id'])){
                                             $count = count($order_id)-1;
                                             for ($x=0; $x < $count; $x++) { 
                                         ?>
-                                        <td width="100px">
+                                        <td>
                                             <input class="form-control" type="number" id="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
                                         </td>
-                                        <td width="250px">
+                                        <td>
                                             <input type="text" class="form-control" id="supply" name="neym[]" value="<?php print_r($item_desc[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        </td>
+
+                                        <td>
+                                            <input class="form-control" type="text" id="unit" name="unit[]" value="<?php print_r($unit[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="type" name="type[]" value="<?php print_r($type[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                         </td>
 
                                         <td class="hidden">

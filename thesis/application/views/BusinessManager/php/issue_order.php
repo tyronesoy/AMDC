@@ -23,16 +23,17 @@ if(isset($_REQUEST['id'])){
         $per_supplyUnit=$row[11];
         $per_supplyQuantity=$row[12];
         $per_quantityIssued=$row[13];
-        $per_supplyID=$row[14];
-        $per_supplyType=$row[15];
-        $per_supplyDesc=$row[16];
-        $per_brandName=$row[17];
-        $per_unit=$row[18];
-        $per_quantityStock=$row[19];
-        $per_unitPrice=$row[20];
-        $per_unitOrder=$row[21];
-        $per_reorderLevel=$row[22];
-        $per_expiration=$row[23];
+        $ordrID=$row[14];
+        $per_supplyID=$row[15];
+        $per_supplyType=$row[16];
+        $per_supplyDesc=$row[17];
+        $per_brandName=$row[18];
+        $per_unit=$row[19];
+        $per_quantityStock=$row[20];
+        $per_unitPrice=$row[21];
+        $per_unitOrder=$row[22];
+        $per_reorderLevel=$row[23];
+        $per_expiration=$row[24];
     }
     //end while
 ?>

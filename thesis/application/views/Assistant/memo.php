@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-   <!-- Tell the browser to be responsive to screen width -->
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -17,8 +17,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables
-  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -39,19 +39,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
-  <link rel="stylesheet" href="../assets/table/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/table/buttons.dataTables.min.css">
-
-    <script src="../assets/table/jquery-1.12.4.js"></script>
-    <script src="../assets/table/jquery.dataTables.min.js"></script>
-    <script src="../assets/table/dataTables.buttons.min.js"></script>
-    <script src="../assets/table/buttons.flash.min.js"></script>
-    <script src="../assets/table/jszip.min.js"></script>
-    <script src="../assets/table/pdfmake.min.js"></script>
-    <script src="../assets/table/vfs_fonts.js"></script>
-    <script src="../assets/table/buttons.html5.min.js"></script>
-    <script src="../assets/table/buttons.print.min.js"></script>
-    <script src="../assets/table/buttons.colVis.min.js"></script>
    <style>
     .example-modal .modal {
       position: relative;
@@ -86,11 +73,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo '../dashboard' ?>" class="logo">
+    <a href="<?php echo 'dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>MDC</span>
       <!-- logo for regular state and mobile devices -->
-       <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:50px;"></span>
+        <span class="logo-lg"><img src="../assets/dist/img/amdc2.png" alt="User Image" style="width:160px;height:49px;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -114,9 +101,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                     </a>
                 </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-            <!--            BELL START-->
-            <li class="dropdown notifications-menu">
+          <!-- Notifications: style can be found in dropdown.less -->
+          <!--        BELL START-->
+         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
                 <?php
@@ -159,6 +146,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         if(strpos($logvalue, 'order') !== false) { ?>
                             <td><small><a display="block" style="color:black" href="<?php echo 'departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
+                        }else if(strpos($logvalue, 'profile') !== false){
+                        ?>
+                            <td><small><a display="block" style="color:black" href="<?php echo 'Assitant/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <?php
                         }else{
                         ?>
                             <td><small><?php echo $row["log_description"];?></small></td>
@@ -189,7 +180,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
             </ul>
           </li>
-                        <!--            FLAG START-->
+          <!-- Tasks: style can be found in dropdown.less -->
+          <!--            FLAG START-->
             <?php
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -197,13 +189,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
-                                $daysvalue = strtotime($row['value2']);
+                                $daysval = $row["value2"];
+                                $datenow = strtotime(date("Y/m/d"));
+                                $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
+                                $daysvalue = $daysval2 - $datenow;
                                 $num1 = 0;
                             }
                           }
                     ?>
-                    <li class="dropdown tasks-menu">
+                  <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
@@ -411,7 +407,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <?php
+                          <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -420,7 +416,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='user-image' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='user-image' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='user-image' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -432,7 +428,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <?php
+                            <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -441,7 +437,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -449,12 +445,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                 ?>
 
-               <p><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?>
-                  <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
-        <small> Business Manager</small>
-        </p>
-                </li>
-                
+                <p>
+                <span class="hidden-xs"><?php echo ( $this->session->userdata('fname'));?> <?php echo ( $this->session->userdata('lname'));?></span>
+                <small><?php echo ( $this->session->userdata('dept_name'));?> </small>
+
+                  <small>Assistant</small>
+                </p>
+              </li>
               <!-- Menu Footer-->
               <li class="user-footer">
         
@@ -467,11 +464,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </li>
             </ul>
           </li>
-          </ul>
+        </ul>
       </div>
     </nav>
   </header>
-<?php $identity =  $this->session->userdata('fname');?>
+    <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
@@ -499,8 +496,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <center><h4><b>Update Profile</b></h4></center>
                                             </div>
                                       </div>
-              <div class="box-body">
-                                  <center>
+                <div class="box-body">
+                                              <center>
                                   <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
@@ -510,7 +507,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -596,11 +593,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           ?>
                 </div>
               </div>
-
-                
- 
-
-
               </div>
               </div>
               <div class="modal-footer">
@@ -613,7 +605,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- /.modal-dialog -->
         </form> 
-        </div> 
+        </div>     
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -621,7 +613,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <?php
+                      <?php
 
                         $con = mysqli_connect("localhost","root","","itproject");
                         $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
@@ -630,7 +622,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default2.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='../upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='../upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -673,10 +665,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+               <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+               <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
-			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
-      <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
-      <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
+			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-cart-plus"></i>Departments Order</a></li>
+			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
+			<li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
         <!---------------------------------------------------- SUPPLIERS MENU -------------------------------------------------------------->
@@ -710,7 +704,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-   <div class="content-wrapper">
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -760,8 +754,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <center><h4><b>Add New Memo</b></h4></center>
                                             </div>
                                         <!-- end of modal header -->
+
                                         <div class="box-body">
-                                               <div class="form-group" hidden>
+                                                 <div class="form-group" hidden>
                                                   <label for="exampleInputEmail1">User Name</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
@@ -772,12 +767,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               </div>
 
                                                   <div class="form-group">
-                                                    <label>Memo Date</label>
+                                                    <label>Date & Time Created</label>
                                                     <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <?php $date = date("Y-m-d"); ?>
+                                                         <?php
+                                                        date_default_timezone_set('Asia/Manila');
+                                                       $date = date('Y-m-d H:i:s'); 
+                                                       ?>
                                                       <input type="text" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
@@ -797,7 +795,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <div class="form-group">
                                                     
                                                   <label for="exampleInputEmail1">Description</label>
-                                               
+                                            
                                                   <textarea type="name" class="form-control" name="memo_description" id="memo_description" rows="15" cols="83" required /> </textarea>
 
                                                 </div>
@@ -827,17 +825,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   $sql = "SELECT * FROM memo WHERE soft_deleted = 'N' AND memo_user='".$this->session->userdata('fname')." ".$this->session->userdata('lname')."'";
                   $result = $conn->query($sql);    
                 ?>
+                 <col width="18%">
+                <col width="40%">
+                <col width="10%">
+                <col width="30%">
                 <thead>
                     <tr>
-                      <th>Memo User</th>
-                        <th>Memo Date</th>
+                        <th style="display: none;">ID</th>
+                        <th>Time & Date Created</th>
                         <th>Memo Title</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php if ($result->num_rows > 0) {
+               <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <?php
@@ -851,42 +853,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               $status = '<span class="label label-danger">Pending</span>';
                           }
                       ?>
-                      <td><?php echo $row["memo_user"]; ?></td>
+                      <td style="display: none;"><?php echo $row["memo_id"];?></td>
                       <td><?php echo $row["memo_date"]; ?></td>
                       <td><?php echo $row["memo_title"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <?php if($row['memo_status'] == 'Pending'){ ?>
                         <div class="btn-group">
-                          <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
+                          <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                        </div>
+                        <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-flag-checkered"></i> Mark Finish</button>
                         </div>
                         <div class="btn-group">
                           <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
                         </div>
                       <?php }elseif($row['memo_status'] == 'Finished'){ ?>
-                         <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
-                        </div>
-                        <div class="btn-group">
-                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
-                        </div>
-                      <?php }else{ ?>
-                         <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
-                        <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
-                        </div>
+                         <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                       </div>
+                        
                         <div class="btn-group">
                           <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
                         </div>
-                        <?php } ?>
+                      <?php }?>
                       </td>
                     </tr>
                   <?php 
@@ -896,11 +889,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Memo User</th>
-                      <th>Memo Date</th>
-                        <th>Memo Title</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th style="display: none;">ID</th>
+                    	  <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                   </tr>
                 </tfoot>
             </table>
@@ -921,7 +914,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
       </div>
       </div>
-          
+
+    
     </section>
     <!-- /.content -->
   </div>
@@ -995,11 +989,13 @@ input:checked + .slider:before {
 }    
 </style>
         
+<!-- jQuery 3 -->
+<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+<!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -1023,6 +1019,7 @@ input:checked + .slider:before {
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- page script -->
 
 <script>
 setTimeout(onUserInactivity, 1000 * 1800)
@@ -1035,50 +1032,21 @@ function onUserInactivity() {
 </script>
  
 <script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : true
-      //   })
-      // })
+      $(function () {
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]]
+        })
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
 
-      $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Memo</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+
+      })
     </script>
 
 <script>
@@ -1140,7 +1108,7 @@ function onUserInactivity() {
         });
     </script>
 
-     <!- script js for get edit data-->
+     <!--script js for get edit data-->
     <script>
         $(document).on('click','#getEdit',function(e){
             e.preventDefault();
@@ -1223,6 +1191,7 @@ if(isset($_POST['btnEdit'])){
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
+        date_default_timezone_set('Asia/Manila');
         $datetoday = date('Y\-m\-d\ H:i:s A');
         mysqli_select_db($conn, "itproject");
         $notif = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','A memo with id#".$new_id." and title ".$new_memotitle." has been edited with status ".$new_memostatus."','".$this->session->userdata('fname')." ".$this->session->userdata('lname')."','".$this->session->userdata('type')."')";
@@ -1300,9 +1269,9 @@ if(isset($_POST['memDelete'])){
                 $('#content-data').html('<p>Error</p>');
             });
         });
-    </script>
+</script>
 
-            <div class="modal fade" id="viewModal" role="dialog">
+        <div class="modal fade" id="viewModal" role="dialog">
             <div class="modal-dialog">
                 <div id="view-data"></div>
             </div>
