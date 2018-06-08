@@ -1,5 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+if(!isset($_SESSION['first_run'])){
+    $_SESSION['first_run'] = 1;
+        $datetoday = date('Y\-m\-d\ H:i:s A');
+        $conn =mysqli_connect("localhost","root","");
+        mysqli_select_db($conn, "itproject");
+        $notif1 = "insert into logs (log_date,log_description,user,module) VALUES ('".$datetoday."','".$this->session->userdata('type')." ".$this->session->userdata('fname')." ".$this->session->userdata('lname')." has logged in','".$this->session->userdata('username')."','".$this->session->userdata('type')."')";
+        $res1 = $conn->query($notif1);
+}
 ?>
 <!--REMOVE EXPIRED ITEMS-->
 <?php
