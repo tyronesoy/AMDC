@@ -553,7 +553,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         </form> 
         </div> 
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser2" enctype="multipart/form-data">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -1760,7 +1760,7 @@ function myFunction4(id) {
             //alert(per_id);
             $('#content-data').html('');
             $.ajax({
-                url:'dashboard/addUser2',
+                url:'dashboard/addUser',
                 type:'POST',
                 data:'id='+per_id,
                 dataType:'html'
