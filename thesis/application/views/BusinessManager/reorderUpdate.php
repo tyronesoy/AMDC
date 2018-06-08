@@ -774,9 +774,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
           <tr>
           <td><div class="input-group input-daterange" style="padding-left: 20px;">
-            <input type="text" class="form-control" id="startdate" placeholder="Min Date">
+            <input type="text" class="form-control" id="startdate" placeholder="Start Date">
             <div class="input-group-addon">to</div>
-            <input type="text" class="form-control" id="enddate" placeholder="Max Date">
+            <input type="text" class="form-control" id="enddate" placeholder="End Date">
           </div></td>
           </tr>
         </table>
@@ -818,12 +818,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                         <tfoot>
            <tr>
-                  <th width="5%">ID</th> 
-                  <th width="15%">Date and Time</th><!-- 
+                  <th width="5%"></th> 
+                  <th width="15%"></th><!-- 
                   <th width="7%">Time</th> -->
-                  <th width="59%">Description</th>
-                  <th width="8%">Supply Type</th>
-                  <th>User</th>
+                  <th width="59%"></th>
+                  <th width="8%"></th>
+                  <th></th>
             </tr> 
         </tfoot>
       </table>              
