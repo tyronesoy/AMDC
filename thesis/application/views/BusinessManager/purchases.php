@@ -731,12 +731,12 @@ function unit_measure($connect)
                                               <div class="row">
                                               <div class="col-md-12">
                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Name</label>
+                                                  <label for="exampleInputEmail1">Purchasing Officer</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-user"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
+                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" margin="0px auto" readonly>
                                               </div>
                                               </div>
                                               </div>
@@ -776,7 +776,7 @@ function unit_measure($connect)
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                       <?php $date = date("Y-m-d"); ?>
-                                                      <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                      <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
