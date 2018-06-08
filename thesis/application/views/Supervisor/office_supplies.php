@@ -439,8 +439,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </li>
           <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
           <li><a href="<?php echo 'order' ?>"><i class="fa fa-shopping-cart"></i><span>Orders</span></a></li>
-          <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
-
         </li>
 		
   <!---------------------------------------------------- CALENDAR MENU -------------------------------------------------------------->
