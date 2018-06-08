@@ -22,6 +22,7 @@ if(isset($_REQUEST['id'])){
         $per_category = $row[22];
         $per_deptName = $row[20];
         $per_lotNo = $row[23];
+        $per_supplier = $row[15];
 
     }//end while
 ?>
@@ -188,6 +189,29 @@ if(isset($_REQUEST['id'])){
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                         </div>
                         </div>
+
+                             <div class="col-md-6">
+                                               <div class="form-group" style="width:100%">
+                                                  <label for="exampleInputEmail1">Supplier</label><br>
+                                                       <select name="txtSupplier" class="form-control select2" style="width: 100%;">
+                                                       <option><?php echo $per_supplier;?></option>
+                                                       <option></option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                             $sql = "SELECT DISTINCT company_name FROM suppliers WHERE product = 'Office' ORDER BY company_name ASC";
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $txtSupplier) { 
+                                                        ?>
+
+                                                        <option value="<?php echo $txtSupplier["company_name"]; ?>" name="txtSupplier"><?php echo $txtSupplier["company_name"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div> 
                  
                         </div>
                         

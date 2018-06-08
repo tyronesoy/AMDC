@@ -1480,7 +1480,9 @@ if(isset($_POST['offEdit'])){
 
    $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
     
-    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName', supply_description='$new_supplyDescription', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', unit='$new_supplyUnit', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+  $new_supplier=mysqli_real_escape_string($conn,$_POST['txtSupplier']);
+    
+    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName', supply_description='$new_supplyDescription', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', unit='$new_supplyUnit', supplier = '$new_supplier', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
     if($result_update){
