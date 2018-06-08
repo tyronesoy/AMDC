@@ -444,7 +444,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="user-footer">
         
                 <div class="pull-right">
-                  <a href="<?php echo 'logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
                 <div class="pull-left">
                       <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
