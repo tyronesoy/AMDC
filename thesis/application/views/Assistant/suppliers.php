@@ -748,9 +748,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                         <!-- end of modal header -->
                                         <div class="box-body">
+                                        	  <div class="form-group">
+                                              <label for="exampleInputEmail1">Proprietor</label>
+                                              <input type="text" class="form-control" name="prop" placeholder="Enter Proprietor's Name" required />
+                                            </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Company Name</label>
-                                              <input type="text" class="form-control" name="suppName" required />
+                                              <input type="text" class="form-control" name="suppName" placeholder="Enter Company Name" required />
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Contact No.</label>
@@ -758,7 +762,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Address</label>
-                                              <input type="text" class="form-control" name="suppAddress" required />
+                                              <input type="text" class="form-control" name="suppAddress" placeholder="Enter Complete Address" required />
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Product Type</label>

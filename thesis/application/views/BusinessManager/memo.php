@@ -786,7 +786,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <?php $date = date('Y\-m\-d\ H:i:s A'); ?>
+                                                         <?php
+                                                        date_default_timezone_set('Asia/Manila');
+                                                       $date = date('Y-m-d H:i:s'); 
+                                                       ?>
                                                       <input type="text" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
@@ -850,7 +853,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </tr>
                 </thead>
                 <tbody>
-                <?php if ($result->num_rows > 0) {
+               <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <?php
@@ -864,42 +867,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               $status = '<span class="label label-danger">Pending</span>';
                           }
                       ?>
-                      <td style="display: none;"><?php echo $row['memo_id'];?></td>
+                      <td style="display: none;"><?php echo $row["memo_id"];?></td>
                       <td><?php echo $row["memo_date"]; ?></td>
                       <td><?php echo $row["memo_title"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <?php if($row['memo_status'] == 'Pending'){ ?>
                         <div class="btn-group">
-                          <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
+                          <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                        </div>
+                        <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-flag-checkered"></i> Mark Finish</button>
                         </div>
                         <div class="btn-group">
                           <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
                         </div>
                       <?php }elseif($row['memo_status'] == 'Finished'){ ?>
-                         <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
-                        </div>
-                        <div class="btn-group">
-                          <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
-                        </div>
-                      <?php }else{ ?>
-                         <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button></div>
-                        <div class="btn-group">
-                            <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
-                        </div>
+                         <button type="button" id="getView" class="btn btn-info btn-xs" data-toggle="modal" data-target="#viewModal" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-search"></i> View</button>
+                       </div>
+                        
                         <div class="btn-group">
                           <button type="button" id="getDelete" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete" data-id="<?php echo $row["memo_id"]; ?>"><i class="glyphicon glyphicon-trash"></i> Archive</button>
                         </div>
-                        <?php } ?>
+                      <?php }?>
                       </td>
                     </tr>
                   <?php 

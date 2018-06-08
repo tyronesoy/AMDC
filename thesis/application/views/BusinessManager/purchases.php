@@ -1182,16 +1182,14 @@ function unit_measure($connect)
                       </tfoot>
             </table>
 
-            </div>
-
-            <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->
-              <button type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
+              <button type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
+            </div>
     </section>
     <!-- /.content -->
   </div>
@@ -1311,7 +1309,7 @@ function unit_measure($connect)
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="generated" id=""><i class="fa fa-clone"></i> Generate</button>
+                <button type="submit" class="btn btn-primary" name="generated" id=""><i class="fa fa-copy"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->

@@ -756,11 +756,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="box-body">
                                                <div class="form-group">
                                               <label for="exampleInputEmail1">Proprietor</label>
-                                              <input type="text" class="form-control" name="prop" placeholder="Last Name, First Name" required />
+                                              <input type="text" class="form-control" name="prop" placeholder="Enter Proprietor's Name" required />
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Company Name</label>
-                                              <input type="text" class="form-control" name="suppName" required />
+                                              <input type="text" class="form-control" name="suppName" placeholder="Enter Company Name" required />
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Contact Number</label>
@@ -768,7 +768,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Address</label>
-                                              <input type="text" class="form-control" name="suppAddress" required />
+                                              <input type="text" class="form-control" name="suppAddress" placeholder="Enter Complete Address" required />
                                             </div>
                                             <div class="form-group">
                                               <label for="exampleInputEmail1">Product Type</label>
@@ -820,10 +820,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Company Name</th>
                         <th>Contact Number</th>
                         <th>Address</th>
-                        <th>Product Type</th>
+                        <th style="width:10%">Product Type</th>
                         <th>Status</th>
                         <th>Remarks</th>
-                        <th>Action</th>
+                        <th style="width:18%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1140,6 +1140,8 @@ if(isset($_POST['btnEdit'])){
     $new_supplierAddress=mysqli_real_escape_string($con,$_POST['txtaddress']);
     $new_supplierProduct=mysqli_real_escape_string($con,$_POST['txtprodtype']);
     $new_supplierRemarks=mysqli_real_escape_string($con,$_POST['txtremarks']);
+    $new_soleProprietor=mysqli_real_escape_string($con,$_POST['txtsoleproprietor']);
+
 
     $sqlupdate="UPDATE suppliers SET sole_proprietor='$new_soleProprietor', company_name='$new_supplierName', supplier_contact='$new_supplierContact', address='$new_supplierAddress', product='$new_supplierProduct', remarks='$new_supplierRemarks' WHERE supplier_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);

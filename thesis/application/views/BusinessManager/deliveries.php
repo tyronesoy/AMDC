@@ -840,29 +840,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      </div>
-      <!-- /.row -->
-          <div class="row no-print">
-        <div class="col-xs-1" style="float:right">
-          <!-- <a href="#" id="print" onclick="javascript:printlayer('example')" class="btn btn-default"><i class="fa fa-print"></i> Print</a> -->
-          <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button>
+          <button  type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
         </div>
-
-      </div>
-      <div>
-          <!-- <button  type="submit" class="btn btn-default btn-flat pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-print"></i> Generate Report</button> -->
-        </div>
-      <script>
-        $('#print').click(function(){
-          var printme = document.getElementById('example1');
-          var wme = window.open("","","width=900,height=700");
-          wme.document.write(printme.outerHTML);
-          wme.document.close();
-          wme.focus();
-          wme.print();
-          wme.close();
-        })
-      </script>
     
     </section>
     <!-- /.content -->
@@ -990,7 +969,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-clone"></i> Generate</button>
+                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-copy"></i> Generate</button>
               </div>
             </div>
             <!-- /.modal-content -->
