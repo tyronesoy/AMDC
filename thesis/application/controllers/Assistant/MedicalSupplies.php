@@ -68,7 +68,7 @@ class MedicalSupplies extends CI_Controller {
 	}
 
 	   public function generated(){
-        $this->load->view('BusinessManager/php/generatemedrep');
+        $this->load->view('Assistant/php/generatemedrep');
     }
 	
 }

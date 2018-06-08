@@ -81,6 +81,6 @@ class OfficeSupplies extends CI_Controller {
 		$this->load->view('Assistant/php/userAdd2');
 	}
 	public function generated(){
-        $this->load->view('BusinessManager/php/generateoffrep');
+        $this->load->view('Assistant/php/generateoffrep');
     }
 }

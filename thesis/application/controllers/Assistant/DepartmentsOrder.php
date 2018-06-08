@@ -75,4 +75,8 @@ class DepartmentsOrder extends CI_Controller {
 		$this->load->view('Assistant/php/dep_po');
 	}
 
+	 public function generated(){
+        $this->load->view('Assistant/php/generateordrep');
+    }
+
 }

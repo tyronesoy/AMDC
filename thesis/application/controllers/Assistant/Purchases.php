@@ -76,4 +76,7 @@ class Purchases extends CI_Controller {
 		$this->load->view('Assistant/php/flagrange');
 	}
 
+	public function generated(){
+    $this->load->view('Assistant/php/generaterep');
+	}
 }
