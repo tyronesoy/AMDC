@@ -911,6 +911,42 @@ if(!isset($_SESSION['first_run'])){
                                             
                                         </table>
                                       </div>
+                                        <script>
+                                            $(document).ready(function(){
+                                                $('.sendButton').attr('disabled',true);
+                                                $('#supply').change(function(){
+                                                    if($(this).val().length !=0)
+                                                        $(document).ready(function(){
+                                                        
+                                                        $('#quant').keyup(function(){
+                                                            if($(this).val().length !=0)
+                                                                $('.sendButton').attr('disabled', false);            
+                                                            else
+                                                                $('.sendButton').attr('disabled',true);
+                                                        })
+                                                    });            
+                                                    else
+                                                        $('.sendButton').attr('disabled',true);
+                                                })
+                                            });
+                                            $(document).ready(function(){
+                                                $('.sendButton').attr('disabled',true);
+                                                $('#quant').keyup(function(){
+                                                    if($(this).val().length !=0)
+                                                        $(document).ready(function(){
+                                                        
+                                                        $('#supply').change(function(){
+                                                            if($(this).val().length !=0)
+                                                                $('.sendButton').attr('disabled', false);            
+                                                            else
+                                                                $('.sendButton').attr('disabled',true);
+                                                        })
+                                                    });            
+                                                    else
+                                                        $('.sendButton').attr('disabled',true);
+                                                })
+                                            });
+                                          </script>
                                       <!-- <script>
                                         $(document).ready(function(){
                                           $('.addRow').attr('disabled',true);
