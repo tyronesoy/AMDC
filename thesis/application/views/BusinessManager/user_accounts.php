@@ -861,7 +861,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' OR location='Baguio'";
+                                                            $sql = "SELECT department_name FROM departments WHERE department_name != 'Managing Department' AND location='Baguio City' OR location='Baguio'";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $dept_name) { 
@@ -875,33 +875,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                    </div>
                                          
                                             
-                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                     <label for="exampleInputEmail1">Select image :</label>
-                                                    <form action="fileupload.php" enctype="multipart/form-data" method="post">
-                                                    
-                                                        <input type="file" name="file"><br/>
-                                                        <input type="submit" value="Upload" name="Submit1"> <br/>
-
-
-                                                        </form>
-                                                        <?php
-                                                        if(isset($_POST['Submit1']))
-                                                        { 
-                                                        $filepath = "images/" . $_FILES["file"]["name"];
-
-                                                        if(move_uploaded_file($_FILES["file"]["tmp_name"], $filepath)) 
-                                                        {
-                                                        echo "<img src=".$filepath." height=200 width=300 />";
-                                                        } 
-                                                        else 
-                                                        {
-                                                        echo "Error !!";
-                                                        }
-                                                        } 
-                                                        ?>
-                                                         </div>
-                                                    </div>
+                                  
                                                 
                                                         </div>
                                         </div>
