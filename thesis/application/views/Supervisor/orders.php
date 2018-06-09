@@ -696,7 +696,7 @@ if(!isset($_SESSION['first_run'])){
                                       </div>
                                     </div>
                                     <div class="row">
-                                        <button type="button" name="add" id="add" class="btn btn-info pull-right addRow"><i class="fa fa-plus"></i> Add Row</button>
+                                        <button type="button" name="add" id="add" class="btn btn-info pull-right addRow sendbutton"><i class="fa fa-plus"></i> Add Row</button>
                                     </div>
                                     <div class="row">      
                                       <div class="table-responsive">
@@ -914,11 +914,11 @@ if(!isset($_SESSION['first_run'])){
                                         <script>
                                             $(document).ready(function(){
                                                 $('.sendButton').attr('disabled',true);
-                                                $('#supply').change(function(){
+                                                $('#supply0').change(function(){
                                                     if($(this).val().length !=0)
                                                         $(document).ready(function(){
                                                         
-                                                        $('#quant').keyup(function(){
+                                                        $('#quant0').keyup(function(){
                                                             if($(this).val().length !=0)
                                                                 $('.sendButton').attr('disabled', false);            
                                                             else
@@ -931,11 +931,11 @@ if(!isset($_SESSION['first_run'])){
                                             });
                                             $(document).ready(function(){
                                                 $('.sendButton').attr('disabled',true);
-                                                $('#quant').keyup(function(){
+                                                $('#quant0').keyup(function(){
                                                     if($(this).val().length !=0)
                                                         $(document).ready(function(){
                                                         
-                                                        $('#supply').change(function(){
+                                                        $('#supply0').change(function(){
                                                             if($(this).val().length !=0)
                                                                 $('.sendButton').attr('disabled', false);            
                                                             else
