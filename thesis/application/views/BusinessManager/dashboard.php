@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php
     $conn =mysqli_connect("localhost","root","");
     mysqli_select_db($conn, "itproject");
+    date_default_timezone_set('Asia/Manila');
     $datetoday = date("Y/m/d");
     $sql1 = "UPDATE supplies SET accounted_for = 'Y' where (expiration_date < '".$datetoday."' AND soft_deleted = 'N') AND accounted_for = 'N'";
     $result1 = $conn->query($sql1);
@@ -494,64 +495,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
     </nav>
   </header>
  <?php $identity =  $this->session->userdata('fname');?>
-<div class="modal fade" id="editflag">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser2">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                  <div class="col-md-2">
-                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                            </div>
-                                <div class="col-md-8">
-                                                
-                                                <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
-                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                                                    <center><h6>Philippines</h6></center>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end of modal header -->
-                                        <div class="modal-body">
-                                        <div class="box-header">
-                                          <div class="margin">
-                                              <center><h4><b>Update Notification Parameters</b></h4></center>
-                                            </div>
-                                      </div>
-                <div class="box-body">
-
-                        <?php
-                          $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                          $date = date("Y/m/d");
-                          $sql = "SELECT * From defaults where attribute = 'expirerange'";
-                          $result = $conn->query($sql);    
-                        ?>
-                        <?php if ($result->num_rows > 0) {
-                          while($row = $result->fetch_assoc()) { ?>
-
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Day/s to expiration notice</label>
-                          <input type="text" class="form-control" name="days" id="days" value="<?php echo $row['value2'] ?>" required />
-                        </div>
-                          <?php 
-                              }
-                            }
-                          ?>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser2"><i class="fa fa-edit"></i> Update</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-
-          </div>
-          <!-- /.modal-dialog -->
-        </form> 
-        </div> 
 <div class="modal fade" id="editprof">
 <form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
@@ -827,7 +770,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
 
-                  $sql = "SELECT COUNT(*) AS total FROM supplies WHERE quantity_in_stock <= reorder_level+10 OR quantity_in_stock = 0";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies WHERE quantity_in_stock <= reorder_level+30 OR quantity_in_stock = 0";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -967,10 +910,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <td><?php echo $row["unit"]; ?></td>
                     <td><?php echo $row["reorder_level"]; ?></td>
                     <td>
-                      <a href="BusinessManager/purchases">
-                        <input class="hidden" type="text" name="reorderSupp" id="reorderSupp" hidden value="<?php echo $row["supply_id"]; ?>">
-                        <button type="button" class="btn btn-primary"><i class="fa fa-repeat"></i> Reorder </button>
-                      </a>
+                      <div class="btn-group">
+                        <button type="button" id="getReorder" class="btn btn-primary" data-toggle="modal" data-target="#reorderModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="fa fa-repeat"></i> Reorder </button>
+                      </div>
                     </td>
                     </tr>
                   <?php 
@@ -1331,128 +1273,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
       <!-- BAR CHARTS -->
       
   </div>
-      <div class="modal fade" id="reorderModal">
-        <form name="form1" id="user_form" method="post">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-                <div class="col-md-2">
-                  <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                </div>
-                <div class="col-md-8">
-                                                
-                  <div class="margin">
-                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
-                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                    <center><h6>Philippines</h6></center>
-                  </div>
-                </div>
-              </div>
-              <!-- end of modal header -->
-              <div class="modal-body">
-                <div class="box-header">
-                  <div class="margin">
-                    <center><h4><b>Reorder Supplies</b></h4></center>
-                  </div>
-                </div>
-              <div class="box-body">
-                <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $date = date("Y/m/d");
-                  $sql = "SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name JOIN suppliers WHERE supply_description='$desc'";
-                  $result = $conn->query($sql);    
-                ?>
-                <?php 
-                  if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) { ?>
-                        <div class="form-group hidden">
-                            <label class="col-sm-4 control-label hidden" for="txtid">Order ID</label>
-                            <div class="col-sm-6 hidden">
-                                <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $row['inventory_order_id'];?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group hidden">
-                            <label class="col-sm-4 control-label hidden" for="txtuniqid">Order Unique ID</label>
-                            <div class="col-sm-6 hidden">
-                                <input type="hidden" class="form-control" id="txtuniqid" name="txtuniqid" hidden value="<?php echo $row['inventory_order_uniq_id'];?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group hidden">
-                            <label class="col-sm-8 control-label hidden" for="txtstatus"></label>
-                            <div class="col-sm-1 hidden">
-                                <input type="hidden" class="form-control" id="txtstatus" name="txtstatus" hidden value="<?php echo $row['inventory_order_status'];?>" readonly>
-                            </div>
-                        </div>
-
-                      <div class="row">      
-                        <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Supervisor Name</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-user"></i>
-                                        </div>
-                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $row['inventory_order_name'] ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Department Name</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-building"></i>
-                                        </div>
-                                        <input type="text" class="form-control" id="deptName" name="deptName" value="<?php echo $row['inventory_order_dept'];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Supplier</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">       
-                                            <i class="fa fa-group"></i>
-                                        </div>
-                                        <input class="form-control" type="text" name="supp" id="supp" value="<?php echo $row['company_name'] ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Purchase Order Date</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <?php $date = date("Y-m-d"); ?>
-                                        <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                    </div>
-                                                    <!-- /.input group -->
-                                </div>
-                            </div>
-                      </div>
-                    <?php }
-                    } ?>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-success" name="btnReturn"><i class="fa fa-undo"></i> Return</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-        <!-- /.modal-dialog -->
-        </form> 
-      </div>
 
   <!-- /.content-wrapper -->
    <footer class="main-footer">
@@ -1524,6 +1344,32 @@ function onUserInactivity() {
    <?php } ?>
 }
 </script>
+
+<div class="modal fade" id="reorderModal" role="dialog">
+    <div class="modal-dialog">
+        <div id="reorder-data"></div>
+    </div>
+</div>
+
+<script>
+        $(document).on('click','#getReorder',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#reorder-data').html('');
+            $.ajax({
+                url:'dashboard/reorderItem',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#reorder-data').html('');
+                $('#reorder-data').html(data);
+            }).final(function(){
+                $('#reorder-data').html('<p>Error</p>');
+            });
+        });
+    </script>
 
 <!-- <script type="text/javascript">
 setTimeout(onUserInactivity, 1000 * 120)

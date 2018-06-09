@@ -11,11 +11,40 @@ function supply_dropdown($connect)
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output .= '<option value="'.$row["item_name"].'">'.$row["supply_description"].'</option>';
+    $value = $row["supply_description"];
+    $output .= '<option value="'.$value.'">'.$value.'</option>';
  }
  return $output;
 }
-
+function supply_medical($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM supplies WHERE soft_deleted= 'N' AND supply_description != '' AND supply_type = 'Medical' AND (dep_name = '".$_SESSION['dept_name']."' OR dep_name = '') ORDER BY supply_description ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $value = $row["supply_description"];
+    $output .= '<option value="'.$value.'">'.$value.'</option>';
+ }
+ return $output;
+}
+$medSplit = explode(", ", supply_medical($connect));
+function supply_office($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM supplies WHERE soft_deleted= 'N' AND supply_description != '' AND supply_type = 'Office' AND (dep_name = '".$_SESSION['dept_name']."' OR dep_name = '') ORDER BY supply_description ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $value = $row["supply_description"];
+    $output .= '<option value="'.$value.'">'.$value.'</option>';
+ }
+ return $output;
+}
 
 function unit_measure($connect)
 { 
@@ -770,7 +799,7 @@ function unit_measure($connect)
             
                     <form id="add_name" name="add_name" method="post" action="purchases/addPurchases">
                         <div class="modal fade" id="modal-info">
-                                  <div class="modal-dialog">
+                                  <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;">
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -796,12 +825,12 @@ function unit_measure($connect)
                                               <div class="row">
                                               <div class="col-md-12">
                                               <div class="form-group">
-                                                  <label for="exampleInputEmail1">Name</label>
+                                                  <label for="exampleInputEmail1">Purchasing Officer</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-user"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
+                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" margin="0px auto" readonly>
                                               </div>
                                               </div>
                                               </div>
@@ -815,7 +844,7 @@ function unit_measure($connect)
                                                       <div class="input-group-addon">       
                                                         <i class="fa fa-group"></i>
                                                       </div>
-                                                  <select class="form-control" name="supp" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                                  <select class="form-control select2" name="supp" id="supp" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                                 <option value="">Select a Supplier</option>
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
@@ -825,7 +854,7 @@ function unit_measure($connect)
 
                                                   foreach($results as $supplier) { 
                                                 ?>
-                                                <option value="<?php echo $supplier["company_name"]; ?>" name="supp"><?php echo $supplier["company_name"]; ?></option>
+                                                <option value="<?php echo $supplier["company_name"]; ?>"><?php echo $supplier["company_name"]; ?></option>
                                                 <?php 
                                                   }
                                                 ?>
@@ -841,7 +870,7 @@ function unit_measure($connect)
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                       <?php $date = date("Y-m-d"); ?>
-                                                      <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                      <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
@@ -859,14 +888,17 @@ function unit_measure($connect)
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="dynamic_field">
                                             <tr>
-                                              <th width="15%"> Quantity </th>
-                                              <th width="52.5%"> Description </th>
-                                              <th width="16%"> Unit </th>
-                                              <th width="16.5%"> Item Type </th>
+                                              <th width="15%"> Qty </th>
+                                              <th width="18%"> Unit </th>
+                                              <th width="50%"> Item Name </th>
+                                              <th width="17%"> Item Type </th>
                                             </tr>
                                             <tr id="row0">
                                               <td>
                                                 <input class="form-control" type="number" name="number[]" id="quant0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" required />
+                                              </td>
+                                              <td>
+                                                <input class="form-control" type="text" name="unit" id="unit0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                               <td>
                                                 <select class="form-control filter" name="neym[]" id="supply0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
@@ -874,12 +906,10 @@ function unit_measure($connect)
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
 
@@ -888,17 +918,18 @@ function unit_measure($connect)
                                                 <input class="form-control" type="number" name="number[]" id="quant1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                               </td>
                                               <td>
+                                                <input class="form-control" type="text" name="unit" id="unit1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                              </td>
+                                              <td>
                                                 <select class="form-control filter" name="neym[]" id="supply1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   <option value=""></option> 
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
 
@@ -907,17 +938,18 @@ function unit_measure($connect)
                                                 <input class="form-control" type="number" name="number[]" id="quant2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                               </td>
                                               <td>
+                                                <input class="form-control" type="text" name="unit" id="unit2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                              </td>
+                                              <td>
                                                 <select class="form-control filter" name="neym[]" id="supply2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                                                   <option value=""></option> 
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
 
@@ -926,17 +958,18 @@ function unit_measure($connect)
                                                 <input class="form-control" type="number" name="number[]" id="quant3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"min="1" pattern="^[0-9]$" />
                                               </td>
                                               <td>
+                                                <input class="form-control" type="text" name="unit" id="unit3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                              </td>
+                                              <td>
                                                 <select class="form-control filter" name="neym[]" id="supply3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                   <option value=""></option> 
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
 
@@ -945,17 +978,18 @@ function unit_measure($connect)
                                                 <input class="form-control" type="number" name="number[]" id="quant4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                               </td>
                                               <td>
+                                                <input class="form-control" type="text" name="unit" id="unit4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                              </td>
+                                              <td>
                                                 <select class="form-control filter" name="neym[]" id="supply4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                   <option value=""></option> 
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
 
@@ -964,17 +998,18 @@ function unit_measure($connect)
                                                 <input class="form-control" type="number" name="number[]" id="quant5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                               </td>
                                               <td>
+                                                <input class="form-control" type="text" name="unit" id="unit5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                              </td>
+                                              <td>
                                                 <select class="form-control filter" name="neym[]" id="supply5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                   <option value=""></option> 
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
 
@@ -983,17 +1018,18 @@ function unit_measure($connect)
                                                 <input class="form-control" type="number" name="number[]" id="quant6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                               </td>
                                               <td>
+                                                <input class="form-control" type="text" name="unit" id="unit6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                              </td>
+                                              <td>
                                                 <select class="form-control filter" name="neym[]" id="supply6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                   <option value=""></option> 
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
 
@@ -1002,17 +1038,18 @@ function unit_measure($connect)
                                                 <input class="form-control" type="number" name="number[]" id="quant7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                               </td>
                                               <td>
+                                                <input class="form-control" type="text" name="unit" id="unit7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                              </td>
+                                              <td>
                                                 <select class="form-control filter" name="neym[]" id="supply7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                   <option value=""></option> 
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
 
@@ -1021,17 +1058,18 @@ function unit_measure($connect)
                                                 <input class="form-control" type="number" name="number[]" id="quant8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                               </td>
                                               <td>
+                                                <input class="form-control" type="text" name="unit" id="unit8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                              </td>
+                                              <td>
                                                 <select class="form-control filter" name="neym[]" id="supply8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                   <option value=""></option> 
                                                   <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
 
@@ -1040,17 +1078,18 @@ function unit_measure($connect)
                                                 <input class="form-control" type="number" name="number[]" id="quant9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                               </td>
                                               <td>
+                                                <input class="form-control" type="text" name="unit" id="unit9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                              </td>
+                                              <td>
                                                 <select class="form-control filter" name="neym[]" id="supply9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                   <option value=""></option> 
                                                     <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
                                             <tr id="row10" class="hidden">
@@ -1058,17 +1097,18 @@ function unit_measure($connect)
                                                 <input class="form-control" type="number" name="number[]" id="quant10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
                                               </td>
                                               <td>
+                                                <input class="form-control" type="text" name="unit" id="unit10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                              </td>
+                                              <td>
                                                 <select class="form-control filter" name="neym[]" id="supply10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                                   <option value=""></option> 
                                                     <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
-                                              </td>
+                                              
                                                 
                                               <td>
-                                                <input class="form-control" type="text" name="type" id="type10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                <input class="form-control" type="text" name="type" id="type10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             </tr>
 
@@ -1088,6 +1128,8 @@ function unit_measure($connect)
                                 </div>
             <!-- end of Items FORM -->
                             </div>
+                          </div>
+                        </div>
               </form>
               </th>
                         
@@ -1180,9 +1222,9 @@ function unit_measure($connect)
                               <th></th>
                               <th></th>
                               <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
                           </tr>
                       </tfoot>
             </table>
@@ -1194,7 +1236,7 @@ function unit_measure($connect)
       </div>
       <!-- /.row -->
               <button type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
-            </div>
+      </div>
     </section>
     <!-- /.content -->
   </div>
@@ -1321,9 +1363,9 @@ function unit_measure($connect)
 
           </div>
           <!-- /.modal-dialog -->
+        </div>
         </form> 
         </div>
-          </div>
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
@@ -1460,6 +1502,74 @@ function onUserInactivity() {
 
       })
     </script>
+
+<script>
+$(document).ready(function(){
+  var postURL = "purchases/addPurchases";
+  var i=0;
+  var supplyDrop = <?php echo(json_encode(supply_dropdown($connect))); ?>;
+  // var unitDrop = <?php // echo(json_encode(unit_measure($connect))); ?>;
+  $('#plus').click(function(){
+    // document.getElementById('submit').setAttribute("disabled", "false");
+    if(i < 11){
+    i++;
+    document.getElementById('row'+i+'').setAttribute("class", " ");
+    document.getElementById('quant'+i+'').setAttribute("required", "true");
+    document.getElementById('supply'+i+'').setAttribute("required", "true");
+
+  //   $('#dynamic_field').append('<tr id="row'+i+'"> <td><select class="form-control select2" name="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td> <td><input class="form-control" type="text" name="unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly></td><td><input class="form-control" type="number" name="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required /></td></tr>');
+
+  //   $("select.select2").change(function () {
+  //   $("select.select2 option[value='" + $(this).data('index') + "']").prop('disabled', false);
+  //   $(this).data('index', this.value);
+  //   $("select.select2 option[value='" + this.value + "']:not([value=''])").prop('disabled', true);
+  //   $(this).find("option[value='" + this.value + "']:not([value=''])").prop('disabled', false);
+  // });
+}
+
+  });
+  
+  $(document).on('click', '.btn_remove', function(){
+    var button_id = $(this).attr("id"); 
+    $('#row'+button_id+'').remove();
+  });
+  
+  // $('#submit').click(function(){    
+  //   $.ajax({
+  //     url: postURL,
+  //     method:"POST",
+  //     data:$('#add_name').serialize(),
+  //     type: 'json',
+  //     success:function(data)
+  //     {
+  //         i=1;
+  //                 $('.dynamic-added').remove();
+  //                 $('#add_name')[0].reset();
+  //           alert('Record Inserted Successfully.');
+  //           location.reload();
+  //     }
+  //   });
+  // });
+  
+});
+</script> 
+
+<script>
+  $("select.select2").change(function () {
+    var value = document.getElementById('supp');
+    var value1 = value.options[value.selectedIndex].value;
+    alert(value1);
+  });
+</script>
+
+<script>
+  $("select.filter").change(function () {
+    $("select.filter option[value='" + $(this).data('index') + "']").prop('hidden', false);
+    $(this).data('index', this.value);
+    $("select.filter option[value='" + this.value + "']:not([value=''])").prop('hidden', true);
+    $(this).find("option[value='" + this.value + "']:not([value=''])").prop('hidden', false);
+  });
+</script>
 
 
 <script>
