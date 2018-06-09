@@ -1127,7 +1127,7 @@ function category($connect)
                             <input type="checkbox" name="dep_list[]" value="Endoscopy Department">Endoscopy
                         </div>
                         <div class="form-group" style="width:100%;">
-                            <input type="checkbox" name="dep_list[]" value="Managing Department">Managing
+                            <input type="checkbox" name="dep_list[]" value="Managing Department" checked>Managing
                         </div>
                     </div>
                     <div class="col-md-6">
