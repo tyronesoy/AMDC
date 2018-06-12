@@ -8,21 +8,23 @@
   $con=mysqli_connect('localhost','root','','itproject'); 
 
   $username = $_POST['username'];
-  $role = $_POST['roletype'];
   $fname = $_POST['fname'];
   $lname = $_POST['lname'];
   $user_contact = $_POST['user_contact'];
   $password = $_POST['password'];
   $user_email = $_POST['user_email'];
-  $dept_name = $_POST['dept_name'];
+  $passconfirm = $_POST['password2'];
   $_SESSION['fname'] = $fname;
   $_SESSION['lname'] = $lname;
   $_SESSION['username'] = $username;
   $_SESSION['user_email'] = $user_email;
   $_SESSION['password'] = $password;
-  $_SESSION['image'] = $image;
+  $_SESSION['image'] = $_FILES['file']['name'];
+  
   $sql = $con->prepare("UPDATE users SET username='".$username."', fname='".$fname."',lname='".$lname."',user_contact='".$user_contact."',password='".$password."',user_email='".$user_email."', image = '".$_FILES['file']['name']."' where user_id = '".$this->session->userdata('id')."' ");
 
+  if($passconfirm == $password){
+  
   if($sql->execute()) {
   $conn =mysqli_connect("localhost","root","");
         $datetoday = date('Y\-m\-d\ H:i:s A');
@@ -35,8 +37,11 @@
   }
   $sql->close();   
   $con->close();
-  
-  } 
-
   header('Location: ' . $_SERVER['HTTP_REFERER']);
+  }else{
+  ?>
+  <script type="text/javascript">alert("Password does not match");history.go(-1);</script>
+  <?php
+  }  
+  } 
 ?>
