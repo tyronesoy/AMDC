@@ -59,7 +59,7 @@ if(isset($_REQUEST['id'])){
                              <div class="col-sm-13">
                              <div class="form-group">
                                      <label for="txtusername">Username</label>
-                                    <input type="text" minlength=6 class="form-control" id="txtusername" name="txtusername" value="<?php echo $per_username;?>">
+                                    <input type="text" minlength=6 class="form-control" id="txtusername" name="txtusername" value="<?php echo $per_username;?>" readonly>
                                 </div>
                             </div>
 
@@ -67,14 +67,14 @@ if(isset($_REQUEST['id'])){
                            <div class="col-sm-6">
                              <div class="form-group" style="width:100%">
                                     <label for="txtlname">Last Name</label>
-                                    <input type="text" class="form-control" id="txtlname" name="txtlname" value="<?php echo $per_lname;?>">
+                                    <input type="text" class="form-control" id="txtlname" name="txtlname" value="<?php echo $per_lname;?>" readonly>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                             <div class="form-group">
                                      <label for="txtfname">First Name</label>
-                                    <input type="text" class="form-control" id="txtfname" name="txtfname" value="<?php echo $per_fname;?>">
+                                    <input type="text" class="form-control" id="txtfname" name="txtfname" value="<?php echo $per_fname;?>" readonly>
                                 </div>
                             </div>
                           </div>
@@ -83,14 +83,14 @@ if(isset($_REQUEST['id'])){
                          <div class="col-sm-6">
                             <div class="form-group" style="width:100%">
                                     <label for="txtuser_contact">Contact Number</label>
-                                    <input type="text" class="form-control" id="txtuser_contact" name="txtuser_contact" value="<?php echo $per_usercontact;?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$">
+                                    <input type="text" class="form-control" id="txtuser_contact" name="txtuser_contact" value="<?php echo $per_usercontact;?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" readonly>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                             <div class="form-group">
                                     <label for="txtemail">Email</label>
-                                    <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="email@email.com" value="<?php echo $per_email;?>">
+                                    <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="email@email.com" value="<?php echo $per_email;?>" readonly>
                                 </div>
                             </div>
                         </div>
@@ -124,8 +124,31 @@ if(isset($_REQUEST['id'])){
                                                       <?php } ?>
                                         </div>
                                                      </div>
+
+                                                                   <div class="col-md-6">
+                                                    <div class="form-group">
+                                                      <label for="txtrole">Role</label>
+                                                       <select name="txtrole" id="txtrole" class="form-control">
+                                                        <option><?php echo $per_type;?></option>
+                                                        <option></option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT DISTINCT role_type FROM role GROUP BY role_type" ;
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $role) { 
+                                                        ?>
+                                                        <option value="<?php echo $role["role_type"]; ?>"><?php echo $role["role_type"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>
                     </div>
-            
+
+             
             </div>
 
             <div class="modal-footer">

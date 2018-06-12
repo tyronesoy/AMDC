@@ -577,14 +577,14 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                     <div class="col-md-6">
                         <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Password</label>
-                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $row['password'] ?>" required />
+                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass0();" onmouseout="mouseoutPass0();" id="password" value="<?php echo $row['password'] ?>" required />
 
                         <script>
-                        function mouseoverPass(obj) {
+                        function mouseoverPass0(obj) {
                           var obj = document.getElementById('password');
                           obj.type = "text";
                         }
-                        function mouseoutPass(obj) {
+                        function mouseoutPass0(obj) {
                           var obj = document.getElementById('password');
                           obj.type = "password";
                         }
@@ -826,14 +826,24 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                   <input type="text" class="form-control" name="user_contact" id="user_contact" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" required />
                                                 </div>
                                               </div>
-                                               <div class="col-md-6">
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Password</label>
-                                                  <input type="password" minlength=6 class="form-control" name="password" id="myInput" required />
-                                                  
-                                                </div>
+                                               
+                                              <div class="col-md-6">
+                                                <div class="form-group" style="width:100%">
+                                              <label for="exampleInputEmail1">Password</label>
+                                                <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" minlength=6 id="password1" value="<?php echo $row['password'] ?>" required />
+
+                                                  <script>
+                                                  function mouseoverPass(obj) {
+                                                    var obj = document.getElementById('password1');
+                                                    obj.type = "text";
+                                                  }
+                                                  function mouseoutPass(obj) {
+                                                    var obj = document.getElementById('password1');
+                                                    obj.type = "password";
+                                                  }
+                                                  </script>
                                               </div>
-                                                    
+                                              </div>                                                    
                                             </div>
 
                                             <div class="row">
@@ -844,13 +854,24 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 </div>
                                               </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Confirm Password</label>
-                                                  <input type="password" minlength=6 class="form-control" name="confirmpassword" id="confirmpassword" required />
-                                           
-                                                </div>
+                                              <div class="col-md-6">
+                                                <div class="form-group" style="width:100%">
+                                              <label for="exampleInputEmail1">Confirm Password</label>
+                                                <input type="password" class="form-control" name="confirmpassword" minlength=6 onmouseover="mouseoverPass1();" onmouseout="mouseoutPass1();" id="confirmpassword" required />
+
+                                                  <script>
+                                                  function mouseoverPass1(obj) {
+                                                    var obj = document.getElementById('confirmpassword');
+                                                    obj.type = "text";
+                                                  }
+                                                  function mouseoutPass1(obj) {
+                                                    var obj = document.getElementById('confirmpassword');
+                                                    obj.type = "password";
+                                                  }
+                                                  </script>
                                               </div>
+                                              </div>
+
                                             </div>
                                             <div class="row">
                                                     <div class="col-md-6">
@@ -873,11 +894,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                       </select>
                                                      </div>
                                                    </div>
-                                         
-                                            
-                                  
-                                                
-                                                        </div>
+                                                </div>
                                         </div>
                                       </div>
                                       <div class="modal-footer">
@@ -934,65 +951,63 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                       if ($result->num_rows > 0){
                                                       while($row = $result->fetch_assoc()) {
                                                     ?>
-                                                        <label for="exampleInputEmail1">Current Password</label>
-                                                        <input type="password" class="form-control" name="oldpass" id="oldpass" value="<?php echo $row['value'] ?>" required />
-                                                        <input type="checkbox" onclick="myFunction1()"> &nbsp;Show Password
+                                                <input type="password" class="form-control" name="oldPassword" minlength=6 onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" id="oldPassword" required />Old Password
+
+                                                  <script>
+                                                  function mouseoverPass2(obj) {
+                                                    var obj = document.getElementById('oldPassword');
+                                                    obj.type = "text";
+                                                  }
+                                                  function mouseoutPass2(obj) {
+                                                    var obj = document.getElementById('oldPassword');
+                                                    obj.type = "password";
+                                                  }
+                                                  </script>
                                                     <?php
                                                       }
                                                       }
                                                     ?>
-                                                <script>
-                                                function myFunction1() {
-                                                    var x = document.getElementById("oldpass");
-                                                    if (x.type === "password") {
-                                                        x.type = "text";
-                                                    } else {
-                                                        x.type = "password";
-                                                    }
-                                                }
-                                                </script>
                                                 </div>
                                               </div>     
                                             </div>
                                                 <div class="row">
                                                <div class="col-md-6">
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Password</label>
-                                                  <input type="password" class="form-control" name="passw" id="passw" required />
-                                                  <input type="checkbox" onclick="myFunction2()"> &nbsp;Show Password
+                                                <div class="form-group" style="width:100%">
+                                              <label for="exampleInputEmail1">Password</label>
+                                                <input type="password" class="form-control" name="passw" minlength=6 onmouseover="mouseoverPass3();" onmouseout="mouseoutPass3();" id="passw" required />
 
-                                                <script>
-                                                function myFunction2() {
-                                                    var x = document.getElementById("passw");
-                                                    if (x.type === "password") {
-                                                        x.type = "text";
-                                                    } else {
-                                                        x.type = "password";
-                                                    }
-                                                }
-                                                </script>
-                                                </div>
+                                                  <script>
+                                                  function mouseoverPass3(obj) {
+                                                    var obj = document.getElementById('passw');
+                                                    obj.type = "text";
+                                                  }
+                                                  function mouseoutPass3(obj) {
+                                                    var obj = document.getElementById('passw');
+                                                    obj.type = "password";
+                                                  }
+                                                  </script>
                                               </div>
-                                              <div class="col-md-6">
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Confirm Password</label>
-                                                  <input type="password" class="form-control" name="passwconf" id="passwconf" required />
-                                                  <input type="checkbox" onclick="myFunction3()"> &nbsp;Show Password
+                                              </div>
 
-                                                <script>
-                                                function myFunction3() {
-                                                    var x = document.getElementById("passwconf");
-                                                    if (x.type === "password") {
-                                                        x.type = "text";
-                                                    } else {
-                                                        x.type = "password";
-                                                    }
-                                                }
-                                                </script>
-                                                </div>
+                                              <div class="col-md-6">
+                                                <div class="form-group" style="width:100%">
+                                              <label for="exampleInputEmail1">Confirm Password</label>
+                                                <input type="password" class="form-control" name="passconf" minlength=6 onmouseover="mouseoverPass4();" onmouseout="mouseoutPass4();" id="passconf" required />
+
+                                                  <script>
+                                                  function mouseoverPass4(obj) {
+                                                    var obj = document.getElementById('passconf');
+                                                    obj.type = "text";
+                                                  }
+                                                  function mouseoutPass4(obj) {
+                                                    var obj = document.getElementById('passconf');
+                                                    obj.type = "password";
+                                                  }
+                                                  </script>
+                                              </div>
                                               </div>      
                                             </div>
-                                        </div>
+                                          </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
@@ -1365,9 +1380,10 @@ if(isset($_POST['btnEdit'])){
     $new_usercontact=mysqli_real_escape_string($con,$_POST['txtuser_contact']);
     $new_email=mysqli_real_escape_string($con,$_POST['txtemail']);
     $new_deptname=mysqli_real_escape_string($con,$_POST['txtdeptname']);
+    $new_role=mysqli_real_escape_string($con,$_POST['txtrole']);
 
 
-    $sqlupdate="UPDATE users SET username='$new_username', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', dept_name='$new_deptname' WHERE user_id='$new_id' ";
+    $sqlupdate="UPDATE users SET username='$new_username', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', dept_name='$new_deptname', user_type= '$new_role' WHERE user_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){
