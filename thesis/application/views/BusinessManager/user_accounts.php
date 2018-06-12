@@ -859,6 +859,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 <div class="form-group" style="width:100%">
                                               <label for="exampleInputEmail1">Confirm Password</label>
                                                 <input type="password" class="form-control" name="confirmpassword" minlength=6 onmouseover="mouseoverPass1();" onmouseout="mouseoutPass1();" id="confirmpassword" required />
+                                                <span class="pull-left" id="message"></span>
+                                                <button class="btn btn-default btn-md pull-right" type="button" id="btnConfPass" >Confirm</button>
 
                                                   <script>
                                                   function mouseoverPass1(obj) {
@@ -1494,4 +1496,36 @@ if(isset($_POST['btnReset'])){
                 $('#content-data').html('<p>Error</p>');
             });
         });
+</script>
+
+<script>
+$(function () {
+                $('#btnConfPass').click(function () {
+                  //Store the password field objects into variables ...
+                  var pass1 = document.getElementById('password1');
+                  var pass2 = document.getElementById('confirmpassword');
+                  //Store the Confimation Message Object ...
+                  var message = document.getElementById('message');
+                  //Set the colors we will be using ...
+                  var goodColor = "#66cc66";
+                  var badColor = "#ff6666";
+                  //Compare the values in the password field 
+                  //and the confirmation field
+                  if(pass1.value == pass2.value){
+                      //The passwords match. 
+                      //Set the color to the good color and inform
+                      //the user that they have entered the correct password 
+                      pass2.style.backgroundColor = goodColor;
+                      message.style.color = goodColor;
+                      message.innerHTML = "Passwords Match!"
+                  }else{
+                      //The passwords do not match.
+                      //Set the color to the bad color and
+                      //notify the user.
+                      pass2.style.backgroundColor = badColor;
+                      message.style.color = badColor;
+                      message.innerHTML = "Passwords Do Not Match!"
+                  }
+                });
+            }); 
 </script>
