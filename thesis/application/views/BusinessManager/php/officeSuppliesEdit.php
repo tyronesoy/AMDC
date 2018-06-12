@@ -94,7 +94,7 @@ if(isset($_REQUEST['id'])){
                                               <div class="col-md-6">
                                                <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Unit</label><br>
-                                                       <select id="OPT" name="txtUnit" class="form-control select2" style="width: 100%;">
+                                                       <select id="opt" name="txtUnit" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_supplyUnit;?></option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
@@ -115,7 +115,8 @@ if(isset($_REQUEST['id'])){
                                                    <div class="col-md-6">
                                                         <div class="form-group" >
                                                   <label for="exampleInputEmail1">Add new 'Unit'</label>
-                                                  <input class="form-control" type="text" id="newOPT"/><input type="button" value="Add Unit" id="addOPT" style="float: right;" />
+                                                  <input class="form-control" type="text" id="newOpt"/>
+                                                  <button class="btn btn-default btn-md pull-right" type="button" id="addOpt" >Add Unit</button>
                                                 </div>
                                                 </div>
                                               </div>
@@ -124,7 +125,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="col-md-6">
                                                <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Category</label><br>
-                                                       <select id="CAT" name="txtCategory" class="form-control select2" style="width: 100%;">
+                                                       <select id="cat" name="txtCategory" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_category;?></option>
                                                         <?php
                                                           $conn = mysqli_connect("localhost","root","");
@@ -145,9 +146,16 @@ if(isset($_REQUEST['id'])){
                                                    <div class="col-md-6">
                                                         <div class="form-group" >
                                                   <label for="exampleInputEmail1">Add new 'Category' </label>
-                                                  <input class="form-control" type="text" id="newCAT"/><input type="button" value="Add Category" id="addCAT" style="float: right;" />
+                                                  <input class="form-control" type="text" id="newCat"/><button class="btn btn-default btn-md pull-right" type="button" id="addCat" >Add Category</button>
                                                 </div>
                                                 </div> 
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-6">
+                                                    <div class="form-group">
+                                                      <span class="pull-left" id="message"></span>
+                                                    </div>
+                                                  </div>
                                                 </div>
 
                         <div class="row">
@@ -235,51 +243,59 @@ if(isset($_REQUEST['id'])){
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script>
+  var message = document.getElementById('message');
+        var badColor = "#ff6666";
             $(function () {
-                $('#addOPT').click(function () {
-                    var newOPT = $('#newOPT').val();
-                    if (newOPT == '') {
-                        alert('Please enter something!');
+                $('#addOpt').click(function () {
+                    var newOpt = $('#newOpt').val();
+                    if (newOpt == '') {
+                      message.style.color = badColor;
+                        message.innerHTML = "Please enter a value";
                         return;
                     }
  
                     //check if the option value is already in the select box
-                    $('#OPT option').each(function (index) {
-                        if ($(this).val() == newOPT) {
-                            alert('Duplicate option, Please enter new!');
+                    $('#opt option').each(function (index) {
+                        if ($(this).val() == newOpt) {
+                            message.style.color = badColor;
+                          message.innerHTML = "The unit already exists, please enter another value";
                         }
                     })
  
                     //add the new option to the select box
-                    $('#OPT').append('<option value=' + newOPT + '>' + newOPT + '</option>');
+                    $('#opt').append('<option value=' + newOpt + '>' + newOpt + '</option>');
  
                     //select the new option (particular value)
-                    $('#OPT option[value="' + newOPT + '"]').prop('selected', true);
+                    $('#opt option[value="' + newOpt + '"]').prop('selected', true);
                 });
             });
         </script>
         
                <script>
+                var message = document.getElementById('message');
+        var badColor = "#ff6666";
             $(function () {
-                $('#addCAT').click(function () {
-                    var newCAT = $('#newCAT').val();
-                    if (newCAT == '') {
-                        alert('Please enter something!');
+                $('#addCat').click(function () {
+                    var newCat = $('#newCat').val();
+                    if (newCat == '') {
+                        message.style.color = badColor;
+                        message.innerHTML = "Please enter a value";
                         return;
                     }
  
                     //check if the option value is already in the select box
-                    $('#CAT option').each(function (index) {
-                        if ($(this).val() == newCAT) {
-                            alert('Duplicate option, Please enter new!');
+                    $('#cat option').each(function (index) {
+                        if ($(this).val() == newCat) {
+                            message.style.color = badColor;
+                          message.innerHTML = "The category already exists, please enter another value";
                         }
                     })
  
                     //add the new option to the select box
-                    $('#CAT').append('<option value=' + newCAT + '>' + newCAT + '</option>');
+                    $('#cat').append('<option value=' + newCat + '>' + newCat + '</option>');
  
                     //select the new option (particular value)
-                    $('#CAT option[value="' + newCAT + '"]').prop('selected', true);
+                    $('#cat option[value="' + newCat + '"]').prop('selected', true);
                 });
             });
         </script>

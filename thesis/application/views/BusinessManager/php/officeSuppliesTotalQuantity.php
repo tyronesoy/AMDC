@@ -860,8 +860,9 @@ function category($connect)
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                     
-                                                  <label for="exampleInputEmail1">Add new 'Unit' </label>
-                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add Unit" id="addopt" style="float: right;" />
+                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
+                                                  <input class="form-control" type="text" id="newopt"/>
+                                                  <button class="btn btn-default btn-md pull-right" type="button" id="addopt" >Add Unit</button>
                                                 </div>
                                             </div>
                                             </div>
@@ -879,8 +880,10 @@ function category($connect)
                                               <div class="col-md-6">
                                               <div class="form-group">
                                                     
-                                                  <label for="exampleInputEmail1">Add new 'Category' </label>
-                                                  <input class="form-control" type="text" id="newCat"/><input type="button" value="Add Category" id="addCat" style="float: right;"/>
+                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
+                                                  <input class="form-control" type="text" id="newCat"/>
+                                                  
+                                                  <button class="btn btn-default btn-md pull-right" type="button" id="addCat" >Add Category</button>
                                                 </div>
                                             </div>
                                             </div>
@@ -890,6 +893,11 @@ function category($connect)
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Reorder Level</label>
                                                 <input type="number" class="form-control" id="reorder_level" name="reorder_level" step=".01" min="0"  />
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <span class="pull-left" id="message"></span>
                                                 </div>
                                               </div>
                                         </div>
@@ -1163,18 +1171,22 @@ if(isset($_POST['offTQEdit'])){
 
 
         <script>
+          var message = document.getElementById('message');
+          var badColor = "#ff6666";
             $(function () {
                 $('#addopt').click(function () {
                     var newopt = $('#newopt').val();
                     if (newopt == '') {
-                        alert('Please enter something!');
+                        message.style.color = badColor;
+                        message.innerHTML = "Please enter a value";
                         return;
                     }
  
                     //check if the option value is already in the select box
                     $('#opt option').each(function (index) {
                         if ($(this).val() == newopt) {
-                            alert('Duplicate option, Please enter new!');
+                          message.style.color = badColor;
+                          message.innerHTML = "The unit already exists, please enter another value";
                         }
                     })
  
@@ -1187,19 +1199,23 @@ if(isset($_POST['offTQEdit'])){
             });
         </script>
 
-       <script>
+     <script>
+      var message = document.getElementById('message');
+      var badColor = "#ff6666";
             $(function () {
                 $('#addCat').click(function () {
                     var newCat = $('#newCat').val();
                     if (newCat == '') {
-                        alert('Please enter something!');
+                        message.style.color = badColor;
+                        message.innerHTML = "Please enter a value";
                         return;
                     }
  
                     //check if the option value is already in the select box
                     $('#cat option').each(function (index) {
                         if ($(this).val() == newCat) {
-                            alert('Duplicate option, Please enter new!');
+                          message.style.color = badColor;
+                          message.innerHTML = "The category already exists, please enter another value";
                         }
                     })
  
