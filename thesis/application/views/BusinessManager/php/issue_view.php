@@ -82,7 +82,7 @@ if(isset($_REQUEST['id'])){
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label>Request Date</label>
+                                <label>Order Date</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>

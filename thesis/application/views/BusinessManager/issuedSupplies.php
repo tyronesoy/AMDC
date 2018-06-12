@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <title>Business Manager | Issued Supplies</title>
 
-<!-- Tell the browser to be responsive to screen width -->
+ <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -18,6 +18,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -37,6 +39,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <script src="../assets/orderedit/range_dates.js"></script>
+  
  <style>
     .example-modal .modal {
       position: relative;
@@ -753,9 +757,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <tr>
                     <th>Order ID</th>
                     <th>Issue Date</th>
-                    <th>Request Date</th>
                     <th>Department</th>
-                    <th>Supervisor Name</th>
+                    <th>Ordered By</th>
                     <th>Issued To</th>
                     <th>Status</th>
                     <th>Remarks</th>
@@ -767,7 +770,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                       <td><?php echo $row["order_id"]; ?></td>
                       <td><?php echo $row["issued_date"]; ?></td>
-                      <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       
                       <td><?php echo $row["inventory_order_dept"]; ?></td>
                       <td><?php echo $row["inventory_order_name"]; ?></td>
@@ -784,7 +786,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tfoot>
                 <tr>
                   <th style="display: none;">ID</th>
-                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -1007,7 +1008,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="../assets/dist/js/demo.js"></script>
     <!-- bootstrap time picker -->
 <script src="../assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- page script -->
+
 
 <script>
 setTimeout(onUserInactivity, 1000 * 1800)

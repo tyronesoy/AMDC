@@ -798,12 +798,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <thead>
             <tr>
 
-                  <th width="5%">ID</th> 
                   <th width="15%">Date and Time</th><!-- 
                   <th width="7%">Time</th> -->
                   <th width="59%">Description</th>
                   <th width="5%">Quantity Loss/Gain</th>
-                  <th width="8%">Supply Type</th>
+                  <th>Supply Type</th>
                   
             </tr>
         </thead>
@@ -811,7 +810,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["recon_id"]; ?></td>
                       <td><?php $date=date_create($row["date_time"]);
                       echo date_format($date,"m/d/Y H:i:s");?></td>
                       <td><?php echo $row["description"]; ?></td>
@@ -828,7 +826,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                         <tfoot>
            <tr>
-                  <th class="srch">ID</th> 
                   <th class="srch">Date and Time</th><!-- 
                   <th width="7%">Time</th> -->
                   <th class="srch">Description</th>

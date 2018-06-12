@@ -791,7 +791,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <thead>
             <tr>
 
-                  <th width="5%">ID</th> 
                   <th width="15%">Date and Time</th><!-- 
                   <th width="7%">Time</th> -->
                   <th width="59%">Description</th>
@@ -804,7 +803,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["reorder_id"]; ?></td>
                       <td><?php $date=date_create($row["date_time"]);
                       echo date_format($date,"m/d/Y H:i:s");?></td>
                       <td><?php echo $row["description"]; ?></td>
@@ -818,7 +816,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                         <tfoot>
            <tr>
-                  <th width="5%"></th> 
                   <th width="15%"></th><!-- 
                   <th width="7%">Time</th> -->
                   <th width="59%"></th>

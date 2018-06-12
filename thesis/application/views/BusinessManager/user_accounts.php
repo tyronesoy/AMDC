@@ -785,7 +785,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                   <div class="col-md-6">
                                                     <div class="form-group">
                                                       <label for="exampleInputEmail1">Role</label>
-                                                       <select name = "roletype" class="form-control">
+                                                       <select name = "roletype" class="form-control"  required>
                                                        <option value="">Select a Role</option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
@@ -856,7 +856,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                     <div class="col-md-6">
                                                      <div class="form-group">
                                                       <label for="exampleInputEmail1">Department</label>
-                                                       <select name = "dept_name" class="form-control">
+                                                       <select name = "dept_name" class="form-control" required>
                                                        <option value="">Select a Department</option>
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");

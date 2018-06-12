@@ -740,7 +740,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <tr>
                     <th>Order ID</th>
                     <th>Order Date</th>
-                    <th>Supervisor Name</th>
+                    <th>Order By</th>
                     <th>Department</th>
                     <th>Status</th>
                     <th>Remarks</th>
@@ -751,7 +751,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["inventory_order_id"]; ?></td>
+                      <td><?php echo $row["order_id"]; ?></td>
                       <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["inventory_order_name"]; ?></td>
                       <td><?php echo $row["inventory_order_dept"]; ?></td>
