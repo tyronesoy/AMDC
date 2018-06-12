@@ -339,11 +339,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </div>
                     </div>
 
+                    <?php $passp = $row['password'] ?>
                     <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Password</label>
-                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $row['password'] ?>" required />
+                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $passp ?>" required />
 
                         <script>
                         function mouseoverPass(obj) {
@@ -362,6 +363,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }
                           ?>
                 </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Confirm Password</label>
+                  <input type="password" class="form-control" name="password2" onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" id="password2" value="<?php echo $passp ?>" required />
+                    
+                    <script>
+                        function mouseoverPass2(obj) {
+                          var obj = document.getElementById('password2');
+                          obj.type = "text";
+                        }
+                        function mouseoutPass2(obj) {
+                          var obj = document.getElementById('password2');
+                          obj.type = "password";
+                        }
+                    </script>
+                </div>
+              </div>
               </div>
 
                 
