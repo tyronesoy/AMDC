@@ -1138,7 +1138,7 @@ function unit_measure($connect)
                           }
                       ?>
                       <td><?php echo $row["purchase_order_uniq_id"]; ?></td>
-                      <td><?php echo $row["description"]?></td>
+                      <td><?php echo $row["description"]; echo ' and '; echo str_word_count($row["description"])-1; echo ' other item/s.' ?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
                       <td><?php echo $row["delivery_date"]; ?></td>
