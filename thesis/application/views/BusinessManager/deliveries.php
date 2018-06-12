@@ -782,7 +782,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table id="example1"  class="table table-bordered table-striped" >
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM purchase_orders JOIN purchase_order_bm USING(purchase_order_uniq_id) JOIN deliveries USING(po_id) WHERE soft_deleted='N'";
+                  $sql = "SELECT * FROM purchase_orders JOIN purchase_order_bm USING(purchase_order_uniq_id) JOIN deliveries USING(po_id) WHERE soft_deleted='N' GROUP BY purchase_order_uniq_id";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -802,7 +802,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <td><?php echo $row["purchase_order_uniq_id"]; ?></td>
-                      <td><?php echo $row["description"]?></td>
+                      <td><?php echo $row["description"]; echo ' and '; echo str_word_count($row["description"])-1; echo ' other item/s.' ?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
                       <td><?php echo $row["delivery_date"]; ?></td>

@@ -1131,7 +1131,7 @@ function unit_measure($connect)
                    <table id="example" class="table table-bordered table-striped">
                       <?php
                         $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                        $sql = "SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) group by purchase_order_uniq_id";
+                        $sql = "SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE order_quantity != 0 GROUP BY purchase_order_uniq_id";
                         $result = $conn->query($sql);    
                       ?>
                       <thead>
@@ -1162,12 +1162,12 @@ function unit_measure($connect)
                           }
                       ?>
                       <td><?php echo $row["purchase_order_uniq_id"]; ?></td>
-                      <td><?php echo $row["description"]?></td>
+                      <td><?php echo $row["description"]; echo ' and '; echo str_word_count($row["description"])-1; echo ' other item/s.' ?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
                       <td><?php echo $row["delivery_date"]; ?></td>
-                      <td><?php echo $status; ?></td>
-                      <td><?php echo $row['item_delivery_remarks']; ?></td>
+                      <td><?php echo $status; ?></td> 
+                      <td><?php echo $row["item_delivery_remarks"]; ?></td>
                       <td>
 
                       <?php if($row['po_remarks'] == 'Pending' || ($row['po_remarks'] == 'Delivered' && $row['item_delivery_remarks'] == 'Partial')) {?>
@@ -1206,7 +1206,6 @@ function unit_measure($connect)
                       <tfoot>
                         <tr>
                               <th style="display: none;">ID</th>
-                              <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
