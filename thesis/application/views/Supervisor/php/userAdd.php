@@ -1,10 +1,9 @@
 <?php
- move_uploaded_file($_FILES['file']['tmp_name'],"./upload/".$_FILES['file']['name']); 
-
-$con=mysqli_connect('localhost','root','','itproject');  
-
- //CREATE or ADD User Account
+  //CREATE or ADD User Account
   if (isset($_POST['addUser'])) { 
+   move_uploaded_file($_FILES['file']['tmp_name'],"./upload/".$_FILES['file']['name']); 
+
+$con=mysqli_connect('localhost','root','','itproject'); 
   $username = $_POST['username'];
   $fname = $_POST['fname'];
   $lname = $_POST['lname'];
@@ -17,7 +16,7 @@ $con=mysqli_connect('localhost','root','','itproject');
   $_SESSION['username'] = $username;
   $_SESSION['user_email'] = $user_email;
   $_SESSION['password'] = $password;
-  $_SESSION['image'] = $_FILES['file']['name'];
+  $_SESSION['image'] = $image;
   
   $sql = $con->prepare("UPDATE users SET username='".$username."', fname='".$fname."',lname='".$lname."',user_contact='".$user_contact."',password='".$password."',user_email='".$user_email."', image = '".$_FILES['file']['name']."' where user_id = '".$this->session->userdata('id')."' ");
 
@@ -38,8 +37,9 @@ $con=mysqli_connect('localhost','root','','itproject');
   header('Location: ' . $_SERVER['HTTP_REFERER']);
   }else{
   ?>
-  <script type="text/javascript">alert("Password does not match");history.go(-1);</script>
+  <script type="text/javascript">alert("Password does not match");</script>
   <?php
+header('Location: ' . $_SERVER['HTTP_REFERER']);
   }  
   } 
 ?>
