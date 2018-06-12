@@ -272,9 +272,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <h5 style="padding:3px;margin:3px;">Items nearing expiration</h5>
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
+                        $ddtyy = strtotime(date('Y-m-d'));
+                        $ddtyy = strtotime('+'.$daysval.' days',$ddtyy);
+                        $ddtyy = date('Y-m-d',$ddtyy);
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
+                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date >= '".$datetoday."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
                         $result3 = $conn->query($sql3);
                         $strdatetoday = strtotime(date("Y/m/d"));
                         $strdatefuture = $strdatetoday + $daysvalue;//today + 30 days
@@ -342,9 +345,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <h5 style="padding:3px;margin:3px;">Expired Items</h5>
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
+                        $ddty = date('Y-m-d');
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date <= '".$ddty."' AND soft_deleted = 'N'";
                         $result4 = $conn->query($sql4);
                         $strdatetoday = strtotime(date("Y/m/d"));
                     ?>
@@ -412,20 +416,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $identity =  $this->session->userdata('fname');?>
  
 <div class="modal fade" id="editprof">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <div class="margin">
-                    <center><h3><b>Edit Profile</b></h3></center>
-                  </div>
-              </div>
-                <!-- end of modal header -->
-              <div class="modal-body">
-                <div class="box-body">
-                    
+                  <div class="col-md-2">
+                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                            </div>
+                                <div class="col-md-8">
+                                                
+                                                <div class="margin">
+                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
+                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
+                                                    <center><h6>Philippines</h6></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end of modal header -->
+                                        <div class="modal-body">
+                                        <div class="box-header">
+                                          <div class="margin">
+                                              <center><h4><b>Update Profile</b></h4></center>
+                                            </div>
+                                      </div>
+                 <div class="box-body">
+                                  <center>
+                                  <?php
+
+                        $con = mysqli_connect("localhost","root","","itproject");
+                        $q = "SELECT * FROM users WHERE username = '".$this->session->userdata('username')."' ";
+                        $result = $con->query($q);
+
+                        while($row = $result->fetch_assoc()){
+                   
+                                if($row['image'] == ""){
+                                        echo "<img width='100' class='img-circle' height='100' src='upload/default3.jpg' alt='Default Profile Pic'>";
+                                } else {
+                                        echo "<img width='100' height='100'  class='img-circle' src='upload/".$row['image']."' alt='Profile Pic'>";
+                                }
+                                echo "<br>";
+                        }
+                ?>
+                <br />
+                <input type="file" name="file">
+                   <br /></center>
                         <?php
                           $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                           $date = date("Y/m/d");
@@ -440,27 +476,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <input type="text" class="hidden" name="prevname" id="prevname" value="<?php echo $identity; ?>" />
                         </div>
                     
+                       <div class="col-md-13">
                        <div class="form-group">
                           <label for="exampleInputEmail1">Username</label>
                           <input type="text" class="form-control" name="username" id="username" value="<?php echo $row['username'] ?>" required />
                         </div>
+                      </div>
 
-                        <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">First Name</label>
                           <input type="name" class="form-control" name="fname" id="fname" value="<?php echo $row['fname'] ?>" required />
                         </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Last Name</label>
                           <input type="name" class="form-control" name="lname" id="lname" value="<?php echo $row['lname'] ?>" required />
                         </div>
+                      </div>
+                      </div>
 
+                      <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group" style="width:100%">
+                          <label for="exampleInputEmail1">Email</label>
+                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
+                        </div>
+                      </div>
+                
+                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" required />
+                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
                         </div>
-                        <div class="form-group">
+                      </div>
+                    </div>
+                    <?php $passp = $row['password'] ?>
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Password</label>
-                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $row['password'] ?>" required />
+                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $passp ?>" required />
 
                         <script>
                         function mouseoverPass(obj) {
@@ -474,20 +532,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </script>
                             
                         </div>
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Email</label>
-                          <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" placeholder="email@email.com" required />
-                        </div>
-                    
                           <?php 
                               }
                             }
                           ?>
                 </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Confirm Password</label>
+                  <input type="password" class="form-control" name="password2" onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" id="password2" value="<?php echo $passp ?>" required />
+                    
+                    <script>
+                        function mouseoverPass2(obj) {
+                          var obj = document.getElementById('password2');
+                          obj.type = "text";
+                        }
+                        function mouseoutPass2(obj) {
+                          var obj = document.getElementById('password2');
+                          obj.type = "password";
+                        }
+                    </script>
+                </div>
+              </div>
+              </div>
+
+                
+ 
+
+
+              </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser">Save New User Account</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
+                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
