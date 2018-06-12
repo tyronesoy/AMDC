@@ -102,15 +102,17 @@ if(isset($_REQUEST['id'])){
                                                       <label for="txtdeptname">Department</label>
                                                       
                                                        <select name = "txtdeptname" id="txtdeptname" class="form-control" value="<?php echo $per_deptname;?>">
-                                                       <option><?php echo $per_deptname;?></option>
+                                                       <option><?php echo $per_deptname; ?></option>
                                                                             <option></option>
                                                         <?php
                                                           $conn = mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City'";
+                                                           
+
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' AND department_name NOT LIKE '%$per_deptname%' ";
                                                             $results = mysqli_query($conn, $sql);
 
-                                                            foreach($results as $dept_name) { 
+                                                            while($dept_name = $results->fetch_assoc()) {
                                                         ?>
                                                         <option value="<?php echo $dept_name["department_name"]; ?>" name="dept_name"><?php echo $dept_name["department_name"]; ?></option>
                                                          <?php 
@@ -135,7 +137,8 @@ if(isset($_REQUEST['id'])){
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT role_type FROM role GROUP BY role_type" ;
+                                                            $sql = "SELECT DISTINCT role_type FROM role 
+                                                            WHERE role_type NOT LIKE '%$per_type%' GROUP BY role_type" ;
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $role) { 
