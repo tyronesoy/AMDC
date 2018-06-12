@@ -754,46 +754,98 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                         <!-- end of modal header -->
                                         <div class="box-body">
-                                               <div class="form-group">
-                                              <label for="exampleInputEmail1">Proprietor</label>
-                                              <input type="text" class="form-control" name="prop" placeholder="Enter Proprietor's Name" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Company Name</label>
-                                              <input type="text" class="form-control" name="suppName" placeholder="Enter Company Name" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Contact Number</label>
-                                              <input type="text" class="form-control" name="suppContact" value="" placeholder="09XXXXXXXXX" maxlength="11" pattern="^[0-9]{11}$" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Address</label>
-                                              <input type="text" class="form-control" name="suppAddress" placeholder="Enter Complete Address" required />
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Product Type</label>
+                                          <div class="row">
+                                            <div class="col-md-12">
                                               <div class="form-group">
-                                                <select class="form-control" name="suppProduct">
-                                                  <option value="">Select Product Type</option>
-                                                  <?php
-                                                    $conn=mysqli_connect("localhost", "root", "", "itproject");
-                                                    $sql = "SELECT DISTINCT supply_type FROM supplies WHERE supply_type='Medical' OR supply_type='Office' ";
-                                                    $result = mysqli_query($conn, $sql);
-
-                                                    foreach($result as $row){
-                                                      ?>
-                                                      <option value="<?php echo $row["supply_type"]; ?>" name="suppProduct"><?php echo $row["supply_type"]; ?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </select>
+                                                  <label for="exampleInputEmail1">Proprietor</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                          <i class="fa fa-user-o"></i>
+                                                      </div>
+                                                      <input type="text" class="form-control" name="prop" placeholder="Enter Proprietor's Name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                                  </div>
                                               </div>
-                                            </div>   
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Company Name</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                          <i class="fa fa-building-o"></i>
+                                                      </div>
+                                                      <input type="text" class="form-control" name="suppName" placeholder="Enter Company Name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                                  </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Contact Number</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                          <i class="fa fa-phone-square"></i>
+                                                      </div>
+                                                      <input type="text" class="form-control" name="suppContact" value="" placeholder="09XXXXXXXXX" maxlength="11" pattern="^[0-9]{11}$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                                  </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Address</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                          <i class="fa fa-address-book-o"></i>
+                                                      </div>
+                                                      <input type="text" class="form-control" name="suppAddress" placeholder="Enter Complete Address" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                                  </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">Product Type</label>
+                                                <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-product-hunt"></i>
+                                                  </div>
+                                                  <select class="form-control" name="suppProduct" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                    <option value="">Select Product Type</option>
+                                                    <?php
+                                                      $conn=mysqli_connect("localhost", "root", "", "itproject");
+                                                      $sql = "SELECT DISTINCT supply_type FROM supplies WHERE supply_type='Medical' OR supply_type='Office' ";
+                                                      $result = mysqli_query($conn, $sql);
+
+                                                      foreach($result as $row){
+                                                        ?>
+                                                        <option value="<?php echo $row["supply_type"]; ?>" name="suppProduct"><?php echo $row["supply_type"]; ?></option>
+                                                      <?php
+                                                      }
+                                                      ?>
+                                                  </select>
+                                                </div>
+                                              </div>
+                                            </div> 
+                                          </div> 
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">Remarks</label>
+                                                <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-commenting-o"></i>
+                                                  </div>
+                                                  <input type="text" class="form-control" name="suppRemarks" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"/>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div> 
                                         </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"> </i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" class="btn btn-success" name="addSuppliers"><i class="fa fa-plus"> </i> Add</button>
+                                        <button type="submit" class="btn btn-success" class="btn btn-success" name="addSuppliers"><i class="fa fa-plus"> </i> Add Supplier</button>
                                       </div>
                                     </div>
 									                 </div>
@@ -855,12 +907,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supplier_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["supplier_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                            <button type="button" name="update" id="getUpdate" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["supplier_id"]; ?>"><i class="fa fa-remove"> </i>&nbsp; Deactivate</button>
                         </div>
                         <?php }else{?>
-                            <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["supplier_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
-                        </div>
+                          <div class="btn-group">
+                            <button type="button" name="update" id="getUpdate" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["supplier_id"]; ?>"><i class="fa fa-check"> </i>&nbsp; Activate</button>
+                          </div>
                         <?php } ?>
                       </td>
                     </tr>

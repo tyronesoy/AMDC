@@ -49,56 +49,88 @@ if(isset($_REQUEST['id'])){
                                             </div>
                                         </div>
                     <div class="box-body">
+                      <div class="row">
                         <div class="form-group">
                             <label hidden="true" for="txtid">Suppliers ID</label>
                             <div class="col-sm-6">
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                             </div>
                         </div>
-                        <div class="row">
-                        <div class="col-sm-12">
-                        <div class="form-group">
-                            <label for="txtsoleproprietor">Proprietor</label>
-                                <input type="text" class="form-control" id="txtsoleproprietor" name="txtsoleproprietor" value="<?php echo $per_soleProprietor;?>">
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Proprietor</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-user-o"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtsoleproprietor" name="txtsoleproprietor" value="<?php echo $per_soleProprietor;?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                             </div>
+                          </div>
                         </div>
-                    </div>
-                        <div class="row">
-                        <div class="col-sm-6">
-                        <div class="form-group" style="width:100%;">
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group" style="width:100%;">
                             <label for="txtsuppliername">Supplier Name</label>
-                                <input type="text" class="form-control" id="txtsuppliername" name="txtsuppliername" value="<?php echo $per_supplierName;?>">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                  <i class="fa fa-building-o"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtsuppliername" name="txtsuppliername" value="<?php echo $per_supplierName;?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                             </div>
+                          </div>
                         </div>
-                        <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="col-md-6">
+                          <div class="form-group">
                             <label for="txtcontactno">Contact No.</label>
-                                <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-phone-square"></i>
+                                </div>
+                                <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                             </div>
+                          </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                        <div class="form-group" style="width:100%;">
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group" style="width:100%;">
                             <label for="txtaddress">Address</label>
-                                <input type="text" class="form-control" id="txtaddress" name="txtaddress" value="<?php echo $per_supplierAddress;?>">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                  <i class="fa fa-address-book-o"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtaddress" name="txtaddress" value="<?php echo $per_supplierAddress;?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                             </div>
+                          </div>
                         </div>
-                         <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="col-md-6">
+                          <div class="form-group">
                             <label for="txtprodtype">Product Type</label>
-                               <select id="txtprodtype" name="txtprodtype" class="form-control">
-                                    <option value="Office" <?php echo ($per_supplierProduct =='Office')?'selected':'' ?>>Office</option>
-                                    <option value="Medical" <?php echo ($per_supplierProduct =='Medical')?'selected':'' ?>>Medical</option>
-
-                                </select>   
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-product-hunt"></i>
+                              </div>
+                              <select id="txtprodtype" name="txtprodtype" class="form-control" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <option value="Office" <?php echo ($per_supplierProduct =='Office')?'selected':'' ?>>Office</option>
+                                <option value="Medical" <?php echo ($per_supplierProduct =='Medical')?'selected':'' ?>>Medical</option>
+                              </select>
                             </div>
+                          </div>
                         </div>
-                    </div>
+                      </div>
                         <div class="col-sm-13">
                         <div class="form-group">
                             <label for="txtremarks">Remarks</label>
-                                <input type="text" class="form-control" id="txtremarks" name="txtremarks" value="<?php echo $per_supplierRemarks;?>">
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-commenting-o"></i>
+                              </div>
+                              <input type="text" class="form-control" id="txtremarks" name="txtremarks" value="<?php echo $per_supplierRemarks;?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                            </div>
+                                
                             </div>
                         </div>
                     </div>
