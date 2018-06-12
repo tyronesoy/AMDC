@@ -69,7 +69,7 @@ if(isset($_REQUEST['id'])){
                                     <div class="form-group" style="width:100%">
                                     <label class="exampleInputEmail" for="txtlocation">Branch Location</label>
                                     <select id="txtlocation" name="txtlocation" class="form-control">
-                                        <option value="<?php echo $branch["location"]; ?>" name="branch"><?php echo $branch["location"]; ?></option
+                                        <option value="<?php echo $branch["location"]; ?>" name="branch"><?php echo $branch["location"]; ?></option>
                                         <?php
                                             $sqlLoc2="select distinct location from departments";
                                             $run_sqlLoc2=mysqli_query($con,$sqlLoc2);
