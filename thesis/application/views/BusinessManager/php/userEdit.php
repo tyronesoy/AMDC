@@ -103,6 +103,7 @@ if(isset($_REQUEST['id'])){
                                                       
                                                        <select name = "txtdeptname" id="txtdeptname" class="form-control" value="<?php echo $per_deptname;?>">
                                                        <option><?php echo $per_deptname;?></option>
+                                                                            <option></option>
                                                         <?php
                                                           $conn = mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
