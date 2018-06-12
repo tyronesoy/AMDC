@@ -162,6 +162,7 @@ if(isset($_REQUEST['id'])){
                                 $arrayDesc = '';
                                 $arrayUnit = '';
                                 $arrayType = '';
+                                $arrayPrice = '';
                                 $zero = 0;
                         ?>
                         <div class="row">
@@ -185,6 +186,7 @@ if(isset($_REQUEST['id'])){
                                                 $arrayDesc .= $row['supply_name'].', ';
                                                 $arrayUnit .= $row['unit'].', ';
                                                 $arrayType .= $row['supply_type'].', ';
+                                                $arrayPrice .= $row['unit_price'].', ';
 
                                                 $order_id = explode(", ", $arrayOrdId);
                                                 $order_uniqid = explode(", ", $arrayOrdUniqId);
@@ -194,6 +196,7 @@ if(isset($_REQUEST['id'])){
                                                 $item_desc = explode(", ", $arrayDesc);
                                                 $unit = explode(", ", $arrayUnit);
                                                 $type = explode(", ", $arrayType);
+                                                $price = explode(", ", $arrayPrice);
 
                                             }
                                         
@@ -215,6 +218,9 @@ if(isset($_REQUEST['id'])){
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" id="type" name="type[]" value="<?php print_r($type[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        </td>
+                                        <td class="hidden">
+                                            <input type="text" class="form-control" id="price" name="price[]" value="<?php print_r($price[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                         </td>
 
                                         <td class="hidden">
