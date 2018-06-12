@@ -496,7 +496,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </tr>
                 </table> 
             </div>
-              
+         
+      <table>
+          <tr>
+          <th>Filter by a Range of Quantity</th>
+          <th style="padding-left: 20px;">Filter by a Range of Date</th>
+          </tr>
+
+          <tr>
+            <td><div class="input-group input-daterange">
+          <input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty">
+          <div class="input-group-addon">to</div>
+          <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
+        </div></td>
+
+          <td><div class="input-group input-daterange" style="padding-left: 20px;">
+            <input type="text" class="form-control" id="startdate" placeholder="Start Date">
+            <div class="input-group-addon">to</div>
+            <input type="text" class="form-control" id="enddate" placeholder="End Date">
+          </div></td>
+          </tr>
+        </table>
+
       <div class="box-body">
         <table id="example" class="table table-bordered table-striped">
          <?php
@@ -506,6 +527,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 ?>
           <thead>
             <tr>
+                  <th style="display: none;">ID</th>
                   <th>Quantity in Stock</th>
                   <th>Unit</th> 
                   <th>Brand Name</th>
@@ -518,6 +540,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
+                      <td style="display: none;"><?php echo $row["supply_id"]?></td>
                       <td><?php echo $row["quantity_in_stock"]; ?></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
@@ -530,6 +553,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                   ?>
                 </tbody>
+          <tfoot>
+            <tr>
+                  <th style="display: none;">ID </th>
+                  <th class="srch">Quantity in Stock</th>
+                  <th class="srch">Unit</th> 
+                  <th class="srch">Brand Name</th>
+                  <th class="srch">Item Name</th>
+                  <th class="srch">Item Description</th>
+                  <th class="srch">Category</th>
+            </tr>
+        </tfoot>
       </table>              
             </div>
             <!-- /.box-body -->
@@ -598,20 +632,120 @@ function onUserInactivity() {
 </script>
 
 <script>
-      $(function () {
-        $('#example').DataTable()
-        $('#example1').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : false,
-          'ordering'    : true,
-          'info'        : true,
-          'autoWidth'   : false
-        })
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example tfoot th.srch').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" style="width:100%;" placeholder="Search '+title+'" />' );
+    } );
+
+    // filtering
+    $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = parseInt( $('#min').val(), 10 );
+        var max = parseInt( $('#max').val(), 10 );
+        var quantity = parseFloat( data[2] ) || 0; // use data for the QTY column
+
+        if ( ( isNaN( min ) && isNaN( max ) ) ||
+             ( isNaN( min ) && quantity <= max ) ||
+             ( min <= quantity && isNaN( max ) ) ||
+             ( min <= quantity && quantity <= max ) )
+        {
+            return true;
+        }
+        return false;
+      }
+    );// for filtering
+
+ 
+    // DataTable
+    var table = $('#example').DataTable({
+      order : [[ 0, 'desc' ]],
+      "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
+      "scrollX": true
+    });    
+    // Apply the search in table footer
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
+     $("#startdate").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      dateFormat: "dd/mm/yyyy",
+      "onSelect": function (date)
+      {
+        minDateFilter = new Date(date).getTime();
+        table.draw();
+      }
+    }).keyup(function ()
+    {
+      minDateFilter = new Date(this.value).getTime();
+      table.draw();
+    });
+
+    $("#enddate").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      dateFormat: "dd/mm/yyyy",
+      "onSelect": function (date)
+      {
+        maxDateFilter = new Date(date).getTime();
+        table.draw();
+      }
+    }).keyup(function ()
+    {
+      maxDateFilter = new Date(this.value).getTime();
+      table.draw();
+    });
 
 
-      })
-    </script>
+
+// Date range filter
+  minDateFilter = "";
+  maxDateFilter = "";
+
+  $.fn.dataTableExt.afnFiltering.push(
+    function (oSettings, aData, iDataIndex)
+    {
+      if (typeof aData._date == 'undefined')
+      {
+        aData._date = new Date(aData[8]).getTime();
+      }
+
+      if (minDateFilter && !isNaN(minDateFilter))
+      {
+        if (aData._date < minDateFilter)
+        {
+          return false;
+        }
+      }
+
+      if (maxDateFilter && !isNaN(maxDateFilter))
+      {
+        if (aData._date > maxDateFilter)
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+  );
+
+    // id's for filtering
+   $('#min, #max').keyup( function() { 
+        table.draw();
+    } );
+} ); // end of document ready
+</script>
 
 <script>
  // date and time 
