@@ -40,8 +40,9 @@
   header('Location: ' . $_SERVER['HTTP_REFERER']);
   }else{
   ?>
-  <script type="text/javascript">alert("Password does not match");history.go(-1);</script>
+  <script type="text/javascript">alert("Password does not match");</script>
   <?php
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
   }  
   } 
 ?>
