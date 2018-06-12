@@ -264,7 +264,7 @@ if(isset($_REQUEST['id'])){
 
                             </div>
                                                                            <?php
-                        $sql="SELECT * FROM supplies join suppliers on supplies.suppliers_id = suppliers.supplier_id join purchase_orders on purchase_orders.supplier = suppliers.company_name join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_uniq_id='$per_po_uniq_id' AND purchase_order_id='$id' AND order_quantity != 0";
+                        $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join supplies on description = supply_description join suppliers on supplier = company_name where purchase_order_uniq_id='$per_po_uniq_id' AND purchase_order_id='$id' AND order_quantity != 0";
                         //SELECT * FROM supplies join suppliers on supplies.suppliers_id = suppliers.supplier_id join purchase_orders on purchase_orders.supplier = suppliers.company_name join purchase_order_bm USING(purchase_order_uniq_id)
                         //SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join supplies on supplies.supply_description = purchase_orders.description where purchase_order_uniq_id='$per_po_uniq_id' AND purchase_order_id='$id' AND order_quantity != 0
                         $result = $con->query($sql);
@@ -398,7 +398,7 @@ if(isset($_REQUEST['id'])){
                                             <td width="100px"><input type="text" id="unit_price<?php echo $x; ?>" name="unit_price<?php echo $x; ?>" class="form-control " value="<?php print_r($unitPrice[$zero]); ?>" min="0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"> 
                                             </td>
 
-                                              <td width="100px"><input type="text" min="<?php date('Y-m-d', strtotime('+2 months')); ?>" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value=""  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <td width="100px"><input type="text" min="<?php date('Y-m-d', strtotime('+2 months')); ?>" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php print_r($expired[$zero]); ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
                                                
                                                <?php }elseif ($per_itemDeliveryRemarks == '') {?>
@@ -415,12 +415,12 @@ if(isset($_REQUEST['id'])){
                                             <td width="100px"><input type="text" id="unit_price<?php echo $x; ?>" name="unit_price<?php echo $x; ?>" class="form-control " value="<?php print_r($unitPrice[$zero]); ?>" min="0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"> 
                                             </td>
 
-                                              <td width="100px"><input type="text" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value=""  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                              <td width="100px"><input type="text" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php print_r($expired[$zero]); ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
                                               <?php
                                                } ?>                                              
 
-                                              <td class="hidden"><input type="text" class="form-control" id="txtexpire<?php echo $x; ?>" name="txtexpire<?php echo $x; ?>" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                              <td class="hidden"><input type="text" class="form-control" id="txtexpire<?php echo $x; ?>" name="txtexpire<?php echo $x; ?>" value="<?php print_r($expired[$zero]); ?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
 
                                             <td class="hidden"><input class="form-control" id="txtsupplier<?php echo $x; ?>" name="txtsupplier<?php echo $x; ?>" value="<?php print_r($supp[$zero++]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
