@@ -891,7 +891,6 @@ function unit_measure($connect)
                                               <th width="15%"> Qty </th>
                                               <th width="18%"> Unit </th>
                                               <th width="50%"> Item Name </th>
-                                              <th width="17%"> Item Type </th>
                                             </tr>
                                             <tr id="row0">
                                               <td>
@@ -907,10 +906,6 @@ function unit_measure($connect)
                                                 </select>
                                               </td>
                                               
-                                                
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
                                             </tr>
 
                                             <tr id="row1" class="hidden">
@@ -928,9 +923,7 @@ function unit_measure($connect)
                                               </td>
                                               
                                                 
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type1" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
+                                              
                                             </tr>
 
                                             <tr id="row2" class="hidden">
@@ -948,9 +941,7 @@ function unit_measure($connect)
                                               </td>
                                               
                                                 
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type2" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
+                                              
                                             </tr>
 
                                             <tr id="row3" class="hidden">
@@ -967,10 +958,7 @@ function unit_measure($connect)
                                                 </select>
                                               </td>
                                               
-                                                
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type3" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
+                                             
                                             </tr>
 
                                             <tr id="row4" class="hidden">
@@ -987,10 +975,7 @@ function unit_measure($connect)
                                                 </select>
                                               </td>
                                               
-                                                
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type4" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
+                                              
                                             </tr>
 
                                             <tr id="row5" class="hidden">
@@ -1007,10 +992,7 @@ function unit_measure($connect)
                                                 </select>
                                               </td>
                                               
-                                                
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type5" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
+                                               
                                             </tr>
 
                                             <tr id="row6" class="hidden">
@@ -1027,10 +1009,7 @@ function unit_measure($connect)
                                                 </select>
                                               </td>
                                               
-                                                
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type6" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
+                                               
                                             </tr>
 
                                             <tr id="row7" class="hidden">
@@ -1047,10 +1026,7 @@ function unit_measure($connect)
                                                 </select>
                                               </td>
                                               
-                                                
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type7" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
+                                               
                                             </tr>
 
                                             <tr id="row8" class="hidden">
@@ -1067,10 +1043,7 @@ function unit_measure($connect)
                                                 </select>
                                               </td>
                                               
-                                                
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type8" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
+                                               
                                             </tr>
 
                                             <tr id="row9" class="hidden">
@@ -1087,10 +1060,7 @@ function unit_measure($connect)
                                                 </select>
                                               </td>
                                               
-                                                
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type9" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
+                                              
                                             </tr>
                                             <tr id="row10" class="hidden">
                                               <td>
@@ -1106,10 +1076,7 @@ function unit_measure($connect)
                                                 </select>
                                               </td>
                                               
-                                                
-                                              <td>
-                                                <input class="form-control" type="text" name="type" id="type10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
+                                             
                                             </tr>
 
                                           </table>
@@ -1488,9 +1455,18 @@ function onUserInactivity() {
 <script>
       $(function () {
         $('#example').DataTable({
-          order : [[ 0, 'desc' ]],
-          "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
+          order : [[ 0, 'desc' ]]
         })
+        $('#example1').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : false,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : false
+        })
+
+
       })
     </script>
 
