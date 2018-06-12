@@ -784,7 +784,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <div class="form-group">
                                                     
                                                   <label for="exampleInputEmail1">Add new 'Branch Location'  </label>
-                                                  <input class="form-control" type="text" id="newopt"/><input type="button" value="Add" id="addopt" style="float: right;" />
+                                                  <input class="form-control" type="text" id="newopt"/>
+                                                  <span class="pull-left" id="message"></span>
+                                                  <button class="btn btn-default btn-md pull-right" type="button" id="addopt" >Add</button>
                                                 </div>
                                             </div>
                                                   </div>
@@ -1213,18 +1215,22 @@ if(isset($_POST['depDelete'])){
 </script>
 
  <script>
+  var message = document.getElementById('message');
+  var badColor = "#ff6666";
             $(function () {
                 $('#addopt').click(function () {
                     var newopt = $('#newopt').val();
                     if (newopt == '') {
-                        alert('Please enter something!');
+                        message.style.color = badColor;
+                        message.innerHTML = "Please enter a value";
                         return;
                     }
  
                     //check if the option value is already in the select box
                     $('#opt option').each(function (index) {
                         if ($(this).val() == newopt) {
-                            alert('Duplicate option, Please enter new!');
+                          message.style.color = badColor;
+                          message.innerHTML = "This department already exists, please enter another value";
                         }
                     })
  
