@@ -64,24 +64,25 @@ if(isset($_REQUEST['id'])){
                                               <center><h4><b>View Purchase Order Details</b></h4></center>
                                             </div>
                                         <!-- end of modal header -->
-                                          <div class="row">
+                                          
                                         <div class="box-body">     
-                                              <div class="col-md-5">
+                                              <div class="row">
+                                              <div class="col-md-12">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Purchasing Officer</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-user"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly margin="0px auto">
+                                                  <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" margin="0px auto" readonly>
                                               </div>
                                               </div>
                                               </div>
-                                              <div class="col-md-1">
                                               </div>
-
-                                              <div class="col-md-5">
-                                              <div class="form-group">
+                                              
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                              <div class="form-group" style="width: 100%;">
                                                 <label for="exampleInputEmail1">Supplier</label>
                                                 <div class="input-group">
                                                       <div class="input-group-addon">
@@ -92,11 +93,9 @@ if(isset($_REQUEST['id'])){
                                             </div>
                                               </div>
                                               </div>
-                                            </div>
-                                          </div>
-
-                                              <div class="col-md-5">
-                                              <div class="form-group">
+                                                
+                                                <div class="col-md-6">
+                                              <div class="form-group" style="width: 100%;">
                                                   <label>Purchase Order Date</label>
                                                 <div class="input-group">
                                                       <div class="input-group-addon">
@@ -107,44 +106,35 @@ if(isset($_REQUEST['id'])){
                                                   </div>
                                                 </div>
                                               </div>
-                                                
+                                            </div>
+                                            
 
-                                <div class="col-md-1">
-                                                </div>
-
-
-                                                <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="txtstatus">Status</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-toggle-on"></i>
-                                               </div>
-                                        <input type="text" class="form-control" id="txtstatus" name="txtstatus" value="<?php echo $per_status;?>" readonly style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;">
-                                    </div>
-                                </div>
-                            </div>
                           </div>
                         
                         <?php
-                        $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_id = $id AND order_quantity != 0";
+                        $sql="select * from purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join supplies on description = supply_description where purchase_order_id = $id AND order_quantity != 0";
                         $result = $con->query($sql);    
                       ?>
                                         <div class="table-responsive">
                                           <span id="error"></span>
                                           <table class="table table-bordered" id="item_table">
                                             <tr>
-                                               <th>Item Description</th>
-                                               <th>Quantity</th>
+                                               <th width="15%"> Qty </th>
+                                              <th width="18%"> Unit </th>
+                                              <th width="50%"> Item Desciption </th>
                                               </tr>
                                               <?php if($result->num_rows > 0) {
                                                 while($row = $result->fetch_assoc()) { ?>
                                             <tr>
-
+                                                
+                                              <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
+                                                
+                                              <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
+                                                
                                               <td width="200px"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                               </td>
                                             
-                                            <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
+                                            
                                             </tr>
 
                                             <?php 
