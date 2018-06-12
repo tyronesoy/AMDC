@@ -56,22 +56,15 @@ if(isset($_REQUEST['id'])){
                                  </div>
                         </div>
                         
-                        <?php
-                            $sqlLoc="select location from departments WHERE department_id=$id";
-                            $run_sqlLoc=mysqli_query($con,$sqlLoc);
-    
-                            foreach($run_sqlLoc as $branch){
-                                
-                        ?>
-                        
                         <div class="row">
                             <div class="col-md-6">
                                     <div class="form-group" style="width:100%">
                                     <label class="exampleInputEmail" for="txtlocation">Branch Location</label>
-                                    <select id="txtlocation" name="txtlocation" class="form-control">
-                                        <option value="<?php echo $branch["location"]; ?>" name="branch"><?php echo $branch["location"]; ?></option>
+                                    <select id="txtlocation" name="txtlocation" class="form-control filter">
+                                        <option value="<?php echo $per_departmentLocation; ?>" name="branch" hidden><?php echo $per_departmentLocation; ?></option>
+                                        <option></option>
                                         <?php
-                                            $sqlLoc2="select distinct location from departments";
+                                            $sqlLoc2="SELECT DISTINCT location FROM departments WHERE location != '$per_departmentLocation'";
                                             $run_sqlLoc2=mysqli_query($con,$sqlLoc2);
 
                                             foreach($run_sqlLoc2 as $branches){
@@ -81,7 +74,6 @@ if(isset($_REQUEST['id'])){
                                         <?php } ?>
                                     </select> 
                                 </div>
-                                <?php } ?>
                                 </div>   
                                 <div class="col-md-6">   
                                     <div class="form-group">    
@@ -100,7 +92,6 @@ if(isset($_REQUEST['id'])){
 <?php
 }//end if
 ?>
-
 
 
 

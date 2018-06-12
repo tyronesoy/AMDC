@@ -18,7 +18,7 @@ if(isset($_REQUEST['id'])){
 
 
     }//end while
-    $sql3="SELECT * FROM users JOIN purchase_order_bm on CONCAT(fname, ' ',lname) = purchase_order_name WHERE dept_name like '%".$per_departmentName."%' AND purchase_order_status = 'Pending';";
+    $sql3="SELECT * FROM users JOIN purchase_order_bm on CONCAT(fname, ' ',lname) = purchase_order_name WHERE dept_name like '%".$per_departmentName."%' AND purchase_order_status = 'Pending'";
     $result = $con->query($sql3); 
       if ($result->num_rows < 1){
 ?>
@@ -47,7 +47,25 @@ if(isset($_REQUEST['id'])){
                                         <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <center><h3 class="modal-title"><b>Are you sure to change the status of </h3><h2><b><u><?php echo $per_departmentName;?></u>?</b></h2></b></h3></center>
+                        <?php if($per_departmentStatus == 'Inactive'){ ?>
+                            <center>
+                                <h3 class="modal-title">
+                                    <b>Are you sure to activate </b>
+                                </h3>
+                                <h2>
+                                    <b><u><?php echo $per_departmentName;?></u>?</b>
+                                </h2>
+                            </center>
+                        <?php }else { ?>
+                            <center>
+                                <h3 class="modal-title">
+                                    <b>Are you sure to deactivate </b>
+                                </h3>
+                                <h2>
+                                    <b><u><?php echo $per_departmentName;?></u>?</b>
+                                </h2>
+                            </center>
+                        <?php } ?>
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Department ID</label>
                             <div class="col-sm-6">
@@ -65,7 +83,11 @@ if(isset($_REQUEST['id'])){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-warning" name="btnUpdate"><i class="glyphicon glyphicon-random"></i> Change</button>
+                <?php if($per_departmentStatus == 'Inactive'){ ?>
+                    <button type="submit" class="btn btn-success" name="btnUpdate"><i class="fa fa-check"></i> Activate</button>
+                <?php }else { ?>
+                    <button type="submit" class="btn btn-danger" name="btnUpdate"><i class="fa fa-remove"></i> Deactivate</button>
+                <?php } ?>
             </div>
         </div>
     </div>

@@ -802,7 +802,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"> <i class="fa fa-times-circle"> </i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="addDep"><i class="fa fa-plus"></i> Add</button>
+                                        <button type="submit" class="btn btn-success" name="addDep"><i class="fa fa-plus"></i> Add Department</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -863,11 +863,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["department_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["department_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                            <button type="button" name="update" id="getUpdate" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["department_id"]; ?>"><i class="fa fa-remove"></i> Deactivate</button>
                         </div>
                         <?php }else{?>
                             <div class="btn-group">
-                            <button type="button" name="update" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["department_id"]; ?>"><i class="glyphicon glyphicon-random"></i> Change Status</button>
+                            <button type="button" name="update" id="getUpdate" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["department_id"]; ?>"><i class="fa fa-check"></i> Activate</button>
                         </div>
                         <?php } ?>
                       </td>
