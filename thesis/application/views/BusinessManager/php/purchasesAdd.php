@@ -29,7 +29,7 @@
     ':supplier'   => $_POST['supp'],
     ':order_unit'   => $_POST['unit'][$count],
     ':supply_type'   => $_POST['type'][$count],
-    ':unit_price'   => $_POST['price'[$count],
+    ':unit_price'   => $_POST['price'][$count],
     ':po_key'     => $random
    )
   );
