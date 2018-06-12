@@ -134,7 +134,7 @@ if(isset($_REQUEST['id'])){
                                                         <?php
                                                           $conn = mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                             $sql = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL  GROUP BY category ORDER BY category ASC";
+                                                             $sql = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL AND category NOT LIKE '%$per_category%' GROUP BY category ORDER BY category ASC";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $txtCategory) { 

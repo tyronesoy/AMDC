@@ -99,7 +99,7 @@ if(isset($_REQUEST['id'])){
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                             $sql = "SELECT DISTINCT unit FROM supplies ORDER BY unit ASC";
+                                                             $sql = "SELECT DISTINCT unit FROM supplies WHERE unit NOT LIKE '%$per_supplyUnit%' GROUP BY unit ORDER BY unit ASC";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $txtUnit) { 
@@ -129,7 +129,7 @@ if(isset($_REQUEST['id'])){
                                                         <?php
                                                           $conn = mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                             $sql = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL  ORDER BY category ASC";
+                                                             $sql = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL  AND category NOT LIKE '%$per_category%' GROUP BY category ORDER BY category ASC";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $txtCategory) { 
@@ -199,7 +199,7 @@ if(isset($_REQUEST['id'])){
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                             $sql = "SELECT DISTINCT company_name FROM suppliers WHERE product = 'Office' ORDER BY company_name ASC";
+                                                             $sql = "SELECT DISTINCT company_name FROM suppliers WHERE company_name NOT LIKE '%$per_supplier%' AND product = 'Office' ORDER BY company_name ASC";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $txtSupplier) { 
