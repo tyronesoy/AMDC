@@ -55,16 +55,32 @@ if(isset($_REQUEST['id'])){
                                 <input type="hidden" class="form-control" id="txtid" name="txtid" hidden value="<?php echo $per_id;?>" readonly>
                                  </div>
                         </div>
+                        
+                        <?php
+                            $sqlLoc="select location from departments WHERE department_id=$id";
+                            $run_sqlLoc=mysqli_query($con,$sqlLoc);
+    
+                            foreach($run_sqlLoc as $branch){
+                                
+                        ?>
+                        
                         <div class="row">
                             <div class="col-md-6">
                                     <div class="form-group" style="width:100%">
                                     <label class="exampleInputEmail" for="txtlocation">Branch Location</label>
                                     <select id="txtlocation" name="txtlocation" class="form-control">
-                                        <option value="Baguio City" <?php echo ($per_departmentLocation =='Baguio City')?'selected':'' ?>>Baguio City</option>
-                                        <option value="La Trinidad" <?php echo ($per_departmentLocation =='La Trinidad')?'selected':'' ?>>La Trinidad</option>
-                                        <option value="SLU Hospital" <?php echo ($per_departmentLocation =='SLU Hospital')?'selected':'' ?>>SLU Hospital</option>
+                                        <?php
+                                            $sqlLoc="select distinct location from departments";
+                                            $run_sqlLoc=mysqli_query($con,$sqlLoc);
+
+                                            foreach($run_sqlLoc as $branches){
+
+                                        ?>
+                                            <option value="<?php echo $branches["location"]; ?>" name="branch"><?php echo $branches["location"]; ?></option>
+                                        <?php } ?>
                                     </select> 
-                                </div> 
+                                </div>
+                                <?php } ?>
                                 </div>   
                                 <div class="col-md-6">   
                                     <div class="form-group">    
