@@ -102,7 +102,7 @@ if(isset($_REQUEST['id'])){
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                             $sql = "SELECT DISTINCT unit FROM supplies ORDER BY unit ASC";
+                                                             $sql = "SELECT DISTINCT unit FROM supplies WHERE unit NOT LIKE '%$per_supplyUnit%' ORDER BY unit ASC";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $txtUnit) { 
@@ -134,7 +134,7 @@ if(isset($_REQUEST['id'])){
                                                         <?php
                                                           $conn = mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                             $sql = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL  ORDER BY category ASC";
+                                                             $sql = "SELECT DISTINCT category FROM supplies WHERE category IS NOT NULL  GROUP BY category ORDER BY category ASC";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $txtCategory) { 
@@ -211,11 +211,11 @@ if(isset($_REQUEST['id'])){
                                                   <label for="exampleInputEmail1">Supplier</label><br>
                                                        <select name="txtSupplier" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_supplier;?></option>
-                                                       <option></option>
+                                                   
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                             $sql = "SELECT DISTINCT company_name FROM suppliers WHERE product = 'Medical' ORDER BY company_name ASC";
+                                                             $sql = "SELECT DISTINCT company_name FROM suppliers WHERE company_name NOT LIKE '%$per_supplier%' AND product = 'Medical' ORDER BY company_name ASC";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $txtSupplier) { 
@@ -235,11 +235,11 @@ if(isset($_REQUEST['id'])){
                                                   <label for="exampleInputEmail1">Department</label><br>
                                                        <select name="txtDep" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_dep;?></option>
-                                                       <option></option>
+                                                      
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                             $sql = "SELECT DISTINCT department_name FROM departments ORDER BY department_name ASC";
+                                                             $sql = "SELECT DISTINCT department_name FROM departments WHERE department_name NOT LIKE '%$per_dep%' ORDER BY department_name ASC";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $txtDep) { 
