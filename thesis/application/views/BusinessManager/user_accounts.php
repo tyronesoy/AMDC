@@ -304,9 +304,12 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                     <h5 style="padding:3px;margin:3px;">Items nearing expiration</h5>
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
+                        $ddtyy = strtotime(date('Y-m-d'));
+                        $ddtyy = strtotime('+'.$daysval.' days',$ddtyy);
+                        $ddtyy = date('Y-m-d',$ddtyy);
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 order by expiration_date";
+                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date >= '".$datetoday."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
                         $result3 = $conn->query($sql3);
                         $strdatetoday = strtotime(date("Y/m/d"));
                         $strdatefuture = $strdatetoday + $daysvalue;//today + 30 days
@@ -374,9 +377,10 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                     <h5 style="padding:3px;margin:3px;">Expired Items</h5>
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
+                        $ddty = date('Y-m-d');
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date > 0 AND soft_deleted = 'N'";
+                        $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date <= '".$ddty."' AND soft_deleted = 'N'";
                         $result4 = $conn->query($sql4);
                         $strdatetoday = strtotime(date("Y/m/d"));
                     ?>
@@ -573,18 +577,19 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       </div>
                     </div>
 
+                    <?php $passp = $row['password'] ?>
                     <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Password</label>
-                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass0();" onmouseout="mouseoutPass0();" id="password" value="<?php echo $row['password'] ?>" required />
+                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $passp ?>" required />
 
                         <script>
-                        function mouseoverPass0(obj) {
+                        function mouseoverPass(obj) {
                           var obj = document.getElementById('password');
                           obj.type = "text";
                         }
-                        function mouseoutPass0(obj) {
+                        function mouseoutPass(obj) {
                           var obj = document.getElementById('password');
                           obj.type = "password";
                         }
@@ -596,6 +601,23 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                             }
                           ?>
                 </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Confirm Password</label>
+                  <input type="password" class="form-control" name="password2" onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" id="password2" value="<?php echo $passp ?>" required />
+                    
+                    <script>
+                        function mouseoverPass2(obj) {
+                          var obj = document.getElementById('password2');
+                          obj.type = "text";
+                        }
+                        function mouseoutPass2(obj) {
+                          var obj = document.getElementById('password2');
+                          obj.type = "password";
+                        }
+                    </script>
+                </div>
+              </div>
               </div>
 
                 
