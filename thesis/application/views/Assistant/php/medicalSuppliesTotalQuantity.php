@@ -1050,7 +1050,7 @@ function category($connect)
       $(function () {
         $('#example').DataTable({
           order : [[ 0, 'desc' ]],
-          "lengthMenu": [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
+          "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
         })
         $('#example1').DataTable({
           'paging'      : true,

@@ -938,50 +938,12 @@ function onUserInactivity() {
 </script>
 
 <script>
-      // $(function () {
-      //   $('#example').DataTable()
-      //   $('#example1').DataTable({
-      //     'paging'      : true,
-      //     'lengthChange': false,
-      //     'searching'   : false,
-      //     'ordering'    : true,
-      //     'info'        : true,
-      //     'autoWidth'   : false
-      //   })
-      // })
-
-      $(document).ready(function() {
-    var printCounter = 0;
- 
-    // Append a caption to the table before the DataTables initialisation
-    //$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
- 
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                messageTop: function () {
-                    printCounter++;
- 
-                    if ( printCounter === 1 ) {
-                        return '<h4><img src="../assets/dist/img/AMDC.png" height="60px" width="200px"><center>Departments Order</center></h4>';
-                    }
-                    
-                },
-                messageBottom: null
-            },
-        'colvis'
-         ] //,
-        // columnDefs: [ {
-        //     targets: -1,
-        //     visible: false
-        // } ]
-    } );
-} );
+      $(function () {
+        $('#example').DataTable({
+          order : [[ 0, 'desc' ]],
+      "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
+        })
+      })
     </script>
 
 <script>
