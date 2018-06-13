@@ -841,15 +841,19 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 </div>
                                               </div>
                                             </div>
-
                                                 <div class="row">
                                                 <div class="col-md-6">
                                                 <div class="form-group">
-                                                  <label for="exampleInputEmail1">Contact Number</label>
-                                                  <input type="text" class="form-control" name="user_contact" id="user_contact" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" required />
+                                                  <label>Contact Number</label>
+
+                                                <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-phone"></i>
+                                                  </div>
+                                                  <input type="text" class="form-control" name="user_contact" id="user_contact"data-inputmask='"mask":"(9999) 999-9999"' data-mask required>
                                                 </div>
                                               </div>
-                                               
+                                               </div>
                                               <div class="col-md-6">
                                                 <div class="form-group" style="width:100%">
                                               <label for="exampleInputEmail1">Password</label>
@@ -1050,9 +1054,9 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 </table> 
             </div>
             <!-- /.box-header -->
-            <span id="alert_action"></span>
                <div class="box-body">
-                  <table id="example" class="table table-bordered table-striped">
+
+          <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   $sql = "SELECT * FROM users WHERE user_type != 'BusinessManager'";
@@ -1257,6 +1261,12 @@ function onUserInactivity() {
     window.location.href = "lockscreen"
    <?php } ?>
 }
+</script>
+
+<script>
+  $(function(){
+    $('[data-mask]').inputmask()
+  })
 </script>
 <script>
       $(function () {
