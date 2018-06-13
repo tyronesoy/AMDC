@@ -882,7 +882,6 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                               <label for="exampleInputEmail1">Confirm Password</label>
                                                 <input type="password" class="form-control" name="confirmpassword" minlength=6 onmouseover="mouseoverPass1();" onmouseout="mouseoutPass1();" id="confirmpassword" required />
                                                 <span class="pull-left" id="message"></span>
-                                                <button class="btn btn-default btn-md pull-right" type="button" id="btnConfPass" >Confirm</button>
 
                                                   <script>
                                                   function mouseoverPass1(obj) {
@@ -1101,7 +1100,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;Update</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp;Change Status</button>
+                            <button type="button" id="getUpdate" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-remove"></i>&nbsp;&nbsp;Deactivate</button>
                         </div>
                         <div class="btn-group">
                             <button type="button" id="getReset" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;Reset Password</button>
@@ -1109,7 +1108,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
 
                         <?php } else { ?>
                             <div class="btn-group">
-                            <button type="button" id="getUpdate" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="glyphicon glyphicon-random"></i>&nbsp;&nbsp;Change Status</button>
+                            <button type="button" id="getUpdate" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpdate" data-id="<?php echo $row["user_id"]; ?>"><i class="fa fa-check"></i>&nbsp;&nbsp;Activate</button>
                         </div>
                         <?php } ?>
                       </td>
@@ -1522,7 +1521,7 @@ if(isset($_POST['btnReset'])){
 
 <script>
 $(function () {
-                $('#btnConfPass').click(function () {
+                $('#confirmpassword').on('input', function () {
                   //Store the password field objects into variables ...
                   var pass1 = document.getElementById('password1');
                   var pass2 = document.getElementById('confirmpassword');
