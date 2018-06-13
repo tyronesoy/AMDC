@@ -1277,3 +1277,10 @@ if(isset($_POST['medTQEdit'])){
                 });
             });
         </script>
+
+        
+<script>
+  $(function(){
+    $('[data-mask]').inputmask()
+  })
+</script>

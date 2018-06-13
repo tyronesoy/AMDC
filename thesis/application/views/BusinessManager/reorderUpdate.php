@@ -917,6 +917,11 @@ function onUserInactivity() {
 </script>
 
 <script>
+  $(function(){
+    $('[data-mask]').inputmask()
+  })
+</script>
+<script>
  // date and time 
   $(function () {
     //Initialize Select2 Elements

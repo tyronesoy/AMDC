@@ -1254,7 +1254,12 @@ function onUserInactivity() {
    <?php } ?>
 }
 </script>
- 
+
+<script>
+  $(function(){
+    $('[data-mask]').inputmask()
+  })
+</script> 
 <script>
     $(document).ready(function() {
     // Setup - add a text input to each footer cell

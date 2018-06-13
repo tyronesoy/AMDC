@@ -1099,6 +1099,14 @@ function onUserInactivity() {
    <?php } ?>
 }
 </script>
+
+
+<script>
+  $(function(){
+    $('[data-mask]').inputmask()
+  })
+</script>
+
 <script>
       $(function () {
         $('#example').DataTable({

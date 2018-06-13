@@ -1373,6 +1373,12 @@ function onUserInactivity() {
 }
 </script>
 
+<script>
+  $(function(){
+    $('[data-mask]').inputmask()
+  })
+</script>
+
 <div class="modal fade" id="reorderModal" role="dialog">
     <div class="modal-dialog">
         <div id="reorder-data"></div>

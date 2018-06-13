@@ -1256,3 +1256,10 @@ if(isset($_POST['offTQEdit'])){
                 });
             });
         </script>
+
+        
+<script>
+  $(function(){
+    $('[data-mask]').inputmask()
+  })
+</script>
