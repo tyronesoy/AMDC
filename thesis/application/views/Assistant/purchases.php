@@ -1105,10 +1105,10 @@ function unit_measure($connect)
             </div>
             <!-- /.box-header -->
                    <div class="box-body">
-                   <table id="example" class="table table-bordered table-striped">
+                    <table id="example" class="table table-bordered table-striped">
                       <?php
                         $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                        $sql = "SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) group by purchase_order_uniq_id";
+                        $sql = "SELECT CONCAT(description, ' and ', COUNT(description)-1, ' other item/s.' ) AS 'Description', purchase_order_uniq_id, po_id, order_date, order_quantity, order_unit, po_remarks, description, delivery_date, supply_type, supplier, unit_price, total, quantity_delivered, notes, quantity_remaining, purchase_order_id, purchase_order_created_date, purchase_order_name, purchase_order_status, purchase_order_remarks, purchase_order_grandtotal, soft_deleted, item_delivery_remarks FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE order_quantity != 0 GROUP BY purchase_order_uniq_id";
                         $result = $conn->query($sql);    
                       ?>
                       <thead>
@@ -1119,6 +1119,7 @@ function unit_measure($connect)
                               <th>Order Date</th>
                               <th>Delivery Date</th>
                               <th>Status</th>
+                              <th>Remarks</th>
                               <th>Action</th>     
                           </tr>
                       </thead>
@@ -1138,14 +1139,15 @@ function unit_measure($connect)
                           }
                       ?>
                       <td><?php echo $row["purchase_order_uniq_id"]; ?></td>
-                      <td><?php echo $row["description"]; echo ' and '; echo str_word_count($row["description"])-1; echo ' other item/s.' ?></td>
+                      <td><?php echo $row["Description"];?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
                       <td><?php echo $row["delivery_date"]; ?></td>
-                      <td><?php echo $status; ?></td>
+                      <td><?php echo $status; ?></td> 
+                      <td><?php echo $row["item_delivery_remarks"]; ?></td>
                       <td>
 
-                      <?php if($row['po_remarks'] == 'Pending') {?>
+                      <?php if($row['po_remarks'] == 'Pending' || ($row['po_remarks'] == 'Delivered' && $row['item_delivery_remarks'] == 'Partial')) {?>
                        <!-- <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal" data-id="<?php // echo $row["purchase_order_id"]; ?>"><i class="fa fa-edit"></i> Update</button>
                         </div> -->
@@ -1181,6 +1183,8 @@ function unit_measure($connect)
                       <tfoot>
                         <tr>
                               <th style="display: none;">ID</th>
+                              <th></th>
+                              <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
