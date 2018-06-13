@@ -622,13 +622,20 @@ function unit_measure($connect)
                         </div>
                       </div>
                 
-                       <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
-                        </div>
-                      </div>
-                    </div>
+                       
+                      <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label>Contact Number</label>
+
+                                                <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-phone"></i>
+                                                  </div>
+                                                  <input type="text" class="form-control" name="user_contact" id="user_contact"data-inputmask='"mask":"(9999) 999-9999"' value=" <?php echo $row['user_contact'] ?>" data-mask required>
+                                                </div>
+                                              </div>
+                                               </div>
+                                             </div>
 
                     <?php $passp = $row['password'] ?>
                     <div class="row">

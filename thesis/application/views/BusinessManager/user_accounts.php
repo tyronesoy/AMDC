@@ -568,29 +568,36 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                           <input type="email" class="form-control" name="user_email" id="user_email" value="<?php echo $row['user_email'] ?>" required />
                         </div>
                       </div>
-                
-                       <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Contact Number</label>
-                          <input type="text" class="form-control" name="user_contact" id="user_contact" value="<?php echo $row['user_contact'] ?>" pattern="^[0-9]{11}$" required />
-                        </div>
-                      </div>
-                    </div>
+
+                      <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label>Contact Number</label>
+
+                                                <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-phone"></i>
+                                                  </div>
+                                                  <input type="text" class="form-control" name="user_contact" id="user_contact"data-inputmask='"mask":"(9999) 999-9999"' value=" <?php echo $row['user_contact'] ?>" data-mask required>
+                                                </div>
+                                              </div>
+                                               </div>
+                                             </div>
+             
 
                     <?php $passp = $row['password'] ?>
                     <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Password</label>
-                          <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" id="password" value="<?php echo $passp ?>" required />
+                          <input type="password" class="form-control" name="passwordq" onmouseover="mouseoverPassq();" onmouseout="mouseoutPassq();" id="passwordq" value="<?php echo $passp ?>" required />
 
                         <script>
                         function mouseoverPass(obj) {
-                          var obj = document.getElementById('password');
+                          var obj = document.getElementById('passwordq');
                           obj.type = "text";
                         }
                         function mouseoutPass(obj) {
-                          var obj = document.getElementById('password');
+                          var obj = document.getElementById('passwordq');
                           obj.type = "password";
                         }
                         </script>
@@ -604,16 +611,16 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Confirm Password</label>
-                  <input type="password" class="form-control" name="password2" onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" id="password2" value="<?php echo $passp ?>" required />
+                  <input type="password" class="form-control" name="passwordw" onmouseover="mouseoverPassw();" onmouseout="mouseoutPassw();" id="passwordw" value="<?php echo $passp ?>" required />
                   <span class="pull-left" id="messageConf"></span>
                     
                     <script>
                         function mouseoverPass2(obj) {
-                          var obj = document.getElementById('password2');
+                          var obj = document.getElementById('passwordw');
                           obj.type = "text";
                         }
                         function mouseoutPass2(obj) {
-                          var obj = document.getElementById('password2');
+                          var obj = document.getElementById('passwordw');
                           obj.type = "password";
                         }
                     </script>
