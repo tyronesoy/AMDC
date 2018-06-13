@@ -11,11 +11,12 @@ if(isset($_REQUEST['id'])){
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[1];
         $per_date=$row[2];
-        $per_supplyName=$row[10];
-        $per_supplyQuantity=$row[12];
-        $per_qtyIssued=$row[13];
+        $per_supplyName=$row[11];
+        $per_supplyQuantity=$row[13];
+        $per_qtyIssued=$row[14];
         $per_status=$row[5];
         $per_remarks=$row[6];
+        $per_orderID=$row[9];
 
     }//end while
 ?>
@@ -53,7 +54,7 @@ if(isset($_REQUEST['id'])){
                           <div class="input-group-addon">
                             <i class="fa fa-id-badge"></i>
                           </div>
-                          <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_id;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                          <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_orderID;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
                         </div>
                       </div>
                     </div>
@@ -70,7 +71,7 @@ if(isset($_REQUEST['id'])){
                     </div>
                   </div>
                   <?php
-                    $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) WHERE inventory_order_status != 'Fully Issued' AND inventory_order_status != '' AND quantity != 0 AND inventory_order_id = $id";
+                    $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supply_description = supply_name WHERE inventory_order_status != 'Fully Issued' AND inventory_order_status != '' AND quantity != 0 AND inventory_order_id = $id";
                     $result = $con->query($sql);
                   ?>
 
@@ -100,7 +101,7 @@ if(isset($_REQUEST['id'])){
                           </td>
                                                     
                           <td>
-                            <input type="text" class="form-control" id="unitName[]" name="unitName[]" value ="<?php echo $row["unit_name"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
+                            <input type="text" class="form-control" id="unitName[]" name="unitName[]" value ="<?php echo $row["unit"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
                           </td>
 
                           <td>
