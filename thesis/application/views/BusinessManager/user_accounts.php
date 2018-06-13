@@ -605,6 +605,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <div class="form-group">
                   <label for="exampleInputEmail1">Confirm Password</label>
                   <input type="password" class="form-control" name="password2" onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" id="password2" value="<?php echo $passp ?>" required />
+                  <span class="pull-left" id="messageConf"></span>
                     
                     <script>
                         function mouseoverPass2(obj) {
@@ -980,7 +981,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                       if ($result->num_rows > 0){
                                                       while($row = $result->fetch_assoc()) {
                                                     ?>
-                                                <input type="password" class="form-control" name="oldPassword" minlength=6 onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" id="oldPassword" required />Old Password
+                                                    <label>Old Password</label>
+                                                <input type="password" class="form-control" name="oldPassword" minlength=6 onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" id="oldPassword" required />
 
                                                   <script>
                                                   function mouseoverPass2(obj) {
@@ -1022,6 +1024,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 <div class="form-group" style="width:100%">
                                               <label for="exampleInputEmail1">Confirm Password</label>
                                                 <input type="password" class="form-control" name="passconf" minlength=6 onmouseover="mouseoverPass4();" onmouseout="mouseoutPass4();" id="passconf" required />
+                                                <span class="pull-left" id="messagePass"></span>
 
                                                   <script>
                                                   function mouseoverPass4(obj) {
@@ -1537,6 +1540,68 @@ $(function () {
                   var pass2 = document.getElementById('confirmpassword');
                   //Store the Confimation Message Object ...
                   var message = document.getElementById('message');
+                  //Set the colors we will be using ...
+                  var goodColor = "#66cc66";
+                  var badColor = "#ff6666";
+                  //Compare the values in the password field 
+                  //and the confirmation field
+                  if(pass1.value == pass2.value){
+                      //The passwords match. 
+                      //Set the color to the good color and inform
+                      //the user that they have entered the correct password 
+                      pass2.style.backgroundColor = goodColor;
+                      message.style.color = goodColor;
+                      message.innerHTML = "Passwords Match!"
+                  }else{
+                      //The passwords do not match.
+                      //Set the color to the bad color and
+                      //notify the user.
+                      pass2.style.backgroundColor = badColor;
+                      message.style.color = badColor;
+                      message.innerHTML = "Passwords Do Not Match!"
+                  }
+                });
+            }); 
+</script>
+<script>
+$(function () {
+                $('#passconf').on('input', function () {
+                  //Store the password field objects into variables ...
+                  var pass1 = document.getElementById('passw');
+                  var pass2 = document.getElementById('passconf');
+                  //Store the Confimation Message Object ...
+                  var message = document.getElementById('messagePass');
+                  //Set the colors we will be using ...
+                  var goodColor = "#66cc66";
+                  var badColor = "#ff6666";
+                  //Compare the values in the password field 
+                  //and the confirmation field
+                  if(pass1.value == pass2.value){
+                      //The passwords match. 
+                      //Set the color to the good color and inform
+                      //the user that they have entered the correct password 
+                      pass2.style.backgroundColor = goodColor;
+                      message.style.color = goodColor;
+                      message.innerHTML = "Passwords Match!"
+                  }else{
+                      //The passwords do not match.
+                      //Set the color to the bad color and
+                      //notify the user.
+                      pass2.style.backgroundColor = badColor;
+                      message.style.color = badColor;
+                      message.innerHTML = "Passwords Do Not Match!"
+                  }
+                });
+            }); 
+</script>
+<script>
+$(function () {
+                $('#password2').on('input', function () {
+                  //Store the password field objects into variables ...
+                  var pass1 = document.getElementById('password');
+                  var pass2 = document.getElementById('password2');
+                  //Store the Confimation Message Object ...
+                  var message = document.getElementById('messageConf');
                   //Set the colors we will be using ...
                   var goodColor = "#66cc66";
                   var badColor = "#ff6666";
