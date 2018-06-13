@@ -453,12 +453,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-            
+        
                 <div class="pull-right">
-                 <a href="<?php echo '../logout' ?>"  class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo '../logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Sign out</a>
                 </div>
-              <div class="pull-left">
-                      <button type="submit" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editprof">Edit Profile</button>
+                <div class="pull-left">
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"><i class="fa fa-edit"></i> Edit Profile</button>
                 </div>
               </li>
             </ul>
@@ -596,6 +596,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="form-group">
                   <label for="exampleInputEmail1">Confirm Password</label>
                   <input type="password" class="form-control" name="password2" onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" id="password2" value="<?php echo $passp ?>" required />
+                  <span id="messageConf"></span>
                     
                     <script>
                         function mouseoverPass2(obj) {
@@ -610,6 +611,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
               </div>
               </div>
+              <script>
+                $(function () {
+                  $('#password2').on('input', function () {
+                    //Store the password field objects into variables ...
+                    var pass1 = document.getElementById('password');
+                    var pass2 = document.getElementById('password2');
+                    //Store the Confimation Message Object ...
+                    var message = document.getElementById('messageConf');
+                    //Set the colors we will be using ...
+                    var goodColor = "#66cc66";
+                    var badColor = "#ff6666";
+                    //Compare the values in the password field 
+                    //and the confirmation field
+                    if(pass1.value == pass2.value){
+                        //The passwords match. 
+                        //Set the color to the good color and inform
+                        //the user that they have entered the correct password 
+                        pass2.style.backgroundColor = goodColor;
+                        message.style.color = goodColor;
+                        message.innerHTML = "Passwords Match!"
+                    }else{
+                        //The passwords do not match.
+                        //Set the color to the bad color and
+                        //notify the user.
+                        pass2.style.backgroundColor = badColor;
+                        message.style.color = badColor;
+                        message.innerHTML = "Passwords Do Not Match!"
+                    }
+                  });
+                }); 
+              </script>
+
               </div>
               </div>
               <div class="modal-footer">
@@ -689,6 +722,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+            <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+              <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li class="active"><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
