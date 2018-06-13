@@ -256,7 +256,7 @@ if(isset($_REQUEST['id'])){
 
                             </div>
                                                                            <?php
-                        $sql="SELECT * FROM supplies join suppliers on supplies.suppliers_id = suppliers.supplier_id join purchase_orders on purchase_orders.supplier = suppliers.company_name join purchase_order_bm USING(purchase_order_uniq_id) where purchase_order_uniq_id='$per_po_uniq_id' AND purchase_order_id='$id' AND order_quantity != 0";
+                        $sql="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join supplies on description = supply_description join suppliers on supplier = company_name where purchase_order_uniq_id='$per_po_uniq_id' AND purchase_order_id='$id' AND order_quantity != 0";
                         //SELECT * FROM supplies join suppliers on supplies.suppliers_id = suppliers.supplier_id join purchase_orders on purchase_orders.supplier = suppliers.company_name join purchase_order_bm USING(purchase_order_uniq_id)
                         //SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join supplies on supplies.supply_description = purchase_orders.description where purchase_order_uniq_id='$per_po_uniq_id' AND purchase_order_id='$id' AND order_quantity != 0
                         $result = $con->query($sql);

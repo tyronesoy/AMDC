@@ -1832,7 +1832,7 @@ if(isset($_POST['btnEdit'])){
     $new_notes=mysqli_real_escape_string($con,$_POST['txtnotes0']);
     $quantity_returned = mysqli_real_escape_string($con,$_POST['txtquantity0']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
     $amount= mysqli_real_escape_string($con,$_POST['unit_price0']);
-    $total = $quantity_returned*$amount;
+    $total = $new_quantityDelivered*$amount;
     $supplierid=mysqli_real_escape_string($con,$_POST['txtsupplierid0']);
     $suppliesid=mysqli_real_escape_string($con,$_POST['txtsuppliesid0']);
     $addstock=mysqli_real_escape_string($con,$_POST['txtstock0']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered0']);
@@ -1849,7 +1849,7 @@ if(isset($_POST['btnEdit'])){
 
     // if for index 0
     if($new_quantity == $new_quantityDelivered){
-      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered', notes='$new_notes', order_no='$ordrNo' WHERE po_id='$new_id' ";
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered', notes='$new_notes', order_no='$ordrNo', total='$total' WHERE po_id='$new_id' ";
       $result_update=mysqli_query($con,$sqlupdate);
 
       $sqlupd="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id' ";
@@ -1868,7 +1868,7 @@ if(isset($_POST['btnEdit'])){
         $resultexp=mysqli_query($con,$sqlexp);
       }
     }else {
-      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered', notes='$new_notes' , quantity_remaining='$quantity_returned', order_no='$ordrNo' WHERE po_id='$new_id' ";
+      $sqlupdate="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered', notes='$new_notes' , quantity_remaining='$quantity_returned', order_no='$ordrNo', total='$total' WHERE po_id='$new_id' ";
       $result_update=mysqli_query($con,$sqlupdate);
 
       $sqlupd="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id' ";
@@ -1896,7 +1896,7 @@ if(isset($_POST['btnEdit'])){
     $new_notes1=mysqli_real_escape_string($con,$_POST['txtnotes1']);
     $quantity_returned1 = mysqli_real_escape_string($con,$_POST['txtquantity1']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
     $amount1= mysqli_real_escape_string($con,$_POST['unit_price1']);
-    $total1 = $quantity_returned1*$amount1;
+    $total1 = $new_quantityDelivered1*$amount1;
     $supplierid1=mysqli_real_escape_string($con,$_POST['txtsupplierid1']);
     $suppliesid1=mysqli_real_escape_string($con,$_POST['txtsuppliesid1']);
     $addstock1=mysqli_real_escape_string($con,$_POST['txtstock1']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered1']);
@@ -1911,7 +1911,7 @@ if(isset($_POST['btnEdit'])){
     
     // if for index 1
     if($new_quantity1 == $new_quantityDelivered1){
-      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1', order_no='$ordrNo' WHERE po_id='$new_id1' ";
+      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1', order_no='$ordrNo', total='$total1' WHERE po_id='$new_id1' ";
       $result_update1=mysqli_query($con,$sqlupdate1);
 
       $sqlupd1="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id1' ";
@@ -1930,7 +1930,7 @@ if(isset($_POST['btnEdit'])){
         $resultexp1=mysqli_query($con,$sqlexp1);
       }
     }else {
-      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1', quantity_remaining='$quantity_returned1', order_no='$ordrNo' WHERE po_id='$new_id1' ";
+      $sqlupdate1="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered1', notes='$new_notes1', quantity_remaining='$quantity_returned1', order_no='$ordrNo', total='$total1' WHERE po_id='$new_id1' ";
       $result_update1=mysqli_query($con,$sqlupdate1);
 
       $sqlupd1="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id1' ";
@@ -1958,7 +1958,7 @@ if(isset($_POST['btnEdit'])){
     $new_notes2=mysqli_real_escape_string($con,$_POST['txtnotes2']);
     $quantity_returned2 = mysqli_real_escape_string($con,$_POST['txtquantity2']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
     $amount2= mysqli_real_escape_string($con,$_POST['unit_price2']);
-    $total2 = $quantity_returned2*$amount2;
+    $total2 = $new_quantityDelivered2*$amount2;
     $supplierid2=mysqli_real_escape_string($con,$_POST['txtsupplierid2']);
     $suppliesid2=mysqli_real_escape_string($con,$_POST['txtsuppliesid2']);
     $addstock2=mysqli_real_escape_string($con,$_POST['txtstock2']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered2']);
@@ -1973,7 +1973,7 @@ if(isset($_POST['btnEdit'])){
     
     // if for index 2
     if($new_quantity2 == $new_quantityDelivered2){
-      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2', order_no='$ordrNo' WHERE po_id='$new_id2' ";
+      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2', order_no='$ordrNo', total='$total2' WHERE po_id='$new_id2' ";
       $result_update2=mysqli_query($con,$sqlupdate2);
 
       $sqlupd2="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id2' ";
@@ -1993,7 +1993,7 @@ if(isset($_POST['btnEdit'])){
         $resultexp2=mysqli_query($con,$sqlexp2);
       }
     }else {
-      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2', quantity_remaining='$quantity_returned2', order_no='$ordrNo' WHERE po_id='$new_id2' ";
+      $sqlupdate2="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered2', notes='$new_notes2', quantity_remaining='$quantity_returned2', order_no='$ordrNo', total='$total2' WHERE po_id='$new_id2' ";
       $result_update2=mysqli_query($con,$sqlupdate2);
 
       $sqlupd2="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id2' ";
@@ -2021,7 +2021,7 @@ if(isset($_POST['btnEdit'])){
     $new_notes3=mysqli_real_escape_string($con,$_POST['txtnotes3']);
     $quantity_returned3 = mysqli_real_escape_string($con,$_POST['txtquantity3']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
     $amount3= mysqli_real_escape_string($con,$_POST['unit_price3']);
-    $total3 = $quantity_returned3*$amount3;
+    $total3 = $new_quantityDelivered3*$amount3;
     $supplierid3=mysqli_real_escape_string($con,$_POST['txtsupplierid3']);
     $suppliesid3=mysqli_real_escape_string($con,$_POST['txtsuppliesid3']);
     $addstock3=mysqli_real_escape_string($con,$_POST['txtstock3']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered3']);
@@ -2036,7 +2036,7 @@ if(isset($_POST['btnEdit'])){
     
     // if for index 3
     if($new_quantity3 == $new_quantityDelivered3){
-      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3', order_no='$ordrNo' WHERE po_id='$new_id3' ";
+      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3', order_no='$ordrNo', total='$total3' WHERE po_id='$new_id3' ";
       $result_update3=mysqli_query($con,$sqlupdate3);
 
       $sqlupd3="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id3' ";
@@ -2055,7 +2055,7 @@ if(isset($_POST['btnEdit'])){
         $resultexp3=mysqli_query($con,$sqlexp3);
       }
     }else {
-      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3', quantity_remaining='$quantity_returned3', order_no='$ordrNo' WHERE po_id='$new_id3' ";
+      $sqlupdate3="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered3', notes='$new_notes3', quantity_remaining='$quantity_returned3', order_no='$ordrNo', total='$total3' WHERE po_id='$new_id3' ";
       $result_update3=mysqli_query($con,$sqlupdate3);
 
       $sqlupd3="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id3' ";
@@ -2082,7 +2082,7 @@ if(isset($_POST['btnEdit'])){
     $new_notes4=mysqli_real_escape_string($con,$_POST['txtnotes4']);
     $quantity_returned4 = mysqli_real_escape_string($con,$_POST['txtquantity4']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
     $amount4= mysqli_real_escape_string($con,$_POST['unit_price4']);
-    $total4 = $quantity_returned4*$amount4;
+    $total4 = $new_quantityDelivered4*$amount4;
     $supplierid4=mysqli_real_escape_string($con,$_POST['txtsupplierid4']);
     $suppliesid4=mysqli_real_escape_string($con,$_POST['txtsuppliesid4']);
     $addstock4=mysqli_real_escape_string($con,$_POST['txtstock4']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered4']);
@@ -2097,7 +2097,7 @@ if(isset($_POST['btnEdit'])){
     
     // if for index 4
     if($new_quantity4 == $new_quantityDelivered4){
-      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4', order_no='$ordrNo' WHERE po_id='$new_id4' ";
+      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4', order_no='$ordrNo', total='$total4' WHERE po_id='$new_id4' ";
       $result_update4=mysqli_query($con,$sqlupdate4);
 
       $sqlupd4="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id4' ";
@@ -2116,7 +2116,7 @@ if(isset($_POST['btnEdit'])){
         $resultexp4=mysqli_query($con,$sqlexp4);
       }
     }else {
-      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4', quantity_remaining='$quantity_returned4', order_no='$ordrNo' WHERE po_id='$new_id4' ";
+      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4', quantity_remaining='$quantity_returned4', order_no='$ordrNo', total='$total4' WHERE po_id='$new_id4' ";
       $result_update4=mysqli_query($con,$sqlupdate4);
 
       $sqlupd4="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id4' ";
@@ -2144,7 +2144,7 @@ if(isset($_POST['btnEdit'])){
     $new_notes5=mysqli_real_escape_string($con,$_POST['txtnotes5']);
     $quantity_returned5 = mysqli_real_escape_string($con,$_POST['txtquantity5']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
     $amount5= mysqli_real_escape_string($con,$_POST['unit_price5']);
-    $total5 = $quantity_returned5*$amount5;
+    $total5 = $new_quantityDelivered5*$amount5;
     $supplierid5=mysqli_real_escape_string($con,$_POST['txtsupplierid5']);
     $suppliesid5=mysqli_real_escape_string($con,$_POST['txtsuppliesid5']);
     $addstock5=mysqli_real_escape_string($con,$_POST['txtstock5']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered5']);
@@ -2158,7 +2158,7 @@ if(isset($_POST['btnEdit'])){
     $stock5=mysqli_real_escape_string($con,$_POST['txtstock5']);
     // if for index 5
     if($new_quantity5 == $new_quantityDelivered5){
-      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5', order_no='$ordrNo' WHERE po_id='$new_id5' ";
+      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5', order_no='$ordrNo', total='$total5' WHERE po_id='$new_id5' ";
       $result_update5=mysqli_query($con,$sqlupdate5);
 
       $sqlupd5="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id5' ";
@@ -2177,7 +2177,7 @@ if(isset($_POST['btnEdit'])){
         $resultexp5=mysqli_query($con,$sqlexp5);
       }
     }else {
-      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5', quantity_remaining='$quantity_returned5', order_no='$ordrNo' WHERE po_id='$new_id5' ";
+      $sqlupdate5="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered5', notes='$new_notes5', quantity_remaining='$quantity_returned5', order_no='$ordrNo', total='$total5' WHERE po_id='$new_id5' ";
       $result_update5=mysqli_query($con,$sqlupdate5);
 
       $sqlupd5="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id5' ";
@@ -2205,7 +2205,7 @@ if(isset($_POST['btnEdit'])){
     $new_notes6=mysqli_real_escape_string($con,$_POST['txtnotes6']);
     $quantity_returned6 = mysqli_real_escape_string($con,$_POST['txtquantity6']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
     $amount6= mysqli_real_escape_string($con,$_POST['unit_price6']);
-    $total6 = $quantity_returned6*$amount6;
+    $total6 = $new_quantityDelivered6*$amount6;
     $supplierid6=mysqli_real_escape_string($con,$_POST['txtsupplierid6']);
     $suppliesid6=mysqli_real_escape_string($con,$_POST['txtsuppliesid6']);
     $addstock6=mysqli_real_escape_string($con,$_POST['txtstock6']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered6']);
@@ -2220,7 +2220,7 @@ if(isset($_POST['btnEdit'])){
     
     // if for index 6
     if($new_quantity6 == $new_quantityDelivered6){
-      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6', order_no='$ordrNo' WHERE po_id='$new_id6' ";
+      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6', order_no='$ordrNo', total='$total6' WHERE po_id='$new_id6' ";
       $result_update6=mysqli_query($con,$sqlupdate6);
 
       $sqlupd6="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id6' ";
@@ -2239,7 +2239,7 @@ if(isset($_POST['btnEdit'])){
         $resultexp6=mysqli_query($con,$sqlexp6);
       }
     }else {
-      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6', quantity_remaining='$quantity_returned6', order_no='$ordrNo' WHERE po_id='$new_id6' ";
+      $sqlupdate6="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered6', notes='$new_notes6', quantity_remaining='$quantity_returned6', order_no='$ordrNo', total='$total6' WHERE po_id='$new_id6' ";
       $result_update6=mysqli_query($con,$sqlupdate6);
 
       $sqlupd6="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id6' ";
@@ -2267,7 +2267,7 @@ if(isset($_POST['btnEdit'])){
     $new_notes7=mysqli_real_escape_string($con,$_POST['txtnotes7']);
     $quantity_returned7 = mysqli_real_escape_string($con,$_POST['txtquantity7']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
     $amount7= mysqli_real_escape_string($con,$_POST['unit_price7']);
-    $total7 = $quantity_returned7*$amount7;
+    $total7 = $new_quantityDelivered7*$amount7;
     $supplierid7=mysqli_real_escape_string($con,$_POST['txtsupplierid7']);
     $suppliesid7=mysqli_real_escape_string($con,$_POST['txtsuppliesid7']);
     $addstock7=mysqli_real_escape_string($con,$_POST['txtstock7']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered7']);
@@ -2282,7 +2282,7 @@ if(isset($_POST['btnEdit'])){
     
     // if for index 7
     if($new_quantity7 == $new_quantityDelivered7){
-      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7', order_no='$ordrNo' WHERE po_id='$new_id7' ";
+      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7', order_no='$ordrNo', total='$total7' WHERE po_id='$new_id7' ";
       $result_update7=mysqli_query($con,$sqlupdate7);
 
       $sqlupd7="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id7' ";
@@ -2301,7 +2301,7 @@ if(isset($_POST['btnEdit'])){
         $resultexp7=mysqli_query($con,$sqlexp7);
       }
     }else {
-      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7', quantity_remaining='$quantity_returned7', order_no='$ordrNo' WHERE po_id='$new_id7' ";
+      $sqlupdate7="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered7', notes='$new_notes7', quantity_remaining='$quantity_returned7', order_no='$ordrNo', total='$total7' WHERE po_id='$new_id7' ";
       $result_update7=mysqli_query($con,$sqlupdate7);
 
       $sqlupd7="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id7' ";
@@ -2329,7 +2329,7 @@ if(isset($_POST['btnEdit'])){
     $new_notes8=mysqli_real_escape_string($con,$_POST['txtnotes8']);
     $quantity_returned8 = mysqli_real_escape_string($con,$_POST['txtquantity8']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
     $amount8= mysqli_real_escape_string($con,$_POST['unit_price8']);
-    $total8 = $quantity_returned8*$amount8;
+    $total8 = $new_quantityDelivered8*$amount8;
     $supplierid8=mysqli_real_escape_string($con,$_POST['txtsupplierid8']);
     $suppliesid8=mysqli_real_escape_string($con,$_POST['txtsuppliesid8']);
     $addstock8=mysqli_real_escape_string($con,$_POST['txtstock8']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered8']);
@@ -2344,7 +2344,7 @@ if(isset($_POST['btnEdit'])){
     
     // if for index 8
     if($new_quantity8 == $new_quantityDelivered8){
-      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered8', notes='$new_notes8', order_no='$ordrNo' WHERE po_id='$new_id8' ";
+      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered8', notes='$new_notes8', order_no='$ordrNo', total='$total8' WHERE po_id='$new_id8' ";
       $result_update8=mysqli_query($con,$sqlupdate8);
 
       $sqlupd8="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id8' ";
@@ -2363,7 +2363,7 @@ if(isset($_POST['btnEdit'])){
         $resultexp8=mysqli_query($con,$sqlexp8);
       }
     }else {
-      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered8', notes='$new_notes', quantity_remaining='$quantity_returned8', order_no='$ordrNo' WHERE po_id='$new_id8' ";
+      $sqlupdate8="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered8', notes='$new_notes', quantity_remaining='$quantity_returned8', order_no='$ordrNo', total='$total8' WHERE po_id='$new_id8' ";
       $result_update8=mysqli_query($con,$sqlupdate8);
 
       $sqlupd8="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id8' ";
@@ -2391,7 +2391,7 @@ if(isset($_POST['btnEdit'])){
     $new_notes9=mysqli_real_escape_string($con,$_POST['txtnotes9']);
     $quantity_returned9 = mysqli_real_escape_string($con,$_POST['txtquantity9']) - mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
     $amount9= mysqli_real_escape_string($con,$_POST['unit_price9']);
-    $total9 = $quantity_returned9*$amount9;
+    $total9 = $new_quantityDelivered9*$amount9;
     $supplierid9=mysqli_real_escape_string($con,$_POST['txtsupplierid9']);
     $suppliesid9=mysqli_real_escape_string($con,$_POST['txtsuppliesid9']);
     $addstock9=mysqli_real_escape_string($con,$_POST['txtstock9']) + mysqli_real_escape_string($con,$_POST['txtquantitydelivered9']);
@@ -2406,7 +2406,7 @@ if(isset($_POST['btnEdit'])){
     
     // if for index 9
     if($new_quantity9 == $new_quantityDelivered9){
-      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9', order_no='$ordrNo' WHERE po_id='$new_id9' ";
+      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Full', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9', order_no='$ordrNo', total='$total9' WHERE po_id='$new_id9' ";
       $result_update9=mysqli_query($con,$sqlupdate9);
 
       $sqlupd9="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE po_id='$new_id9' ";
@@ -2425,7 +2425,7 @@ if(isset($_POST['btnEdit'])){
         $resultexp9=mysqli_query($con,$sqlexp9);
       }
     }else {
-      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9', quantity_remaining='$quantity_returned9', order_no='$ordrNo' WHERE po_id='$new_id9' ";
+      $sqlupdate9="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered9', notes='$new_notes9', quantity_remaining='$quantity_returned9', order_no='$ordrNo', total='$total9' WHERE po_id='$new_id9' ";
       $result_update9=mysqli_query($con,$sqlupdate9);
 
       $sqlupd9="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id9' ";
@@ -2446,12 +2446,12 @@ if(isset($_POST['btnEdit'])){
 
     }
 
-
+    $gtotal=$total+$total1+$total2+$total3+$total4+$total5+$total6+$total7+$total8+$total9;
     
   
     if($new_quantity == $new_quantityDelivered && $new_quantity1 == $new_quantityDelivered1 && $new_quantity2 == $new_quantityDelivered2 && $new_quantity3 == $new_quantityDelivered3 && $new_quantity4 == $new_quantityDelivered4 && $new_quantity5 == $new_quantityDelivered5 && $new_quantity6 == $new_quantityDelivered6 && $new_quantity7 == $new_quantityDelivered7 && $new_quantity8 == $new_quantityDelivered8 && $new_quantity9 == $new_quantityDelivered9){
 
-      $query="UPDATE purchase_order_bm SET item_delivery_remarks='Full' WHERE purchase_order_id='$new_purchaseID' ";
+      $query="UPDATE purchase_order_bm SET item_delivery_remarks='Full', purchase_order_grandtotal='$gtotal' WHERE purchase_order_id='$new_purchaseID' ";
       $query_result=mysqli_query($con,$query);
 
       if($query_result){
@@ -2466,7 +2466,7 @@ if(isset($_POST['btnEdit'])){
           echo '<script>alert("Update if Failed")</script>';
       }
     }else{
-      $query1="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE purchase_order_id='$new_purchaseID' ";
+      $query1="UPDATE purchase_order_bm SET item_delivery_remarks='Partial', purchase_order_grandtotal='$gtotal' WHERE purchase_order_id='$new_purchaseID' ";
       $query_result1=mysqli_query($con,$query1);
 
       if($query_result1){
