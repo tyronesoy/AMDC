@@ -536,7 +536,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         while($row = $result->fetch_assoc()){
                    
                                 if($row['image'] == ""){
-                                        echo "<img width='100' class='img-circle' height='100' src='upload/default3.jpg' alt='Default Profile Pic'>";
+                                        echo "<img width='100' class='img-circle' height='100' src='upload/default.jpg' alt='Default Profile Pic'>";
                                 } else {
                                         echo "<img width='100' height='100'  class='img-circle' src='upload/".$row['image']."' alt='Profile Pic'>";
                                 }
@@ -599,6 +599,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                                                     <i class="fa fa-phone"></i>
                                                   </div>
                                                   <input type="text" class="form-control" name="user_contact" id="user_contact"data-inputmask='"mask":"(9999) 999-9999"' value=" <?php echo $row['user_contact'] ?>" data-mask required>
+                                                  <script>
+                                                      $(function(){
+                                                        $('[data-mask]').inputmask()
+                                                      })
+                                                    </script>
                                                 </div>
                                               </div>
                                                </div>
@@ -1373,11 +1378,8 @@ function onUserInactivity() {
 }
 </script>
 
-<script>
-  $(function(){
-    $('[data-mask]').inputmask()
-  })
-</script>
+
+
 
 <div class="modal fade" id="reorderModal" role="dialog">
     <div class="modal-dialog">
