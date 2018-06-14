@@ -85,12 +85,12 @@ if(isset($_REQUEST['id'])){
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Supervisor Name</label>
+                                    <label for="exampleInputEmail1">Ordered By</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
+                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;" margin="0px auto" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="input-group-addon">
                                             <i class="fa fa-building"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="deptName" name="deptName" value="<?php echo $per_department;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="deptName" name="deptName" value="<?php echo $per_department;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -142,8 +142,10 @@ if(isset($_REQUEST['id'])){
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <?php $date = date("Y-m-d"); ?>
-                                        <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <?php 
+                                        date_default_timezone_set("Asia/Manila");
+                                        $date = date("Y-m-d"); ?>
+                                        <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;" readonly>
                                     </div>
                                                     <!-- /.input group -->
                                 </div>
@@ -210,21 +212,21 @@ if(isset($_REQUEST['id'])){
                                             <input class="form-control" type="number" id="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="supply" name="neym[]" value="<?php print_r($item_desc[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            <input type="text" class="form-control" id="supply" name="neym[]" value="<?php print_r($item_desc[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;" readonly>
                                         </td>
 
                                         <td>
-                                            <input class="form-control" type="text" id="unit" name="unit[]" value="<?php print_r($unit[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                            <input class="form-control" type="text" id="unit" name="unit[]" value="<?php print_r($unit[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;" required />
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="type" name="type[]" value="<?php print_r($type[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            <input type="text" class="form-control" id="type" name="type[]" value="<?php print_r($type[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;" readonly>
                                         </td>
                                         <td class="hidden">
-                                            <input type="text" class="form-control" id="price" name="price[]" value="<?php print_r($price[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            <input type="text" class="form-control" id="price" name="price[]" value="<?php print_r($price[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;" readonly>
                                         </td>
 
                                         <td class="hidden">
-                                            <input type="hidden" class="form-control hidden" id="status" name="status" value="<?php print_r($status[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                            <input type="hidden" class="form-control hidden" id="status" name="status" value="<?php print_r($status[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;">
                                         </td>
 
                                     </tr>
