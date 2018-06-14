@@ -69,16 +69,27 @@ if(isset($_REQUEST['id'])){
                         
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-12">
-                                    <div class="form-group">
-                                <label for="exampleInputEmail1">Supervisor Name</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-user"></i>
+                            <div class="col-md-6">
+                                <div class="form-group" style="width: 100%">
+                                    <label for="exampleInputEmail1">Ordered By</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;  background-color: #f1f1f1;" readonly>
                                     </div>
-                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Department</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_department; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;  background-color: #f1f1f1;" readonly>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -266,7 +277,7 @@ $(document).ready(function(){
 
       i++;
       // document.getElementById('row'+i+'').setAttribute("class", " ");
-      $('#dynamic').append('<tr id="row'+i+'"> <td width="15%"><input class="form-control" type="number" name="number[]" id="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" required /></td><td width="52.5%"><select class="form-control filter" name="neym[]" id="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select><td width="16%"><input class="form-control" type="text" name="unit" id="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly></td><td width="16.5%"><input class="form-control" type="text" name="type" id="type[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly></td></tr>');
+      $('#dynamic').append('<tr id="row'+i+'"> <td width="15%"><input class="form-control" type="number" name="number[]" id="number[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" required /></td><td width="16%"><input class="form-control" type="text" name="unit" id="unit[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;background-color: #f1f1f1;" readonly></td><td width="52.5%"><select class="form-control filter" name="neym[]" id="neym[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"><option value=""></option> '+supplyDrop+' </select></td><td width="16.5%"><input class="form-control" type="text" name="type" id="type[]" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly></td></tr>');
 
       $("select.filter").change(function () {
     $("select.filter option[value='" + $(this).data('index') + "']").prop('hidden', false);

@@ -656,7 +656,7 @@ if(!isset($_SESSION['first_run'])){
                                     <div class="row">
                                       <div class="col-md-6">
                                         <div class="form-group">
-                                          <label for="exampleInputEmail1">Supervisor Name</label>
+                                          <label for="exampleInputEmail1">Order By</label>
                                           <div class="input-group">
                                             <div class="input-group-addon">
                                               <i class="fa fa-user"></i>
@@ -719,7 +719,9 @@ if(!isset($_SESSION['first_run'])){
                                             <input type="text" class="form-control pull-right" name="ordid" id="ordid" value="<?php echo $date.'-'.$counter1;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                           <?php
                                           
-                                          } ?>
+                                          }else{ ?>
+                                            <input type="text" class="form-control pull-right" name="ordid" id="ordid" value="<?php echo $date.'-'.$counter;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                          <?php } ?>
                                           </div>
                                         <!-- /.input group -->
                                         </div>
@@ -734,8 +736,8 @@ if(!isset($_SESSION['first_run'])){
                                             </div>
                                             <?php
                                             date_default_timezone_set('Asia/Manila'); 
-                                            $date = date("Y-m-d"); ?>
-                                            <input type="date" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                            $date = date("Y-m-d H:i:s"); ?>
+                                            <input type="text" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                           </div>
                                         <!-- /.input group -->
                                         </div>
