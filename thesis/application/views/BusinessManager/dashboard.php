@@ -824,7 +824,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
@@ -852,7 +852,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         </div>
         <!-- ./col -->
           
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
@@ -879,34 +879,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
         </div>
         <!-- ./col -->
 
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-olive">
-            <div class="inner">
-              <?php
-                    $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) as total FROM deliveries";
-                  $result = $conn->query($sql);    
-              ?>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
-                    <h3><?php echo $row["total"]; ?></h3>
-                  <?php 
-                      }
-                    }
-                  ?>
-
-              <p>Deliveries</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-truck"></i>
-            </div>
-            <button onclick="myFunction3('Demo3')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
-          </div>
-        </div>
-        <!-- ./col -->
-
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
@@ -1067,50 +1040,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tfoot>
               </table>
           </div>
-          <!-- TABLE FOR HIDDEN DELIVERIES SUPPLIES TABLE -->
-          <div id="Demo3" class="box-body w3-hide">
-              <table id="example5" class="table table-bordered table-striped">
-                  <center><h2>Deliveries</h2></center>
-                <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-          $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT * FROM deliveries";
-                  $result = $conn->query($sql);    
-                ?>
-                <thead>
-                <tr>
-                  <th>PO Key</th>
-                  <th>Delivery Date</th>
-                  <th>Delivery Status</th>
-                  <th>Delivery Remarks</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) { ?>
-                    <tr>
-                    <form action="<?php echo 'BusinessManager/returns'?>" method="get">
-                      <td><?php echo $row["po_key"]; ?></td>
-                      <td><?php echo $row["delivery_date"]; ?></td>
-                      <td><?php echo $row["delivery_status"]; ?></td>
-                      <td><?php echo $row["delivery_remarks"]; ?></td>
-                      </form> 
-                    </tr>
-                  <?php 
-                      }
-                    }
-                  ?>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>PO Key</th>
-                    <th>Delivery Date</th>
-                    <th>Delivery Status</th>
-                    <th>Delivery Remarks</th>
-                  </tr> 
-                </tfoot>
-              </table>
-          </div>
+          
           <!-- TABLE FOR HIDDEN EXPIRED SUPPLIES TABLE ------>
           <div id="Demo4" class="box-body w3-hide">
               <table id="example7" class="table table-bordered table-striped">
@@ -1611,15 +1541,6 @@ function myFunction4(id) {
 
     $('#example3').DataTable()
     $('#example4').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-    $('#example5').DataTable()
-    $('#example6').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
