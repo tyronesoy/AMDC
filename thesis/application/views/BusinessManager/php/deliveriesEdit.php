@@ -38,7 +38,6 @@ if(isset($_REQUEST['id'])){
         $per_gtotal=$row[23];
         $per_soft_deleted=$row[26];
         $per_sup_id=$row[28];
-        $date = date("Y-m-d");
 
 
     }//end while
@@ -78,6 +77,9 @@ if(isset($_REQUEST['id'])){
 
                                                     <input type="hidden" class="form-control" id="txtstat" name="txtstat" hidden value="<?php echo $per_purchOrderStatus;?>" readonly>
 
+                                                    <?php 
+                                                    date_default_timezone_set("Asia/Manila");
+                                                    $date = date("Y-m-d H:i:s"); ?>
                                                     <input type="hidden" class="form-control pull-right" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; " />
                                               </div>      
                                               <div class="row">
@@ -133,6 +135,9 @@ if(isset($_REQUEST['id'])){
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
 
+                                                      <?php 
+                                                      date_default_timezone_set("Asia/Manila");
+                                                      $date = date("Y-m-d H:i:s"); ?>
                                                       <input type="text" class="form-control" id="txtdeliverydate" name="txtdeliverydate" value="<?php echo $date;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                                   </div>
                                                 </div>
@@ -210,7 +215,7 @@ if(isset($_REQUEST['id'])){
                             ?>
                                 <div class="col-md-5">
                                               <div class="form-group">
-                                                    <label>Order No.</label>
+                                                    <label>Purchase Order No.</label>
                                                      <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-hashtag"></i>
@@ -227,7 +232,7 @@ if(isset($_REQUEST['id'])){
                             ?>
                                 <div class="col-md-5">
                                               <div class="form-group">
-                                                    <label>Order No.</label>
+                                                    <label>Purchase Order No.</label>
                                                      <div class="input-group">
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-hashtag"></i>

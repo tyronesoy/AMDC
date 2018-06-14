@@ -27,7 +27,7 @@ if(isset($_REQUEST['id'])){
         $per_delRemarks=$row[14];
         $per_notes=$row[15];
         $per_id=$row[16];
-        $per_createdDate_=$row[17];
+        $per_createdDate=$row[17];
         $per_orderName=$row[18];  
         $per_status=$row[19]; 
         $per_purchRemarks=$row[20];
@@ -35,7 +35,8 @@ if(isset($_REQUEST['id'])){
         $per_key=$row[22];
         $per_itemdelRemarks=$row[23];
         $per_soft_deleted=$row[24];
-        $date = date("Y-m-d");
+        date_default_timezone_set("Asia/Manila");
+        $date = date("Y-m-d H:i:s");
 
     }//end while
 ?>
@@ -67,8 +68,8 @@ if(isset($_REQUEST['id'])){
                                           
                                         <div class="box-body">     
                                               <div class="row">
-                                              <div class="col-md-12">
-                                              <div class="form-group">
+                                              <div class="col-md-6">
+                                              <div class="form-group" style="width: 100%">
                                                   <label for="exampleInputEmail1">Purchasing Officer</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
@@ -78,6 +79,17 @@ if(isset($_REQUEST['id'])){
                                               </div>
                                               </div>
                                               </div>
+                                                <div class="col-md-6">
+                                                  <div class="form-group" style="width: 100%">
+                                                      <label for="exampleInputEmail1">Purchase Order No.</label>
+                                                      <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                          <i class="fa fa-hashtag"></i>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="orderNum" name="orderNum" value="<?php echo $per_createdDate; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                                      </div>
+                                                  </div>
+                                                </div>
                                               </div>
                                               
                                             <div class="row">
@@ -89,7 +101,7 @@ if(isset($_REQUEST['id'])){
                                                         <i class="fa fa-group"></i>
                                                       </div>
                                              
-                                        <input type="text" class="form-control" id="txtname" name="txtname" value="<?php echo $per_supplier;?>" readonly style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;">
+                                        <input type="text" class="form-control" id="txtname" name="txtname" value="<?php echo $per_supplier;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
                                             </div>
                                               </div>
                                               </div>
@@ -102,7 +114,7 @@ if(isset($_REQUEST['id'])){
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                   
-                                                      <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>" readonly style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;">
+                                                      <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
                                                   </div>
                                                 </div>
                                               </div>
@@ -127,11 +139,11 @@ if(isset($_REQUEST['id'])){
                                                 while($row = $result->fetch_assoc()) { ?>
                                             <tr>
                                                 
-                                              <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
+                                              <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['order_quantity'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>  </td>
                                                 
-                                              <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
+                                              <td width="100px"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>  </td>
                                                 
-                                              <td width="200px"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
+                                              <td width="200px"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['description'];?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                               </td>
                                             
                                             

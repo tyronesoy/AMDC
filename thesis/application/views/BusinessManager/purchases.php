@@ -885,8 +885,8 @@ function unit_measure($connect)
                                                   </div>
                                         <div class="box-body">                                      
                                               <div class="row">
-                                              <div class="col-md-12">
-                                              <div class="form-group">
+                                              <div class="col-md-6">
+                                              <div class="form-group" style="width: 100%">
                                                   <label for="exampleInputEmail1">Purchasing Officer</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon">
@@ -896,6 +896,38 @@ function unit_measure($connect)
                                               </div>
                                               </div>
                                               </div>
+                                                <div class="col-md-6">
+                                                  <div class="form-group" style="width: 100%">
+                                                      <label for="exampleInputEmail1">Purchase Order No.</label>
+                                                      <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                          <i class="fa fa-hashtag"></i>
+                                                        </div>
+                                                        <?php 
+                                                          $conn=mysqli_connect("localhost","root","");
+                                                                mysqli_select_db($conn, "itproject");
+                                                          $query_ord = "SELECT * FROM purchase_orders JOIN purchase_order_bm USING(purchase_order_uniq_id) GROUP BY purchase_order_id";
+                                                          $resulty = $conn->query($query_ord);
+
+                                                          date_default_timezone_set('Asia/Manila');
+                                                          $date = date("mdY");
+                                                          $counter = 0 ;
+                                                          $rand = substr(uniqid('', true), -5);
+
+                                                          if ($resulty->num_rows > 0) {
+                                                            while($row = $resulty->fetch_assoc()) {
+                                                              $order = $row["order_no"];
+                                                              $order2 = $row["purchase_order_id"];
+                                                            }
+                                                              $counter1 = $order2+1; 
+                                                        ?>
+                                                        <input type="text" class="form-control" id="orderNum" name="orderNum" value="<?php echo $date.'-'.$counter1; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                                      <?php }else{ ?>
+                                                        <input type="text" class="form-control" id="orderNum" name="orderNum" value="<?php echo $date.'-'.$counter; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                                      <?php } ?>
+                                                      </div>
+                                                  </div>
+                                                </div>
                                               </div>
 
                                               <div class="row">
@@ -933,7 +965,7 @@ function unit_measure($connect)
                                                       </div>
                                                       <?php 
                                                       date_default_timezone_set("Asia/Manila");
-                                                      $date = date("Y-m-d"); ?>
+                                                      $date = date("Y-m-d H:i:s"); ?>
                                                       <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                                     </div>
                                                     <!-- /.input group -->
@@ -954,7 +986,7 @@ function unit_measure($connect)
                                             <tr>
                                               <th width="15%"> Qty </th>
                                               <th width="18%"> Unit </th>
-                                              <th width="50%"> Item Name </th>
+                                              <th width="50%"> Item Description </th>
                                             </tr>
                                             <tr id="row0">
                                               <td>
@@ -1123,24 +1155,6 @@ function unit_measure($connect)
                                                     <?php echo supply_dropdown($connect);?>
                                                 </select>
                                               </td>
-                                              
-                                              
-                                            </tr>
-                                            <tr id="row10" class="hidden">
-                                              <td>
-                                                <input class="form-control" type="number" name="number[]" id="quant10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" min="1" pattern="^[0-9]$" />
-                                              </td>
-                                              <td>
-                                                <input class="form-control" type="text" name="unit" id="unit10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
-                                              </td>
-                                              <td>
-                                                <select class="form-control filter" name="neym[]" id="supply10" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
-                                                  <option value=""></option> 
-                                                    <?php echo supply_dropdown($connect);?>
-                                                </select>
-                                              </td>
-                                              
-                                             
                                             </tr>
 
                                           </table>
@@ -1150,7 +1164,7 @@ function unit_measure($connect)
                                       <div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-success sendbutton" name="submit" id="submit"><i class="fa fa-plus"></i> Add </button>
+                                        <button type="submit" class="btn btn-success sendbutton" name="submit" id="submit"><i class="fa fa-plus"></i> Add Purchase Order</button>
                                       </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -1247,7 +1261,7 @@ function unit_measure($connect)
                         </tbody>
                       <tfoot>
                         <tr>
-                              <th style="display: none;">ID</th>
+                              <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -1305,6 +1319,7 @@ function unit_measure($connect)
                         <div class="form-group">
                             <label>Start Date</label>
                             <?php
+                            date_default_timezone_set("Asia/Manila");
                             $datetoday = date('Y\-m\-d', strtotime('-30 days') );
                             ?>
                             <div class="input-group">
@@ -1378,6 +1393,7 @@ function unit_measure($connect)
     
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  date_default_timezone_set("Asia/Manila");
                   $date = date("Y/m/d");
                   $sql = "SELECT * FROM purchase_orders po join purchase_order_bm pob USING(purchase_order_uniq_id) where po.description != ''";
                   $result = $conn->query($sql);    
