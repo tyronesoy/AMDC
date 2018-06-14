@@ -133,6 +133,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                date_default_timezone_set("Asia/Manila");
                 $dtoday = date('Y\-m\-d\ H:i:s A');
                 $date_select = date('Y\-m\-d\ H:i:s A', strtotime('-3 days') ) ;//minus three days
                 $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
@@ -214,6 +215,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
+                              date_default_timezone_set("Asia/Manila");
                                 $daysval = $row["value2"];
                                 $datenow = strtotime(date("Y/m/d"));
                                 $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
@@ -228,6 +230,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                date_default_timezone_set("Asia/Manila");
                 $dtoday = date("Y/m/d");
                 $date_futr = date("Y-m-d", strtotime('+30 days') ) ;
                 $date_past = date("Y-m-d", strtotime('-1 year') ) ;
@@ -323,6 +326,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <h5 style="padding:3px;margin:3px;">Items nearing expiration</h5>
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
+                      date_default_timezone_set("Asia/Manila");
                         $ddtyy = strtotime(date('Y-m-d'));
                         $ddtyy = strtotime('+'.$daysval.' days',$ddtyy);
                         $ddtyy = date('Y-m-d',$ddtyy);
@@ -396,6 +400,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <h5 style="padding:3px;margin:3px;">Expired Items</h5>
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
+                      date_default_timezone_set("Asia/Manila");
                         $ddty = date('Y-m-d');
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -548,6 +553,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                    <br /></center>
                         <?php
                           $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                          date_default_timezone_set("Asia/Manila");
                           $date = date("Y/m/d");
                           $sql = "Select * from users where user_id = ".$this->session->userdata('id')."";
                           $result = $conn->query($sql);    
@@ -885,6 +891,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  date_default_timezone_set("Asia/Manila");
                   $date = date("Y/m/d");
                   $sql = "SELECT COUNT(*) AS total FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
                   $result = $conn->query($sql);    
@@ -1047,6 +1054,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <center><h2>Expired Supplies</h2></center>
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                  date_default_timezone_set("Asia/Manila");
                   $date = date("Y/m/d");
                   $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, quantity_in_stock, unit, soft_deleted FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
                   $result = $conn->query($sql);    

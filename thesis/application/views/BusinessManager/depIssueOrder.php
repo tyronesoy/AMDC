@@ -174,6 +174,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $result32 = $conn->query($sql32);
                           if ($result32->num_rows > 0) {
                             while($row = $result32->fetch_assoc()) {
+                              date_default_timezone_set("Asia/Manila");
                                 $daysval = $row["value2"];
                                 $datenow = strtotime(date("Y/m/d"));
                                 $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
@@ -188,6 +189,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                date_default_timezone_set("Asia/Manila");
                 $dtoday = date("Y/m/d");
                 $date_futr = date("Y-m-d", strtotime('+30 days') ) ;
                 $date_past = date("Y-m-d", strtotime('-1 year') ) ;
@@ -283,6 +285,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <h5 style="padding:3px;margin:3px;">Items nearing expiration</h5>
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
+                      date_default_timezone_set("Asia/Manila");
                         $ddtyy = strtotime(date('Y-m-d'));
                         $ddtyy = strtotime('+'.$daysval.' days',$ddtyy);
                         $ddtyy = date('Y-m-d',$ddtyy);
@@ -356,6 +359,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <h5 style="padding:3px;margin:3px;">Expired Items</h5>
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
+                      date_default_timezone_set("Asia/Manila");
                         $ddty = date('Y-m-d');
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
@@ -506,6 +510,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                    <br /></center>
                         <?php
                           $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
+                          date_default_timezone_set("Asia/Manila");
                           $date = date("Y/m/d");
                           $sql = "Select * from users where user_id = ".$this->session->userdata('id')."";
                           $result = $conn->query($sql);    
@@ -1083,8 +1088,9 @@ function onUserInactivity() {
 $con=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 if(isset($_POST['btnIssue'])){
+    date_default_timezone_set("Asia/Manila");
     $new_id=mysqli_real_escape_string($con,$_POST['txtid']);
-    $date=date("Y-m-d");
+    $date=date("Y-m-d H:i:s");
     $cust_name=mysqli_real_escape_string($con,$_POST['custName']);
     $new_uniqid=mysqli_real_escape_string($con,$_POST['txtuniqid']);
     $issue_name=mysqli_real_escape_string($con,$_POST['issueName']);
