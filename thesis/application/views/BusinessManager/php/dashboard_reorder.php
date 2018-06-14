@@ -39,13 +39,13 @@ if(isset($_REQUEST['id'])){
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-    <form class="form-horizontal" method="post" action="purchases/addPurchases">
+    <form class="form-horizontal" method="post" action="BusinessManager/purchases/addPurchases">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
                <div class="col-md-2">
-                    <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
+                    <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
                 </div>
                 <div class="col-md-8">
                     
@@ -59,7 +59,7 @@ if(isset($_REQUEST['id'])){
             <div class="modal-body">
                 <div class="box-header">
                     <div class="margin">
-                        <center><h4><b>Department's Purchase Order Form</b></h4></center>
+                        <center><h4><b>Reorder Supplies Form</b></h4></center>
                     </div>
                 </div>
                 <form class="form-horizontal" method="post">
@@ -83,26 +83,14 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Supervisor Name</label>
+                                    <label for="exampleInputEmail1">Purchasing Officer</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" margin="0px auto" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Department Name</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-building"></i>
-                                        </div>
-                                        <input type="text" class="form-control" id="deptName" name="deptName" value="<?php echo $per_department;?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <input type="text" class="form-control" id="custName" name="custName" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" margin="0px auto" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +104,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="input-group-addon">       
                                             <i class="fa fa-group"></i>
                                         </div>
-                                        <select class="form-control select2" name="supp" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                        <select class="form-control select2" name="supp"  required>
                                             <option value="">Select a Supplier</option>
                                                 <?php
                                                 $conn =mysqli_connect("localhost","root","");
@@ -142,8 +130,10 @@ if(isset($_REQUEST['id'])){
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <?php $date = date("Y-m-d"); ?>
-                                        <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                        <?php
+                                        date_default_timezone_set("Asia/Manila"); 
+                                        $date = date("Y-m-d"); ?>
+                                        <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                     </div>
                                                     <!-- /.input group -->
                                 </div>
@@ -204,21 +194,30 @@ if(isset($_REQUEST['id'])){
                                             for ($x=0; $x < $count; $x++) { 
                                         ?>
                                         <td>
-                                            <input class="form-control" type="number" id="number" name="number[]" min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                            <?php 
+                                            if($qty_stock[$zero] == 0) { 
+                                                $number = 500;
+                                            } else{ 
+                                                $number = 500-$qty_stock[$zero];
+                                            }?>
+                                            <input class="form-control" type="number" id="number" name="number[]"  min="1" pattern="^[0-9]$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;"  
+                                            value="<?php echo $number; ?>"
+                                            readonly
+                                            />
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="supply" name="neym[]" value="<?php print_r($item_desc[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            <input type="text" class="form-control" id="supply" name="neym[]" value="<?php print_r($item_desc[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                         </td>
 
                                         <td>
-                                            <input class="form-control" type="text" id="unit" name="unit[]" value="<?php print_r($unit[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                            <input class="form-control" type="text" id="unit" name="unit[]" value="<?php print_r($unit[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly/>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="type" name="type[]" value="<?php print_r($type[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                            <input type="text" class="form-control" id="type" name="type[]" value="<?php print_r($type[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                         </td>
 
                                         <td class="hidden">
-                                            <input type="hidden" class="form-control hidden" id="status" name="status" value="<?php print_r($status[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                            <input type="hidden" class="form-control hidden" id="status" name="status" value="<?php print_r($status[$zero++]);?>" hidden style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
                                         </td>
 
                                     </tr>

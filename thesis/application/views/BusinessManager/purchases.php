@@ -931,7 +931,9 @@ function unit_measure($connect)
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                      <?php $date = date("Y-m-d"); ?>
+                                                      <?php 
+                                                      date_default_timezone_set("Asia/Manila");
+                                                      $date = date("Y-m-d"); ?>
                                                       <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                                     </div>
                                                     <!-- /.input group -->

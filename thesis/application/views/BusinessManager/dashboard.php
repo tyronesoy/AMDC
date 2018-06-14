@@ -831,7 +831,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
 
-                  $sql = "SELECT COUNT(*) AS total FROM supplies WHERE quantity_in_stock <= reorder_level+30 OR quantity_in_stock = 0";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies WHERE quantity_in_stock <= reorder_level OR quantity_in_stock = 0";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -914,7 +914,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_id, supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level+10 OR quantity_in_stock = 0 GROUP BY supply_description";
+                  $sql = "SELECT supply_id, supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, company_name FROM supplies JOIN suppliers WHERE quantity_in_stock <= reorder_level OR quantity_in_stock = 0 GROUP BY supply_description";
                   $result = $conn->query($sql);
                 ?>
                 <thead> 
@@ -1099,13 +1099,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
         <section class="content">
           <div class="row">
-        <h3>Total Expenses per Department</h3>
+        
         
           <!-- BAR CHART -->
           <div class="box box-primary">
             <div class="box-header with-border">
-                Legend: <i class="fa fa-square text-red"></i> Medical Supplies
-                <i class="fa fa-square text-blue"></i> Office Supplies
+              <h3 class="box-title">Total Expenses per Department</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -1153,6 +1152,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
                 ?>
                 <canvas id="barChart" style="height:300px"></canvas>
+                Legend: <i class="fa fa-square text-red"></i> Medical Supplies
+                <i class="fa fa-square text-blue"></i> Office Supplies
               </div>
             </div>
             <!-- /.box-body -->
