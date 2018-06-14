@@ -837,7 +837,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["inventory_order_id"]; ?></td>
+                      <td><?php echo $row["order_id"]; ?></td>
                       <td><?php echo $row["inventory_order_created_date"]; ?></td>
                       <td><?php echo $row["inventory_order_name"]; ?></td>
                       <td><?php echo $row["inventory_order_dept"]; ?></td>
@@ -863,13 +863,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Order ID</th>
-                    <th>Order Date</th>
-                    <th>Supervisor Name</th>
-                    <th>Department</th>
-                    <th>Status</th>
-                    <th>Remarks</th>
-                    <th>Action</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </tfoot>
               </table>
@@ -962,9 +962,9 @@ input:checked + .slider:before {
 </style>
 <!-- Bootstrap 3.3.7 -->
 <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables
+ <!-- DataTables -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->

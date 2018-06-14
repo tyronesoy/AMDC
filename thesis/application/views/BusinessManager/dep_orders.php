@@ -860,7 +860,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th style="display: none;">ID</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
