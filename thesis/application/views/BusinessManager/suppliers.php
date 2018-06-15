@@ -849,7 +849,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <div class="input-group-addon">
                                                     <i class="fa fa-phone-square"></i>
                                                   </div>
-                                                  <input type="text" class="form-control" name="suppContact" id="suppContact" data-inputmask='"mask":"(9999) 999-9999"' data-mask required>
+                                                  <input type="text" class="form-control" name="suppContact" id="suppContact" data-inputmask='"mask":"(9999) 999-9999"' style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" data-mask required>
                                                 </div>
                                               </div>
                                                </div>
