@@ -62,7 +62,7 @@ if(isset($_REQUEST['id'])){
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_name ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;" readonly>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@ if(isset($_REQUEST['id'])){
                                     <div class="input-group-addon">
                                         <i class="fa fa-building"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_department;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_department;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;">
                                 </div>
                             </div>
                         </div>
@@ -82,24 +82,24 @@ if(isset($_REQUEST['id'])){
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label>Order Date</label>
+                                <label>Order Date & Time</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_date;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label>Issued Date</label>
+                                <label>Issued Date & Time</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_issueDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_issueDate;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;">
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@ if(isset($_REQUEST['id'])){
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtissue" name="txtissue" value="<?php echo $per_issueTo;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtissue" name="txtissue" value="<?php echo $per_issueTo;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;">
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@ if(isset($_REQUEST['id'])){
                                     <div class="input-group-addon">
                                         <i class="fa fa-id-badge"></i>
                                     </div>
-                                <input type="text" class="form-control" id="txtorder" name="txtorder" value="<?php echo $per_orderID;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtorder" name="txtorder" value="<?php echo $per_orderID;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;">
                                 </div>
                             </div>
                         </div>
@@ -147,16 +147,16 @@ if(isset($_REQUEST['id'])){
                                 while($row = $result->fetch_assoc()) { 
                             ?>
                             <tr>
-                                  <td><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                  <td><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['quantity'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;">
                                 </td>
 
-                                <td width="15%"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity_issued'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                                <td width="15%"><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['quantity_issued'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;">  
                                 </td>
 
-                               <td><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                               <td><input type="text" class="form-control" id="txtquantity" name="txtquantity" value="<?php echo $row['unit'];?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;">  
                                 </td>
 
-                                <td width="70%"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <td width="70%"><input class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $row['supply_name'];?>" readonly style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;">
                                 </td>
                             </tr>
                             <?php 

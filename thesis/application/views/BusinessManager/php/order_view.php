@@ -100,7 +100,7 @@ if(isset($_REQUEST['id'])){
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group" style="width: 100%">
-                                    <label for="exampleInputEmail1">Order Date</label>
+                                    <label for="exampleInputEmail1">Order Date & Time</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>

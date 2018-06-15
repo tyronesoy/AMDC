@@ -764,7 +764,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
       <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
       <li class="Active"><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Updates</a></li>
-      <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
@@ -819,7 +819,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
          <li><i class="fa fa-cubes"></i> Inventory</a></li>
-        <li class="active"><i class="fa fa-bar-chart"></i>Reorder Level Update</li>
+        <li class="active"><i class="fa fa-bar-chart"></i> Reorder Level Update</li>
       </ol>
     </section>
 
@@ -827,15 +827,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
               
       <div class="box-body">
         <table>
           <tr>
-          <th style="padding-left: 20px;">Filter by a Range of Date</th>
+          <th>Filter by a Range of Date</th>
           </tr>
 
           <tr>
-          <td><div class="input-group input-daterange" style="padding-left: 20px;">
+          <td><div class="input-group input-daterange">
             <input type="text" class="form-control" id="startdate" placeholder="Start Date">
             <div class="input-group-addon">to</div>
             <input type="text" class="form-control" id="enddate" placeholder="End Date">
@@ -853,7 +855,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <thead>
             <tr>
 
-                  <th width="15%">Date and Time</th><!-- 
+                  <th width="15%">Date & Time</th><!-- 
                   <th width="7%">Time</th> -->
                   <th width="59%">Description</th>
                   <th width="8%">Supply Type</th>

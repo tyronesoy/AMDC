@@ -1002,7 +1002,7 @@ function category($connect)
        <table>
           <tr>
           <th>Filter by a Range of Quantity</th>
-          <th style="padding-left: 20px;">Filter by a Range of Price</th>
+          <th style="padding-left: 290px;">Filter by a Range of Price</th>
           </tr>
 
           <tr>
@@ -1012,7 +1012,7 @@ function category($connect)
           <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
         </div></td>
             
-            <td><div class="input-group input-daterange" style="padding-left: 20px;">
+            <td><div class="input-group input-daterange" style="padding-left: 290px;">
             <input type="text" class="form-control select" id="minPrice" name="minPrice" placeholder="Min Price">
             <div class="input-group-addon">to</div>
             <input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="Max Price">

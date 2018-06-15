@@ -764,7 +764,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
       <li class="Active"><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
       <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
-      <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-briefcase"></i>Issued Supplies</a></li>
+      <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
@@ -827,12 +827,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
+              <div class="box">
+            <div class="box-header">
               
       <div class="box-body">
         <table>
           <tr>
           <th>Filter by a Range of Quantity</th>
-          <th style="padding-left: 20px;">Filter by a Range of Date</th>
+          <th style="padding-left: 250px;">Filter by a Range of Date</th>
           </tr>
 
           <tr>
@@ -842,7 +844,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
         </div></td>
 
-          <td><div class="input-group input-daterange" style="padding-left: 20px;">
+          <td><div class="input-group input-daterange" style="padding-left: 250px;">
             <input type="text" class="form-control" id="startdate" placeholder="Start Date">
             <div class="input-group-addon">to</div>
             <input type="text" class="form-control" id="enddate" placeholder="End Date">
@@ -860,7 +862,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <thead>
             <tr>
 
-                  <th width="15%">Date and Time</th><!-- 
+                  <th width="15%">Date & Time</th><!-- 
                   <th width="7%">Time</th> -->
                   <th width="59%">Description</th>
                   <th width="5%">Quantity Loss/Gain</th>
@@ -888,11 +890,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
                         <tfoot>
            <tr>
-                  <th class="srch">Date and Time</th><!-- 
+                  <th></th><!-- 
                   <th width="7%">Time</th> -->
-                  <th class="srch">Description</th>
-                  <th class="srch">Quantity Loss/Gain</th>
-                  <th class="srch">Supply Type</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
             </tr> 
         </tfoot>
       </table>              
