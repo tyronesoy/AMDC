@@ -83,8 +83,8 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
+                            <div class="col-md-6">
+                                <div class="form-group" style="width: 100%">
                                     <label for="exampleInputEmail1">Ordered By</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
@@ -94,8 +94,7 @@ if(isset($_REQUEST['id'])){
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Department Name</label>
                                     <div class="input-group">
@@ -108,48 +107,6 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group" style="width: 100%">
-                                    <label for="exampleInputEmail1">Supplier</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">       
-                                            <i class="fa fa-group"></i>
-                                        </div>
-                                        <select class="form-control select2" name="supp" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                            <option value="">Select a Supplier</option>
-                                                <?php
-                                                $conn =mysqli_connect("localhost","root","");
-                                                mysqli_select_db($conn, "itproject");
-                                                $sql = "SELECT * FROM suppliers";
-                                                $results = mysqli_query($conn, $sql);
-
-                                                foreach($results as $supplier) { 
-                                                ?>
-                                            <option value="<?php echo $supplier["company_name"]; ?>" name="supp"><?php echo $supplier["company_name"]; ?></option>
-                                                <?php 
-                                                  }
-                                                ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Purchase Order Date</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <?php 
-                                        date_default_timezone_set("Asia/Manila");
-                                        $date = date("Y-m-d H:i:s"); ?>
-                                        <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;" readonly>
-                                    </div>
-                                                    <!-- /.input group -->
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group" style="width: 100%">
@@ -182,6 +139,49 @@ if(isset($_REQUEST['id'])){
                                   <?php } ?>
                                   </div>
                               </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Purchase Order Date</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <?php 
+                                        date_default_timezone_set("Asia/Manila");
+                                        $date = date("Y-m-d H:i:s"); ?>
+                                        <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color:#f1f1f1;" readonly>
+                                    </div>
+                                                    <!-- /.input group -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" style="width: 100%">
+                                    <label for="exampleInputEmail1">Supplier</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">       
+                                            <i class="fa fa-group"></i>
+                                        </div>
+                                        <select class="form-control select2" name="supp" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
+                                            <option value="">Select a Supplier</option>
+                                                <?php
+                                                $conn =mysqli_connect("localhost","root","");
+                                                mysqli_select_db($conn, "itproject");
+                                                $sql = "SELECT * FROM suppliers";
+                                                $results = mysqli_query($conn, $sql);
+
+                                                foreach($results as $supplier) { 
+                                                ?>
+                                            <option value="<?php echo $supplier["company_name"]; ?>" name="supp"><?php echo $supplier["company_name"]; ?></option>
+                                                <?php 
+                                                  }
+                                                ?>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
