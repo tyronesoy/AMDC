@@ -1068,7 +1068,7 @@ function category($connect)
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["category"]; ?></td>
                       <td><?php $date=date_create($row["expiration_date"]);
-                      echo date_format($date, "m/d/Y"); ?></td>
+                      echo date_format($date, "Y-m-d"); ?></td>
                       <td align="right"><?php  echo $row["unit_price"]; ?></td>
                        
     
