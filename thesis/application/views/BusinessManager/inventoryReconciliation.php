@@ -773,6 +773,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li class="Active"><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
                 <li class="treeview">
                   <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                  <li><a href="<?php echo 'unitPriceUpdate' ?>"><i class="glyphicon glyphicon-ruble"></i> Price Update</a></li>
                 </li>
               </ul>
             </li>

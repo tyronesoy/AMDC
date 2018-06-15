@@ -1724,32 +1724,36 @@ $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
 //EDIT FOR MEDICAL SUPPLIES
 if(isset($_POST['medEdit'])){
   $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+  $conn2=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
   $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    
     $new_itemName=mysqli_real_escape_string($conn,$_POST['txtItemName']);
-   
     $new_lotNo=mysqli_real_escape_string($conn,$_POST['txtlotNo']);
-    
     $new_brandName=mysqli_real_escape_string($conn,$_POST['txtbrandName']);
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
+    $old_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['oldUnitPrice']);
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['unitPrice']);
-    
-     $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
     $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
     $new_supplyStock=mysqli_real_escape_string($conn,$_POST['addQty']);
-    
     $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
-
-   $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
-
+    $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
     $new_dep=mysqli_real_escape_string($conn,$_POST['txtDep']);
+    $new_supplier=mysqli_real_escape_string($conn,$_POST['txtSupplier']);
 
-     $new_supplier=mysqli_real_escape_string($conn,$_POST['txtSupplier']);
+    $old_supplyUnitPrice2=mysqli_real_escape_string($conn,$_POST['oldUnitPrice']);
+    $new_supplyUnitPrice2=mysqli_real_escape_string($conn,$_POST['unitPrice']);
+    $priceChange= $old_supplyUnitPrice2-$new_supplyUnitPrice2;
+
+    date_default_timezone_set('Asia/Manila');
+    $date = date('Y/m/d h:i:s a', time());
+
     
-    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName', supply_description='$new_supplyDescription', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', unit='$new_supplyUnit', dep_name = '$new_dep', supplier = '$new_supplier', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName', supply_description='$new_supplyDescription', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', unit='$new_supplyUnit', dep_name = '$new_dep', suppliers_name = '$new_supplier', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
+    $sqlinsert1="INSERT INTO unitPriceUpdate (date_time, description, supply_type, old_price, new_price, priceChange, user) VALUES ('".$date."', 'The unit price of the product <b>".$new_supplyDescription." </b> has been updated from the old price of  <b>&#8369;".$old_supplyUnitPrice."</b> to the new price of  <b>&#8369;".$new_supplyUnitPrice."</b>.' , 'Medical', '".$old_supplyUnitPrice."', '".$new_supplyUnitPrice."', '".$priceChange."' , '".$this->session->userdata('fname')." ".$this->session->userdata('lname')."') ";
+    $result_update2=mysqli_query($conn2,$sqlinsert1);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");

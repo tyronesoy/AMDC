@@ -138,5 +138,9 @@ class Db_model extends CI_Model {
 		$query=$this->db->query("SELECT * FROM reorderlevelupdate");
 		return $query->result();
 	}
+    public function getUnitPriceUpdate(){
+		$query=$this->db->query("SELECT * FROM unitPriceUpdate");
+		return $query->result();
+	}
 
 }
