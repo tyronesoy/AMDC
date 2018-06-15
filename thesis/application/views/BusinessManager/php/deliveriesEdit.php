@@ -37,7 +37,7 @@ if(isset($_REQUEST['id'])){
         $per_purchOrderRemarks=$row[22];
         $per_gtotal=$row[23];
         $per_soft_deleted=$row[26];
-        $per_sup_id=$row[28];
+        $per_sup_id=$row[27];
 
 
     }//end while
@@ -402,8 +402,11 @@ if(isset($_REQUEST['id'])){
 
                                             <td width="100px"><input type="text" id="unit_price<?php echo $x; ?>" name="unit_price<?php echo $x; ?>" class="form-control " value="<?php print_r($unitPrice[$zero]); ?>" min="0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"> 
                                             </td>
-
-                                              <td width="100px"><input type="text" min="<?php date('Y-m-d', strtotime('+2 months')); ?>" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php print_r($expired[$zero]); ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                            <?php 
+                                            date_default_timezone_set("Asia/Manila");
+                                            $date = date('Y-m-d');
+                                            $effectiveDate = date('Y-m-d', strtotime("+3 months", strtotime($date))); ?>
+                                              <td width="100px"><input type="date" min="<?php echo $effectiveDate; ?>" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php echo $effectiveDate; ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
                                                
                                                <?php }elseif ($per_itemDeliveryRemarks == '') {?>
@@ -420,7 +423,11 @@ if(isset($_REQUEST['id'])){
                                             <td width="100px"><input type="text" id="unit_price<?php echo $x; ?>" name="unit_price<?php echo $x; ?>" class="form-control " value="<?php print_r($unitPrice[$zero]); ?>" min="0" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"> 
                                             </td>
 
-                                              <td width="100px"><input type="text" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php print_r($expired[$zero]); ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                            <?php 
+                                            date_default_timezone_set("Asia/Manila");
+                                            $date = date('Y-m-d');
+                                            $effectiveDate = date('Y-m-d', strtotime("+3 months", strtotime($date))); ?>
+                                              <td width="100px"><input type="text" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php echo $effectiveDate; ?>" min="<?php echo $effectiveDate; ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
                                               <?php
                                                } ?>                                              
