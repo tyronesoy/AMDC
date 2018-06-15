@@ -80,13 +80,23 @@ if(isset($_REQUEST['id'])){
                           </div>
 
                           <div class="row">
-                         <div class="col-sm-6">
-                            <div class="form-group" style="width:100%">
-                                    <label for="txtuser_contact">Contact Number</label>
-                                    <input type="text" class="form-control" id="txtuser_contact" name="txtuser_contact" value="<?php echo $per_usercontact;?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" readonly>
-                                </div>
-                            </div>
+                                  <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label>Contact Number</label>
 
+                                                <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-phone"></i>
+                                                  </div>
+                                                  <input type="text" class="form-control" name="user_contact" id="user_contact"data-inputmask='"mask":"(9999) 999-9999"' value="<?php echo $per_usercontact;?>" data-mask required>
+                                                </div>
+                                                <script>
+                                                  $(function(){
+                                                    $('[data-mask]').inputmask()
+                                                  })
+                                                </script>
+                                              </div>
+                                               </div>
                             <div class="col-sm-6">
                             <div class="form-group">
                                     <label for="txtemail">Email</label>
