@@ -921,9 +921,9 @@ function unit_measure($connect)
                                                             }
                                                               $counter1 = $order2+1; 
                                                         ?>
-                                                        <input type="text" class="form-control" id="orderNum" name="orderNum" value="<?php echo $date.'-'.$counter1; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                                        <input type="text" class="form-control" id="orderNum" name="orderNum" value="<?php echo 'PO'.$date.'-'.$counter1; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                                       <?php }else{ ?>
-                                                        <input type="text" class="form-control" id="orderNum" name="orderNum" value="<?php echo $date.'-'.$counter; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                                        <input type="text" class="form-control" id="orderNum" name="orderNum" value="<?php echo 'PO'.$date.'-'.$counter; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                                       <?php } ?>
                                                       </div>
                                                   </div>

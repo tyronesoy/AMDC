@@ -18,7 +18,7 @@
   );
  
    for($count = 0; $count < count($_POST["number"]); $count++ ) {
-    $sql2 = "INSERT INTO purchase_orders (order_date, purchase_order_uniq_id, description, order_quantity, supplier, po_key, order_unit, supply_type, unit_price) VALUES (:order_date, :purchase_order_uniq_id, :description, :order_quantity, :supplier, :po_key, :order_unit, :supply_type, :unit_price)";
+    $sql2 = "INSERT INTO purchase_orders (order_date, purchase_order_uniq_id, description, order_quantity, supplier, po_key, order_unit, supply_type, unit_price, order_no) VALUES (:order_date, :purchase_order_uniq_id, :description, :order_quantity, :supplier, :po_key, :order_unit, :supply_type, :unit_price, :order_no)";
     $statement = $connect->prepare($sql2);
     $statement->execute(
    array(
@@ -30,6 +30,7 @@
     ':order_unit'   => $_POST['unit'][$count],
     ':supply_type'   => $_POST['type'][$count],
     ':unit_price'   => $_POST['price'][$count],
+    ':order_no'   => $_POST['orderNum'],
     ':po_key'     => $random
    )
   );
