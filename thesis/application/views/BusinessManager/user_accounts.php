@@ -589,15 +589,15 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                     <div class="col-md-6">
                         <div class="form-group" style="width:100%">
                           <label for="exampleInputEmail1">Password</label>
-                          <input type="password" class="form-control" name="passwordq" onmouseover="mouseoverPassq();" onmouseout="mouseoutPassq();" id="passwordq" value="<?php echo $passp ?>" required />
+                          <input type="password" class="form-control" name="passwordconfirm" onmouseover="mouseoverPassq();" onmouseout="mouseoutPassq();" id="passwordconfirm" value="<?php echo $passp ?>" required />
 
                         <script>
-                        function mouseoverPass(obj) {
-                          var obj = document.getElementById('passwordq');
+                        function mouseoverPassq(obj) {
+                          var obj = document.getElementById('passwordconfirm');
                           obj.type = "text";
                         }
-                        function mouseoutPass(obj) {
-                          var obj = document.getElementById('passwordq');
+                        function mouseoutPassq(obj) {
+                          var obj = document.getElementById('passwordconfirm');
                           obj.type = "password";
                         }
                         </script>
@@ -611,26 +611,53 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Confirm Password</label>
-                  <input type="password" class="form-control" name="passwordw" onmouseover="mouseoverPassw();" onmouseout="mouseoutPassw();" id="passwordw" value="<?php echo $passp ?>" required />
-                  <span class="pull-left" id="messageConf"></span>
+                  <input type="password" class="form-control" name="passwordconfirm2" onmouseover="mouseoverPassw();" onmouseout="mouseoutPassw();" id="passwordconfirm2" value="<?php echo $passp ?>" required />
+                  <span class="pull-left" id="messageConfirm"></span>
                     
                     <script>
-                        function mouseoverPass2(obj) {
-                          var obj = document.getElementById('passwordw');
+                        function mouseoverPassw(obj) {
+                          var obj = document.getElementById('passwordconfirm2');
                           obj.type = "text";
                         }
-                        function mouseoutPass2(obj) {
-                          var obj = document.getElementById('passwordw');
+                        function mouseoutPassw(obj) {
+                          var obj = document.getElementById('passwordconfirm2');
                           obj.type = "password";
                         }
                     </script>
                 </div>
               </div>
               </div>
-
-                
- 
-
+              <script>
+                $(function () {
+                  $('#passwordconfirm2').on('input', function () {
+                    //Store the password field objects into variables ...
+                    var pass1 = document.getElementById('passwordconfirm');
+                    var pass2 = document.getElementById('passwordconfirm2');
+                    //Store the Confimation Message Object ...
+                    var message = document.getElementById('messageConfirm');
+                    //Set the colors we will be using ...
+                    var goodColor = "#66cc66";
+                    var badColor = "#ff6666";
+                    //Compare the values in the password field 
+                    //and the confirmation field
+                    if(pass1.value == pass2.value){
+                        //The passwords match. 
+                        //Set the color to the good color and inform
+                        //the user that they have entered the correct password 
+                        pass2.style.backgroundColor = goodColor;
+                        message.style.color = goodColor;
+                        message.innerHTML = "Passwords Match!"
+                    }else{
+                        //The passwords do not match.
+                        //Set the color to the bad color and
+                        //notify the user.
+                        pass2.style.backgroundColor = badColor;
+                        message.style.color = badColor;
+                        message.innerHTML = "Passwords Do Not Match!"
+                    }
+                  });
+                }); 
+              </script>
 
               </div>
               </div>
@@ -1134,7 +1161,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
             </tbody>
             <tfoot>
             <tr>
-                <th style="display: none;">ID</th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
