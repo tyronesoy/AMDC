@@ -547,18 +547,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       
       <table>
           <tr>
-          <th>Filter by a Range of Quantity</th>
-          <th style="padding-left: 20px;">Filter by a Range of Date</th>
+          <th style="padding-left: 10px;">Filter by a Range of Quantity</th>
+          <th style="padding-left: 300px;">Filter by a Range of Date</th>
           </tr>
 
           <tr>
-            <td><div class="input-group input-daterange">
+            <td><div class="input-group input-daterange" style="padding-left: 10px;">
           <input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty">
           <div class="input-group-addon">to</div>
           <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
         </div></td>
 
-          <td><div class="input-group input-daterange" style="padding-left: 20px;">
+          <td><div class="input-group input-daterange" style="padding-left: 300px;">
             <input type="text" class="form-control" id="startdate" placeholder="Start Date">
             <div class="input-group-addon">to</div>
             <input type="text" class="form-control" id="enddate" placeholder="End Date">
@@ -711,7 +711,7 @@ $(document).ready(function() {
     // DataTable
     var table = $('#example').DataTable({
       order : [[ 0, 'desc' ]],
-      "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
+      "lengthMenu": [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
       "scrollX": true
     });    
     // Apply the search in table footer

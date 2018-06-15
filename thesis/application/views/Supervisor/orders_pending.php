@@ -590,7 +590,8 @@ if(!isset($_SESSION['first_run'])){
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
-        <li class="active"><i class="fa fa-shopping-cart"></i> Orders</li>
+        <li><i class="fa fa-shopping-cart"></i> Orders</li>
+        <li class="active"><i class="fa fa-spinner"></i> Pending Orders</li>
       </ol>
     </section>
 
@@ -632,7 +633,7 @@ if(!isset($_SESSION['first_run'])){
                       <thead>
                           <tr>
                               <th>Order ID</th>
-                              <th>Order Date</th>
+                              <th>Order Date & Time</th>
                               <th>Status</th>
                               <th>Remarks</th>
                               <th>Action</th>

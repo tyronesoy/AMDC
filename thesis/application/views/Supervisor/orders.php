@@ -729,7 +729,7 @@ if(!isset($_SESSION['first_run'])){
 
                                       <div class="col-md-6">
                                         <div class="form-group">
-                                          <label>Order Date</label>
+                                          <label>Order Date & Time</label>
                                           <div class="input-group">
                                             <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
@@ -1057,8 +1057,8 @@ if(!isset($_SESSION['first_run'])){
                       <thead>
                           <tr>
                               <th>Order ID</th>
-                              <th>Order Date</th>
-                              <th>Issued Date</th>
+                              <th>Order Date & Time</th>
+                              <th>Issued Date & Time</th>
                               <th>Issued To</th>
                               <th>Status</th>
                               <th>Remarks</th>
@@ -1236,7 +1236,7 @@ function onUserInactivity() {
       $(function () {
         $('#example').DataTable({
           order : [[ 0, 'desc' ]],
-          "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
+          "lengthMenu": [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
         })
       })
     </script>

@@ -57,7 +57,7 @@ if(isset($_REQUEST['id'])){
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="txtmemodate" name="txtmemodate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $per_memodate;?>" readonly>
+                                                  <input type="text" class="form-control" id="txtmemodate" name="txtmemodate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;"  value="<?php echo $per_memodate;?>" readonly>
                                               </div>
                                               </div>
 

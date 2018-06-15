@@ -739,7 +739,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                  <thead>
                         <tr>
                             <!-- <th>Order ID</th> -->
-                            <th>Order Date</th>
+                            <th>Order Date & Time</th>
                             <th>Item Name/s</th>
                             <th>Status</th>
                             <th>Remarks</th>

@@ -56,7 +56,7 @@ if(isset($_REQUEST['id'])){
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group" style="width: 100%">
-                                <label for="exampleInputEmail1">Supervisor Name</label>
+                                <label for="exampleInputEmail1">Ordered By</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
@@ -67,7 +67,7 @@ if(isset($_REQUEST['id'])){
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Request Date</label>
+                                <label>Request Date & Time</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
@@ -91,7 +91,7 @@ if(isset($_REQUEST['id'])){
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Issued Date</label>
+                                <label>Issued Date & Time</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
