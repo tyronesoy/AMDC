@@ -18,20 +18,22 @@ if(isset($_REQUEST['id'])){
         $per_remarks=$row[6];
         $per_issuedDate=$row[7];
         $per_inventorySupid=$row[8];
-        $per_supplyName=$row[9];
-        $per_supplyUnit=$row[10];
-        $per_supplyQuantity=$row[11];
-        $per_quantityIssued=$row[12];
-        $per_supplyID=$row[13];
-        $per_supplyType=$row[14];
-        $per_supplyDesc=$row[15];
-        $per_brandName=$row[16];
-        $per_unit=$row[17];
-        $per_quantityStock=$row[18];
-        $per_unitPrice=$row[19];
-        $per_unitOrder=$row[20];
-        $per_reorderLevel=$row[21];
-        $per_expiration=$row[22];
+        $per_orderID=$row[9];
+        $per_supplyName=$row[11];
+        $per_supplyUnit=$row[12];
+        $per_supplyQuantity=$row[13];
+        $per_quantityIssued=$row[14];
+        $per_quantityRem=$row[15];
+        $per_supplyID=$row[16];
+        $per_supplyType=$row[17];
+        $per_supplyDesc=$row[18];
+        $per_brandName=$row[19];
+        $per_unit=$row[20];
+        $per_quantityStock=$row[21];
+        $per_unitPrice=$row[22];
+        $per_unitOrder=$row[23];
+        $per_reorderLevel=$row[24];
+        $per_expiration=$row[25];
 
     }//end while
 ?>
@@ -110,7 +112,6 @@ if(isset($_REQUEST['id'])){
                                         date_default_timezone_set('Asia/Manila');
                                         $date = date("mdY");
                                         $counter = 0 ;
-                                        $rand = substr(uniqid('', true), -5);
 
                                         if ($resulty->num_rows > 0) {
                                             while($row = $resulty->fetch_assoc()) {
@@ -172,7 +173,7 @@ if(isset($_REQUEST['id'])){
                         </div>
 
                         <?php 
-                                $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE supply_id=$id AND quantity !=0 AND (quantity_in_stock = 0 OR quantity_in_stock IS NULL) ";
+                                $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE supply_id=$id";
                                 $result = $con->query($sql);
 
                                 $arrayOrdId = '';
