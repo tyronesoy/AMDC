@@ -37,8 +37,9 @@ if(isset($_REQUEST['id'])){
         $per_purchOrderRemarks=$row[22];
         $per_gtotal=$row[23];
         $per_soft_deleted=$row[26];
-        $per_sup_id=$row[28];
-        $date = date("Y-m-d");
+        $per_sup_id=$row[27];
+        date_default_timezone_set("Asia/Manila");
+        $date = date("Y-m-d H:i:s");
 
 
     }//end while
@@ -119,7 +120,7 @@ if(isset($_REQUEST['id'])){
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
                                                   
-                                                      <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;">
+                                                      <input type="text" class="form-control" id="txtdate" name="txtdate" value="<?php echo $per_orderDate;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -142,13 +143,13 @@ if(isset($_REQUEST['id'])){
                               <div class="row">
                                 <div class="col-md-5">
                                               <div class="form-group">
-                                                    <label>Purchase ID</label>
+                                                    <label>Purchase Order No.</label>
                                                      <div class="input-group">
                                                       <div class="input-group-addon">
-                                                        <i class="fa fa-key"></i>
+                                                        <i class="fa fa-hashtag"></i>
                                                       </div>
 
-                                                      <input type="text" class="form-control" id="txtuni" name="txtuni" value="<?php echo $per_po_uniq_id;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
+                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value="<?php echo $ordrNo;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                                   </div>
                                                 </div>
                                               </div>
@@ -158,7 +159,7 @@ if(isset($_REQUEST['id'])){
                                     $sqldelby="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join deliveries using (po_id) WHERE purchase_order_id=$id";
                                     $run_sqldelby=mysqli_query($con,$sqldelby);
                                     while($row=mysqli_fetch_array($run_sqldelby)){
-                                        $per_courier=$row[43];
+                                        $per_courier=$row[42];
                                     }//end while
     
                                     if($per_courier != ''){
@@ -171,7 +172,7 @@ if(isset($_REQUEST['id'])){
                                                         <i class="fa fa-user"></i>
                                                       </div>
 
-                                                      <input type="text" class="form-control" id="txtdelBy" name="txtdelBy" value="<?php echo $per_courier;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" required>
+                                                      <input type="text" class="form-control" id="txtdelBy" name="txtdelBy" value="<?php echo $per_courier;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                                   </div>
                                                 </div>
                                               </div>
@@ -197,44 +198,7 @@ if(isset($_REQUEST['id'])){
                             </div>
                             
                             <div class="row">
-                                <?php
-                             if($ordrNo != ''){
-                            ?>
-                                <div class="col-md-5">
-                                              <div class="form-group">
-                                                    <label>Order No.</label>
-                                                     <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-hashtag"></i>
-                                                      </div>
-
-                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value="<?php echo $ordrNo;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" required>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <div class="col-md-1">
-                                                </div>
-                                <?php
-                            }else{
-                            ?>
-                                <div class="col-md-5">
-                                              <div class="form-group">
-                                                    <label>Order No.</label>
-                                                     <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-hashtag"></i>
-                                                      </div>
-
-                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <div class="col-md-1">
-                                                </div>
-                                <?php
-                            }
-                            ?>
-                                  
+                                                                 
                                               <?php
                             if($per_quantityDelivered != ''){
                             ?>
