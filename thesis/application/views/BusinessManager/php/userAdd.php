@@ -3,7 +3,7 @@ $con=mysqli_connect('localhost','root','','itproject');
 
  //CREATE or ADD User Account
   if (isset($_POST['addUser'])) {
-  $sql = $con->prepare("INSERT INTO users (username, user_type, fname, lname, user_contact, password, user_email, dept_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");  
+  $sql = $con->prepare("INSERT INTO users (username, user_type, fname, lname, user_contact, password, user_email, dept_name, branch) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");  
   $username = $_POST['username'];
   $role = $_POST['roletype'];
   $fname = $_POST['fname'];
@@ -11,6 +11,7 @@ $con=mysqli_connect('localhost','root','','itproject');
   $user_contact = $_POST['user_contact'];
   $password = $_POST['password'];
   $user_email = $_POST['user_email'];
+  $branch = $_POST['branch'];
   if($_POST['roletype'] == 'Assistant' OR $_POST['roletype'] == 'Business Manager'){
     $dept_name = 'Managing Department';
   }else{
@@ -21,7 +22,7 @@ $con=mysqli_connect('localhost','root','','itproject');
   $usernamelength= strlen($username);
   $passwordlength= strlen($password);
 
-  $sql->bind_param("ssssssss", $username, $role, $fname, $lname, $user_contact, $password, $user_email, $dept_name);
+  $sql->bind_param("sssssssss", $username, $role, $fname, $lname, $user_contact, $password, $user_email, $dept_name, $branch);
 
 
 if (isset($addUser)){

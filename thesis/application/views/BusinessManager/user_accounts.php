@@ -570,7 +570,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       </div>
 
                       <div class="col-md-6">
-                                                <div class="form-group">
+                                                <div class="form-group" >
                                                   <label>Contact Number</label>
 
                                                 <div class="input-group">
@@ -919,12 +919,34 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT department_name FROM departments WHERE department_name != 'Managing Department' AND location='Baguio City' OR location='Baguio'";
+                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE department_name != 'Managing Department'";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $dept_name) { 
                                                         ?>
                                                         <option value="<?php echo $dept_name["department_name"]; ?>" name="dept_name"><?php echo $dept_name["department_name"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>
+
+                                                    <div class="col-md-6">
+                                                     <div class="form-group">
+                                                      <label for="exampleInputEmail1">Branch</label>
+                                                       <select name = "branch" class="form-control" required>
+                                                       <option value="">Select a Branch</option>
+                                                                            <option></option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT DISTINCT location FROM departments WHERE department_name != 'Managing Department' ";
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $branch) { 
+                                                        ?>
+                                                        <option value="<?php echo $branch["location"]; ?>" name="branch"><?php echo $branch["location"]; ?></option>
                                                          <?php 
                                                             }
                                                           ?>
@@ -1081,6 +1103,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th>Contact Number</th>
                 <th>Email</th>
                 <th>Department</th>
+                <th>Branch</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -1107,6 +1130,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       <td><?php echo $row["user_contact"]; ?></td>
                       <td width="20px"><?php echo $row["user_email"]; ?></td>
                       <td><?php echo $row["dept_name"]; ?></td>
+                      <td><?php echo $row["branch"]; ?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <?php if($row['user_status'] == 'Active') { ?>
@@ -1417,9 +1441,10 @@ if(isset($_POST['btnEdit'])){
     $new_email=mysqli_real_escape_string($con,$_POST['txtemail']);
     $new_deptname=mysqli_real_escape_string($con,$_POST['txtdeptname']);
     $new_role=mysqli_real_escape_string($con,$_POST['txtrole']);
+    $new_branch=mysqli_real_escape_string($con,$_POST['txtbranch']);
 
 
-    $sqlupdate="UPDATE users SET username='$new_username', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', dept_name='$new_deptname', user_type= '$new_role' WHERE user_id='$new_id' ";
+    $sqlupdate="UPDATE users SET username='$new_username', lname='$new_lname', fname='$new_fname', user_contact='$new_usercontact', user_email='$new_email', dept_name='$new_deptname', user_type= '$new_role', branch= '$new_branch' WHERE user_id='$new_id' ";
     $result_update=mysqli_query($con,$sqlupdate);
 
     if($result_update){

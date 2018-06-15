@@ -18,6 +18,7 @@ if(isset($_REQUEST['id'])){
          $per_status=$row[8];
          $per_deptname=$row[9];
          $per_type=$row[1];
+          $per_branch=$row[12];
 
     }//end while
 ?>
@@ -136,9 +137,34 @@ if(isset($_REQUEST['id'])){
                                                        
                                                       <?php } ?>
                                         </div>
-                                                     </div>
+                                        </div>
 
-                                                                   <div class="col-md-6">
+                                     <div class="col-md-6">
+                                                    <div class="form-group">
+                                                      <label for="txtbranch">Branch</label>
+                                                       <select name="txtbranch" id="txtbranch" class="form-control">
+                                                        <option><?php echo $per_branch;?></option>
+                                                        <option></option>
+                                                        <?php
+                                                          $conn =mysqli_connect("localhost","root","");
+                                                           mysqli_select_db($conn, "itproject");
+                                                            $sql = "SELECT DISTINCT location FROM departments WHERE location NOT LIKE '%$per_branch%'" ;
+                                                            $results = mysqli_query($conn, $sql);
+
+                                                            foreach($results as $branch) { 
+                                                        ?>
+                                                        <option value="<?php echo $branch["location"]; ?>"><?php echo $branch["location"]; ?></option>
+                                                         <?php 
+                                                            }
+                                                          ?>
+                                                      </select>
+                                                     </div>
+                                                   </div>   
+
+                                            
+                    </div>
+                    <div class="row">
+                              <div class="col-md-6">
                                                     <div class="form-group">
                                                       <label for="txtrole">Role</label>
                                                        <select name="txtrole" id="txtrole" class="form-control">
