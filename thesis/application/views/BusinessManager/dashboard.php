@@ -773,7 +773,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <li><a href="<?php echo 'BusinessManager/reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
             <li><a href="<?php echo 'BusinessManager/issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'BusinessManager/departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
-      <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchases</a></li>
+      <li><a href="<?php echo 'BusinessManager/purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
       <li><a href="<?php echo 'BusinessManager/deliveries' ?>"><i class="fa fa-truck"></i>Deliveries</a></li>
           </ul>
         </li>
@@ -1328,6 +1328,10 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 <!-- DataTables -->
 <script src="assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- InputMask -->
+<script src="assets/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
     
 <!-- ITO ANG LEGIT NA JAVASCRIPT NG CHARTS -->
 <!-- ChartJS -->
