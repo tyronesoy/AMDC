@@ -774,6 +774,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
                 <li class="treeview">
                   <li class="Active"><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                  <li><a href="<?php echo 'unitPriceUpdate' ?>"><i class="glyphicon glyphicon-ruble"></i> Price Update</a></li>
                 </li>
               </ul>
             </li>
@@ -868,12 +869,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <thead>
             <tr>
 
-                  <th width="15%">Date & Time</th><!-- 
-                  <th width="7%">Time</th> -->
+                  <th width="15%">Date & Time</th>
                   <th width="59%">Description</th>
+                  <th>Old Reorder Level</th>
+                  <th>New Reorder Level</th>
                   <th width="8%">Supply Type</th>
                   <th>User</th>
-                  
             </tr>
         </thead>
         <tbody>
@@ -883,6 +884,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td><?php $date=date_create($row["date_time"]);
                       echo date_format($date,"m/d/Y H:i:s");?></td>
                       <td><?php echo $row["description"]; ?></td>
+                      <td align="right"><?php echo $row["old_reorder"];?></td>
+                      <td align="right"><?php echo $row["new_reorder"]; ?></td>
                       <td><?php echo $row["supply_type"]; ?></td>
                       <td><?php echo $row["user"]?></td>
                     </tr>

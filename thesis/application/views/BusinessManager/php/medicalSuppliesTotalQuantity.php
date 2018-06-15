@@ -773,6 +773,7 @@ function category($connect)
                 <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
                 <li class="treeview">
                   <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                  <li><a href="<?php echo 'unitPriceUpdate' ?>"><i class="glyphicon glyphicon-ruble"></i> Price Update</a></li>
                 </li>
               </ul>
             </li>
@@ -1061,6 +1062,9 @@ if(isset($_POST['medTQEdit'])){
     $remarks=mysqli_real_escape_string($conn,$_POST['remarks']);
     $user=mysqli_real_escape_string($conn,$_POST['user']);
 
+    $oldReorderLevel1=mysqli_real_escape_string($conn,$_POST['oldLevel']);
+    $newReorderLevel1=mysqli_real_escape_string($conn,$_POST['newLevel']);
+
     date_default_timezone_set('Asia/Manila');
     $date = date('Y/m/d h:i:s a', time());
 
@@ -1068,7 +1072,7 @@ if(isset($_POST['medTQEdit'])){
     $sqlupdate="UPDATE supplies SET reorder_level='$newReorderLevel' WHERE item_name='$textDesc' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
-    $sqlinsert1="INSERT INTO reorderlevelupdate (date_time, description, supply_type, user) VALUES ('".$date."', 'The product  <b>".$textDesc."</b> has changed its reorder level from the Old Reorder Level of  <b>".$oldReorderLevel."</b>  to the New Reorder Level of  <b>".$newReorderLevel."<b/>  because ".$remarks."' , 'Medical', '".$user."')  ";
+    $sqlinsert1="INSERT INTO reorderlevelupdate (date_time, description, supply_type, user, old_reorder, new_reorder) VALUES ('".$date."', 'The product  <b>".$textDesc."</b> has changed its reorder level from the Old Reorder Level of  <b>".$oldReorderLevel."</b>  to the New Reorder Level of  <b>".$newReorderLevel."</b> because ".$remarks."', 'Medical', '".$user."', '".$oldReorderLevel1."', '".$newReorderLevel1."')  ";
     $result_update2=mysqli_query($conn2,$sqlinsert1);
 
     if($result_update){

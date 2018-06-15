@@ -867,13 +867,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <thead>
             <tr>
 
-                  <th width="15%">Date & Time</th><!-- 
-                  <th width="7%">Time</th> -->
+                  <th width="15%">Date & Time</th>
                   <th width="30%">Description</th>
                   <th width="8%">Supply Type</th>
                   <th width="8%">Old Price (&#8369;)</th>
                   <th width="8%">New Price(&#8369;)</th>
-                  <th >Price Status</th>
+                  <th>Price Status</th>
                   <th>User</th>
 
                   

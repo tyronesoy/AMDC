@@ -178,7 +178,7 @@ if(isset($_REQUEST['id'])){
                                 <div class="col-md-6">
                             <div class="form-group" style="width:100%;">
                             <label for="unitPrice">Current Unit Price</label>
-                                <input type="number" class="form-control" id="unitPrice" name="unitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
+                                <input type="number" class="form-control" id="oldUnitPrice" name="oldUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
                             </div>
                             </div>
 

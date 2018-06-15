@@ -791,6 +791,7 @@ function category($connect)
                 <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
                 <li class="treeview">
                   <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                  <li><a href="<?php echo 'unitPriceUpdate' ?>"><i class="glyphicon glyphicon-ruble"></i> Price Update</a></li>
                 </li>
               </ul>
             </li>
@@ -1788,7 +1789,7 @@ if(isset($_POST['medRecon'])){
     $date = date('Y/m/d h:i:s a', time());
 
   
-     $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type, quantity) VALUES ('".$date."', The product  <b>(".$item."</b> has reconciled from the logical count of  <b>".$logical."></b>  to physical count of  <b>".$physical."></b>  because ".$remarks."' , 'Medical', '".$difference."')  ";
+     $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type, quantity, old_quantity, new_quantity, user) VALUES ('".$date."', 'The product  <b>".$item."</b> has reconciled from the logical count of  <b>".$logical."</b>  to physical count of  <b>".$physical."</b>  because ".$remarks."', 'Medical', '".$difference."', '".$logical1."', '".$physical1."', '".$this->session->userdata('fname')." ".$this->session->userdata('lname')."')  ";
     $result_update2=mysqli_query($conn2,$sqlinsert1);
 
     $sqlupdate1="UPDATE supplies SET quantity_in_stock='$physical' WHERE supply_id='$new_id' ";

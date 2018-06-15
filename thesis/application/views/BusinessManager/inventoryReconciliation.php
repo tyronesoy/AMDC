@@ -875,11 +875,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <thead>
             <tr>
 
-                  <th width="15%">Date & Time</th><!-- 
-                  <th width="7%">Time</th> -->
+                  <th width="15%">Date & Time</th>
                   <th width="59%">Description</th>
-                  <th width="5%">Quantity Loss/Gain</th>
+                  <th width="5%">Quantity Status</th>
+                  <th>Old Quantity</th>
+                  <th>New Quantity</th>
                   <th>Supply Type</th>
+                  <th>User</th>
                   
             </tr>
         </thead>
@@ -894,7 +896,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       echo(abs($row["quantity"]));  echo' gain';
                       }else{ echo $row["quantity"]; echo' loss'; 
                        } ?></td>
+                      <td align="right"><?php echo $row["old_quantity"]?></td>
+                      <td align="right"><?php echo $row["new_quantity"];?></td>
                       <td><?php echo $row["supply_type"]; ?></td>
+                      <td><?php echo $row["user"]?></td>
                     </tr>
                   <?php 
                       }

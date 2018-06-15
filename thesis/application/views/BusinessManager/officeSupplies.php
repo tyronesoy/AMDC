@@ -786,6 +786,7 @@ function category($connect)
                 <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
                 <li class="treeview">
                   <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                  <li><a href="<?php echo 'unitPriceUpdate' ?>"><i class="glyphicon glyphicon-ruble"></i> Price Update</a></li>
                 </li>
               </ul>
             </li>
@@ -858,7 +859,7 @@ function category($connect)
                 <table style="float: left;">
                     <tr>
                         <th> <div class="dropdownButton">
-                        <select name="dropdown" class="form-group select2" style="width:100  %;" onchange="location=this.value;">
+                        <select name="dropdown" class="form-group select2" style="width:100%;" onchange="location=this.value;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Supplies
                           <span class="caret"></span>
                         </button>
@@ -1549,28 +1550,35 @@ if(isset($_POST['offAdd'])){
 
 //EDIT FOR OFFICE SUPPLIES
 if(isset($_POST['offEdit'])){
+  $conn=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
+  $conn2=mysqli_connect('localhost','root','','itproject') or die('Error connecting to MySQL server.');
     $new_id=mysqli_real_escape_string($conn,$_POST['txtid']);
-    
     $new_itemName=mysqli_real_escape_string($conn,$_POST['txtItemName']);
-   
     $new_lotNo=mysqli_real_escape_string($conn,$_POST['txtlotNo']);
-    
     $new_brandName=mysqli_real_escape_string($conn,$_POST['txtbrandName']);
     $new_supplyDescription=mysqli_real_escape_string($conn,$_POST['txtsupplyDescription']);
+    $old_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['oldUnitPrice']);
     $new_supplyUnitPrice=mysqli_real_escape_string($conn,$_POST['unitPrice']);
-    
-     $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
+    $new_supplyReorderLevel=mysqli_real_escape_string($conn,$_POST['txtReorderLevel']);
     $new_supplyExpirationDate=mysqli_real_escape_string($conn,$_POST['txtExpirationDate']);
     $new_supplyStock=mysqli_real_escape_string($conn,$_POST['addQty']);
-    
     $new_supplyUnit=mysqli_real_escape_string($conn,$_POST['txtUnit']);
+    $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
+    $new_dep=mysqli_real_escape_string($conn,$_POST['txtDep']);
+    $new_supplier=mysqli_real_escape_string($conn,$_POST['txtSupplier']);
 
-   $new_category=mysqli_real_escape_string($conn,$_POST['txtCategory']);
+    $old_supplyUnitPrice2=mysqli_real_escape_string($conn,$_POST['oldUnitPrice']);
+    $new_supplyUnitPrice2=mysqli_real_escape_string($conn,$_POST['unitPrice']);
+    $priceChange= $old_supplyUnitPrice2-$new_supplyUnitPrice2;
+
+    date_default_timezone_set('Asia/Manila');
+    $date = date('Y/m/d h:i:s a', time());
     
-  $new_supplier=mysqli_real_escape_string($conn,$_POST['txtSupplier']);
-    
-    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName', supply_description='$new_supplyDescription', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', unit='$new_supplyUnit', supplier = '$new_supplier', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
+    $sqlupdate="UPDATE supplies SET item_name = '$new_itemName', supply_description='$new_supplyDescription', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', unit='$new_supplyUnit', suppliers_name = '$new_supplier', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
+
+    $sqlinsert1="INSERT INTO unitPriceUpdate (date_time, description, supply_type, old_price, new_price, priceChange, user) VALUES ('".$date."', 'The unit price of the product <b>".$new_supplyDescription." </b> has been updated from the old price of  <b>&#8369;".$old_supplyUnitPrice."</b> to the new price of  <b>&#8369;".$new_supplyUnitPrice."</b>.' , 'Office', '".$old_supplyUnitPrice2."', '".$new_supplyUnitPrice2."', '".$priceChange."' , '".$this->session->userdata('fname')." ".$this->session->userdata('lname')."') ";
+    $result_update2=mysqli_query($conn2,$sqlinsert1);
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
@@ -1604,7 +1612,7 @@ if(isset($_POST['offRecon'])){
     $date = date('Y/m/d h:i:s a', time());
 
   
-     $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type, quantity) VALUES ('".$date."', 'The product  <b>".$item."</b> has changed from the logical count of  <b>".$logical."</b>  to physical count of  <b>".$physical."</b>  because ".$remarks."' , 'Office', '".$difference."')  ";
+     $sqlinsert1="INSERT INTO reconciliation (date_time, description, supply_type, quantity, old_quantity, new_quantity, user) VALUES ('".$date."', 'The product  <b>".$item."</b> has reconciled from the logical count of  <b>".$logical."</b>  to physical count of  <b>".$physical."</b>  because ".$remarks."', 'Office', '".$difference."', '".$logical1."', '".$physical1."', '".$this->session->userdata('fname')." ".$this->session->userdata('lname')."')  ";
     $result_update2=mysqli_query($conn2,$sqlinsert1);
 
     $sqlupdate1="UPDATE supplies SET quantity_in_stock='$physical' WHERE supply_id='$new_id' ";
