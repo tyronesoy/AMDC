@@ -83,8 +83,8 @@ if(isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
+                            <div class="col-md-6">
+                                <div class="form-group" style="width: 100%">
                                     <label for="exampleInputEmail1">Purchasing Officer</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
@@ -94,11 +94,43 @@ if(isset($_REQUEST['id'])){
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Purchase Order No.</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                          <i class="fa fa-hashtag"></i>
+                                        </div>
+                                        <?php 
+                                        $conn=mysqli_connect("localhost","root","");
+                                            mysqli_select_db($conn, "itproject");
+                                        $query_ord = "SELECT * FROM purchase_orders JOIN purchase_order_bm USING(purchase_order_uniq_id) GROUP BY purchase_order_id";
+                                        $resulty = $conn->query($query_ord);
+
+                                        date_default_timezone_set('Asia/Manila');
+                                        $date = date("mdY");
+                                        $counter = 0 ;
+                                        $rand = substr(uniqid('', true), -5);
+
+                                        if ($resulty->num_rows > 0) {
+                                            while($row = $resulty->fetch_assoc()) {
+                                                $order = $row["order_no"];
+                                                $order2 = $row["purchase_order_id"];
+                                            }
+                                            $counter1 = $order2+1; 
+                                        ?>
+                                        <input type="text" class="form-control" id="orderNum" name="orderNum" value="<?php echo 'PO'.$date.'-'.$counter1; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                        <?php }else{ ?>
+                                        <input type="text" class="form-control" id="orderNum" name="orderNum" value="<?php echo 'PO'.$date.'-'.$counter; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
+                            <div class="col-md-6">
+                                <div class="form-group" style="width: 100%">
                                     <label for="exampleInputEmail1">Supplier</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">       
@@ -122,8 +154,7 @@ if(isset($_REQUEST['id'])){
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Purchase Order Date</label>
                                     <div class="input-group">
@@ -132,7 +163,7 @@ if(isset($_REQUEST['id'])){
                                         </div>
                                         <?php
                                         date_default_timezone_set("Asia/Manila"); 
-                                        $date = date("Y-m-d"); ?>
+                                        $date = date("Y-m-d H:i:s"); ?>
                                         <input type="text" class="form-control" name="orDate" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                                     </div>
                                                     <!-- /.input group -->
