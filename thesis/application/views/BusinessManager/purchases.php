@@ -1187,12 +1187,12 @@ function unit_measure($connect)
                     <table id="example" class="table table-bordered table-striped">
                       <?php
                         $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                        $sql = "SELECT CONCAT(description, IF((COUNT(description)-1) = 0, '', CONCAT(' and ',COUNT(description)-1,' other items.'))) AS 'Description', purchase_order_uniq_id, po_id, order_date, order_quantity, order_unit, po_remarks, description, delivery_date, supply_type, supplier, unit_price, total, quantity_delivered, notes, quantity_remaining, purchase_order_id, purchase_order_created_date, purchase_order_name, purchase_order_status, purchase_order_remarks, purchase_order_grandtotal, soft_deleted, item_delivery_remarks FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE order_quantity != 0 GROUP BY purchase_order_uniq_id";
+                        $sql = "SELECT CONCAT(description, IF((COUNT(description)-1) = 0, '', CONCAT(' and ',COUNT(description)-1,' other items.'))) AS 'Description', purchase_order_uniq_id, po_id, order_date, order_quantity, order_unit, po_remarks, description, delivery_date, supply_type, supplier, unit_price, total, quantity_delivered, notes, quantity_remaining, purchase_order_id, purchase_order_created_date, purchase_order_name, purchase_order_status, purchase_order_remarks, purchase_order_grandtotal, soft_deleted, purchase_orders.item_delivery_remarks, order_no FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) WHERE order_quantity != 0 GROUP BY purchase_order_uniq_id";
                         $result = $conn->query($sql);    
                       ?>
                       <thead>
                           <tr>
-                              <th>Purchase ID</th>
+                              <th>Purchase Order No.</th>
                               <th>Item name/s</th>
                               <th>Supplier</th>
                               <th>Order Date</th>
@@ -1217,7 +1217,7 @@ function unit_measure($connect)
                               $status = '<span class="label label-success">Delivered</span>';
                           }
                       ?>
-                      <td><?php echo $row["purchase_order_uniq_id"]; ?></td>
+                      <td><?php echo $row["order_no"]; ?></td>
                       <td><?php echo $row["Description"];?></td>
                       <td><?php echo $row["supplier"]; ?></td>
                       <td><?php echo $row["order_date"]; ?></td>
@@ -1613,7 +1613,7 @@ $(document).ready(function(){
   $("select.select2").change(function () {
     var value = document.getElementById('supp');
     var value1 = value.options[value.selectedIndex].value;
-    alert(value1);
+    
   });
 </script>
 

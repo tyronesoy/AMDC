@@ -147,16 +147,17 @@ if(isset($_REQUEST['id'])){
                               <div class="row">
                                 <div class="col-md-5">
                                               <div class="form-group">
-                                                    <label>Purchase ID</label>
+                                                    <label>Purchase Order No.</label>
                                                      <div class="input-group">
                                                       <div class="input-group-addon">
-                                                        <i class="fa fa-key"></i>
+                                                        <i class="fa fa-hashtag"></i>
                                                       </div>
 
-                                                      <input type="text" class="form-control" id="txtuni" name="txtuni" value="<?php echo $per_po_uniq_id;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
+                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value="<?php echo $ordrNo;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" required>
                                                   </div>
                                                 </div>
                                               </div>
+
                                               <div class="col-md-1">
                                                 </div>
 <!--
@@ -210,43 +211,7 @@ if(isset($_REQUEST['id'])){
                             </div>
                             
                             <div class="row">
-                                <?php
-                             if($ordrNo != ''){
-                            ?>
-                                <div class="col-md-5">
-                                              <div class="form-group">
-                                                    <label>Purchase Order No.</label>
-                                                     <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-hashtag"></i>
-                                                      </div>
-
-                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value="<?php echo $ordrNo;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" required>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <div class="col-md-1">
-                                                </div>
-                                <?php
-                            }else{
-                            ?>
-                                <div class="col-md-5">
-                                              <div class="form-group">
-                                                    <label>Purchase Order No.</label>
-                                                     <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-hashtag"></i>
-                                                      </div>
-
-                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <div class="col-md-1">
-                                                </div>
-                                <?php
-                            }
-                            ?>
+                                                           
                                   
                                               <?php
                             if($per_quantityDelivered != ''){
