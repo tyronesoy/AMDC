@@ -88,7 +88,7 @@ if(isset($_REQUEST['id'])){
                                                   <div class="input-group-addon">
                                                     <i class="fa fa-phone"></i>
                                                   </div>
-                                                  <input type="text" class="form-control" name="user_contact" id="user_contact"data-inputmask='"mask":"(9999) 999-9999"' value="<?php echo $per_usercontact;?>" data-mask required>
+                                                  <input type="text" class="form-control" name="txtuser_contact" id="txtuser_contact"data-inputmask='"mask":"(9999) 999-9999"' value="<?php echo $per_usercontact;?>" data-mask required>
                                                 </div>
                                                 <script>
                                                   $(function(){
