@@ -1186,7 +1186,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Fully Issued' AND supply_type='Medical' GROUP BY supply_name ORDER BY quantity DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Fully Issued' AND supply_type='Medical' GROUP BY supply_name ORDER BY SUM(quantity) DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
@@ -1233,7 +1233,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               <table id="example1" class="table table-bordered table-striped">
                    <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Fully Issued' AND supply_type='Office' GROUP BY supply_name ORDER BY quantity DESC LIMIT 10";
+                    $sql = "SELECT supply_name, SUM(quantity) FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) join supplies on inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Fully Issued' AND supply_type='Office' GROUP BY supply_name ORDER BY SUM(quantity) DESC LIMIT 10";
                     $result = $conn->query($sql);    
                   ?>
                  <thead>
