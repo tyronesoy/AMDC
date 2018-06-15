@@ -84,12 +84,12 @@ if(isset($_REQUEST['id'])){
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="txtcontactno">Contact No.</label>
+                            <label for="txtcontactno">Contact Number</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone-square"></i>
                                 </div>
-                                <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>" maxlength="11" placeholder="09XXXXXXXXX" pattern="^[0-9]{11}$" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>" data-inputmask='"mask":"(9999) 999-9999"' style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" data-mask required>
                             </div>
                           </div>
                         </div>
@@ -149,10 +149,18 @@ if(isset($_REQUEST['id'])){
 ?>
 
 
+<!-- InputMask -->
+<script src="../assets/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="../assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="../assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
 
 
-
+<script>
+  $(function(){
+    $('[data-mask]').inputmask()
+  })
+</script>
 
 
 
