@@ -52,18 +52,24 @@ if(isset($_REQUEST['id'])){
                                 <h3 class="modal-title">
                                     <b>Are you sure to activate </b>
                                 </h3>
-                                <h2>
-                                    <b><u><?php echo $per_departmentName;?></u>?</b>
-                                </h2>
+                                <h4>
+                                    <b>Department Name: <u><?php echo $per_departmentName;?></u></b>
+                                </h4>
+                                <h4>
+                                    <b>Branch Location: <u><?php echo $per_departmentLocation;?></u></b>
+                                </h4>
                             </center>
                         <?php }else { ?>
                             <center>
                                 <h3 class="modal-title">
                                     <b>Are you sure to deactivate </b>
                                 </h3>
-                                <h2>
-                                    <b><u><?php echo $per_departmentName;?></u>?</b>
-                                </h2>
+                                <h4>
+                                    <b>Department Name: <u><?php echo $per_departmentName;?></u></b>
+                                </h4>
+                                <h4>
+                                    <b>Branch Location: <u><?php echo $per_departmentLocation;?></u></b>
+                                </h4>
                             </center>
                         <?php } ?>
                         <div class="form-group">
