@@ -505,24 +505,9 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
   </header>
  <?php $identity =  $this->session->userdata('fname');?>
 <div class="modal fade" id="editflag">
-<form name="form1" id="user_form" method="post" action="dashboard/addUser" enctype="multipart/form-data">
-          <div class="modal-dialog">
+<form name="form1" id="user_form" method="post" action="dashboard/addUser2">
+          <div class="modal-dialog modal-sm">
             <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                  <div class="col-md-2">
-                        <img src="assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                            </div>
-                                <div class="col-md-8">
-                                                
-                                                <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
-                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                                                    <center><h6>Philippines</h6></center>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <!-- end of modal header -->
                                         <div class="modal-body">
                                         <div class="box-header">
@@ -553,7 +538,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="addUser"><i class="fa fa-edit"></i> Update</button>
+                <button type="submit" class="btn btn-primary" name="addUser2"><i class="fa fa-edit"></i> Update</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -1688,7 +1673,25 @@ function myFunction4(id) {
             });
         });
 </script>
-
+<script>
+        $(document).on('click','#getAdd',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'dashboard/addUser2',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).final(function(){
+                $('#content-data').html('<p>Error</p>');
+            });
+        });
+</script>
 <script>
         $(document).on('click','#getEdit',function(e){
             e.preventDefault();
