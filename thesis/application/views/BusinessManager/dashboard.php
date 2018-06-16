@@ -908,7 +908,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
               <p>Reorder Supplies</p>
             </div>
-            <div class="icon">
+            <div class="icon" style="margin-top: 30px;">
               <i class="fa fa-bar-chart"></i>
             </div>
             <button onclick="myFunction('Demo1')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
@@ -935,7 +935,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
               <p>Returned Supplies</p>
             </div>
-            <div class="icon">
+            <div class="icon" style="margin-top: 30px;">
               <i class="fa fa-cube"></i>
             </div>
             <button onclick="myFunction2('Demo2')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
@@ -964,7 +964,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
               <p>Expired Supplies</p>
             </div>
-            <div class="icon">
+            <div class="icon" style="margin-top: 30px;">
               <i class="fa fa-exclamation-triangle"></i>
             </div>
             <button onclick="myFunction4('Demo4')" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></button>
