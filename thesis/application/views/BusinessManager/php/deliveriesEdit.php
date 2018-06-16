@@ -285,7 +285,7 @@ if(isset($_REQUEST['id'])){
                                                 while($row = $result->fetch_assoc()) { 
                                                   $arrayPoId .= $row['po_id'].', ';
                                                   $arrayDesc .= $row['description'].', ';
-                                                  $arrayUnit .= $row['order_unit'].', ';
+                                                  $arrayUnit .= $row['unit'].', ';
                                                   $arrayQuantity .= $row['order_quantity'].', ';   
                                                   $arrayQuantityDelivered .= $row['quantity_delivered'].', ';   
                                                   $arrayUnitPrice .= $row['unit_price'].', ';
@@ -395,7 +395,10 @@ if(isset($_REQUEST['id'])){
                                               <td width="100px"><input type="text" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php echo $effectiveDate; ?>" min="<?php echo $effectiveDate; ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
                                               <?php
-                                               } ?>                                              
+                                               } ?>
+
+                                               <td class="hidden"><input type="text" class="form-control" id="txtunit<?php echo $x; ?>" name="txtunit<?php echo $x; ?>" value="<?php print_r($unit[$zero]); ?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                              </td>
 
                                               <td class="hidden"><input type="text" class="form-control" id="txtexpire<?php echo $x; ?>" name="txtexpire<?php echo $x; ?>" value="<?php print_r($expired[$zero]); ?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
