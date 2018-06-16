@@ -150,7 +150,7 @@ if(isset($_REQUEST['id'])){
                     </div>
 
                     <?php 
-                            $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies WHERE supply_id=$id GROUP BY item_name";
+                            $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies WHERE supply_id=$id GROUP BY supply_description";
                             $result = $con->query($sql);
                             $arrayOrdId = '';
                             $arrayOrdUniqId = '';
@@ -167,7 +167,7 @@ if(isset($_REQUEST['id'])){
                             <span id="error"></span>
                             <table class="table table-bordered" id="item_table">
                                 <tr>
-                                    <th width="15%"> Quantity </th>
+                                    <th width="15%"> Qty to be Ordered </th>
                                     <th width="52.5%"> Description </th>
                                     <th width="16%"> Unit </th>
                                     <th width="16.5%"> Item Type </th>
@@ -180,7 +180,7 @@ if(isset($_REQUEST['id'])){
                                             $arrayStatus .= $row['inventory_order_status'].', ';
                                             $arraySupervisor .= $row['inventory_order_name'].', ';   
                                             $arrayQtyStock .= $row['quantity_in_stock'].', ';   
-                                            $arrayDesc .= $row['supply_name'].', ';
+                                            $arrayDesc .= $row['supply_description'].', ';
                                             $arrayUnit .= $row['unit'].', ';
                                             $arrayType .= $row['supply_type'].', ';
                                             $order_id = explode(", ", $arrayOrdId);

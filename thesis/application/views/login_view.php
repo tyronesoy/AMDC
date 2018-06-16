@@ -60,12 +60,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <form name="form1" method="post" action="<?php echo site_url('login/checklogin') ?>">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" name="username" placeholder="Username/Email" required/>
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <span class="glyphicon glyphicon-user form-control-feedback"> &nbsp;</span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" name="password" placeholder="Password" required/>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Password" onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" required/>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
+      <script>
+        function mouseoverPass2(obj) {
+          var obj = document.getElementById('password');
+          obj.type = "text";
+        }
+        function mouseoutPass2(obj) {
+          var obj = document.getElementById('password');
+          obj.type = "password";
+        }
+      </script>
 
       <div class="row" style="display: flex; align-items: center; justify-content: center;color: red">
       <?php
