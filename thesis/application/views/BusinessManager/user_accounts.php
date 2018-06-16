@@ -1130,7 +1130,6 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th>Contact Number</th>
                 <th>Email</th>
                 <th>Department</th>
-                <th>Branch</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -1156,8 +1155,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                       <td><?php echo $row["lname"]; ?></td>
                       <td><?php echo $row["user_contact"]; ?></td>
                       <td width="20px"><?php echo $row["user_email"]; ?></td>
-                      <td><?php echo $row["dept_name"]; ?></td>
-                      <td><?php echo $row["branch"]; ?></td>
+                      <td><?php echo $row["dept_name"]; echo ', '; echo $row["branch"];?></td>
                       <td><?php echo $status; ?></td>
                       <td>
                         <?php if($row['user_status'] == 'Active') { ?>
@@ -1189,12 +1187,12 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 <th></th>
                 <th></th>
                 <th></th>
-                <th></th>
+                <th width="10%"></th>
+                <th width="10%"></th>
                 <th width="20%"></th>
-                <th></th>
-                <th></th>
+                <th ></th>
                <!-- <th>Reset Password</th> -->
-                <th width="30%"></th>
+                <th width="5%"></th>
                 
 
             </tr>
