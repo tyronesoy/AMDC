@@ -126,7 +126,7 @@ if(isset($_REQUEST['id'])){
                                         <div class="modal-body">
                 <form class="form-horizontal" method="post">
                     <div class="box-body">
-                        <center><h3 class="modal-title"><b>Can't change the status of </h3><h2><b><u><?php echo $per_departmentName;?></u>. There are still pending orders</b></h2></b></h3></center>
+                        <center><h3 class="modal-title"><b>Cannot deactivate <h4><b>Department Name: <u><?php echo $per_departmentName;?></u></b> <br><b>Branch Location: <u><?php echo $per_departmentLocation;?></u></b></h4><b>There are still pending orders.</b></h3></center>
                         <div class="form-group">
                             <label hidden="true" class="col-sm-4 control-label" for="txtid">Department ID</label>
                             <div class="col-sm-6">

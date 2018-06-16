@@ -710,9 +710,9 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
             </a>
         </li>
   <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
-        <li class="active">
+       <li class="treeview">
               <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
+                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
               </a>
           </li>
   
@@ -737,8 +737,20 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                 </li>
               </ul>
             </li>
-              <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
-              <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+              <li class="treeview">
+              <a href="#"><i class="glyphicon glyphicon-stats"></i>Stock Movement
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                  <li><a href="<?php echo 'unitPriceUpdate' ?>"><i class="glyphicon glyphicon-ruble"></i> Price Update</a></li>
+                </li>
+              </ul>
+            </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
@@ -786,11 +798,11 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fa fa-group"></i> <b>User Accounts</b>
+        <i class="fa fa-user-circle"></i> <b>User Accounts</b>
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active"><i class="fa fa-group"></i> User Accounts</li>
+        <li class="active"><i class="fa fa-user-circle"></i> User Accounts</li>
       </ol>
     </section>
 
@@ -833,15 +845,24 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                         </div>
                                         <div class="box-body">
                                            <div class="row">
-                                                  <div class="col-md-6">
+                                                  <div class="col-md-6" >
                                                <div class="form-group">
                                                   <label for="exampleInputEmail1">Username</label>
+                                                   <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-address-card-o"></i>
+                                                  </div>
                                                   <input type="text" minlength=6 class="form-control" name="username" id="username" required />
                                                 </div>
+                                              </div>
                                               </div>
                                                   <div class="col-md-6">
                                                     <div class="form-group">
                                                       <label for="exampleInputEmail1">Role</label>
+                                                       <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-user-o"></i>
+                                                  </div>
                                                        <select name = "roletype" class="form-control"  required>
                                                        <option value="">Select a Role</option>
                                                                             <option></option>
@@ -862,21 +883,28 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                    </div>
                                                   </div>
 
-                                                  <div class="row">
                                                 <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">First Name</label>
+                                                   <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-user-circle"></i>
+                                                  </div>
                                                   <input type="name" class="form-control" name="fname" id="fname" required />
                                                 </div>
                                               </div>
+                                            </div>
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Last Name</label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-user-circle"></i>
+                                                  </div>
                                                   <input type="name" class="form-control" name="lname" id="lname" required />
                                                 </div>
                                               </div>
-                                            </div>
-                                                <div class="row">
+                                              </div>
                                                 <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label>Contact Number</label>
@@ -889,9 +917,25 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 </div>
                                               </div>
                                                </div>
+                                                <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Email</label>
+                                                        <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-envelope"></i>
+                                                  </div>
+                                                  <input type="email" class="form-control" name="user_email" placeholder="email@email.com" id="user_email" required />
+                                                </div>
+                                              </div>
+                                              </div>
+
                                               <div class="col-md-6">
                                                 <div class="form-group" style="width:100%">
                                               <label for="exampleInputEmail1">Password</label>
+                                              <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-lock"></i>
+                                                  </div>
                                                 <input type="password" class="form-control" name="password" onmouseover="mouseoverPass();" onmouseout="mouseoutPass();" minlength=6 id="password1" value="<?php echo $row['password'] ?>" required />
 
                                                   <script>
@@ -907,18 +951,13 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                               </div>
                                               </div>                                                    
                                             </div>
-
-                                            <div class="row">
-                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">Email</label>
-                                                  <input type="email" class="form-control" name="user_email" placeholder="email@email.com" id="user_email" required />
-                                                </div>
-                                              </div>
-
                                               <div class="col-md-6">
-                                                <div class="form-group" style="width:100%">
+                                                <div class="form-group">
                                               <label for="exampleInputEmail1">Confirm Password</label>
+                                              <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-lock"></i>
+                                                  </div>
                                                 <input type="password" class="form-control" name="confirmpassword" minlength=6 onmouseover="mouseoverPass1();" onmouseout="mouseoutPass1();" id="confirmpassword" required />
                                                 <span class="pull-left" id="message"></span>
 
@@ -934,12 +973,14 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                   </script>
                                               </div>
                                               </div>
-
-                                            </div>
-                                            <div class="row">
+                                              </div>
                                                     <div class="col-md-6">
-                                                     <div class="form-group">
+                                                     <div class="form-group" style="width:100%">
                                                       <label for="exampleInputEmail1">Department</label>
+                                                          <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-building"></i>
+                                                  </div>
                                                        <select name = "dept_name" class="form-control" required>
                                                        <option value="">Select a Department</option>
                                                                             <option></option>
@@ -958,10 +999,15 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                       </select>
                                                      </div>
                                                    </div>
+                                                 </div>
 
                                                     <div class="col-md-6">
                                                      <div class="form-group">
                                                       <label for="exampleInputEmail1">Branch</label>
+                                                          <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-building"></i>
+                                                  </div>
                                                        <select name = "branch" class="form-control" required>
                                                        <option value="">Select a Branch</option>
                                                                             <option></option>
@@ -980,7 +1026,6 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                       </select>
                                                      </div>
                                                    </div>
-                                                </div>
                                         </div>
                                       </div>
                                       <div class="modal-footer">
@@ -1028,8 +1073,8 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                         </div>
                                         <div class="box-body">
                                             <div class="row">
-                                               <div class="col-md-6">
-                                                <div class="form-group">
+                                               <div class="col-md-12">
+                                                <div class="form-group" style="width:100%">
                                                     <?php
                                                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                                                       $sql9 = "SELECT value from defaults where attribute = 'defpass' LIMIT 1";
@@ -1038,6 +1083,10 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                       while($row = $result->fetch_assoc()) {
                                                     ?>
                                                     <label>Old Password</label>
+                                                      <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-lock"></i>
+                                                  </div>
                                                 <input type="password" class="form-control" name="oldPassword" minlength=6 onmouseover="mouseoverPass2();" onmouseout="mouseoutPass2();" id="oldPassword" required />
 
                                                   <script>
@@ -1057,10 +1106,13 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                 </div>
                                               </div>     
                                             </div>
-                                                <div class="row">
                                                <div class="col-md-6">
                                                 <div class="form-group" style="width:100%">
                                               <label for="exampleInputEmail1">Password</label>
+                                                <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-lock"></i>
+                                                  </div>
                                                 <input type="password" class="form-control" name="passw" minlength=6 onmouseover="mouseoverPass3();" onmouseout="mouseoutPass3();" id="passw" required />
 
                                                   <script>
@@ -1075,10 +1127,15 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                   </script>
                                               </div>
                                               </div>
+                                            </div>
 
                                               <div class="col-md-6">
                                                 <div class="form-group" style="width:100%">
                                               <label for="exampleInputEmail1">Confirm Password</label>
+                                               <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-lock"></i>
+                                                  </div>
                                                 <input type="password" class="form-control" name="passconf" minlength=6 onmouseover="mouseoverPass4();" onmouseout="mouseoutPass4();" id="passconf" required />
                                                 <span class="pull-left" id="messagePass"></span>
 

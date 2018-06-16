@@ -708,10 +708,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          
         <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li>
-          <a href="<?php echo 'userAccounts' ?>">
-            <i class="fa fa-group"></i> <span>Manage Accounts</span>
-          </a>
-        </li>
+              <a href="<?php echo 'userAccounts' ?>">
+                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
+              </a>
+          </li>
         <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
                <li class="treeview">
           <a href="#">
@@ -734,8 +734,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
-               <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
-               <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                 <li class="treeview">
+              <a href="#"><i class="glyphicon glyphicon-stats"></i>Stock Movement
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                  <li><a href="<?php echo 'unitPriceUpdate' ?>"><i class="glyphicon glyphicon-ruble"></i> Price Update</a></li>
+                </li>
+              </ul>
+            </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
 			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-cart-plus"></i>Departments Order</a></li>
 			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
@@ -837,7 +849,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-user"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="memo_user" name="memo_user" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                  <input type="text" class="form-control" id="memo_user" name="memo_user" value="<?php echo ( $this->session->userdata('fname')); echo' '; echo ( $this->session->userdata('lname'));?>" readonly>
                                               </div>
                                               </div>
 
@@ -851,7 +863,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         date_default_timezone_set('Asia/Manila');
                                                        $date = date('Y-m-d H:i:s'); 
                                                        ?>
-                                                      <input type="text" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                      <input type="text" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
@@ -862,7 +874,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-pencil-square"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="memo_title" name="memo_title" maxlength="20" required style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <input type="text" class="form-control" id="memo_title" name="memo_title" maxlength="20" required >
                                               </div>
                                               </div>
 

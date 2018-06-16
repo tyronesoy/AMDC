@@ -688,12 +688,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
         </li>
   <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
+       <li>
               <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
+                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
               </a>
           </li>
-  
     <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes"></i> <span>Inventory</span>
@@ -715,8 +714,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
-               <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
-               <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                 <li class="treeview">
+              <a href="#"><i class="glyphicon glyphicon-stats"></i>Stock Movement
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                  <li><a href="<?php echo 'unitPriceUpdate' ?>"><i class="glyphicon glyphicon-ruble"></i> Price Update</a></li>
+                </li>
+              </ul>
+            </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
@@ -823,7 +834,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                           <i class="fa fa-user-o"></i>
                                                       </div>
-                                                      <input type="text" class="form-control" name="prop" placeholder="Enter Proprietor's Name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                                      <input type="text" class="form-control" name="prop" placeholder="Enter Proprietor's Name" required />
                                                   </div>
                                               </div>
                                             </div>
@@ -836,12 +847,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                           <i class="fa fa-building-o"></i>
                                                       </div>
-                                                      <input type="text" class="form-control" name="suppName" placeholder="Enter Company Name" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                                      <input type="text" class="form-control" name="suppName" placeholder="Enter Company Name" required />
                                                   </div>
                                               </div>
                                             </div>
 
-                      <div class="col-md-6">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label>Contact Number</label>
 
@@ -849,7 +860,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <div class="input-group-addon">
                                                     <i class="fa fa-phone-square"></i>
                                                   </div>
-                                                  <input type="text" class="form-control" name="suppContact" id="suppContact" data-inputmask='"mask":"(9999) 999-9999"' style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" data-mask required>
+                                                  <input type="text" class="form-control" name="suppContact" id="suppContact" data-inputmask='"mask":"(9999) 999-9999"' data-mask required>
                                                 </div>
                                               </div>
                                                </div>
@@ -863,7 +874,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                           <i class="fa fa-address-book-o"></i>
                                                       </div>
-                                                      <input type="text" class="form-control" name="suppAddress" placeholder="Enter Complete Address" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required />
+                                                      <input type="text" class="form-control" name="suppAddress" placeholder="Enter Complete Address" required />
                                                   </div>
                                               </div>
                                             </div>
@@ -874,7 +885,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <div class="input-group-addon">
                                                     <i class="fa fa-product-hunt"></i>
                                                   </div>
-                                                  <select class="form-control" name="suppProduct" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                                  <select class="form-control" name="suppProduct" >
                                                     <option value="">Select Product Type</option>
                                                     <?php
                                                       $conn=mysqli_connect("localhost", "root", "", "itproject");
@@ -900,7 +911,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                   <div class="input-group-addon">
                                                     <i class="fa fa-commenting-o"></i>
                                                   </div>
-                                                  <input type="text" class="form-control" name="suppRemarks" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"/>
+                                                  <input type="text" class="form-control" name="suppRemarks"/>
                                                 </div>
                                               </div>
                                             </div>

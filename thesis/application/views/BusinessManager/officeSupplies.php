@@ -747,9 +747,9 @@ function category($connect)
             </a>
         </li>
   <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
+      <li>
               <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
+                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
               </a>
           </li>
   
@@ -906,38 +906,60 @@ function category($connect)
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Lot Number</label>
-                                                    <input type="text" class="form-control" id="lot_no"name="lot_no" maxlength="12" required />
+                                                    <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-hashtag"></i>
+                                                  </div>
+                                                    <input type="text" class="form-control" name="lot_no" id="lot_no" maxlength="12" required />
                                                 </div>
                                               </div>
+                                            </div>
                                                 
                                                     <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Brand Name</label>
-                                                  <input type="text" class="form-control" id="brandname"name="brandname" required />
-                                                
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-tags"></i>
+                                                  </div>
+                                                  <input type="text" class="form-control" name="brandname" id="brandname" required />
+                                                </div>
                                               </div>
                                               </div>
                                             </div>
 
                                             <div class="form-group" style="width:100%;">
                                                   <label for="exampleInputEmail1">Item Name</label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-shopping-bag"></i>
+                                                  </div>
                                                   <input type="text" class="form-control" id="item_name" name="item_name" required />
                                                 </div>
+                                              </div>
 
                                             
                                              <div class="form-group" style="width:100%;">
                                                   <label for="exampleInputEmail1">Item Description</label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-shopping-bag"></i>
+                                                  </div>
                                                   <input type="text" class="form-control" id="Description" name="Description" required />
                                                 </div>
-                                            
+                                            </div>
                                       
-                                   
                                             <div class="row">
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                     
                                                   <label for="exampleInputEmail1">Add new 'Unit' </label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-cubes"></i>
+                                                  </div>
                                                   <input class="form-control" type="text" id="newopt"/>
+                                                </div>
                                                   <button class="btn btn-default btn-md pull-right" type="button" id="addopt" >Add Unit</button>
                                                 </div>
                                             </div>
@@ -945,11 +967,15 @@ function category($connect)
                                             <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Unit</label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-cubes"></i>
+                                                  </div>
                                                   <select id="opt" class="form-control select2" name="Unit" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
                                                     <option value=""></option>
                                                     <?php echo unit_measure($connect);?>
                                                   </select>
-                                           
+                                           </div>
                                               </div>
                                               </div>
                                             </div>
@@ -959,7 +985,12 @@ function category($connect)
                                               <div class="form-group">
                                                     
                                                   <label for="exampleInputEmail1">Add new 'Category' </label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-th-large"></i>
+                                                  </div>
                                                   <input class="form-control" type="text" id="newCat"/>
+                                                </div>
                                                   <button class="btn btn-default btn-md pull-right" type="button" id="addCat" >Add Category</button>
                                                 </div>
                                             </div>
@@ -967,6 +998,10 @@ function category($connect)
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label for="exampleInputEmail1">Category</label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-th-large"></i>
+                                                  </div>
                                                   <select id="cat" class="form-control select2" name="category" required style="width: 100%;">
                                                     <option value=""></option>
                                                     <?php echo category($connect);?>
@@ -974,11 +1009,15 @@ function category($connect)
                                               </div>
                                               </div>
                                             </div>
+                                          </div>
                                         <div class="row">
-                        
                                         <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Reorder Level</label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-reorder"></i>
+                                                  </div>
                                                 <input type="number" class="form-control" id="reorder_level" name="reorder_level" step=".01" min="0"  />
                                                 </div>
                                               </div>
@@ -989,7 +1028,7 @@ function category($connect)
                                                 </div>
                                               </div>
                                         </div>
-                                            
+                                          </div>
                                       
                                             
                                       </div>
@@ -1014,18 +1053,18 @@ function category($connect)
 
        <table>
           <tr>
-          <th>Filter by a Range of Quantity</th>
-          <th style="padding-left: 290px;">Filter by a Range of Price</th>
+          <th style="padding-left: 10px;">Filter by a Range of Quantity</th>
+          <th style="padding-left: 280px;">Filter by a Range of Price</th>
           </tr>
 
           <tr>
-            <td><div class="input-group input-daterange">
+            <td><div class="input-group input-daterange" style="padding-left: 10px;">
           <input type="text" class="form-control select" id="min" name="min" placeholder="Min Qty">
           <div class="input-group-addon">to</div>
           <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
         </div></td>
             
-            <td><div class="input-group input-daterange" style="padding-left: 290px;">
+            <td><div class="input-group input-daterange" style="padding-left: 280px;">
             <input type="text" class="form-control select" id="minPrice" name="minPrice" placeholder="Min Price">
             <div class="input-group-addon">to</div>
             <input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="Max Price">
@@ -1113,12 +1152,13 @@ function category($connect)
             <!--- PRINT AND PDF -->
              <div class="row no-print">
 			
-	  <div class="col-xs-1" style="float:left">
+	  <div class="col-xs-1" style="float:left" style="padding-left: 10px;">
           <a href="officeSuppliesRecover" style="color:white;"><button type="button" class="btn btn-danger pull-left" style="margin-right: 1px;"><i class="fa fa-trash"></i> Archived Office Supplies
           </a>
           </button>
 		</div>
-                 <button  type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
+    <div class="col-xs-1" style="float:right" style="padding-left: 10px;">
+           <button  type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
       </div>
         <!-- END OF PRINT AND PDF -->
         <div class="modal fade" id="printrep">

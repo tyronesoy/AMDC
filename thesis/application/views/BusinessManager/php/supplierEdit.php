@@ -65,7 +65,7 @@ if(isset($_REQUEST['id'])){
                               <div class="input-group-addon">
                                 <i class="fa fa-user-o"></i>
                               </div>
-                              <input type="text" class="form-control" id="txtsoleproprietor" name="txtsoleproprietor" value="<?php echo $per_soleProprietor;?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                              <input type="text" class="form-control" id="txtsoleproprietor" name="txtsoleproprietor" value="<?php echo $per_soleProprietor;?>">
                             </div>
                           </div>
                         </div>
@@ -73,12 +73,12 @@ if(isset($_REQUEST['id'])){
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group" style="width:100%;">
-                            <label for="txtsuppliername">Supplier Name</label>
+                            <label for="txtsuppliername">Company Name</label>
                             <div class="input-group">
                               <div class="input-group-addon">
                                   <i class="fa fa-building-o"></i>
                               </div>
-                              <input type="text" class="form-control" id="txtsuppliername" name="txtsuppliername" value="<?php echo $per_supplierName;?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                              <input type="text" class="form-control" id="txtsuppliername" name="txtsuppliername" value="<?php echo $per_supplierName;?>" >
                             </div>
                           </div>
                         </div>
@@ -89,7 +89,7 @@ if(isset($_REQUEST['id'])){
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone-square"></i>
                                 </div>
-                                <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>" data-inputmask='"mask":"(9999) 999-9999"' style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" data-mask required>
+                                <input type="text" class="form-control" id="txtcontactno" name="txtcontactno" value="<?php echo $per_supplierContact;?>" data-inputmask='"mask":"(9999) 999-9999"' data-mask required>
                             </div>
                           </div>
                         </div>
@@ -102,7 +102,7 @@ if(isset($_REQUEST['id'])){
                               <div class="input-group-addon">
                                   <i class="fa fa-address-book-o"></i>
                               </div>
-                              <input type="text" class="form-control" id="txtaddress" name="txtaddress" value="<?php echo $per_supplierAddress;?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                              <input type="text" class="form-control" id="txtaddress" name="txtaddress" value="<?php echo $per_supplierAddress;?>">
                             </div>
                           </div>
                         </div>
@@ -113,7 +113,7 @@ if(isset($_REQUEST['id'])){
                               <div class="input-group-addon">
                                 <i class="fa fa-product-hunt"></i>
                               </div>
-                              <select id="txtprodtype" name="txtprodtype" class="form-control" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                              <select id="txtprodtype" name="txtprodtype" class="form-control" >
                                 <option value="Office" <?php echo ($per_supplierProduct =='Office')?'selected':'' ?>>Office</option>
                                 <option value="Medical" <?php echo ($per_supplierProduct =='Medical')?'selected':'' ?>>Medical</option>
                               </select>
@@ -128,7 +128,7 @@ if(isset($_REQUEST['id'])){
                               <div class="input-group-addon">
                                 <i class="fa fa-commenting-o"></i>
                               </div>
-                              <input type="text" class="form-control" id="txtremarks" name="txtremarks" value="<?php echo $per_supplierRemarks;?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                              <input type="text" class="form-control" id="txtremarks" name="txtremarks" value="<?php echo $per_supplierRemarks;?>" >
                             </div>
                                 
                             </div>

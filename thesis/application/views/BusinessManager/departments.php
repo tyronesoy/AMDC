@@ -687,9 +687,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
         </li>
   <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
-        <li>
+      <li>
               <a href="<?php echo 'userAccounts' ?>">
-                  <i class="fa fa-group"></i><span>Manage Accounts</span>  
+                  <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
               </a>
           </li>
   
@@ -715,8 +715,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
-               <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
-               <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                 <li class="treeview">
+              <a href="#"><i class="glyphicon glyphicon-stats"></i>Stock Movement
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                  <li><a href="<?php echo 'unitPriceUpdate' ?>"><i class="glyphicon glyphicon-ruble"></i> Price Update</a></li>
+                </li>
+              </ul>
+            </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
 			<li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Departments Order</a></li>
 			<li><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
@@ -823,6 +835,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <div class="col-md-6">
                                                   <div class="form-group">
                                                   <label for="exampleInputEmail1">Branch Location</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                          <i class="fa fa-building-o"></i>
+                                                      </div>
                                                        <select id="opt" name = "branch" class="form-control" required="">
                                                        <option value="">Select Branch Location</option>
                                                         <?php
@@ -840,11 +856,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       </select>
                                                   </div> 
                                                 </div>
+                                                </div>
                                                 <div class="col-md-6">
                                               <div class="form-group">
-                                                    
                                                   <label for="exampleInputEmail1">Add new 'Branch Location'  </label>
+                                                   <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                          <i class="fa fa-building-o"></i>
+                                                      </div>
                                                   <input class="form-control" type="text" id="newopt"/>
+                                                    </div>
                                                   <span class="pull-left" id="message"></span>
                                                   <button class="btn btn-default btn-md pull-right" type="button" id="addopt" >Add</button>
                                                 </div>
@@ -856,8 +877,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                               <div class="col-md-12">
                                               <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Department Name</label>
+                                                   <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                          <i class="fa fa-building-o"></i>
+                                                      </div>
                                                   <input type="text" class="form-control" name="depName" required />
                                                 </div>
+                                              </div>
                                             </tr>         
                                             </tbody>
                                           </table>

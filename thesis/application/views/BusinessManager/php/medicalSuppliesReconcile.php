@@ -23,7 +23,7 @@ if(isset($_REQUEST['id'])){
     while($row=mysqli_fetch_array($run_sql)){
         $per_id=$row[0];
       //  $per_supplierName=$row[1];
-        $per_supplyDescription=$row[2];
+        $per_supplyDescription=$row[24];
         $per_supplyQuantityInStock=$row[5];
         $per_supplyRemarks=$row[11];
 
@@ -71,31 +71,48 @@ if(isset($_REQUEST['id'])){
 
                         <div class="col-sm-12">
                             <div class="form-group">
-                            <label for="txtsupplyDescription">Description</label>
+                            <label for="txtsupplyDescription">Item Description</label>
+                            <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-shopping-bag"></i>
+                                                  </div>
                                 <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" readonly/>
                             </div>
+                        </div>
 
                             <div class="row">
                           <div class="col-sm-6">
                              <div class="form-group" style="width:100%">
                             <label for="txtQuantityInStock">Logical Count</label>
+                            <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-list-ol"></i>
+                                                  </div>
                                 <input type="number" class="form-control" id="txtLogicalCount" name="txtLogicalCount" value="<?php echo $per_supplyQuantityInStock;?>" readonly>
                             </div>
                         </div>
+                    </div>
                         
                           <div class="col-sm-6">
                              <div class="form-group">
                             <label for="txtQuantityInStock">Physical Count</label>
+                            <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-list-ol"></i>
+                                                  </div>
                                 <input type="number" class="form-control" id="txtPhysicalCount" name="txtPhysicalCount" min="0">
                             </div>
                         </div>
                         </div>
 
-                        <div class="row">
                         <div class="col-sm-12">
                              <div class="form-group" >
                                 <label for="txtRemarks">Remarks</label>
-                            <select class="form-control select2" id="remarks" name="remarks" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-comment"></i>
+                                                  </div>
+                            <select class="form-control select2" id="remarks" name="remarks">
                                                   <option value=""></option>
                                                   <?php echo remarks_desc($connect);?>
                                                 </select>

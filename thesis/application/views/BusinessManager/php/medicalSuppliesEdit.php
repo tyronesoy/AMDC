@@ -69,34 +69,69 @@ if(isset($_REQUEST['id'])){
                                             <div class="col-md-6">
                                                     <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Lot Number</label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-hashtag"></i>
+                                                  </div>
                                                     <input type="text" class="form-control" id="txtlotNo"  maxlength="12" name="txtlotNo" value="<?php echo $per_lotNo;?>" readonly>
                                                 </div>
                                               </div>
+                                            </div>
                                                 
                                                     <div class="col-md-6">
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">Brand Name</label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-tags"></i>
+                                                  </div>
                                                       <input type="text" class="form-control" id="txtbrandName" name="txtbrandName" value="<?php echo $per_brandName;?>" >
-                                                
+                                                </div>
                                               </div>
                                               </div>
                                             </div>
                         
                               <div class="form-group" >
                             <label for="txtItemName">Item Name</label>
+                            <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-shopping-bag"></i>
+                                                  </div>
                                 <input type="text" class="form-control" id="txtItemName" name="txtItemName" value="<?php echo $per_itemName;?>" >
                             </div>
+                          </div>
                         
                           <div class="form-group">
                             <label for="txtsupplyDescription">Item Description</label>
+                            <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-shopping-bag"></i>
+                                                  </div>
                                 <input type="text" class="form-control" id="txtsupplyDescription" name="txtsupplyDescription" value="<?php echo $per_supplyDescription;?>" >
                             </div>
+                          </div>
 
                                             <div class="row">
-                                            
+                                             <div class="col-md-6">
+                                                        <div class="form-group" style="width:100%">
+                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-cubes"></i>
+                                                  </div>
+                                                  <input class="form-control" type="text" id="newOpt"/>
+                                                </div>
+                                                  <button class="btn btn-default btn-md pull-right" type="button" id="addOpt" >Add Unit</button>
+                                                </div>
+                                                </div>
+
                                         <div class="col-md-6">
-                                               <div class="form-group" style="width:100%">
+                                               <div class="form-group" >
                                                   <label for="exampleInputEmail1">Unit</label><br>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-cubes"></i>
+                                                  </div>
                                                        <select id="opt" name="txtUnit" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_supplyUnit;?></option>
                                                         <?php
@@ -115,21 +150,31 @@ if(isset($_REQUEST['id'])){
                                                       </select>
                                                      </div>
                                                    </div>  
-                                                   <div class="col-md-6">
-                                                        <div class="form-group">
-                                                  <label for="exampleInputEmail1">Add new 'Unit'  </label>
-                                                  <input class="form-control" type="text" id="newOpt"/>
-                                                  <button class="btn btn-default btn-md pull-right" type="button" id="addOpt" >Add Unit</button>
-                                                </div>
-                                                </div>
+                                                  </div>
                                                 </div>
                         
               
                                         <div class="row">
-                                           
+                                              <div class="col-md-6">
+                                                        <div class="form-group" style="width:100%">
+                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-th-large"></i>
+                                                  </div>
+                                                  <input class="form-control" type="text" id="newCat"/>
+                                                </div>
+                                                  <button class="btn btn-default btn-md pull-right" type="button" id="addCat" >Add Category</button>
+                                                </div>
+                                                </div>
+
                                         <div class="col-md-6">
-                                               <div class="form-group" style="width:100%">
+                                               <div class="form-group" >
                                                   <label for="exampleInputEmail1">Category</label><br>
+                                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-th-large"></i>
+                                                  </div>
                                                        <select id="cat" name="txtCategory" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_category;?></option>
                                                         <?php
@@ -148,13 +193,7 @@ if(isset($_REQUEST['id'])){
                                                       </select>
                                                      </div>
                                                    </div>  
-                                                    <div class="col-md-6">
-                                                        <div class="form-group" >
-                                                  <label for="exampleInputEmail1">Add new 'Category'  </label>
-                                                  <input class="form-control" type="text" id="newCat"/>
-                                                  <button class="btn btn-default btn-md pull-right" type="button" id="addCat" >Add Category</button>
-                                                </div>
-                                                </div>
+                                                 </div>
      
                                                 </div>
                                                 <div class="row">
@@ -169,62 +208,94 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-6">
                             <div class="form-group" style="width:100%;">
                             <label for="txtAddQuantity">Current Quantity In Stock</label>
-                                <input type="number" class="form-control"id="addQty" min="1" pattern="^[0-9]$" name="addQty" value="<?php echo $per_supplyQuantityInStock;?>" readonly>
+                             <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-plus-square"></i>
+                                                  </div>
+                                <input type="number" class="form-control" id="addQty" min="1" pattern="^[0-9]$" name="addQty" value="<?php echo $per_supplyQuantityInStock;?>" readonly>
                         </div>
                         </div>
+                      </div>
 
                             <div class="col-md-6">
                             <div class="form-group" >
                             <label for="txtAddQuantity">Update Quantity</label>
+                             <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-plus-square"></i>
+                                                  </div>
                                 <input type="number" class="form-control" id="addQty" min="1" pattern="^[0-9]$" name="addQty" value="<?php echo $per_supplyQuantityInStock;?>" >
                         </div>
                         </div>
                         </div>
+                      </div>
 
                             <div class="row">
                                 <div class="col-md-6">
                             <div class="form-group" style="width:100%;">
                             <label for="unitPrice">Current Unit Price</label>
+                             <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-money"></i>
+                                                  </div>
                                 <input type="number" class="form-control" id="oldUnitPrice" name="oldUnitPrice" value="<?php echo $per_supplyUnitPrice;?>" readonly>
                             </div>
                             </div>
+                          </div>
 
                             <div class="col-md-6">
                             <div class="form-group" >
                             <label for="unitPrice">Unit Price</label>
+                             <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-money"></i>
+                                                  </div>
                                 <input type="number" class="form-control" id="unitPrice" name="unitPrice" step=".01" min="1" value="<?php echo $per_supplyUnitPrice;?>">
                         </div>
                         </div>
                         </div>
+                      </div>
 
                         <div class="row">
                         <div class="col-md-6">
                         <div class="form-group" style="width:100%;">
                             <label for="txtReorderLevel">Reorder Level</label>
+                             <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-reorder"></i>
+                                                  </div>
                                 <input type="number" class="form-control" id="txtReorderLevel" name="txtReorderLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                         </div>
                         </div>
+                      </div>
                             <div class="col-md-6">
                             <div class="form-group">
                             <label for="txtExpirationDate">Expiration Date</label>
+                             <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                  </div>
                                 <input type="text" class="form-control" id="datepicker" name="txtExpirationDate" placeholder="yyyy-mm-dd" value="<?php echo $per_supplyExpirationDate; ?>">
-
+                              </div>
                         </div>
                         </div>
                         </div>
                         
                             <div class="row">
-
                               <div class="col-md-6">
                                                <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Supplier</label><br>
+                                                   <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-user"></i>
+                                                  </div>
                                                        <select name="txtSupplier" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_supplier;?></option>
                                                    
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                             $sql = "SELECT DISTINCT company_name FROM suppliers WHERE company_name NOT LIKE '%$per_supplier%' AND product = 'Medical' ORDER BY company_name ASC";
+                                                             $sql = "SELECT DISTINCT company_name FROM suppliers WHERE product = 'Medical' ORDER BY company_name ASC";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $txtSupplier) { 
@@ -237,11 +308,16 @@ if(isset($_REQUEST['id'])){
                                                       </select>
                                                      </div>
                                                    </div>  
+                                                 </div>
                                              
                                             
                                         <div class="col-md-6">
                                                <div class="form-group" style="width:100%">
                                                   <label for="exampleInputEmail1">Department</label><br>
+                                                   <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-building"></i>
+                                                  </div>
                                                        <select name="txtDep" class="form-control select2" style="width: 100%;">
                                                        <option><?php echo $per_dep;?></option>
                                                       
@@ -261,10 +337,8 @@ if(isset($_REQUEST['id'])){
                                                       </select>
                                                      </div>
                                                    </div>  
-
-                                              
+                                                 </div>
                                                 </div>
-                        
                         </tr>
                         </table>
                 </form>

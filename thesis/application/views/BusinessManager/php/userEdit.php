@@ -18,7 +18,7 @@ if(isset($_REQUEST['id'])){
          $per_status=$row[8];
          $per_deptname=$row[9];
          $per_type=$row[1];
-          $per_branch=$row[12];
+          $per_branch=$row[11];
 
     }//end while
 ?>
@@ -60,29 +60,42 @@ if(isset($_REQUEST['id'])){
                              <div class="col-sm-13">
                              <div class="form-group">
                                      <label for="txtusername">Username</label>
+                                     <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-address-card-o"></i>
+                                                  </div>
                                     <input type="text" minlength=6 class="form-control" id="txtusername" name="txtusername" value="<?php echo $per_username;?>" readonly>
                                 </div>
                             </div>
+                          </div>
 
                             <div class="row">
                            <div class="col-sm-6">
                              <div class="form-group" style="width:100%">
                                     <label for="txtlname">Last Name</label>
+                                    <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-user-circle"></i>
+                                                  </div>
                                     <input type="text" class="form-control" id="txtlname" name="txtlname" value="<?php echo $per_lname;?>" readonly>
                                 </div>
                             </div>
+                          </div>
 
                             <div class="col-sm-6">
                             <div class="form-group">
                                      <label for="txtfname">First Name</label>
+                                     <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-user-circle"></i>
+                                                  </div>
                                     <input type="text" class="form-control" id="txtfname" name="txtfname" value="<?php echo $per_fname;?>" readonly>
                                 </div>
                             </div>
                           </div>
 
-                          <div class="row">
-                                  <div class="col-md-6">
-                                                <div class="form-group">
+                                  <div class="col-sm-6">
+                                                <div class="form-group" style="width:100%">
                                                   <label>Contact Number</label>
 
                                                 <div class="input-group">
@@ -101,17 +114,25 @@ if(isset($_REQUEST['id'])){
                             <div class="col-sm-6">
                             <div class="form-group">
                                     <label for="txtemail">Email</label>
+                                      <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-envelope"></i>
+                                                  </div>
                                     <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="email@email.com" value="<?php echo $per_email;?>" readonly>
                                 </div>
                             </div>
                         </div>
                                     
-                              <div class="row">
-                                     <div class="col-sm-6">
+                                     <div class="col-md-6">
                                     <div class="form-group" style="width:100%">
+                                    
                                       <?php if($per_type != 'Assistant'){ ?>
+
                                                       <label for="txtdeptname">Department</label>
-                                                      
+                                                        <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-building"></i>
+                                                  </div>
                                                        <select name = "txtdeptname" id="txtdeptname" class="form-control" value="<?php echo $per_deptname;?>">
                                                        <option><?php echo $per_deptname; ?></option>
                                                                             <option></option>
@@ -138,10 +159,15 @@ if(isset($_REQUEST['id'])){
                                                       <?php } ?>
                                         </div>
                                         </div>
+                                      </div>
 
                                      <div class="col-md-6">
                                                     <div class="form-group">
                                                       <label for="txtbranch">Branch</label>
+                                                        <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-building"></i>
+                                                  </div>
                                                        <select name="txtbranch" id="txtbranch" class="form-control">
                                                         <option><?php echo $per_branch;?></option>
                                                         <option></option>
@@ -161,12 +187,16 @@ if(isset($_REQUEST['id'])){
                                                      </div>
                                                    </div>   
 
-                                            
+                                            </div>
                     </div>
                     <div class="row">
                               <div class="col-md-6">
-                                                    <div class="form-group">
+                                        <div class="form-group" style="width:100%">
                                                       <label for="txtrole">Role</label>
+                                                        <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-user-o"></i>
+                                                  </div>
                                                        <select name="txtrole" id="txtrole" class="form-control">
                                                         <option><?php echo $per_type;?></option>
                                                         <option></option>
@@ -187,8 +217,6 @@ if(isset($_REQUEST['id'])){
                                                      </div>
                                                    </div>
                     </div>
-
-             
             </div>
 
             <div class="modal-footer">

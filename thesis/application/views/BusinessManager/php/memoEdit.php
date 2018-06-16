@@ -57,7 +57,7 @@ if(isset($_REQUEST['id'])){
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="txtmemodate" name="txtmemodate" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;"  value="<?php echo $per_memodate;?>" readonly>
+                                                  <input type="text" class="form-control" id="txtmemodate" name="txtmemodate" value="<?php echo $per_memodate;?>" readonly>
                                               </div>
                                               </div>
 
@@ -67,14 +67,14 @@ if(isset($_REQUEST['id'])){
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-pencil-square"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="txtmemotitle" name="txtmemotitle" maxlength="20" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" value="<?php echo $per_memotitle;?>">
+                                                  <input type="text" class="form-control" id="txtmemotitle" name="txtmemotitle" maxlength="20" value="<?php echo $per_memotitle;?>">
                                               </div>
                                               </div>
 
                                             <div class="form-group">
                                         <label for="txtmemodescription">Description</label>
                                         <div class="input-group">
-                                            <textarea id="txtmemodescription" name="txtmemodescription" rows="15" cols="83" ><?php echo $per_memodesc ?></textarea>
+                                            <textarea id="txtmemodescription" name="txtmemodescription" rows="15" cols="86" ><?php echo $per_memodesc ?></textarea>
                                         </div>
                                     </div>
                     </div>

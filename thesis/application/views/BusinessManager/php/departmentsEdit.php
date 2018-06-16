@@ -60,6 +60,10 @@ if(isset($_REQUEST['id'])){
                             <div class="col-md-6">
                                     <div class="form-group" style="width:100%">
                                     <label class="exampleInputEmail" for="txtlocation">Branch Location</label>
+                                    <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                          <i class="fa fa-building-o"></i>
+                                                      </div>
                                     <select id="txtlocation" name="txtlocation" class="form-control filter">
                                         <option value="<?php echo $per_departmentLocation; ?>" name="branch" hidden><?php echo $per_departmentLocation; ?></option>
                                         <option></option>
@@ -74,12 +78,18 @@ if(isset($_REQUEST['id'])){
                                         <?php } ?>
                                     </select> 
                                 </div>
+                                </div>
                                 </div>   
                                 <div class="col-md-6">   
-                                    <div class="form-group">    
-                                        <label class="exampleInputEmail" for="txtdepartmentname">Department Name</label>
+                                    <div class="form-group"> 
+                                    <label class="exampleInputEmail" for="txtdepartmentname">Department Name</label>
+                                    <div class="input-group">
+                                                      <div class="input-group-addon">
+                                                          <i class="fa fa-building-o"></i>
+                                                      </div>   
                                         <input type="text" class="form-control" id="txtdepartmentname" name="txtdepartmentname" value="<?php echo $per_departmentName;?>">
                                     </div>
+                                </div>
                             </div>
                         </div>
             <div class="modal-footer">

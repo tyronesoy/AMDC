@@ -83,31 +83,50 @@ if(isset($_REQUEST['id'])){
                               <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="desc">Item Name</label>
+                                <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-shopping-bag"></i>
+                                                  </div>
                                     <input type="text" class="form-control" id="txtdesc" name="txtdesc" value="<?php echo $per_supplyDescription;?>" readonly>
                                 </div>
+                            </div>
                             </div>
                             <div class="col-sm-6">
                         <div class="form-group">
                             <label for="txtReorderLevel">Old Reorder Level</label>
+                              <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-reorder"></i>
+                                                  </div>
                                 <input type="number" class="form-control" id="oldLevel" name="oldLevel" value="<?php echo $per_supplyReorderLevel;?>" readonly>
                             </div>
+                        </div>
 						</div>
                         <div class="form-group">
                              <div class="col-sm-6">
                             <label for="txtReorderLevel">New Reorder Level</label>
+                              <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-reorder"></i>
+                                                  </div>
                                 <input type="number" class="form-control" id="newLevel" name="newLevel">
                             </div>
                     </div>
+                </div>
                      <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="desc">Remarks</label>
-                                <select class="form-control select2" id="remarks" name="remarks" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                                  <div class="input-group">
+                                                  <div class="input-group-addon">
+                                                    <i class="fa fa-comment"></i>
+                                                  </div>
+                                <select class="form-control select2" id="remarks" name="remarks">
                                                   <option value=""></option>
                                                   <?php echo remarks_desc($connect);?>
                                                 </select>
                                 </div>
                             </div>
-
+                        </div>
 					</div>
                 </form>
 			</div>
