@@ -257,6 +257,8 @@ if(isset($_REQUEST['id'])){
                         $arraypokey = '';
                         $arrayLot = '';
                         $arrayRem = '';
+                        $arraySupName = '';
+                        $arrayCat = '';
                         $zero = 0;
                       ?>
 
@@ -301,6 +303,8 @@ if(isset($_REQUEST['id'])){
                                                   $arraypokey .=  $row['po_key'].', ';
                                                   $arrayLot .=  $row['lot_no'].', ';
                                                   $arrayRem .=  $row['quantity_remaining'].', ';
+                                                  $arraySupName .=  $row['item_name'].', ';
+                                                  $arrayCat .=  $row['category'].', ';
                                                   
                                                   $poid = explode(", ", $arrayPoId);
                                                   $desc = explode(", ", $arrayDesc);
@@ -320,6 +324,8 @@ if(isset($_REQUEST['id'])){
                                                   $pokey = explode(", ", $arraypokey);
                                                   $lot = explode(", ", $arrayLot);
                                                   $rem = explode(", ", $arrayRem);
+                                                  $supname = explode(", ", $arraySupName);
+                                                  $cat = explode(", ", $arrayCat);
                                                   }
                                                   
                                               ?>
@@ -396,6 +402,16 @@ if(isset($_REQUEST['id'])){
                                               </td>
                                               <?php
                                                } ?>
+
+                                               <td class="hidden"><input type="text" class="form-control" id="txtiname<?php echo $x; ?>" name="txtiname<?php echo $x; ?>" value="<?php print_r($supname[$zero]); ?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                              </td>
+
+                                               <td class="hidden"><input type="text" class="form-control" id="txttype<?php echo $x; ?>" name="txttype<?php echo $x; ?>" value="<?php print_r($type[$zero]); ?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                              </td>
+
+                                              <td class="hidden"><input type="text" class="form-control" id="txtcat<?php echo $x; ?>" name="txtcat<?php echo $x; ?>" value="<?php print_r($cat[$zero]); ?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                              </td>
+
 
                                                <td class="hidden"><input type="text" class="form-control" id="txtunit<?php echo $x; ?>" name="txtunit<?php echo $x; ?>" value="<?php print_r($unit[$zero]); ?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
