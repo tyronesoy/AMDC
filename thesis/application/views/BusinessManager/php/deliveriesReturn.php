@@ -37,7 +37,7 @@ if(isset($_REQUEST['id'])){
         $per_purchOrderRemarks=$row[22];
         $per_gtotal=$row[23];
         $per_soft_deleted=$row[26];
-        $per_sup_id=$row[28];
+        $per_sup_id=$row[27];
         $date = date("Y-m-d");
 
 
@@ -158,7 +158,7 @@ if(isset($_REQUEST['id'])){
                                     $sqldelby="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join deliveries using (po_id) WHERE purchase_order_id=$id";
                                     $run_sqldelby=mysqli_query($con,$sqldelby);
                                     while($row=mysqli_fetch_array($run_sqldelby)){
-                                        $per_courier=$row[43];
+                                        $per_courier=$row[42];
                                     }//end while
     
                                     if($per_courier != ''){

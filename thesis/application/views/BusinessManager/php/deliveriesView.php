@@ -262,7 +262,7 @@ if(isset($_REQUEST['id'])){
                                                <th width="5%">Qty Delivered</th>
                                                <th width="20%">Supply Description</th>
                                                <th width="8%">Brand</th>
-                                               <th width="8%">Unit Price &#8369; </th>
+                                               <th width="8%">Unit Price (&#8369;) </th>
                                                <th width="8%">Expiration Date</th>
             
 
