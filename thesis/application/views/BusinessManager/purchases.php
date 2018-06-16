@@ -1923,7 +1923,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp == $new_OrigExp || $new_OrigExp == '' || $new_OrigExp == 'NULL'){
-         $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered" WHERE supply_id='$new_supid' ";
+         $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered." WHERE supply_id='$new_supid' ";
       $result_add=mysqli_query($con,$sqladd);
       }else{
         $sqlexp="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description, $brand, $unit, $new_quantityDelivered, $amount, $new_inputExp, $new_purchaseID, $supplierid)";
@@ -1942,7 +1942,7 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp == $new_OrigExp || $new_OrigExp == '' || $new_OrigExp == 'NULL'){
-         $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered" WHERE supply_id='$new_supid' ";
+         $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered." WHERE supply_id='$new_supid' ";
       $result_add=mysqli_query($con,$sqladd);
       }else{
         $sqlexp="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description, $brand, $unit, $new_quantityDelivered, $amount, $new_inputExp, $new_purchaseID, $supplierid)";
@@ -1981,7 +1981,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp1 == $new_OrigExp1 || $new_OrigExp1 == '' || $new_OrigExp1 == 'NULL'){
-         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered1" WHERE supply_id='$new_supid1' ";
+         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1." WHERE supply_id='$new_supid1' ";
       $result_add1=mysqli_query($con,$sqladd1);
       }else{
         $sqlexp1="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description1, $brand1, $unit1, $new_quantityDelivered1, $amount1, $new_inputExp1, $new_purchaseID, $supplierid1)";
@@ -2000,7 +2000,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp1 == $new_OrigExp1 || $new_OrigExp1 == '' || $new_OrigExp1 == 'NULL'){
-         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered1" WHERE supply_id='$new_supid1' ";
+         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1." WHERE supply_id='$new_supid1' ";
       $result_add1=mysqli_query($con,$sqladd1);
       }else{
         $sqlexp1="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description1, $brand1, $unit1, $new_quantityDelivered1, $amount1, $new_inputExp1, $new_purchaseID, $supplierid1)";
@@ -2040,7 +2040,7 @@ if(isset($_POST['btnEdit'])){
 
       
       if($new_inputExp2 == $new_OrigExp2 || $new_OrigExp2 == '' || $new_OrigExp2 == 'NULL'){
-        $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered2" WHERE supply_id='$new_supid2' ";
+        $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2." WHERE supply_id='$new_supid2' ";
       $result_add2=mysqli_query($con,$sqladd2);
       }else{
         $sqlexp2="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description2, $brand2, $unit2, $stock2, $amount2, $new_inputExp2, $new_purchaseID, $supplierid2)";
@@ -2059,7 +2059,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp2 == $new_OrigExp2 || $new_OrigExp2 == '' || $new_OrigExp2 == 'NULL'){
-        $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered2" WHERE supply_id='$new_supid2' ";
+        $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2." WHERE supply_id='$new_supid2' ";
       $result_add2=mysqli_query($con,$sqladd2);
       }else{
         $sqlexp2="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description2, $brand2, $unit2, $new_quantityDelivered2, $amount2, $new_inputExp2, $new_purchaseID, $supplierid2)";
@@ -2098,7 +2098,7 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp3 == $new_OrigExp3 || $new_OrigExp3 == '' || $new_OrigExp3 == 'NULL'){
-        $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered3" WHERE supply_id='$new_supid3' ";
+        $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3." WHERE supply_id='$new_supid3' ";
       $result_add3=mysqli_query($con,$sqladd3);
       }else{
         $sqlexp3="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description3, $brand3, $unit3, $new_quantityDelivered3, $amount3, $new_inputExp3, $new_purchaseID, $supplierid3)";
@@ -2116,7 +2116,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp3 == $new_OrigExp3 || $new_OrigExp3 == '' || $new_OrigExp3 == 'NULL'){
-        $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered3" WHERE supply_id='$new_supid3' ";
+        $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3." WHERE supply_id='$new_supid3' ";
       $result_add3=mysqli_query($con,$sqladd3);
       }else{
         $sqlexp3="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description3, $brand3, $unit3, $new_quantityDelivered3, $amount3, $new_inputExp3, $new_purchaseID, $supplierid3)";
@@ -2155,14 +2155,14 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp4 == $new_OrigExp4 || $new_OrigExp4 == '' || $new_OrigExp4 == 'NULL'){
-        $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered4" WHERE supply_id='$new_supid4' ";
+        $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4." WHERE supply_id='$new_supid4' ";
       $result_add4=mysqli_query($con,$sqladd4);
       }else{
         $sqlexp4="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description4, $brand4, $unit4, $new_quantityDelivered4, $amount4, $new_inputExp4, $new_purchaseID, $supplierid4)";
         $resultexp4=mysqli_query($con,$sqlexp4);
       }
     }else {
-      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4', quantity_remaining='$quantity_returned4', order_no='$ordrNo', total='$total4' WHERE po_id='$new_id4' ";
+      $sqlupdate4="UPDATE purchase_orders SET item_delivery_remarks='Partial', quantity_delivered='$new_quantityDelivered4', notes='$new_notes4', quantity_remaining='.$quantity_returned4.', order_no='$ordrNo', total='$total4' WHERE po_id='$new_id4' ";
       $result_update4=mysqli_query($con,$sqlupdate4);
 
       $sqlupd4="UPDATE purchase_order_bm SET item_delivery_remarks='Partial' WHERE po_id='$new_id4' ";
@@ -2174,7 +2174,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp4 == $new_OrigExp4 || $new_OrigExp4 == '' || $new_OrigExp4 == 'NULL'){
-        $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered4" WHERE supply_id='$new_supid4' ";
+        $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4." WHERE supply_id='$new_supid4' ";
       $result_add4=mysqli_query($con,$sqladd4);
       }else{
         $sqlexp4="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description4, $brand4, $unit4, $new_quantityDelivered4, $amount4, $new_inputExp4, $new_purchaseID, $supplierid4)";
@@ -2212,7 +2212,7 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp5 == $new_OrigExp5 || $new_OrigExp5 == '' || $new_OrigExp5 == 'NULL'){
-        $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered5" WHERE supply_id='$new_supid5' ";
+        $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5." WHERE supply_id='$new_supid5' ";
       $result_add5=mysqli_query($con,$sqladd5);
       }else{
         $sqlexp5="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description5, $brand5, $unit5, $new_quantityDelivered5, $amount5, $new_inputExp5, $new_purchaseID, $supplierid5)";
@@ -2231,7 +2231,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp5 == $new_OrigExp5 || $new_OrigExp5 == '' || $new_OrigExp5 == 'NULL'){
-        $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered5" WHERE supply_id='$new_supid5' ";
+        $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5." WHERE supply_id='$new_supid5' ";
       $result_add5=mysqli_query($con,$sqladd5);
       }else{
         $sqlexp5="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description5, $brand5, $unit5, $new_quantityDelivered5, $amount5, $new_inputExp5, $new_purchaseID, $supplierid5)";
@@ -2270,7 +2270,7 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp6 == $new_OrigExp6 || $new_OrigExp6 == '' || $new_OrigExp6 == 'NULL'){
-        $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered6" WHERE supply_id='$new_supid6' ";
+        $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6." WHERE supply_id='$new_supid6' ";
       $result_add6=mysqli_query($con,$sqladd6);
       }else{
         $sqlexp6="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description6, $brand6, $unit6, $new_quantityDelivered6, $amount6, $new_inputExp6, $new_purchaseID, $supplierid6)";
@@ -2289,7 +2289,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp6 == $new_OrigExp6 || $new_OrigExp6 == '' || $new_OrigExp6 == 'NULL'){
-        $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered6" WHERE supply_id='$new_supid6' ";
+        $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6." WHERE supply_id='$new_supid6' ";
       $result_add6=mysqli_query($con,$sqladd6);
       }else{
         $sqlexp6="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description6, $brand6, $unit6, $new_quantityDelivered6, $amount6, $new_inputExp6, $new_purchaseID, $supplierid6)";
@@ -2328,7 +2328,7 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp7 == $new_OrigExp7 || $new_OrigExp7 == '' || $new_OrigExp7 == 'NULL'){
-        $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered7" WHERE supply_id='$new_supid7' ";
+        $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7." WHERE supply_id='$new_supid7' ";
       $result_add7=mysqli_query($con,$sqladd7);
       }else{
         $sqlexp7="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description7, $brand7, $unit7, $new_quantityDelivered7, $amount7, $new_inputExp7, $new_purchaseID, $supplierid7)";
@@ -2347,7 +2347,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp7 == $new_OrigExp7 || $new_OrigExp7 == '' || $new_OrigExp7 == 'NULL'){
-        $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered7" WHERE supply_id='$new_supid7' ";
+        $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7." WHERE supply_id='$new_supid7' ";
       $result_add7=mysqli_query($con,$sqladd7);
       }else{
         $sqlexp7="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description7, $brand7, $unit7, $new_quantityDelivered7, $amount7, $new_inputExp7, $new_purchaseID, $supplierid7)";
@@ -2386,7 +2386,7 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp8 == $new_OrigExp8 || $new_OrigExp8 == '' || $new_OrigExp8 == 'NULL'){
-        $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered8" WHERE supply_id='$new_supid8' ";
+        $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8." WHERE supply_id='$new_supid8' ";
       $result_add8=mysqli_query($con,$sqladd8);
       }else{
         $sqlexp8="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description8, $brand8, $unit8, $new_quantityDelivered8, $amount8, $new_inputExp8, $new_purchaseID, $supplierid8)";
@@ -2405,7 +2405,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp8 == $new_OrigExp8 || $new_OrigExp8 == '' || $new_OrigExp8 == 'NULL'){
-        $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered8" WHERE supply_id='$new_supid8' ";
+        $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8." WHERE supply_id='$new_supid8' ";
       $result_add8=mysqli_query($con,$sqladd8);
       }else{
         $sqlexp8="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description8, $brand8, $unit8, $new_quantityDelivered8, $amount8, $new_inputExp8, $new_purchaseID, $supplierid8)";
@@ -2444,7 +2444,7 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp9 == $new_OrigExp9 || $new_OrigExp9 == '' || $new_OrigExp9 == 'NULL'){
-        $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered9" WHERE supply_id='$new_supid9' ";
+        $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9." WHERE supply_id='$new_supid9' ";
       $result_add9=mysqli_query($con,$sqladd9);
       }else{
         $sqlexp9="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description9, $brand9, $unit9, $new_quantityDelivered9, $amount9, $new_inputExp9, $new_purchaseID, $supplierid9)";
@@ -2463,7 +2463,7 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp9 == $new_OrigExp9 || $new_OrigExp9 == '' || $new_OrigExp9 == 'NULL'){
-        $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + "$new_quantityDelivered9" WHERE supply_id='$new_supid9' ";
+        $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9." WHERE supply_id='$new_supid9' ";
       $result_add9=mysqli_query($con,$sqladd9);
       }else{
         $sqlexp9="INSERT INTO supplies (supply_description, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id) VALUES ($description9, $brand9, $unit9, $new_quantityDelivered9, $amount9, $new_inputExp9, $new_purchaseID, $supplierid9)";
