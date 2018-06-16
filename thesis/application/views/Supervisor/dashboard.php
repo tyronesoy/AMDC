@@ -1017,7 +1017,7 @@ setTimeout(onUserInactivity, 1000 * 1800)
 function onUserInactivity() {
   <?php unset($_SESSION['logged_in']);
   if(!isset($_SESSION['logged_in'])) { ?>
-    window.location.href = "BusinessManager/lockscreen"
+    window.location.href = "Supervisor/lockscreen"
    <?php } ?>
 }
 </script>
