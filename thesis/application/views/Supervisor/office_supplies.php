@@ -557,7 +557,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <table>
           <tr>
           <th style="padding-left: 10px;">Filter by a Range of Quantity</th>
-          <th style="padding-left: 280px;">Filter by a Range of Date</th>
           </tr>
 
           <tr>
@@ -567,11 +566,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <input type="text" class="form-control" id="max" name="max" placeholder="Max Qty">
         </div></td>
 
-          <td><div class="input-group input-daterange" style="padding-left: 280px;">
-            <input type="text" class="form-control" id="startdate" placeholder="Start Date">
-            <div class="input-group-addon">to</div>
-            <input type="text" class="form-control" id="enddate" placeholder="End Date">
-          </div></td>
           </tr>
         </table>
 
@@ -701,7 +695,7 @@ $(document).ready(function() {
     function( settings, data, dataIndex ) {
         var min = parseInt( $('#min').val(), 10 );
         var max = parseInt( $('#max').val(), 10 );
-        var quantity = parseFloat( data[2] ) || 0; // use data for the QTY column
+        var quantity = parseFloat( data[1] ) || 0; // use data for the QTY column
 
         if ( ( isNaN( min ) && isNaN( max ) ) ||
              ( isNaN( min ) && quantity <= max ) ||
@@ -734,69 +728,7 @@ $(document).ready(function() {
         } );
     } );
 
-     $("#startdate").datepicker({
-      changeYear: true,
-      changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
-      "onSelect": function (date)
-      {
-        minDateFilter = new Date(date).getTime();
-        table.draw();
-      }
-    }).keyup(function ()
-    {
-      minDateFilter = new Date(this.value).getTime();
-      table.draw();
-    });
-
-    $("#enddate").datepicker({
-      changeYear: true,
-      changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
-      "onSelect": function (date)
-      {
-        maxDateFilter = new Date(date).getTime();
-        table.draw();
-      }
-    }).keyup(function ()
-    {
-      maxDateFilter = new Date(this.value).getTime();
-      table.draw();
-    });
-
-
-
-// Date range filter
-  minDateFilter = "";
-  maxDateFilter = "";
-
-  $.fn.dataTableExt.afnFiltering.push(
-    function (oSettings, aData, iDataIndex)
-    {
-      if (typeof aData._date == 'undefined')
-      {
-        aData._date = new Date(aData[8]).getTime();
-      }
-
-      if (minDateFilter && !isNaN(minDateFilter))
-      {
-        if (aData._date < minDateFilter)
-        {
-          return false;
-        }
-      }
-
-      if (maxDateFilter && !isNaN(maxDateFilter))
-      {
-        if (aData._date > maxDateFilter)
-        {
-          return false;
-        }
-      }
-      return true;
-    }
-  );
-
+    
     // id's for filtering
    $('#min, #max').keyup( function() { 
         table.draw();

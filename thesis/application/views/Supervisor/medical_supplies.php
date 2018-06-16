@@ -30,6 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="../assets/plugins/timepicker/bootstrap-timepicker.min.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="../assets/bower_components/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="../assets/orderedit/bootstrap-datepicker.css" />
   <!-- datatable lib -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -700,12 +701,12 @@ $(document).ready(function() {
         $(this).html( '<input type="text" style="width:100%;" placeholder="Search '+title+'" />' );
     } );
 
-    // filtering
+    // filtering quantity
     $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         var min = parseInt( $('#min').val(), 10 );
         var max = parseInt( $('#max').val(), 10 );
-        var quantity = parseFloat( data[2] ) || 0; // use data for the QTY column
+        var quantity = parseFloat( data[1] ) || 0; // use data for the QTY column
 
         if ( ( isNaN( min ) && isNaN( max ) ) ||
              ( isNaN( min ) && quantity <= max ) ||
@@ -741,7 +742,7 @@ $(document).ready(function() {
      $("#startdate").datepicker({
       changeYear: true,
       changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
+      format: "yyyy-mm-dd",
       "onSelect": function (date)
       {
         minDateFilter = new Date(date).getTime();
@@ -756,7 +757,7 @@ $(document).ready(function() {
     $("#enddate").datepicker({
       changeYear: true,
       changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
+      format: "yyyy-mm-dd",
       "onSelect": function (date)
       {
         maxDateFilter = new Date(date).getTime();
@@ -779,7 +780,7 @@ $(document).ready(function() {
     {
       if (typeof aData._date == 'undefined')
       {
-        aData._date = new Date(aData[8]).getTime();
+        aData._date = new Date(aData[7]).getTime();
       }
 
       if (minDateFilter && !isNaN(minDateFilter))
