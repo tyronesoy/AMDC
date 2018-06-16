@@ -357,7 +357,7 @@ if(isset($_REQUEST['id'])){
                                               <td width="100px"><input type="text" min="<?php date('Y-m-d', strtotime('+2 months')); ?>" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php print_r($expired[$zero]); ?>"   style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                               </td>
                                                
-                                               <?php }elseif ($per_itemDeliveryRemarks == 'Full') {?>
+                                               <?php }elseif ($per_itemDeliveryRemarks == 'Full' || $per_itemDeliveryRemarks == '') {?>
                                                <td width="100px"><input type="text" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
 
                                                 <td width="100px"><input type="number" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered<?php echo $x; ?>" value="<?php print_r($quantityDelivered[$zero]); ?>" min="1" max="<?php print_r($quantity[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
