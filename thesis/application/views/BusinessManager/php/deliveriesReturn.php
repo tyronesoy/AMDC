@@ -38,12 +38,13 @@ if(isset($_REQUEST['id'])){
         $per_gtotal=$row[23];
         $per_soft_deleted=$row[26];
         $per_sup_id=$row[27];
-        $date = date("Y-m-d");
+        date_default_timezone_set("Asia/Manila");
+        $date = date("Y-m-d H:i:s");
 
 
     }//end while
 ?>
-<form class="form-horizontal" method="post">
+<form class="form-horizontal" method="post" action="deliveries/returnItems">
                                   <div class="modal-dialog">
                                     <div class="modal-content modal-lg" style="width: 990px">
                                       <div class="modal-header">
@@ -158,7 +159,7 @@ if(isset($_REQUEST['id'])){
                                     $sqldelby="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join deliveries using (po_id) WHERE purchase_order_id=$id";
                                     $run_sqldelby=mysqli_query($con,$sqldelby);
                                     while($row=mysqli_fetch_array($run_sqldelby)){
-                                        $per_courier=$row[42];
+                                        $per_courier=$row[41];
                                     }//end while
     
                                     if($per_courier != ''){
@@ -356,11 +357,11 @@ if(isset($_REQUEST['id'])){
                                               </td>
 
                                               <td class="hidden">
-                                              <input class="form-control" id="txtsuppliesid<?php echo $x; ?>" name="txtsuppliesid<?php echo $x; ?>" value="<?php print_r($supid[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" id="txtsuppliesid<?php echo $x; ?>" name="txtsuppliesid[]" value="<?php print_r($supid[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
 
                                               <td class="hidden">
-                                              <input class="form-control" id="txtsupplierid<?php echo $x; ?>" name="txtsupplierid<?php echo $x; ?>" value="<?php print_r($supplier[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                              <input class="form-control" id="txtsupplierid<?php echo $x; ?>" name="txtsupplierid[]" value="<?php print_r($supplier[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
                                               </td>
 
                                               <td class="hidden">
@@ -374,33 +375,33 @@ if(isset($_REQUEST['id'])){
                                               <?php if ($per_itemDeliveryRemarks == 'Partial' ) {?>
                                                <td width="100px"><input type="text" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]-$quantityDelivered[$zero]); ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
 
-                                               <td width="100px"><input type="number" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered<?php echo $x; ?>" value="<?php print_r($quantityDelivered[$zero]); ?>" min="1" max="<?php print_r($quantity[$zero]-$quantityDelivered[$zero]); ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
+                                               <td width="100px"><input type="number" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered[]" value="<?php print_r($quantityDelivered[$zero]); ?>" min="1" max="<?php print_r($quantity[$zero]-$quantityDelivered[$zero]); ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
 
                                                <td width="50px">
-                                                <input type="text" class="form-control" id="txtreturn" name="txtreturn" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>  
+                                                <input type="text" class="form-control" id="txtreturn<?php echo $x; ?>" name="txtreturn[]" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>  
                                                </td>
                                                 
-                                               <td width="200px"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc<?php echo $x; ?>" value="<?php print_r($desc[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
+                                               <td width="200px"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc[]" value="<?php print_r($desc[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                               </td>
                                                 
                                                 <td width="150px">
-                                                <input type="text" class="form-control" id="txtnotes<?php echo $x; ?>" name="txtnotes<?php echo $x; ?>" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                                                <input type="text" class="form-control" id="txtnotes<?php echo $x; ?>" name="txtnotes[]" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
                                               </td>
                                                                                              
                                                <?php }elseif ($per_itemDeliveryRemarks == '') {?>
                                                <td width="100px"><input type="text" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($quantity[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
 
-                                                <td width="100px"><input type="number" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered<?php echo $x; ?>" value="<?php print_r($quantityDelivered[$zero]); ?>" min="1" max="<?php print_r($quantity[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
+                                                <td width="100px"><input type="number" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered[]" value="<?php print_r($quantityDelivered[$zero]); ?>" min="1" max="<?php print_r($quantity[$zero]);?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
                                                 
                                                 <td width="50px">
-                                                <input type="text" class="form-control" id="txtreturn" name="txtreturn" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>  
+                                                <input type="text" class="form-control" id="txtreturn<?php echo $x; ?>" name="txtreturn[]" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>  
                                               </td>
 
-                                                <td width="200px"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc<?php echo $x; ?>" value="<?php print_r($desc[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
+                                                <td width="200px"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc[]" value="<?php print_r($desc[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                               </td>
                                                 
                                                 <td width="150px">
-                                                <input type="text" class="form-control" id="txtnotes<?php echo $x; ?>" name="txtnotes<?php echo $x; ?>" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
+                                                <input type="text" class="form-control" id="txtnotes<?php echo $x; ?>" name="txtnotes[]" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  
                                               </td>
                                               <?php
                                                } ?>                                              

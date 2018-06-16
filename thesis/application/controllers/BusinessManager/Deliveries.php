@@ -56,6 +56,7 @@ class Deliveries extends CI_Controller {
 	// public function getChange(){
 	// 	$this->load->view('BusinessManager/php/supplierChange');
 	// }
+
 	public function editDelivery(){
 		$this->load->view('BusinessManager/php/deliveriesEdit');
 	}
@@ -71,8 +72,12 @@ class Deliveries extends CI_Controller {
 	public function returnDashboard(){
 		$this->load->view('BusinessManager/php/dashboardReturn');
 	}
+
     public function generated(){
         $this->load->view('BusinessManager/php/generatedelrep');
+    }
+    public function returnItems(){
+    	$this->load->view('BusinessManager/php/returnDeliveries');
     }
 
 }
