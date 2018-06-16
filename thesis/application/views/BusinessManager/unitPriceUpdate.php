@@ -882,8 +882,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php $date=date_create($row["date_time"]);
-                      echo date_format($date,"m/d/Y H:i:s");?></td>
+                      <td><?php echo $row["date_time"];?></td>
                       <td><?php echo $row["description"]; ?></td>
                       <td><?php echo $row["supply_type"]; ?></td>
                       <td align="right"><?php echo $row["old_price"]?></td>
@@ -1012,25 +1011,6 @@ function onUserInactivity() {
         $(this).html( '<input type="text" style="width: 100%;" placeholder="Search '+title+'" />' );
     } );
 
-  $.fn.dataTable.ext.search.push(
-    function( settings, data, dataIndex ) {
-        var min = parseInt( $('#min').val(), 10 );
-        var max = parseInt( $('#max').val(), 10 );
-        var quantity = parseFloat( data[3] ) || 0; // use data for the age column
- 
-        if ( ( isNaN( min ) && isNaN( max ) ) ||
-             ( isNaN( min ) && age <= max ) ||
-             ( min <= quantity   && isNaN( max ) ) ||
-             ( min <= quantity   && quantity <= max ) )
-        {
-            return true;
-        }
-        return false;
-    }
-
-);
-
-      
         var table= $('#example').DataTable({
           order : [[0, 'desc']],
           "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]]
@@ -1052,7 +1032,7 @@ function onUserInactivity() {
         $("#startdate").datepicker({
       changeYear: true,
       changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
+      format: "yyyy-mm-dd",
       "onSelect": function (date)
       {
         minDateFilter = new Date(date).getTime();
@@ -1067,7 +1047,7 @@ function onUserInactivity() {
     $("#enddate").datepicker({
       changeYear: true,
       changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
+      format: "yyyy-mm-dd",
       "onSelect": function (date)
       {
         maxDateFilter = new Date(date).getTime();
@@ -1090,7 +1070,7 @@ function onUserInactivity() {
     {
       if (typeof aData._date == 'undefined')
       {
-        aData._date = new Date(aData[1]).getTime();
+        aData._date = new Date(aData[0]).getTime();
       }
 
       if (minDateFilter && !isNaN(minDateFilter))
@@ -1111,11 +1091,6 @@ function onUserInactivity() {
       return true;
     }
   );
-
-        $('#min, #max').keyup( function() { 
-        table.draw();
-    } );
-      
 });
     </script> 
    

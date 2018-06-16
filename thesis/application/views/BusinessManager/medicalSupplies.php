@@ -1057,7 +1057,7 @@ function category($connect)
           <thead>
             <tr>
                   <th style="display: none;"> ID </th>                
-                  <th style="width:15%">Lot Number</th>
+                  <th>Lot Number</th>
                   <th>Quantity In Stock</th>
                   <th>Unit</th>
                   <th>Brand Name</th>
@@ -1084,8 +1084,6 @@ function category($connect)
                       <td><?php $date=date_create($row["expiration_date"]);
                       echo date_format($date, "Y-m-d"); ?></td>
                       <td align="right"><?php  echo $row["unit_price"]; ?></td>
-                       
-    
                       <td width="50px">
                         <div class="btn-group">
                             <button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="glyphicon glyphicon-pencil"></i> Update</button>
@@ -1330,6 +1328,42 @@ $(document).ready(function() {
         $(this).html( '<input type="text" style="width:100%;" placeholder="Search '+title+'" />' );
     } );
 
+    $("#startdate").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      format: "yyyy-mm-dd",
+      "onSelect": function (date)
+      {
+        minDateFilter = new Date(date).getTime();
+        table.draw();
+      }
+    }).keyup(function ()
+    {
+      minDateFilter = new Date(this.value).getTime();
+      table.draw();
+    });
+
+    $("#enddate").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      format: "yyyy-mm-dd",
+      "onSelect": function (date)
+      {
+        maxDateFilter = new Date(date).getTime();
+        table.draw();
+      }
+    }).keyup(function ()
+    {
+      maxDateFilter = new Date(this.value).getTime();
+      table.draw();
+    });
+
+
+
+// Date range filter
+  minDateFilter = "";
+  maxDateFilter = "";
+  
     // filtering
     $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
@@ -1365,64 +1399,8 @@ $(document).ready(function() {
         return false;
       }
     );// for filtering
-               
- 
-    // DataTable
-    var table = $('#example').DataTable({
-      order : [[ 0, 'desc' ]],
-      "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
-      "scrollX": true
-    });    
-    // Apply the search in table footer
-    table.columns().every( function () {
-        var that = this;
- 
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    } );
 
-     $("#startdate").datepicker({
-      changeYear: true,
-      changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
-      "onSelect": function (date)
-      {
-        minDateFilter = new Date(date).getTime();
-        table.draw();
-      }
-    }).keyup(function ()
-    {
-      minDateFilter = new Date(this.value).getTime();
-      table.draw();
-    });
-
-    $("#enddate").datepicker({
-      changeYear: true,
-      changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
-      "onSelect": function (date)
-      {
-        maxDateFilter = new Date(date).getTime();
-        table.draw();
-      }
-    }).keyup(function ()
-    {
-      maxDateFilter = new Date(this.value).getTime();
-      table.draw();
-    });
-
-
-
-// Date range filter
-  minDateFilter = "";
-  maxDateFilter = "";
-
-  $.fn.dataTableExt.afnFiltering.push(
+    $.fn.dataTableExt.afnFiltering.push(
     function (oSettings, aData, iDataIndex)
     {
       if (typeof aData._date == 'undefined')
@@ -1447,7 +1425,27 @@ $(document).ready(function() {
       }
       return true;
     }
-  );
+  );               
+ 
+    // DataTable
+    var table = $('#example').DataTable({
+      order : [[ 0, 'desc' ]],
+      "lengthMenu": [[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, -1], [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, "All"]],
+      "scrollX": true
+    });    
+    // Apply the search in table footer
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
 
     // id's for filtering
    $('#min, #max').keyup( function() { 

@@ -889,11 +889,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php $date=date_create($row["date_time"]);
-                      echo date_format($date,"m/d/Y H:i:s");?></td>
+                      <td><?php echo $row["date_time"];?></td>
                       <td><?php echo $row["description"]; ?></td>
                       <td align="right"><?php if($row["quantity"] < 0) {
-                      echo(abs($row["quantity"]));  echo' gain';
+                      echo(abs($row["quantity"]));  echo' added';
                       }else{ echo $row["quantity"]; echo' loss'; 
                        } ?></td>
                       <td align="right"><?php echo $row["old_quantity"]?></td>
