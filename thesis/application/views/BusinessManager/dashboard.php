@@ -238,18 +238,23 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 $sql5 = "SELECT COUNT(*) AS total from supplies where accounted_for = 'N' group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
                 $number1 = $conn->query($sql5);
                 if ($number1->num_rows > 0) {
+                    $num1 = 0;
                         while($row = $number1->fetch_assoc()) {
-                            $num1 = $row["total"];
+                            $num1++;
                         }
                 }
-                $sqlfive = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$dtoday."' AND '".$date_futr."')";
+                $ddtyy = strtotime(date('Y-m-d'));
+                $ddtyy = strtotime('+'.$daysval.' days',$ddtyy);
+                $ddtyy = date('Y-m-d',$ddtyy);
+                $ddty = date('Y-m-d');
+                $sqlfive = "SELECT COUNT(*) AS total from supplies where expiration_date >= '".$datetoday."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
                 $number2 = $conn->query($sqlfive);
                 if ($number2->num_rows > 0) {
                         while($row = $number2->fetch_assoc()) {
                             $num2 = $row["total"];
                         }
                 }
-                $sqlV = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$date_past."' AND '".$dtoday."') AND soft_deleted = 'N'";
+                $sqlV = "SELECT COUNT(*) AS total from supplies where expiration_date <= '".$ddty."' AND soft_deleted = 'N'";
                 $number3 = $conn->query($sqlV);
                 if ($number3->num_rows > 0) {
                         while($row = $number3->fetch_assoc()) {
@@ -327,9 +332,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
                       date_default_timezone_set("Asia/Manila");
-                        $ddtyy = strtotime(date('Y-m-d'));
-                        $ddtyy = strtotime('+'.$daysval.' days',$ddtyy);
-                        $ddtyy = date('Y-m-d',$ddtyy);
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
                         $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date >= '".$datetoday."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
@@ -401,7 +403,6 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
                       date_default_timezone_set("Asia/Manila");
-                        $ddty = date('Y-m-d');
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
                         $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date <= '".$ddty."' AND soft_deleted = 'N'";
