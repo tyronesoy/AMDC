@@ -18,7 +18,7 @@ if(isset($_REQUEST['id'])){
 
 
     }//end while
-    $sql3="SELECT * FROM users JOIN purchase_order_bm on CONCAT(fname, ' ',lname) = purchase_order_name WHERE dept_name like '%".$per_departmentName."%' AND purchase_order_status = 'Pending'";
+    $sql3="SELECT * FROM users JOIN purchase_order_bm on CONCAT(fname, ' ',lname) = purchase_order_name WHERE dept_name LIKE '%".$per_departmentName."%' AND purchase_order_status = 'Pending' AND branch LIKE '%".$per_departmentLocation."%'";
     $result = $con->query($sql3); 
       if ($result->num_rows < 1){
 ?>
