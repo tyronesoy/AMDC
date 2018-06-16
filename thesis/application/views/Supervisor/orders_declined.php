@@ -187,7 +187,7 @@ if(!isset($_SESSION['first_run'])){
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
                 $dtoday = date("Y/m/d");
                 $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%'";
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' AND user like '%".$this->session->userdata('fname')."%'";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
