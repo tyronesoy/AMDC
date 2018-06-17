@@ -108,9 +108,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                $dtoday = date("Y/m/d");
-                $date_select = date("Y-m-d", strtotime('-3 days') ) ;//minus three days
-                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' AND user like '%".$this->session->userdata('fname')."%'";
+                $dtoday = date('Y\-m\-d\ H:i:s A');
+                $date_select = date('Y\-m\-d\ H:i:s A', strtotime('-3 days') ) ;//minus three days
+                $sql6 = "SELECT COUNT(*) AS total from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' AND (user like '%".$this->session->userdata('fname')."%' OR (log_description like '%accepted%' OR log_description like '%declined%'))";
                 $result6 = $conn->query($sql6);    
                 ?>
                 <?php if ($result6->num_rows > 0) {
@@ -132,7 +132,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description,user from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' AND user like '%".$this->session->userdata('fname')."%' order by log_id DESC";
+                    $sql7 = "select log_id,log_date,log_description,user from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND log_description like '%order%' AND (user like '%".$this->session->userdata('fname')."%' OR (log_description like '%accepted%' OR log_description like '%declined%')) order by log_id DESC";
                     $result7 = $conn->query($sql7);
                     $datetoday = date("Y-m-d");
                     $datetodayval = date("m-d");
@@ -155,19 +155,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         if($dated == $datetoday) { 
                         ?>
                         <td>
-                            <center><small><p><?php echo $datetodayval ?></p></small></center>
+                            <center><small><p><?php echo $datetoday ?></p></small></center>
                         </td>
                         <?php
                         }else if($dated == $dateyesterday) {
                         ?>
                         <td>
-                        <center><small><p><?php echo $dateyesterdayval ?></p></small></center>
+                        <center><small><p><?php echo $dateyesterday ?></p></small></center>
                         </td>
                         <?php
                         }else if($dated == $dateyesterday2) {
                         ?>
                         <td>
-                        <center><small><p><?php echo $dateyesterday2val ?></p></small></center>
+                        <center><small><p><?php echo $dateyesterday2 ?></p></small></center>
                         </td> 
                         <?php
                         }
