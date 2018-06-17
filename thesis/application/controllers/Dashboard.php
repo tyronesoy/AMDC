@@ -156,4 +156,8 @@ class Dashboard extends CI_Controller {
 		$this->load->view('BusinessManager/php/flagrange');
 	}
     
+    public function generated(){
+        $this->load->view('BusinessManager/php/generateexprep');
+    }
+    
 }
