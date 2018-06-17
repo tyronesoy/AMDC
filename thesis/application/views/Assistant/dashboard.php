@@ -252,7 +252,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 $ddtyy = strtotime('+'.$daysval.' days',$ddtyy);
                 $ddtyy = date('Y-m-d',$ddtyy);
                 $ddty = date('Y-m-d');
-                $sqlfive = "SELECT COUNT(*) AS total from supplies where expiration_date >= '".$datetoday."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
+                $sqlfive = "SELECT COUNT(*) AS total from supplies where expiration_date >= '".$ddty."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
                 $number2 = $conn->query($sqlfive);
                 if ($number2->num_rows > 0) {
                         while($row = $number2->fetch_assoc()) {
