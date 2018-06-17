@@ -116,28 +116,95 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php
                     $conn =mysqli_connect("localhost","root","");
                     mysqli_select_db($conn, "itproject");
-                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%')";
+                    $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%') order by log_id DESC";
                     $result7 = $conn->query($sql7);
+                    $datetoday = date("Y-m-d");
+                    $datetodayval = date("m-d");
+                    $dateyesterday = date("Y-m-d",strtotime('-1 days'));
+                    $dateyesterdayval = date("m-d",strtotime('-1 days'));
+                    $dateyesterday2 = date("Y-m-d",strtotime('-2 days'));
+                    $dateyesterday2val = date("m-d",strtotime('-2 days'));
                     ?>
                     <?php 
                       if ($result7->num_rows > 0) {
                        while($row = $result7->fetch_assoc()) {
                         $logvalue = $row["log_description"];
+                        $dateds = $row["log_date"];
+                        $dateds2 = explode(' ',$dateds);
+                        $dated = $dateds2[0];
                     ?>
                       <tr>
                         <?php
-                        if(strpos($logvalue, 'order') !== false) { ?>
+                        if(strpos($logvalue, 'order') !== false) { 
+                        if($dated == $datetoday) { 
+                        ?>
+                        <td>
+                            <center><small><p><?php echo $datetoday ?></p></small></center>
+                        </td>
+                        <?php
+                        }else if($dated == $dateyesterday) {
+                        ?>
+                        <td>
+                        <center><small><p><?php echo $dateyesterday ?></p></small></center>
+                        </td>
+                        <?php
+                        }else if($dated == $dateyesterday2) {
+                        ?>
+                        <td>
+                        <center><small><p><?php echo $dateyesterday2 ?></p></small></center>
+                        </td> 
+                        <?php
+                        }
+                        ?>
                             <td><small><a display="block" style="color:black" href="<?php echo 'departmentsOrder' ?>"><?php echo $row["log_description"];?></a></small></td>
                         <?php
                         }else if(strpos($logvalue, 'profile') !== false){
+                        if($dated == $datetoday) { 
                         ?>
-                            <td><small><a display="block" style="color:black" href="<?php echo 'Assistant/userAccounts' ?>"><?php echo $row["log_description"];?></a></small></td>
+                        <td>
+                            <center><small><p><?php echo $datetoday ?></p></small></center>
+                        </td>
                         <?php
-                        }else{
+                        }else if($dated == $dateyesterday) {
+                        ?>
+                        <td>
+                        <center><small><p><?php echo $dateyesterday ?></p></small></center>
+                        </td>
+                        <?php
+                        }else if($dated == $dateyesterday2) {
+                        ?>
+                        <td>
+                        <center><small><p><?php echo $dateyesterday2 ?></p></small></center>
+                        </td> 
+                        <?php
+                        }
                         ?>
                             <td><small><?php echo $row["log_description"];?></small></td>
                         <?php
-                        }  
+                        }else{
+                        if($dated == $datetoday) {
+                        ?>
+                        <td>
+                            <center><small><p><?php echo $datetoday ?></p></small></center>
+                        </td>
+                        <?php
+                        }else if($dated == $dateyesterday) {
+                        ?>
+                        <td>
+                        <center><small><p><?php echo $dateyesterday ?></p></small></center>
+                        </td>
+                        <?php
+                        }else if($dated == $dateyesterday2) {
+                        ?>
+                        <td>
+                        <center><small><p><?php echo $dateyesterday2 ?></p></small></center>
+                        </td> 
+                        <?php
+                        }
+                        ?>
+                            <td><small><?php echo $row["log_description"];?></small></td>
+                        <?php
+                        }
                         ?>
                         <td class="notif-delete">
                         <form action="delete" method="post">
