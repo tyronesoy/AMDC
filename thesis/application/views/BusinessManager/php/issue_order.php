@@ -296,11 +296,12 @@ if(isset($_REQUEST['id'])){
                 <?php 
                 if($per_quantityStock == 0 || $per_quantityStock     == ''){
                 ?>
-                <button type="button" id="porder" name="porder" class="btn btn-success" data-toggle="modal" data-target="#porderModal" data-id="<?php echo $per_id;?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button>
+                    <button type="button" id="porder" name="porder" class="btn btn-success" data-toggle="modal" data-target="#porderModal" data-id="<?php echo $per_id;?>"><i class="glyphicon glyphicon-shopping-cart"></i> Order</button>
                 <?php
-                }
+                }else{
                 ?>
                 <button type="submit" class="btn btn-warning" name="btnIssue"><i class="fa fa-retweet"></i> Issue</button>
+                <?php } ?>
                 
             </div>
         </div>
