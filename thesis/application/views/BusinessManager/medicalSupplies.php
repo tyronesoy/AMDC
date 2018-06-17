@@ -848,6 +848,7 @@ function category($connect)
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li><i class="fa fa-cubes"></i> Inventory</li>
         <li><i class="fa fa-briefcase"></i> Supplies</li>
         <li class="active"><i class="fa fa-medkit"></i> Medical Supplies</li>
       </ol>

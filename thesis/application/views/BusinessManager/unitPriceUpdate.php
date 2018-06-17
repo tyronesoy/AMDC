@@ -831,6 +831,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</a></li>
          <li><i class="fa fa-cubes"></i> Inventory</a></li>
+         <li><i class="glyphicon glyphicon-stats"></i> Stock Movement</a></li>
         <li class="active"><i class="glyphicon glyphicon-ruble"></i>Unit Price Update</li>
       </ol>
     </section>

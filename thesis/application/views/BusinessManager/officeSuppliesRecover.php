@@ -833,6 +833,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
      <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> Dashboard</li>
+         <li><i class="fa fa-cubes"></i> Inventory</li>
+        <li><i class="fa fa-briefcase"></i> Supplies</li>
          <li><i class="fa fa-pencil-square"></i> Office Supplies</a></li>
         <li class="active"><i class="fa fa-pencil-square"></i> Archived Office Supplies</li>
       </ol>

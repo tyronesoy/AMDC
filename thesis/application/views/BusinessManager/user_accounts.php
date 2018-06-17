@@ -710,7 +710,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
             </a>
         </li>
   <!---------------------------------------------------- USER ACCOUNTS MENU -------------------------------------------------------------->
-       <li class="treeview">
+       <li class="active treeview">
               <a href="<?php echo 'userAccounts' ?>">
                   <i class="fa fa-user-circle"></i><span>Manage Accounts</span>  
               </a>
