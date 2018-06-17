@@ -765,7 +765,7 @@ function unit_measure($connect)
     <!---------------------------------------------------- MANAGE ACCOUNTS MENU -------------------------------------------------------------->
         <li>
           <a href="<?php echo 'userAccounts' ?>">
-            <i class="fa fa-group"></i> <span>Manage Accounts</span>
+            <i class="fa fa-user-circle"></i> <span>Manage Accounts</span>
           </a>
         </li>
     <!---------------------------------------------------- SUPPLIES MENU -------------------------------------------------------------->
@@ -790,8 +790,20 @@ function unit_measure($connect)
                 </li>
               </ul>
             </li>
-             <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
-             <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+             <li class="treeview">
+              <a href="#"><i class="glyphicon glyphicon-stats"></i>Stock Movement
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo 'inventoryReconciliation' ?>"><i class="glyphicon glyphicon-adjust"></i>Inventory Reconciliation</a></li>
+                <li class="treeview">
+                  <li><a href="<?php echo 'reorderUpdate' ?>"><i class="fa fa-bar-chart"></i>Reorder Level Update</a></li>
+                  <li><a href="<?php echo 'unitPriceUpdate' ?>"><i class="glyphicon glyphicon-ruble"></i> Price Update</a></li>
+                </li>
+              </ul>
+            </li>
             <li><a href="<?php echo 'issuedSupplies' ?>"><i class="fa fa-retweet"></i>Issued Supplies</a></li>
       <li><a href="<?php echo 'departmentsOrder' ?>"><i class="fa fa-list"></i>Deparments Order</a></li>
       <li class="active"><a href="<?php echo 'purchases' ?>"><i class="fa fa-shopping-cart"></i>Purchase Orders</a></li>
