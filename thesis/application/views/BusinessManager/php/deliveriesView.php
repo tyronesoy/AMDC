@@ -36,6 +36,7 @@ if(isset($_REQUEST['id'])){
         $per_purchOrderStatus=$row[21];
         $per_purchOrderRemarks=$row[22];
         $per_gtotal=$row[23];
+        $pobmremarks=$row[25];
         $per_soft_deleted=$row[26];
         $per_sup_id=$row[27];
         date_default_timezone_set("Asia/Manila");
@@ -254,7 +255,7 @@ if(isset($_REQUEST['id'])){
                                                 <th class="hidden">ID</th>
                                                 
                                                <th width="8%">Lot No.</th>
-                                               <?php if ($per_itemDeliveryRemarks == 'Partial' ) {?>
+                                               <?php if ($pobmremarks == 'Partial') {?>
                                                   <th width="5%">Quantity Remaining</th>
                                                <?php } else {?>
                                                   <th width="5%">Qty Ordered</th>
