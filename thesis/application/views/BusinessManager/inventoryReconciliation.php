@@ -876,13 +876,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <thead>
             <tr>
 
-                  <th width="15%">Date & Time</th>
+                  <th>Date & Time</th>
                   <th width="59%">Description</th>
                   <th width="5%">Quantity Status</th>
                   <th>Old Quantity</th>
                   <th>New Quantity</th>
                   <th>Supply Type</th>
-                  <th>User</th>
                   
             </tr>
         </thead>
@@ -890,7 +889,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["date_time"];?></td>
+                      <td width="15%"><?php echo $row["date_time"];?></td>
                       <td><?php echo $row["description"]; ?></td>
                       <td align="right"><?php if($row["quantity"] < 0) {
                       echo(abs($row["quantity"]));  echo' added';
@@ -899,7 +898,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <td align="right"><?php echo $row["old_quantity"]?></td>
                       <td align="right"><?php echo $row["new_quantity"];?></td>
                       <td><?php echo $row["supply_type"]; ?></td>
-                      <td><?php echo $row["user"]?></td>
                     </tr>
                   <?php 
                       }
@@ -910,6 +908,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
            <tr>
                   <th></th><!-- 
                   <th width="7%">Time</th> -->
+                  <th></th>
+                  <th></th>
                   <th></th>
                   <th></th>
                   <th></th>

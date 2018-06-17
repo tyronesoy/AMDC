@@ -874,16 +874,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th width="8%">Old Price (&#8369;)</th>
                   <th width="8%">New Price(&#8369;)</th>
                   <th>Price Status</th>
-                  <th>User</th>
-
-                  
+              
             </tr>
         </thead>
         <tbody>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo $row["date_time"];?></td>
+                      <td width="15%"><?php echo $row["date_time"];?></td>
                       <td><?php echo $row["description"]; ?></td>
                       <td><?php echo $row["supply_type"]; ?></td>
                       <td align="right"><?php echo $row["old_price"]?></td>
@@ -894,7 +892,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       echo'&#8369;'; echo $row["priceChange"]; 
                        }else{ echo' Price decreased by &#8369;'; echo $row["priceChange"]; 
                       }?></td>
-                      <td><?php echo $row["user"];?></td>
                     </tr>
                   <?php 
                       }
@@ -907,6 +904,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th width="7%">Time</th> -->
                   <th width="59%"></th>
                   <th width="8%"></th>
+                  <th></th>
+                  <th></th>
                   <th></th>
             </tr> 
         </tfoot>

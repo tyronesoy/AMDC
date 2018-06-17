@@ -875,20 +875,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th>Old Reorder Level</th>
                   <th>New Reorder Level</th>
                   <th width="8%">Supply Type</th>
-                  <th>User</th>
             </tr>
         </thead>
         <tbody>
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php $date=date_create($row["date_time"]);
+                      <td width="15%"><?php $date=date_create($row["date_time"]);
                       echo date_format($date,"m/d/Y H:i:s");?></td>
                       <td><?php echo $row["description"]; ?></td>
                       <td align="right"><?php echo $row["old_reorder"];?></td>
                       <td align="right"><?php echo $row["new_reorder"]; ?></td>
                       <td><?php echo $row["supply_type"]; ?></td>
-                      <td><?php echo $row["user"]?></td>
                     </tr>
                   <?php 
                       }
@@ -901,6 +899,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <th width="7%">Time</th> -->
                   <th width="59%"></th>
                   <th width="8%"></th>
+                  <th></th>
                   <th></th>
             </tr> 
         </tfoot>
