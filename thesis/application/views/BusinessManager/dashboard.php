@@ -921,7 +921,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) as total FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
+                  $sql = "SELECT COUNT(*) AS total FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id JOIN purchase_orders ON supplies.supply_description = purchase_orders.description";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -1031,17 +1031,18 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
           </div>
           <!-- TABLE FOR HIDDEN RETURNED SUPPLIES TABLE -->
           <div id="Demo2" class="box-body w3-hide">
-              <table id="example3" class="table table-bordered table-striped">
+              <table id="example3" class="table table-bordered table-striped" style="width:100%;">
                   <center><h2>Returned Supplies</h2></center>
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'";
+                  $sql = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason, return_id FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id JOIN purchase_orders ON supplies.supply_description = purchase_orders.description";
                   $result = $conn->query($sql);   
-                  
+//                  prevque = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'"
                 ?>
                 <thead>
                 <tr>
+                  <th class="hidden"></th>
                   <th class="hidden"></th>
                   <th>Supply Type</th>
                   <th>Date Returned</th>
@@ -1062,14 +1063,14 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <tr>
                     <form action="<?php echo 'BusinessManager/returns'?>" method="get">
                       <td class="hidden"><input class="hidden" type="hidden" name="supid" hidden value="<?php echo $row["supply_id"]; ?>"></td>
-                      <td class="hidden"><?php $return_id = $row['return_id']; ?></td>
+                      <td class="hidden"><?php echo $row['return_id']; ?></td>
                       <td><?php echo $row["supply_type"]; ?></td>
                       <td><?php echo $row["return_date"]; ?></td>
                       <td><?php echo $row["supply_description"]; ?></td>
                       <td><?php echo $row["brand_name"]; ?></td>
                       <td><?php echo $row["company_name"]; ?></td>
                       <td><input type="text" class="form-control" name="qtyReturn" value="<?php echo $row["quantity_returned"]; ?>"  style="border: 0; outline: 0;  background: transparent;" readonly></td>
-                      <td class="hidden"><input class="hiden" type="hidden" hidden name="qty" value="<?php echo $row["quantity_in_stock"]; ?>" readonly></td>
+                      <td class="hidden"><input class="hidden" type="hidden" hidden name="qty" value="<?php echo $row["quantity_in_stock"]; ?>" readonly></td>
                       <td><?php echo $row["unit"]; ?></td>
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
@@ -1086,6 +1087,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tbody>
                 <tfoot>
                   <tr>
+                    <th class="hidden"></th>
                     <th class="hidden"></th>
                     <th>Supply Type</th>
                     <th>Date Returned</th>
@@ -1156,151 +1158,13 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   </tr> 
                 </tfoot>
               </table>
-          <br>
-          <button  type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#printrep"><i class="fa fa-copy"></i> Generate Report</button>
           </div>
         </div>
+
         <section class="content">
           <div class="row">
-        <div class="modal fade" id="printrep">
-<form name="form42" id="user_form" method="post" action="dashboard/generated">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                  <div class="col-md-2">
-                        <img src="../assets/dist/img/user3-128x128.png" alt="User Image" style="width:80px;height:80px;">
-                            </div>
-                                <div class="col-md-8">
-                                                
-                                                <div class="margin">
-                                                    <center><h5>Assumption Medical Diagnostic Center</h5></center>
-                                                    <center><h6>10 Assumption Rd., Baguio City</h6></center>
-                                                    <center><h6>Philippines</h6></center>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end of modal header -->
-                                        <div class="modal-body">
-                                        <div class="box-header">
-                                          <div class="margin">
-                                              <center><h4><b>Generate Expired Supplies Report</b></h4></center>
-                                            </div>
-                                      </div>
-                        <div class="box-body">
-                
-                        <div class="row">
-                          <h4><b>Include dates within:</b></h4>
-                          <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Start Date</label>
-                            <?php
-                            $datetoday = date('Y\-m\-d', strtotime('-30 days') );
-                            ?>
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                              </div>
-                              <input type="date" class="form-control pull-right datepicker2" name="date1" id="date1" value="">
-<!--
-                                <script>
-                                jQuery(function() {
-                                  var datepicker = $('input.datepicker2');
-
-                                  if (datepicker.length > 0) {
-                                    datepicker.datepicker({
-                                      format: "yyyy-mm-dd",
-                                      startDate: new Date()
-                                    });
-                                  }
-                                });
-                                </script>
--->
-                            </div>
-                          </div>
-                          </div>
-                            <div class="col-md-6">
-                        <div class="form-group">
-                            <label>End Date</label>
-
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                              </div>
-                              <?php
-                                $deyto = date("Y/m/d");
-                              ?>
-                              <input type="text" class="form-control pull-right datepicker"  name="date2" id="date2" value="<?php echo $deyto?>">
-                            </div>
-                          </div>
-                          </div>     
-                            
-                            
-                            <td><?php echo $row["expiration_date"]; ?></td>
-                      <td><?php echo $row["supply_description"]; ?></td>
-                      <td><?php echo $row["brand_name"]; ?></td>
-                      <td><?php echo $row["quantity_in_stock"]; ?></td>
-                      <td><?php echo $row["unit"]; ?></td>
-                            
-                    <div class="col-md-6">
-                    <h4><b>Include:</b></h4>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="expiration_date" checked>Expiration Date
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="supply_description" checked>Item Description
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="brand_name" checked>Brand Name
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="quantity_in_stock" checked>Quantity In Stock
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                          <div class="col-md-6">
-                        <div class="form-group" style="width:100%">
-                            <input type="checkbox" name="check_list[]" value="unit" checked>Unit
-                        </div>
-                      </div>
-                    </div>
-                     </div>   
-                <?php
-                  $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $date = date("Y/m/d");
-                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, quantity_in_stock, unit, soft_deleted FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
-                  $result = $conn->query($sql);    
-                ?>
-                        </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>
-                <button type="submit" class="btn btn-primary" name="generated"><i class="fa fa-copy"></i> Generate</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-
-          </div>
-    </div>
-          <!-- /.modal-dialog -->
-        </form> 
-        </div>
+        
+        
           <!-- BAR CHART -->
           <div class="box box-primary">
             <div class="box-header with-border">
@@ -1744,7 +1608,9 @@ function myFunction4(id) {
       'autoWidth'   : false
     })
 
-    $('#example3').DataTable()
+    $('#example3').DataTable({
+      order : [[ 1, 'desc' ]]
+    })
     $('#example4').DataTable({
       'paging'      : true,
       'lengthChange': false,
