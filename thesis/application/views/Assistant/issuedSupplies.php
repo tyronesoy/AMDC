@@ -132,11 +132,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $sql7 = "select log_id,log_date,log_description from logs where ((log_date BETWEEN '".$date_select."' AND '".$dtoday."') AND log_status = 1) AND (log_description like '%order%' OR log_description like '%profile%') <> (log_description like '%accepted%' OR log_description like '%declined%') order by log_id DESC";
                     $result7 = $conn->query($sql7);
                     $datetoday = date("Y-m-d");
-                    $datetodayval = date("m-d");
+                    $datetodayval = date('Y\-m\-d\ h:i:s A');
                     $dateyesterday = date("Y-m-d",strtotime('-1 days'));
-                    $dateyesterdayval = date("m-d",strtotime('-1 days'));
+                    $dateyesterdayval = date('Y\-m\-d\ h:i:s A',strtotime('-1 days'));
                     $dateyesterday2 = date("Y-m-d",strtotime('-2 days'));
-                    $dateyesterday2val = date("m-d",strtotime('-2 days'));
+                    $dateyesterday2val = date('Y\-m\-d\ h:i:s A',strtotime('-2 days'));
                     ?>
                     <?php 
                       if ($result7->num_rows > 0) {
@@ -152,19 +152,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         if($dated == $datetoday) { 
                         ?>
                         <td>
-                            <center><small><p><?php echo $datetoday ?></p></small></center>
+                            <center><small><p><?php echo $datetodayval ?></p></small></center>
                         </td>
                         <?php
                         }else if($dated == $dateyesterday) {
                         ?>
                         <td>
-                        <center><small><p><?php echo $dateyesterday ?></p></small></center>
+                        <center><small><p><?php echo $dateyesterdayval ?></p></small></center>
                         </td>
                         <?php
                         }else if($dated == $dateyesterday2) {
                         ?>
                         <td>
-                        <center><small><p><?php echo $dateyesterday2 ?></p></small></center>
+                        <center><small><p><?php echo $dateyesterday2val ?></p></small></center>
                         </td> 
                         <?php
                         }
@@ -175,19 +175,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         if($dated == $datetoday) { 
                         ?>
                         <td>
-                            <center><small><p><?php echo $datetoday ?></p></small></center>
+                            <center><small><p><?php echo $datetodayval ?></p></small></center>
                         </td>
                         <?php
                         }else if($dated == $dateyesterday) {
                         ?>
                         <td>
-                        <center><small><p><?php echo $dateyesterday ?></p></small></center>
+                        <center><small><p><?php echo $dateyesterdayval ?></p></small></center>
                         </td>
                         <?php
                         }else if($dated == $dateyesterday2) {
                         ?>
                         <td>
-                        <center><small><p><?php echo $dateyesterday2 ?></p></small></center>
+                        <center><small><p><?php echo $dateyesterday2val ?></p></small></center>
                         </td> 
                         <?php
                         }
@@ -198,19 +198,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         if($dated == $datetoday) {
                         ?>
                         <td>
-                            <center><small><p><?php echo $datetoday ?></p></small></center>
+                            <center><small><p><?php echo $datetodayval ?></p></small></center>
                         </td>
                         <?php
                         }else if($dated == $dateyesterday) {
                         ?>
                         <td>
-                        <center><small><p><?php echo $dateyesterday ?></p></small></center>
+                        <center><small><p><?php echo $dateyesterdayval ?></p></small></center>
                         </td>
                         <?php
                         }else if($dated == $dateyesterday2) {
                         ?>
                         <td>
-                        <center><small><p><?php echo $dateyesterday2 ?></p></small></center>
+                        <center><small><p><?php echo $dateyesterday2val ?></p></small></center>
                         </td> 
                         <?php
                         }
