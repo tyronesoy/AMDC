@@ -17,6 +17,7 @@ if(isset($_REQUEST['id'])){
         $per_status=$row[5];
         $per_remarks=$row[6];
         $per_orderID=$row[9];
+        $per_qtyRemaining=$row[15];
 
     }//end while
 ?>
@@ -48,13 +49,13 @@ if(isset($_REQUEST['id'])){
                 <div class="box-body">
                   <div class="row">
                     <div class="col-md-6">
-                      <div class="form-group">
+                      <div class="form-group" style="width: 100%">
                         <label for="txtid">Order ID</label>
                         <div class="input-group">
                           <div class="input-group-addon">
                             <i class="fa fa-id-badge"></i>
                           </div>
-                          <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_orderID;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">
+                          <input type="text" class="form-control" id="txtid" name="txtid" value="<?php echo $per_orderID;?>" readonly style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;">
                         </div>
                       </div>
                     </div>
@@ -65,7 +66,7 @@ if(isset($_REQUEST['id'])){
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control" id="orDate" name="orDate" value="<?php echo $per_date ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                          <input type="text" class="form-control" id="orDate" name="orDate" value="<?php echo $per_date ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                         </div>
                       </div>
                     </div>
@@ -76,14 +77,20 @@ if(isset($_REQUEST['id'])){
                   ?>
 
                   <div class="row">
+                    <div class="col-md-12">
                     <div class="table-responsive">
                       <span id="error"></span>
                       <table class="table table-bordered" id="dynamic_field">
                         <tr>
                           <th width="15%"> Qty Ordered </th>
+                          <?php if($per_status == 'Partially Issued'){ ?>
+                          <th width="15%"> Remaining Balance</th>
+                          <?php } ?>
                           <th width="52.5%"> Item Name </th>
                           <th width="16.5%"> Unit </th>
+                          <?php if($per_status == 'Partially Issued' || $per_status == 'Fully Issued'){ ?>
                           <th width="16%"> Qty Issued </th>
+                          <?php } ?>
                         </tr>
 
                         <?php 
@@ -93,23 +100,31 @@ if(isset($_REQUEST['id'])){
                         <tr>
 
                           <td>
-                            <input type="number" class="form-control" id="qty[]" name="qty[]" value ="<?php echo $row["quantity"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                            <input type="number" class="form-control" id="qty[]" name="qty[]" value ="<?php echo $row["quantity"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                           </td>
 
+                          <?php if($per_status == 'Partially Issued'){ ?>
                           <td>
-                            <input type="text" class="form-control" id="supplyDesc[]" name="supplyDesc[]" value ="<?php echo $row["supply_name"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                            <input type="number" class="form-control" id="qty[]" name="qty[]" value ="<?php echo $row["quantity_remaining"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                          </td>
+                          <?php } ?>
+
+                          <td>
+                            <input type="text" class="form-control" id="supplyDesc[]" name="supplyDesc[]" value ="<?php echo $row["supply_name"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
                           </td>
                                                     
                           <td>
-                            <input type="text" class="form-control" id="unitName[]" name="unitName[]" value ="<?php echo $row["unit"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly> 
+                            <input type="text" class="form-control" id="unitName[]" name="unitName[]" value ="<?php echo $row["unit"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly> 
                           </td>
 
+                          <?php if($per_status == 'Partially Issued' || $per_status == 'Fully Issued'){ ?>
                           <td>
-                            <input type="number" class="form-control" id="qtyIssued[]" name="qtyIssued[]" value ="<?php echo $row["quantity_issued"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly >
+                            <input type="number" class="form-control" id="qtyIssued[]" name="qtyIssued[]" value ="<?php echo $row["quantity_issued"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly >
                           </td>
+                          <?php } ?>
 
                           <td class="hidden">
-                            <input type="hidden" class="form-control hidden" id="remarks[]" name="remarks[]" value ="<?php echo $row["inventory_order_remarks"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" hidden readonly> 
+                            <input type="hidden" class="form-control hidden" id="remarks[]" name="remarks[]" value ="<?php echo $row["inventory_order_remarks"];?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" hidden readonly> 
                           </td>
                         </tr>
                         <?php 
@@ -117,6 +132,7 @@ if(isset($_REQUEST['id'])){
                           }
                         ?>
                       </table>
+                    </div>
                     </div>
                   </div>
                 </div>

@@ -909,7 +909,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
               </div>
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example3" class="table table-bordered table-striped">
                  <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                     $sql = "SELECT supply_name, SUM(quantity), supply_type FROM users JOIN inventory_order ON CONCAT(fname, ' ',lname) = inventory_order_name JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON inventory_order_supplies.supply_name = supplies.supply_description WHERE inventory_order_status='Fully Issued' AND inventory_order_name LIKE '".$_SESSION['fname']."%' AND fname LIKE '".$_SESSION['fname']."%' GROUP BY supply_name ORDER BY SUM(quantity) DESC LIMIT 5;";
@@ -1176,7 +1176,9 @@ window.onmousemove = resetTimeout
 <!-- DATA TABLES -->
 <script>
   $(function () {
-    $('#example1').DataTable()
+    $('#example1').DataTable({
+    	order : [[ 0, 'desc' ]]
+    })
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
