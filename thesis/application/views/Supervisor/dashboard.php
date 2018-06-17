@@ -265,7 +265,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <a href="<?php echo 'logout' ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i>Sign out</a>
                 </div>
                 <div class="pull-left">
-                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"> <i class="fa fa-edit"></i>Edit Profile</button>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editprof"> <i class="fa fa-edit"></i> Edit Profile</button>
                 </div>
               </li>
             </ul>

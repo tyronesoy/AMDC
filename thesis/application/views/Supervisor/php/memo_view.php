@@ -53,16 +53,16 @@ if(isset($_REQUEST['id'])){
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_memodate ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_memodate ?>" readonly>
                                 </div>
                             </div>
                                     <div class="form-group">
-                                <label for="exampleInputEmail1">Memo Title</label>
+                                   <label for="exampleInputEmail1">Memo Title (Limit to 20 Characters)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-pencil-square"></i>
                                     </div>
-                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_memotitle ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" readonly>
+                                    <input type="text" class="form-control" id="custName" name="custName" value="<?php echo $per_memotitle ?>" readonly>
                                 </div>
                             </div>
                        

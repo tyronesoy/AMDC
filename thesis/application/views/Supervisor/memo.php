@@ -617,7 +617,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         date_default_timezone_set('Asia/Manila');
                                                        $date = date('Y-m-d H:i:s'); 
                                                        ?>
-                                                      <input type="text" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" readonly>
+                                                      <input type="text" class="form-control pull-right" id="memo_date" name="memo_date" value="<?php echo $date; ?>" readonly>
                                                     </div>
                                                     <!-- /.input group -->
                                                   </div>
@@ -628,7 +628,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       <div class="input-group-addon">
                                                         <i class="fa fa-pencil-square"></i>
                                                       </div>
-                                                  <input type="text" class="form-control" id="memo_title" name="memo_title" maxlength="20" required style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                                  <input type="text" class="form-control" id="memo_title" name="memo_title" maxlength="20" required>
                                               </div>
                                               </div>
 
