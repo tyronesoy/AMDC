@@ -147,6 +147,9 @@ class Dashboard extends CI_Controller {
 	public function reorderItem(){
 		$this->load->view('BusinessManager/php/dashboard_reorder');
 	}
+	public function returnItem(){
+		$this->load->view('BusinessManager/php/dashboard_return');
+	}
     
     public function addUser(){
 		$this->load->view('BusinessManager/php/userAdd2');

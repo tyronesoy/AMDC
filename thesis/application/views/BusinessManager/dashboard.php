@@ -950,7 +950,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   date_default_timezone_set("Asia/Manila");
                   $date = date("Y/m/d");
-                  $sql = "SELECT COUNT(*) AS total FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
+                  $sql = "SELECT COUNT(*) AS total FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N' AND supply_type = 'Medical'";
                   $result = $conn->query($sql);    
                 ?>
                 <?php if ($result->num_rows > 0) {
@@ -978,7 +978,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_id, supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level FROM supplies WHERE quantity_in_stock <= reorder_level OR quantity_in_stock = 0 GROUP BY supply_description";
+                  $sql = "SELECT supply_id, supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level FROM supplies JOIN inventory_order_supplies JOIN inventory_order WHERE quantity_in_stock <= reorder_level OR quantity_in_stock = 0 GROUP BY supply_description";
                   $result = $conn->query($sql);
                 ?>
                 <thead> 
@@ -1036,7 +1036,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason, return_id FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id JOIN purchase_orders ON supplies.supply_description = purchase_orders.description";
+                  $sql = "SELECT return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id JOIN purchase_orders ON supplies.supply_description = purchase_orders.description GROUP BY return_id";
                   $result = $conn->query($sql);   
 //                  prevque = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'"
                 ?>
@@ -1049,11 +1049,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <th>Description</th>
                   <th>Brandname</th>
                   <th>Supplier</th>
-                  <th>Quantity</th>
+                  <th>Quantity Returned</th>
                   <th class="hidden"></th>
                   <th>Unit</th>
                   <th>Reason</th>
-                  <th></th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -1075,7 +1075,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       <td><?php echo $row["reason"]; ?></td>
                       <td>
                           <input class="hidden" type="text" name="returnSupp" id="returnSupp" hidden value="<?php echo $row["return_id"]; ?>">
-                          <button type="button" id="getEdit" class="btn btn-success" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["return_id"]; ?>"><i class="fa fa-undo"></i>Returned </button>
+                          <button type="button" id="getReturn" class="btn btn-success" data-toggle="modal" data-target="#returnModal" data-id="<?php echo $row["return_id"]; ?>"><i class="fa fa-undo"></i> Return </button>
                         
                       </td>
                       </form> 
@@ -1089,15 +1089,15 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   <tr>
                     <th class="hidden"></th>
                     <th class="hidden"></th>
-                    <th>Supply Type</th>
-                    <th>Date Returned</th>
-                    <th>Description</th>
-                    <th>Brandname</th>
-                    <th>Supplier</th>
-                    <th>Quantity</th>
+                    <th> </th>
+                    <th> </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th class="hidden"></th>
-                    <th>Unit</th>
-                    <th>Reason</th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                   </tr> 
                 </tfoot>
@@ -1112,7 +1112,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                   date_default_timezone_set("Asia/Manila");
                   $date = date("Y/m/d");
-                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, quantity_in_stock, unit, soft_deleted FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N'";
+                  $sql = "SELECT supply_id, expiration_date, supply_description, brand_name, quantity_in_stock, unit, soft_deleted, supply_type FROM supplies WHERE expiration_date <= '$date' AND soft_deleted='N' AND supply_type='Medical'";
                   $result = $conn->query($sql);    
                 ?>
                 <thead>
@@ -1149,12 +1149,12 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 </tbody>
                 <tfoot>
                   <tr>
-                      <th>Expiration Date</th>
-                      <th>Description</th>
-                      <th>Brandname</th>
-                      <th>Quantity</th>
-                      <th>Unit</th>
-                      <th>Action</th>
+                      <th> </th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
                   </tr> 
                 </tfoot>
               </table>
@@ -1413,26 +1413,52 @@ function onUserInactivity() {
         <div id="reorder-data"></div>
     </div>
 </div>
+<div class="modal fade" id="returnModal" role="dialog">
+    <div class="modal-dialog" style="position: absolute;margin-left: 15%;">
+        <div id="return-data"></div>
+    </div>
+</div>
+
 
 <script>
-        $(document).on('click','#getReorder',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
+    $(document).on('click','#getReorder',function(e){
+        e.preventDefault();
+        var per_id=$(this).data('id');
+        //alert(per_id);
+        $('#reorder-data').html('');
+        $.ajax({
+            url:'dashboard/reorderItem',
+            type:'POST',
+            data:'id='+per_id,
+            dataType:'html'
+        }).done(function(data){
             $('#reorder-data').html('');
-            $.ajax({
-                url:'dashboard/reorderItem',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#reorder-data').html('');
-                $('#reorder-data').html(data);
-            }).final(function(){
-                $('#reorder-data').html('<p>Error</p>');
-            });
+            $('#reorder-data').html(data);
+        }).final(function(){
+            $('#reorder-data').html('<p>Error</p>');
         });
-    </script>
+    });
+</script>
+
+<script>
+    $(document).on('click','#getReturn',function(e){
+        e.preventDefault();
+        var per_id=$(this).data('id');
+        //alert(per_id);
+        $('#return-data').html('');
+        $.ajax({
+            url:'dashboard/returnItem',
+            type:'POST',
+            data:'id='+per_id,
+            dataType:'html'
+        }).done(function(data){
+            $('#return-data').html('');
+            $('#return-data').html(data);
+        }).final(function(){
+            $('#return-data').html('<p>Error</p>');
+        });
+    });
+</script>
 
 <!-- <script type="text/javascript">
 setTimeout(onUserInactivity, 1000 * 120)
@@ -1633,12 +1659,6 @@ function myFunction4(id) {
 </script>
 
 
-<div class="modal fade" id="returnModal" role="dialog">
-            <div class="modal-dialog" style="position: absolute;margin-left: 20%;">
-                <div id="return-data"></div>
-            </div>
-        </div>  
-
 <script>
         $(document).on('click','#getAdd',function(e){
             e.preventDefault();
@@ -1697,24 +1717,5 @@ function myFunction4(id) {
             });
         });
 </script>
-<script>
-        $(document).on('click','#getEdit',function(e){
-            e.preventDefault();
-            var per_id=$(this).data('id');
-            //alert(per_id);
-            $('#return-data').html('');
-            $.ajax({
-                url:'deliveries/returnDashboard',
-                type:'POST',
-                data:'id='+per_id,
-                dataType:'html'
-            }).done(function(data){
-                $('#return-data').html('');
-                $('#return-data').html(data);
-            }).final(function(){
-                $('#return-data').html('<p>Error</p>');
-            });
-        });
-    </script>
 </body>
 </html>

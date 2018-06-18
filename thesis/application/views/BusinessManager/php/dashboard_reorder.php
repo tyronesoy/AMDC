@@ -115,7 +115,7 @@ if(isset($_REQUEST['id'])){
                                     <div class="input-group-addon">       
                                         <i class="fa fa-group"></i>
                                     </div>
-                                    <select class="form-control select2" name="supp"  required>
+                                    <select class="form-control select2" name="supp" id="supp"  required>
                                         <option value="">Select a Supplier</option>
                                             <?php
                                             $conn =mysqli_connect("localhost","root","");
