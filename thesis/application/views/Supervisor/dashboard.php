@@ -590,9 +590,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
               <p>Completed Orders</p>
             </div>
-            <div class="icon">
+            <div class="icon" style="margin-top: 15px; margin-right: 50px">
               <i class="fa fa-check"></i>
-              <i class="fa fa-shopping-cart"></i>
             </div>
           </div>
         </div>
@@ -618,9 +617,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
               <p>Approved Orders</p>
             </div>
-            <div class="icon">
+            <div class="icon" style="margin-top: 15px; margin-right: 50px">
               <i class="fa fa-thumbs-up"></i>
-              <i class="fa fa-shopping-cart"></i>
             </div>
           </div>
         </div>
@@ -645,9 +643,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
               <p>Pending Orders</p>
             </div>
-            <div class="icon">
+            <div class="icon" style="margin-top: 15px; margin-right: 50px">
               <i class="fa fa-spinner fa-spin"></i>
-              <i class="fa fa-shopping-cart"></i>
             </div>
           </div>
         </div>
@@ -674,9 +671,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
               <p>Partially Issued Orders</p>
             </div>
-            <div class="icon">
+            <div class="icon" style="margin-top: 15px; margin-right: 50px">
               <i class="fa fa-star-half-o"></i>
-              <i class="fa fa-shopping-cart"></i>
             </div>
           </div>
         </div>
@@ -702,9 +698,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
               <p>Disapproved Orders</p>
             </div>
-            <div class="icon">
+            <div class="icon" style="margin-top: 15px; margin-right: 50px">
               <i class="fa fa-thumbs-down"></i>
-              <i class="fa fa-shopping-cart"></i>
             </div>
           </div>
         </div>
@@ -739,9 +734,8 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
               <p>Orders Completed</p>
             </div>
-            <div class="icon">
+            <div class="icon" style="margin-top: 15px; margin-right: 50px">
               <i class="fa fa-percent"></i>
-              <i class="fa fa-shopping-cart"></i>
             </div>
           </div>
         </div>
