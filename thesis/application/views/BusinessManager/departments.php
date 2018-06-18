@@ -1240,6 +1240,10 @@ if(isset($_POST['btnEdit'])){
     if($bull == false){
       $sqlupdate="UPDATE departments SET department_name='$new_departmentName', location='$new_departmentLocation' WHERE department_id='$new_id' ";
        $result_update=mysqli_query($con,$sqlupdate);
+    }else{
+      $sqlupdate="SELECT * FROM departments";
+      $result_update=mysqli_query($con, $sqlupdate);
+      echo '<script>alert("Department already exists")</script>';
     }
     
 
