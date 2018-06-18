@@ -978,7 +978,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_id, supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, inventory_order_id FROM supplies JOIN inventory_order_supplies JOIN inventory_order WHERE quantity_in_stock <= reorder_level OR quantity_in_stock = 0 GROUP BY supply_description";
+                  $sql = "SELECT supply_id, supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level FROM supplies JOIN inventory_order_supplies JOIN inventory_order WHERE quantity_in_stock <= reorder_level OR quantity_in_stock = 0 GROUP BY supply_description";
                   $result = $conn->query($sql);
                 ?>
                 <thead> 
@@ -1007,7 +1007,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <td><?php echo $row["reorder_level"]; ?></td>
                     <td>
                       <div class="btn-group">
-                        <button type="button" id="getReorder" class="btn btn-primary" data-toggle="modal" data-target="#reorderModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="fa fa-repeat"></i> Reorder </button>
+                        <button type="button" id="getReorder" class="btn btn-primary" data-toggle="modal" data-target="#reorderModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="fa fa-repeat"></i> Reorder </button>
                       </div>
                     </td>
                     </tr>
