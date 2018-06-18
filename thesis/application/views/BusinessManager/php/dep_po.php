@@ -170,7 +170,7 @@ if(isset($_REQUEST['id'])){
                                                 <?php
                                                 $conn =mysqli_connect("localhost","root","");
                                                 mysqli_select_db($conn, "itproject");
-                                                $sql = "SELECT * FROM suppliers";
+                                                $sql = "SELECT * FROM suppliers WHERE supplier_status = 'Active'";
                                                 $results = mysqli_query($conn, $sql);
 
                                                 foreach($results as $supplier) { 
