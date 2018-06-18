@@ -1946,10 +1946,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp == $new_OrigExp || $new_OrigExp == '' || $new_OrigExp == 'NULL'){
+        if($type == 'Medical'){
          $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered.", expiration_date='".$new_inputExp."' WHERE supply_id='$new_supid' ";
-      $result_add=mysqli_query($con,$sqladd);
+         $result_add=mysqli_query($con,$sqladd);
+        }else{
+          $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered." WHERE supply_id='$new_supid' ";
+         $result_add=mysqli_query($con,$sqladd);
+        }
       }else{
-        $sqlexp="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type, $iname, $brand, $unit, $new_quantityDelivered, $amount, $new_inputExp, $new_purchaseID, $supplierid, $cat, $lot, $description, $suppname)";
+        $sqlexp="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type', '$iname', '$brand', '$unit', '$new_quantityDelivered', '$amount', '$new_inputExp', '$new_purchaseID', '$supplierid', '$cat', '$lot', '$description', '$suppname')";
         $resultexp=mysqli_query($con,$sqlexp);
       }
     }else {
@@ -1965,10 +1970,15 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp == $new_OrigExp || $new_OrigExp == '' || $new_OrigExp == 'NULL'){
+        if($type == 'Medical'){
          $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered.", expiration_date='".$new_inputExp."' WHERE supply_id='$new_supid' ";
-      $result_add=mysqli_query($con,$sqladd);
+         $result_add=mysqli_query($con,$sqladd);
+        }else{
+          $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered." WHERE supply_id='$new_supid' ";
+         $result_add=mysqli_query($con,$sqladd);
+        }
       }else{
-        $sqlexp="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type, $iname, $brand, $unit, $new_quantityDelivered, $amount, $new_inputExp, $new_purchaseID, $supplierid, $cat, $lot, $description, $suppname)";
+        $sqlexp="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type', '$iname', '$brand', '$unit', '$new_quantityDelivered', '$amount', '$new_inputExp', '$new_purchaseID', '$supplierid', '$cat', '$lot', '$description', '$suppname')";
         $resultexp=mysqli_query($con,$sqlexp);
       }
 
@@ -2009,10 +2019,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp1 == $new_OrigExp1 || $new_OrigExp1 == '' || $new_OrigExp1 == 'NULL'){
-         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1.", expiration_date='".$new_inputExp1."' WHERE supply_id='$new_supid1' ";
-      $result_add1=mysqli_query($con,$sqladd1);
+         if($type1 == 'Medical'){
+         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1.", expiration_date='".$new_inputExp1."' WHERE supply_id='$new_supid' ";
+         $result_add1=mysqli_query($con,$sqladd1);
+        }else{
+          $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1." WHERE supply_id='$new_supid' ";
+         $result_add1=mysqli_query($con,$sqladd1);
+        }
       }else{
-        $sqlexp1="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type1, $iname1, $brand1, $unit1, $new_quantityDelivered1, $amount1, $new_inputExp1, $new_purchaseID, $supplierid1, $cat1, $lot1, $description1, $suppname)";
+        $sqlexp1="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type1', '$iname1', '$brand1', '$unit1', '$new_quantityDelivered1', '$amount1', '$new_inputExp1', '$new_purchaseID', '$supplierid1', '$cat1', '$lot1', '$description1', '$suppname')";
         $resultexp1=mysqli_query($con,$sqlexp1);
       }
     }else {
@@ -2028,10 +2043,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp1 == $new_OrigExp1 || $new_OrigExp1 == '' || $new_OrigExp1 == 'NULL'){
-         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1.", expiration_date='".$new_inputExp1."' WHERE supply_id='$new_supid1' ";
-      $result_add1=mysqli_query($con,$sqladd1);
+         if($type1 == 'Medical'){
+         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1.", expiration_date='".$new_inputExp1."' WHERE supply_id='$new_supid' ";
+         $result_add1=mysqli_query($con,$sqladd1);
+        }else{
+          $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1." WHERE supply_id='$new_supid' ";
+         $result_add1=mysqli_query($con,$sqladd1);
+        }
       }else{
-        $sqlexp1="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type1, $iname1, $brand1, $unit1, $new_quantityDelivered1, $amount1, $new_inputExp1, $new_purchaseID, $supplierid1, $cat1, $lot1, $description1, $suppname)";
+        $sqlexp1="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type1', '$iname1', '$brand1', '$unit1', '$new_quantityDelivered1', '$amount1', '$new_inputExp1', '$new_purchaseID', '$supplierid1', '$cat1', '$lot1', '$description1', '$suppname')";
         $resultexp1=mysqli_query($con,$sqlexp1);
       }
 
@@ -2073,10 +2093,15 @@ if(isset($_POST['btnEdit'])){
 
       
       if($new_inputExp2 == $new_OrigExp2 || $new_OrigExp2 == '' || $new_OrigExp2 == 'NULL'){
-        $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2.", expiration_date='".$new_inputExp2."' WHERE supply_id='$new_supid2' ";
-      $result_add2=mysqli_query($con,$sqladd2);
+        if($type2 == 'Medical'){
+         $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2.", expiration_date='".$new_inputExp2."' WHERE supply_id='$new_supid' ";
+         $result_add2=mysqli_query($con,$sqladd2);
+        }else{
+          $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2." WHERE supply_id='$new_supid' ";
+         $result_add2=mysqli_query($con,$sqladd2);
+        }
       }else{
-        $sqlexp2="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type2, $iname2, $brand2, $unit2, $new_quantityDelivered2, $amount2, $new_inputExp2, $new_purchaseID, $supplierid2, $cat2, $lot2, $description2, $suppname)";
+        $sqlexp2="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type2', '$iname2', '$brand2', '$unit2', '$new_quantityDelivered2', '$amount2', '$new_inputExp2', '$new_purchaseID', '$supplierid2', '$cat2', '$lot2', '$description2', '$suppname')";
         $resultexp2=mysqli_query($con,$sqlexp2);
       }
     }else {
@@ -2092,10 +2117,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp2 == $new_OrigExp2 || $new_OrigExp2 == '' || $new_OrigExp2 == 'NULL'){
-        $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2.", expiration_date='".$new_inputExp2."' WHERE supply_id='$new_supid2' ";
-      $result_add2=mysqli_query($con,$sqladd2);
+        if($type2 == 'Medical'){
+         $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2.", expiration_date='".$new_inputExp2."' WHERE supply_id='$new_supid' ";
+         $result_add2=mysqli_query($con,$sqladd2);
+        }else{
+          $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2." WHERE supply_id='$new_supid' ";
+         $result_add2=mysqli_query($con,$sqladd2);
+        }
       }else{
-        $sqlexp2="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type2, $iname2, $brand2, $unit2, $new_quantityDelivered2, $amount2, $new_inputExp2, $new_purchaseID, $supplierid2, $cat2, $lot2, $description2, $suppname)";
+        $sqlexp2="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type2', '$iname2', '$brand2', '$unit2', '$new_quantityDelivered2', '$amount2', '$new_inputExp2', '$new_purchaseID', '$supplierid2', '$cat2', '$lot2', '$description2', '$suppname')";
         $resultexp2=mysqli_query($con,$sqlexp2);
       }
 
@@ -2136,10 +2166,15 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp3 == $new_OrigExp3 || $new_OrigExp3 == '' || $new_OrigExp3 == 'NULL'){
-        $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3.", expiration_date='".$new_inputExp3."' WHERE supply_id='$new_supid3' ";
-      $result_add3=mysqli_query($con,$sqladd3);
+        if($type3 == 'Medical'){
+         $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3.", expiration_date='".$new_inputExp3."' WHERE supply_id='$new_supid' ";
+         $result_add3=mysqli_query($con,$sqladd3);
+        }else{
+          $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3." WHERE supply_id='$new_supid' ";
+         $result_add3=mysqli_query($con,$sqladd3);
+        }
       }else{
-        $sqlexp3="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type3, $iname3, $brand3, $unit3, $new_quantityDelivered3, $amount3, $new_inputExp3, $new_purchaseID, $supplierid3, $cat3, $lot3, $description3, $suppname)";
+        $sqlexp3="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type3', '$iname3', '$brand3', '$unit3', '$new_quantityDelivered3', '$amount3', '$new_inputExp3', '$new_purchaseID', '$supplierid3', '$cat3', '$lot3', '$description3', '$suppname')";
         $resultexp3=mysqli_query($con,$sqlexp3);
       }
     }else {
@@ -2154,10 +2189,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp3 == $new_OrigExp3 || $new_OrigExp3 == '' || $new_OrigExp3 == 'NULL'){
-        $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3.", expiration_date='".$new_inputExp3."' WHERE supply_id='$new_supid3' ";
-      $result_add3=mysqli_query($con,$sqladd3);
+        if($type3 == 'Medical'){
+         $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3.", expiration_date='".$new_inputExp3."' WHERE supply_id='$new_supid' ";
+         $result_add3=mysqli_query($con,$sqladd3);
+        }else{
+          $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3." WHERE supply_id='$new_supid' ";
+         $result_add3=mysqli_query($con,$sqladd3);
+        }
       }else{
-        $sqlexp3="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type3, $iname3, $brand3, $unit3, $new_quantityDelivered3, $amount3, $new_inputExp3, $new_purchaseID, $supplierid3, $cat3, $lot3, $description3, $suppname)";
+        $sqlexp3="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type3', '$iname3', '$brand3', '$unit3', '$new_quantityDelivered3', '$amount3', '$new_inputExp3', '$new_purchaseID', '$supplierid3', '$cat3', '$lot3', '$description3', '$suppname')";
         $resultexp3=mysqli_query($con,$sqlexp3);
       }
 
@@ -2198,10 +2238,15 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp4 == $new_OrigExp4 || $new_OrigExp4 == '' || $new_OrigExp4 == 'NULL'){
-        $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4.", expiration_date='".$new_inputExp4."' WHERE supply_id='$new_supid4' ";
-      $result_add4=mysqli_query($con,$sqladd4);
+        if($type4 == 'Medical'){
+         $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4.", expiration_date='".$new_inputExp4."' WHERE supply_id='$new_supid' ";
+         $result_add4=mysqli_query($con,$sqladd4);
+        }else{
+          $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4." WHERE supply_id='$new_supid' ";
+         $result_add4=mysqli_query($con,$sqladd4);
+        }
       }else{
-        $sqlexp4="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type4, $iname4, $brand4, $unit4, $new_quantityDelivered4, $amount4, $new_inputExp4, $new_purchaseID, $supplierid4, $cat4, $lot4, $description4, $suppname)";
+        $sqlexp4="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type4', '$iname4', '$brand4', '$unit4', '$new_quantityDelivered4', '$amount4', '$new_inputExp4', '$new_purchaseID', '$supplierid4', '$cat4', '$lot4', '$description4', '$suppname')";
         $resultexp4=mysqli_query($con,$sqlexp4);
       }
     }else {
@@ -2217,10 +2262,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp4 == $new_OrigExp4 || $new_OrigExp4 == '' || $new_OrigExp4 == 'NULL'){
-        $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4.", expiration_date='".$new_inputExp4."' WHERE supply_id='$new_supid4' ";
-      $result_add4=mysqli_query($con,$sqladd4);
+        if($type4 == 'Medical'){
+         $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4.", expiration_date='".$new_inputExp4."' WHERE supply_id='$new_supid' ";
+         $result_add4=mysqli_query($con,$sqladd4);
+        }else{
+          $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4." WHERE supply_id='$new_supid' ";
+         $result_add4=mysqli_query($con,$sqladd4);
+        }
       }else{
-        $sqlexp4="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type4, $iname4, $brand4, $unit4, $new_quantityDelivered4, $amount4, $new_inputExp4, $new_purchaseID, $supplierid4, $cat4, $lot4, $description4, $suppname)";
+        $sqlexp4="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type4', '$iname4', '$brand4', '$unit4', '$new_quantityDelivered4', '$amount4', '$new_inputExp4', '$new_purchaseID', '$supplierid4', '$cat4', '$lot4', '$description4', '$suppname')";
         $resultexp4=mysqli_query($con,$sqlexp4);
       }
 
@@ -2261,10 +2311,15 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp5 == $new_OrigExp5 || $new_OrigExp5 == '' || $new_OrigExp5 == 'NULL'){
-        $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5.", expiration_date='".$new_inputExp5."' WHERE supply_id='$new_supid5' ";
-      $result_add5=mysqli_query($con,$sqladd5);
+        if($type5 == 'Medical'){
+         $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5.", expiration_date='".$new_inputExp5."' WHERE supply_id='$new_supid' ";
+         $result_add5=mysqli_query($con,$sqladd5);
+        }else{
+          $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5." WHERE supply_id='$new_supid' ";
+         $result_add5=mysqli_query($con,$sqladd5);
+        }
       }else{
-        $sqlexp5="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type5, $iname5, $brand5, $unit5, $new_quantityDelivered5, $amount5, $new_inputExp5, $new_purchaseID, $supplierid5, $cat5, $lot5, $description5, $suppname)";
+        $sqlexp5="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type5', '$iname5', '$brand5', '$unit5', '$new_quantityDelivered5', '$amount5', '$new_inputExp5', '$new_purchaseID', '$supplierid5', '$cat5', '$lot5', '$description5', '$suppname')";
         $resultexp5=mysqli_query($con,$sqlexp5);
       }
     }else {
@@ -2280,10 +2335,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp5 == $new_OrigExp5 || $new_OrigExp5 == '' || $new_OrigExp5 == 'NULL'){
-        $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5.", expiration_date='".$new_inputExp5."' WHERE supply_id='$new_supid5' ";
-      $result_add5=mysqli_query($con,$sqladd5);
+        if($type5 == 'Medical'){
+         $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5.", expiration_date='".$new_inputExp5."' WHERE supply_id='$new_supid' ";
+         $result_add5=mysqli_query($con,$sqladd5);
+        }else{
+          $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5." WHERE supply_id='$new_supid' ";
+         $result_add5=mysqli_query($con,$sqladd5);
+        }
       }else{
-        $sqlexp5="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type5, $iname5, $brand5, $unit5, $new_quantityDelivered5, $amount5, $new_inputExp5, $new_purchaseID, $supplierid5, $cat5, $lot5, $description5, $suppname)";
+        $sqlexp5="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type5', '$iname5', '$brand5', '$unit5', '$new_quantityDelivered5', '$amount5', '$new_inputExp5', '$new_purchaseID', '$supplierid5', '$cat5', '$lot5', '$description5', '$suppname')";
         $resultexp5=mysqli_query($con,$sqlexp5);
       }
 
@@ -2324,10 +2384,15 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp6 == $new_OrigExp6 || $new_OrigExp6 == '' || $new_OrigExp6 == 'NULL'){
-        $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6.", expiration_date='".$new_inputExp6."' WHERE supply_id='$new_supid6' ";
-      $result_add6=mysqli_query($con,$sqladd6);
+        if($type6 == 'Medical'){
+         $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6.", expiration_date='".$new_inputExp6."' WHERE supply_id='$new_supid' ";
+         $result_add6=mysqli_query($con,$sqladd6);
+        }else{
+          $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6." WHERE supply_id='$new_supid' ";
+         $result_add6=mysqli_query($con,$sqladd6);
+        }
       }else{
-        $sqlexp6="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type6, $iname6, $brand6, $unit6, $new_quantityDelivered6, $amount6, $new_inputExp6, $new_purchaseID, $supplierid6, $cat6, $lot6, $description6, $suppname)";
+        $sqlexp6="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type6', '$iname6', '$brand6', '$unit6', '$new_quantityDelivered6', '$amount6', '$new_inputExp6', '$new_purchaseID', '$supplierid6', '$cat6', '$lot6', '$description6', '$suppname')";
         $resultexp6=mysqli_query($con,$sqlexp6);
       }
     }else {
@@ -2343,10 +2408,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp6 == $new_OrigExp6 || $new_OrigExp6 == '' || $new_OrigExp6 == 'NULL'){
-        $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6.", expiration_date='".$new_inputExp6."' WHERE supply_id='$new_supid6' ";
-      $result_add6=mysqli_query($con,$sqladd6);
+        if($type6 == 'Medical'){
+         $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6.", expiration_date='".$new_inputExp6."' WHERE supply_id='$new_supid' ";
+         $result_add6=mysqli_query($con,$sqladd6);
+        }else{
+          $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6." WHERE supply_id='$new_supid' ";
+         $result_add6=mysqli_query($con,$sqladd6);
+        }
       }else{
-        $sqlexp6="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type6, $iname6, $brand6, $unit6, $new_quantityDelivered6, $amount6, $new_inputExp6, $new_purchaseID, $supplierid6, $cat6, $lot6, $description6, $suppname)";
+        $sqlexp6="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type6', '$iname6', '$brand6', '$unit6', '$new_quantityDelivered6', '$amount6', '$new_inputExp6', '$new_purchaseID', '$supplierid6', '$cat6', '$lot6', '$description6', '$suppname')";
         $resultexp6=mysqli_query($con,$sqlexp6);
       }
 
@@ -2387,10 +2457,15 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp7 == $new_OrigExp7 || $new_OrigExp7 == '' || $new_OrigExp7 == 'NULL'){
-        $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7.", expiration_date='".$new_inputExp7."' WHERE supply_id='$new_supid7' ";
-      $result_add7=mysqli_query($con,$sqladd7);
+        if($type7 == 'Medical'){
+         $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7.", expiration_date='".$new_inputExp7."' WHERE supply_id='$new_supid' ";
+         $result_add7=mysqli_query($con,$sqladd7);
+        }else{
+          $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7." WHERE supply_id='$new_supid' ";
+         $result_add7=mysqli_query($con,$sqladd7);
+        }
       }else{
-        $sqlexp7="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type7, $iname7, $brand7, $unit7, $new_quantityDelivered7, $amount7, $new_inputExp7, $new_purchaseID, $supplierid7, $cat7, $lot7, $description7, $suppname)";
+        $sqlexp7="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type7', '$iname7', '$brand7', '$unit7', '$new_quantityDelivered7', '$amount7', '$new_inputExp7', '$new_purchaseID', '$supplierid7', '$cat7', '$lot7', '$description7', '$suppname')";
         $resultexp7=mysqli_query($con,$sqlexp7);
       }
     }else {
@@ -2406,10 +2481,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp7 == $new_OrigExp7 || $new_OrigExp7 == '' || $new_OrigExp7 == 'NULL'){
-        $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7.", expiration_date='".$new_inputExp7."' WHERE supply_id='$new_supid7' ";
-      $result_add7=mysqli_query($con,$sqladd7);
+        if($type7 == 'Medical'){
+         $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7.", expiration_date='".$new_inputExp7."' WHERE supply_id='$new_supid' ";
+         $result_add7=mysqli_query($con,$sqladd7);
+        }else{
+          $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7." WHERE supply_id='$new_supid' ";
+         $result_add7=mysqli_query($con,$sqladd7);
+        }
       }else{
-        $sqlexp7="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type7, $iname7, $brand7, $unit7, $new_quantityDelivered7, $amount7, $new_inputExp7, $new_purchaseID, $supplierid7, $cat7, $lot7, $description7, $suppname)";
+        $sqlexp7="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type7', '$iname7', '$brand7', '$unit7', '$new_quantityDelivered7', '$amount7', '$new_inputExp7', '$new_purchaseID', '$supplierid7', '$cat7', '$lot7', '$description7', '$suppname')";
         $resultexp7=mysqli_query($con,$sqlexp7);
       }
 
@@ -2450,10 +2530,15 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp8 == $new_OrigExp8 || $new_OrigExp8 == '' || $new_OrigExp8 == 'NULL'){
-        $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8.", expiration_date='".$new_inputExp8."' WHERE supply_id='$new_supid8' ";
-      $result_add8=mysqli_query($con,$sqladd8);
+        if($type8 == 'Medical'){
+         $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8.", expiration_date='".$new_inputExp8."' WHERE supply_id='$new_supid' ";
+         $result_add8=mysqli_query($con,$sqladd8);
+        }else{
+          $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8." WHERE supply_id='$new_supid' ";
+         $result_add8=mysqli_query($con,$sqladd8);
+        }
       }else{
-        $sqlexp8="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type8, $iname8, $brand8, $unit8, $new_quantityDelivered8, $amount8, $new_inputExp8, $new_purchaseID, $supplierid8, $cat8, $lot8, $description8, $suppname)";
+        $sqlexp8="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type8', '$iname8', '$brand8', '$unit8', '$new_quantityDelivered8', '$amount8', '$new_inputExp8', '$new_purchaseID', '$supplierid8', '$cat8', '$lot8', '$description8', '$suppname')";
         $resultexp8=mysqli_query($con,$sqlexp8);
       }
     }else {
@@ -2469,10 +2554,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp8 == $new_OrigExp8 || $new_OrigExp8 == '' || $new_OrigExp8 == 'NULL'){
-        $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8.", expiration_date='".$new_inputExp8."' WHERE supply_id='$new_supid8' ";
-      $result_add8=mysqli_query($con,$sqladd8);
+        if($type8 == 'Medical'){
+         $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8.", expiration_date='".$new_inputExp8."' WHERE supply_id='$new_supid' ";
+         $result_add8=mysqli_query($con,$sqladd8);
+        }else{
+          $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8." WHERE supply_id='$new_supid' ";
+         $result_add8=mysqli_query($con,$sqladd8);
+        }
       }else{
-        $sqlexp8="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type8, $iname8, $brand8, $unit8, $new_quantityDelivered8, $amount8, $new_inputExp8, $new_purchaseID, $supplierid8, $cat8, $lot8, $description8, $suppname)";
+        $sqlexp8="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type8', '$iname8', '$brand8', '$unit8', '$new_quantityDelivered8', '$amount8', '$new_inputExp8', '$new_purchaseID', '$supplierid8', '$cat8', '$lot8', '$description8', '$suppname')";
         $resultexp8=mysqli_query($con,$sqlexp8);
       }
 
@@ -2513,10 +2603,15 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp9 == $new_OrigExp9 || $new_OrigExp9 == '' || $new_OrigExp9 == 'NULL'){
-        $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9.", expiration_date='".$new_inputExp9."' WHERE supply_id='$new_supid9' ";
-      $result_add9=mysqli_query($con,$sqladd9);
+        if($type9 == 'Medical'){
+         $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9.", expiration_date='".$new_inputExp9."' WHERE supply_id='$new_supid' ";
+         $result_add9=mysqli_query($con,$sqladd9);
+        }else{
+          $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9." WHERE supply_id='$new_supid' ";
+         $result_add9=mysqli_query($con,$sqladd9);
+        }
       }else{
-        $sqlexp9="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type9, $iname9, $brand9, $unit9, $new_quantityDelivered9, $amount9, $new_inputExp9, $new_purchaseID, $supplierid9, $cat9, $lot9, $description9, $suppname)";
+        $sqlexp9="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type9', '$iname9', '$brand9', '$unit9', '$new_quantityDelivered9', '$amount9', '$new_inputExp9', '$new_purchaseID', '$supplierid9', '$cat9', '$lot9', '$description9', '$suppname')";
         $resultexp9=mysqli_query($con,$sqlexp9);
       }
     }else {
@@ -2532,10 +2627,15 @@ if(isset($_POST['btnEdit'])){
       }
 
       if($new_inputExp9 == $new_OrigExp9 || $new_OrigExp9 == '' || $new_OrigExp9 == 'NULL'){
-        $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9.", expiration_date='".$new_inputExp9."' WHERE supply_id='$new_supid9' ";
-      $result_add9=mysqli_query($con,$sqladd9);
+        if($type9 == 'Medical'){
+         $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9.", expiration_date='".$new_inputExp9."' WHERE supply_id='$new_supid' ";
+         $result_add9=mysqli_query($con,$sqladd9);
+        }else{
+          $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9." WHERE supply_id='$new_supid' ";
+         $result_add9=mysqli_query($con,$sqladd9);
+        }
       }else{
-        $sqlexp9="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ($type9, $iname9, $brand9, $unit9, $new_quantityDelivered9, $amount9, $new_inputExp9, $new_purchaseID, $supplierid9, $cat9, $lot9, $description9, $suppname)";
+        $sqlexp9="INSERT INTO supplies (supply_type, item_name, brand_name, unit, quantity_in_stock, unit_price, expiration_date, delivery_id, suppliers_id, category, lot_no, supply_description, suppliers_name) VALUES ('$type9', '$iname9', '$brand9', '$unit9', '$new_quantityDelivered9', '$amount9', '$new_inputExp9', '$new_purchaseID', '$supplierid9', '$cat9', '$lot9', '$description9', '$suppname')";
         $resultexp9=mysqli_query($con,$sqlexp9);
       }
 

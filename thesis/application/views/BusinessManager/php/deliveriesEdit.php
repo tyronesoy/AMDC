@@ -36,6 +36,7 @@ if(isset($_REQUEST['id'])){
         $per_purchOrderStatus=$row[21];
         $per_purchOrderRemarks=$row[22];
         $per_gtotal=$row[23];
+        $pobmremarks=$row[25];
         $per_soft_deleted=$row[26];
         $per_sup_id=$row[27];
 
@@ -303,7 +304,7 @@ if(isset($_REQUEST['id'])){
                                                 <th class="hidden">ID</th>
                                                 
                                                <th width="8%">Lot No.</th>
-                                               <?php if ($per_itemDeliveryRemarks == 'Partial' ) {?>
+                                               <?php if ($pobmremarks == 'Partial' ) {?>
                                                   <th width="5%">Quantity Remaining</th>
                                                <?php } else {?>
                                                   <th width="5%">Qty Ordered</th>
@@ -393,7 +394,7 @@ if(isset($_REQUEST['id'])){
                                                <input class="form-control" id="txtlot<?php echo $x; ?>" name="txtlot<?php echo $x; ?>" value="<?php print_r($lot[$zero]);?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                               </td>
 
-                                              <?php if ($per_itemDeliveryRemarks == 'Partial' ) {?>
+                                              <?php if ($pobmremarks == 'Partial' ) {?>
                                                <td width="100px"><input type="text" class="form-control" id="txtquantity<?php echo $x; ?>" name="txtquantity<?php echo $x; ?>" value="<?php print_r($rem[$zero]); ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
 
                                                <td width="100px"><input type="number" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered<?php echo $x; ?>" value="<?php print_r($quantityDelivered[$zero]); ?>" min="1" max="<?php print_r($rem[$zero]); ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;">  </td>
@@ -410,7 +411,7 @@ if(isset($_REQUEST['id'])){
                                             date_default_timezone_set("Asia/Manila");
                                             $date = date('Y-m-d');
                                             $effectiveDate = date('Y-m-d', strtotime("+3 months")); ?>
-                                              <td width="100px"><input type="text" class="form-control datepicker"  name="txtexpiration<?php echo $x; ?>" id="txtexpiration<?php echo $x; ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" value="<?php echo $effectiveDate?>" readonly>
+                                              <td width="100px"><input type="text" class="form-control datepicker"  name="txtexpiration<?php echo $x; ?>" id="txtexpiration<?php echo $x; ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" value="" placeholder="<?php print_r($expired[$zero]); ?>" readonly>
                                               </td>
                                                
                                                <?php }elseif ($per_itemDeliveryRemarks == '') {?>
@@ -432,7 +433,7 @@ if(isset($_REQUEST['id'])){
                                             $date = date('Y-m-d');
                                             $effectiveDate = date('Y-m-d', strtotime("+3 months")); ?>
                                             <!-- date('Y-m-d', strtotime("+3 months")) -->
-                                              <td width="100px"><input type="text" class="form-control datepicker"  name="txtexpiration<?php echo $x; ?>" id="txtexpiration<?php echo $x; ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" value="<?php echo $effectiveDate?>" readonly>
+                                              <td width="100px"><input type="text" class="form-control datepicker"  name="txtexpiration<?php echo $x; ?>" id="txtexpiration<?php echo $x; ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" value="" readonly>
                                               </td>
                                               <?php
                                                } ?>
