@@ -960,7 +960,7 @@ function unit_measure($connect)
                                                 <?php
                                                  $conn =mysqli_connect("localhost","root","");
                                                 mysqli_select_db($conn, "itproject");
-                                                  $sql = "SELECT * FROM suppliers";
+                                                  $sql = "SELECT * FROM suppliers WHERE supplier_status = 'Active'";
                                                   $results = mysqli_query($conn, $sql);
 
                                                   foreach($results as $supplier) { 
@@ -1947,10 +1947,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp == $new_OrigExp || $new_OrigExp == '' || $new_OrigExp == 'NULL'){
         if($type == 'Medical'){
-         $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered.", expiration_date='".$new_inputExp."' WHERE supply_id='$new_supid' ";
+         $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered.", expiration_date='".$new_inputExp."', unit_price='".$amount."' WHERE supply_id='$new_supid' ";
          $result_add=mysqli_query($con,$sqladd);
         }else{
-          $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered." WHERE supply_id='$new_supid' ";
+          $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered.", unit_price='".$amount."' WHERE supply_id='$new_supid' ";
          $result_add=mysqli_query($con,$sqladd);
         }
       }else{
@@ -1971,10 +1971,10 @@ if(isset($_POST['btnEdit'])){
       
       if($new_inputExp == $new_OrigExp || $new_OrigExp == '' || $new_OrigExp == 'NULL'){
         if($type == 'Medical'){
-         $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered.", expiration_date='".$new_inputExp."' WHERE supply_id='$new_supid' ";
+         $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered.", expiration_date='".$new_inputExp."', unit_price='".$amount."' WHERE supply_id='$new_supid' ";
          $result_add=mysqli_query($con,$sqladd);
         }else{
-          $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered." WHERE supply_id='$new_supid' ";
+          $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered.", unit_price='".$amount."' WHERE supply_id='$new_supid' ";
          $result_add=mysqli_query($con,$sqladd);
         }
       }else{
@@ -2020,10 +2020,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp1 == $new_OrigExp1 || $new_OrigExp1 == '' || $new_OrigExp1 == 'NULL'){
          if($type1 == 'Medical'){
-         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1.", expiration_date='".$new_inputExp1."' WHERE supply_id='$new_supid' ";
+         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1.", expiration_date='".$new_inputExp1."', unit_price='".$amount1."' WHERE supply_id='$new_supid' ";
          $result_add1=mysqli_query($con,$sqladd1);
         }else{
-          $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1." WHERE supply_id='$new_supid' ";
+          $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1.", unit_price='".$amount1."' WHERE supply_id='$new_supid' ";
          $result_add1=mysqli_query($con,$sqladd1);
         }
       }else{
@@ -2044,10 +2044,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp1 == $new_OrigExp1 || $new_OrigExp1 == '' || $new_OrigExp1 == 'NULL'){
          if($type1 == 'Medical'){
-         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1.", expiration_date='".$new_inputExp1."' WHERE supply_id='$new_supid' ";
+         $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1.", expiration_date='".$new_inputExp1."', unit_price='".$amount1."' WHERE supply_id='$new_supid' ";
          $result_add1=mysqli_query($con,$sqladd1);
         }else{
-          $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1." WHERE supply_id='$new_supid' ";
+          $sqladd1="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered1.", unit_price='".$amount1."' WHERE supply_id='$new_supid' ";
          $result_add1=mysqli_query($con,$sqladd1);
         }
       }else{
@@ -2094,10 +2094,10 @@ if(isset($_POST['btnEdit'])){
       
       if($new_inputExp2 == $new_OrigExp2 || $new_OrigExp2 == '' || $new_OrigExp2 == 'NULL'){
         if($type2 == 'Medical'){
-         $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2.", expiration_date='".$new_inputExp2."' WHERE supply_id='$new_supid' ";
+         $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2.", expiration_date='".$new_inputExp2."', unit_price='".$amount2."' WHERE supply_id='$new_supid' ";
          $result_add2=mysqli_query($con,$sqladd2);
         }else{
-          $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2." WHERE supply_id='$new_supid' ";
+          $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2.", unit_price='".$amount2."' WHERE supply_id='$new_supid' ";
          $result_add2=mysqli_query($con,$sqladd2);
         }
       }else{
@@ -2118,10 +2118,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp2 == $new_OrigExp2 || $new_OrigExp2 == '' || $new_OrigExp2 == 'NULL'){
         if($type2 == 'Medical'){
-         $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2.", expiration_date='".$new_inputExp2."' WHERE supply_id='$new_supid' ";
+         $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2.", expiration_date='".$new_inputExp2."', unit_price='".$amount2."' WHERE supply_id='$new_supid' ";
          $result_add2=mysqli_query($con,$sqladd2);
         }else{
-          $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2." WHERE supply_id='$new_supid' ";
+          $sqladd2="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered2.", unit_price='".$amount2."' WHERE supply_id='$new_supid' ";
          $result_add2=mysqli_query($con,$sqladd2);
         }
       }else{
@@ -2167,10 +2167,10 @@ if(isset($_POST['btnEdit'])){
       
       if($new_inputExp3 == $new_OrigExp3 || $new_OrigExp3 == '' || $new_OrigExp3 == 'NULL'){
         if($type3 == 'Medical'){
-         $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3.", expiration_date='".$new_inputExp3."' WHERE supply_id='$new_supid' ";
+         $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3.", expiration_date='".$new_inputExp3."', unit_price='".$amount3."' WHERE supply_id='$new_supid' ";
          $result_add3=mysqli_query($con,$sqladd3);
         }else{
-          $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3." WHERE supply_id='$new_supid' ";
+          $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3.", unit_price='".$amount3."' WHERE supply_id='$new_supid' ";
          $result_add3=mysqli_query($con,$sqladd3);
         }
       }else{
@@ -2190,10 +2190,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp3 == $new_OrigExp3 || $new_OrigExp3 == '' || $new_OrigExp3 == 'NULL'){
         if($type3 == 'Medical'){
-         $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3.", expiration_date='".$new_inputExp3."' WHERE supply_id='$new_supid' ";
+         $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3.", expiration_date='".$new_inputExp3."', unit_price='".$amount3."' WHERE supply_id='$new_supid' ";
          $result_add3=mysqli_query($con,$sqladd3);
         }else{
-          $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3." WHERE supply_id='$new_supid' ";
+          $sqladd3="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered3.", unit_price='".$amount3."' WHERE supply_id='$new_supid' ";
          $result_add3=mysqli_query($con,$sqladd3);
         }
       }else{
@@ -2239,10 +2239,10 @@ if(isset($_POST['btnEdit'])){
       
       if($new_inputExp4 == $new_OrigExp4 || $new_OrigExp4 == '' || $new_OrigExp4 == 'NULL'){
         if($type4 == 'Medical'){
-         $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4.", expiration_date='".$new_inputExp4."' WHERE supply_id='$new_supid' ";
+         $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4.", expiration_date='".$new_inputExp4."', unit_price='".$amount4."' WHERE supply_id='$new_supid' ";
          $result_add4=mysqli_query($con,$sqladd4);
         }else{
-          $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4." WHERE supply_id='$new_supid' ";
+          $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4.", unit_price='".$amount4."' WHERE supply_id='$new_supid' ";
          $result_add4=mysqli_query($con,$sqladd4);
         }
       }else{
@@ -2263,10 +2263,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp4 == $new_OrigExp4 || $new_OrigExp4 == '' || $new_OrigExp4 == 'NULL'){
         if($type4 == 'Medical'){
-         $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4.", expiration_date='".$new_inputExp4."' WHERE supply_id='$new_supid' ";
+         $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4.", expiration_date='".$new_inputExp4."', unit_price='".$amount4."' WHERE supply_id='$new_supid' ";
          $result_add4=mysqli_query($con,$sqladd4);
         }else{
-          $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4." WHERE supply_id='$new_supid' ";
+          $sqladd4="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered4.", unit_price='".$amount4."' WHERE supply_id='$new_supid' ";
          $result_add4=mysqli_query($con,$sqladd4);
         }
       }else{
@@ -2312,10 +2312,10 @@ if(isset($_POST['btnEdit'])){
       
       if($new_inputExp5 == $new_OrigExp5 || $new_OrigExp5 == '' || $new_OrigExp5 == 'NULL'){
         if($type5 == 'Medical'){
-         $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5.", expiration_date='".$new_inputExp5."' WHERE supply_id='$new_supid' ";
+         $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5.", expiration_date='".$new_inputExp5."', unit_price='".$amount5."' WHERE supply_id='$new_supid' ";
          $result_add5=mysqli_query($con,$sqladd5);
         }else{
-          $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5." WHERE supply_id='$new_supid' ";
+          $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5.", unit_price='".$amount5."' WHERE supply_id='$new_supid' ";
          $result_add5=mysqli_query($con,$sqladd5);
         }
       }else{
@@ -2336,10 +2336,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp5 == $new_OrigExp5 || $new_OrigExp5 == '' || $new_OrigExp5 == 'NULL'){
         if($type5 == 'Medical'){
-         $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5.", expiration_date='".$new_inputExp5."' WHERE supply_id='$new_supid' ";
+         $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5.", expiration_date='".$new_inputExp5."', unit_price='".$amount5."' WHERE supply_id='$new_supid' ";
          $result_add5=mysqli_query($con,$sqladd5);
         }else{
-          $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5." WHERE supply_id='$new_supid' ";
+          $sqladd5="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered5.", unit_price='".$amount5."' WHERE supply_id='$new_supid' ";
          $result_add5=mysqli_query($con,$sqladd5);
         }
       }else{
@@ -2385,10 +2385,10 @@ if(isset($_POST['btnEdit'])){
       
       if($new_inputExp6 == $new_OrigExp6 || $new_OrigExp6 == '' || $new_OrigExp6 == 'NULL'){
         if($type6 == 'Medical'){
-         $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6.", expiration_date='".$new_inputExp6."' WHERE supply_id='$new_supid' ";
+         $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6.", expiration_date='".$new_inputExp6."', unit_price='".$amount6."' WHERE supply_id='$new_supid' ";
          $result_add6=mysqli_query($con,$sqladd6);
         }else{
-          $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6." WHERE supply_id='$new_supid' ";
+          $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6.", unit_price='".$amount6."' WHERE supply_id='$new_supid' ";
          $result_add6=mysqli_query($con,$sqladd6);
         }
       }else{
@@ -2409,10 +2409,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp6 == $new_OrigExp6 || $new_OrigExp6 == '' || $new_OrigExp6 == 'NULL'){
         if($type6 == 'Medical'){
-         $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6.", expiration_date='".$new_inputExp6."' WHERE supply_id='$new_supid' ";
+         $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6.", expiration_date='".$new_inputExp6."', unit_price='".$amount6."' WHERE supply_id='$new_supid' ";
          $result_add6=mysqli_query($con,$sqladd6);
         }else{
-          $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6." WHERE supply_id='$new_supid' ";
+          $sqladd6="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered6.", unit_price='".$amount6."' WHERE supply_id='$new_supid' ";
          $result_add6=mysqli_query($con,$sqladd6);
         }
       }else{
@@ -2458,10 +2458,10 @@ if(isset($_POST['btnEdit'])){
       
       if($new_inputExp7 == $new_OrigExp7 || $new_OrigExp7 == '' || $new_OrigExp7 == 'NULL'){
         if($type7 == 'Medical'){
-         $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7.", expiration_date='".$new_inputExp7."' WHERE supply_id='$new_supid' ";
+         $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7.", expiration_date='".$new_inputExp7."', unit_price='".$amount7."' WHERE supply_id='$new_supid' ";
          $result_add7=mysqli_query($con,$sqladd7);
         }else{
-          $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7." WHERE supply_id='$new_supid' ";
+          $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7.", unit_price='".$amount7."' WHERE supply_id='$new_supid' ";
          $result_add7=mysqli_query($con,$sqladd7);
         }
       }else{
@@ -2482,10 +2482,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp7 == $new_OrigExp7 || $new_OrigExp7 == '' || $new_OrigExp7 == 'NULL'){
         if($type7 == 'Medical'){
-         $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7.", expiration_date='".$new_inputExp7."' WHERE supply_id='$new_supid' ";
+         $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7.", expiration_date='".$new_inputExp7."', unit_price='".$amount7."' WHERE supply_id='$new_supid' ";
          $result_add7=mysqli_query($con,$sqladd7);
         }else{
-          $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7." WHERE supply_id='$new_supid' ";
+          $sqladd7="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered7.", unit_price='".$amount7."' WHERE supply_id='$new_supid' ";
          $result_add7=mysqli_query($con,$sqladd7);
         }
       }else{
@@ -2531,10 +2531,10 @@ if(isset($_POST['btnEdit'])){
       
       if($new_inputExp8 == $new_OrigExp8 || $new_OrigExp8 == '' || $new_OrigExp8 == 'NULL'){
         if($type8 == 'Medical'){
-         $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8.", expiration_date='".$new_inputExp8."' WHERE supply_id='$new_supid' ";
+         $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8.", expiration_date='".$new_inputExp8."', unit_price='".$amount8."' WHERE supply_id='$new_supid' ";
          $result_add8=mysqli_query($con,$sqladd8);
         }else{
-          $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8." WHERE supply_id='$new_supid' ";
+          $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8.", unit_price='".$amount8."' WHERE supply_id='$new_supid' ";
          $result_add8=mysqli_query($con,$sqladd8);
         }
       }else{
@@ -2555,10 +2555,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp8 == $new_OrigExp8 || $new_OrigExp8 == '' || $new_OrigExp8 == 'NULL'){
         if($type8 == 'Medical'){
-         $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8.", expiration_date='".$new_inputExp8."' WHERE supply_id='$new_supid' ";
+         $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8.", expiration_date='".$new_inputExp8."', unit_price='".$amount8."' WHERE supply_id='$new_supid' ";
          $result_add8=mysqli_query($con,$sqladd8);
         }else{
-          $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8." WHERE supply_id='$new_supid' ";
+          $sqladd8="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered8.", unit_price='".$amount8."' WHERE supply_id='$new_supid' ";
          $result_add8=mysqli_query($con,$sqladd8);
         }
       }else{
@@ -2604,10 +2604,10 @@ if(isset($_POST['btnEdit'])){
       
       if($new_inputExp9 == $new_OrigExp9 || $new_OrigExp9 == '' || $new_OrigExp9 == 'NULL'){
         if($type9 == 'Medical'){
-         $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9.", expiration_date='".$new_inputExp9."' WHERE supply_id='$new_supid' ";
+         $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9.", expiration_date='".$new_inputExp9."', unit_price='".$amount9."' WHERE supply_id='$new_supid' ";
          $result_add9=mysqli_query($con,$sqladd9);
         }else{
-          $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9." WHERE supply_id='$new_supid' ";
+          $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9.", unit_price='".$amount9."' WHERE supply_id='$new_supid' ";
          $result_add9=mysqli_query($con,$sqladd9);
         }
       }else{
@@ -2628,10 +2628,10 @@ if(isset($_POST['btnEdit'])){
 
       if($new_inputExp9 == $new_OrigExp9 || $new_OrigExp9 == '' || $new_OrigExp9 == 'NULL'){
         if($type9 == 'Medical'){
-         $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9.", expiration_date='".$new_inputExp9."' WHERE supply_id='$new_supid' ";
+         $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9.", expiration_date='".$new_inputExp9."', unit_price='".$amount9."' WHERE supply_id='$new_supid' ";
          $result_add9=mysqli_query($con,$sqladd9);
         }else{
-          $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9." WHERE supply_id='$new_supid' ";
+          $sqladd9="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered9.", unit_price='".$amount9."' WHERE supply_id='$new_supid' ";
          $result_add9=mysqli_query($con,$sqladd9);
         }
       }else{
