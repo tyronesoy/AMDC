@@ -1903,6 +1903,7 @@ if(isset($_POST['btnEdit'])){
     $delBy=mysqli_real_escape_string($con,$_POST['txtdelBy']);
     $ordrNo=mysqli_real_escape_string($con,$_POST['txtordr']);
     $suppname=mysqli_real_escape_string($con,$_POST['txtsupplier']);
+    $delID=mysqli_real_escape_string($con,$_POST['DelID']);
 
     $new_id=mysqli_real_escape_string($con,$_POST['txtpoid0']);
     $new_quantity=mysqli_real_escape_string($con,$_POST['txtquantity0']);
@@ -1935,7 +1936,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd=mysqli_query($con,$sqlupd);
 
       if($description != "" || $new_quantityDelivered != ""){
-        $sqldeliveries="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Full', '".$new_notes."', '".$new_id."', '".$supplierid."', '".$new_pokey."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered."', '".$description."')";
+        $sqldeliveries="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Full', '".$new_notes."', '".$new_id."', '".$supplierid."', '".$new_pokey."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered."', '".$description."', '".$delID."')";
       $sqldelivery=mysqli_query($con,$sqldeliveries);
       }
 
@@ -1954,7 +1955,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd=mysqli_query($con,$sqlupd);
 
       if($description != "" || $new_quantityDelivered != ""){
-      $sqldeliveries="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Partial', '".$new_notes."', '".$new_id."', '".$supplierid."', '".$new_pokey."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered."', '".$description."')";
+      $sqldeliveries="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Partial', '".$new_notes."', '".$new_id."', '".$supplierid."', '".$new_pokey."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered."', '".$description."', '".$delID."')";
       $sqldelivery=mysqli_query($con,$sqldeliveries);
       }
       
@@ -1998,7 +1999,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd1=mysqli_query($con,$sqlupd1);
 
       if($description1 != "" || $new_quantityDelivered1 != ""){
-      $sqldeliveries1="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Full', '".$new_notes1."', '".$new_id1."', '".$supplierid1."', '".$new_pokey1."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered1."', '".$description1."')";
+      $sqldeliveries1="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Full', '".$new_notes1."', '".$new_id1."', '".$supplierid1."', '".$new_pokey1."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered1."', '".$description1."', '".$delID."')";
       $sqldelivery1=mysqli_query($con,$sqldeliveries1);
       }
 
@@ -2017,7 +2018,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd1=mysqli_query($con,$sqlupd1);
 
       if($description1 != "" || $new_quantityDelivered1 != ""){
-      $sqldeliveries1="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Partial', '".$new_notes1."', '".$new_id1."', '".$supplierid1."', '".$new_pokey1."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered1."', '".$description1."')";
+      $sqldeliveries1="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Partial', '".$new_notes1."', '".$new_id1."', '".$supplierid1."', '".$new_pokey1."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered1."', '".$description1."', '".$delID."')";
       $sqldelivery1=mysqli_query($con,$sqldeliveries1);
       }
 
@@ -2061,7 +2062,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd2=mysqli_query($con,$sqlupd2);
 
       if($description2 != "" || $new_quantityDelivered2 != ""){
-      $sqldeliveries2="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Full', '".$new_notes2."', '".$new_id2."', '".$supplierid2."', '".$new_pokey2."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered2."', '".$description2."')";
+      $sqldeliveries2="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Full', '".$new_notes2."', '".$new_id2."', '".$supplierid2."', '".$new_pokey2."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered2."', '".$description2."', '".$delID."')";
       $sqldelivery2=mysqli_query($con,$sqldeliveries2);
       }
 
@@ -2081,7 +2082,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd2=mysqli_query($con,$sqlupd2);
 
       if($description2 != "" || $new_quantityDelivered2 != ""){
-      $sqldeliveries2="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Partial', '".$new_notes2."', '".$new_id2."', '".$supplierid2."', '".$new_pokey2."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered2."', '".$description2."')";
+      $sqldeliveries2="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Partial', '".$new_notes2."', '".$new_id2."', '".$supplierid2."', '".$new_pokey2."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered2."', '".$description2."', '".$delID."')";
       $sqldelivery2=mysqli_query($con,$sqldeliveries2);
       }
 
@@ -2125,7 +2126,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd3=mysqli_query($con,$sqlupd3);
 
       if($description3 != "" || $new_quantityDelivered3 != ""){
-      $sqldeliveries3="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Full', '".$new_notes3."', '".$new_id3."', '".$supplierid3."', '".$new_pokey3."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered3."', '".$description3."')";
+      $sqldeliveries3="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Full', '".$new_notes3."', '".$new_id3."', '".$supplierid3."', '".$new_pokey3."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered3."', '".$description3."', '".$delID."')";
       $sqldelivery3=mysqli_query($con,$sqldeliveries3);
       }
       
@@ -2144,7 +2145,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd3=mysqli_query($con,$sqlupd3);
 
       if($description3 != "" || $new_quantityDelivered3 != ""){
-      $sqldeliveries3="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Partial', '".$new_notes3."', '".$new_id3."', '".$supplierid3."', '".$new_pokey3."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered3."', '".$description3."')";
+      $sqldeliveries3="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Partial', '".$new_notes3."', '".$new_id3."', '".$supplierid3."', '".$new_pokey3."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered3."', '".$description3."', '".$delID."')";
       }
 
       if($new_inputExp3 == $new_OrigExp3 || $new_OrigExp3 == '' || $new_OrigExp3 == 'NULL'){
@@ -2187,7 +2188,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd4=mysqli_query($con,$sqlupd4);
 
       if($description4 != "" || $new_quantityDelivered4 != ""){
-      $sqldeliveries4="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Full', '".$new_notes4."', '".$new_id4."', '".$supplierid4."', '".$new_pokey4."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered4."', '".$description4."')";
+      $sqldeliveries4="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Full', '".$new_notes4."', '".$new_id4."', '".$supplierid4."', '".$new_pokey4."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered4."', '".$description4."', '".$delID."')";
       $sqldelivery4=mysqli_query($con,$sqldeliveries4);
       }
       
@@ -2206,7 +2207,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd4=mysqli_query($con,$sqlupd4);
 
       if($description4 != "" || $new_quantityDelivered4 != ""){
-      $sqldeliveries4="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Partial', '".$new_notes4."', '".$new_id4."', '".$supplierid4."', '".$new_pokey4."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered4."', '".$description4."')";
+      $sqldeliveries4="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Partial', '".$new_notes4."', '".$new_id4."', '".$supplierid4."', '".$new_pokey4."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered4."', '".$description4."', '".$delID."')";
       $sqldelivery4=mysqli_query($con,$sqldeliveries4);
       }
 
@@ -2250,7 +2251,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd5=mysqli_query($con,$sqlupd5);
 
       if($description5 != "" || $new_quantityDelivered5 != ""){
-      $sqldeliveries5="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Full', '".$new_notes5."', '".$new_id5."', '".$supplierid5."', '".$new_pokey5."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered5."', '".$description5."')";
+      $sqldeliveries5="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Full', '".$new_notes5."', '".$new_id5."', '".$supplierid5."', '".$new_pokey5."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered5."', '".$description5."', '".$delID."')";
       $sqldelivery5=mysqli_query($con,$sqldeliveries5);
       }
       
@@ -2269,7 +2270,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd5=mysqli_query($con,$sqlupd5);
 
       if($description5 != "" || $new_quantityDelivered5 != ""){
-       $sqldeliveries5="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Partial', '".$new_notes5."', '".$new_id5."', '".$supplierid5."', '".$new_pokey5."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered5."', '".$description5."')";
+       $sqldeliveries5="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Partial', '".$new_notes5."', '".$new_id5."', '".$supplierid5."', '".$new_pokey5."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered5."', '".$description5."', '".$delID."')";
       $sqldelivery5=mysqli_query($con,$sqldeliveries5);
       }
 
@@ -2313,7 +2314,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd6=mysqli_query($con,$sqlupd6);
 
       if($description6 != "" || $new_quantityDelivered6 != ""){
-      $sqldeliveries6="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Full', '".$new_notes6."', '".$new_id6."', '".$supplierid6."', '".$new_pokey6."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered6."', '".$description6."')";
+      $sqldeliveries6="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Full', '".$new_notes6."', '".$new_id6."', '".$supplierid6."', '".$new_pokey6."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered6."', '".$description6."', '".$delID."')";
       $sqldelivery6=mysqli_query($con,$sqldeliveries6);
       }
       
@@ -2332,7 +2333,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd6=mysqli_query($con,$sqlupd6);
 
       if($description6 != "" || $new_quantityDelivered6 != ""){
-      $sqldeliveries6="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Partial', '".$new_notes6."', '".$new_id6."', '".$supplierid6."', '".$new_pokey6."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered6."', '".$description6."')";
+      $sqldeliveries6="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Partial', '".$new_notes6."', '".$new_id6."', '".$supplierid6."', '".$new_pokey6."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered6."', '".$description6."', '".$delID."')";
       $sqldelivery6=mysqli_query($con,$sqldeliveries6);
       }
 
@@ -2376,7 +2377,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd7=mysqli_query($con,$sqlupd7);
 
       if($description7 != "" || $new_quantityDelivered7 != ""){
-      $sqldeliveries7="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Full', '".$new_notes7."', '".$new_id7."', '".$supplierid7."', '".$new_pokey7."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered7."', '".$description7."')";
+      $sqldeliveries7="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Full', '".$new_notes7."', '".$new_id7."', '".$supplierid7."', '".$new_pokey7."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered7."', '".$description7."', '".$delID."')";
       $sqldelivery7=mysqli_query($con,$sqldeliveries7);
       }
       
@@ -2395,7 +2396,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd7=mysqli_query($con,$sqlupd7);
 
       if($description7 != "" || $new_quantityDelivered7 != ""){
-      $sqldeliveries7="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Partial', '".$new_notes7."', '".$new_id7."', '".$supplierid7."', '".$new_pokey7."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered7."', '".$description7."')";
+      $sqldeliveries7="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Partial', '".$new_notes7."', '".$new_id7."', '".$supplierid7."', '".$new_pokey7."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered7."', '".$description7."', '".$delID."')";
       $sqldelivery7=mysqli_query($con,$sqldeliveries7);
       }
 
@@ -2439,7 +2440,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd8=mysqli_query($con,$sqlupd8);
 
       if($description8 != "" || $new_quantityDelivered8 != ""){
-      $sqldeliveries8="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Full', '".$new_notes8."', '".$new_id8."', '".$supplierid8."', '".$new_pokey8."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered8."', '".$description8."')";
+      $sqldeliveries8="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Full', '".$new_notes8."', '".$new_id8."', '".$supplierid8."', '".$new_pokey8."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered8."', '".$description8."', '".$delID."')";
       $sqldelivery8=mysqli_query($con,$sqldeliveries8);
       }
       
@@ -2458,7 +2459,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd8=mysqli_query($con,$sqlupd8);
 
       if($description8 != "" || $new_quantityDelivered8 != ""){
-      $sqldeliveries8="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Partial', '".$new_notes8."', '".$new_id8."', '".$supplierid8."', '".$new_pokey8."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered8."', '".$description8."')";
+      $sqldeliveries8="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Partial', '".$new_notes8."', '".$new_id8."', '".$supplierid8."', '".$new_pokey8."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered8."', '".$description8."', '".$delID."')";
       $sqldelivery8=mysqli_query($con,$sqldeliveries8);
       }
 
@@ -2502,7 +2503,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd9=mysqli_query($con,$sqlupd9);
 
       if($description9 != "" || $new_quantityDelivered9 != ""){
-      $sqldeliveries9="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Full', '".$new_notes9."', '".$new_id9."', '".$supplierid9."', '".$new_pokey9."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered9."', '".$description9."')";
+      $sqldeliveries9="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Full', '".$new_notes9."', '".$new_id9."', '".$supplierid9."', '".$new_pokey9."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered9."', '".$description9."', '".$delID."')";
       $sqldelivery9=mysqli_query($con,$sqldeliveries9);
       }
       
@@ -2521,7 +2522,7 @@ if(isset($_POST['btnEdit'])){
       $result_upd9=mysqli_query($con,$sqlupd9);
 
       if($description9 != "" || $new_quantityDelivered9 != ""){
-      $sqldeliveries9="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered) VALUES (CURDATE(), 'Partial', '".$new_notes9."', '".$new_id9."', '".$supplierid9."', '".$new_pokey9."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered."', '".$description9."')";
+      $sqldeliveries9="INSERT INTO deliveries (delivery_date, delivery_status, delivery_remarks, po_id, supplier_id, po_key, order_no, courier_name, qty_delivered, items_delivered, delivery_order_id) VALUES (CURDATE(), 'Partial', '".$new_notes9."', '".$new_id9."', '".$supplierid9."', '".$new_pokey9."', '".$ordrNo."', '".$delBy."', '".$new_quantityDelivered."', '".$description9."', '".$delID."')";
       $sqldelivery9=mysqli_query($con,$sqldeliveries9);
       }
 

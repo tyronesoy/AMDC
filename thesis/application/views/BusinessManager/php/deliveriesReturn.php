@@ -378,7 +378,7 @@ if(isset($_REQUEST['id'])){
                                                <td width="100px"><input type="number" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered[]" value="<?php print_r($quantityDelivered[$zero]); ?>" min="1" max="<?php print_r($quantity[$zero]-$quantityDelivered[$zero]); ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
 
                                                <td width="50px">
-                                                <input type="text" class="form-control" id="txtreturn<?php echo $x; ?>" name="txtreturn[]" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>  
+                                                <input type="text" class="form-control" id="txtreturn<?php echo $x; ?>" name="txtreturn[]" min="1" max="<?php print_r($quantity[$zero]);?>" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>  
                                                </td>
                                                 
                                                <td width="200px"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc[]" value="<?php print_r($desc[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
