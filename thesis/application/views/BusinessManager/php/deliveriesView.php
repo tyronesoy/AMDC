@@ -199,7 +199,28 @@ if(isset($_REQUEST['id'])){
                             </div>
                             
                             <div class="row">
-                                                                 
+                                 <div class="col-md-5">
+                                    <div class="form-group">
+                                      <label>Delivery ID</label>
+                                        <div class="input-group">
+                                          <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                          </div>
+                                                <?php 
+                                $sql="SELECT deliveries.delivery_order_id FROM deliveries join purchase_orders using(po_key) join purchase_order_bm using(po_key) WHERE purchase_order_id=$id";
+                                    $run_sql=mysqli_query($con,$sql);
+                                    while($row=mysqli_fetch_array($run_sql)){
+                                        $delid=$row[0];
+                                    }//end while
+                                  ?>
+                                  <input type="text" class="form-control" id="DelID" name="DelID" value="<?php echo $delid; ?>" style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>                                 
+                                                      
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div class="col-md-1">
+                                                </div>                                 
                                               <?php
                             if($per_quantityDelivered != ''){
                             ?>

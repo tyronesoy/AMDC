@@ -211,7 +211,40 @@ if(isset($_REQUEST['id'])){
                             </div>
                             
                             <div class="row">
-                                                           
+                                  <div class="col-md-5">
+                                    <div class="form-group">
+                                      <label>Delivery ID</label>
+                                        <div class="input-group">
+                                          <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                          </div>
+                                                <?php 
+                                $conn=mysqli_connect("localhost","root","");
+                                      mysqli_select_db($conn, "itproject");
+                                $query_ord = "SELECT * FROM purchase_orders JOIN purchase_order_bm USING(purchase_order_uniq_id) GROUP BY purchase_order_id";
+                                $resulty = $conn->query($query_ord);
+                                date_default_timezone_set('Asia/Manila');
+                                $date = date("mdY");
+                                $counter = 0 ;
+                                $rand = substr(uniqid('', true), -5);
+                                if ($resulty->num_rows > 0) {
+                                  while($row = $resulty->fetch_assoc()) {
+                                        $order = $row["order_no"];
+                                        $order2 = $row["purchase_order_id"];
+                                  }
+                                  $counter1 = $order2+1; 
+                                  ?>
+                                  <input type="text" class="form-control" id="DelID" name="DelID" value="<?php echo 'D'.$date.'-'.$counter1; ?>" style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
+                                  <?php }else{ ?>
+                                  <input type="text" class="form-control" id="DelID" name="DelID" value="<?php echo 'D'.$date.'-'.$counter; ?>" style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
+                                  <?php } ?>
+                                                      
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div class="col-md-1">
+                                                </div>                       
                                   
                                               <?php
                             if($per_quantityDelivered != ''){

@@ -247,7 +247,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 $ddtyy = strtotime('+'.$daysval.' days',$ddtyy);
                 $ddtyy = date('Y-m-d',$ddtyy);
                 $ddty = date('Y-m-d');
-                $sqlfive = "SELECT COUNT(*) AS total from supplies where expiration_date >= '".$datetoday."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
+                $sqlfive = "SELECT COUNT(*) AS total from supplies where expiration_date >= '".$ddty."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
                 $number2 = $conn->query($sqlfive);
                 if ($number2->num_rows > 0) {
                         while($row = $number2->fetch_assoc()) {
@@ -334,7 +334,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                       date_default_timezone_set("Asia/Manila");
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date >= '".$datetoday."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
+                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date >= '".$ddty."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
                         $result3 = $conn->query($sql3);
                         $strdatetoday = strtotime(date("Y/m/d"));
                         $strdatefuture = $strdatetoday + $daysvalue;//today + 30 days

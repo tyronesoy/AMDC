@@ -221,13 +221,30 @@ function unit_measure($connect)
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
-          <!--            FLAG START-->
+         <!--            FLAG START-->
+            <?php
+                        $conn =mysqli_connect("localhost","root","");
+                        mysqli_select_db($conn, "itproject");
+                        $sql32 = "SELECT value2 from defaults where attribute = 'expirerange' LIMIT 1";
+                        $result32 = $conn->query($sql32);
+                          if ($result32->num_rows > 0) {
+                            while($row = $result32->fetch_assoc()) {
+                              date_default_timezone_set("Asia/Manila");
+                                $daysval = $row["value2"];
+                                $datenow = strtotime(date("Y/m/d"));
+                                $daysval2 = strtotime(date("Y-m-d",strtotime('+'.$daysval.' days')));
+                                $daysvalue = $daysval2 - $datenow;
+                                $num1 = 0;
+                            }
+                          }
+                    ?>
                   <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                
                 <?php
                 $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
                 $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
+                date_default_timezone_set("Asia/Manila");
                 $dtoday = date("Y/m/d");
                 $date_futr = date("Y-m-d", strtotime('+30 days') ) ;
                 $date_past = date("Y-m-d", strtotime('-1 year') ) ;
@@ -235,18 +252,23 @@ function unit_measure($connect)
                 $sql5 = "SELECT COUNT(*) AS total from supplies where accounted_for = 'N' group by supply_description having SUM(quantity_in_stock) < MAX(reorder_level) order by SUM(quantity_in_stock)/MAX(reorder_level)";
                 $number1 = $conn->query($sql5);
                 if ($number1->num_rows > 0) {
+                    $num1 = 0;
                         while($row = $number1->fetch_assoc()) {
-                            $num1 = $row["total"];
+                            $num1++;
                         }
                 }
-                $sqlfive = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$dtoday."' AND '".$date_futr."')";
+                $ddtyy = strtotime(date('Y-m-d'));
+                $ddtyy = strtotime('+'.$daysval.' days',$ddtyy);
+                $ddtyy = date('Y-m-d',$ddtyy);
+                $ddty = date('Y-m-d');
+                $sqlfive = "SELECT COUNT(*) AS total from supplies where expiration_date >= '".$ddty."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
                 $number2 = $conn->query($sqlfive);
                 if ($number2->num_rows > 0) {
                         while($row = $number2->fetch_assoc()) {
                             $num2 = $row["total"];
                         }
                 }
-                $sqlV = "SELECT COUNT(*) AS total from supplies where (expiration_date BETWEEN '".$date_past."' AND '".$dtoday."') AND soft_deleted = 'N'";
+                $sqlV = "SELECT COUNT(*) AS total from supplies where expiration_date <= '".$ddty."' AND soft_deleted = 'N'";
                 $number3 = $conn->query($sqlV);
                 if ($number3->num_rows > 0) {
                         while($row = $number3->fetch_assoc()) {
@@ -312,7 +334,7 @@ function unit_measure($connect)
                     }else{
                     ?>
                     <div>
-                    <small>No items to display</small>
+                    <center><h5 style="color:B11C1C">No items to display</h5></center>
                     </div>
                     <?php    
                     }
@@ -323,15 +345,13 @@ function unit_measure($connect)
                     <h5 style="padding:3px;margin:3px;">Items nearing expiration</h5>
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
-                        $ddtyy = strtotime(date('Y-m-d'));
-                        $ddtyy = strtotime('+'.$daysval.' days',$ddtyy);
-                        $ddtyy = date('Y-m-d',$ddtyy);
+                      date_default_timezone_set("Asia/Manila");
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
-                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date >= '".$datetoday."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
+                        $sql3 = "SELECT supply_description,expiration_date from supplies where expiration_date >= '".$ddty."' AND expiration_date <= '".$ddtyy."' order by expiration_date";
                         $result3 = $conn->query($sql3);
                         $strdatetoday = strtotime(date("Y/m/d"));
-                        $strdatefuture = $strdatetoday + 2588400;//today + 30 days
+                        $strdatefuture = $strdatetoday + $daysvalue;//today + 30 days
                     ?>
                     <table id="exp" class="table table-bordered table-striped">
                     <small>
@@ -339,7 +359,7 @@ function unit_measure($connect)
                               if ($result3->num_rows > 0) {
                                 while($row = $result3->fetch_assoc()) {
                                     $expdate = strtotime($row["expiration_date"]);
-                                    $expvalue = abs((($expdate - $strdatetoday) / 2588400)*100);
+                                    $expvalue = abs((($expdate - $strdatetoday) / $daysvalue)*100);
                                 if(($expdate >= $strdatetoday) && ($expdate <= $strdatefuture)) {
                             ?>
                                   <tr>
@@ -385,7 +405,7 @@ function unit_measure($connect)
                               }else{
                             ?>
                                 <div>
-                                <p>No items to display</p>
+                                <center><h5 style="color:B11C1C">No items to display</h5></center>
                                 </div>
                             <?php      
                               }
@@ -396,7 +416,7 @@ function unit_measure($connect)
                     <h5 style="padding:3px;margin:3px;">Expired Items</h5>
                     <hr style="padding:0;margin:0;border-width:4px;border-color:black;">
                     <?php
-                        $ddty = date('Y-m-d');
+                      date_default_timezone_set("Asia/Manila");
                         $conn =mysqli_connect("localhost","root","");
                         mysqli_select_db($conn, "itproject");
                         $sql4 = "SELECT supply_description,expiration_date from supplies where expiration_date <= '".$ddty."' AND soft_deleted = 'N'";
@@ -421,7 +441,7 @@ function unit_measure($connect)
                             }else{
                             ?>
                             <div>
-                            <p>No items to display</p>
+                            <center><h5 style="color:B11C1C">No items to display</h5></center>
                             </div>
                             <?php
                             }

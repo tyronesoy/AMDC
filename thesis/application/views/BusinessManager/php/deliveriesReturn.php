@@ -143,13 +143,13 @@ if(isset($_REQUEST['id'])){
                               <div class="row">
                                 <div class="col-md-5">
                                               <div class="form-group">
-                                                    <label>Purchase ID</label>
+                                                    <label>Purchase Order No.</label>
                                                      <div class="input-group">
                                                       <div class="input-group-addon">
-                                                        <i class="fa fa-key"></i>
+                                                        <i class="fa fa-hashtag"></i>
                                                       </div>
 
-                                                      <input type="text" class="form-control" id="txtuni" name="txtuni" value="<?php echo $per_po_uniq_id;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
+                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value="<?php echo $ordrNo;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                                   </div>
                                                 </div>
                                               </div>
@@ -159,7 +159,7 @@ if(isset($_REQUEST['id'])){
                                     $sqldelby="SELECT * FROM purchase_orders join purchase_order_bm USING(purchase_order_uniq_id) join suppliers on purchase_orders.supplier = suppliers.company_name join deliveries using (po_id) WHERE purchase_order_id=$id";
                                     $run_sqldelby=mysqli_query($con,$sqldelby);
                                     while($row=mysqli_fetch_array($run_sqldelby)){
-                                        $per_courier=$row[41];
+                                        $per_courier=$row[42];
                                     }//end while
     
                                     if($per_courier != ''){
@@ -172,7 +172,7 @@ if(isset($_REQUEST['id'])){
                                                         <i class="fa fa-user"></i>
                                                       </div>
 
-                                                      <input type="text" class="form-control" id="txtdelBy" name="txtdelBy" value="<?php echo $per_courier;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" required>
+                                                      <input type="text" class="form-control" id="txtdelBy" name="txtdelBy" value="<?php echo $per_courier;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
                                                   </div>
                                                 </div>
                                               </div>
@@ -198,44 +198,28 @@ if(isset($_REQUEST['id'])){
                             </div>
                             
                             <div class="row">
-                                <?php
-                             if($ordrNo != ''){
-                            ?>
-                                <div class="col-md-5">
-                                              <div class="form-group">
-                                                    <label>Order No.</label>
-                                                     <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-hashtag"></i>
-                                                      </div>
-
-                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value="<?php echo $ordrNo;?>"  style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" required>
+                                 <div class="col-md-5">
+                                    <div class="form-group">
+                                      <label>Delivery ID</label>
+                                        <div class="input-group">
+                                          <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                          </div>
+                                                <?php 
+                                $sql="SELECT deliveries.delivery_order_id FROM deliveries join purchase_orders using(po_key) join purchase_order_bm using(po_key) WHERE purchase_order_id=$id";
+                                    $run_sql=mysqli_query($con,$sql);
+                                    while($row=mysqli_fetch_array($run_sql)){
+                                        $delid=$row[0];
+                                    }//end while
+                                  ?>
+                                  <input type="text" class="form-control" id="DelID" name="DelID" value="<?php echo $delid; ?>" style="border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>                                 
+                                                      
                                                   </div>
                                                 </div>
                                               </div>
-                                              <div class="col-md-1">
-                                                </div>
-                                <?php
-                            }else{
-                            ?>
-                                <div class="col-md-5">
-                                              <div class="form-group">
-                                                    <label>Order No.</label>
-                                                     <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                        <i class="fa fa-hashtag"></i>
-                                                      </div>
 
-                                                      <input type="text" class="form-control" id="txtordr" name="txtordr" value=""  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>
-                                                  </div>
-                                                </div>
-                                              </div>
                                               <div class="col-md-1">
-                                                </div>
-                                <?php
-                            }
-                            ?>
-                                  
+                                                </div>                                 
                                               <?php
                             if($per_quantityDelivered != ''){
                             ?>
@@ -378,7 +362,7 @@ if(isset($_REQUEST['id'])){
                                                <td width="100px"><input type="number" class="form-control" id="txtquantitydelivered<?php echo $x; ?>" name="txtquantitydelivered[]" value="<?php print_r($quantityDelivered[$zero]); ?>" min="1" max="<?php print_r($quantity[$zero]-$quantityDelivered[$zero]); ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>  </td>
 
                                                <td width="50px">
-                                                <input type="text" class="form-control" id="txtreturn<?php echo $x; ?>" name="txtreturn[]" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>  
+                                                <input type="text" class="form-control" id="txtreturn<?php echo $x; ?>" name="txtreturn[]" min="1" max="<?php print_r($quantity[$zero]);?>" value="" style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" required>  
                                                </td>
                                                 
                                                <td width="200px"><input class="form-control" id="txtdesc<?php echo $x; ?>" name="txtdesc[]" value="<?php print_r($desc[$zero]);?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; background-color: #f1f1f1;" readonly>
