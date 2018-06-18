@@ -987,12 +987,12 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                         <?php
                                                           $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE department_name != 'Managing Department'";
+                                                            $sql = "SELECT CONCAT(department_name, ', ', location) AS 'DeptBranch' FROM departments WHERE department_name != 'Managing Department'";
                                                             $results = mysqli_query($conn, $sql);
 
                                                             foreach($results as $dept_name) { 
                                                         ?>
-                                                        <option value="<?php echo $dept_name["department_name"]; ?>" name="dept_name"><?php echo $dept_name["department_name"]; ?></option>
+                                                        <option value="<?php echo $dept_name["DeptBranch"]; ?>" name="dept_name"><?php echo $dept_name["DeptBranch"]; ?></option>
                                                          <?php 
                                                             }
                                                           ?>

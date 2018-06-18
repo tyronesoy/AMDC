@@ -1618,7 +1618,7 @@ if(isset($_POST['offEdit'])){
     $sqlupdate="UPDATE supplies SET item_name = '$new_itemName', supply_description='$new_supplyDescription', lot_no = '$new_lotNo', brand_name = '$new_brandName', category = '$new_category', unit='$new_supplyUnit', suppliers_name = '$new_supplier', unit_price='$new_supplyUnitPrice', quantity_in_stock='$new_supplyStock', reorder_level='$new_supplyReorderLevel', expiration_date='$new_supplyExpirationDate' WHERE supply_id='$new_id' ";
     $result_update=mysqli_query($conn,$sqlupdate);
 
-    $sqlinsert1="INSERT INTO unitPriceUpdate (date_time, description, supply_type, old_price, new_price, priceChange, user) VALUES ('".$date."', 'The unit price of the product <b>".$new_supplyDescription." </b> has been updated from the old price of  <b>&#8369;".$old_supplyUnitPrice."</b> to the new price of  <b>&#8369;".$new_supplyUnitPrice."</b>.' , 'Office', '".$old_supplyUnitPrice2."', '".$new_supplyUnitPrice2."', '".$priceChange."' , '".$this->session->userdata('fname')." ".$this->session->userdata('lname')."') ";
+    $sqlinsert1="INSERT INTO unitPriceUpdate (date_time, description, supply_type, old_price, new_price, priceChange, user) VALUES ('".$date."', 'The unit price of the product <b>".$new_supplyDescription." </b> has been updated from the old price of  <b>&#8369; ".$old_supplyUnitPrice."</b> to the new price of  <b>&#8369; ".$new_supplyUnitPrice."</b>.' , 'Office', '".$old_supplyUnitPrice2."', '".$new_supplyUnitPrice2."', '".$priceChange."' , '".$this->session->userdata('fname')." ".$this->session->userdata('lname')."') ";
     $result_update2=mysqli_query($conn2,$sqlinsert1);
 
     if($result_update){

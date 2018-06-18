@@ -881,8 +881,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td width="15%"><?php $date=date_create($row["date_time"]);
-                      echo date_format($date,"m/d/Y H:i:s");?></td>
+                      <td width="15%"><?php echo $row["date_time"];?></td>
                       <td><?php echo $row["description"]; ?></td>
                       <td align="right"><?php echo $row["old_reorder"];?></td>
                       <td align="right"><?php echo $row["new_reorder"]; ?></td>
@@ -972,29 +971,6 @@ function onUserInactivity() {
     $('[data-mask]').inputmask()
   })
 </script>
-<script>
- // date and time 
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true,
-      format : 'yyyy-mm-dd'
-    })
-    //Date picker
-    $('#datepicker2').datepicker({
-      autoclose: true,
-      format : 'yyyy-mm-dd'
-    })
-    //Timepicker
-   /* $('.timepicker').timepicker({
-      showInputs: false,
-      format    : '%h:%i:%s %p'
-    }) */
-  }) 
-</script>
 
 <script>
   $(document).ready(function () {
@@ -1045,7 +1021,7 @@ function onUserInactivity() {
         $("#startdate").datepicker({
       changeYear: true,
       changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
+      format: "yyyy-mm-dd",
       "onSelect": function (date)
       {
         minDateFilter = new Date(date).getTime();
@@ -1060,7 +1036,7 @@ function onUserInactivity() {
     $("#enddate").datepicker({
       changeYear: true,
       changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
+      format: "yyyy-mm-dd",
       "onSelect": function (date)
       {
         maxDateFilter = new Date(date).getTime();
@@ -1083,7 +1059,7 @@ function onUserInactivity() {
     {
       if (typeof aData._date == 'undefined')
       {
-        aData._date = new Date(aData[1]).getTime();
+        aData._date = new Date(aData[0]).getTime();
       }
 
       if (minDateFilter && !isNaN(minDateFilter))
@@ -1099,6 +1075,8 @@ function onUserInactivity() {
         if (aData._date > maxDateFilter)
         {
           return false;
+        }else{
+          return true;
         }
       }
       return true;

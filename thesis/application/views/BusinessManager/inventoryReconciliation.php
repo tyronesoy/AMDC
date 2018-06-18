@@ -1055,9 +1055,9 @@ function onUserInactivity() {
     } );
 
         $("#startdate").datepicker({
-      changeYear: true,
-      changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
+      changeYear: false,
+      changeMonth: false,
+      format: "yyyy-mm-dd",
       "onSelect": function (date)
       {
         minDateFilter = new Date(date).getTime();
@@ -1070,9 +1070,9 @@ function onUserInactivity() {
     });
 
     $("#enddate").datepicker({
-      changeYear: true,
-      changeMonth: true,
-      dateFormat: "dd/mm/yyyy",
+      changeYear: false,
+      changeMonth: false,
+      format: "yyyy-mm-dd",
       "onSelect": function (date)
       {
         maxDateFilter = new Date(date).getTime();
@@ -1095,7 +1095,7 @@ function onUserInactivity() {
     {
       if (typeof aData._date == 'undefined')
       {
-        aData._date = new Date(aData[1]).getTime();
+        aData._date = new Date(aData[0]).getTime();
       }
 
       if (minDateFilter && !isNaN(minDateFilter))
