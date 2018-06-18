@@ -1225,8 +1225,23 @@ if(isset($_POST['btnEdit'])){
     $new_departmentName=mysqli_real_escape_string($con,$_POST['txtdepartmentname']);
     $new_departmentLocation=mysqli_real_escape_string($con,$_POST['txtlocation']);
 
-    $sqlupdate="UPDATE departments SET department_name='$new_departmentName', location='$new_departmentLocation' WHERE department_id='$new_id' ";
-    $result_update=mysqli_query($con,$sqlupdate);
+    $conn = mysqli_connect("localhost","root","");
+    mysqli_select_db($conn, "itproject");
+    $sqldep = "SELECT department_name, location FROM departments";
+    $bull = false;
+    $resultdep = $conn->query($sqldep);
+    if ($resultdep->num_rows > 0){
+      while($row = $resultdep->fetch_assoc()){
+        if($row["department_name"] == $new_departmentName && $row["location"] == $new_departmentLocation){
+          $bull = true;
+        }
+      }
+    }
+    if($bull == false){
+      $sqlupdate="UPDATE departments SET department_name='$new_departmentName', location='$new_departmentLocation' WHERE department_id='$new_id' ";
+       $result_update=mysqli_query($con,$sqlupdate);
+    }
+    
 
     if($result_update){
         $conn =mysqli_connect("localhost","root","");
@@ -1237,7 +1252,7 @@ if(isset($_POST['btnEdit'])){
         echo '<script>window.location.href="departments"</script>';
     }
     else{
-        echo '<script>alert("Update Failed")</script>';
+        echo '<script>alert("Department already exists!")</script>';
     }
 } 
 if(isset($_POST['btnUpdate'])){
