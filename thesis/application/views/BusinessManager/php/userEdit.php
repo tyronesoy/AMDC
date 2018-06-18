@@ -150,6 +150,7 @@ if(isset($_REQUEST['id'])){
                                                           ?>
                                                       </select>
                                                       <?php } else { ?>
+                                                      
                                                       <label for="txtdeptname">Department</label>
                                                       <input type="text" name="txtdeptname" id="txtdeptname" class="form-control" value="<?php echo $per_deptname;?>" readonly>
                                                       
@@ -159,7 +160,7 @@ if(isset($_REQUEST['id'])){
                                         </div>
                                       </div>
                               <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="form-group" >
                                                       <label for="txtrole">Role</label>
                                                         <div class="input-group">
                                                   <div class="input-group-addon">

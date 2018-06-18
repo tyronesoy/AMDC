@@ -1149,7 +1149,7 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
           <table id="example" class="table table-bordered table-striped">
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT * FROM users WHERE user_type != 'BusinessManager'";
+                  $sql = "SELECT * FROM users WHERE fname !='".$this->session->userdata('fname')."' AND users.lname !='".$this->session->userdata('lname')."' ";
                   $result = $conn->query($sql);    
                 ?>
             <thead>
