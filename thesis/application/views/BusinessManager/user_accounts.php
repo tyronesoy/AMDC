@@ -1001,32 +1001,6 @@ $connect //= new PDO('mysql:host=localhost;dbname=itproject', 'root', '');
                                                    </div>
                                                  </div>
 
-                                                    <div class="col-md-6">
-                                                     <div class="form-group">
-                                                      <label for="exampleInputEmail1">Branch</label>
-                                                          <div class="input-group">
-                                                  <div class="input-group-addon">
-                                                    <i class="fa fa-building"></i>
-                                                  </div>
-                                                       <select name = "branch" class="form-control" required>
-                                                       <option value="">Select a Branch</option>
-                                                                            <option></option>
-                                                        <?php
-                                                          $conn =mysqli_connect("localhost","root","");
-                                                           mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT location FROM departments WHERE department_name != 'Managing Department' ";
-                                                            $results = mysqli_query($conn, $sql);
-
-                                                            foreach($results as $branch) { 
-                                                        ?>
-                                                        <option value="<?php echo $branch["location"]; ?>" name="branch"><?php echo $branch["location"]; ?></option>
-                                                         <?php 
-                                                            }
-                                                          ?>
-                                                      </select>
-                                                     </div>
-                                                   </div>
-                                        </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cancel</button>

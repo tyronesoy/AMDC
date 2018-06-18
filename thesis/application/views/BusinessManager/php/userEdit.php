@@ -137,16 +137,14 @@ if(isset($_REQUEST['id'])){
                                                        <option><?php echo $per_deptname; ?></option>
                                                                             <option></option>
                                                         <?php
-                                                          $conn = mysqli_connect("localhost","root","");
+                                                          $conn =mysqli_connect("localhost","root","");
                                                            mysqli_select_db($conn, "itproject");
-                                                           
-
-                                                            $sql = "SELECT DISTINCT department_name FROM departments WHERE location='Baguio City' AND department_name NOT LIKE '%$per_deptname%' ";
+                                                            $sql = "SELECT CONCAT(department_name, ', ', location) AS 'DeptBranch' FROM departments WHERE department_name != 'Managing Department'";
                                                             $results = mysqli_query($conn, $sql);
 
-                                                            while($dept_name = $results->fetch_assoc()) {
+                                                            foreach($results as $dept_name) { 
                                                         ?>
-                                                        <option value="<?php echo $dept_name["department_name"]; ?>" name="dept_name"><?php echo $dept_name["department_name"]; ?></option>
+                                                        <option value="<?php echo $dept_name["DeptBranch"]; ?>" name="dept_name"><?php echo $dept_name["DeptBranch"]; ?></option>
                                                          <?php 
                                                             }
                                                           ?>
@@ -160,38 +158,8 @@ if(isset($_REQUEST['id'])){
                                         </div>
                                         </div>
                                       </div>
-
-                                     <div class="col-md-6">
-                                                    <div class="form-group">
-                                                      <label for="txtbranch">Branch</label>
-                                                        <div class="input-group">
-                                                  <div class="input-group-addon">
-                                                    <i class="fa fa-building"></i>
-                                                  </div>
-                                                       <select name="txtbranch" id="txtbranch" class="form-control">
-                                                        <option><?php echo $per_branch;?></option>
-                                                        <option></option>
-                                                        <?php
-                                                          $conn =mysqli_connect("localhost","root","");
-                                                           mysqli_select_db($conn, "itproject");
-                                                            $sql = "SELECT DISTINCT location FROM departments WHERE location NOT LIKE '%$per_branch%'" ;
-                                                            $results = mysqli_query($conn, $sql);
-
-                                                            foreach($results as $branch) { 
-                                                        ?>
-                                                        <option value="<?php echo $branch["location"]; ?>"><?php echo $branch["location"]; ?></option>
-                                                         <?php 
-                                                            }
-                                                          ?>
-                                                      </select>
-                                                     </div>
-                                                   </div>   
-
-                                            </div>
-                    </div>
-                    <div class="row">
                               <div class="col-md-6">
-                                        <div class="form-group" style="width:100%">
+                                        <div class="form-group">
                                                       <label for="txtrole">Role</label>
                                                         <div class="input-group">
                                                   <div class="input-group-addon">
@@ -216,8 +184,8 @@ if(isset($_REQUEST['id'])){
                                                       </select>
                                                      </div>
                                                    </div>
-                    </div>
-            </div>
+                                </div>
+                        </div>
 
             <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times-circle"> </i> Cancel</button>
