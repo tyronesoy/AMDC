@@ -921,7 +921,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             <div class="inner">
               <?php
                     $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
-                  $sql = "SELECT COUNT(*) AS total FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id JOIN purchase_orders ON supplies.supply_description = purchase_orders.description";
+                  $sql = "SELECT COUNT(*) AS total FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id JOIN purchase_orders ON supplies.supply_description = purchase_orders.description WHERE return_status = 'Pending'";
                   $result = $conn->query($sql);    
               ?>
                 <?php if ($result->num_rows > 0) {
@@ -978,7 +978,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT supply_id, supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level FROM supplies JOIN inventory_order_supplies JOIN inventory_order WHERE quantity_in_stock <= reorder_level OR quantity_in_stock = 0 GROUP BY supply_description";
+                  $sql = "SELECT supply_id, supply_type, supply_description, brand_name, quantity_in_stock, unit, reorder_level, inventory_order_id FROM supplies JOIN inventory_order_supplies JOIN inventory_order WHERE quantity_in_stock <= reorder_level OR quantity_in_stock = 0 GROUP BY supply_description";
                   $result = $conn->query($sql);
                 ?>
                 <thead> 
@@ -1007,7 +1007,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                     <td><?php echo $row["reorder_level"]; ?></td>
                     <td>
                       <div class="btn-group">
-                        <button type="button" id="getReorder" class="btn btn-primary" data-toggle="modal" data-target="#reorderModal" data-id="<?php echo $row["supply_id"]; ?>"><i class="fa fa-repeat"></i> Reorder </button>
+                        <button type="button" id="getReorder" class="btn btn-primary" data-toggle="modal" data-target="#reorderModal" data-id="<?php echo $row["inventory_order_id"]; ?>"><i class="fa fa-repeat"></i> Reorder </button>
                       </div>
                     </td>
                     </tr>
@@ -1036,7 +1036,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
                 <?php
                   $conn =mysqli_connect("localhost","root","", "itproject") or die('Error connecting to MySQL server.');
           $pdo = new PDO("mysql:host=localhost;dbname=itproject","root","");
-                  $sql = "SELECT return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id JOIN purchase_orders ON supplies.supply_description = purchase_orders.description GROUP BY return_id";
+                  $sql = "SELECT return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id JOIN purchase_orders ON supplies.supply_description = purchase_orders.description WHERE return_status = 'Pending' GROUP BY return_id";
                   $result = $conn->query($sql);   
 //                  prevque = "SELECT returns.return_id, supply_id, supplies.supply_type, return_date, supply_description, brand_name, company_name, quantity_returned, quantity_in_stock, unit, reason FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id INNER JOIN purchase_orders USING(po_id) WHERE return_status ='Pending'"
                 ?>
