@@ -1959,7 +1959,6 @@ if(isset($_POST['btnEdit'])){
       }
       
       if($new_inputExp == $new_OrigExp || $new_OrigExp == '' || $new_OrigExp == 'NULL'){
-         $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered.", expiration_date=".$new_inputExp." WHERE supply_id='$new_supid' ";
          $sqladd="UPDATE supplies SET quantity_in_stock=quantity_in_stock + ".$new_quantityDelivered.", expiration_date='".$new_inputExp."' WHERE supply_id='$new_supid' ";
       $result_add=mysqli_query($con,$sqladd);
       }else{
