@@ -376,8 +376,8 @@ if(isset($_REQUEST['id'])){
                                             <?php 
                                             date_default_timezone_set("Asia/Manila");
                                             $date = date('Y-m-d');
-                                            $effectiveDate = date('Y-m-d', strtotime("+3 months", strtotime($date))); ?>
-                                              <td width="100px"><input type="date" min="<?php echo $effectiveDate; ?>" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php echo $effectiveDate; ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                            $effectiveDate = date('Y-m-d', strtotime("+3 months")); ?>
+                                              <td width="100px"><input type="text" class="form-control datepicker"  name="txtexpiration<?php echo $x; ?>" id="txtexpiration<?php echo $x; ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" value="<?php echo $effectiveDate?>" readonly>
                                               </td>
                                                
                                                <?php }elseif ($per_itemDeliveryRemarks == '') {?>
@@ -397,11 +397,26 @@ if(isset($_REQUEST['id'])){
                                             <?php 
                                             date_default_timezone_set("Asia/Manila");
                                             $date = date('Y-m-d');
-                                            $effectiveDate = date('Y-m-d', strtotime("+3 months", strtotime($date))); ?>
-                                              <td width="100px"><input type="text" class="form-control" id="txtexpiration<?php echo $x; ?>" name="txtexpiration<?php echo $x; ?>" value="<?php echo $effectiveDate; ?>" min="<?php echo $effectiveDate; ?>"  style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
+                                            $effectiveDate = date('Y-m-d', strtotime("+3 months")); ?>
+                                            <!-- date('Y-m-d', strtotime("+3 months")) -->
+                                              <td width="100px"><input type="text" class="form-control datepicker"  name="txtexpiration<?php echo $x; ?>" id="txtexpiration<?php echo $x; ?>" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" value="<?php echo $effectiveDate?>" readonly>
                                               </td>
                                               <?php
                                                } ?>
+                                               <script>
+                                              jQuery(function() {
+                                                var datepicker = $('input.datepicker');
+                                                var dateToday = new Date();
+                                                var effectiveDate = <?php echo(json_encode($effectiveDate)); ?>;
+                                                if (datepicker.length > 0) {
+                                                  datepicker.datepicker({
+                                                    format: "yyyy-mm-dd",
+                                                    startDate: effectiveDate,
+                                                    minDate: effectiveDate
+                                                  });
+                                                }
+                                              });
+                                              </script>
 
                                                <td class="hidden"><input type="text" class="form-control" id="txtiname<?php echo $x; ?>" name="txtiname<?php echo $x; ?>" value="<?php print_r($supname[$zero]); ?>"  style="border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black;" >
                                               </td>
@@ -457,3 +472,52 @@ if(isset($_REQUEST['id'])){
 }//end if
 
 ?>
+<script>
+// date and time
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+    //Date picker
+    $('#datepicker2').datepicker({
+      autoclose: true
+    })
+    //Date picker
+    $('#datepicker3').datepicker({
+      autoclose: true
+    })
+      
+    //Timepicker
+    $('.timepicker').timepicker({
+      showInputs: false
+    })
+  })
+</script>
+
+<script>
+ // date and time 
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Date picker
+    $('#txtexpiration0').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd'
+    })
+    //Date picker
+    $('#txtexpiration0').datepicker({
+      autoclose: true,
+      format : 'yyyy-mm-dd'
+    })
+    //Timepicker
+   /* $('.timepicker').timepicker({
+      showInputs: false,
+      format    : '%h:%i:%s %p'
+    }) */
+  }) 
+</script>
