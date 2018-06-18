@@ -6,7 +6,7 @@
 $con=mysqli_connect('localhost','root','','itproject'); 
 if(isset($_REQUEST['id'])){
     $id=intval($_REQUEST['id']);
-    $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE inventory_order_id=$id AND quantity !=0";
+    $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE supply_id=$id";
     $run_sql=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($run_sql)){
         $per_uniqid=$row[0];
@@ -150,7 +150,7 @@ if(isset($_REQUEST['id'])){
                     </div>
 
                     <?php 
-                            $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies ON supplies.supply_description=inventory_order_supplies.supply_name WHERE inventory_order_id=$id GROUP BY supply_description";
+                            $sql="SELECT * FROM inventory_order JOIN inventory_order_supplies USING(inventory_order_uniq_id) JOIN supplies WHERE supply_id=$id GROUP BY supply_description";
                             $result = $con->query($sql);
                             $arrayOrdId = '';
                             $arrayOrdUniqId = '';
