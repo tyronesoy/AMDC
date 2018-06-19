@@ -266,7 +266,7 @@ function category($connect)
                         }
                         ?>
                         <td class="notif-delete">
-                        <form action="Assistant/delete" method="post">
+                        <form action="delete" method="post">
                         <input type="hidden" name="log_id" value="<?php echo $row['log_id']; ?>">
                         <input type="hidden" name="log_description" value="<?php echo $row['log_description']; ?>">
                         <button class="btn-danger" type="submit" name="submit"><i class="glyphicon glyphicon-trash danger"></i></button>
