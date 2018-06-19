@@ -19,7 +19,7 @@ if(isset($_REQUEST['id'])){
     <div class="col-xs-12">
         <div class="box" style="width: 1010px">
             <div class="box-header">
-    <form class="form-horizontal" method="post" >
+    <form class="form-horizontal" method="post" action="dashboard/returnItemFrom">
         <div class="modal-content" style="width: 990px">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -123,12 +123,14 @@ if(isset($_REQUEST['id'])){
                             $sql="SELECT * FROM returns INNER JOIN supplies ON supplies_id = supply_id INNER JOIN suppliers ON returns.supplier_id = suppliers.supplier_id JOIN purchase_orders ON supplies.supply_description = purchase_orders.description JOIN deliveries ON deliveries.po_key = purchase_orders.po_key WHERE return_id=$id";
                             $result = $con->query($sql);
 
+                            $arraySupid = '';
                             $arrayReturn = '';
                             $arrayQtyDelivered = '';
                             $arrayQtyReturnedTo = '';
                             $arrayQtyReturnedFrom = '';
                             $arrayDescription = '';   
                             $arrayReturnStatus = '';
+                            $arrayQtyStock = '';
                             $zero = 0;
                     ?>
                     <div class="row">
@@ -144,19 +146,23 @@ if(isset($_REQUEST['id'])){
                                 <?php 
                                     if($result->num_rows > 0){
                                         while ($row = $result->fetch_assoc()) {
+                                            $arraySupid .= $row['supply_id'].', ';
                                             $arrayReturn .= $row['return_id'].', ';
                                             $arrayQtyDelivered .= $row['qty_delivered'].', ';
                                             $arrayQtyReturnedTo .= $row['quantity_returned'].', ';
                                             //$arrayQtyReturnedFrom .= $row['quantity_in_stock'].', ';  
                                             $arrayDescription.= $row['items_delivered'].', ';
                                             $arrayReturnStatus .= $row['return_status'].', ';
+                                            $arrayQtyStock .= $row['quantity_in_stock'].', ';
 
+                                            $supply_id = explode(", ", $arraySupid);
                                             $return_id = explode(", ", $arrayReturn);
                                             $qty_delivered = explode(", ", $arrayQtyDelivered);
                                             $return_to = explode(", ", $arrayQtyReturnedTo);
                                             //$return_from = explode(", ", $arrayQtyReturnedFrom);
                                             $description = explode(", ", $arrayDescription);
                                             $return_status = explode(", ", $arrayReturnStatus);
+                                            $qty_stock = explode(", ", $arrayQtyStock);
                                         }
                                     
                                 ?>
@@ -166,7 +172,13 @@ if(isset($_REQUEST['id'])){
                                         //for ($x=0; $x < $count; $x++) { 
                                     ?> -->
                                     <td class="hidden">
+                                        <input class="hidden" type="number" id="supplyID" name="supplyID" hidden style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" value="<?php print_r($supply_id[$zero]); ?>" readonly />
+                                    </td>
+                                    <td class="hidden">
                                         <input class="hidden" type="number" id="returnID" name="returnID" hidden style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" value="<?php print_r($return_id[$zero]); ?>" readonly />
+                                    </td>
+                                    <td class="hidden">
+                                        <input class="hidden" type="number" id="qtyStock" name="qtyStock" hidden style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" value="<?php print_r($qty_stock[$zero]); ?>" readonly />
                                     </td>
                                     <td>
                                         <input class="form-control" type="number" id="delivered" name="delivered" style="width: 100%; border: 0; outline: 0;  background: transparent; border-bottom: 1px solid black; background-color: #f1f1f1;" value="<?php print_r($qty_delivered[$zero]); ?>" readonly />
